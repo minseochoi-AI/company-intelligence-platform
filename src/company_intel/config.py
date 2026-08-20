@@ -1,0 +1,58 @@
+from __future__ import annotations
+
+import os
+from dataclasses import dataclass
+from pathlib import Path
+
+
+def load_dotenv(path: Path | str = ".env") -> None:
+    """Load a minimal dotenv file without overwriting process environment."""
+    env_path = Path(path)
+    if not env_path.exists():
+        return
+    for line in env_path.read_text(encoding="utf-8").splitlines():
+        line = line.strip()
+        if not line or line.startswith("#") or "=" not in line:
+            continue
+        key, value = line.split("=", 1)
+        key, value = key.strip(), value.strip().strip('"').strip("'")
+        if key:
+            os.environ.setdefault(key, value)
+
+
+@dataclass(frozen=True)
+class Settings:
+    project_root: Path
+    artifact_dir: Path
+    database_url: str
+    sec_user_agent: str
+
+    @classmethod
+    def from_env(cls, project_root: Path | None = None) -> Settings:
+        root = project_root or Path.cwd()
+        load_dotenv(root / ".env")
+        artifact_dir = Path(os.getenv("ARTIFACT_DIR", str(root / "artifacts"))).resolve()
+        return cls(
+            project_root=root.resolve(),
+            artifact_dir=artifact_dir,
+            database_url=os.getenv(
+                "DATABASE_URL", f"duckdb:///{(root / 'data/company_intelligence.duckdb').resolve()}"
+            ),
+            sec_user_agent=os.getenv(
+                "SEC_USER_AGENT", "company-intelligence/0.1 contact=replace-with-your-email@example.com"
+            ),
+        )
+
+
+SECRET_ENV_NAMES = (
+    "FRED_API_KEY",
+    "BEA_API_KEY",
+    "OPENDART_API_KEY",
+    "ECOS_API_KEY",
+    "WORK24_API_KEY",
+    "ALPHAVANTAGE_API_KEY",
+)
+
+
+def configured_secrets() -> dict[str, str]:
+    return {name: value for name in SECRET_ENV_NAMES if (value := os.getenv(name))}

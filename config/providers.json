@@ -1,0 +1,17 @@
+{
+  "schema_version": "1.0",
+  "keyed": [
+    {"id": "fred", "secret_env": "FRED_API_KEY", "purpose": ["rates", "credit", "employment", "inflation", "vintages"]},
+    {"id": "bea", "secret_env": "BEA_API_KEY", "purpose": ["gdp", "industry_value_added", "input_output", "fixed_assets"]},
+    {"id": "opendart", "secret_env": "OPENDART_API_KEY", "purpose": ["kr_filings", "kr_financials", "kr_company_master"]},
+    {"id": "ecos", "secret_env": "ECOS_API_KEY", "purpose": ["kr_rates", "kr_fx", "kr_gdp", "kr_money"]},
+    {"id": "work24", "secret_env": "WORK24_API_KEY", "purpose": ["kr_job_postings", "occupation_demand", "region_demand"]},
+    {"id": "alphavantage", "secret_env": "ALPHAVANTAGE_API_KEY", "purpose": ["daily_ohlcv", "fx", "market_reference"]}
+  ],
+  "keyless": [
+    "sec_submissions", "sec_companyfacts", "bls", "gleif", "eurostat", "ecb", "oecd", "imf",
+    "world_bank", "cnb_exchange", "cnb_czeonia", "ted", "usaspending", "greenhouse", "lever",
+    "github", "openalex"
+  ]
+}
+

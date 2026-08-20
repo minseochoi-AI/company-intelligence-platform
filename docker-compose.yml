@@ -1,0 +1,48 @@
+services:
+  api:
+    build: .
+    env_file: [.env]
+    environment:
+      DATABASE_URL: duckdb:////app/data/company_intelligence.duckdb
+      ARTIFACT_DIR: /app/artifacts
+    command: ["serve", "--host", "0.0.0.0", "--port", "8000"]
+    ports: ["8000:8000"]
+    volumes:
+      - company_data:/app/data
+      - company_artifacts:/app/artifacts
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/health', timeout=3)"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+
+  collector:
+    build: .
+    profiles: ["collector"]
+    env_file: [.env]
+    environment:
+      DATABASE_URL: duckdb:////app/data/company_intelligence.duckdb
+      ARTIFACT_DIR: /app/artifacts
+    command: ["validate", "--providers", "all"]
+    volumes:
+      - company_data:/app/data
+      - company_artifacts:/app/artifacts
+
+  postgres:
+    image: postgres:17-alpine
+    profiles: ["postgres"]
+    environment:
+      POSTGRES_DB: company_intelligence
+      POSTGRES_USER: company_intel
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-change-me-before-use}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./sql/postgres_schema.sql:/docker-entrypoint-initdb.d/001-schema.sql:ro
+    ports: ["5432:5432"]
+
+volumes:
+  company_data:
+  company_artifacts:
+  postgres_data:
+

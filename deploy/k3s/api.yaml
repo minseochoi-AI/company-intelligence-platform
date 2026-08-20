@@ -1,0 +1,54 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: company-intelligence-api
+  namespace: company-intelligence
+spec:
+  replicas: 1
+  selector:
+    matchLabels: {app: company-intelligence-api}
+  template:
+    metadata:
+      labels: {app: company-intelligence-api}
+    spec:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 10001
+        fsGroup: 10001
+      containers:
+        - name: api
+          image: ghcr.io/replace-me/company-intelligence:0.1.0
+          args: ["serve", "--host", "0.0.0.0", "--port", "8000"]
+          envFrom:
+            - configMapRef: {name: company-intelligence-config}
+            - secretRef: {name: company-intelligence-secrets}
+          ports: [{name: http, containerPort: 8000}]
+          readinessProbe:
+            httpGet: {path: /health, port: http}
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          livenessProbe:
+            httpGet: {path: /health, port: http}
+            initialDelaySeconds: 20
+            periodSeconds: 30
+          resources:
+            requests: {cpu: 100m, memory: 256Mi}
+            limits: {cpu: "1", memory: 1Gi}
+          volumeMounts:
+            - {name: data, mountPath: /data}
+            - {name: artifacts, mountPath: /artifacts}
+      volumes:
+        - name: data
+          persistentVolumeClaim: {claimName: company-data}
+        - name: artifacts
+          persistentVolumeClaim: {claimName: company-artifacts}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: company-intelligence-api
+  namespace: company-intelligence
+spec:
+  selector: {app: company-intelligence-api}
+  ports: [{name: http, port: 8000, targetPort: http}]
+

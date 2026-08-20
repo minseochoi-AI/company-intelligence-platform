@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: company-intelligence-config
+  namespace: company-intelligence
+data:
+  DATABASE_URL: duckdb:////data/company_intelligence.duckdb
+  ARTIFACT_DIR: /artifacts
+  SEC_USER_AGENT: company-intelligence replace-with-real-email@example.com
+

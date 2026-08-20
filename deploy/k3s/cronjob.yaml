@@ -1,0 +1,39 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: company-intelligence-daily
+  namespace: company-intelligence
+spec:
+  schedule: "20 1 * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 3
+  failedJobsHistoryLimit: 3
+  jobTemplate:
+    spec:
+      backoffLimit: 2
+      template:
+        spec:
+          restartPolicy: Never
+          securityContext:
+            runAsNonRoot: true
+            runAsUser: 10001
+            fsGroup: 10001
+          containers:
+            - name: collector
+              image: ghcr.io/replace-me/company-intelligence:0.1.0
+              args: ["validate", "--providers", "all", "--retries", "2"]
+              envFrom:
+                - configMapRef: {name: company-intelligence-config}
+                - secretRef: {name: company-intelligence-secrets}
+              resources:
+                requests: {cpu: 100m, memory: 256Mi}
+                limits: {cpu: "1", memory: 1Gi}
+              volumeMounts:
+                - {name: data, mountPath: /data}
+                - {name: artifacts, mountPath: /artifacts}
+          volumes:
+            - name: data
+              persistentVolumeClaim: {claimName: company-data}
+            - name: artifacts
+              persistentVolumeClaim: {claimName: company-artifacts}
+
