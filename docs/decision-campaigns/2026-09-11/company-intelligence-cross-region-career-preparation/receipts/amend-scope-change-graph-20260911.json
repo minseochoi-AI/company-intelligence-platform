@@ -1,0 +1,23 @@
+{
+  "contract_version": "atomic-json-patch-receipt-v1",
+  "target": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/campaign-change-graph.json",
+  "outcome": "pass",
+  "before_sha256": "5c7205e416f417e03668414b461a6d3965ae0a4cfbcbb92c15300099b835340d",
+  "after_sha256": "6bd8012bc0a109e8e8d736d909ca97197672569aa66633f7cabb8ad124b656f2",
+  "proposed_after_sha256": "6bd8012bc0a109e8e8d736d909ca97197672569aa66633f7cabb8ad124b656f2",
+  "operations": [
+    {
+      "op": "test",
+      "path": "/operations"
+    },
+    {
+      "op": "replace",
+      "path": "/operations"
+    }
+  ],
+  "backup": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/.mutation-journal/preimages/sha256-5c7205e416f417e03668414b461a6d3965ae0a4cfbcbb92c15300099b835340d.json",
+  "journal": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/.mutation-journal/mutations/afa317accf33cf4e67875c57cfcbf36c12205454b00a2cf158c6cf946bde0f29.json",
+  "mutation_id": "amend-scope-clear-superseded-change-graph-20260911",
+  "validators": [],
+  "completed_at": "2026-09-11T07:56:57.076653+00:00"
+}

@@ -1,0 +1,97 @@
+{
+  "contract_version": "decision-campaign-implementation-v1",
+  "campaign_id": "company-intelligence-cross-region-career-preparation",
+  "outcome": "pass",
+  "updated_at": "2026-09-11T07:35:00Z",
+  "cohorts": [
+    {
+      "cohort_id": "C-01-source-identity-foundation",
+      "status": "completed",
+      "changed_paths": [
+        "config/providers.json",
+        "sql/duckdb_schema.sql",
+        "src/company_intel/models.py",
+        "src/company_intel/source_catalog.py",
+        "src/company_intel/identity.py",
+        "src/company_intel/normalization.py",
+        "src/company_intel/classification.py",
+        "src/company_intel/connectors/registry.py",
+        "src/company_intel/validation.py",
+        "src/company_intel/warehouse.py",
+        "tests/test_source_catalog.py",
+        "tests/test_classification.py"
+      ],
+      "commands": [
+        "apply_patch repository-local implementation",
+        "apply_patch C-01 classification exclusion-reason repair"
+      ],
+      "outcome": "pass",
+      "raw_log_path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/receipts/logs/implementation-after-repair-20260911.log",
+      "raw_log_sha256": "8349d5b394bdfe3c404f29ae4d1249b09a2d2d0011c14599772aa2c6a839ce1e",
+      "updated_at": "2026-09-11T07:35:00Z",
+      "passed_criterion_ids": [
+        "C-01-catalog-tests",
+        "C-01-classification-tests"
+      ]
+    },
+    {
+      "cohort_id": "C-02-search-requirement-evidence",
+      "status": "completed",
+      "changed_paths": [
+        "src/company_intel/search.py",
+        "src/company_intel/career_requirements.py",
+        "src/company_intel/connectors/keyed.py",
+        "src/company_intel/connectors/keyless.py",
+        "src/company_intel/api.py",
+        "src/company_intel/cli.py",
+        "tests/test_search_profile.py",
+        "tests/test_career_requirements.py"
+      ],
+      "commands": [
+        "apply_patch repository-local implementation"
+      ],
+      "outcome": "pass",
+      "raw_log_path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/receipts/logs/implementation-after-repair-20260911.log",
+      "raw_log_sha256": "8349d5b394bdfe3c404f29ae4d1249b09a2d2d0011c14599772aa2c6a839ce1e",
+      "updated_at": "2026-09-11T07:35:00Z",
+      "passed_criterion_ids": [
+        "C-02-search-tests",
+        "C-02-requirement-tests"
+      ]
+    },
+    {
+      "cohort_id": "C-03-evidence-export-delivery",
+      "status": "completed",
+      "changed_paths": [
+        "src/company_intel/exporting.py",
+        "src/company_intel/reporting.py",
+        "src/company_intel/security.py",
+        "pyproject.toml",
+        "tests/test_exporting.py"
+      ],
+      "commands": [
+        "apply_patch repository-local implementation"
+      ],
+      "outcome": "pass",
+      "raw_log_path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/receipts/logs/implementation-after-repair-20260911.log",
+      "raw_log_sha256": "8349d5b394bdfe3c404f29ae4d1249b09a2d2d0011c14599772aa2c6a839ce1e",
+      "updated_at": "2026-09-11T07:35:00Z",
+      "passed_criterion_ids": [
+        "C-03-export-tests"
+      ]
+    }
+  ],
+  "telemetry": {
+    "provider": {
+      "measurement": "not-applicable",
+      "invocations": null,
+      "input_tokens": null,
+      "output_tokens": null
+    },
+    "agent_session": {
+      "measurement": "unavailable-platform",
+      "token_count": null,
+      "tool_output_chars": null
+    }
+  }
+}

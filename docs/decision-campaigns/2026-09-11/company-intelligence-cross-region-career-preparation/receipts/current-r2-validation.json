@@ -1,0 +1,35 @@
+{
+  "contract_version": "campaign-attempt-manifest-v1",
+  "campaign_id": "company-intelligence-cross-region-career-preparation",
+  "active": {
+    "C-01-source-identity-foundation:C-01-r2-semantic-contract-tests": {
+      "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/receipts/attempts/r2-validation/sha256-4a8f871330f4e0602e018075764888bc86d4322535e5d75887ca68bae0ab5458.json",
+      "sha256": "4a8f871330f4e0602e018075764888bc86d4322535e5d75887ca68bae0ab5458"
+    },
+    "C-02-search-requirement-evidence:C-02-r2-search-requirement-tests": {
+      "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/receipts/attempts/r2-validation/sha256-c206d7514a139fd484777f1f3d6641c69ce8f358a719f45633a7dcda6a87b1c9.json",
+      "sha256": "c206d7514a139fd484777f1f3d6641c69ce8f358a719f45633a7dcda6a87b1c9"
+    },
+    "C-04-peer-screener-ranking:C-04-r2-screener-tests": {
+      "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/receipts/attempts/r2-validation/sha256-63bcd17d7198f895d215baa4371910253fde4dea6378f54dc3acfbf541fa7394.json",
+      "sha256": "63bcd17d7198f895d215baa4371910253fde4dea6378f54dc3acfbf541fa7394"
+    },
+    "C-03-evidence-export-delivery:C-03-r2-export-tests": {
+      "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/receipts/attempts/r2-validation/sha256-f238266cf70344868871e3aa862a583d74a869a2bf3e099eef9aa22392eabcf1.json",
+      "sha256": "f238266cf70344868871e3aa862a583d74a869a2bf3e099eef9aa22392eabcf1"
+    },
+    "C-05-timeline-valuation-event-analysis:C-05-r2-analysis-tests": {
+      "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/receipts/attempts/r2-validation/sha256-6a9797534235de6a8879591e3e5fb71d7e2c3ed71fe6c58aea949a1f7f275dc7.json",
+      "sha256": "6a9797534235de6a8879591e3e5fb71d7e2c3ed71fe6c58aea949a1f7f275dc7"
+    },
+    "C-06-job-availability-filtered-discovery:C-06-r2-job-semantic-tests": {
+      "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/receipts/attempts/r2-validation/sha256-45b79cd1ccc4fd298ab1da8fd56f9ac606fa1982576375fc842e15ae924e3be2.json",
+      "sha256": "45b79cd1ccc4fd298ab1da8fd56f9ac606fa1982576375fc842e15ae924e3be2"
+    },
+    "C-06-job-availability-filtered-discovery:C-06-r2-cli-workflow-tests": {
+      "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/receipts/attempts/r2-validation/sha256-72eb3d52d8d7363f807a149d27db170540a25520a7cc8d5953bbfb58cf01a28f.json",
+      "sha256": "72eb3d52d8d7363f807a149d27db170540a25520a7cc8d5953bbfb58cf01a28f"
+    }
+  },
+  "updated_at": "2026-09-11T13:51:32.162788+00:00"
+}

@@ -1,0 +1,27 @@
+{
+  "contract_version": "campaign-attempt-manifest-v1",
+  "campaign_id": "company-intelligence-cross-region-career-preparation",
+  "active": {
+    "C-01-source-identity-foundation:C-01-catalog-tests": {
+      "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/receipts/attempts/validation/sha256-bf77cc873e6e37da0ed57632de7e1c63dd8bd3e88fe670e7891c0ddbf4c4eb5e.json",
+      "sha256": "bf77cc873e6e37da0ed57632de7e1c63dd8bd3e88fe670e7891c0ddbf4c4eb5e"
+    },
+    "C-01-source-identity-foundation:C-01-classification-tests": {
+      "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/receipts/attempts/validation/sha256-1112df4c1a39269185114d2277c6984cbadc5a4eee292ad7bf37a60ccdea4457.json",
+      "sha256": "1112df4c1a39269185114d2277c6984cbadc5a4eee292ad7bf37a60ccdea4457"
+    },
+    "C-02-search-requirement-evidence:C-02-search-tests": {
+      "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/receipts/attempts/validation/sha256-577cfe3a405f079861d2ba9d5807c85ef3ab60843663fac48ae629cc05be7524.json",
+      "sha256": "577cfe3a405f079861d2ba9d5807c85ef3ab60843663fac48ae629cc05be7524"
+    },
+    "C-02-search-requirement-evidence:C-02-requirement-tests": {
+      "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/receipts/attempts/validation/sha256-2f2384e6437fab7ce37c680f8cf55b2e2ebf055da6e0c8f35a1c04e6268a08cf.json",
+      "sha256": "2f2384e6437fab7ce37c680f8cf55b2e2ebf055da6e0c8f35a1c04e6268a08cf"
+    },
+    "C-03-evidence-export-delivery:C-03-export-tests": {
+      "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/receipts/attempts/validation/sha256-20801bcea2c43a510537a399cfee536612bf730db23b6c0bfdad48217da27227.json",
+      "sha256": "20801bcea2c43a510537a399cfee536612bf730db23b6c0bfdad48217da27227"
+    }
+  },
+  "updated_at": "2026-09-11T07:30:02.592833+00:00"
+}

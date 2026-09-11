@@ -1,11 +1,14 @@
 from __future__ import annotations
 
+import hashlib
 import json
 from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
 
 from .config import Settings
+from .identity import IdentifierLink
+from .models import AtomicFact, CompanyClassification, RequirementEvidence
 
 
 def duckdb_path(database_url: str) -> Path:
@@ -95,6 +98,14 @@ class Warehouse:
             connection.execute(
                 """INSERT OR REPLACE INTO entity(entity_id,legal_name,country_code,entity_type,dart_corp_code,source,collected_at)
                 VALUES ('DART:00126380','삼성전자','KR','company','00126380','OpenDART',?)""",
+                [now],
+            )
+            # This is a direct identifier assertion from the same OpenDART
+            # source used to create the entity; unlike an ALIO+ display name,
+            # it is safe to make the entity searchable as resolved.
+            connection.execute(
+                """INSERT OR REPLACE INTO identifier_mapping(identifier_type,identifier_value,entity_id,source,confidence,resolved_at)
+                VALUES ('dart_corp_code','00126380','DART:00126380','OpenDART',1.0,?)""",
                 [now],
             )
             connection.execute(
@@ -266,3 +277,145 @@ class Warehouse:
             cursor = connection.execute(sql, parameters or [])
             columns = [description[0] for description in cursor.description]
             return [dict(zip(columns, row)) for row in cursor.fetchall()]
+
+    def upsert_identity(self, link: IdentifierLink) -> None:
+        with self.connect() as connection:
+            connection.execute(
+                """INSERT OR REPLACE INTO identifier_mapping(identifier_type,identifier_value,entity_id,source,confidence,resolved_at)
+                VALUES (?,?,?,?,?,?)""",
+                [link.identifier_type, link.identifier_value, link.entity_id, link.source, link.confidence, datetime.now(UTC).isoformat()],
+            )
+
+    def upsert_capability(self, entity_id: str, operation_id: str, capability: str, status: str, source_url: str | None, available_at: str | None) -> None:
+        with self.connect() as connection:
+            connection.execute(
+                """INSERT OR REPLACE INTO company_source_capability(entity_id,operation_id,capability,status,source_url,available_at)
+                VALUES (?,?,?,?,?,?)""", [entity_id, operation_id, capability, status, source_url, available_at]
+            )
+
+    def record_field_availability(self, entity_id: str, operation_id: str, field_name: str, status: str, observation_date: str | None, available_at: str | None) -> None:
+        with self.connect() as connection:
+            connection.execute(
+                """INSERT OR REPLACE INTO field_availability(entity_id,operation_id,field_name,status,observation_date,available_at)
+                VALUES (?,?,?,?,?,?)""", [entity_id, operation_id, field_name, status, observation_date, available_at]
+            )
+
+    def record_classification(self, classification: CompanyClassification) -> None:
+        with self.connect() as connection:
+            connection.execute(
+                """INSERT INTO classification_history(entity_id,classified_at,capabilities_json,correlation_ready,causal_ready,reasons_json)
+                VALUES (?,?,?,?,?,?)""",
+                [classification.entity_id, datetime.now(UTC).isoformat(), json.dumps(classification.capabilities),
+                 classification.analysis_eligibility.correlation_ready, classification.analysis_eligibility.causal_ready,
+                 json.dumps([*classification.classification_reasons, *classification.analysis_eligibility.reasons])],
+            )
+
+    def store_source_snapshot(self, *, operation_id: str, collected_at: str, raw_sha256: str,
+                              source_url: str | None, coverage: str | None,
+                              disposition: str) -> str:
+        snapshot_id = hashlib.sha256(f"{operation_id}|{collected_at}|{raw_sha256}".encode()).hexdigest()
+        with self.connect() as connection:
+            connection.execute(
+                """INSERT OR REPLACE INTO source_snapshot(snapshot_id,operation_id,collected_at,source_url,raw_sha256,coverage,disposition)
+                VALUES (?,?,?,?,?,?,?)""",
+                [snapshot_id, operation_id, collected_at, source_url, raw_sha256, coverage, disposition],
+            )
+        return snapshot_id
+
+    def store_atomic_fact(self, fact: AtomicFact, *, snapshot_id: str) -> str:
+        fact_id = hashlib.sha256("|".join((fact.operation_id, fact.raw_record_id or "", fact.fact_key, fact.available_at or "")).encode()).hexdigest()
+        with self.connect() as connection:
+            connection.execute(
+                """INSERT OR REPLACE INTO atomic_fact(fact_id,entity_id,operation_id,fact_key,value_json,unit,currency,period,concept,available_at,source_url,raw_record_id,snapshot_id)
+                VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)""",
+                [fact_id, fact.entity_id, fact.operation_id, fact.fact_key, json.dumps(fact.value, ensure_ascii=False), fact.unit,
+                 fact.currency, fact.period, fact.concept, fact.available_at, fact.source_url, fact.raw_record_id, snapshot_id],
+            )
+        return fact_id
+
+    def store_verdict(self, *, subject_type: str, subject_id: str, field_name: str,
+                      verdict: str, reason: str | None, observed_value: object = None) -> str:
+        created_at = datetime.now(UTC).isoformat()
+        verdict_id = hashlib.sha256(f"{subject_type}|{subject_id}|{field_name}|{verdict}|{created_at}".encode()).hexdigest()
+        with self.connect() as connection:
+            connection.execute(
+                """INSERT INTO search_verdict(verdict_id,subject_type,subject_id,field_name,verdict,reason,observed_value,created_at)
+                VALUES (?,?,?,?,?,?,?,?)""",
+                [verdict_id, subject_type, subject_id, field_name, verdict, reason,
+                 None if observed_value is None else json.dumps(observed_value, ensure_ascii=False), created_at],
+            )
+        return verdict_id
+
+    def resolve_current_fact(self, entity_id: str, fact_key: str) -> list[dict[str, Any]]:
+        return self.query(
+            """SELECT * FROM atomic_fact WHERE entity_id=? AND fact_key=?
+            ORDER BY available_at DESC NULLS LAST, snapshot_id DESC""", [entity_id, fact_key]
+        )
+
+    def store_requirement_evidence(self, provider: str, job_id: str, requirement_id: str, requirement: RequirementEvidence, observed_at: str) -> None:
+        with self.connect() as connection:
+            connection.execute(
+                """INSERT OR REPLACE INTO job_requirement(provider,job_id,requirement_id,text,requirement_status,evidence_scope,source_url,observed_at)
+                VALUES (?,?,?,?,?,?,?,?)""",
+                [provider, job_id, requirement_id, requirement.text, requirement.status, requirement.evidence_scope, requirement.source_url, observed_at],
+            )
+            if requirement.source_url:
+                connection.execute(
+                    """INSERT OR REPLACE INTO credential_evidence(requirement_id,source_url,source_kind,excerpt,collected_at)
+                    VALUES (?,?,?,?,?)""",
+                    [requirement_id, requirement.source_url, requirement.evidence_scope, None, observed_at],
+                )
+
+    def store_job_snapshot(self, row: dict[str, Any]) -> None:
+        with self.connect() as connection:
+            connection.execute(
+                """INSERT OR REPLACE INTO job_posting_snapshot(provider,job_id,entity_id,company_name,title,department,
+                occupation_code,location,country_code,workplace_type,posted_at,first_seen_at,last_seen_at,snapshot_date,is_active)
+                VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)""",
+                [
+                    row["provider"], row["job_id"], row.get("entity_id"), row.get("company_name"), row.get("title"),
+                    row.get("department"), row.get("occupation_code"), row.get("location"), row.get("country_code"),
+                    row.get("workplace_type"), row.get("posted_at"), row["first_seen_at"], row["last_seen_at"],
+                    row["snapshot_date"], row.get("is_active", True),
+                ],
+            )
+
+    def search_candidates(self, countries: tuple[str, ...]) -> list[dict[str, Any]]:
+        placeholders = ",".join("?" for _ in countries)
+        rows = self.query(
+            f"SELECT entity_id, legal_name, country_code, industry_code FROM entity WHERE country_code IN ({placeholders}) ORDER BY entity_id",
+            list(countries),
+        )
+        for row in rows:
+            capability_rows = self.query(
+                "SELECT capability,status,source_url FROM company_source_capability WHERE entity_id=?", [row["entity_id"]]
+            )
+            row["name"] = row.pop("legal_name")
+            row["capabilities"] = {item["capability"]: item["status"] for item in capability_rows}
+            row["evidence_urls"] = [item["source_url"] for item in capability_rows if item.get("source_url")]
+            row["identity_status"] = "resolved" if self.query("SELECT 1 FROM identifier_mapping WHERE entity_id=? LIMIT 1", [row["entity_id"]]) else "unresolved"
+        return rows
+
+    def query_export_bundle(self, entity_ids: list[str] | None = None) -> dict[str, list[dict[str, Any]]]:
+        filter_sql, params = "", []
+        if entity_ids:
+            filter_sql = " WHERE entity_id IN (" + ",".join("?" for _ in entity_ids) + ")"
+            params = entity_ids
+        companies = self.query("SELECT entity_id AS company_id, legal_name, country_code, industry_code FROM entity" + filter_sql + " ORDER BY entity_id", params)
+        capabilities = self.query("SELECT entity_id AS company_id, operation_id, capability, status, source_url, available_at FROM company_source_capability" + filter_sql + " ORDER BY entity_id, operation_id, capability", params)
+        job_filter, job_params = "", []
+        if entity_ids:
+            job_filter = " WHERE entity_id IN (" + ",".join("?" for _ in entity_ids) + ")"
+            job_params = entity_ids
+        jobs = self.query("SELECT provider, job_id, entity_id AS company_id, title, country_code, posted_at, snapshot_date, is_active FROM job_posting_snapshot" + job_filter + " ORDER BY provider, job_id, snapshot_date", job_params)
+        job_pairs = {(row["provider"], row["job_id"]) for row in jobs}
+        requirements = [
+            row for row in self.query("SELECT provider, job_id, requirement_id, text, requirement_status, evidence_scope, source_url, observed_at FROM job_requirement ORDER BY provider, job_id, requirement_id")
+            if (row["provider"], row["job_id"]) in job_pairs
+        ]
+        sources = self.query("SELECT DISTINCT operation_id AS source_id, source_url FROM company_source_capability WHERE source_url IS NOT NULL ORDER BY operation_id")
+        exclusions = self.query("SELECT entity_id AS company_id, reasons_json AS reason FROM classification_history WHERE correlation_ready=false ORDER BY entity_id, classified_at")
+        return {"companies": companies, "capabilities": capabilities, "jobs": jobs, "requirements": requirements, "sources": sources, "exclusions": exclusions}
+
+    def materialize_export_snapshot(self, entity_ids: list[str] | None = None) -> dict[str, list[dict[str, Any]]]:
+        return self.query_export_bundle(entity_ids)

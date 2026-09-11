@@ -1,0 +1,31 @@
+{
+  "contract_version": "atomic-json-patch-receipt-v1",
+  "target": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/08-d-08-future-value-scenarios.json",
+  "outcome": "pass",
+  "before_sha256": "cb3d9168080a610e10f2b610a8a17c7b6473f01fa68bf27e3f9b1e41d2efbb6d",
+  "after_sha256": "da875e804736036be60ff0c09876dfb6e403423f97644af24384f30e0d2757b9",
+  "proposed_after_sha256": "da875e804736036be60ff0c09876dfb6e403423f97644af24384f30e0d2757b9",
+  "operations": [
+    {
+      "op": "test",
+      "path": "/status"
+    },
+    {
+      "op": "test",
+      "path": "/accepted_decision"
+    },
+    {
+      "op": "replace",
+      "path": "/status"
+    },
+    {
+      "op": "replace",
+      "path": "/accepted_decision"
+    }
+  ],
+  "backup": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/.mutation-journal/preimages/sha256-cb3d9168080a610e10f2b610a8a17c7b6473f01fa68bf27e3f9b1e41d2efbb6d.json",
+  "journal": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/.mutation-journal/mutations/ad494bc98413949a8097c7d0c5941501a84f2605b2543e4deb24e49fe9d15aaf.json",
+  "mutation_id": "approve-D-08-future-value-scenarios-20260911",
+  "validators": [],
+  "completed_at": "2026-09-11T09:45:21.100057+00:00"
+}

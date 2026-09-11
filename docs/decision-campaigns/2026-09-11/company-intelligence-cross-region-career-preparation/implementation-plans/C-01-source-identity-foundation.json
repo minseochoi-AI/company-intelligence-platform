@@ -1,0 +1,1251 @@
+{
+  "contract_version": "1.2.0",
+  "plan_id": "company-intelligence-cross-region-career-preparation--C-01-source-identity-foundation--r1",
+  "owner": {
+    "kind": "campaign-cohort",
+    "id": "C-01-source-identity-foundation"
+  },
+  "source_refs": [
+    {
+      "id": "D-01-source-access-policy",
+      "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/01-d-01-source-access-policy.json",
+      "sha256": "sha256:0f46f8e8e8d8e895a1df8ad86394dce34c2446c0f5c63b9c46ad4df458c6ec54"
+    },
+    {
+      "id": "D-02-company-capability-taxonomy",
+      "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/02-d-02-company-capability-taxonomy.json",
+      "sha256": "sha256:e774d309da77407e7cae424933afa16d9b439d3d060df445a502ff478107a985"
+    }
+  ],
+  "status": "contract-ready",
+  "change_slices": [
+    {
+      "slice_id": "source-identity-capability-foundation",
+      "behavior": "28개 원자 API의 접근·필드·활성화 정책을 단일 catalog로 검증하고, 법인 identity와 capability/분석 적격성을 근거 단위로 저장·분류한다.",
+      "dependencies": [],
+      "operations": [
+        {
+          "change_id": "file-change-e1e3c60c9a87",
+          "operation": "MODIFY",
+          "path": "config/providers.json",
+          "symbols": [
+            "providers",
+            "atomic_operations",
+            "activation_policy"
+          ],
+          "current_state": "provider 이름과 일부 설정은 있으나 28개 원자 작업의 필드 의미·무료성·활성화 gate가 완전한 버전 계약이 아니다.",
+          "source_hash": "sha256:3366d63c0e10e456e3024e0669a64982420ee70bc013beff009fd0c6af828d5d",
+          "result_hash": null,
+          "expected_result": "각 원자 작업에 region, access_mode, data_role, required_paths, field_semantics, quota, license, last_verified, activation_policy를 선언한다.",
+          "after_state": "각 원자 작업에 region, access_mode, data_role, required_paths, field_semantics, quota, license, last_verified, activation_policy를 선언한다.",
+          "rationale": "서로 다른 API 형식을 실행 전에 동일한 원자 정책으로 판정하기 위함이다.",
+          "dependencies": [],
+          "public_contract_impacts": [
+            "provider catalog schema v2",
+            "28 atomic operation IDs"
+          ],
+          "compatibility": "기존 provider ID와 probe 이름은 유지하고 새 필드는 additive하게 도입한다.",
+          "migration": "기존 항목을 새 schema 기본값으로 읽되 미완성 항목은 disabled가 아니라 unverified로 표시한다.",
+          "rollback": "파일 preimage로 복원하면 기존 probe registry 동작으로 돌아간다.",
+          "authorization_boundary": "무료·공개 또는 사용자가 제공한 키만 기술하며 PREPARE 단계에서는 외부 호출하지 않는다.",
+          "consumer_search": null,
+          "contributes_to": [
+            "D-01-source-access-policy"
+          ],
+          "contribution_refs": [
+            {
+              "decision_id": "D-01-source-access-policy",
+              "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/01-d-01-source-access-policy.json",
+              "sha256": "sha256:0f46f8e8e8d8e895a1df8ad86394dce34c2446c0f5c63b9c46ad4df458c6ec54",
+              "symbols": [
+                "providers",
+                "atomic_operations",
+                "activation_policy"
+              ],
+              "intent_change_ids": [
+                "D-01-source-access-policy-provider-catalog"
+              ]
+            }
+          ],
+          "intent_change_ids": [
+            "D-01-source-access-policy-provider-catalog"
+          ],
+          "symbol_changes": [
+            {
+              "symbol": "providers",
+              "intent": "각 원자 작업에 region, access_mode, data_role, required_paths, field_semantics, quota, license, last_verified, activation_policy를 선언한다.",
+              "decision_id": "D-01-source-access-policy"
+            },
+            {
+              "symbol": "atomic_operations",
+              "intent": "각 원자 작업에 region, access_mode, data_role, required_paths, field_semantics, quota, license, last_verified, activation_policy를 선언한다.",
+              "decision_id": "D-01-source-access-policy"
+            },
+            {
+              "symbol": "activation_policy",
+              "intent": "각 원자 작업에 region, access_mode, data_role, required_paths, field_semantics, quota, license, last_verified, activation_policy를 선언한다.",
+              "decision_id": "D-01-source-access-policy"
+            }
+          ]
+        },
+        {
+          "change_id": "file-change-538214ac8333",
+          "operation": "MODIFY",
+          "path": "sql/duckdb_schema.sql",
+          "symbols": [
+            "company_source_capability",
+            "identifier_mapping",
+            "field_availability",
+            "classification_history",
+            "job_requirement",
+            "credential_evidence",
+            "requirement_verification",
+            "source_excerpt"
+          ],
+          "current_state": "관측 테이블은 있으나 기업별 source capability, identifier mapping, 필드 가용성과 분류 이력이 없다. | 공고별 required/preferred 요건과 국가 baseline 근거를 보존할 구조가 없다.",
+          "source_hash": "sha256:37cb68ba7983a2f11f4c086bbdaf319711f0b3e22a4cac165d90071f65a283c2",
+          "result_hash": null,
+          "expected_result": "기업·source·필드·시점·근거를 분리한 additive 테이블과 FK/유일성 제약을 추가한다. | 요건 주장, evidence scope, 검증 상태, 원문 locator를 분리한 additive 테이블을 추가한다.",
+          "after_state": "기업·source·필드·시점·근거를 분리한 additive 테이블과 FK/유일성 제약을 추가한다. | 요건 주장, evidence scope, 검증 상태, 원문 locator를 분리한 additive 테이블을 추가한다.",
+          "rationale": "채용 전용·재무 전용·고용 전용·분석 불가를 중복 없는 축으로 보존한다. | 근거 없는 자격증 생성을 막고 unresolved 상태를 보존한다.",
+          "dependencies": [],
+          "public_contract_impacts": [
+            "DuckDB schema additive migration",
+            "requirement evidence relational contract"
+          ],
+          "compatibility": "기존 테이블과 컬럼을 삭제하거나 재해석하지 않는다. | 기존 job row와 nullable FK로 연결하며 기존 행을 요구사항으로 추정하지 않는다.",
+          "migration": "CREATE TABLE IF NOT EXISTS와 명시적 schema version으로 신규 설치와 기존 DB를 지원한다. | 신규 테이블은 빈 상태에서 시작하고 검증된 snapshot만 증분 적재한다.",
+          "rollback": "신규 테이블 사용을 중단하고 migration 문서에 역순 drop 절차를 기록한다. | 신규 requirement 테이블을 사용하지 않아도 기존 관측 기능은 유지된다.",
+          "authorization_boundary": "파괴적 migration이나 기존 데이터 재작성은 별도 승인이 필요하다. | 재배포 제한 원문 전체 저장은 금지하고 locator와 허용된 excerpt만 저장한다.",
+          "consumer_search": null,
+          "contributes_to": [
+            "D-02-company-capability-taxonomy",
+            "D-04-career-requirement-verification"
+          ],
+          "contribution_refs": [
+            {
+              "decision_id": "D-02-company-capability-taxonomy",
+              "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/02-d-02-company-capability-taxonomy.json",
+              "sha256": "sha256:e774d309da77407e7cae424933afa16d9b439d3d060df445a502ff478107a985",
+              "symbols": [
+                "company_source_capability",
+                "identifier_mapping",
+                "field_availability",
+                "classification_history",
+                "job_requirement",
+                "credential_evidence",
+                "requirement_verification",
+                "source_excerpt"
+              ],
+              "intent_change_ids": [
+                "D-02-company-capability-taxonomy-warehouse-schema"
+              ]
+            },
+            {
+              "decision_id": "D-04-career-requirement-verification",
+              "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/04-d-04-career-requirement-verification.json",
+              "sha256": "sha256:5932142a7b708f16a69192359465f941caf41a6a8ec2c6a5c974b20db8fad62a",
+              "symbols": [
+                "company_source_capability",
+                "identifier_mapping",
+                "field_availability",
+                "classification_history",
+                "job_requirement",
+                "credential_evidence",
+                "requirement_verification",
+                "source_excerpt"
+              ],
+              "intent_change_ids": [
+                "D-04-career-requirement-verification-warehouse-schema"
+              ]
+            }
+          ],
+          "intent_change_ids": [
+            "D-02-company-capability-taxonomy-warehouse-schema",
+            "D-04-career-requirement-verification-warehouse-schema"
+          ],
+          "symbol_changes": [
+            {
+              "symbol": "company_source_capability",
+              "intent": "기업·source·필드·시점·근거를 분리한 additive 테이블과 FK/유일성 제약을 추가한다.",
+              "decision_id": "D-02-company-capability-taxonomy"
+            },
+            {
+              "symbol": "identifier_mapping",
+              "intent": "기업·source·필드·시점·근거를 분리한 additive 테이블과 FK/유일성 제약을 추가한다.",
+              "decision_id": "D-02-company-capability-taxonomy"
+            },
+            {
+              "symbol": "field_availability",
+              "intent": "기업·source·필드·시점·근거를 분리한 additive 테이블과 FK/유일성 제약을 추가한다.",
+              "decision_id": "D-02-company-capability-taxonomy"
+            },
+            {
+              "symbol": "classification_history",
+              "intent": "기업·source·필드·시점·근거를 분리한 additive 테이블과 FK/유일성 제약을 추가한다.",
+              "decision_id": "D-02-company-capability-taxonomy"
+            },
+            {
+              "symbol": "job_requirement",
+              "intent": "요건 주장, evidence scope, 검증 상태, 원문 locator를 분리한 additive 테이블을 추가한다.",
+              "decision_id": "D-04-career-requirement-verification"
+            },
+            {
+              "symbol": "credential_evidence",
+              "intent": "요건 주장, evidence scope, 검증 상태, 원문 locator를 분리한 additive 테이블을 추가한다.",
+              "decision_id": "D-04-career-requirement-verification"
+            },
+            {
+              "symbol": "requirement_verification",
+              "intent": "요건 주장, evidence scope, 검증 상태, 원문 locator를 분리한 additive 테이블을 추가한다.",
+              "decision_id": "D-04-career-requirement-verification"
+            },
+            {
+              "symbol": "source_excerpt",
+              "intent": "요건 주장, evidence scope, 검증 상태, 원문 locator를 분리한 additive 테이블을 추가한다.",
+              "decision_id": "D-04-career-requirement-verification"
+            }
+          ]
+        },
+        {
+          "change_id": "file-change-ba1af64467c1",
+          "operation": "MODIFY",
+          "path": "src/company_intel/models.py",
+          "symbols": [
+            "SourcePolicy",
+            "AtomicFieldContract",
+            "ProviderHealth",
+            "Capability",
+            "CompanyClassification",
+            "AnalysisEligibility",
+            "Provenance",
+            "SearchProfile",
+            "CountryAllocation",
+            "CandidateMatch",
+            "ExclusionReason",
+            "RequirementStatus",
+            "EvidenceScope",
+            "VerificationStatus",
+            "RequirementAvailability"
+          ],
+          "current_state": "source 접근 정책과 필드 의미를 타입으로 표현하지 않는다. | 기업 가용성과 분석 가능 여부를 독립 축으로 표현하지 않는다. | 사용자 조건과 설명 가능한 추천 결과 모델이 없다. | required/preferred와 evidence level을 구분하는 모델이 없다.",
+          "source_hash": "sha256:ad84062f97673e08a5d4163530d27c524af3ba903d2a06e873c7c7515a075052",
+          "result_hash": null,
+          "expected_result": "접근 모드·필드 계약·검증 시각·실패 범주를 불변 모델로 정의한다. | finance, job_posting, employment, market, macro capability와 exclusion reason을 타입화한다. | 명시적 입력만 담는 SearchProfile과 국가 배분·근거·제외 사유 모델을 추가한다. | 공고 직접 근거·국가 baseline·crosswalk·unavailable 상태를 분리한다.",
+          "after_state": "접근 모드·필드 계약·검증 시각·실패 범주를 불변 모델로 정의한다. | finance, job_posting, employment, market, macro capability와 exclusion reason을 타입화한다. | 명시적 입력만 담는 SearchProfile과 국가 배분·근거·제외 사유 모델을 추가한다. | 공고 직접 근거·국가 baseline·crosswalk·unavailable 상태를 분리한다.",
+          "rationale": "catalog와 실행 receipt가 동일 용어를 사용하게 한다. | 정보 없음과 API 실패와 분석 불가를 혼동하지 않게 한다. | 사용자 이력 추정 없이 검색을 재현하기 위함이다. | 요건의 의미와 근거 범위를 사용자에게 정확히 반환하기 위함이다.",
+          "dependencies": [],
+          "public_contract_impacts": [
+            "Python model API",
+            "classification response vocabulary",
+            "search profile schema",
+            "requirement verification schema"
+          ],
+          "compatibility": "기존 모델은 유지하고 신규 모델만 추가한다. | 기존 enum 값은 유지하고 새 축은 명시적 필드로 추가한다. | 기존 API 모델에는 영향을 주지 않는 additive 모델이다. | 기존 job metadata는 변경하지 않는다.",
+          "migration": "호출부를 단계적으로 신규 모델로 전환한다. | API 직렬화에 version 필드를 추가하고 구 응답은 compatibility adapter로 제공한다. | 신규 search endpoint만 이 모델을 요구한다. | 구조화 근거가 없는 기존 공고는 requirement_unavailable로 표시한다.",
+          "rollback": "신규 import를 제거하면 기존 모델 계약이 유지된다. | 신규 response model 사용을 중지해 기존 API 형식을 복원한다. | search endpoint를 비활성화하면 기존 API는 유지된다. | 신규 requirement 응답을 제거해 job metadata만 제공한다.",
+          "authorization_boundary": "secret 값 자체를 모델 필드로 허용하지 않는다. | 상관·인과 적격성은 근거 gate를 통과한 경우에만 true가 된다. | 경력·언어·비자 자격은 사용자 입력 없이는 추정하지 않는다. | 근거 없는 자격증 추천을 생성하지 않는다.",
+          "consumer_search": null,
+          "contributes_to": [
+            "D-01-source-access-policy",
+            "D-02-company-capability-taxonomy",
+            "D-03-search-profile-and-discovery",
+            "D-04-career-requirement-verification"
+          ],
+          "contribution_refs": [
+            {
+              "decision_id": "D-01-source-access-policy",
+              "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/01-d-01-source-access-policy.json",
+              "sha256": "sha256:0f46f8e8e8d8e895a1df8ad86394dce34c2446c0f5c63b9c46ad4df458c6ec54",
+              "symbols": [
+                "SourcePolicy",
+                "AtomicFieldContract",
+                "ProviderHealth",
+                "Capability",
+                "CompanyClassification",
+                "AnalysisEligibility",
+                "Provenance",
+                "SearchProfile",
+                "CountryAllocation",
+                "CandidateMatch",
+                "ExclusionReason",
+                "RequirementStatus",
+                "EvidenceScope",
+                "VerificationStatus",
+                "RequirementAvailability"
+              ],
+              "intent_change_ids": [
+                "D-01-source-access-policy-models"
+              ]
+            },
+            {
+              "decision_id": "D-02-company-capability-taxonomy",
+              "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/02-d-02-company-capability-taxonomy.json",
+              "sha256": "sha256:e774d309da77407e7cae424933afa16d9b439d3d060df445a502ff478107a985",
+              "symbols": [
+                "SourcePolicy",
+                "AtomicFieldContract",
+                "ProviderHealth",
+                "Capability",
+                "CompanyClassification",
+                "AnalysisEligibility",
+                "Provenance",
+                "SearchProfile",
+                "CountryAllocation",
+                "CandidateMatch",
+                "ExclusionReason",
+                "RequirementStatus",
+                "EvidenceScope",
+                "VerificationStatus",
+                "RequirementAvailability"
+              ],
+              "intent_change_ids": [
+                "D-02-company-capability-taxonomy-models"
+              ]
+            },
+            {
+              "decision_id": "D-03-search-profile-and-discovery",
+              "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/03-d-03-search-profile-and-discovery.json",
+              "sha256": "sha256:5788ca4878c7cae796c17c85873920ce5aaf36e192ec47041ea2208b4232e7f9",
+              "symbols": [
+                "SourcePolicy",
+                "AtomicFieldContract",
+                "ProviderHealth",
+                "Capability",
+                "CompanyClassification",
+                "AnalysisEligibility",
+                "Provenance",
+                "SearchProfile",
+                "CountryAllocation",
+                "CandidateMatch",
+                "ExclusionReason",
+                "RequirementStatus",
+                "EvidenceScope",
+                "VerificationStatus",
+                "RequirementAvailability"
+              ],
+              "intent_change_ids": [
+                "D-03-search-profile-and-discovery-models"
+              ]
+            },
+            {
+              "decision_id": "D-04-career-requirement-verification",
+              "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/04-d-04-career-requirement-verification.json",
+              "sha256": "sha256:5932142a7b708f16a69192359465f941caf41a6a8ec2c6a5c974b20db8fad62a",
+              "symbols": [
+                "SourcePolicy",
+                "AtomicFieldContract",
+                "ProviderHealth",
+                "Capability",
+                "CompanyClassification",
+                "AnalysisEligibility",
+                "Provenance",
+                "SearchProfile",
+                "CountryAllocation",
+                "CandidateMatch",
+                "ExclusionReason",
+                "RequirementStatus",
+                "EvidenceScope",
+                "VerificationStatus",
+                "RequirementAvailability"
+              ],
+              "intent_change_ids": [
+                "D-04-career-requirement-verification-models"
+              ]
+            }
+          ],
+          "intent_change_ids": [
+            "D-01-source-access-policy-models",
+            "D-02-company-capability-taxonomy-models",
+            "D-03-search-profile-and-discovery-models",
+            "D-04-career-requirement-verification-models"
+          ],
+          "symbol_changes": [
+            {
+              "symbol": "SourcePolicy",
+              "intent": "접근 모드·필드 계약·검증 시각·실패 범주를 불변 모델로 정의한다.",
+              "decision_id": "D-01-source-access-policy"
+            },
+            {
+              "symbol": "AtomicFieldContract",
+              "intent": "접근 모드·필드 계약·검증 시각·실패 범주를 불변 모델로 정의한다.",
+              "decision_id": "D-01-source-access-policy"
+            },
+            {
+              "symbol": "ProviderHealth",
+              "intent": "접근 모드·필드 계약·검증 시각·실패 범주를 불변 모델로 정의한다.",
+              "decision_id": "D-01-source-access-policy"
+            },
+            {
+              "symbol": "Capability",
+              "intent": "finance, job_posting, employment, market, macro capability와 exclusion reason을 타입화한다.",
+              "decision_id": "D-02-company-capability-taxonomy"
+            },
+            {
+              "symbol": "CompanyClassification",
+              "intent": "finance, job_posting, employment, market, macro capability와 exclusion reason을 타입화한다.",
+              "decision_id": "D-02-company-capability-taxonomy"
+            },
+            {
+              "symbol": "AnalysisEligibility",
+              "intent": "finance, job_posting, employment, market, macro capability와 exclusion reason을 타입화한다.",
+              "decision_id": "D-02-company-capability-taxonomy"
+            },
+            {
+              "symbol": "Provenance",
+              "intent": "finance, job_posting, employment, market, macro capability와 exclusion reason을 타입화한다.",
+              "decision_id": "D-02-company-capability-taxonomy"
+            },
+            {
+              "symbol": "SearchProfile",
+              "intent": "명시적 입력만 담는 SearchProfile과 국가 배분·근거·제외 사유 모델을 추가한다.",
+              "decision_id": "D-03-search-profile-and-discovery"
+            },
+            {
+              "symbol": "CountryAllocation",
+              "intent": "명시적 입력만 담는 SearchProfile과 국가 배분·근거·제외 사유 모델을 추가한다.",
+              "decision_id": "D-03-search-profile-and-discovery"
+            },
+            {
+              "symbol": "CandidateMatch",
+              "intent": "명시적 입력만 담는 SearchProfile과 국가 배분·근거·제외 사유 모델을 추가한다.",
+              "decision_id": "D-03-search-profile-and-discovery"
+            },
+            {
+              "symbol": "ExclusionReason",
+              "intent": "명시적 입력만 담는 SearchProfile과 국가 배분·근거·제외 사유 모델을 추가한다.",
+              "decision_id": "D-03-search-profile-and-discovery"
+            },
+            {
+              "symbol": "RequirementStatus",
+              "intent": "공고 직접 근거·국가 baseline·crosswalk·unavailable 상태를 분리한다.",
+              "decision_id": "D-04-career-requirement-verification"
+            },
+            {
+              "symbol": "EvidenceScope",
+              "intent": "공고 직접 근거·국가 baseline·crosswalk·unavailable 상태를 분리한다.",
+              "decision_id": "D-04-career-requirement-verification"
+            },
+            {
+              "symbol": "VerificationStatus",
+              "intent": "공고 직접 근거·국가 baseline·crosswalk·unavailable 상태를 분리한다.",
+              "decision_id": "D-04-career-requirement-verification"
+            },
+            {
+              "symbol": "RequirementAvailability",
+              "intent": "공고 직접 근거·국가 baseline·crosswalk·unavailable 상태를 분리한다.",
+              "decision_id": "D-04-career-requirement-verification"
+            }
+          ]
+        },
+        {
+          "change_id": "file-change-954e39bf4b3a",
+          "operation": "CREATE",
+          "path": "src/company_intel/source_catalog.py",
+          "symbols": [
+            "SourceCatalog",
+            "load_source_catalog",
+            "validate_atomic_contract",
+            "evaluate_activation"
+          ],
+          "current_state": "파일이 없고 provider 정책이 registry와 probe 코드에 분산되어 있다.",
+          "source_hash": null,
+          "result_hash": null,
+          "expected_result": "catalog 로드·schema 검증·freshness·activation gate·redacted 진단을 한 모듈이 제공한다.",
+          "after_state": "catalog 로드·schema 검증·freshness·activation gate·redacted 진단을 한 모듈이 제공한다.",
+          "rationale": "실행 가능성 판정을 실제 API 호출과 분리한다.",
+          "dependencies": [],
+          "public_contract_impacts": [
+            "internal source catalog service"
+          ],
+          "compatibility": "기존 registry가 adapter로 catalog를 선택적으로 사용하도록 한다.",
+          "migration": "먼저 read-only validation에 연결한 뒤 실행 선택에 적용한다.",
+          "rollback": "registry의 catalog 연결을 제거하고 파일을 삭제한다.",
+          "authorization_boundary": "catalog 평가는 외부 네트워크 호출이나 secret 공개를 하지 않는다.",
+          "consumer_search": null,
+          "contributes_to": [
+            "D-01-source-access-policy"
+          ],
+          "contribution_refs": [
+            {
+              "decision_id": "D-01-source-access-policy",
+              "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/01-d-01-source-access-policy.json",
+              "sha256": "sha256:0f46f8e8e8d8e895a1df8ad86394dce34c2446c0f5c63b9c46ad4df458c6ec54",
+              "symbols": [
+                "SourceCatalog",
+                "load_source_catalog",
+                "validate_atomic_contract",
+                "evaluate_activation"
+              ],
+              "intent_change_ids": [
+                "D-01-source-access-policy-source-catalog"
+              ]
+            }
+          ],
+          "intent_change_ids": [
+            "D-01-source-access-policy-source-catalog"
+          ],
+          "symbol_changes": [
+            {
+              "symbol": "SourceCatalog",
+              "intent": "catalog 로드·schema 검증·freshness·activation gate·redacted 진단을 한 모듈이 제공한다.",
+              "decision_id": "D-01-source-access-policy"
+            },
+            {
+              "symbol": "load_source_catalog",
+              "intent": "catalog 로드·schema 검증·freshness·activation gate·redacted 진단을 한 모듈이 제공한다.",
+              "decision_id": "D-01-source-access-policy"
+            },
+            {
+              "symbol": "validate_atomic_contract",
+              "intent": "catalog 로드·schema 검증·freshness·activation gate·redacted 진단을 한 모듈이 제공한다.",
+              "decision_id": "D-01-source-access-policy"
+            },
+            {
+              "symbol": "evaluate_activation",
+              "intent": "catalog 로드·schema 검증·freshness·activation gate·redacted 진단을 한 모듈이 제공한다.",
+              "decision_id": "D-01-source-access-policy"
+            }
+          ]
+        },
+        {
+          "change_id": "file-change-bdb2949cb581",
+          "operation": "CREATE",
+          "path": "src/company_intel/identity.py",
+          "symbols": [
+            "CompanyIdentityResolver",
+            "IdentifierLink",
+            "ResolutionResult",
+            "resolve_candidate_company",
+            "explain_resolution"
+          ],
+          "current_state": "파일이 없고 CIK·DART·IČO·LEI·ISIN·ALIO·ATS 식별자가 통합되지 않는다. | 검색 후보와 원천 식별자를 연결하는 동작이 없다.",
+          "source_hash": null,
+          "result_hash": null,
+          "expected_result": "identifier type/value/source/as_of/confidence를 보존하며 후보 법인을 결정론적으로 연결한다. | 검색 후보는 해소된 법인 ID 또는 명시적 unresolved 이유와 confidence를 갖는다.",
+          "after_state": "identifier type/value/source/as_of/confidence를 보존하며 후보 법인을 결정론적으로 연결한다. | 검색 후보는 해소된 법인 ID 또는 명시적 unresolved 이유와 confidence를 갖는다.",
+          "rationale": "서로 다른 API의 기업 행을 이름 문자열로 잘못 합치는 것을 방지한다. | 익명 공고와 동명 기업을 자동 추천하지 않기 위함이다.",
+          "dependencies": [],
+          "public_contract_impacts": [
+            "entity identity contract",
+            "candidate provenance"
+          ],
+          "compatibility": "미해소 식별자는 별도 entity로 남기고 강제 병합하지 않는다. | unresolved 후보는 제외 사유로 반환한다.",
+          "migration": "기존 entity에 nullable canonical ID를 backfill한다. | 신규 검색 pipeline에서만 호출한다.",
+          "rollback": "canonical link 사용을 중지하고 source-local ID를 유지한다. | 검색 결과 생성을 중지한다.",
+          "authorization_boundary": "외부 identity provider 추가는 source catalog 승인 후에만 가능하다. | 약한 이름 유사도만으로 법인을 확정하지 않는다.",
+          "consumer_search": null,
+          "contributes_to": [
+            "D-02-company-capability-taxonomy",
+            "D-03-search-profile-and-discovery"
+          ],
+          "contribution_refs": [
+            {
+              "decision_id": "D-02-company-capability-taxonomy",
+              "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/02-d-02-company-capability-taxonomy.json",
+              "sha256": "sha256:e774d309da77407e7cae424933afa16d9b439d3d060df445a502ff478107a985",
+              "symbols": [
+                "CompanyIdentityResolver",
+                "IdentifierLink",
+                "ResolutionResult",
+                "resolve_candidate_company",
+                "explain_resolution"
+              ],
+              "intent_change_ids": [
+                "D-02-company-capability-taxonomy-identity"
+              ]
+            },
+            {
+              "decision_id": "D-03-search-profile-and-discovery",
+              "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/03-d-03-search-profile-and-discovery.json",
+              "sha256": "sha256:5788ca4878c7cae796c17c85873920ce5aaf36e192ec47041ea2208b4232e7f9",
+              "symbols": [
+                "CompanyIdentityResolver",
+                "IdentifierLink",
+                "ResolutionResult",
+                "resolve_candidate_company",
+                "explain_resolution"
+              ],
+              "intent_change_ids": [
+                "D-03-search-profile-and-discovery-identity"
+              ]
+            }
+          ],
+          "intent_change_ids": [
+            "D-02-company-capability-taxonomy-identity",
+            "D-03-search-profile-and-discovery-identity"
+          ],
+          "symbol_changes": [
+            {
+              "symbol": "CompanyIdentityResolver",
+              "intent": "identifier type/value/source/as_of/confidence를 보존하며 후보 법인을 결정론적으로 연결한다.",
+              "decision_id": "D-02-company-capability-taxonomy"
+            },
+            {
+              "symbol": "IdentifierLink",
+              "intent": "identifier type/value/source/as_of/confidence를 보존하며 후보 법인을 결정론적으로 연결한다.",
+              "decision_id": "D-02-company-capability-taxonomy"
+            },
+            {
+              "symbol": "ResolutionResult",
+              "intent": "identifier type/value/source/as_of/confidence를 보존하며 후보 법인을 결정론적으로 연결한다.",
+              "decision_id": "D-02-company-capability-taxonomy"
+            },
+            {
+              "symbol": "resolve_candidate_company",
+              "intent": "검색 후보는 해소된 법인 ID 또는 명시적 unresolved 이유와 confidence를 갖는다.",
+              "decision_id": "D-03-search-profile-and-discovery"
+            },
+            {
+              "symbol": "explain_resolution",
+              "intent": "검색 후보는 해소된 법인 ID 또는 명시적 unresolved 이유와 confidence를 갖는다.",
+              "decision_id": "D-03-search-profile-and-discovery"
+            }
+          ]
+        },
+        {
+          "change_id": "file-change-58fda9542e8a",
+          "operation": "CREATE",
+          "path": "src/company_intel/normalization.py",
+          "symbols": [
+            "AtomicObservationMapper",
+            "normalize_unit",
+            "deduplication_key"
+          ],
+          "current_state": "파일이 없고 API별 응답 의미·단위·기간 정규화가 probe에 결합되어 있다.",
+          "source_hash": null,
+          "result_hash": null,
+          "expected_result": "원자 필드 의미, 단위, period, available_at, source locator를 손실 없이 표준 observation으로 변환한다.",
+          "after_state": "원자 필드 의미, 단위, period, available_at, source locator를 손실 없이 표준 observation으로 변환한다.",
+          "rationale": "서로 다른 API 형식을 의미 기준으로만 비교하기 위함이다.",
+          "dependencies": [],
+          "public_contract_impacts": [
+            "normalized observation contract"
+          ],
+          "compatibility": "raw payload hash와 source-specific fields를 provenance로 유지한다.",
+          "migration": "provider별 mapper를 하나씩 등록한다.",
+          "rollback": "해당 mapper를 비활성화하고 raw validation만 유지한다.",
+          "authorization_boundary": "의미가 불명확한 필드는 추정 매핑하지 않는다.",
+          "consumer_search": null,
+          "contributes_to": [
+            "D-02-company-capability-taxonomy"
+          ],
+          "contribution_refs": [
+            {
+              "decision_id": "D-02-company-capability-taxonomy",
+              "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/02-d-02-company-capability-taxonomy.json",
+              "sha256": "sha256:e774d309da77407e7cae424933afa16d9b439d3d060df445a502ff478107a985",
+              "symbols": [
+                "AtomicObservationMapper",
+                "normalize_unit",
+                "deduplication_key"
+              ],
+              "intent_change_ids": [
+                "D-02-company-capability-taxonomy-normalization"
+              ]
+            }
+          ],
+          "intent_change_ids": [
+            "D-02-company-capability-taxonomy-normalization"
+          ],
+          "symbol_changes": [
+            {
+              "symbol": "AtomicObservationMapper",
+              "intent": "원자 필드 의미, 단위, period, available_at, source locator를 손실 없이 표준 observation으로 변환한다.",
+              "decision_id": "D-02-company-capability-taxonomy"
+            },
+            {
+              "symbol": "normalize_unit",
+              "intent": "원자 필드 의미, 단위, period, available_at, source locator를 손실 없이 표준 observation으로 변환한다.",
+              "decision_id": "D-02-company-capability-taxonomy"
+            },
+            {
+              "symbol": "deduplication_key",
+              "intent": "원자 필드 의미, 단위, period, available_at, source locator를 손실 없이 표준 observation으로 변환한다.",
+              "decision_id": "D-02-company-capability-taxonomy"
+            }
+          ]
+        },
+        {
+          "change_id": "file-change-c2dd27200b1c",
+          "operation": "CREATE",
+          "path": "src/company_intel/classification.py",
+          "symbols": [
+            "classify_company",
+            "evaluate_analysis_eligibility",
+            "CapabilityGate"
+          ],
+          "current_state": "파일이 없고 기업 분류와 분석 제외 규칙이 없다.",
+          "source_hash": null,
+          "result_hash": null,
+          "expected_result": "독립 capability 축과 근거 충분성 gate로 기업을 다중 분류하고 이유 코드를 반환한다.",
+          "after_state": "독립 capability 축과 근거 충분성 gate로 기업을 다중 분류하고 이유 코드를 반환한다.",
+          "rationale": "재무만/공고만/고용만/상관 불가를 상호 배타적으로 오해하지 않게 한다.",
+          "dependencies": [],
+          "public_contract_impacts": [
+            "company classification engine"
+          ],
+          "compatibility": "각 capability는 독립 boolean/status이고 종합 label은 파생값이다.",
+          "migration": "기존 분석 endpoint 앞에 eligibility check를 추가한다.",
+          "rollback": "gate 적용을 제거하고 기존 분석 경로로 복귀한다.",
+          "authorization_boundary": "correlation_ready와 causal_ready를 별도 상태로 유지한다.",
+          "consumer_search": null,
+          "contributes_to": [
+            "D-02-company-capability-taxonomy"
+          ],
+          "contribution_refs": [
+            {
+              "decision_id": "D-02-company-capability-taxonomy",
+              "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/02-d-02-company-capability-taxonomy.json",
+              "sha256": "sha256:e774d309da77407e7cae424933afa16d9b439d3d060df445a502ff478107a985",
+              "symbols": [
+                "classify_company",
+                "evaluate_analysis_eligibility",
+                "CapabilityGate"
+              ],
+              "intent_change_ids": [
+                "D-02-company-capability-taxonomy-classification"
+              ]
+            }
+          ],
+          "intent_change_ids": [
+            "D-02-company-capability-taxonomy-classification"
+          ],
+          "symbol_changes": [
+            {
+              "symbol": "classify_company",
+              "intent": "독립 capability 축과 근거 충분성 gate로 기업을 다중 분류하고 이유 코드를 반환한다.",
+              "decision_id": "D-02-company-capability-taxonomy"
+            },
+            {
+              "symbol": "evaluate_analysis_eligibility",
+              "intent": "독립 capability 축과 근거 충분성 gate로 기업을 다중 분류하고 이유 코드를 반환한다.",
+              "decision_id": "D-02-company-capability-taxonomy"
+            },
+            {
+              "symbol": "CapabilityGate",
+              "intent": "독립 capability 축과 근거 충분성 gate로 기업을 다중 분류하고 이유 코드를 반환한다.",
+              "decision_id": "D-02-company-capability-taxonomy"
+            }
+          ]
+        },
+        {
+          "change_id": "file-change-50ab952c86b5",
+          "operation": "MODIFY",
+          "path": "src/company_intel/connectors/registry.py",
+          "symbols": [
+            "ConnectorRegistry",
+            "select_adapter",
+            "probe_vs_production",
+            "discovery_adapters",
+            "requirement_evidence_adapters"
+          ],
+          "current_state": "connector 선택이 catalog activation 및 probe/production 경계와 완전히 결속되지 않는다. | 표본 검증 adapter와 실제 company discovery adapter 구분이 없다. | 공고 목록과 상세 요건 source가 구분되지 않는다.",
+          "source_hash": "sha256:3f9e38e145a9e35a3f2ee46914fad85623d13abff0263bd0091cbef004ec7220",
+          "result_hash": null,
+          "expected_result": "승인된 operation ID와 용도에 맞는 adapter만 선택하고 미충족 gate는 구조화 오류로 반환한다. | discovery 가능 source만 검색 universe 구성에 노출한다. | requirement evidence를 제공하는 adapter만 상세 요건 pipeline에 등록한다.",
+          "after_state": "승인된 operation ID와 용도에 맞는 adapter만 선택하고 미충족 gate는 구조화 오류로 반환한다. | discovery 가능 source만 검색 universe 구성에 노출한다. | requirement evidence를 제공하는 adapter만 상세 요건 pipeline에 등록한다.",
+          "rationale": "성공한 sample probe를 범용 검색 source로 오용하지 않기 위함이다. | 고정 Greenhouse/Lever 표본을 전체 시장으로 승격하지 않기 위함이다. | 목록 metadata만으로 자격증을 추론하지 않기 위함이다.",
+          "dependencies": [],
+          "public_contract_impacts": [
+            "connector registry selection",
+            "discovery adapter registry",
+            "requirement adapter registry"
+          ],
+          "compatibility": "기존 connector 등록 함수는 유지한다. | probe adapter는 validation 용도로 계속 유지한다. | 목록-only source는 job discovery capability로 남는다.",
+          "migration": "각 기존 connector에 atomic operation ID를 연결한다. | adapter capability flag를 catalog에서 읽는다. | 기존 adapter에 evidence level을 추가한다.",
+          "rollback": "새 선택기를 비활성화하고 기존 registry lookup을 사용한다. | discovery endpoint를 비활성화한다. | 요건 pipeline을 비활성화하고 목록 metadata만 제공한다.",
+          "authorization_boundary": "새 provider 호출은 별도 source activation과 실행 권한이 필요하다. | robots, terms, quota 정책이 불명확한 source는 discovery에서 제외한다. | 허용된 원문과 국가 공공 기준만 evidence source로 쓴다.",
+          "consumer_search": null,
+          "contributes_to": [
+            "D-01-source-access-policy",
+            "D-03-search-profile-and-discovery",
+            "D-04-career-requirement-verification"
+          ],
+          "contribution_refs": [
+            {
+              "decision_id": "D-01-source-access-policy",
+              "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/01-d-01-source-access-policy.json",
+              "sha256": "sha256:0f46f8e8e8d8e895a1df8ad86394dce34c2446c0f5c63b9c46ad4df458c6ec54",
+              "symbols": [
+                "ConnectorRegistry",
+                "select_adapter",
+                "probe_vs_production",
+                "discovery_adapters",
+                "requirement_evidence_adapters"
+              ],
+              "intent_change_ids": [
+                "D-01-source-access-policy-registry"
+              ]
+            },
+            {
+              "decision_id": "D-03-search-profile-and-discovery",
+              "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/03-d-03-search-profile-and-discovery.json",
+              "sha256": "sha256:5788ca4878c7cae796c17c85873920ce5aaf36e192ec47041ea2208b4232e7f9",
+              "symbols": [
+                "ConnectorRegistry",
+                "select_adapter",
+                "probe_vs_production",
+                "discovery_adapters",
+                "requirement_evidence_adapters"
+              ],
+              "intent_change_ids": [
+                "D-03-search-profile-and-discovery-registry"
+              ]
+            },
+            {
+              "decision_id": "D-04-career-requirement-verification",
+              "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/04-d-04-career-requirement-verification.json",
+              "sha256": "sha256:5932142a7b708f16a69192359465f941caf41a6a8ec2c6a5c974b20db8fad62a",
+              "symbols": [
+                "ConnectorRegistry",
+                "select_adapter",
+                "probe_vs_production",
+                "discovery_adapters",
+                "requirement_evidence_adapters"
+              ],
+              "intent_change_ids": [
+                "D-04-career-requirement-verification-registry"
+              ]
+            }
+          ],
+          "intent_change_ids": [
+            "D-01-source-access-policy-registry",
+            "D-03-search-profile-and-discovery-registry",
+            "D-04-career-requirement-verification-registry"
+          ],
+          "symbol_changes": [
+            {
+              "symbol": "ConnectorRegistry",
+              "intent": "승인된 operation ID와 용도에 맞는 adapter만 선택하고 미충족 gate는 구조화 오류로 반환한다.",
+              "decision_id": "D-01-source-access-policy"
+            },
+            {
+              "symbol": "select_adapter",
+              "intent": "승인된 operation ID와 용도에 맞는 adapter만 선택하고 미충족 gate는 구조화 오류로 반환한다.",
+              "decision_id": "D-01-source-access-policy"
+            },
+            {
+              "symbol": "probe_vs_production",
+              "intent": "승인된 operation ID와 용도에 맞는 adapter만 선택하고 미충족 gate는 구조화 오류로 반환한다.",
+              "decision_id": "D-01-source-access-policy"
+            },
+            {
+              "symbol": "discovery_adapters",
+              "intent": "discovery 가능 source만 검색 universe 구성에 노출한다.",
+              "decision_id": "D-03-search-profile-and-discovery"
+            },
+            {
+              "symbol": "requirement_evidence_adapters",
+              "intent": "requirement evidence를 제공하는 adapter만 상세 요건 pipeline에 등록한다.",
+              "decision_id": "D-04-career-requirement-verification"
+            }
+          ]
+        },
+        {
+          "change_id": "file-change-51ccd281e59c",
+          "operation": "MODIFY",
+          "path": "src/company_intel/validation.py",
+          "symbols": [
+            "ValidationOutcome",
+            "classify_provider_error",
+            "redacted_receipt"
+          ],
+          "current_state": "HTTP 성공과 필드 계약 및 공급자 오류가 충분히 분리되지 않는다.",
+          "source_hash": "sha256:927a93efe71898fdc531544840c854eafa1ad3a3d4591db4d717e5f6be3e69f8",
+          "result_hash": null,
+          "expected_result": "transport, provider result, required field, semantic freshness를 각각 판정하고 비밀 제거 receipt를 만든다.",
+          "after_state": "transport, provider result, required field, semantic freshness를 각각 판정하고 비밀 제거 receipt를 만든다.",
+          "rationale": "HTTP 200을 데이터 사용 가능으로 오판하지 않기 위함이다.",
+          "dependencies": [],
+          "public_contract_impacts": [
+            "provider validation statuses"
+          ],
+          "compatibility": "기존 pass/fail 요약은 파생 필드로 유지한다.",
+          "migration": "새 세부 상태를 기존 결과에 additive하게 기록한다.",
+          "rollback": "상세 분류를 제거하고 기존 summary를 사용한다.",
+          "authorization_boundary": "receipt에 credential value나 credential-bearing URL을 기록하지 않는다.",
+          "consumer_search": null,
+          "contributes_to": [
+            "D-01-source-access-policy"
+          ],
+          "contribution_refs": [
+            {
+              "decision_id": "D-01-source-access-policy",
+              "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/01-d-01-source-access-policy.json",
+              "sha256": "sha256:0f46f8e8e8d8e895a1df8ad86394dce34c2446c0f5c63b9c46ad4df458c6ec54",
+              "symbols": [
+                "ValidationOutcome",
+                "classify_provider_error",
+                "redacted_receipt"
+              ],
+              "intent_change_ids": [
+                "D-01-source-access-policy-validation"
+              ]
+            }
+          ],
+          "intent_change_ids": [
+            "D-01-source-access-policy-validation"
+          ],
+          "symbol_changes": [
+            {
+              "symbol": "ValidationOutcome",
+              "intent": "transport, provider result, required field, semantic freshness를 각각 판정하고 비밀 제거 receipt를 만든다.",
+              "decision_id": "D-01-source-access-policy"
+            },
+            {
+              "symbol": "classify_provider_error",
+              "intent": "transport, provider result, required field, semantic freshness를 각각 판정하고 비밀 제거 receipt를 만든다.",
+              "decision_id": "D-01-source-access-policy"
+            },
+            {
+              "symbol": "redacted_receipt",
+              "intent": "transport, provider result, required field, semantic freshness를 각각 판정하고 비밀 제거 receipt를 만든다.",
+              "decision_id": "D-01-source-access-policy"
+            }
+          ]
+        },
+        {
+          "change_id": "file-change-42c469cea05e",
+          "operation": "MODIFY",
+          "path": "src/company_intel/warehouse.py",
+          "symbols": [
+            "upsert_identity",
+            "upsert_capability",
+            "record_field_availability",
+            "record_classification",
+            "store_job_snapshot",
+            "store_requirement_evidence",
+            "query_export_bundle",
+            "materialize_export_snapshot"
+          ],
+          "current_state": "고정 표본 적재 중심이며 범용 entity/capability 이력 저장이 없다. | 공고 snapshot과 요건 근거의 시간 이력이 없다. | 관계키와 provenance를 보존하는 export query가 없다.",
+          "source_hash": "sha256:6cc623eed35be3ff01209f0b9ce4566db410f4c2441644930fdc013d545303e5",
+          "result_hash": null,
+          "expected_result": "법인 식별자, 원자 observation, capability, 분류 이력을 멱등 적재한다. | 공고 as_of, 만료 상태, 요건 claim, locator, verification 결과를 증분 저장한다. | 동일 snapshot에서 companies, capabilities, jobs, requirements, sources, exclusions를 결정론적으로 조회한다.",
+          "after_state": "법인 식별자, 원자 observation, capability, 분류 이력을 멱등 적재한다. | 공고 as_of, 만료 상태, 요건 claim, locator, verification 결과를 증분 저장한다. | 동일 snapshot에서 companies, capabilities, jobs, requirements, sources, exclusions를 결정론적으로 조회한다.",
+          "rationale": "실제 검색과 분석 gate가 동일 근거 snapshot을 사용하게 한다. | stale 공고와 현재 요건을 구분하기 위함이다. | CSV/XLSX가 서로 다른 데이터를 렌더링하지 않게 한다.",
+          "dependencies": [],
+          "public_contract_impacts": [
+            "warehouse repository API",
+            "job evidence persistence",
+            "export query interface"
+          ],
+          "compatibility": "기존 sample ingestion을 별도 fixture 경로로 유지한다. | 기존 job row를 삭제하지 않는다. | 기존 분석 query는 유지한다.",
+          "migration": "새 upsert를 먼저 병행하고 결과 비교 후 기본 경로로 전환한다. | 새 snapshot부터 저장하고 과거 자료는 근거 없이는 backfill하지 않는다. | export 전용 read model을 추가한다.",
+          "rollback": "신규 테이블 쓰기를 중지한다. | 신규 evidence writer를 비활성화한다. | export read model을 제거한다.",
+          "authorization_boundary": "외부 호출은 connector 계층에만 두고 warehouse는 전달된 snapshot만 저장한다. | 개인정보나 재배포 제한 전문은 저장하지 않는다. | 허용된 열만 projection하고 raw secret/personal field는 선택하지 않는다.",
+          "consumer_search": null,
+          "contributes_to": [
+            "D-02-company-capability-taxonomy",
+            "D-04-career-requirement-verification",
+            "D-05-spreadsheet-output-contract"
+          ],
+          "contribution_refs": [
+            {
+              "decision_id": "D-02-company-capability-taxonomy",
+              "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/02-d-02-company-capability-taxonomy.json",
+              "sha256": "sha256:e774d309da77407e7cae424933afa16d9b439d3d060df445a502ff478107a985",
+              "symbols": [
+                "upsert_identity",
+                "upsert_capability",
+                "record_field_availability",
+                "record_classification",
+                "store_job_snapshot",
+                "store_requirement_evidence",
+                "query_export_bundle",
+                "materialize_export_snapshot"
+              ],
+              "intent_change_ids": [
+                "D-02-company-capability-taxonomy-warehouse"
+              ]
+            },
+            {
+              "decision_id": "D-04-career-requirement-verification",
+              "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/04-d-04-career-requirement-verification.json",
+              "sha256": "sha256:5932142a7b708f16a69192359465f941caf41a6a8ec2c6a5c974b20db8fad62a",
+              "symbols": [
+                "upsert_identity",
+                "upsert_capability",
+                "record_field_availability",
+                "record_classification",
+                "store_job_snapshot",
+                "store_requirement_evidence",
+                "query_export_bundle",
+                "materialize_export_snapshot"
+              ],
+              "intent_change_ids": [
+                "D-04-career-requirement-verification-warehouse"
+              ]
+            },
+            {
+              "decision_id": "D-05-spreadsheet-output-contract",
+              "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/05-d-05-spreadsheet-output-contract.json",
+              "sha256": "sha256:a124f06f0256ef1386a9e65a81901449202e22fb3fd49fbd1c4c704db555ca05",
+              "symbols": [
+                "upsert_identity",
+                "upsert_capability",
+                "record_field_availability",
+                "record_classification",
+                "store_job_snapshot",
+                "store_requirement_evidence",
+                "query_export_bundle",
+                "materialize_export_snapshot"
+              ],
+              "intent_change_ids": [
+                "D-05-spreadsheet-output-contract-warehouse"
+              ]
+            }
+          ],
+          "intent_change_ids": [
+            "D-02-company-capability-taxonomy-warehouse",
+            "D-04-career-requirement-verification-warehouse",
+            "D-05-spreadsheet-output-contract-warehouse"
+          ],
+          "symbol_changes": [
+            {
+              "symbol": "upsert_identity",
+              "intent": "법인 식별자, 원자 observation, capability, 분류 이력을 멱등 적재한다.",
+              "decision_id": "D-02-company-capability-taxonomy"
+            },
+            {
+              "symbol": "upsert_capability",
+              "intent": "법인 식별자, 원자 observation, capability, 분류 이력을 멱등 적재한다.",
+              "decision_id": "D-02-company-capability-taxonomy"
+            },
+            {
+              "symbol": "record_field_availability",
+              "intent": "법인 식별자, 원자 observation, capability, 분류 이력을 멱등 적재한다.",
+              "decision_id": "D-02-company-capability-taxonomy"
+            },
+            {
+              "symbol": "record_classification",
+              "intent": "법인 식별자, 원자 observation, capability, 분류 이력을 멱등 적재한다.",
+              "decision_id": "D-02-company-capability-taxonomy"
+            },
+            {
+              "symbol": "store_job_snapshot",
+              "intent": "공고 as_of, 만료 상태, 요건 claim, locator, verification 결과를 증분 저장한다.",
+              "decision_id": "D-04-career-requirement-verification"
+            },
+            {
+              "symbol": "store_requirement_evidence",
+              "intent": "공고 as_of, 만료 상태, 요건 claim, locator, verification 결과를 증분 저장한다.",
+              "decision_id": "D-04-career-requirement-verification"
+            },
+            {
+              "symbol": "query_export_bundle",
+              "intent": "동일 snapshot에서 companies, capabilities, jobs, requirements, sources, exclusions를 결정론적으로 조회한다.",
+              "decision_id": "D-05-spreadsheet-output-contract"
+            },
+            {
+              "symbol": "materialize_export_snapshot",
+              "intent": "동일 snapshot에서 companies, capabilities, jobs, requirements, sources, exclusions를 결정론적으로 조회한다.",
+              "decision_id": "D-05-spreadsheet-output-contract"
+            }
+          ]
+        },
+        {
+          "change_id": "file-change-d0c6f2fbd963",
+          "operation": "CREATE",
+          "path": "tests/test_source_catalog.py",
+          "symbols": [
+            "test_all_28_atomic_operations_are_declared",
+            "test_activation_gates_and_redaction"
+          ],
+          "current_state": "catalog 완전성과 활성화/마스킹 계약 테스트가 없다.",
+          "source_hash": null,
+          "result_hash": null,
+          "expected_result": "28개 작업 완전성, 필수 필드, freshness, probe/production 경계, secret redaction을 fixture로 검증한다.",
+          "after_state": "28개 작업 완전성, 필수 필드, freshness, probe/production 경계, secret redaction을 fixture로 검증한다.",
+          "rationale": "새 source 추가 시 계약 누락을 CI에서 차단한다.",
+          "dependencies": [],
+          "public_contract_impacts": [
+            "test contract"
+          ],
+          "compatibility": "네트워크 없이 결정론적으로 실행한다.",
+          "migration": "없음; 신규 테스트다.",
+          "rollback": "테스트와 신규 기능을 함께 되돌린다.",
+          "authorization_boundary": "실제 API key나 외부 호출을 사용하지 않는다.",
+          "consumer_search": null,
+          "contributes_to": [
+            "D-01-source-access-policy"
+          ],
+          "contribution_refs": [
+            {
+              "decision_id": "D-01-source-access-policy",
+              "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/01-d-01-source-access-policy.json",
+              "sha256": "sha256:0f46f8e8e8d8e895a1df8ad86394dce34c2446c0f5c63b9c46ad4df458c6ec54",
+              "symbols": [
+                "test_all_28_atomic_operations_are_declared",
+                "test_activation_gates_and_redaction"
+              ],
+              "intent_change_ids": [
+                "D-01-source-access-policy-test"
+              ]
+            }
+          ],
+          "intent_change_ids": [
+            "D-01-source-access-policy-test"
+          ],
+          "symbol_changes": [
+            {
+              "symbol": "test_all_28_atomic_operations_are_declared",
+              "intent": "28개 작업 완전성, 필수 필드, freshness, probe/production 경계, secret redaction을 fixture로 검증한다.",
+              "decision_id": "D-01-source-access-policy"
+            },
+            {
+              "symbol": "test_activation_gates_and_redaction",
+              "intent": "28개 작업 완전성, 필수 필드, freshness, probe/production 경계, secret redaction을 fixture로 검증한다.",
+              "decision_id": "D-01-source-access-policy"
+            }
+          ]
+        },
+        {
+          "change_id": "file-change-7a2cfff77575",
+          "operation": "CREATE",
+          "path": "tests/test_classification.py",
+          "symbols": [
+            "test_atomic_capability_classes",
+            "test_analysis_eligibility_gates"
+          ],
+          "current_state": "재무 전용·공고 전용·고용 전용·분석 불가 fixture가 없다.",
+          "source_hash": null,
+          "result_hash": null,
+          "expected_result": "다중 capability와 exclusion reason, identifier ambiguity, period/unit 부족을 표로 검증한다.",
+          "after_state": "다중 capability와 exclusion reason, identifier ambiguity, period/unit 부족을 표로 검증한다.",
+          "rationale": "기업 분류가 source 성공 여부에 종속되지 않게 한다.",
+          "dependencies": [],
+          "public_contract_impacts": [
+            "test contract"
+          ],
+          "compatibility": "네트워크 없이 실행한다.",
+          "migration": "없음; 신규 테스트다.",
+          "rollback": "테스트와 신규 분류기를 함께 되돌린다.",
+          "authorization_boundary": "실제 기업에 대한 투자 판단을 산출하지 않는다.",
+          "consumer_search": null,
+          "contributes_to": [
+            "D-02-company-capability-taxonomy"
+          ],
+          "contribution_refs": [
+            {
+              "decision_id": "D-02-company-capability-taxonomy",
+              "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/02-d-02-company-capability-taxonomy.json",
+              "sha256": "sha256:e774d309da77407e7cae424933afa16d9b439d3d060df445a502ff478107a985",
+              "symbols": [
+                "test_atomic_capability_classes",
+                "test_analysis_eligibility_gates"
+              ],
+              "intent_change_ids": [
+                "D-02-company-capability-taxonomy-test"
+              ]
+            }
+          ],
+          "intent_change_ids": [
+            "D-02-company-capability-taxonomy-test"
+          ],
+          "symbol_changes": [
+            {
+              "symbol": "test_atomic_capability_classes",
+              "intent": "다중 capability와 exclusion reason, identifier ambiguity, period/unit 부족을 표로 검증한다.",
+              "decision_id": "D-02-company-capability-taxonomy"
+            },
+            {
+              "symbol": "test_analysis_eligibility_gates",
+              "intent": "다중 capability와 exclusion reason, identifier ambiguity, period/unit 부족을 표로 검증한다.",
+              "decision_id": "D-02-company-capability-taxonomy"
+            }
+          ]
+        }
+      ],
+      "routes": [
+        {
+          "route_id": "c01-tdd",
+          "skill": "tdd",
+          "requirement": "required",
+          "phase": "IMPLEMENT",
+          "purpose": "source catalog와 분류 계약을 fixture 기반 red-green-refactor로 구현",
+          "expected_artifact": "C-01 구현/테스트 변경"
+        },
+        {
+          "route_id": "c01-verify",
+          "skill": "verification-before-completion",
+          "requirement": "required",
+          "phase": "VALIDATE",
+          "purpose": "계획 해시와 독립 테스트 결과를 확인",
+          "expected_artifact": "C-01 validation receipt"
+        }
+      ],
+      "completion_contract": [
+        {
+          "criterion_id": "C-01-catalog-tests",
+          "behavior": "28개 원자 source catalog와 activation/redaction 계약이 통과한다.",
+          "blocking": true,
+          "owner_skill": "verification-before-completion",
+          "phase": "VALIDATE",
+          "depends_on_criteria": [],
+          "test": {
+            "type": "pytest",
+            "value": "uv run --frozen pytest tests/test_source_catalog.py -q",
+            "runner": "pytest",
+            "paths": [
+              "tests/test_source_catalog.py"
+            ],
+            "provider_backed": false,
+            "timeout_seconds": 300
+          },
+          "expected_result": "all tests pass",
+          "failure_marker": "missing operation, invalid activation, secret leakage, or stale contract",
+          "receipt": {
+            "status": "planned",
+            "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/receipts/criteria/C-01-catalog-tests.json",
+            "sha256": "planned"
+          },
+          "status": "planned"
+        },
+        {
+          "criterion_id": "C-01-classification-tests",
+          "behavior": "기업 capability와 분석 적격성 분류 fixture가 통과한다.",
+          "blocking": true,
+          "owner_skill": "verification-before-completion",
+          "phase": "VALIDATE",
+          "depends_on_criteria": [
+            "C-01-catalog-tests"
+          ],
+          "test": {
+            "type": "pytest",
+            "value": "uv run --frozen pytest tests/test_classification.py -q",
+            "runner": "pytest",
+            "paths": [
+              "tests/test_classification.py"
+            ],
+            "provider_backed": false,
+            "timeout_seconds": 300
+          },
+          "expected_result": "all tests pass",
+          "failure_marker": "capability collision, identity ambiguity loss, or false analysis eligibility",
+          "receipt": {
+            "status": "planned",
+            "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/receipts/criteria/C-01-classification-tests.json",
+            "sha256": "planned"
+          },
+          "status": "planned"
+        }
+      ]
+    }
+  ],
+  "metadata": {
+    "compiled_from_decision_intents": true,
+    "five_w_one_h": {
+      "who": "source/catalog, identity, normalization, classification 및 warehouse 구현자",
+      "what": "28개 API를 원자 계약과 기업 capability로 변환",
+      "where": "config, core models, DuckDB schema, registry, warehouse, tests",
+      "when": "C-02와 C-03 이전",
+      "why": "지역별 API 형식 차이와 근거 부족을 안전하게 분리",
+      "how": "versioned catalog, typed provenance, additive schema, deterministic tests"
+    },
+    "planned_commit_message": "feat(source-intelligence): add atomic source and capability foundation",
+    "git_finalization_authorized": false,
+    "preparation_contract": "campaign-global-ownership-v1"
+  }
+}

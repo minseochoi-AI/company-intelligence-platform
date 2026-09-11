@@ -1,0 +1,23 @@
+{
+  "contract_version": "atomic-json-patch-receipt-v1",
+  "target": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/scope-lock.json",
+  "outcome": "pass",
+  "before_sha256": "aecc7c322067a3ecaef07f3cc259b054190f27eec417a4a68a4d10de676bbdaa",
+  "after_sha256": "56439c3eb2c3d630cc34b2165c149845a04f3a3677c03d39543978b8b9375059",
+  "proposed_after_sha256": "56439c3eb2c3d630cc34b2165c149845a04f3a3677c03d39543978b8b9375059",
+  "operations": [
+    {
+      "op": "test",
+      "path": "/amendment"
+    },
+    {
+      "op": "replace",
+      "path": "/amendment"
+    }
+  ],
+  "backup": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/.mutation-journal/preimages/sha256-aecc7c322067a3ecaef07f3cc259b054190f27eec417a4a68a4d10de676bbdaa.json",
+  "journal": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/.mutation-journal/mutations/1db5a677a2cc28091f409d08c2b3223b750f237ebc241aef7b574f0ad1ac9ec2.json",
+  "mutation_id": "amend-scope-lock-function-inventory-20260911",
+  "validators": [],
+  "completed_at": "2026-09-11T07:59:04.150446+00:00"
+}

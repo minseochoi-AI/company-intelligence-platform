@@ -1,0 +1,91 @@
+{
+  "contract_version": "atomic-json-patch-receipt-v1",
+  "target": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/04-d-04-career-requirement-verification.json",
+  "outcome": "pass",
+  "before_sha256": "33f5c2bc1e327288583327ed6ae14e7ffb8536cd1fd5428e3ae5e7ae92fb7d35",
+  "after_sha256": "d96d5b416e553e3c26b17ea0518cac802e9f7d677f7d993933b6baf250d2ef55",
+  "proposed_after_sha256": "d96d5b416e553e3c26b17ea0518cac802e9f7d677f7d993933b6baf250d2ef55",
+  "operations": [
+    {
+      "op": "test",
+      "path": "/evidence_refs/1/content_hash"
+    },
+    {
+      "op": "test",
+      "path": "/evidence_refs/1/locator"
+    },
+    {
+      "op": "test",
+      "path": "/evidence_refs/1/line_range"
+    },
+    {
+      "op": "test",
+      "path": "/evidence_refs/1/observed_fact"
+    },
+    {
+      "op": "test",
+      "path": "/evidence_refs/1/observation_summary"
+    },
+    {
+      "op": "test",
+      "path": "/evidence_refs/2/content_hash"
+    },
+    {
+      "op": "test",
+      "path": "/evidence_refs/2/locator"
+    },
+    {
+      "op": "test",
+      "path": "/evidence_refs/2/line_range"
+    },
+    {
+      "op": "replace",
+      "path": "/evidence_refs/1/content_hash"
+    },
+    {
+      "op": "replace",
+      "path": "/evidence_refs/1/locator"
+    },
+    {
+      "op": "replace",
+      "path": "/evidence_refs/1/line_range"
+    },
+    {
+      "op": "replace",
+      "path": "/evidence_refs/1/observed_fact"
+    },
+    {
+      "op": "replace",
+      "path": "/evidence_refs/1/observation_summary"
+    },
+    {
+      "op": "replace",
+      "path": "/evidence_refs/2/content_hash"
+    },
+    {
+      "op": "replace",
+      "path": "/evidence_refs/2/locator"
+    },
+    {
+      "op": "replace",
+      "path": "/evidence_refs/2/line_range"
+    }
+  ],
+  "backup": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/.mutation-journal/preimages/sha256-33f5c2bc1e327288583327ed6ae14e7ffb8536cd1fd5428e3ae5e7ae92fb7d35.json",
+  "journal": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/.mutation-journal/mutations/9cbfbc16cab932d363cf9ec80efb981a07fac13ef84177e17e3707fa881ab8fe.json",
+  "mutation_id": "refresh-d04-evidence-20260911",
+  "validators": [
+    {
+      "command": [
+        "/usr/bin/python3",
+        "-m",
+        "json.tool",
+        "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/04-d-04-career-requirement-verification.json"
+      ],
+      "returncode": 0,
+      "stdout_tail": "\\ub300\\uc0ac\\ud56d\\uc774 required \\ub610\\ub294 \\ubc95\\uc815 \\uc790\\uaca9\\uc73c\\ub85c \\uc2b9\\uaca9\\ub418\\uc9c0 \\uc54a\\ub294\\uc9c0 \\uac80\\uc99d\\ud55c\\ub2e4.\",\n        \"ESCO/ISCO crosswalk\\ub9cc \\uc788\\ub294 \\ud56d\\ubaa9\\uc774 credential equivalence\\ub098 vacancy_specific\\uc73c\\ub85c \\ud45c\\uc2dc\\ub418\\uc9c0 \\uc54a\\ub294\\uc9c0 \\uac80\\uc99d\\ud55c\\ub2e4.\",\n        \"\\ud5c8\\uac00\\ub41c \\ud68c\\uc0ac\\ubcc4 \\uc694\\uac74 \\uc6d0\\ucc9c\\uc774 \\uc5c6\\uc73c\\uba74 no_primary_requirement_source \\uc81c\\ud55c\\uc744 \\ubc18\\ud658\\ud558\\ub294\\uc9c0 \\uac80\\uc99d\\ud55c\\ub2e4.\",\n        \"\\ub9c8\\uac10\\u00b7\\uc0ad\\uc81c\\u00b7\\uc775\\uba85 \\uacf5\\uace0\\uac00 \\ud68c\\uc0ac\\ubcc4 \\uc790\\uaca9\\uc694\\uac74 \\uacb0\\uacfc\\uc5d0 \\uc798\\ubabb \\ub0a8\\uc9c0 \\uc54a\\ub294\\uc9c0 \\uac80\\uc99d\\ud55c\\ub2e4.\"\n    ],\n    \"diagram_impacts\": [\n        \"\\uacf5\\uace0 \\ub610\\ub294 \\uad6d\\uac00 \\uae30\\uc900 \\uc6d0\\ucc9c \\u2192 requirement extraction \\u2192 verification status \\u2192 \\uc790\\uaca9\\u00b7\\uc900\\ube44\\uc0ac\\ud56d \\uc2a4\\ud504\\ub808\\ub4dc\\uc2dc\\ud2b8 \\ud589 \\ud750\\ub984\\uc744 \\ud6c4\\uc18d \\ub2e4\\uc774\\uc5b4\\uadf8\\ub7a8\\uc5d0 \\ubc18\\uc601\\ud55c\\ub2e4.\"\n    ],\n    \"context_topic_ids\": [\n        \"search-career-evidence\"\n    ]\n}\n",
+      "stderr_tail": ""
+    }
+  ],
+  "completed_at": "2026-09-11T06:08:04.044770+00:00"
+}

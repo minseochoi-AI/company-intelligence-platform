@@ -1,0 +1,135 @@
+{
+  "contract_version": "atomic-json-patch-receipt-v1",
+  "target": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/03-d-03-search-profile-and-discovery.json",
+  "outcome": "pass",
+  "before_sha256": "55b769a874e80e28484ae71ba71f8c366359c1d93819caef7773e2f5cdc44d0f",
+  "after_sha256": "6a230e04da8122d5c75a966f85c66d2a9e8be1c24da5e3270927782b7d30161d",
+  "proposed_after_sha256": "6a230e04da8122d5c75a966f85c66d2a9e8be1c24da5e3270927782b7d30161d",
+  "operations": [
+    {
+      "op": "test",
+      "path": "/status"
+    },
+    {
+      "op": "test",
+      "path": "/question"
+    },
+    {
+      "op": "test",
+      "path": "/five_w_one_h"
+    },
+    {
+      "op": "test",
+      "path": "/evidence_refs"
+    },
+    {
+      "op": "test",
+      "path": "/facts"
+    },
+    {
+      "op": "test",
+      "path": "/conflicts"
+    },
+    {
+      "op": "test",
+      "path": "/unimplemented"
+    },
+    {
+      "op": "test",
+      "path": "/options"
+    },
+    {
+      "op": "test",
+      "path": "/recommended_option_id"
+    },
+    {
+      "op": "test",
+      "path": "/recommendation_reason"
+    },
+    {
+      "op": "test",
+      "path": "/impact"
+    },
+    {
+      "op": "test",
+      "path": "/opportunity_costs"
+    },
+    {
+      "op": "test",
+      "path": "/implementation_targets"
+    },
+    {
+      "op": "test",
+      "path": "/validation_requirements"
+    },
+    {
+      "op": "test",
+      "path": "/diagram_impacts"
+    },
+    {
+      "op": "replace",
+      "path": "/status"
+    },
+    {
+      "op": "replace",
+      "path": "/question"
+    },
+    {
+      "op": "replace",
+      "path": "/five_w_one_h"
+    },
+    {
+      "op": "replace",
+      "path": "/evidence_refs"
+    },
+    {
+      "op": "replace",
+      "path": "/facts"
+    },
+    {
+      "op": "replace",
+      "path": "/conflicts"
+    },
+    {
+      "op": "replace",
+      "path": "/unimplemented"
+    },
+    {
+      "op": "replace",
+      "path": "/options"
+    },
+    {
+      "op": "replace",
+      "path": "/recommended_option_id"
+    },
+    {
+      "op": "replace",
+      "path": "/recommendation_reason"
+    },
+    {
+      "op": "replace",
+      "path": "/impact"
+    },
+    {
+      "op": "replace",
+      "path": "/opportunity_costs"
+    },
+    {
+      "op": "replace",
+      "path": "/implementation_targets"
+    },
+    {
+      "op": "replace",
+      "path": "/validation_requirements"
+    },
+    {
+      "op": "replace",
+      "path": "/diagram_impacts"
+    }
+  ],
+  "backup": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/.mutation-journal/preimages/sha256-55b769a874e80e28484ae71ba71f8c366359c1d93819caef7773e2f5cdc44d0f.json",
+  "journal": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/.mutation-journal/mutations/e5bcbbb523b27098e35ee7dd9969c9062c88f227b1bc19dc04414780a1d5624c.json",
+  "mutation_id": "DISCUSS-D03-search-profile-and-discovery-v1",
+  "validators": [],
+  "completed_at": "2026-09-11T02:24:21.550199+00:00"
+}

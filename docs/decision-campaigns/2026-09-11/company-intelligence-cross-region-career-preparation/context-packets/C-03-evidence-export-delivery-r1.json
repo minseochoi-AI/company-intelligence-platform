@@ -1,0 +1,95 @@
+{
+  "contract_version": "implementation-context-packet-v2",
+  "packet_id": "C-03-evidence-export-delivery-packet-e0ba5e7df538",
+  "topics": [
+    "evidence-export"
+  ],
+  "capability_ids": [
+    "versioned-export-contract",
+    "csv-bundle",
+    "xlsx-rendering",
+    "export-redaction",
+    "referential-integrity"
+  ],
+  "required_refs": [
+    {
+      "ref_id": "reporting-current",
+      "role": "must-read",
+      "path": "src/company_intel/reporting.py",
+      "content_hash": "sha256:8fa8e14a4fc9ec2c0f9542e3de94922b8c97423f60bc5c706d8f2e3ce5fdfac2",
+      "line_range": "1-56",
+      "question": "현재 사용자 보고 기능은 무엇을 반환하는가?",
+      "observation_summary": "현재 reporting은 provider validation Markdown만 생성하고 기업·요건 spreadsheet를 만들지 않는다."
+    },
+    {
+      "ref_id": "api-current",
+      "role": "must-read",
+      "path": "src/company_intel/api.py",
+      "content_hash": "sha256:5bcc8cf61419cc3c880d03399787e5ff8497db8349ada8828330b340d10e8607",
+      "line_range": "1-114",
+      "question": "현재 API에 검색·export 경계가 있는가?",
+      "observation_summary": "분석 endpoint는 있으나 SearchProfile, export job, download metadata endpoint가 없다."
+    },
+    {
+      "ref_id": "security-current",
+      "role": "must-read",
+      "path": "src/company_intel/security.py",
+      "content_hash": "sha256:05961908ffc8906b1732303119c33ad5ee5c305884126e6d7eeb6375514ab399",
+      "line_range": "1-76",
+      "question": "현재 마스킹 로직을 export에 재사용할 수 있는가?",
+      "observation_summary": "비밀 마스킹 유틸리티는 있으나 spreadsheet sanitizer와 재배포 제한 필드 정책은 없다."
+    },
+    {
+      "ref_id": "warehouse-schema-export",
+      "role": "must-read",
+      "path": "sql/duckdb_schema.sql",
+      "content_hash": "sha256:37cb68ba7983a2f11f4c086bbdaf319711f0b3e22a4cac165d90071f65a283c2",
+      "line_range": "1-196",
+      "question": "정규화 export의 관계키를 현재 저장소가 모두 제공하는가?",
+      "observation_summary": "기본 관측 테이블은 있으나 capabilities·requirements·sources·exclusions·export run 계약이 없다."
+    }
+  ],
+  "current_entry_points": [
+    {
+      "kind": "code",
+      "path": "src/company_intel/reporting.py",
+      "symbol": "render_export_summary",
+      "source_hash": "sha256:8fa8e14a4fc9ec2c0f9542e3de94922b8c97423f60bc5c706d8f2e3ce5fdfac2"
+    },
+    {
+      "kind": "code",
+      "path": "src/company_intel/security.py",
+      "symbol": "sanitize_export_value",
+      "source_hash": "sha256:05961908ffc8906b1732303119c33ad5ee5c305884126e6d7eeb6375514ab399"
+    },
+    {
+      "kind": "code",
+      "path": "pyproject.toml",
+      "symbol": "project.dependencies",
+      "source_hash": "sha256:6f163cb3fc098b808c134abfbd27438ab9270475511d11a4ec0c13c31b863400"
+    }
+  ],
+  "planned_entry_points": [
+    {
+      "kind": "code",
+      "path": "src/company_intel/exporting.py",
+      "symbol": "ExportBundle",
+      "change_id": "file-change-82feda91e73b"
+    },
+    {
+      "kind": "test",
+      "path": "tests/test_exporting.py",
+      "symbol": "test_csv_contract",
+      "change_id": "file-change-c1f9750959a4"
+    }
+  ],
+  "external_entry_points": [],
+  "invariants": [
+    "CSV bundle이 기준 계약이고 XLSX는 동일 row key와 header version을 렌더링한다.",
+    "모든 사용자 행은 source 또는 exclusion으로 추적 가능해야 한다.",
+    "비밀·개인정보·재배포 제한 원문은 export에 포함하지 않는다.",
+    "동일 profile·snapshot·as_of 입력은 결정론적 파일 해시를 생성해야 한다."
+  ],
+  "unresolved_conflicts": [],
+  "resume_digest": "Prepared C-03-evidence-export-delivery from current decision hashes and one global file-ownership graph."
+}

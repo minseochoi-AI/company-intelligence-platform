@@ -1,0 +1,54 @@
+{
+  "contract_version": "campaign-post-implementation-results-v1",
+  "campaign_id": "company-intelligence-cross-region-career-preparation",
+  "implementation_status": "implemented-not-verified",
+  "recorded_at": "2026-09-11T07:15:00Z",
+  "cohorts": [
+    {
+      "cohort_id": "C-01-source-identity-foundation",
+      "plan_id": "company-intelligence-cross-region-career-preparation--C-01-source-identity-foundation--r1",
+      "plan_sha256": "c8b5c8c96de5d900195abc2528b9ceb2762a7ecad73c2a475ab5e28148d284b6",
+      "operations": [
+        {"path":"config/providers.json","result_hash":"sha256:d8d0f64418df17737cee247f1ff9f2eb50ac9b316371d3cda2d04f39db572e64"},
+        {"path":"sql/duckdb_schema.sql","result_hash":"sha256:fe701d386efa4dcd77385f8ca4c694a9e1404718d9dd18fae80aceddec9812f2"},
+        {"path":"src/company_intel/models.py","result_hash":"sha256:df78975ecedb36bd05d67967552ed16dffdbfec78313478a5f4f6530aa2a0dda"},
+        {"path":"src/company_intel/source_catalog.py","result_hash":"sha256:2e9fbe3fe72912d0f8904f2993922c11698e67fa4a8cba651ea4af71c505d043"},
+        {"path":"src/company_intel/identity.py","result_hash":"sha256:b47ea60bd24eb125b559369fb55ba6f57077db1a19e1eb56fd072ec422c6622b"},
+        {"path":"src/company_intel/normalization.py","result_hash":"sha256:aa5e5c87ce3ebe464187e07a8a712ad9529d0ba99602297f45a9ee526f7fbf49"},
+        {"path":"src/company_intel/classification.py","result_hash":"sha256:a31d24d5086212602c285ef46a3c578dc7bb7c776068ea7956179751e0d84be7"},
+        {"path":"src/company_intel/connectors/registry.py","result_hash":"sha256:8b9f4feb73b124014ae8841c65bfa581f08724cf7143001a1ce942bdfee73f3e"},
+        {"path":"src/company_intel/validation.py","result_hash":"sha256:673ec98793a77c7a10acaed968808f432f20bf2e4b48689a647c8cba8f817e0c"},
+        {"path":"src/company_intel/warehouse.py","result_hash":"sha256:4d904fdec6b13105f04e7f76c489e500130b417fc94ea8334f4c52c7dfcc6c60"},
+        {"path":"tests/test_source_catalog.py","result_hash":"sha256:e865b19704ee59deaa033c28640406b2d88e1c6ae4f4957812437798cfd46b9e"},
+        {"path":"tests/test_classification.py","result_hash":"sha256:6e97880079b7b5873522287d19d688c3102b158e648934605d8ba71237d6f0a6"}
+      ]
+    },
+    {
+      "cohort_id": "C-02-search-requirement-evidence",
+      "plan_id": "company-intelligence-cross-region-career-preparation--C-02-search-requirement-evidence--r1",
+      "plan_sha256": "88b644caebcf290de5296ac93c01638305224e188ca45598ed72ab07634b5daf",
+      "operations": [
+        {"path":"src/company_intel/search.py","result_hash":"sha256:c7496575fd22bfe1b7dd99887a36fcf08352f87b273ac4b4d8ac835a7944a8c5"},
+        {"path":"src/company_intel/career_requirements.py","result_hash":"sha256:2eee38f22c88fff195e85102161f1d8f80c1d22c1ec3a0b7eecfc39c331ac47c"},
+        {"path":"src/company_intel/connectors/keyed.py","result_hash":"sha256:951e2c73427e63ae5f8befb628dc45ceda0ff444bcf682175708af62f8fc7f32"},
+        {"path":"src/company_intel/connectors/keyless.py","result_hash":"sha256:380ed972840191094dce0582b2c9717f900a7d4011163ef2b59ddb94917be788"},
+        {"path":"src/company_intel/api.py","result_hash":"sha256:59330f230279ba5a5582d9ed7ff06091ebcec03ebc15595da6841eaa64fa976f"},
+        {"path":"src/company_intel/cli.py","result_hash":"sha256:e9442583150c23c8d5248f6a89f7057da861b7b0887e83efcc5629238bed4146"},
+        {"path":"tests/test_search_profile.py","result_hash":"sha256:0adc5640d47981ca88156de77c39a16e3fe56cbea6a957091e97fea65932a663"},
+        {"path":"tests/test_career_requirements.py","result_hash":"sha256:aa5b355da9220b0f836324244bced0021cbe4fcb5749986f14c818a418408694"}
+      ]
+    },
+    {
+      "cohort_id": "C-03-evidence-export-delivery",
+      "plan_id": "company-intelligence-cross-region-career-preparation--C-03-evidence-export-delivery--r1",
+      "plan_sha256": "7eced62ade8fb756b22e7e4763fb3f8789403b8b0721fcea4618827911148ffe",
+      "operations": [
+        {"path":"src/company_intel/exporting.py","result_hash":"sha256:3925b5c93b488278564b346c7673ab4af1d5304b743595c444800725ce9a7806"},
+        {"path":"src/company_intel/reporting.py","result_hash":"sha256:d29597658dc2bec27e69e0f3a82bcf6f6c4900316ad60b675340ca9783969232"},
+        {"path":"src/company_intel/security.py","result_hash":"sha256:7264c2c705d4a0f57fad90193c551d955da455011aae49eae8cda4ddbef9b422"},
+        {"path":"pyproject.toml","result_hash":"sha256:73f4f8e5b814b6e400623583f78ab20abf34e46fdf9525b4e005d255d8f2341b"},
+        {"path":"tests/test_exporting.py","result_hash":"sha256:a6b457853d5acc7b37bfba87771fef84de5b47691f55d42c4c188cc682153a18"}
+      ]
+    }
+  ]
+}

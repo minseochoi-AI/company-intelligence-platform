@@ -1,0 +1,75 @@
+{
+  "contract_version": "atomic-json-patch-receipt-v1",
+  "target": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/03-d-03-search-profile-and-discovery.json",
+  "outcome": "pass",
+  "before_sha256": "5c13c69763525993c84708e172a56e92dcf6dd597fc287c1116da94b4f465f96",
+  "after_sha256": "4039e245d7f999c383a0933f0e96c39d96a9fc6a286418f571a72796a17aadc9",
+  "proposed_after_sha256": "4039e245d7f999c383a0933f0e96c39d96a9fc6a286418f571a72796a17aadc9",
+  "operations": [
+    {
+      "op": "test",
+      "path": "/dependencies"
+    },
+    {
+      "op": "test",
+      "path": "/facts"
+    },
+    {
+      "op": "test",
+      "path": "/unimplemented"
+    },
+    {
+      "op": "test",
+      "path": "/implementation_targets"
+    },
+    {
+      "op": "test",
+      "path": "/validation_requirements"
+    },
+    {
+      "op": "test",
+      "path": "/context_topic_ids"
+    },
+    {
+      "op": "replace",
+      "path": "/dependencies"
+    },
+    {
+      "op": "replace",
+      "path": "/facts"
+    },
+    {
+      "op": "replace",
+      "path": "/unimplemented"
+    },
+    {
+      "op": "replace",
+      "path": "/implementation_targets"
+    },
+    {
+      "op": "replace",
+      "path": "/validation_requirements"
+    },
+    {
+      "op": "replace",
+      "path": "/context_topic_ids"
+    }
+  ],
+  "backup": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/.mutation-journal/preimages/sha256-5c13c69763525993c84708e172a56e92dcf6dd597fc287c1116da94b4f465f96.json",
+  "journal": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/.mutation-journal/mutations/2188373e13af19e4b67c67bf0e551e4ebb78b0bfb3b24d1bbcd951c07d426326.json",
+  "mutation_id": "amend-d03-actual-discovery-contract-20260911",
+  "validators": [
+    {
+      "command": [
+        "/usr/bin/python3",
+        "-m",
+        "json.tool",
+        "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/03-d-03-search-profile-and-discovery.json"
+      ],
+      "returncode": 0,
+      "stdout_tail": "   \"\\ud5c8\\uc6a9\\ub418\\uc9c0 \\uc54a\\uc740 source, \\ub9cc\\ub8cc \\uacf5\\uace0 \\ub610\\ub294 identity_unresolved \\ub808\\ucf54\\ub4dc\\uac00 \\ud68c\\uc0ac \\ud6c4\\ubcf4\\uc5d0 \\ub4e4\\uc5b4\\uac00\\uc9c0 \\uc54a\\ub294\\uc9c0 \\uac80\\uc99d\\ud55c\\ub2e4.\",\n        \"\\uac01 \\ud6c4\\ubcf4\\uc5d0 matching rule version\\u00b7source evidence\\u00b7company_match_confidence\\u00b7capability summary \\ub610\\ub294 \\uc81c\\uc678 \\uc0ac\\uc720\\uac00 \\uc788\\ub294\\uc9c0 \\uac80\\uc99d\\ud55c\\ub2e4.\",\n        \"\\uad6d\\uac00\\ubcc4 \\ub370\\uc774\\ud130 \\ubd80\\uc871\\uc73c\\ub85c \\uc694\\uccad \\uac1c\\uc218\\ub97c \\ucc44\\uc6b0\\uc9c0 \\ubabb\\ud560 \\ub54c \\ub2e4\\ub978 \\uad6d\\uac00\\ub098 \\uc784\\uc758 \\uae30\\uc5c5\\uc73c\\ub85c \\ubcf4\\ucda9\\ud558\\uc9c0 \\uc54a\\uace0 shortage\\ub97c \\ubc18\\ud658\\ud558\\ub294\\uc9c0 \\uac80\\uc99d\\ud55c\\ub2e4.\"\n    ],\n    \"diagram_impacts\": [\n        \"SearchProfile \\uc785\\ub825 \\u2192 source-aware candidate discovery \\u2192 identity resolution \\u2192 capability filter \\u2192 \\uc124\\uba85 \\uac00\\ub2a5\\ud55c \\ud6c4\\ubcf4\\u00b7\\uc81c\\uc678 \\uacb0\\uacfc \\ud750\\ub984\\uc744 \\ud6c4\\uc18d \\ub2e4\\uc774\\uc5b4\\uadf8\\ub7a8\\uc5d0 \\ubc18\\uc601\\ud55c\\ub2e4.\"\n    ],\n    \"context_topic_ids\": [\n        \"search-career-evidence\"\n    ]\n}\n",
+      "stderr_tail": ""
+    }
+  ],
+  "completed_at": "2026-09-11T06:01:52.924839+00:00"
+}

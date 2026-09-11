@@ -1,0 +1,35 @@
+{
+  "contract_version": "atomic-json-patch-receipt-v1",
+  "target": "/home/ubuntu/root/company-intelligence-platform/docs/implementation-context-index.json",
+  "outcome": "pass",
+  "before_sha256": "e569ca7feebf743654a8a12489e54510b14a6c5b8cd3d36c54fa14f4a4e01423",
+  "after_sha256": "757e80467a5179ca215f3c6ebe43483d7a7f4d1046691d7d1c0d58c55f5665ec",
+  "proposed_after_sha256": "757e80467a5179ca215f3c6ebe43483d7a7f4d1046691d7d1c0d58c55f5665ec",
+  "operations": [
+    {
+      "op": "test",
+      "path": "/topics"
+    },
+    {
+      "op": "replace",
+      "path": "/topics"
+    }
+  ],
+  "backup": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/.mutation-journal/preimages/sha256-e569ca7feebf743654a8a12489e54510b14a6c5b8cd3d36c54fa14f4a4e01423.json",
+  "journal": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/.mutation-journal/mutations/dda397364354e3558386985dd4c75d0b09beeaf98359515a0d41233953d64965.json",
+  "mutation_id": "amend-context-index-20260911",
+  "validators": [
+    {
+      "command": [
+        "/usr/bin/python3",
+        "-m",
+        "json.tool",
+        "/home/ubuntu/root/company-intelligence-platform/docs/implementation-context-index.json"
+      ],
+      "returncode": 0,
+      "stdout_tail": "     ],\n            \"code_entry_points\": [\n                \"src/company_intel/reporting.py\",\n                \"src/company_intel/security.py\",\n                \"src/company_intel/warehouse.py\",\n                \"src/company_intel/api.py\",\n                \"src/company_intel/cli.py\",\n                \"pyproject.toml\"\n            ],\n            \"test_entry_points\": [\n                \"tests/test_exporting.py\",\n                \"tests/test_security.py\"\n            ],\n            \"invariants\": [\n                \"CSV bundle\\uc774 \\uae30\\uc900 \\uacc4\\uc57d\\uc774\\uace0 XLSX\\ub294 \\ub3d9\\uc77c row key\\uc640 header version\\uc744 \\ub80c\\ub354\\ub9c1\\ud55c\\ub2e4.\",\n                \"\\ubaa8\\ub4e0 \\uc0ac\\uc6a9\\uc790 \\ud589\\uc740 source \\ub610\\ub294 exclusion\\uc73c\\ub85c \\ucd94\\uc801 \\uac00\\ub2a5\\ud574\\uc57c \\ud55c\\ub2e4.\",\n                \"\\ube44\\ubc00\\u00b7\\uac1c\\uc778\\uc815\\ubcf4\\u00b7\\uc7ac\\ubc30\\ud3ec \\uc81c\\ud55c \\uc6d0\\ubb38\\uc740 export\\uc5d0 \\ud3ec\\ud568\\ud558\\uc9c0 \\uc54a\\ub294\\ub2e4.\",\n                \"\\ub3d9\\uc77c profile\\u00b7snapshot\\u00b7as_of \\uc785\\ub825\\uc740 \\uacb0\\uc815\\ub860\\uc801 \\ud30c\\uc77c \\ud574\\uc2dc\\ub97c \\uc0dd\\uc131\\ud574\\uc57c \\ud55c\\ub2e4.\"\n            ]\n        }\n    ]\n}\n",
+      "stderr_tail": ""
+    }
+  ],
+  "completed_at": "2026-09-11T06:03:02.052850+00:00"
+}

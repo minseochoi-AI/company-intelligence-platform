@@ -1,0 +1,13 @@
+{
+  "scenario_id": "C-03-evidence-export-delivery:C-03-export-tests",
+  "cohort_id": "C-03-evidence-export-delivery",
+  "criterion_id": "C-03-export-tests",
+  "plan_sha256": "7eced62ade8fb756b22e7e4763fb3f8789403b8b0721fcea4618827911148ffe",
+  "command": null,
+  "outcome": "blocked",
+  "first_failure": "blocked by: C-02-search-requirement-evidence",
+  "raw_log_path": ".runtime/campaign-orchestrator/company-intelligence-cross-region-career-preparation/validation/C-03-evidence-export-delivery:C-03-export-tests.log",
+  "raw_log_sha256": "23a803b9789a431178105d3ffaef502703c1ee1c4bea3a876f0998da80a59358",
+  "tail": "blocked by: C-02-search-requirement-evidence",
+  "completed_at": "2026-09-11T07:27:55.147010+00:00"
+}

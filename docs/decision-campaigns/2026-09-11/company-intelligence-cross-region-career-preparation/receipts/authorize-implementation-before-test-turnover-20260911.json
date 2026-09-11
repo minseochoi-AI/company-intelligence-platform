@@ -1,0 +1,33 @@
+{
+  "contract_version": "campaign-combined-authorization-v1",
+  "campaign_id": "company-intelligence-cross-region-career-preparation",
+  "campaign_path": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/campaign.json",
+  "scope_lock_path": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/scope-lock.json",
+  "scope_lock_sha256": "f1c5c8527bd4c267afcdcb86efeb727e90ac45327646118fa61ab8e073db99a8",
+  "authorized_by": "user",
+  "authorized_at": "2026-09-11T07:01:36.013986+00:00",
+  "authorization_text": "이제 구체적으로 코드 수정구현하고 테스트 전 턴오버 해. 결속된 C-01, C-02, C-03 plan SHA에 한해 repository-local 구현을 승인하며, 테스트와 외부 API 호출·커밋·푸시는 수행하지 않는다.",
+  "authorization_text_sha256": "1ac07bfcf307831727466afeba630524646747831f3173d8a807632b2dbd2094",
+  "authorized_plan_refs": [
+    {
+      "cohort_id": "C-01-source-identity-foundation",
+      "plan_id": "company-intelligence-cross-region-career-preparation--C-01-source-identity-foundation--r1",
+      "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/implementation-plans/C-01-source-identity-foundation.json",
+      "sha256": "c8b5c8c96de5d900195abc2528b9ceb2762a7ecad73c2a475ab5e28148d284b6"
+    },
+    {
+      "cohort_id": "C-02-search-requirement-evidence",
+      "plan_id": "company-intelligence-cross-region-career-preparation--C-02-search-requirement-evidence--r1",
+      "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/implementation-plans/C-02-search-requirement-evidence.json",
+      "sha256": "88b644caebcf290de5296ac93c01638305224e188ca45598ed72ab07634b5daf"
+    },
+    {
+      "cohort_id": "C-03-evidence-export-delivery",
+      "plan_id": "company-intelligence-cross-region-career-preparation--C-03-evidence-export-delivery--r1",
+      "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/implementation-plans/C-03-evidence-export-delivery.json",
+      "sha256": "7eced62ade8fb756b22e7e4763fb3f8789403b8b0721fcea4618827911148ffe"
+    }
+  ],
+  "stop_before_validation": true,
+  "external_actions_authorized": false
+}

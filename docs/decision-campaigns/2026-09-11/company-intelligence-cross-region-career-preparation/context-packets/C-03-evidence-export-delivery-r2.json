@@ -1,0 +1,68 @@
+{
+  "contract_version": "implementation-context-packet-v2",
+  "packet_id": "C-03-evidence-export-delivery-packet-202de238f220",
+  "topics": [
+    "evidence-export"
+  ],
+  "capability_ids": [
+    "verdict-separated-export",
+    "source-lineage",
+    "csv-xlsx-parity",
+    "export-redaction"
+  ],
+  "required_refs": [
+    {
+      "ref_id": "export-current",
+      "role": "must-read",
+      "path": "src/company_intel/exporting.py",
+      "content_hash": "sha256:baf639878d180901ba4e883b4524d9dcf24d69f132114c37c859b353e931485d",
+      "line_range": "1-320",
+      "question": "현재 export가 5상태와 원천 lineage를 분리하는가?",
+      "observation_summary": "기존 표는 생성되지만 strict/unverifiable/conflict 분리와 operation/raw SHA 수준 provenance가 부족하다."
+    },
+    {
+      "ref_id": "security-current-r2",
+      "role": "must-read",
+      "path": "src/company_intel/security.py",
+      "content_hash": "sha256:7264c2c705d4a0f57fad90193c551d955da455011aae49eae8cda4ddbef9b422",
+      "line_range": "1-180",
+      "question": "공고 원문·PII·수식·secret을 안전하게 내보낼 수 있는가?",
+      "observation_summary": "기본 sanitizer는 있으나 신규 verdict/source 테이블 전체에 일관되게 적용하는 검증이 필요하다."
+    }
+  ],
+  "current_entry_points": [
+    {
+      "kind": "code",
+      "path": "src/company_intel/exporting.py",
+      "symbol": "TABLE_HEADERS",
+      "source_hash": "sha256:baf639878d180901ba4e883b4524d9dcf24d69f132114c37c859b353e931485d"
+    },
+    {
+      "kind": "code",
+      "path": "src/company_intel/reporting.py",
+      "symbol": "render_export_summary",
+      "source_hash": "sha256:d29597658dc2bec27e69e0f3a82bcf6f6c4900316ad60b675340ca9783969232"
+    },
+    {
+      "kind": "code",
+      "path": "src/company_intel/security.py",
+      "symbol": "sanitize_export_value",
+      "source_hash": "sha256:7264c2c705d4a0f57fad90193c551d955da455011aae49eae8cda4ddbef9b422"
+    },
+    {
+      "kind": "test",
+      "path": "tests/test_exporting.py",
+      "symbol": "test_verdict_tables",
+      "source_hash": "sha256:a6b457853d5acc7b37bfba87771fef84de5b47691f55d42c4c188cc682153a18"
+    }
+  ],
+  "planned_entry_points": [],
+  "external_entry_points": [],
+  "invariants": [
+    "모든 사용자 행은 source 또는 exclusion/verdict로 추적된다.",
+    "원문·PII·secret은 기본 export에 포함하지 않는다.",
+    "CSV와 XLSX는 동일 row key를 사용한다."
+  ],
+  "unresolved_conflicts": [],
+  "resume_digest": "Prepared C-03-evidence-export-delivery from current decision hashes and one global file-ownership graph."
+}

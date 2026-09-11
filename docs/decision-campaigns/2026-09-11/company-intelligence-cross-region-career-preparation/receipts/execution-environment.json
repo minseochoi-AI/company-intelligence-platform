@@ -1,0 +1,106 @@
+{
+  "campaign_id": "company-intelligence-cross-region-career-preparation",
+  "captured_at": "2026-09-11T02:31:36.723734+00:00",
+  "configuration_sources": {
+    "bge_evidence": {
+      "ADK_BGE_EVIDENCE_INDEX_URI": {
+        "present": false,
+        "source": null,
+        "value_emitted": false
+      },
+      "ADK_BGE_TEXT_EMBEDDING_BASE_URL": {
+        "present": false,
+        "source": null,
+        "value_emitted": false
+      },
+      "ready": false,
+      "requires": [
+        "ADK_BGE_TEXT_EMBEDDING_BASE_URL",
+        "ADK_BGE_EVIDENCE_INDEX_URI",
+        "fresh citation-bound evidence corpus"
+      ]
+    },
+    "env_files": [],
+    "gemma_google_search": {
+      "GEMMA_GROUNDING_ENABLED": false,
+      "activation": "set GEMMA_GROUNDING_ENABLED=true in the bounded live-run environment; never persist the key value",
+      "ready": false,
+      "requires": [
+        "GOOGLE_API_KEY|GEMINI_API_KEY",
+        "GEMMA_GROUNDING_ENABLED=true"
+      ]
+    },
+    "google_ads": {
+      "GOOGLE_ADS_CUSTOMER_ID": {
+        "present": false,
+        "source": null,
+        "value_emitted": false
+      },
+      "configuration_file_readable": false,
+      "configuration_file_supplied": false,
+      "ready": false,
+      "runtime_argument_path": "pass --ads-config <protected profile> and --ads-customer-id <operator value> to the Phase 0 live probe; do not store the customer ID"
+    },
+    "google_genai": {
+      "GEMINI_API_KEY": {
+        "present": true,
+        "source": "process",
+        "value_emitted": false
+      },
+      "GOOGLE_API_KEY": {
+        "present": true,
+        "source": "process",
+        "value_emitted": false
+      },
+      "ready": true
+    },
+    "missing_env_files": [],
+    "youtube_data": {
+      "YOUTUBE_API_KEY": {
+        "present": false,
+        "source": null,
+        "value_emitted": false
+      },
+      "ready": false
+    }
+  },
+  "credential_values_emitted": false,
+  "media_policy": {
+    "bytes_acquisition": "intentionally-disabled",
+    "strategy": "SEMANTIC_ONLY"
+  },
+  "repository": {
+    "cwd_matches_root": true,
+    "invocation_cwd": "/home/ubuntu/root/company-intelligence-platform",
+    "root": "/home/ubuntu/root/company-intelligence-platform"
+  },
+  "resume": {
+    "campaign_path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/campaign.json",
+    "criteria": [],
+    "known_blockers": [
+      "pytest module is unavailable in the selected system Python; repository dev dependencies were not installed"
+    ],
+    "rule": "Run local criteria first, then provider-backed criteria only with current plan-hash approval; record each attempt separately."
+  },
+  "runtime": {
+    "command_prefix": "uv run --frozen",
+    "requires_python": ">=3.11",
+    "uv_cache_dir": null,
+    "uv_executable": "/home/ubuntu/.local/bin/uv",
+    "uv_lock_path": "uv.lock",
+    "uv_lock_sha256": null,
+    "uv_version": "uv 0.10.11",
+    "venv_python": "/home/ubuntu/root/company-intelligence-platform/.venv/bin/python",
+    "venv_python_exists": false,
+    "venv_python_version": null
+  },
+  "sandbox_network": {
+    "current_mode": "sandbox-dns-blocked; external-git-access-verified",
+    "interpretation": "network mode describes the runner boundary only; provider success requires a new receipt",
+    "previous_observations": [
+      "sandbox git ls-remote could not resolve github.com",
+      "escalated git ls-remote succeeded"
+    ]
+  },
+  "schema_version": "campaign-execution-environment-v1"
+}

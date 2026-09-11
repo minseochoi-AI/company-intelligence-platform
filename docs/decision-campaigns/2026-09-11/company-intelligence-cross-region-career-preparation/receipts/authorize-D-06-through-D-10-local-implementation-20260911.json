@@ -1,0 +1,33 @@
+{
+  "contract_version": "campaign-combined-authorization-v1",
+  "campaign_id": "company-intelligence-cross-region-career-preparation",
+  "campaign_path": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/campaign.json",
+  "scope_lock_path": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/scope-lock.json",
+  "scope_lock_sha256": "56439c3eb2c3d630cc34b2165c149845a04f3a3677c03d39543978b8b9375059",
+  "authorized_by": "user",
+  "authorized_at": "2026-09-11T09:54:02.306976+00:00",
+  "authorization_text": "D-06~D-10 권장안 B APPROVE, 로컬 구현",
+  "authorization_text_sha256": "ef8a16dce9e1c17cc8378486290e4ecd04df27c5d30db0b27620cb88eea08624",
+  "authorized_plan_refs": [
+    {
+      "cohort_id": "C-04-peer-screener-ranking",
+      "plan_id": "company-intelligence-cross-region-career-preparation--C-04-peer-screener-ranking--r1",
+      "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/implementation-plans/C-04-peer-screener-ranking.json",
+      "sha256": "ad5501d7d4b1ef82a720135929c5330f165aeb0604d961e063e8bad8d21333be"
+    },
+    {
+      "cohort_id": "C-05-timeline-valuation-event-analysis",
+      "plan_id": "company-intelligence-cross-region-career-preparation--C-05-timeline-valuation-event-analysis--r1",
+      "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/implementation-plans/C-05-timeline-valuation-event-analysis.json",
+      "sha256": "367805654026b42a923be38b5084c4591a638fe484b5dfa10ed9cdb197c7c193"
+    },
+    {
+      "cohort_id": "C-06-job-availability-filtered-discovery",
+      "plan_id": "company-intelligence-cross-region-career-preparation--C-06-job-availability-filtered-discovery--r1",
+      "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/implementation-plans/C-06-job-availability-filtered-discovery.json",
+      "sha256": "daba7054b70c72723918ad0ef32c919ba49c02b3549e411921661158812a1f5f"
+    }
+  ],
+  "stop_before_validation": false,
+  "external_actions_authorized": false
+}

@@ -1,0 +1,47 @@
+{
+  "contract_version": "atomic-json-patch-receipt-v1",
+  "target": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/03-d-03-search-profile-and-discovery.json",
+  "outcome": "pass",
+  "before_sha256": "6a230e04da8122d5c75a966f85c66d2a9e8be1c24da5e3270927782b7d30161d",
+  "after_sha256": "5c13c69763525993c84708e172a56e92dcf6dd597fc287c1116da94b4f465f96",
+  "proposed_after_sha256": "5c13c69763525993c84708e172a56e92dcf6dd597fc287c1116da94b4f465f96",
+  "operations": [
+    {
+      "op": "test",
+      "path": "/five_w_one_h/how"
+    },
+    {
+      "op": "test",
+      "path": "/facts"
+    },
+    {
+      "op": "test",
+      "path": "/unimplemented"
+    },
+    {
+      "op": "test",
+      "path": "/validation_requirements"
+    },
+    {
+      "op": "replace",
+      "path": "/five_w_one_h/how"
+    },
+    {
+      "op": "replace",
+      "path": "/facts"
+    },
+    {
+      "op": "replace",
+      "path": "/unimplemented"
+    },
+    {
+      "op": "replace",
+      "path": "/validation_requirements"
+    }
+  ],
+  "backup": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/.mutation-journal/preimages/sha256-6a230e04da8122d5c75a966f85c66d2a9e8be1c24da5e3270927782b7d30161d.json",
+  "journal": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/.mutation-journal/mutations/53c9f75abec158f54e29a30a96f7df677f56c43b188c24b75eaf0f240a7b2af7.json",
+  "mutation_id": "DISCUSS-D03-forward-test-refinement-v1",
+  "validators": [],
+  "completed_at": "2026-09-11T02:30:51.670187+00:00"
+}

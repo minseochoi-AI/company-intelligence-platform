@@ -54,3 +54,24 @@ def validation_report_ko(payload: dict[str, Any]) -> str:
 def write_validation_report(path: Path, payload: dict[str, Any]) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(validation_report_ko(payload), encoding="utf-8")
+
+
+def render_export_summary(manifest: dict[str, Any], *, unavailable_count: int = 0) -> str:
+    lines = ["# 기업·채용 근거 내보내기", "", f"- 형식 버전: `{manifest.get('format_version')}`", f"- 생성 시각: `{manifest.get('generated_at')}`", f"- 요건 미확인/제한 행: **{unavailable_count}**", "", "## 파일", ""]
+    for item in manifest.get("files", []):
+        lines.append(f"- `{item['name']}` — SHA-256 `{item['sha256']}`")
+    lines.extend(["", "## 안내", "", "- CSV bundle이 기준 계약이며 XLSX는 동일 테이블의 표시 형식이다.", "- 자격요건에 원천 URL 또는 제외 사유가 없으면 확정 요건으로 해석하지 않는다."])
+    return "\n".join(lines) + "\n"
+
+
+def render_verdict_counts(*, matched: int, no_match: int, unverifiable: int, conflict: int) -> str:
+    return f"일치 {matched}, 불일치 {no_match}, 검증불가 {unverifiable}, 충돌 {conflict}"
+
+
+def render_provider_limitations(sources: list[dict[str, object]]) -> list[str]:
+    return [f"{row.get('provider', 'unknown')}: {row.get('limitations', '제한 정보 없음')}" for row in sources]
+
+
+def write_export_summary(path: Path, manifest: dict[str, Any], *, unavailable_count: int = 0) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(render_export_summary(manifest, unavailable_count=unavailable_count), encoding="utf-8")

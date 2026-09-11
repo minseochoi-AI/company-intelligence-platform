@@ -1,0 +1,14 @@
+{
+  "scenario_id": "C-01-source-identity-foundation:C-01-classification-tests",
+  "cohort_id": "C-01-source-identity-foundation",
+  "criterion_id": "C-01-classification-tests",
+  "plan_sha256": "c8b5c8c96de5d900195abc2528b9ceb2762a7ecad73c2a475ab5e28148d284b6",
+  "command": "uv run --frozen pytest tests/test_classification.py -q",
+  "outcome": "pass",
+  "returncode": 0,
+  "first_failure": null,
+  "raw_log_path": ".runtime/campaign-orchestrator/company-intelligence-cross-region-career-preparation/validation/C-01-source-identity-foundation__C-01-classification-tests.log",
+  "raw_log_sha256": "bf22e88f0e3a0e89eddb09d252b1661a48c9dfc4bd5aa177b5efca41f2700a18",
+  "tail": "...                                                                      [100%]\n3 passed in 0.02s\n",
+  "completed_at": "2026-09-11T07:29:46.838173+00:00"
+}

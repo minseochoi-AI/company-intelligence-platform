@@ -1,0 +1,13 @@
+{
+  "contract_version": "atomic-json-mutation-journal-v1",
+  "mutation_id": "approve-D-02-company-capability-taxonomy-20260911",
+  "target": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/02-d-02-company-capability-taxonomy.json",
+  "status": "validated",
+  "before_sha256": "e37ca8dae014a848e23619fa2745648ffd1b7ffbdca3dc32c6479416df5c9937",
+  "proposed_after_sha256": "93f47ff26c63cf8d05502d4515b1dba95edca8b12bfac1ec37c5353c6b46a17b",
+  "preimage_path": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/.mutation-journal/preimages/sha256-e37ca8dae014a848e23619fa2745648ffd1b7ffbdca3dc32c6479416df5c9937.json",
+  "patch_source": "inline-semantic-arguments",
+  "patch_sha256": "a313e3bd9c865104474ae40cc476e4a6a1d93f6d619f1ab7b328e920c9226409",
+  "updated_at": "2026-09-11T06:25:50.883487+00:00",
+  "observed_after_sha256": "93f47ff26c63cf8d05502d4515b1dba95edca8b12bfac1ec37c5353c6b46a17b"
+}

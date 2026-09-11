@@ -1,0 +1,68 @@
+{
+  "schema_version": "1.0.0",
+  "topics": [
+    {
+      "topic_id": "source-identity-capability",
+      "description": "실제 API 응답 의미, 공급자 용도 클러스터, 손실 없는 원자 fact, 법인 식별 및 분석 적격성 계약",
+      "capability_ids": ["semantic-provider-contract", "lossless-normalization", "provider-clustering", "entity-resolution", "five-state-availability"],
+      "refs": [
+        {"ref_id":"semantic-audit","role":"must-read","path":"/home/ubuntu/.codex/attachments/5602dc52-29e5-4b64-93b8-365e045a58a4/pasted-text.txt","content_hash":"sha256:b09f773da9535a05e20ea8e6298fb218e227f90c926e34bc191eefa758b74844","line_range":"1-591","question":"실제 반환물에서 어떤 의미 위반과 검색 불가 조합이 확인됐는가?","observation_summary":"HTTP 성공과 의미 사용 가능성은 다르며 28개 operation을 역할별로 격리하고 MATCH/NO_MATCH/UNKNOWN/CONFLICT/NOT_APPLICABLE을 분리해야 한다."},
+        {"ref_id":"providers-r2-current","role":"must-read","path":"config/providers.json","content_hash":"sha256:d8d0f64418df17737cee247f1ff9f2eb50ac9b316371d3cda2d04f39db572e64","line_range":"1-49","question":"현재 operation과 field contract는 어떻게 선언되는가?","observation_summary":"고정 검증 probe와 production 검색 source가 혼재하며 ALIO·OECD·IMF·World Bank 계약 교정이 필요하다."},
+        {"ref_id":"validation-current","role":"must-read","path":"src/company_intel/validation.py","content_hash":"sha256:0d9a12a86a8ac272140f4759d6f62b8bc8f99a76a64bc590202d42b6b2c3919d","line_range":"1-205","question":"현재 pass가 값의 의미와 완전성을 보장하는가?","observation_summary":"required path 존재만 확인하므로 null, 빈 값, 잘못된 자료형과 의미 위반이 통과할 수 있다."},
+        {"ref_id":"compact-current","role":"must-read","path":"src/company_intel/connectors/base.py","content_hash":"sha256:b4e9a42028123d2575c780d3d9b6198bf4b27d383ed5572386891838308b7cd8","line_range":"1-61","question":"정규화 결과가 모든 관측을 보존하는가?","observation_summary":"compact는 목록 5개와 깊이 3에서 데이터를 축약하므로 preview에는 적합하지만 검색·분석 입력에는 부적합하다."}
+      ],
+      "code_entry_points": ["config/providers.json", "src/company_intel/connectors/base.py", "src/company_intel/connectors/keyed.py", "src/company_intel/connectors/keyless.py", "src/company_intel/source_catalog.py", "src/company_intel/validation.py"],
+      "test_entry_points": ["tests/test_source_catalog.py", "tests/test_public_connectors.py", "tests/test_classification.py"],
+      "invariants": ["HTTP 200은 semantic-ready와 동의어가 아니다.", "preview 축약물은 검색·분석 입력이 아니다.", "고정 회사 probe를 production discovery로 승격하지 않는다.", "법인 ID와 시점·단위가 불완전하면 분석 적격성을 부여하지 않는다."]
+    },
+    {
+      "topic_id": "search-career-evidence",
+      "description": "직무·위치·계약·급여·언어·요건을 원자 축으로 분리하고 5상태로 판정하는 CLI 검색 계약",
+      "capability_ids": ["atomic-search-profile", "five-state-verdict", "multi-location-search", "requirement-evidence", "unverifiable-candidates"],
+      "refs": [
+        {"ref_id":"semantic-audit-search","role":"must-read","path":"/home/ubuntu/.codex/attachments/5602dc52-29e5-4b64-93b8-365e045a58a4/pasted-text.txt","content_hash":"sha256:b09f773da9535a05e20ea8e6298fb218e227f90c926e34bc191eefa758b74844","line_range":"250-591","question":"현재 17개 검색변수의 의미 충돌과 검사 불가 조합은 무엇인가?","observation_summary":"제목과 본문, 공고언어와 요구언어, 근로시간과 계약기간, 미확인과 불일치를 분리해야 한다."},
+        {"ref_id":"job-search-current","role":"must-read","path":"src/company_intel/job_search.py","content_hash":"sha256:183851a950d90c7ffdf878c28f4473fd01da4b55fce7571c5d818827a0f688f1","line_range":"1-617","question":"현재 provider 정규화와 필터는 어떤 의미 오류를 가진가?","observation_summary":"본문 전체 keyword, 단일 위치, Permanent→full-time, posting language 필터, unknown hard exclusion이 실제 사용자 의미와 충돌한다."},
+        {"ref_id":"career-requirements-current","role":"must-read","path":"src/company_intel/career_requirements.py","content_hash":"sha256:2eee38f22c88fff195e85102161f1d8f80c1d22c1ec3a0b7eecfc39c331ac47c","line_range":"1-260","question":"요건 근거 수준과 필요도가 어떻게 표현되는가?","observation_summary":"기본 경계는 있으나 자격증·법정면허·취업자격과 미추출 상태를 더 원자적으로 분리해야 한다."}
+      ],
+      "code_entry_points": ["src/company_intel/job_search.py", "src/company_intel/search.py", "src/company_intel/career_requirements.py", "src/company_intel/cli.py", "src/company_intel/api.py"],
+      "test_entry_points": ["tests/test_job_search.py", "tests/test_search_profile.py", "tests/test_career_requirements.py"],
+      "invariants": ["UNKNOWN은 NO_MATCH로 축약하지 않는다.", "직무 제목 검색과 설명문 기술 검색을 분리한다.", "공고언어와 지원자 요구언어를 분리한다.", "급여는 통화·기간·basis·gross/net·지역 tier가 비교 가능할 때만 정렬한다."]
+    },
+    {
+      "topic_id": "evidence-export",
+      "description": "엄격 일치·검사 불가·불일치·충돌을 관계형 CSV/XLSX와 manifest로 분리하는 계약",
+      "capability_ids": ["verdict-separated-export", "source-lineage", "csv-xlsx-parity", "export-redaction"],
+      "refs": [
+        {"ref_id":"export-current","role":"must-read","path":"src/company_intel/exporting.py","content_hash":"sha256:baf639878d180901ba4e883b4524d9dcf24d69f132114c37c859b353e931485d","line_range":"1-320","question":"현재 export가 5상태와 원천 lineage를 분리하는가?","observation_summary":"기존 표는 생성되지만 strict/unverifiable/conflict 분리와 operation/raw SHA 수준 provenance가 부족하다."},
+        {"ref_id":"security-current-r2","role":"must-read","path":"src/company_intel/security.py","content_hash":"sha256:7264c2c705d4a0f57fad90193c551d955da455011aae49eae8cda4ddbef9b422","line_range":"1-180","question":"공고 원문·PII·수식·secret을 안전하게 내보낼 수 있는가?","observation_summary":"기본 sanitizer는 있으나 신규 verdict/source 테이블 전체에 일관되게 적용하는 검증이 필요하다."}
+      ],
+      "code_entry_points": ["src/company_intel/exporting.py", "src/company_intel/reporting.py", "src/company_intel/security.py"],
+      "test_entry_points": ["tests/test_exporting.py"],
+      "invariants": ["모든 사용자 행은 source 또는 exclusion/verdict로 추적된다.", "원문·PII·secret은 기본 export에 포함하지 않는다.", "CSV와 XLSX는 동일 row key를 사용한다."]
+    },
+    {
+      "topic_id": "company-screening",
+      "description": "동일 국가·산업·규모·통화·기간·회계개념 cohort 안에서만 기업을 정렬하는 계약",
+      "capability_ids": ["comparable-peer-signature", "coverage-threshold", "metric-provenance", "ranking-exclusions"],
+      "refs": [
+        {"ref_id":"screening-current-r2","role":"must-read","path":"src/company_intel/screening.py","content_hash":"sha256:0bc9f5aa7df1287b465373dbb3d0df39711ab936b5406823b15696f7c6fd8b19","line_range":"1-80","question":"현재 peer group이 실제 fact comparability를 보장하는가?","observation_summary":"국가·산업·규모는 검사하지만 통화·기간·concept·vintage·coverage가 같은지 확인하지 않는다."},
+        {"ref_id":"semantic-audit-screening","role":"must-read","path":"/home/ubuntu/.codex/attachments/5602dc52-29e5-4b64-93b8-365e045a58a4/pasted-text.txt","content_hash":"sha256:b09f773da9535a05e20ea8e6298fb218e227f90c926e34bc191eefa758b74844","line_range":"420-591","question":"기업 정렬에 사용 금지인 provider 필드는 무엇인가?","observation_summary":"거시·조달·활동 proxy와 catalog metadata는 기업 재무 metric으로 점수화할 수 없다."}
+      ],
+      "code_entry_points": ["src/company_intel/screening.py", "src/company_intel/analytics.py"],
+      "test_entry_points": ["tests/test_screening.py"],
+      "invariants": ["비교 signature가 다른 기업은 같은 순위에 넣지 않는다.", "결측값을 0으로 대체하지 않는다.", "proxy를 재무 metric으로 승격하지 않는다."]
+    },
+    {
+      "topic_id": "time-value-events",
+      "description": "기업·시장·거시 관측을 point-in-time으로 정렬하고 가치·AI 사건 결론을 적격성으로 제한하는 계약",
+      "capability_ids": ["point-in-time-alignment", "series-signature", "valuation-evidence-gate", "event-causal-boundary"],
+      "refs": [
+        {"ref_id":"analysis-service-current-r2","role":"must-read","path":"src/company_intel/analysis_service.py","content_hash":"sha256:2520ae86cfa241bea157db92e7ef5a499c1f2e34dcebc9230f4e2f69e92b5b2b","line_range":"1-100","question":"현재 서비스가 원천별 관측 의미와 시점 적격성을 검증하는가?","observation_summary":"계산 경계는 있으나 손실된 macro normalization과 series signature를 입력 단계에서 차단하지 않는다."},
+        {"ref_id":"analytics-current-r2","role":"must-read","path":"src/company_intel/analytics.py","content_hash":"sha256:f4f76a87c9c7c2a226ff9164c783eb1c89beeed89c15cf1cc47346fe71a0f269","line_range":"1-360","question":"계산 결과가 예측·인과 확정으로 오해되지 않도록 제한되는가?","observation_summary":"기본 warning은 있으나 provider fact의 vintage·unit·adjustment·event evidence 적격성과 더 강하게 결속해야 한다."}
+      ],
+      "code_entry_points": ["src/company_intel/analysis_service.py", "src/company_intel/analytics.py"],
+      "test_entry_points": ["tests/test_analysis_service.py", "tests/test_analytics.py"],
+      "invariants": ["available_at 이후 정보는 과거 분석에 유입되지 않는다.", "actual·estimate·projection을 분리한다.", "GitHub/OpenAlex 활동은 AI 도입 사건의 직접 증거가 아니다.", "control이 없으면 association-only다."]
+    }
+  ]
+}

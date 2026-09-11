@@ -1,0 +1,13 @@
+{
+  "scenario_id": "C-02-search-requirement-evidence:C-02-requirement-tests",
+  "cohort_id": "C-02-search-requirement-evidence",
+  "criterion_id": "C-02-requirement-tests",
+  "plan_sha256": "88b644caebcf290de5296ac93c01638305224e188ca45598ed72ab07634b5daf",
+  "command": null,
+  "outcome": "blocked",
+  "first_failure": "blocked by: C-01-source-identity-foundation, C-02-search-tests",
+  "raw_log_path": ".runtime/campaign-orchestrator/company-intelligence-cross-region-career-preparation/validation/C-02-search-requirement-evidence:C-02-requirement-tests.log",
+  "raw_log_sha256": "1514ad4dc8e7da1373fe80c1716b14daeedc768d472119717429607a28952342",
+  "tail": "blocked by: C-01-source-identity-foundation, C-02-search-tests",
+  "completed_at": "2026-09-11T07:27:55.141194+00:00"
+}

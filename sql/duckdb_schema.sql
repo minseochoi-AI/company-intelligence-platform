@@ -194,3 +194,121 @@ CREATE TABLE IF NOT EXISTS api_call_log (
     error_type VARCHAR,
     error_message_redacted VARCHAR
 );
+
+CREATE TABLE IF NOT EXISTS identifier_mapping (
+    identifier_type VARCHAR NOT NULL,
+    identifier_value VARCHAR NOT NULL,
+    entity_id VARCHAR NOT NULL,
+    source VARCHAR NOT NULL,
+    confidence DOUBLE NOT NULL,
+    resolved_at TIMESTAMP WITH TIME ZONE NOT NULL,
+    PRIMARY KEY(identifier_type, identifier_value, entity_id, source)
+);
+
+CREATE TABLE IF NOT EXISTS company_source_capability (
+    entity_id VARCHAR NOT NULL,
+    operation_id VARCHAR NOT NULL,
+    capability VARCHAR NOT NULL,
+    status VARCHAR NOT NULL,
+    source_url VARCHAR,
+    available_at TIMESTAMP WITH TIME ZONE,
+    evidence_id BIGINT,
+    PRIMARY KEY(entity_id, operation_id, capability, available_at)
+);
+
+CREATE TABLE IF NOT EXISTS field_availability (
+    entity_id VARCHAR NOT NULL,
+    operation_id VARCHAR NOT NULL,
+    field_name VARCHAR NOT NULL,
+    status VARCHAR NOT NULL,
+    observation_date DATE,
+    available_at TIMESTAMP WITH TIME ZONE,
+    PRIMARY KEY(entity_id, operation_id, field_name, available_at)
+);
+
+CREATE TABLE IF NOT EXISTS classification_history (
+    entity_id VARCHAR NOT NULL,
+    classified_at TIMESTAMP WITH TIME ZONE NOT NULL,
+    capabilities_json JSON NOT NULL,
+    correlation_ready BOOLEAN NOT NULL,
+    causal_ready BOOLEAN NOT NULL,
+    reasons_json JSON NOT NULL,
+    PRIMARY KEY(entity_id, classified_at)
+);
+
+CREATE TABLE IF NOT EXISTS job_requirement (
+    provider VARCHAR NOT NULL,
+    job_id VARCHAR NOT NULL,
+    requirement_id VARCHAR NOT NULL,
+    text VARCHAR NOT NULL,
+    requirement_status VARCHAR NOT NULL,
+    evidence_scope VARCHAR NOT NULL,
+    source_url VARCHAR,
+    observed_at TIMESTAMP WITH TIME ZONE NOT NULL,
+    PRIMARY KEY(provider, job_id, requirement_id, observed_at)
+);
+
+CREATE TABLE IF NOT EXISTS credential_evidence (
+    requirement_id VARCHAR NOT NULL,
+    source_url VARCHAR NOT NULL,
+    source_kind VARCHAR NOT NULL,
+    excerpt VARCHAR,
+    collected_at TIMESTAMP WITH TIME ZONE NOT NULL,
+    PRIMARY KEY(requirement_id, source_url)
+);
+
+CREATE TABLE IF NOT EXISTS requirement_verification (
+    requirement_id VARCHAR NOT NULL,
+    verification_status VARCHAR NOT NULL,
+    verification_reason VARCHAR,
+    verified_at TIMESTAMP WITH TIME ZONE NOT NULL,
+    PRIMARY KEY(requirement_id, verified_at)
+);
+
+-- Atomic source lineage.  These records retain the meaning needed before any
+-- DataFrame merge or company-level ranking.
+CREATE TABLE IF NOT EXISTS source_snapshot (
+    snapshot_id VARCHAR PRIMARY KEY,
+    operation_id VARCHAR NOT NULL,
+    collected_at TIMESTAMP WITH TIME ZONE NOT NULL,
+    source_url VARCHAR,
+    raw_sha256 VARCHAR NOT NULL,
+    coverage VARCHAR,
+    disposition VARCHAR NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS atomic_fact (
+    fact_id VARCHAR PRIMARY KEY,
+    entity_id VARCHAR,
+    operation_id VARCHAR NOT NULL,
+    fact_key VARCHAR NOT NULL,
+    value_json JSON,
+    unit VARCHAR,
+    currency VARCHAR,
+    period VARCHAR,
+    concept VARCHAR,
+    available_at TIMESTAMP WITH TIME ZONE,
+    source_url VARCHAR,
+    raw_record_id VARCHAR,
+    snapshot_id VARCHAR NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS search_verdict (
+    verdict_id VARCHAR PRIMARY KEY,
+    subject_type VARCHAR NOT NULL,
+    subject_id VARCHAR NOT NULL,
+    field_name VARCHAR NOT NULL,
+    verdict VARCHAR NOT NULL,
+    reason VARCHAR,
+    observed_value VARCHAR,
+    created_at TIMESTAMP WITH TIME ZONE NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS fact_revision (
+    fact_id VARCHAR NOT NULL,
+    revision_at TIMESTAMP WITH TIME ZONE NOT NULL,
+    available_at TIMESTAMP WITH TIME ZONE,
+    value_json JSON,
+    source_snapshot_id VARCHAR NOT NULL,
+    PRIMARY KEY(fact_id, revision_at)
+);

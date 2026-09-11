@@ -1,0 +1,851 @@
+{
+  "contract_version": "campaign-change-graph-v1",
+  "campaign_id": "company-intelligence-cross-region-career-preparation",
+  "operations": [
+    {
+      "path": "config/providers.json",
+      "owner_cohort_id": "C-01-source-identity-foundation",
+      "change_id": "file-change-e1e3c60c9a87",
+      "operation": "MODIFY",
+      "contribution_refs": [
+        {
+          "decision_id": "D-01-source-access-policy",
+          "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/01-d-01-source-access-policy.json",
+          "sha256": "sha256:0f46f8e8e8d8e895a1df8ad86394dce34c2446c0f5c63b9c46ad4df458c6ec54",
+          "symbols": [
+            "providers",
+            "atomic_operations",
+            "activation_policy"
+          ],
+          "intent_change_ids": [
+            "D-01-source-access-policy-provider-catalog"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "pyproject.toml",
+      "owner_cohort_id": "C-03-evidence-export-delivery",
+      "change_id": "file-change-50c86b7ed8ac",
+      "operation": "MODIFY",
+      "contribution_refs": [
+        {
+          "decision_id": "D-05-spreadsheet-output-contract",
+          "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/05-d-05-spreadsheet-output-contract.json",
+          "sha256": "sha256:a124f06f0256ef1386a9e65a81901449202e22fb3fd49fbd1c4c704db555ca05",
+          "symbols": [
+            "project.dependencies",
+            "openpyxl"
+          ],
+          "intent_change_ids": [
+            "D-05-spreadsheet-output-contract-dependency"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "sql/duckdb_schema.sql",
+      "owner_cohort_id": "C-01-source-identity-foundation",
+      "change_id": "file-change-538214ac8333",
+      "operation": "MODIFY",
+      "contribution_refs": [
+        {
+          "decision_id": "D-02-company-capability-taxonomy",
+          "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/02-d-02-company-capability-taxonomy.json",
+          "sha256": "sha256:e774d309da77407e7cae424933afa16d9b439d3d060df445a502ff478107a985",
+          "symbols": [
+            "company_source_capability",
+            "identifier_mapping",
+            "field_availability",
+            "classification_history",
+            "job_requirement",
+            "credential_evidence",
+            "requirement_verification",
+            "source_excerpt"
+          ],
+          "intent_change_ids": [
+            "D-02-company-capability-taxonomy-warehouse-schema"
+          ]
+        },
+        {
+          "decision_id": "D-04-career-requirement-verification",
+          "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/04-d-04-career-requirement-verification.json",
+          "sha256": "sha256:5932142a7b708f16a69192359465f941caf41a6a8ec2c6a5c974b20db8fad62a",
+          "symbols": [
+            "company_source_capability",
+            "identifier_mapping",
+            "field_availability",
+            "classification_history",
+            "job_requirement",
+            "credential_evidence",
+            "requirement_verification",
+            "source_excerpt"
+          ],
+          "intent_change_ids": [
+            "D-04-career-requirement-verification-warehouse-schema"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "src/company_intel/api.py",
+      "owner_cohort_id": "C-02-search-requirement-evidence",
+      "change_id": "file-change-71ee7f968ed8",
+      "operation": "MODIFY",
+      "contribution_refs": [
+        {
+          "decision_id": "D-02-company-capability-taxonomy",
+          "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/02-d-02-company-capability-taxonomy.json",
+          "sha256": "sha256:e774d309da77407e7cae424933afa16d9b439d3d060df445a502ff478107a985",
+          "symbols": [
+            "get_company_capabilities",
+            "get_field_availability",
+            "get_analysis_exclusions",
+            "search_companies",
+            "SearchProfileRequest",
+            "CandidateResponse",
+            "get_career_requirements",
+            "RequirementEvidenceResponse",
+            "create_export_job",
+            "get_export_status",
+            "get_export_metadata"
+          ],
+          "intent_change_ids": [
+            "D-02-company-capability-taxonomy-api"
+          ]
+        },
+        {
+          "decision_id": "D-03-search-profile-and-discovery",
+          "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/03-d-03-search-profile-and-discovery.json",
+          "sha256": "sha256:5788ca4878c7cae796c17c85873920ce5aaf36e192ec47041ea2208b4232e7f9",
+          "symbols": [
+            "get_company_capabilities",
+            "get_field_availability",
+            "get_analysis_exclusions",
+            "search_companies",
+            "SearchProfileRequest",
+            "CandidateResponse",
+            "get_career_requirements",
+            "RequirementEvidenceResponse",
+            "create_export_job",
+            "get_export_status",
+            "get_export_metadata"
+          ],
+          "intent_change_ids": [
+            "D-03-search-profile-and-discovery-api"
+          ]
+        },
+        {
+          "decision_id": "D-04-career-requirement-verification",
+          "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/04-d-04-career-requirement-verification.json",
+          "sha256": "sha256:5932142a7b708f16a69192359465f941caf41a6a8ec2c6a5c974b20db8fad62a",
+          "symbols": [
+            "get_company_capabilities",
+            "get_field_availability",
+            "get_analysis_exclusions",
+            "search_companies",
+            "SearchProfileRequest",
+            "CandidateResponse",
+            "get_career_requirements",
+            "RequirementEvidenceResponse",
+            "create_export_job",
+            "get_export_status",
+            "get_export_metadata"
+          ],
+          "intent_change_ids": [
+            "D-04-career-requirement-verification-api"
+          ]
+        },
+        {
+          "decision_id": "D-05-spreadsheet-output-contract",
+          "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/05-d-05-spreadsheet-output-contract.json",
+          "sha256": "sha256:a124f06f0256ef1386a9e65a81901449202e22fb3fd49fbd1c4c704db555ca05",
+          "symbols": [
+            "get_company_capabilities",
+            "get_field_availability",
+            "get_analysis_exclusions",
+            "search_companies",
+            "SearchProfileRequest",
+            "CandidateResponse",
+            "get_career_requirements",
+            "RequirementEvidenceResponse",
+            "create_export_job",
+            "get_export_status",
+            "get_export_metadata"
+          ],
+          "intent_change_ids": [
+            "D-05-spreadsheet-output-contract-api"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "src/company_intel/career_requirements.py",
+      "owner_cohort_id": "C-02-search-requirement-evidence",
+      "change_id": "file-change-ef3ea7e59ee6",
+      "operation": "CREATE",
+      "contribution_refs": [
+        {
+          "decision_id": "D-04-career-requirement-verification",
+          "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/04-d-04-career-requirement-verification.json",
+          "sha256": "sha256:5932142a7b708f16a69192359465f941caf41a6a8ec2c6a5c974b20db8fad62a",
+          "symbols": [
+            "extract_job_requirements",
+            "normalize_requirement",
+            "verify_requirement",
+            "resolve_country_baseline"
+          ],
+          "intent_change_ids": [
+            "D-04-career-requirement-verification-service"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "src/company_intel/classification.py",
+      "owner_cohort_id": "C-01-source-identity-foundation",
+      "change_id": "file-change-c2dd27200b1c",
+      "operation": "CREATE",
+      "contribution_refs": [
+        {
+          "decision_id": "D-02-company-capability-taxonomy",
+          "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/02-d-02-company-capability-taxonomy.json",
+          "sha256": "sha256:e774d309da77407e7cae424933afa16d9b439d3d060df445a502ff478107a985",
+          "symbols": [
+            "classify_company",
+            "evaluate_analysis_eligibility",
+            "CapabilityGate"
+          ],
+          "intent_change_ids": [
+            "D-02-company-capability-taxonomy-classification"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "src/company_intel/cli.py",
+      "owner_cohort_id": "C-02-search-requirement-evidence",
+      "change_id": "file-change-e633c98e50e6",
+      "operation": "MODIFY",
+      "contribution_refs": [
+        {
+          "decision_id": "D-03-search-profile-and-discovery",
+          "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/03-d-03-search-profile-and-discovery.json",
+          "sha256": "sha256:5788ca4878c7cae796c17c85873920ce5aaf36e192ec47041ea2208b4232e7f9",
+          "symbols": [
+            "search_command",
+            "load_search_profile",
+            "export_command",
+            "validate_output_path"
+          ],
+          "intent_change_ids": [
+            "D-03-search-profile-and-discovery-cli"
+          ]
+        },
+        {
+          "decision_id": "D-05-spreadsheet-output-contract",
+          "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/05-d-05-spreadsheet-output-contract.json",
+          "sha256": "sha256:a124f06f0256ef1386a9e65a81901449202e22fb3fd49fbd1c4c704db555ca05",
+          "symbols": [
+            "search_command",
+            "load_search_profile",
+            "export_command",
+            "validate_output_path"
+          ],
+          "intent_change_ids": [
+            "D-05-spreadsheet-output-contract-cli"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "src/company_intel/connectors/keyed.py",
+      "owner_cohort_id": "C-02-search-requirement-evidence",
+      "change_id": "file-change-927a21cab8b8",
+      "operation": "MODIFY",
+      "contribution_refs": [
+        {
+          "decision_id": "D-03-search-profile-and-discovery",
+          "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/03-d-03-search-profile-and-discovery.json",
+          "sha256": "sha256:5788ca4878c7cae796c17c85873920ce5aaf36e192ec47041ea2208b4232e7f9",
+          "symbols": [
+            "keyed_discovery_adapters",
+            "probe_contract",
+            "mpm_employment_detail",
+            "alio_context_adapter"
+          ],
+          "intent_change_ids": [
+            "D-03-search-profile-and-discovery-keyed-connectors"
+          ]
+        },
+        {
+          "decision_id": "D-04-career-requirement-verification",
+          "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/04-d-04-career-requirement-verification.json",
+          "sha256": "sha256:5932142a7b708f16a69192359465f941caf41a6a8ec2c6a5c974b20db8fad62a",
+          "symbols": [
+            "keyed_discovery_adapters",
+            "probe_contract",
+            "mpm_employment_detail",
+            "alio_context_adapter"
+          ],
+          "intent_change_ids": [
+            "D-04-career-requirement-verification-keyed-connectors"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "src/company_intel/connectors/keyless.py",
+      "owner_cohort_id": "C-02-search-requirement-evidence",
+      "change_id": "file-change-8925cfef251f",
+      "operation": "MODIFY",
+      "contribution_refs": [
+        {
+          "decision_id": "D-03-search-profile-and-discovery",
+          "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/03-d-03-search-profile-and-discovery.json",
+          "sha256": "sha256:5788ca4878c7cae796c17c85873920ce5aaf36e192ec47041ea2208b4232e7f9",
+          "symbols": [
+            "keyless_discovery_adapters",
+            "ats_board_policy",
+            "ats_job_detail",
+            "czech_public_requirement_sources"
+          ],
+          "intent_change_ids": [
+            "D-03-search-profile-and-discovery-keyless-connectors"
+          ]
+        },
+        {
+          "decision_id": "D-04-career-requirement-verification",
+          "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/04-d-04-career-requirement-verification.json",
+          "sha256": "sha256:5932142a7b708f16a69192359465f941caf41a6a8ec2c6a5c974b20db8fad62a",
+          "symbols": [
+            "keyless_discovery_adapters",
+            "ats_board_policy",
+            "ats_job_detail",
+            "czech_public_requirement_sources"
+          ],
+          "intent_change_ids": [
+            "D-04-career-requirement-verification-keyless-connectors"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "src/company_intel/connectors/registry.py",
+      "owner_cohort_id": "C-01-source-identity-foundation",
+      "change_id": "file-change-50ab952c86b5",
+      "operation": "MODIFY",
+      "contribution_refs": [
+        {
+          "decision_id": "D-01-source-access-policy",
+          "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/01-d-01-source-access-policy.json",
+          "sha256": "sha256:0f46f8e8e8d8e895a1df8ad86394dce34c2446c0f5c63b9c46ad4df458c6ec54",
+          "symbols": [
+            "ConnectorRegistry",
+            "select_adapter",
+            "probe_vs_production",
+            "discovery_adapters",
+            "requirement_evidence_adapters"
+          ],
+          "intent_change_ids": [
+            "D-01-source-access-policy-registry"
+          ]
+        },
+        {
+          "decision_id": "D-03-search-profile-and-discovery",
+          "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/03-d-03-search-profile-and-discovery.json",
+          "sha256": "sha256:5788ca4878c7cae796c17c85873920ce5aaf36e192ec47041ea2208b4232e7f9",
+          "symbols": [
+            "ConnectorRegistry",
+            "select_adapter",
+            "probe_vs_production",
+            "discovery_adapters",
+            "requirement_evidence_adapters"
+          ],
+          "intent_change_ids": [
+            "D-03-search-profile-and-discovery-registry"
+          ]
+        },
+        {
+          "decision_id": "D-04-career-requirement-verification",
+          "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/04-d-04-career-requirement-verification.json",
+          "sha256": "sha256:5932142a7b708f16a69192359465f941caf41a6a8ec2c6a5c974b20db8fad62a",
+          "symbols": [
+            "ConnectorRegistry",
+            "select_adapter",
+            "probe_vs_production",
+            "discovery_adapters",
+            "requirement_evidence_adapters"
+          ],
+          "intent_change_ids": [
+            "D-04-career-requirement-verification-registry"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "src/company_intel/exporting.py",
+      "owner_cohort_id": "C-03-evidence-export-delivery",
+      "change_id": "file-change-82feda91e73b",
+      "operation": "CREATE",
+      "contribution_refs": [
+        {
+          "decision_id": "D-05-spreadsheet-output-contract",
+          "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/05-d-05-spreadsheet-output-contract.json",
+          "sha256": "sha256:a124f06f0256ef1386a9e65a81901449202e22fb3fd49fbd1c4c704db555ca05",
+          "symbols": [
+            "ExportBundle",
+            "render_csv_bundle",
+            "render_xlsx_workbook",
+            "build_export_manifest"
+          ],
+          "intent_change_ids": [
+            "D-05-spreadsheet-output-contract-exporting"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "src/company_intel/identity.py",
+      "owner_cohort_id": "C-01-source-identity-foundation",
+      "change_id": "file-change-bdb2949cb581",
+      "operation": "CREATE",
+      "contribution_refs": [
+        {
+          "decision_id": "D-02-company-capability-taxonomy",
+          "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/02-d-02-company-capability-taxonomy.json",
+          "sha256": "sha256:e774d309da77407e7cae424933afa16d9b439d3d060df445a502ff478107a985",
+          "symbols": [
+            "CompanyIdentityResolver",
+            "IdentifierLink",
+            "ResolutionResult",
+            "resolve_candidate_company",
+            "explain_resolution"
+          ],
+          "intent_change_ids": [
+            "D-02-company-capability-taxonomy-identity"
+          ]
+        },
+        {
+          "decision_id": "D-03-search-profile-and-discovery",
+          "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/03-d-03-search-profile-and-discovery.json",
+          "sha256": "sha256:5788ca4878c7cae796c17c85873920ce5aaf36e192ec47041ea2208b4232e7f9",
+          "symbols": [
+            "CompanyIdentityResolver",
+            "IdentifierLink",
+            "ResolutionResult",
+            "resolve_candidate_company",
+            "explain_resolution"
+          ],
+          "intent_change_ids": [
+            "D-03-search-profile-and-discovery-identity"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "src/company_intel/models.py",
+      "owner_cohort_id": "C-01-source-identity-foundation",
+      "change_id": "file-change-ba1af64467c1",
+      "operation": "MODIFY",
+      "contribution_refs": [
+        {
+          "decision_id": "D-01-source-access-policy",
+          "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/01-d-01-source-access-policy.json",
+          "sha256": "sha256:0f46f8e8e8d8e895a1df8ad86394dce34c2446c0f5c63b9c46ad4df458c6ec54",
+          "symbols": [
+            "SourcePolicy",
+            "AtomicFieldContract",
+            "ProviderHealth",
+            "Capability",
+            "CompanyClassification",
+            "AnalysisEligibility",
+            "Provenance",
+            "SearchProfile",
+            "CountryAllocation",
+            "CandidateMatch",
+            "ExclusionReason",
+            "RequirementStatus",
+            "EvidenceScope",
+            "VerificationStatus",
+            "RequirementAvailability"
+          ],
+          "intent_change_ids": [
+            "D-01-source-access-policy-models"
+          ]
+        },
+        {
+          "decision_id": "D-02-company-capability-taxonomy",
+          "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/02-d-02-company-capability-taxonomy.json",
+          "sha256": "sha256:e774d309da77407e7cae424933afa16d9b439d3d060df445a502ff478107a985",
+          "symbols": [
+            "SourcePolicy",
+            "AtomicFieldContract",
+            "ProviderHealth",
+            "Capability",
+            "CompanyClassification",
+            "AnalysisEligibility",
+            "Provenance",
+            "SearchProfile",
+            "CountryAllocation",
+            "CandidateMatch",
+            "ExclusionReason",
+            "RequirementStatus",
+            "EvidenceScope",
+            "VerificationStatus",
+            "RequirementAvailability"
+          ],
+          "intent_change_ids": [
+            "D-02-company-capability-taxonomy-models"
+          ]
+        },
+        {
+          "decision_id": "D-03-search-profile-and-discovery",
+          "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/03-d-03-search-profile-and-discovery.json",
+          "sha256": "sha256:5788ca4878c7cae796c17c85873920ce5aaf36e192ec47041ea2208b4232e7f9",
+          "symbols": [
+            "SourcePolicy",
+            "AtomicFieldContract",
+            "ProviderHealth",
+            "Capability",
+            "CompanyClassification",
+            "AnalysisEligibility",
+            "Provenance",
+            "SearchProfile",
+            "CountryAllocation",
+            "CandidateMatch",
+            "ExclusionReason",
+            "RequirementStatus",
+            "EvidenceScope",
+            "VerificationStatus",
+            "RequirementAvailability"
+          ],
+          "intent_change_ids": [
+            "D-03-search-profile-and-discovery-models"
+          ]
+        },
+        {
+          "decision_id": "D-04-career-requirement-verification",
+          "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/04-d-04-career-requirement-verification.json",
+          "sha256": "sha256:5932142a7b708f16a69192359465f941caf41a6a8ec2c6a5c974b20db8fad62a",
+          "symbols": [
+            "SourcePolicy",
+            "AtomicFieldContract",
+            "ProviderHealth",
+            "Capability",
+            "CompanyClassification",
+            "AnalysisEligibility",
+            "Provenance",
+            "SearchProfile",
+            "CountryAllocation",
+            "CandidateMatch",
+            "ExclusionReason",
+            "RequirementStatus",
+            "EvidenceScope",
+            "VerificationStatus",
+            "RequirementAvailability"
+          ],
+          "intent_change_ids": [
+            "D-04-career-requirement-verification-models"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "src/company_intel/normalization.py",
+      "owner_cohort_id": "C-01-source-identity-foundation",
+      "change_id": "file-change-58fda9542e8a",
+      "operation": "CREATE",
+      "contribution_refs": [
+        {
+          "decision_id": "D-02-company-capability-taxonomy",
+          "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/02-d-02-company-capability-taxonomy.json",
+          "sha256": "sha256:e774d309da77407e7cae424933afa16d9b439d3d060df445a502ff478107a985",
+          "symbols": [
+            "AtomicObservationMapper",
+            "normalize_unit",
+            "deduplication_key"
+          ],
+          "intent_change_ids": [
+            "D-02-company-capability-taxonomy-normalization"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "src/company_intel/reporting.py",
+      "owner_cohort_id": "C-03-evidence-export-delivery",
+      "change_id": "file-change-c46a3c2c1704",
+      "operation": "MODIFY",
+      "contribution_refs": [
+        {
+          "decision_id": "D-05-spreadsheet-output-contract",
+          "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/05-d-05-spreadsheet-output-contract.json",
+          "sha256": "sha256:a124f06f0256ef1386a9e65a81901449202e22fb3fd49fbd1c4c704db555ca05",
+          "symbols": [
+            "render_export_summary",
+            "render_provider_limitations",
+            "render_korean_guidance"
+          ],
+          "intent_change_ids": [
+            "D-05-spreadsheet-output-contract-reporting"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "src/company_intel/search.py",
+      "owner_cohort_id": "C-02-search-requirement-evidence",
+      "change_id": "file-change-019d6886b2c8",
+      "operation": "CREATE",
+      "contribution_refs": [
+        {
+          "decision_id": "D-03-search-profile-and-discovery",
+          "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/03-d-03-search-profile-and-discovery.json",
+          "sha256": "sha256:5788ca4878c7cae796c17c85873920ce5aaf36e192ec47041ea2208b4232e7f9",
+          "symbols": [
+            "validate_search_profile",
+            "build_company_universe",
+            "rank_candidates",
+            "explain_candidate"
+          ],
+          "intent_change_ids": [
+            "D-03-search-profile-and-discovery-search"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "src/company_intel/security.py",
+      "owner_cohort_id": "C-03-evidence-export-delivery",
+      "change_id": "file-change-36b865e1eb42",
+      "operation": "MODIFY",
+      "contribution_refs": [
+        {
+          "decision_id": "D-05-spreadsheet-output-contract",
+          "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/05-d-05-spreadsheet-output-contract.json",
+          "sha256": "sha256:a124f06f0256ef1386a9e65a81901449202e22fb3fd49fbd1c4c704db555ca05",
+          "symbols": [
+            "sanitize_export_value",
+            "ExportFieldPolicy",
+            "validate_output_directory"
+          ],
+          "intent_change_ids": [
+            "D-05-spreadsheet-output-contract-security"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "src/company_intel/source_catalog.py",
+      "owner_cohort_id": "C-01-source-identity-foundation",
+      "change_id": "file-change-954e39bf4b3a",
+      "operation": "CREATE",
+      "contribution_refs": [
+        {
+          "decision_id": "D-01-source-access-policy",
+          "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/01-d-01-source-access-policy.json",
+          "sha256": "sha256:0f46f8e8e8d8e895a1df8ad86394dce34c2446c0f5c63b9c46ad4df458c6ec54",
+          "symbols": [
+            "SourceCatalog",
+            "load_source_catalog",
+            "validate_atomic_contract",
+            "evaluate_activation"
+          ],
+          "intent_change_ids": [
+            "D-01-source-access-policy-source-catalog"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "src/company_intel/validation.py",
+      "owner_cohort_id": "C-01-source-identity-foundation",
+      "change_id": "file-change-51ccd281e59c",
+      "operation": "MODIFY",
+      "contribution_refs": [
+        {
+          "decision_id": "D-01-source-access-policy",
+          "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/01-d-01-source-access-policy.json",
+          "sha256": "sha256:0f46f8e8e8d8e895a1df8ad86394dce34c2446c0f5c63b9c46ad4df458c6ec54",
+          "symbols": [
+            "ValidationOutcome",
+            "classify_provider_error",
+            "redacted_receipt"
+          ],
+          "intent_change_ids": [
+            "D-01-source-access-policy-validation"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "src/company_intel/warehouse.py",
+      "owner_cohort_id": "C-01-source-identity-foundation",
+      "change_id": "file-change-42c469cea05e",
+      "operation": "MODIFY",
+      "contribution_refs": [
+        {
+          "decision_id": "D-02-company-capability-taxonomy",
+          "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/02-d-02-company-capability-taxonomy.json",
+          "sha256": "sha256:e774d309da77407e7cae424933afa16d9b439d3d060df445a502ff478107a985",
+          "symbols": [
+            "upsert_identity",
+            "upsert_capability",
+            "record_field_availability",
+            "record_classification",
+            "store_job_snapshot",
+            "store_requirement_evidence",
+            "query_export_bundle",
+            "materialize_export_snapshot"
+          ],
+          "intent_change_ids": [
+            "D-02-company-capability-taxonomy-warehouse"
+          ]
+        },
+        {
+          "decision_id": "D-04-career-requirement-verification",
+          "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/04-d-04-career-requirement-verification.json",
+          "sha256": "sha256:5932142a7b708f16a69192359465f941caf41a6a8ec2c6a5c974b20db8fad62a",
+          "symbols": [
+            "upsert_identity",
+            "upsert_capability",
+            "record_field_availability",
+            "record_classification",
+            "store_job_snapshot",
+            "store_requirement_evidence",
+            "query_export_bundle",
+            "materialize_export_snapshot"
+          ],
+          "intent_change_ids": [
+            "D-04-career-requirement-verification-warehouse"
+          ]
+        },
+        {
+          "decision_id": "D-05-spreadsheet-output-contract",
+          "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/05-d-05-spreadsheet-output-contract.json",
+          "sha256": "sha256:a124f06f0256ef1386a9e65a81901449202e22fb3fd49fbd1c4c704db555ca05",
+          "symbols": [
+            "upsert_identity",
+            "upsert_capability",
+            "record_field_availability",
+            "record_classification",
+            "store_job_snapshot",
+            "store_requirement_evidence",
+            "query_export_bundle",
+            "materialize_export_snapshot"
+          ],
+          "intent_change_ids": [
+            "D-05-spreadsheet-output-contract-warehouse"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "tests/test_career_requirements.py",
+      "owner_cohort_id": "C-02-search-requirement-evidence",
+      "change_id": "file-change-70da2ae09abe",
+      "operation": "CREATE",
+      "contribution_refs": [
+        {
+          "decision_id": "D-04-career-requirement-verification",
+          "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/04-d-04-career-requirement-verification.json",
+          "sha256": "sha256:5932142a7b708f16a69192359465f941caf41a6a8ec2c6a5c974b20db8fad62a",
+          "symbols": [
+            "test_required_vs_preferred",
+            "test_requirement_unavailable",
+            "test_country_baseline_scope",
+            "test_stale_job"
+          ],
+          "intent_change_ids": [
+            "D-04-career-requirement-verification-test"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "tests/test_classification.py",
+      "owner_cohort_id": "C-01-source-identity-foundation",
+      "change_id": "file-change-7a2cfff77575",
+      "operation": "CREATE",
+      "contribution_refs": [
+        {
+          "decision_id": "D-02-company-capability-taxonomy",
+          "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/02-d-02-company-capability-taxonomy.json",
+          "sha256": "sha256:e774d309da77407e7cae424933afa16d9b439d3d060df445a502ff478107a985",
+          "symbols": [
+            "test_atomic_capability_classes",
+            "test_analysis_eligibility_gates"
+          ],
+          "intent_change_ids": [
+            "D-02-company-capability-taxonomy-test"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "tests/test_exporting.py",
+      "owner_cohort_id": "C-03-evidence-export-delivery",
+      "change_id": "file-change-c1f9750959a4",
+      "operation": "CREATE",
+      "contribution_refs": [
+        {
+          "decision_id": "D-05-spreadsheet-output-contract",
+          "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/05-d-05-spreadsheet-output-contract.json",
+          "sha256": "sha256:a124f06f0256ef1386a9e65a81901449202e22fb3fd49fbd1c4c704db555ca05",
+          "symbols": [
+            "test_csv_contract",
+            "test_xlsx_parity",
+            "test_export_redaction",
+            "test_deterministic_bundle",
+            "test_empty_limited_output"
+          ],
+          "intent_change_ids": [
+            "D-05-spreadsheet-output-contract-test"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "tests/test_search_profile.py",
+      "owner_cohort_id": "C-02-search-requirement-evidence",
+      "change_id": "file-change-bde11e1b67fd",
+      "operation": "CREATE",
+      "contribution_refs": [
+        {
+          "decision_id": "D-03-search-profile-and-discovery",
+          "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/03-d-03-search-profile-and-discovery.json",
+          "sha256": "sha256:5788ca4878c7cae796c17c85873920ce5aaf36e192ec47041ea2208b4232e7f9",
+          "symbols": [
+            "test_profile_validation",
+            "test_country_allocation_and_exclusions",
+            "test_deterministic_ranking"
+          ],
+          "intent_change_ids": [
+            "D-03-search-profile-and-discovery-test"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "tests/test_source_catalog.py",
+      "owner_cohort_id": "C-01-source-identity-foundation",
+      "change_id": "file-change-d0c6f2fbd963",
+      "operation": "CREATE",
+      "contribution_refs": [
+        {
+          "decision_id": "D-01-source-access-policy",
+          "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/01-d-01-source-access-policy.json",
+          "sha256": "sha256:0f46f8e8e8d8e895a1df8ad86394dce34c2446c0f5c63b9c46ad4df458c6ec54",
+          "symbols": [
+            "test_all_28_atomic_operations_are_declared",
+            "test_activation_gates_and_redaction"
+          ],
+          "intent_change_ids": [
+            "D-01-source-access-policy-test"
+          ]
+        }
+      ]
+    }
+  ]
+}

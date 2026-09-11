@@ -1,0 +1,51 @@
+{
+  "contract_version": "atomic-json-patch-receipt-v1",
+  "target": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/campaign.json",
+  "outcome": "rolled-back",
+  "before_sha256": "c01132e39fee691ccada095d7fee5fccc78c03e6da77e13fc3da692efcf97638",
+  "after_sha256": "c01132e39fee691ccada095d7fee5fccc78c03e6da77e13fc3da692efcf97638",
+  "operations": [
+    {
+      "op": "test",
+      "path": "/dependencies"
+    },
+    {
+      "op": "test",
+      "path": "/implementation_cohorts"
+    },
+    {
+      "op": "test",
+      "path": "/implementation_authorization"
+    },
+    {
+      "op": "replace",
+      "path": "/dependencies"
+    },
+    {
+      "op": "replace",
+      "path": "/implementation_cohorts"
+    },
+    {
+      "op": "replace",
+      "path": "/implementation_authorization"
+    }
+  ],
+  "backup": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/.mutation-journal/preimages/sha256-c01132e39fee691ccada095d7fee5fccc78c03e6da77e13fc3da692efcf97638.json",
+  "journal": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/.mutation-journal/mutations/8a3cb880451514e021bcc5d61bcd132fb0be6fe588980d865b46a23e36bfc7fe.json",
+  "mutation_id": "amend-campaign-cohorts-20260911",
+  "validators": [
+    {
+      "command": [
+        "/usr/bin/python3",
+        "-B",
+        "/home/ubuntu/.codex/skills/decision-campaign-workbook/scripts/validate_decision_campaign.py",
+        "--allow-scope-drift",
+        "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/campaign.json"
+      ],
+      "returncode": 1,
+      "stdout_tail": "",
+      "stderr_tail": "ERROR: decision workbook drift: regenerate it from campaign JSON\n"
+    }
+  ],
+  "completed_at": "2026-09-11T06:03:34.465315+00:00"
+}

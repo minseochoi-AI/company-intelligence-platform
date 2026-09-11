@@ -1,0 +1,135 @@
+{
+  "contract_version": "atomic-json-patch-receipt-v1",
+  "target": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/04-d-04-career-requirement-verification.json",
+  "outcome": "pass",
+  "before_sha256": "67be52638cfda4ca02ce764881f712cf35e07fba128de4cf759711bfd34eea35",
+  "after_sha256": "7f5e5d6a977e98572daf349f21fa0ab7d936e72d4bde689857a4594a76a47b20",
+  "proposed_after_sha256": "7f5e5d6a977e98572daf349f21fa0ab7d936e72d4bde689857a4594a76a47b20",
+  "operations": [
+    {
+      "op": "test",
+      "path": "/status"
+    },
+    {
+      "op": "test",
+      "path": "/question"
+    },
+    {
+      "op": "test",
+      "path": "/five_w_one_h"
+    },
+    {
+      "op": "test",
+      "path": "/evidence_refs"
+    },
+    {
+      "op": "test",
+      "path": "/facts"
+    },
+    {
+      "op": "test",
+      "path": "/conflicts"
+    },
+    {
+      "op": "test",
+      "path": "/unimplemented"
+    },
+    {
+      "op": "test",
+      "path": "/options"
+    },
+    {
+      "op": "test",
+      "path": "/recommended_option_id"
+    },
+    {
+      "op": "test",
+      "path": "/recommendation_reason"
+    },
+    {
+      "op": "test",
+      "path": "/impact"
+    },
+    {
+      "op": "test",
+      "path": "/opportunity_costs"
+    },
+    {
+      "op": "test",
+      "path": "/implementation_targets"
+    },
+    {
+      "op": "test",
+      "path": "/validation_requirements"
+    },
+    {
+      "op": "test",
+      "path": "/diagram_impacts"
+    },
+    {
+      "op": "replace",
+      "path": "/status"
+    },
+    {
+      "op": "replace",
+      "path": "/question"
+    },
+    {
+      "op": "replace",
+      "path": "/five_w_one_h"
+    },
+    {
+      "op": "replace",
+      "path": "/evidence_refs"
+    },
+    {
+      "op": "replace",
+      "path": "/facts"
+    },
+    {
+      "op": "replace",
+      "path": "/conflicts"
+    },
+    {
+      "op": "replace",
+      "path": "/unimplemented"
+    },
+    {
+      "op": "replace",
+      "path": "/options"
+    },
+    {
+      "op": "replace",
+      "path": "/recommended_option_id"
+    },
+    {
+      "op": "replace",
+      "path": "/recommendation_reason"
+    },
+    {
+      "op": "replace",
+      "path": "/impact"
+    },
+    {
+      "op": "replace",
+      "path": "/opportunity_costs"
+    },
+    {
+      "op": "replace",
+      "path": "/implementation_targets"
+    },
+    {
+      "op": "replace",
+      "path": "/validation_requirements"
+    },
+    {
+      "op": "replace",
+      "path": "/diagram_impacts"
+    }
+  ],
+  "backup": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/.mutation-journal/preimages/sha256-67be52638cfda4ca02ce764881f712cf35e07fba128de4cf759711bfd34eea35.json",
+  "journal": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/.mutation-journal/mutations/e46eae9c07a9a4be6753436fbdbf84d962b29a6148f8f18f6726c73acca9ecb6.json",
+  "mutation_id": "DISCUSS-D04-career-requirement-verification-v1",
+  "validators": [],
+  "completed_at": "2026-09-11T02:25:27.489538+00:00"
+}

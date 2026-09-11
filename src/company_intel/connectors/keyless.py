@@ -4,7 +4,7 @@ from datetime import UTC, date, datetime
 from typing import Any
 
 from ..models import Probe
-from .base import compact, get_path, json_payload
+from .base import get_path, json_payload, preserve_payload
 
 
 def _select(mapping: dict[str, str]):
@@ -15,7 +15,7 @@ def _select(mapping: dict[str, str]):
         output: dict[str, Any] = {}
         for label, path in mapping.items():
             value = get_path(data, path)
-            output[label] = None if value is MISSING else compact(value)
+            output[label] = None if value is MISSING else preserve_payload(value)
         return output
 
     return safe_normalize
@@ -33,9 +33,18 @@ def _greenhouse(body: bytes, _: str) -> dict[str, Any]:
                 "title": job.get("title"),
                 "location": (job.get("location") or {}).get("name"),
                 "departments": [department.get("name") for department in job.get("departments", [])],
+                "offices": [
+                    {"name": office.get("name"), "location": office.get("location")}
+                    for office in job.get("offices", [])
+                ],
+                "language": job.get("language"),
                 "first_published": job.get("first_published"),
                 "updated_at": job.get("updated_at"),
+                "application_deadline": job.get("application_deadline"),
                 "absolute_url": job.get("absolute_url"),
+                "pay_input_ranges": job.get("pay_input_ranges"),
+                "metadata": job.get("metadata"),
+                "content": job.get("content"),
             }
             for job in jobs
         ],
@@ -53,13 +62,40 @@ def _lever(body: bytes, _: str) -> dict[str, Any]:
                 "country": job.get("country"),
                 "workplace_type": job.get("workplaceType"),
                 "team": (job.get("categories") or {}).get("team"),
+                "department": (job.get("categories") or {}).get("department"),
+                "commitment": (job.get("categories") or {}).get("commitment"),
+                "all_locations": (job.get("categories") or {}).get("allLocations"),
                 "location": (job.get("categories") or {}).get("location"),
                 "created_at": job.get("createdAt"),
                 "hosted_url": job.get("hostedUrl"),
+                "apply_url": job.get("applyUrl"),
+                "salaryRange": job.get("salaryRange"),
+                "salaryDescriptionPlain": job.get("salaryDescriptionPlain"),
+                "lists": job.get("lists"),
+                "descriptionPlain": job.get("descriptionPlain"),
+                "description": job.get("description"),
             }
             for job in jobs
         ],
     }
+
+
+def ats_detail_evidence(job: dict[str, Any]) -> dict[str, Any]:
+    """Keep ATS detail text separate from a verified requirement assertion.
+
+    Parsing and country-specific validation happen in career_requirements, so a
+    job board description alone can never fabricate a certificate requirement.
+    """
+    detail = job.get("content") or job.get("description")
+    return {
+        "job_id": job.get("job_id") or job.get("id"), "source_url": job.get("absolute_url") or job.get("hosted_url"),
+        "detail_present": bool(detail), "raw_detail": detail if isinstance(detail, str) else None,
+        "availability": "unverified_detail" if detail else "requirement_unavailable",
+    }
+
+
+def czech_public_requirement_source(source_name: str) -> dict[str, str]:
+    return {"source": source_name, "status": "pending-official-field-verification"}
 
 
 def keyless_probes(sec_user_agent: str) -> list[Probe]:
@@ -352,7 +388,7 @@ def keyless_probes(sec_user_agent: str) -> list[Probe]:
             params={"per_page": 1, "sort": "updated"},
             headers={"Accept": "application/vnd.github+json", "X-GitHub-Api-Version": "2022-11-28"},
             required_paths=["0.id", "0.full_name", "0.pushed_at"],
-            normalizer=lambda body, _: {"repository": compact(json_payload(body)[0])},
+            normalizer=lambda body, _: {"repository": preserve_payload(json_payload(body)[0])},
             capabilities=["engineering_activity_proxy", "ai_adoption_evidence"],
         ),
         Probe(

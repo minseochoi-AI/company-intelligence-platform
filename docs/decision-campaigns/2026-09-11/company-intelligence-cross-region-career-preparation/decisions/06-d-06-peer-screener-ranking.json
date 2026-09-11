@@ -1,0 +1,138 @@
+{
+  "decision_id": "D-06-peer-screener-ranking",
+  "sequence": 6,
+  "unit_id": "peer-screener-ranking",
+  "title": "산업·국가·규모 동료군 기업 스크리너와 변수별 순위",
+  "status": "accepted",
+  "question": "사용자가 국가·산업·규모와 분석 변수를 선택해 비교 가능한 동료군 안에서 기업을 필터링·내림차순 정렬하려면 어떤 입력·동료군·결과 계약을 채택할 것인가?",
+  "five_w_one_h": {
+    "who": "미국·한국·체코 기업을 비교하는 사용자와 분석 API",
+    "what": "산업·국가·규모 동료군에 한정한 재무·수익성·성장성·인력 생산성·가치 지표 스크리너와 순위",
+    "where": "DuckDB 기업·재무 fact, analytics API·CLI, 증거 스프레드시트",
+    "when": "사용자가 비교 범위와 정렬 지표를 제출하고 적격 데이터가 있는 기업을 조회할 때",
+    "why": "서로 다른 산업·국가·규모의 기업을 하나의 순위에 섞어 왜곡된 결론을 내리지 않기 위해",
+    "how": "country × industry × size_bucket 동료군, 변수 방향, 데이터 커버리지와 제외 사유를 응답에 보존하고 결측 기업을 점수로 보충하지 않는다."
+  },
+  "evidence_refs": [
+    {
+      "evidence_id": "E-D06-user-screener-purpose",
+      "source_type": "local-document",
+      "locator": "/home/ubuntu/.codex/attachments/2eefe592-56f6-4115-8bd5-2860319bd775/pasted-text.txt:1-4,10-24",
+      "observed_fact": "사용자는 산업별 분리와 보고서 영역별 변수에 따른 기업 내림차순 정리를 요구했고, 비교는 산업·국가·시가총액 구간 안에서 해야 한다는 설계 근거가 있다.",
+      "content_hash": "sha256:42f0a077efe802d2bef97d11464f0b449ae1be95f2ba16e8137fd74b789aaa87",
+      "line_range": "1-4,10-24",
+      "question": "전체 기업을 어떤 비교 단위와 정렬 규칙으로 보여야 하는가?",
+      "observation_summary": "전역 단일 점수가 아니라 산업·국가·규모가 정렬된 동료군별 변수 순위가 요구된다."
+    },
+    {
+      "evidence_id": "E-D06-current-ranking-engine",
+      "source_type": "code",
+      "locator": "src/company_intel/analytics.py:77-139",
+      "observed_fact": "rank_companies는 country·industry·size_bucket별 그룹 안에서 지표 방향·백분위·커버리지를 계산하지만, 저장된 기업 universe를 필터링해 사용자에게 제공하는 스크리너 계약은 없다.",
+      "content_hash": "sha256:f4f76a87c9c7c2a226ff9164c783eb1c89beeed89c15cf1cc47346fe71a0f269",
+      "line_range": "77-139",
+      "question": "현재 코드가 사용자용 기업 스크리너까지 완성했는가?",
+      "observation_summary": "동료군 계산 엔진은 있으나 실제 데이터 적격성·필터·정렬 요청을 잇는 사용자 흐름은 없다."
+    }
+  ],
+  "facts": [
+    "원문은 산업별 분리와 각 변수의 내림차순 정리를 명시한다.",
+    "현재 순위 엔진은 동료군 경계를 지키지만 배열 입력만 받고 source capability·분류 제외·실제 데이터 부족을 표시하는 검색 계약은 없다.",
+    "공개 원천별로 재무·시장·고용 정보의 가용성이 다르므로 전체 지표가 없는 기업을 완전한 순위로 표시하면 안 된다."
+  ],
+  "conflicts": [
+    "단일 종합 점수는 사용하기 쉽지만 변수별 비교와 결측·가중치의 의미를 가린다.",
+    "국가 간 산업 분류는 다대다 매핑이므로 매핑 근거 없는 동료군 병합은 허용할 수 없다."
+  ],
+  "unimplemented": [
+    "저장된 기업 fact에서 국가·산업·규모·변수·기준일을 받는 스크리너 API·CLI가 없다.",
+    "사용자 선택 변수의 방향·가중치·결측 처리·최소 동료 수를 명시하는 계약이 없다.",
+    "순위 행에 source coverage, capability, exclusion reason, peer size를 함께 반환하는 통합 검증이 없다."
+  ],
+  "options": [
+    {
+      "option_id": "A-global-composite-rank",
+      "description": "모든 국가와 산업을 하나의 고정 종합점수로 합쳐 단일 순위를 반환한다.",
+      "impact": {
+        "data": "서로 다른 회계·산업 조건이 혼합된다.",
+        "schema_api": "단순 점수 endpoint만 필요하다.",
+        "ux": "짧은 목록은 제공하지만 비교 근거가 약하다.",
+        "performance": "집계가 단순하다.",
+        "cost": "초기 비용은 낮지만 해석 오류 비용이 크다.",
+        "security": "추가 위험은 작다.",
+        "migration": "나중에 동료군 메타데이터를 복구하기 어렵다.",
+        "tests": "정렬만 시험하게 된다."
+      },
+      "opportunity_costs": [
+        "사용자는 국가·산업 차이와 데이터 부족을 구별하지 못한다."
+      ]
+    },
+    {
+      "option_id": "B-peer-scoped-evidence-screener",
+      "description": "명시적 국가·산업·규모·변수·기준일을 받아 동료군 안에서만 순위화하고 coverage·근거·제외 사유를 반환한다.",
+      "impact": {
+        "data": "동료군 키와 각 지표의 시점·원천·결측 상태를 보존한다.",
+        "schema_api": "ScreenerProfile·rank row·coverage 계약을 추가한다.",
+        "ux": "사용자는 비교 범위와 순위가 성립하지 않는 이유를 확인한다.",
+        "performance": "필터 후 계산으로 불필요한 전체 조인을 줄인다.",
+        "cost": "산업 매핑·최소 표본 규칙 유지 비용이 든다.",
+        "security": "공개 기업 데이터만 사용하고 개인 데이터를 받지 않는다.",
+        "migration": "기존 rank_companies를 재사용하며 API를 additive하게 확장한다.",
+        "tests": "교차 산업 혼합, 결측, 최소 동료 수, 방향과 provenance를 검증한다."
+      },
+      "opportunity_costs": [
+        "동료군이 작거나 데이터가 없으면 순위 대신 제한 상태가 반환된다."
+      ]
+    }
+  ],
+  "recommended_option_id": "B-peer-scoped-evidence-screener",
+  "recommendation_reason": "사용자가 요구한 산업·국가별 내림차순 비교를 실제로 충족하면서 데이터 부족을 숨기지 않는 유일한 방식이다.",
+  "impact": {
+    "data": "기업 fact·산업 매핑·coverage를 동료군별로 결합한다.",
+    "schema_api": "변수 선택형 screener request와 evidence rank response가 필요하다.",
+    "ux": "사용자는 변수별 순위·동료 수·제외 근거를 확인한다.",
+    "performance": "필터된 동료군만 계산한다.",
+    "cost": "산업 매핑 및 데이터 품질 관리가 추가된다.",
+    "security": "공개 사실과 출처만 출력한다.",
+    "migration": "기존 analytics 함수 위에 저장소 조회를 추가한다.",
+    "tests": "국가·산업·규모 경계와 결측 처리의 통합 테스트가 필요하다."
+  },
+  "opportunity_costs": [
+    "전역 순위를 원하면 별도 비교 불가 경고를 받아야 한다."
+  ],
+  "dependencies": [
+    "D-02-company-capability-taxonomy"
+  ],
+  "dependency_waivers": {},
+  "accepted_decision": {
+    "disposition": "ACCEPT",
+    "option_id": "B-peer-scoped-evidence-screener",
+    "rule": "사용자가 2026-09-11 요청에서 D-06~D-10 권장안 B APPROVE와 로컬 구현을 명시했다.",
+    "rationale": "산업·국가·규모 동료군 안에서 변수별 근거와 결측·제외 사유를 보존하는 스크리너를 사용한다.",
+    "decided_by": "user",
+    "decided_at": "2026-09-11T09:44:52Z"
+  },
+  "implementation_targets": [
+    "src/company_intel/analytics.py",
+    "src/company_intel/warehouse.py",
+    "src/company_intel/api.py",
+    "src/company_intel/cli.py",
+    "tests/test_analytics.py",
+    "새 screener 통합 테스트"
+  ],
+  "implementation_change_ids": [
+    "D-06-screening-signature-r2",
+    "D-06-screening-tests-r2"
+  ],
+  "validation_requirements": [
+    "동일 산업·국가·규모가 아닌 행이 같은 peer_group에 섞이지 않는지 확인한다.",
+    "결측 지표·불충분한 동료군이 점수로 위장되지 않고 coverage 또는 exclusion으로 반환되는지 확인한다.",
+    "사용자가 선택한 변수 방향과 기준일이 결과 메타데이터에 보존되는지 확인한다."
+  ],
+  "diagram_impacts": [
+    "ScreenerProfile → eligibility filter → peer group → variable ranking → evidence response 흐름을 추가한다."
+  ],
+  "context_topic_ids": [
+    "company-screening"
+  ]
+}

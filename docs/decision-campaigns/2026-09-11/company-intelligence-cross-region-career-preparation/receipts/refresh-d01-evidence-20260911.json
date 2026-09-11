@@ -1,0 +1,131 @@
+{
+  "contract_version": "atomic-json-patch-receipt-v1",
+  "target": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/01-d-01-source-access-policy.json",
+  "outcome": "pass",
+  "before_sha256": "35f72f854e43a4e13b9879c1531b2b404b98cfcf3ad7ab7b0c279db1eeca4b1b",
+  "after_sha256": "d009b0470c95430f928204e3075a3b554e2d4ac7fd90c19685ba64ff37d5be82",
+  "proposed_after_sha256": "d009b0470c95430f928204e3075a3b554e2d4ac7fd90c19685ba64ff37d5be82",
+  "operations": [
+    {
+      "op": "test",
+      "path": "/evidence_refs/0/content_hash"
+    },
+    {
+      "op": "test",
+      "path": "/evidence_refs/0/locator"
+    },
+    {
+      "op": "test",
+      "path": "/evidence_refs/0/line_range"
+    },
+    {
+      "op": "test",
+      "path": "/evidence_refs/1/content_hash"
+    },
+    {
+      "op": "test",
+      "path": "/evidence_refs/1/locator"
+    },
+    {
+      "op": "test",
+      "path": "/evidence_refs/1/line_range"
+    },
+    {
+      "op": "test",
+      "path": "/evidence_refs/1/observed_fact"
+    },
+    {
+      "op": "test",
+      "path": "/evidence_refs/1/observation_summary"
+    },
+    {
+      "op": "test",
+      "path": "/evidence_refs/2/content_hash"
+    },
+    {
+      "op": "test",
+      "path": "/evidence_refs/2/locator"
+    },
+    {
+      "op": "test",
+      "path": "/evidence_refs/2/line_range"
+    },
+    {
+      "op": "test",
+      "path": "/evidence_refs/2/observed_fact"
+    },
+    {
+      "op": "test",
+      "path": "/evidence_refs/2/observation_summary"
+    },
+    {
+      "op": "replace",
+      "path": "/evidence_refs/0/content_hash"
+    },
+    {
+      "op": "replace",
+      "path": "/evidence_refs/0/locator"
+    },
+    {
+      "op": "replace",
+      "path": "/evidence_refs/0/line_range"
+    },
+    {
+      "op": "replace",
+      "path": "/evidence_refs/1/content_hash"
+    },
+    {
+      "op": "replace",
+      "path": "/evidence_refs/1/locator"
+    },
+    {
+      "op": "replace",
+      "path": "/evidence_refs/1/line_range"
+    },
+    {
+      "op": "replace",
+      "path": "/evidence_refs/1/observed_fact"
+    },
+    {
+      "op": "replace",
+      "path": "/evidence_refs/1/observation_summary"
+    },
+    {
+      "op": "replace",
+      "path": "/evidence_refs/2/content_hash"
+    },
+    {
+      "op": "replace",
+      "path": "/evidence_refs/2/locator"
+    },
+    {
+      "op": "replace",
+      "path": "/evidence_refs/2/line_range"
+    },
+    {
+      "op": "replace",
+      "path": "/evidence_refs/2/observed_fact"
+    },
+    {
+      "op": "replace",
+      "path": "/evidence_refs/2/observation_summary"
+    }
+  ],
+  "backup": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/.mutation-journal/preimages/sha256-35f72f854e43a4e13b9879c1531b2b404b98cfcf3ad7ab7b0c279db1eeca4b1b.json",
+  "journal": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/.mutation-journal/mutations/00292fece0bd4b803c4e97e0e8bba52bdd99e58b47ffa27c04cb65a6a5f5917f.json",
+  "mutation_id": "refresh-d01-evidence-20260911",
+  "validators": [
+    {
+      "command": [
+        "/usr/bin/python3",
+        "-m",
+        "json.tool",
+        "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/01-d-01-source-access-policy.json"
+      ],
+      "returncode": 0,
+      "stdout_tail": "d\\ud55c\\ub2e4.\",\n        \"APPROVAL_REQUIRED\\u00b7EXTRACTION_RESTRICTED\\u00b7DOCUMENT_ONLY \\ub610\\ub294 stale \\uc6d0\\ucc9c\\uc774 \\uba85\\uc2dc\\uc801 \\ud5c8\\uc6a9 \\uc5c6\\uc774 production discovery\\uc5d0 \\ub4e4\\uc5b4\\uac00\\uc9c0 \\uc54a\\ub294\\uc9c0 \\uac80\\uc99d\\ud55c\\ub2e4.\",\n        \"ALIO Plus \\ud3c9\\ubb38 HTTP \\uc791\\uc5c5\\uc774 \\uc2e0\\ub8b0 \\uc2e4\\ud589 \\uacbd\\uacc4 \\ubc16\\uc5d0\\uc11c \\ucc28\\ub2e8\\ub418\\uace0 \\ube44\\ubc00\\u00b7\\uac1c\\uc778\\uc815\\ubcf4\\uac00 URL\\u00b7\\ub85c\\uadf8\\u00b7\\ubcf4\\uace0\\uc11c\\uc5d0 \\ub0a8\\uc9c0 \\uc54a\\ub294\\uc9c0 \\uac80\\uc99d\\ud55c\\ub2e4.\",\n        \"Work24\\uc640 sec-api.io\\uac00 \\uc2e4\\ud589 \\ucf54\\ub4dc\\u00b7\\uc124\\uc815\\uc5d0 \\uc5c6\\uace0 SEC_USER_AGENT\\uc640 \\ub85c\\uceec DuckDB \\uc758\\ubbf8\\uac00 \\uc798\\ubabb \\ubcc0\\ud658\\ub418\\uc9c0 \\uc54a\\uc558\\ub294\\uc9c0 \\uac80\\uc99d\\ud55c\\ub2e4.\"\n    ],\n    \"diagram_impacts\": [\n        \"\\uc6d0\\ucc9c \\ubb38\\uc11c \\uac80\\uc99d \\u2192 source catalog \\u2192 connector policy gate \\u2192 \\uc218\\uc9d1/\\ubd84\\ub958/\\uc2a4\\ud504\\ub808\\ub4dc\\uc2dc\\ud2b8 \\ud750\\ub984\\uc744 \\ud6c4\\uc18d \\ub2e4\\uc774\\uc5b4\\uadf8\\ub7a8\\uc5d0 \\ubc18\\uc601\\ud55c\\ub2e4.\"\n    ],\n    \"context_topic_ids\": [\n        \"source-identity-capability\"\n    ]\n}\n",
+      "stderr_tail": ""
+    }
+  ],
+  "completed_at": "2026-09-11T06:08:02.772123+00:00"
+}

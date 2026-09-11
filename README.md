@@ -29,16 +29,22 @@ uvicorn company_intel.api:app --host 0.0.0.0 --port 8000
 
 ## 구현 범위
 
-- 키 필요: FRED, BEA, OpenDART, ECOS, Work24, Alpha Vantage
-- 무키: SEC, BLS, GLEIF, Eurostat, ECB, OECD, IMF, World Bank, CNB, TED, USAspending, Greenhouse, Lever, GitHub, OpenAlex
+- 키 필요: FRED, BEA, OpenDART, ECOS, ALIO Plus(시설·행사·사업·기관), 인사혁신처 공공취업정보, Alpha Vantage
+- 무키: SEC, BLS, GLEIF, ARES, Eurostat, ECB, OECD, World Bank, CNB, TED, USAspending, Greenhouse, Lever, GitHub, OpenAlex
 - 저장: DuckDB 기본, PostgreSQL DDL 제공
 - 분석: 재무비율, 현금흐름/마진, 산업·국가·규모 그룹 순위, 거시 민감도, 채용공고 변화, 이벤트 스터디, DiD, DCF 시나리오, 미래가치 점수
 - 제공: CLI, FastAPI, Docker Compose, K3s API Deployment 및 CronJob
 
 ## 중요한 한계
 
-- Work24 실제 키가 없으면 커넥터는 `missing_secret`로 건너뜁니다.
+- ALIO Plus는 가이드 v1.6에 따라 HTTP form 요청만 지원하며, 인사혁신처 공공취업정보는 data.go.kr 서비스키의 활용신청 권한이 필요합니다.
+- IMF의 기존 Data Mapper 무인증 URL은 2026-09-11 재호출에서 HTTP 403을 반환했습니다. `imf_czech_growth`는 운영 경로에서 `rejected`이며, 별도 인증된 IMF SDMX 연동 전에는 전망 변수로 사용하지 않습니다.
 - Alpha Vantage 무료키는 공식 안내상 일반적으로 하루 25회이므로 대량 전수 수집용이 아닙니다.
 - 공개자료만으로 실제 채용 완료 인원, 퇴직률, 부서별 손익, 설비 OEE를 확정할 수 없습니다.
 - 이 프로젝트는 투자 권유가 아니며 점수와 DCF는 입력 가정에 따른 연구용 분석입니다.
 
+## 증거 우선 CLI
+
+`provider-status`, `company-search`, `job-search`, `screen`, `timeline`, `valuation`, `ai-event`, `explain`, `export` 명령을 제공한다. `job-search`는 기본적으로 직종 제목·직종코드만 키워드 검사에 사용한다. 설명문 키워드까지 검사하려면 profile에 `"keyword_scope": "title_or_description"`를 명시한다.
+
+필터 결과의 `0건`은 조건 불일치와 데이터 미확인을 구분한다. 급여는 통화·지급주기·요청한 basis가 모두 같을 때만 비교하며, `Permanent`는 `full-time`으로 추정하지 않는다. 공고 표시 언어도 지원자 요구 언어와 별도 필드다.

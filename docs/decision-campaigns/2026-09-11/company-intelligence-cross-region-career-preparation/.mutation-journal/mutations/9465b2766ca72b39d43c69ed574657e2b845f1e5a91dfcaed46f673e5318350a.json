@@ -1,0 +1,13 @@
+{
+  "contract_version": "atomic-json-mutation-journal-v1",
+  "mutation_id": "approve-D-06-peer-screener-ranking-20260911",
+  "target": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/06-d-06-peer-screener-ranking.json",
+  "status": "validated",
+  "before_sha256": "3e6fa5533b55fb25c4f288eda1dfdd741e080985bf2504869af1f8e120d621b2",
+  "proposed_after_sha256": "0964f64fc143be5a14e692407384ed33ebeaf7abe1a971e01b4b7a793e6ce1fa",
+  "preimage_path": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/.mutation-journal/preimages/sha256-3e6fa5533b55fb25c4f288eda1dfdd741e080985bf2504869af1f8e120d621b2.json",
+  "patch_source": "inline-semantic-arguments",
+  "patch_sha256": "7d279bbeb0516b1b4224f23331c8eeb2aba2ba6ef9ac90a460354994c8c03828",
+  "updated_at": "2026-09-11T09:45:20.765173+00:00",
+  "observed_after_sha256": "0964f64fc143be5a14e692407384ed33ebeaf7abe1a971e01b4b7a793e6ce1fa"
+}

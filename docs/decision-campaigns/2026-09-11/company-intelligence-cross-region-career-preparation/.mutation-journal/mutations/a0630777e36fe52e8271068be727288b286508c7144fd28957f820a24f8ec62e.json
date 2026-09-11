@@ -1,0 +1,13 @@
+{
+  "contract_version": "atomic-json-mutation-journal-v1",
+  "mutation_id": "refresh-d03-evidence-20260911",
+  "target": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/03-d-03-search-profile-and-discovery.json",
+  "status": "validated",
+  "before_sha256": "4039e245d7f999c383a0933f0e96c39d96a9fc6a286418f571a72796a17aadc9",
+  "proposed_after_sha256": "412a86ab9ba7f7edc1826a749ffdb03885ef2ea6d44d5a83e16f124678e1275b",
+  "preimage_path": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/.mutation-journal/preimages/sha256-4039e245d7f999c383a0933f0e96c39d96a9fc6a286418f571a72796a17aadc9.json",
+  "patch_source": "inline-semantic-arguments",
+  "patch_sha256": "e50f2874595121a24da7d214ffddf4d3e254c3661607d7f2bbccb1c246a0115f",
+  "updated_at": "2026-09-11T06:08:03.627198+00:00",
+  "observed_after_sha256": "412a86ab9ba7f7edc1826a749ffdb03885ef2ea6d44d5a83e16f124678e1275b"
+}

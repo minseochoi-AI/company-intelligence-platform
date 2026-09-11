@@ -1,0 +1,135 @@
+{
+  "contract_version": "atomic-json-patch-receipt-v1",
+  "target": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/02-d-02-company-capability-taxonomy.json",
+  "outcome": "pass",
+  "before_sha256": "266f64e262dd6f63282ce87edc137df46c6d11d88520d7c796002429d2fe0968",
+  "after_sha256": "07e04c5b5e9ce309a917ef735dbedab3f3cac64d2bfd7e5c1b5d3ef9ff3e93c5",
+  "proposed_after_sha256": "07e04c5b5e9ce309a917ef735dbedab3f3cac64d2bfd7e5c1b5d3ef9ff3e93c5",
+  "operations": [
+    {
+      "op": "test",
+      "path": "/status"
+    },
+    {
+      "op": "test",
+      "path": "/question"
+    },
+    {
+      "op": "test",
+      "path": "/five_w_one_h"
+    },
+    {
+      "op": "test",
+      "path": "/evidence_refs"
+    },
+    {
+      "op": "test",
+      "path": "/facts"
+    },
+    {
+      "op": "test",
+      "path": "/conflicts"
+    },
+    {
+      "op": "test",
+      "path": "/unimplemented"
+    },
+    {
+      "op": "test",
+      "path": "/options"
+    },
+    {
+      "op": "test",
+      "path": "/recommended_option_id"
+    },
+    {
+      "op": "test",
+      "path": "/recommendation_reason"
+    },
+    {
+      "op": "test",
+      "path": "/impact"
+    },
+    {
+      "op": "test",
+      "path": "/opportunity_costs"
+    },
+    {
+      "op": "test",
+      "path": "/implementation_targets"
+    },
+    {
+      "op": "test",
+      "path": "/validation_requirements"
+    },
+    {
+      "op": "test",
+      "path": "/diagram_impacts"
+    },
+    {
+      "op": "replace",
+      "path": "/status"
+    },
+    {
+      "op": "replace",
+      "path": "/question"
+    },
+    {
+      "op": "replace",
+      "path": "/five_w_one_h"
+    },
+    {
+      "op": "replace",
+      "path": "/evidence_refs"
+    },
+    {
+      "op": "replace",
+      "path": "/facts"
+    },
+    {
+      "op": "replace",
+      "path": "/conflicts"
+    },
+    {
+      "op": "replace",
+      "path": "/unimplemented"
+    },
+    {
+      "op": "replace",
+      "path": "/options"
+    },
+    {
+      "op": "replace",
+      "path": "/recommended_option_id"
+    },
+    {
+      "op": "replace",
+      "path": "/recommendation_reason"
+    },
+    {
+      "op": "replace",
+      "path": "/impact"
+    },
+    {
+      "op": "replace",
+      "path": "/opportunity_costs"
+    },
+    {
+      "op": "replace",
+      "path": "/implementation_targets"
+    },
+    {
+      "op": "replace",
+      "path": "/validation_requirements"
+    },
+    {
+      "op": "replace",
+      "path": "/diagram_impacts"
+    }
+  ],
+  "backup": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/.mutation-journal/preimages/sha256-266f64e262dd6f63282ce87edc137df46c6d11d88520d7c796002429d2fe0968.json",
+  "journal": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/.mutation-journal/mutations/9fb71530585b6262f87c17e4f095abf43926c0059d88efbe289a9db796806914.json",
+  "mutation_id": "DISCUSS-D02-company-capability-taxonomy-v1",
+  "validators": [],
+  "completed_at": "2026-09-11T02:23:19.904083+00:00"
+}

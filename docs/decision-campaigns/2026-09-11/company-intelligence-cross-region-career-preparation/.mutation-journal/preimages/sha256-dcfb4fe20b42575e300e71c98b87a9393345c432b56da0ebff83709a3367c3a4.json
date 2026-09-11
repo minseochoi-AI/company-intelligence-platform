@@ -1,0 +1,135 @@
+{
+  "decision_id": "D-01-source-access-policy",
+  "sequence": 1,
+  "unit_id": "source-access-policy",
+  "title": "무료·공개 API 접근 정책",
+  "status": "decision-required",
+  "question": "미국·한국·EU/체코 원천을 어떤 접근·권한·데이터 역할 기준으로 등록하고, 어떤 상태에서만 connector를 활성화할 것인가?",
+  "five_w_one_h": {
+    "who": "플랫폼 운영자와 데이터 연구자",
+    "what": "무료·공개 원천의 접근 상태, 데이터 역할, 쿼터·약관, 확인일을 보존하는 source catalog",
+    "where": "config/providers.json, connector registry, 이후의 provider adapter",
+    "when": "새 원천을 추가하거나 정기 수집을 실행하기 전과 공식 약관 변경 확인 시",
+    "why": "표본 endpoint 성공을 기업 전체 커버리지·재배포 권한·분석 적격성으로 오해하지 않기 위해",
+    "how": "KEYLESS_PUBLIC·FREE_REGISTERED·APPROVAL_REQUIRED·DOCUMENT_ONLY·AGGREGATE_ONLY·EXTRACTION_RESTRICTED와 last_verified를 source별로 기록하고 승인된 상태만 실행한다."
+  },
+  "evidence_refs": [
+    {
+      "evidence_id": "E-D01-source-verification",
+      "source_type": "local-document",
+      "locator": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/source-verification-2026-09-11.md:7-41",
+      "observed_fact": "공식 문서 확인 결과, SEC·OpenDART·ARES·MPSV 등은 서로 다른 접근·데이터 역할을 가지며 EURES 원시 공고는 일반 자동 추출 대상으로 제외해야 한다.",
+      "content_hash": "sha256:c80f8552ca1a32574304cd688b04615f0ae773f9055423d8f32ef3feda05e268",
+      "line_range": "7-41",
+      "question": "원천의 무료성·등록·추출 제한과 데이터 역할을 어떻게 분리할 것인가?",
+      "observation_summary": "원천별 endpoint 존재만으로 기업 재무·고용·채용 데이터의 권한과 완전성을 보장할 수 없다."
+    },
+    {
+      "evidence_id": "E-D01-repo-provider-config",
+      "source_type": "code",
+      "locator": "config/providers.json:1-13",
+      "observed_fact": "현재 저장소는 여섯 keyed 공급자와 열여덟 keyless 공급자를 단순 목록으로 구분한다.",
+      "content_hash": "sha256:67af23324f8086fe872cd621aa34f9bf8c863976af2ed0612a60752a7c58c1fb",
+      "line_range": "1-13",
+      "question": "현재 설정이 접근 권한과 데이터 역할을 충분히 표현하는가?",
+      "observation_summary": "등록·승인·문서형·집계형·추출 제한과 확인일이 설정에 없다."
+    },
+    {
+      "evidence_id": "E-D01-readme-limits",
+      "source_type": "code",
+      "locator": "README.md:30-43",
+      "observed_fact": "README는 keyed·keyless 공급자와 Work24 키 부재, Alpha Vantage 전수 수집 한계를 명시한다.",
+      "content_hash": "sha256:8c7c58f2d30560ba50d26143c9a7080313f878824c77e887420fc3b4d451bd83",
+      "line_range": "30-43",
+      "question": "현재 MVP가 공급자 권한과 운영 한계를 인지하고 있는가?",
+      "observation_summary": "일부 한계는 문서화됐지만 모든 원천을 같은 실행 정책으로 판단할 catalog가 없다."
+    }
+  ],
+  "facts": [
+    "공식 문서 재확인 결과 SEC와 OpenDART는 기업 공시·재무 축이고, BLS·FRED·BEA·ECOS·CZSO·Eurostat은 집계 거시·산업 축이다.",
+    "고용24는 심사된 authKey가 필요하며 공고의 직무 요건을 제공하지만 감사된 기업 재무 원천은 아니다.",
+    "체코 ARES는 법인 식별 REST이고, Public Register·CNB OAM은 구조화 재무 API가 확인되지 않은 문서형 원천이다.",
+    "현재 registry는 keyed_probes와 keyless_probes를 단순 결합하며 source policy를 검증하지 않는다."
+  ],
+  "conflicts": [
+    "입력 문서와 README의 무키·무료 표현은 현재 공식 약관·공정 사용·등록·재배포 제한을 자동으로 충족한다는 뜻이 아니다.",
+    "체코 공시 문서는 공개되어도 구조화된 재무 fact API가 아니므로 document_only를 financial disclosure와 동등하게 취급하면 안 된다."
+  ],
+  "unimplemented": [
+    "원천별 access_mode, data_role, license_attribution_status, quota strategy, last_verified 모델이 없다.",
+    "connector 실행 전에 등록·승인·추출 제한을 차단하는 policy gate가 없다.",
+    "공식 문서 재검증 결과를 versioned evidence로 보존하는 경로가 없다."
+  ],
+  "options": [
+    {
+      "option_id": "A-probe-success-enables",
+      "description": "기존처럼 endpoint 응답과 필수 필드 통과를 주된 채택 기준으로 사용한다.",
+      "impact": {
+        "data": "표본 응답을 빠르게 추가하지만 원천 역할·권한·커버리지가 섞인다.",
+        "schema_api": "Probe.capabilities만 보강해 접근 정책을 표현하기 어렵다.",
+        "ux": "사용자가 표본 성공을 전체 기업 지원으로 오해할 수 있다.",
+        "performance": "동시 호출·재시도·캐시 정책을 일관되게 강제하기 어렵다.",
+        "cost": "초기 개발은 작지만 약관·쿼터 위반과 재작업 위험이 크다.",
+        "security": "키·승인 필요 여부를 늦게 발견해 비밀 관리 경계가 불명확하다.",
+        "migration": "후속 분류 체계로 옮길 때 기존 결과를 재해석해야 한다.",
+        "tests": "샘플 probe 통과만으로 정책·권한·제한을 검증하게 된다."
+      },
+      "opportunity_costs": [
+        "현재 프로브 확장은 빠르지만 재현 가능한 운영 계약을 포기한다."
+      ]
+    },
+    {
+      "option_id": "B-versioned-source-catalog",
+      "description": "공식 문서 근거를 가진 versioned source catalog와 실행 전 policy gate를 도입하고, 승인된 접근 상태만 connector를 활성화한다.",
+      "impact": {
+        "data": "원천 역할과 한계를 관측값에 함께 남겨 데이터 오용을 줄인다.",
+        "schema_api": "access_mode·data_role·license·quota·last_verified를 명시한 catalog 계약이 생긴다.",
+        "ux": "사용자가 지원 범위와 제외 사유를 기업별로 이해할 수 있다.",
+        "performance": "캐시·직렬 호출·Retry-After·저빈도 preflight를 원천 정책으로 통일한다.",
+        "cost": "초기 catalog 관리 비용은 늘지만 무효 호출과 재수집 비용을 낮춘다.",
+        "security": "등록 키·승인 공급자를 실행 전 분리해 비밀 노출 경계를 명확히 한다.",
+        "migration": "기존 probe는 source record에 매핑해 점진적으로 전환할 수 있다.",
+        "tests": "정적 catalog 검증과 connector activation gate 테스트를 추가할 수 있다."
+      },
+      "opportunity_costs": [
+        "원천 추가 전 공식 문서 검증과 정책 갱신 시간이 필요하다."
+      ]
+    }
+  ],
+  "recommended_option_id": "B-versioned-source-catalog",
+  "recommendation_reason": "원천 접근권·데이터 역할·추출 제한·확인일을 분리해야 무료 endpoint라는 표현을 실제 운영 가능성으로 오해하지 않고, 국가별 기업 분류와 이후 스프레드시트 근거를 재현할 수 있다.",
+  "impact": {
+    "data": "원천별 접근 상태·데이터 역할·확인일을 보존해 재무·고용·공고·거시 데이터를 섞지 않는다.",
+    "schema_api": "Source catalog와 connector policy gate를 도입하고 기존 Probe를 catalog ID에 연결한다.",
+    "ux": "기업 결과에 원천별 지원 범위와 제한 사유를 표시할 기반이 생긴다.",
+    "performance": "캐시·직렬 호출·quota backoff를 원천 정책으로 제어한다.",
+    "cost": "무료 등록·승인 절차와 유지보수 비용은 명시되지만 무효 호출을 줄인다.",
+    "security": "키·승인 필요 원천을 실행 전에 차단하고 로그·출력에서 비밀을 제외한다.",
+    "migration": "기존 24개 샘플 probe를 catalog record에 점진적으로 연결한다.",
+    "tests": "catalog schema·현재성·connector activation 경계를 단위 테스트한다."
+  },
+  "opportunity_costs": [
+    "등록·승인·약관 확인을 생략하는 빠른 connector 추가는 허용하지 않는다.",
+    "최신 공식 문서가 없는 원천은 실행 대상이 아니라 조사 후보로만 남긴다."
+  ],
+  "dependencies": [],
+  "dependency_waivers": {},
+  "accepted_decision": null,
+  "implementation_targets": [
+    "config/providers.json — 원천별 access_mode·data_role·license_attribution_status·last_verified·activation_policy 계약 추가",
+    "src/company_intel/models.py — source policy와 provider capability 모델 추가",
+    "src/company_intel/source_catalog.py (new) — catalog 로드·검증·실행 가능 상태 판정",
+    "src/company_intel/connectors/registry.py — catalog 승인 상태에 따라 probe/adapter를 선택",
+    "tests/test_source_catalog.py (new) — 원천 분류와 activation gate 검증"
+  ],
+  "implementation_change_ids": [],
+  "validation_requirements": [
+    "공식 원천 매트릭스의 각 ID가 access_mode·data_role·last_verified·제한 사유를 갖는지 검증한다.",
+    "APPROVAL_REQUIRED·EXTRACTION_RESTRICTED·DOCUMENT_ONLY 원천이 명시적 승인 없이 실행 경로에 들어가지 않는지 검증한다.",
+    "기존 provider 목록의 모든 항목이 catalog record에 정확히 매핑되는지 검증한다."
+  ],
+  "diagram_impacts": [
+    "원천 문서 검증 → source catalog → connector policy gate → 수집/분류/스프레드시트 흐름을 후속 다이어그램에 반영한다."
+  ],
+  "context_topic_ids": []
+}

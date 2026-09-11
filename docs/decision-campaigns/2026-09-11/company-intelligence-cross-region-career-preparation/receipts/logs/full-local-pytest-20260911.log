@@ -1,0 +1,5 @@
+UV_CACHE_DIR=/tmp/company-intelligence-platform-uv-cache uv run --frozen pytest -q
+...................                                                      [100%]
+19 passed in 0.41s
+
+Boundary: local pytest only; no provider request, external API call, upload, commit, or push.

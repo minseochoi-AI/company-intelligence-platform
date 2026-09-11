@@ -1,0 +1,56 @@
+{
+  "contract_version": "implementation-context-packet-v2",
+  "packet_id": "C-04-peer-screener-ranking-packet-d2d6dd40ef2d",
+  "topics": [
+    "company-screening"
+  ],
+  "capability_ids": [
+    "peer-group-filtering",
+    "metric-ranking",
+    "coverage-reporting",
+    "analysis-exclusion"
+  ],
+  "required_refs": [
+    {
+      "ref_id": "analytics-ranking-current",
+      "role": "must-read",
+      "path": "src/company_intel/analytics.py",
+      "content_hash": "sha256:f4f76a87c9c7c2a226ff9164c783eb1c89beeed89c15cf1cc47346fe71a0f269",
+      "line_range": "77-139",
+      "question": "현재 동료군 순위 엔진이 어떤 경계와 결측 규칙을 제공하는가?",
+      "observation_summary": "배열 입력의 국가·산업·규모별 순위는 있으나 저장 데이터 필터와 근거 응답 계약은 없다."
+    },
+    {
+      "ref_id": "warehouse-screening-current",
+      "role": "must-read",
+      "path": "src/company_intel/warehouse.py",
+      "content_hash": "sha256:b9691ca3794875eefc3922d387baa0fcfcc78301db6564ebe073977e5ae5b2ff",
+      "line_range": "1-520",
+      "question": "저장된 기업 fact를 동료군 스크리너로 조회할 수 있는가?",
+      "observation_summary": "원자 관측과 검색 적재는 있으나 사용자 선택 지표·기준일·coverage를 결합하는 조회가 없다."
+    }
+  ],
+  "current_entry_points": [],
+  "planned_entry_points": [
+    {
+      "kind": "code",
+      "path": "src/company_intel/screening.py",
+      "symbol": "ScreenerProfile",
+      "change_id": "D-06-peer-screener-ranking-service"
+    },
+    {
+      "kind": "test",
+      "path": "tests/test_screening.py",
+      "symbol": "test_peer_boundaries_and_coverage",
+      "change_id": "D-06-peer-screener-ranking-test"
+    }
+  ],
+  "external_entry_points": [],
+  "invariants": [
+    "서로 다른 국가·산업·규모의 기업은 같은 peer_group에 섞지 않는다.",
+    "결측 지표를 0 또는 추정 점수로 보충하지 않는다.",
+    "모든 순위 행은 기준일·단위·원천·coverage 또는 exclusion을 가진다."
+  ],
+  "unresolved_conflicts": [],
+  "resume_digest": "Prepared C-04-peer-screener-ranking from current decision hashes and one global file-ownership graph."
+}

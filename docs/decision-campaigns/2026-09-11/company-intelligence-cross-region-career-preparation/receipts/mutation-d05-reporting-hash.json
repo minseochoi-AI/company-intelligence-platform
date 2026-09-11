@@ -1,0 +1,23 @@
+{
+  "contract_version": "atomic-json-patch-receipt-v1",
+  "target": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/05-d-05-spreadsheet-output-contract.json",
+  "outcome": "pass",
+  "before_sha256": "1727fed86826540ecec8bf1ac927cf6e0f016195306b6017e6e0fd765897aa66",
+  "after_sha256": "9a3bf7386af42ae65e3fea61337b80034c4a85e7f7f86d670108cb2b58819523",
+  "proposed_after_sha256": "9a3bf7386af42ae65e3fea61337b80034c4a85e7f7f86d670108cb2b58819523",
+  "operations": [
+    {
+      "op": "test",
+      "path": "/evidence_refs/0/content_hash"
+    },
+    {
+      "op": "replace",
+      "path": "/evidence_refs/0/content_hash"
+    }
+  ],
+  "backup": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/.mutation-journal/preimages/sha256-1727fed86826540ecec8bf1ac927cf6e0f016195306b6017e6e0fd765897aa66.json",
+  "journal": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/.mutation-journal/mutations/b992b7f33ac24a0b5d399aa34c254dfd172631fe9ea561dac16313ac06a01d4a.json",
+  "mutation_id": "DISCUSS-D05-reporting-hash-v1",
+  "validators": [],
+  "completed_at": "2026-09-11T02:26:48.605705+00:00"
+}

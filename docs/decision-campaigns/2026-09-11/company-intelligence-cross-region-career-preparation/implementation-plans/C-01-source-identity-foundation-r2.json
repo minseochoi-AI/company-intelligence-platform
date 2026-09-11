@@ -1,0 +1,1045 @@
+{
+  "contract_version": "1.2.0",
+  "plan_id": "company-intelligence-cross-region-career-preparation--C-01-source-identity-foundation--r2",
+  "owner": {
+    "kind": "campaign-cohort",
+    "id": "C-01-source-identity-foundation"
+  },
+  "source_refs": [
+    {
+      "id": "D-01-source-access-policy",
+      "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/01-d-01-source-access-policy.json",
+      "sha256": "sha256:91b45319b61412629b4ed438d528fdee0f402f2280e658f15fcd1e3aa23068e0"
+    },
+    {
+      "id": "D-02-company-capability-taxonomy",
+      "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/02-d-02-company-capability-taxonomy.json",
+      "sha256": "sha256:bb810f3200fba527993f9c18ad5b3bcbe27c1663d213dcdd6c666b361a2fa3e7"
+    }
+  ],
+  "status": "contract-ready",
+  "change_slices": [
+    {
+      "slice_id": "semantic-provider-identity-foundation-r2",
+      "behavior": "28개 등록 operation과 MPSV 후보를 probe·production·context·proxy로 분리하고, 원문 손실 없는 fact와 법인·단위·시점·5상태 가용성 계약을 CLI의 공통 기반으로 만든다.",
+      "dependencies": [],
+      "operations": [
+        {
+          "change_id": "D-01-provider-catalog-r2",
+          "operation": "MODIFY",
+          "path": "config/providers.json",
+          "symbols": [
+            "atomic_operations",
+            "provider_disposition",
+            "semantic_contract"
+          ],
+          "current_state": "고정 probe와 production capability가 혼재하고 ALIO organization, OECD CZ, IMF periods, World Bank path 계약이 실제 응답 의미와 불일치한다.",
+          "source_hash": "sha256:d8d0f64418df17737cee247f1ff9f2eb50ac9b316371d3cda2d04f39db572e64",
+          "after_state": "operation마다 cluster, lifecycle, usable fields, forbidden uses, semantic validators, production eligibility를 선언하고 BEA catalog·OECD CZ·context/proxy를 사용자 검색에서 격리한다.",
+          "rationale": "접근 성공을 검색·분석 가능으로 오판하지 않기 위해서다.",
+          "dependencies": [],
+          "public_contract_impacts": [
+            "provider catalog v3",
+            "provider disposition vocabulary"
+          ],
+          "compatibility": "기존 operation_id는 health fixture로 보존하고 production selector만 제한한다.",
+          "migration": "기존 항목에 cluster와 disposition을 추가하고 의미가 틀린 region/required_paths를 교정한다.",
+          "rollback": "r2 필드를 무시하면 기존 probe 실행은 유지된다.",
+          "authorization_boundary": "외부 API 호출과 유료 사용은 이 계획에 포함하지 않는다.",
+          "contributes_to": [
+            "D-01-source-access-policy"
+          ],
+          "symbol_changes": [
+            {
+              "symbol": "atomic_operations",
+              "intent": "실제 의미 기반 provider disposition",
+              "decision_id": "D-01-source-access-policy"
+            }
+          ],
+          "contribution_refs": [
+            {
+              "decision_id": "D-01-source-access-policy",
+              "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/01-d-01-source-access-policy.json",
+              "sha256": "sha256:91b45319b61412629b4ed438d528fdee0f402f2280e658f15fcd1e3aa23068e0",
+              "symbols": [
+                "atomic_operations",
+                "provider_disposition",
+                "semantic_contract"
+              ],
+              "intent_change_ids": []
+            }
+          ]
+        },
+        {
+          "change_id": "D-01-env-contract-r2",
+          "operation": "MODIFY",
+          "path": ".env.example",
+          "symbols": [
+            "SEC_USER_AGENT",
+            "provider activation examples"
+          ],
+          "current_state": "SEC User-Agent 예시가 실제 연락처 형식인지 운영 gate가 구별하기 어렵다.",
+          "source_hash": "sha256:4fef9c61ef28bd656858387f99f9569085b3e918d25363a83427c4e602f8a0a3",
+          "after_state": "placeholder가 운영 준비로 통과하지 않도록 비밀이 아닌 configuration 요구사항과 예시 형식을 명시한다.",
+          "rationale": "무료 SEC 호출도 식별 가능한 User-Agent 정책을 충족해야 한다.",
+          "dependencies": [],
+          "public_contract_impacts": [
+            "runtime configuration"
+          ],
+          "compatibility": "기존 환경변수 이름을 유지한다.",
+          "migration": "실제 연락처가 포함된 값은 사용자가 로컬 환경에만 설정한다.",
+          "rollback": "문서 예시만 복원한다.",
+          "authorization_boundary": "실제 연락처나 credential은 저장소에 기록하지 않는다.",
+          "contributes_to": [
+            "D-01-source-access-policy"
+          ],
+          "symbol_changes": [
+            {
+              "symbol": "SEC_USER_AGENT",
+              "intent": "placeholder 거부 계약",
+              "decision_id": "D-01-source-access-policy"
+            }
+          ],
+          "contribution_refs": [
+            {
+              "decision_id": "D-01-source-access-policy",
+              "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/01-d-01-source-access-policy.json",
+              "sha256": "sha256:91b45319b61412629b4ed438d528fdee0f402f2280e658f15fcd1e3aa23068e0",
+              "symbols": [
+                "SEC_USER_AGENT",
+                "provider activation examples"
+              ],
+              "intent_change_ids": []
+            }
+          ]
+        },
+        {
+          "change_id": "D-01-k3s-config-r2",
+          "operation": "MODIFY",
+          "path": "deploy/k3s/secret.example.yaml",
+          "symbols": [
+            "SEC_USER_AGENT",
+            "provider configuration placeholders"
+          ],
+          "current_state": "배포 예시가 의미 검증에 필요한 비밀 아닌 provider configuration을 명확히 구분하지 않는다.",
+          "source_hash": "sha256:19c9d9fe8321953701b64b15c8373451216381787029d1131865bd23168c8c67",
+          "after_state": "SEC 식별 문자열과 API key placeholder를 구분하고 실제 값 커밋 금지를 표시한다.",
+          "rationale": "로컬과 배포 activation gate를 동일하게 하기 위해서다.",
+          "dependencies": [],
+          "public_contract_impacts": [
+            "deployment example"
+          ],
+          "compatibility": "Secret key 이름은 유지한다.",
+          "migration": "기존 배포는 값 변경 없이 동작한다.",
+          "rollback": "예시 파일만 복원한다.",
+          "authorization_boundary": "실제 secret을 작성하지 않는다.",
+          "contributes_to": [
+            "D-01-source-access-policy"
+          ],
+          "symbol_changes": [
+            {
+              "symbol": "provider configuration placeholders",
+              "intent": "비밀과 식별 configuration 분리",
+              "decision_id": "D-01-source-access-policy"
+            }
+          ],
+          "contribution_refs": [
+            {
+              "decision_id": "D-01-source-access-policy",
+              "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/01-d-01-source-access-policy.json",
+              "sha256": "sha256:91b45319b61412629b4ed438d528fdee0f402f2280e658f15fcd1e3aa23068e0",
+              "symbols": [
+                "SEC_USER_AGENT",
+                "provider configuration placeholders"
+              ],
+              "intent_change_ids": []
+            }
+          ]
+        },
+        {
+          "change_id": "D-01-lossless-base-r2",
+          "operation": "MODIFY",
+          "path": "src/company_intel/connectors/base.py",
+          "symbols": [
+            "compact",
+            "to_decimal",
+            "preserve_payload"
+          ],
+          "current_state": "compact가 목록 5개·깊이 3에서 관측을 잘라 normalized artifact의 검색·분석 값을 손실한다.",
+          "source_hash": "sha256:b4e9a42028123d2575c780d3d9b6198bf4b27d383ed5572386891838308b7cd8",
+          "after_state": "compact는 preview 전용으로 명명·표시하고 production normalizer는 전체 행을 보존하며 금액은 Decimal 안전 변환을 제공한다.",
+          "rationale": "SEC·BLS·ARES·ECB·World Bank 등 후반 행 손실을 막기 위해서다.",
+          "dependencies": [],
+          "public_contract_impacts": [
+            "normalized artifact completeness"
+          ],
+          "compatibility": "기존 preview 출력은 별도 함수로 유지한다.",
+          "migration": "검색·분석 consumer를 lossless 경로로 전환한다.",
+          "rollback": "lossless consumer를 비활성화하고 raw만 사용한다.",
+          "authorization_boundary": "원문 PII는 별도 field policy로 제거한다.",
+          "contributes_to": [
+            "D-01-source-access-policy",
+            "D-02-company-capability-taxonomy"
+          ],
+          "symbol_changes": [
+            {
+              "symbol": "compact",
+              "intent": "preview와 분석 데이터 경계",
+              "decision_id": "D-01-source-access-policy"
+            },
+            {
+              "symbol": "preserve_payload",
+              "intent": "손실 없는 원자 fact",
+              "decision_id": "D-02-company-capability-taxonomy"
+            }
+          ],
+          "contribution_refs": [
+            {
+              "decision_id": "D-01-source-access-policy",
+              "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/01-d-01-source-access-policy.json",
+              "sha256": "sha256:91b45319b61412629b4ed438d528fdee0f402f2280e658f15fcd1e3aa23068e0",
+              "symbols": [
+                "compact",
+                "to_decimal",
+                "preserve_payload"
+              ],
+              "intent_change_ids": []
+            },
+            {
+              "decision_id": "D-02-company-capability-taxonomy",
+              "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/02-d-02-company-capability-taxonomy.json",
+              "sha256": "sha256:bb810f3200fba527993f9c18ad5b3bcbe27c1663d213dcdd6c666b361a2fa3e7",
+              "symbols": [
+                "compact",
+                "to_decimal",
+                "preserve_payload"
+              ],
+              "intent_change_ids": []
+            }
+          ]
+        },
+        {
+          "change_id": "D-01-keyed-semantics-r2",
+          "operation": "MODIFY",
+          "path": "src/company_intel/connectors/keyed.py",
+          "symbols": [
+            "_dart",
+            "_ecos",
+            "_alio_plus",
+            "_public_employment",
+            "_alpha"
+          ],
+          "current_state": "DART 중복 계정·ECOS 반환주기·ALIO 빈 필드·MPM type code·Alpha raw price의 의미 제한이 충분히 구조화되지 않는다.",
+          "source_hash": "sha256:951e2c73427e63ae5f8befb628dc45ceda0ff444bcf682175708af62f8fc7f32",
+          "after_state": "각 원천을 전체 복합키·요청/반환 주기·codebook 상태·price adjustment와 함께 보존하고 목록-only 제약을 명시한다.",
+          "rationale": "같은 숫자 모양을 같은 의미로 합치지 않기 위해서다.",
+          "dependencies": [],
+          "public_contract_impacts": [
+            "keyed normalized contracts"
+          ],
+          "compatibility": "기존 probe IDs와 raw 보존을 유지한다.",
+          "migration": "새 canonical fact consumer를 병행한다.",
+          "rollback": "provider별 r2 mapper를 비활성화한다.",
+          "authorization_boundary": "키 값과 연락처를 출력하지 않는다.",
+          "contributes_to": [
+            "D-01-source-access-policy",
+            "D-02-company-capability-taxonomy"
+          ],
+          "symbol_changes": [
+            {
+              "symbol": "_public_employment",
+              "intent": "목록 metadata 한계 보존",
+              "decision_id": "D-01-source-access-policy"
+            },
+            {
+              "symbol": "_dart",
+              "intent": "재무 복합키와 Decimal",
+              "decision_id": "D-02-company-capability-taxonomy"
+            }
+          ],
+          "contribution_refs": [
+            {
+              "decision_id": "D-01-source-access-policy",
+              "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/01-d-01-source-access-policy.json",
+              "sha256": "sha256:91b45319b61412629b4ed438d528fdee0f402f2280e658f15fcd1e3aa23068e0",
+              "symbols": [
+                "_dart",
+                "_ecos",
+                "_alio_plus",
+                "_public_employment",
+                "_alpha"
+              ],
+              "intent_change_ids": []
+            },
+            {
+              "decision_id": "D-02-company-capability-taxonomy",
+              "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/02-d-02-company-capability-taxonomy.json",
+              "sha256": "sha256:bb810f3200fba527993f9c18ad5b3bcbe27c1663d213dcdd6c666b361a2fa3e7",
+              "symbols": [
+                "_dart",
+                "_ecos",
+                "_alio_plus",
+                "_public_employment",
+                "_alpha"
+              ],
+              "intent_change_ids": []
+            }
+          ]
+        },
+        {
+          "change_id": "D-01-keyless-semantics-r2",
+          "operation": "MODIFY",
+          "path": "src/company_intel/connectors/keyless.py",
+          "symbols": [
+            "_greenhouse",
+            "_lever",
+            "keyless_probes",
+            "SDMX and JSON-stat normalizers"
+          ],
+          "current_state": "Greenhouse 급여, Lever 다중위치, SEC facts, ARES NACE, Eurostat/ECB/OECD/World Bank 차원과 관측이 축약되거나 잘못 연결된다.",
+          "source_hash": "sha256:2f44850263221028d0b46c52b73a4daa297c441a679ebdc33e8900289e56b467",
+          "after_state": "provider별 전체 행을 원자화하고 다중 위치·급여 tier·series signature·pagination·notice revision을 보존한다.",
+          "rationale": "실제 응답 형식에 기반한 검색·정렬 가능성을 보장하기 위해서다.",
+          "dependencies": [],
+          "public_contract_impacts": [
+            "keyless normalized contracts"
+          ],
+          "compatibility": "health probe는 유지하고 production fact mapper를 분리한다.",
+          "migration": "고정 Apple/Airtable/Spotify/Microsoft 표본을 validation fixture로 표시한다.",
+          "rollback": "production selector에서 해당 mapper를 격리한다.",
+          "authorization_boundary": "provider 약관과 SEC User-Agent gate를 준수한다.",
+          "contributes_to": [
+            "D-01-source-access-policy",
+            "D-02-company-capability-taxonomy"
+          ],
+          "symbol_changes": [
+            {
+              "symbol": "keyless_probes",
+              "intent": "probe와 production 분리",
+              "decision_id": "D-01-source-access-policy"
+            },
+            {
+              "symbol": "SDMX and JSON-stat normalizers",
+              "intent": "차원 포함 원자 관측",
+              "decision_id": "D-02-company-capability-taxonomy"
+            }
+          ],
+          "contribution_refs": [
+            {
+              "decision_id": "D-01-source-access-policy",
+              "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/01-d-01-source-access-policy.json",
+              "sha256": "sha256:91b45319b61412629b4ed438d528fdee0f402f2280e658f15fcd1e3aa23068e0",
+              "symbols": [
+                "_greenhouse",
+                "_lever",
+                "keyless_probes",
+                "SDMX and JSON-stat normalizers"
+              ],
+              "intent_change_ids": []
+            },
+            {
+              "decision_id": "D-02-company-capability-taxonomy",
+              "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/02-d-02-company-capability-taxonomy.json",
+              "sha256": "sha256:bb810f3200fba527993f9c18ad5b3bcbe27c1663d213dcdd6c666b361a2fa3e7",
+              "symbols": [
+                "_greenhouse",
+                "_lever",
+                "keyless_probes",
+                "SDMX and JSON-stat normalizers"
+              ],
+              "intent_change_ids": []
+            }
+          ]
+        },
+        {
+          "change_id": "D-01-catalog-validator-r2",
+          "operation": "MODIFY",
+          "path": "src/company_intel/source_catalog.py",
+          "symbols": [
+            "SourceCatalog",
+            "validate_atomic_contract",
+            "evaluate_activation"
+          ],
+          "current_state": "operation ID 존재와 secret 여부만 검사하고 raw path·field semantics·runtime probe의 정확한 일치를 확인하지 않는다.",
+          "source_hash": "sha256:3e0236390e1fdc10542ff7f9d0749c327b585d943589bf3c4adc60ddfe6e13a0",
+          "after_state": "catalog/probe field contract parity, lifecycle, cluster, forbidden-use, nonempty/type/domain validator를 검사한다.",
+          "rationale": "catalog와 런타임의 split-brain을 차단하기 위해서다.",
+          "dependencies": [],
+          "public_contract_impacts": [
+            "source catalog validation"
+          ],
+          "compatibility": "기존 ID parity 검사는 포함한다.",
+          "migration": "불완전 항목은 semantic-unready로 표시한다.",
+          "rollback": "엄격 검사를 feature flag로 비활성화할 수 있다.",
+          "authorization_boundary": "검사는 로컬 catalog만 읽는다.",
+          "contributes_to": [
+            "D-01-source-access-policy"
+          ],
+          "symbol_changes": [
+            {
+              "symbol": "validate_atomic_contract",
+              "intent": "필드 의미 parity 검증",
+              "decision_id": "D-01-source-access-policy"
+            }
+          ],
+          "contribution_refs": [
+            {
+              "decision_id": "D-01-source-access-policy",
+              "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/01-d-01-source-access-policy.json",
+              "sha256": "sha256:91b45319b61412629b4ed438d528fdee0f402f2280e658f15fcd1e3aa23068e0",
+              "symbols": [
+                "SourceCatalog",
+                "validate_atomic_contract",
+                "evaluate_activation"
+              ],
+              "intent_change_ids": []
+            }
+          ]
+        },
+        {
+          "change_id": "D-01-runtime-validator-r2",
+          "operation": "MODIFY",
+          "path": "src/company_intel/validation.py",
+          "symbols": [
+            "validate",
+            "SemanticFieldCheck",
+            "_provider_error"
+          ],
+          "current_state": "required path가 존재하면 null·빈 문자열·잘못된 자료형·오래된 표본도 passed가 될 수 있다.",
+          "source_hash": "sha256:0d9a12a86a8ac272140f4759d6f62b8bc8f99a76a64bc590202d42b6b2c3919d",
+          "after_state": "transport/provider/schema/value/coverage/freshness/production-readiness를 독립 상태로 검증하고 SEC placeholder와 ALIO 빈 값을 실패시킨다.",
+          "rationale": "HTTP 200과 사용자 기능 사용 가능성을 분리하기 위해서다.",
+          "dependencies": [],
+          "public_contract_impacts": [
+            "validation result schema"
+          ],
+          "compatibility": "상위 passed 요약은 파생값으로 남긴다.",
+          "migration": "기존 receipt는 historical로 보존한다.",
+          "rollback": "새 semantic checks를 비활성화한다.",
+          "authorization_boundary": "provider 재호출은 별도 실행 승인이 필요하다.",
+          "contributes_to": [
+            "D-01-source-access-policy"
+          ],
+          "symbol_changes": [
+            {
+              "symbol": "SemanticFieldCheck",
+              "intent": "값·자료형·도메인·신선도 판정",
+              "decision_id": "D-01-source-access-policy"
+            }
+          ],
+          "contribution_refs": [
+            {
+              "decision_id": "D-01-source-access-policy",
+              "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/01-d-01-source-access-policy.json",
+              "sha256": "sha256:91b45319b61412629b4ed438d528fdee0f402f2280e658f15fcd1e3aa23068e0",
+              "symbols": [
+                "validate",
+                "SemanticFieldCheck",
+                "_provider_error"
+              ],
+              "intent_change_ids": []
+            }
+          ]
+        },
+        {
+          "change_id": "D-01-provider-clusters-r2",
+          "operation": "CREATE",
+          "path": "src/company_intel/provider_clusters.py",
+          "symbols": [
+            "ProviderCluster",
+            "ProviderDisposition",
+            "select_operations"
+          ],
+          "current_state": "공고·요건·identity·재무·거시·공공수요·proxy operation을 검색 단계별로 제한하는 모듈이 없다.",
+          "source_hash": null,
+          "after_state": "job, requirement, identity, financial, macro, public-demand, activity-proxy와 health-fixture를 분리하고 금지된 cross-cluster 사용을 거부한다.",
+          "rationale": "API 형태가 아니라 사용자 질문의 의미로 source를 라우팅하기 위해서다.",
+          "dependencies": [],
+          "public_contract_impacts": [
+            "provider routing service"
+          ],
+          "compatibility": "기존 registry의 목록을 입력으로 재사용한다.",
+          "migration": "CLI는 새 selector를 통해서만 operation을 선택한다.",
+          "rollback": "selector 호출을 제거한다.",
+          "authorization_boundary": "선택은 호출 권한을 부여하지 않는다.",
+          "contributes_to": [
+            "D-01-source-access-policy",
+            "D-02-company-capability-taxonomy"
+          ],
+          "symbol_changes": [
+            {
+              "symbol": "ProviderDisposition",
+              "intent": "폐기·격리·production 구분",
+              "decision_id": "D-01-source-access-policy"
+            },
+            {
+              "symbol": "ProviderCluster",
+              "intent": "의미별 데이터 역할 분리",
+              "decision_id": "D-02-company-capability-taxonomy"
+            }
+          ],
+          "contribution_refs": [
+            {
+              "decision_id": "D-01-source-access-policy",
+              "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/01-d-01-source-access-policy.json",
+              "sha256": "sha256:91b45319b61412629b4ed438d528fdee0f402f2280e658f15fcd1e3aa23068e0",
+              "symbols": [
+                "ProviderCluster",
+                "ProviderDisposition",
+                "select_operations"
+              ],
+              "intent_change_ids": []
+            },
+            {
+              "decision_id": "D-02-company-capability-taxonomy",
+              "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/02-d-02-company-capability-taxonomy.json",
+              "sha256": "sha256:bb810f3200fba527993f9c18ad5b3bcbe27c1663d213dcdd6c666b361a2fa3e7",
+              "symbols": [
+                "ProviderCluster",
+                "ProviderDisposition",
+                "select_operations"
+              ],
+              "intent_change_ids": []
+            }
+          ]
+        },
+        {
+          "change_id": "D-01-registry-routing-r2",
+          "operation": "MODIFY",
+          "path": "src/company_intel/connectors/registry.py",
+          "symbols": [
+            "build_probes",
+            "production_adapters",
+            "select_by_cluster"
+          ],
+          "current_state": "probe registry가 production discovery와 동일한 후보군처럼 사용될 수 있다.",
+          "source_hash": "sha256:8b9f4feb73b124014ae8841c65bfa581f08724cf7143001a1ce942bdfee73f3e",
+          "after_state": "health fixture와 production adapter를 분리하고 cluster·region·capability·activation 상태로 선택한다.",
+          "rationale": "고정 회사 표본을 전체 시장으로 오해하지 않기 위해서다.",
+          "dependencies": [],
+          "public_contract_impacts": [
+            "connector selection"
+          ],
+          "compatibility": "validate 명령은 기존 probe를 계속 사용한다.",
+          "migration": "검색 명령만 production selector로 이동한다.",
+          "rollback": "검색 source를 명시 파일 입력으로 제한한다.",
+          "authorization_boundary": "selector는 외부 호출을 시작하지 않는다.",
+          "contributes_to": [
+            "D-01-source-access-policy"
+          ],
+          "symbol_changes": [
+            {
+              "symbol": "production_adapters",
+              "intent": "probe/production 경계",
+              "decision_id": "D-01-source-access-policy"
+            }
+          ],
+          "contribution_refs": [
+            {
+              "decision_id": "D-01-source-access-policy",
+              "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/01-d-01-source-access-policy.json",
+              "sha256": "sha256:91b45319b61412629b4ed438d528fdee0f402f2280e658f15fcd1e3aa23068e0",
+              "symbols": [
+                "build_probes",
+                "production_adapters",
+                "select_by_cluster"
+              ],
+              "intent_change_ids": []
+            }
+          ]
+        },
+        {
+          "change_id": "D-02-model-contract-r2",
+          "operation": "MODIFY",
+          "path": "src/company_intel/models.py",
+          "symbols": [
+            "SearchVerdict",
+            "AtomicFact",
+            "ComparabilitySignature",
+            "SourceDisposition"
+          ],
+          "current_state": "가용성과 분석 적격성 타입은 있으나 MATCH/NO_MATCH/UNKNOWN/CONFLICT/NOT_APPLICABLE과 비교 signature가 공통 계약이 아니다.",
+          "source_hash": "sha256:df78975ecedb36bd05d67967552ed16dffdbfec78313478a5f4f6530aa2a0dda",
+          "after_state": "5상태 verdict, 원자 fact, source lifecycle과 비교 가능 signature를 공통 불변 모델로 정의한다.",
+          "rationale": "검색·스크리너·분석·export가 같은 의미 상태를 공유하게 한다.",
+          "dependencies": [],
+          "public_contract_impacts": [
+            "Python data contract"
+          ],
+          "compatibility": "기존 응답 필드는 호환 adapter로 유지한다.",
+          "migration": "새 CLI 출력 schema version에서 신규 상태를 사용한다.",
+          "rollback": "호환 adapter의 legacy 상태를 사용한다.",
+          "authorization_boundary": "사용자 속성을 추정하는 필드를 추가하지 않는다.",
+          "contributes_to": [
+            "D-02-company-capability-taxonomy"
+          ],
+          "symbol_changes": [
+            {
+              "symbol": "SearchVerdict",
+              "intent": "5상태 공통 판정",
+              "decision_id": "D-02-company-capability-taxonomy"
+            }
+          ],
+          "contribution_refs": [
+            {
+              "decision_id": "D-02-company-capability-taxonomy",
+              "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/02-d-02-company-capability-taxonomy.json",
+              "sha256": "sha256:bb810f3200fba527993f9c18ad5b3bcbe27c1663d213dcdd6c666b361a2fa3e7",
+              "symbols": [
+                "SearchVerdict",
+                "AtomicFact",
+                "ComparabilitySignature",
+                "SourceDisposition"
+              ],
+              "intent_change_ids": []
+            }
+          ]
+        },
+        {
+          "change_id": "D-02-normalization-r2",
+          "operation": "MODIFY",
+          "path": "src/company_intel/normalization.py",
+          "symbols": [
+            "AtomicObservationMapper",
+            "comparability_signature",
+            "deduplication_key"
+          ],
+          "current_state": "일반 원자 관측은 있으나 provider별 차원·unit·basis·vintage·revision을 완전한 비교키로 강제하지 않는다.",
+          "source_hash": "sha256:aa5e5c87ce3ebe464187e07a8a712ad9529d0ba99602297f45a9ee526f7fbf49",
+          "after_state": "job/financial/macro/procurement/activity fact별 원자키와 비교 signature를 생성하고 preview 손실물을 거부한다.",
+          "rationale": "같은 숫자 형식의 다른 의미를 잘못 정렬하지 않기 위해서다.",
+          "dependencies": [],
+          "public_contract_impacts": [
+            "canonical fact schema"
+          ],
+          "compatibility": "raw locator와 provider fields를 보존한다.",
+          "migration": "기존 normalized artifact는 preview-only로 표시한다.",
+          "rollback": "raw-only 분석 불가 상태로 되돌린다.",
+          "authorization_boundary": "불명확 필드는 UNKNOWN으로 남긴다.",
+          "contributes_to": [
+            "D-02-company-capability-taxonomy"
+          ],
+          "symbol_changes": [
+            {
+              "symbol": "comparability_signature",
+              "intent": "비교 가능성 원자키",
+              "decision_id": "D-02-company-capability-taxonomy"
+            }
+          ],
+          "contribution_refs": [
+            {
+              "decision_id": "D-02-company-capability-taxonomy",
+              "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/02-d-02-company-capability-taxonomy.json",
+              "sha256": "sha256:bb810f3200fba527993f9c18ad5b3bcbe27c1663d213dcdd6c666b361a2fa3e7",
+              "symbols": [
+                "AtomicObservationMapper",
+                "comparability_signature",
+                "deduplication_key"
+              ],
+              "intent_change_ids": []
+            }
+          ]
+        },
+        {
+          "change_id": "D-02-identity-r2",
+          "operation": "MODIFY",
+          "path": "src/company_intel/identity.py",
+          "symbols": [
+            "CompanyIdentityResolver",
+            "ResolutionResult",
+            "IdentifierLink"
+          ],
+          "current_state": "source-local ID 연결은 가능하지만 ATS board slug·표시명·법정 ID 충돌을 5상태로 충분히 설명하지 않는다.",
+          "source_hash": "sha256:085083665a28e8a1ac3ce52e18e20764cd95fd144f0d6b18dffb647c75e5e72b",
+          "after_state": "CIK·DART corp code·LEI·IČO·기관 ID를 namespace별로 유지하고 resolved/unresolved/conflict와 근거를 반환한다.",
+          "rationale": "법인이 확인되지 않은 공고에 재무·조달·연구 데이터를 붙이지 않기 위해서다.",
+          "dependencies": [],
+          "public_contract_impacts": [
+            "identity resolution response"
+          ],
+          "compatibility": "약한 이름 후보는 unresolved로 유지한다.",
+          "migration": "기존 entity_id는 source-local alias로 보존한다.",
+          "rollback": "cross-source join을 비활성화한다.",
+          "authorization_boundary": "개인 식별정보는 처리하지 않는다.",
+          "contributes_to": [
+            "D-02-company-capability-taxonomy"
+          ],
+          "symbol_changes": [
+            {
+              "symbol": "ResolutionResult",
+              "intent": "법인 충돌과 미해결 분리",
+              "decision_id": "D-02-company-capability-taxonomy"
+            }
+          ],
+          "contribution_refs": [
+            {
+              "decision_id": "D-02-company-capability-taxonomy",
+              "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/02-d-02-company-capability-taxonomy.json",
+              "sha256": "sha256:bb810f3200fba527993f9c18ad5b3bcbe27c1663d213dcdd6c666b361a2fa3e7",
+              "symbols": [
+                "CompanyIdentityResolver",
+                "ResolutionResult",
+                "IdentifierLink"
+              ],
+              "intent_change_ids": []
+            }
+          ]
+        },
+        {
+          "change_id": "D-02-classification-r2",
+          "operation": "MODIFY",
+          "path": "src/company_intel/classification.py",
+          "symbols": [
+            "classify_company",
+            "evaluate_analysis_eligibility",
+            "CapabilityGate"
+          ],
+          "current_state": "capability gate는 있으나 context/proxy/catalog를 searchable financial/job capability로 잘못 승격할 가능성이 있다.",
+          "source_hash": "sha256:0ffb76635f1153c26f49a35d58d5e3c7ebc23e022dd620c67ff016a2dea7b0ba",
+          "after_state": "provider cluster와 fact coverage를 기준으로 job-only, financial-only, context-only, proxy-only와 correlation/causal ineligible를 독립 판정한다.",
+          "rationale": "기업 분류와 분석 부적격을 숨기지 않기 위해서다.",
+          "dependencies": [],
+          "public_contract_impacts": [
+            "company capability taxonomy"
+          ],
+          "compatibility": "기존 capability 이름을 유지하고 상태를 확장한다.",
+          "migration": "기존 boolean은 새 상태에서 파생한다.",
+          "rollback": "신규 세부 상태를 접는다.",
+          "authorization_boundary": "proxy를 직접 사실로 승격하지 않는다.",
+          "contributes_to": [
+            "D-02-company-capability-taxonomy"
+          ],
+          "symbol_changes": [
+            {
+              "symbol": "CapabilityGate",
+              "intent": "cluster-aware capability 판정",
+              "decision_id": "D-02-company-capability-taxonomy"
+            }
+          ],
+          "contribution_refs": [
+            {
+              "decision_id": "D-02-company-capability-taxonomy",
+              "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/02-d-02-company-capability-taxonomy.json",
+              "sha256": "sha256:bb810f3200fba527993f9c18ad5b3bcbe27c1663d213dcdd6c666b361a2fa3e7",
+              "symbols": [
+                "classify_company",
+                "evaluate_analysis_eligibility",
+                "CapabilityGate"
+              ],
+              "intent_change_ids": []
+            }
+          ]
+        },
+        {
+          "change_id": "D-02-warehouse-r2",
+          "operation": "MODIFY",
+          "path": "src/company_intel/warehouse.py",
+          "symbols": [
+            "store_atomic_fact",
+            "store_source_snapshot",
+            "resolve_current_fact",
+            "store_verdict"
+          ],
+          "current_state": "원자 관측 저장은 있으나 전체 provider 행·revision·5상태 verdict와 검색 run lineage를 일관된 키로 보존하지 않는다.",
+          "source_hash": "sha256:b9691ca3794875eefc3922d387baa0fcfcc78301db6564ebe073977e5ae5b2ff",
+          "after_state": "source snapshot, lossless fact, identity link, verdict와 run을 멱등 복합키로 저장하고 preview artifact를 거부한다.",
+          "rationale": "CLI 재실행과 결과 설명이 같은 근거 snapshot을 사용하게 한다.",
+          "dependencies": [],
+          "public_contract_impacts": [
+            "warehouse repository API"
+          ],
+          "compatibility": "기존 테이블은 읽기 호환을 유지한다.",
+          "migration": "additive schema migration만 사용한다.",
+          "rollback": "신규 테이블 쓰기를 중단한다.",
+          "authorization_boundary": "파괴적 migration과 raw PII 적재는 금지한다.",
+          "contributes_to": [
+            "D-02-company-capability-taxonomy"
+          ],
+          "symbol_changes": [
+            {
+              "symbol": "store_atomic_fact",
+              "intent": "손실 없는 fact lineage",
+              "decision_id": "D-02-company-capability-taxonomy"
+            }
+          ],
+          "contribution_refs": [
+            {
+              "decision_id": "D-02-company-capability-taxonomy",
+              "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/02-d-02-company-capability-taxonomy.json",
+              "sha256": "sha256:bb810f3200fba527993f9c18ad5b3bcbe27c1663d213dcdd6c666b361a2fa3e7",
+              "symbols": [
+                "store_atomic_fact",
+                "store_source_snapshot",
+                "resolve_current_fact",
+                "store_verdict"
+              ],
+              "intent_change_ids": []
+            }
+          ]
+        },
+        {
+          "change_id": "D-02-schema-r2",
+          "operation": "MODIFY",
+          "path": "sql/duckdb_schema.sql",
+          "symbols": [
+            "source_snapshot",
+            "atomic_fact",
+            "entity_identifier",
+            "search_verdict",
+            "fact_revision"
+          ],
+          "current_state": "기존 additive 테이블이 다중 위치·series signature·revision·5상태 verdict를 완전히 표현하지 않는다.",
+          "source_hash": "sha256:fe701d386efa4dcd77385f8ca4c694a9e1404718d9dd18fae80aceddec9812f2",
+          "after_state": "원자 fact 유형별 복합키와 lineage, multi-value child row, verdict/exclusion을 additive 테이블로 고정한다.",
+          "rationale": "DataFrame 병합 전에 관계와 의미를 보존하기 위해서다.",
+          "dependencies": [],
+          "public_contract_impacts": [
+            "DuckDB additive migration"
+          ],
+          "compatibility": "기존 테이블과 열을 삭제하지 않는다.",
+          "migration": "CREATE TABLE IF NOT EXISTS와 schema version을 사용한다.",
+          "rollback": "신규 reader/writer를 비활성화한다.",
+          "authorization_boundary": "기존 데이터 삭제·재작성은 포함하지 않는다.",
+          "contributes_to": [
+            "D-02-company-capability-taxonomy"
+          ],
+          "symbol_changes": [
+            {
+              "symbol": "atomic_fact",
+              "intent": "원자 의미 저장 계약",
+              "decision_id": "D-02-company-capability-taxonomy"
+            }
+          ],
+          "contribution_refs": [
+            {
+              "decision_id": "D-02-company-capability-taxonomy",
+              "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/02-d-02-company-capability-taxonomy.json",
+              "sha256": "sha256:bb810f3200fba527993f9c18ad5b3bcbe27c1663d213dcdd6c666b361a2fa3e7",
+              "symbols": [
+                "source_snapshot",
+                "atomic_fact",
+                "entity_identifier",
+                "search_verdict",
+                "fact_revision"
+              ],
+              "intent_change_ids": []
+            }
+          ]
+        },
+        {
+          "change_id": "D-01-source-tests-r2",
+          "operation": "MODIFY",
+          "path": "tests/test_source_catalog.py",
+          "symbols": [
+            "test_catalog_probe_semantic_parity",
+            "test_disposition_and_activation",
+            "test_placeholder_rejected"
+          ],
+          "current_state": "operation ID와 기본 activation 위주라 실제 path·자료형·금지용도·placeholder 회귀를 잡지 못한다.",
+          "source_hash": "sha256:e865b19704ee59deaa033c28640406b2d88e1c6ae4f4957812437798cfd46b9e",
+          "after_state": "ALIO·OECD·IMF·World Bank·SEC 사례와 cluster/disposition parity를 검증한다.",
+          "rationale": "catalog false green을 방지한다.",
+          "dependencies": [],
+          "public_contract_impacts": [
+            "offline contract tests"
+          ],
+          "compatibility": "네트워크 없는 fixture를 사용한다.",
+          "migration": "없음.",
+          "rollback": "r2 contract와 함께 제거한다.",
+          "authorization_boundary": "실제 secret을 fixture에 넣지 않는다.",
+          "contributes_to": [
+            "D-01-source-access-policy"
+          ],
+          "symbol_changes": [
+            {
+              "symbol": "test_catalog_probe_semantic_parity",
+              "intent": "실제 의미 회귀 fixture",
+              "decision_id": "D-01-source-access-policy"
+            }
+          ],
+          "contribution_refs": [
+            {
+              "decision_id": "D-01-source-access-policy",
+              "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/01-d-01-source-access-policy.json",
+              "sha256": "sha256:91b45319b61412629b4ed438d528fdee0f402f2280e658f15fcd1e3aa23068e0",
+              "symbols": [
+                "test_catalog_probe_semantic_parity",
+                "test_disposition_and_activation",
+                "test_placeholder_rejected"
+              ],
+              "intent_change_ids": []
+            }
+          ]
+        },
+        {
+          "change_id": "D-01-connector-tests-r2",
+          "operation": "MODIFY",
+          "path": "tests/test_public_connectors.py",
+          "symbols": [
+            "test_lossless_provider_normalizers",
+            "test_provider_error_bodies",
+            "test_multi_value_preservation"
+          ],
+          "current_state": "실제 provider 모양의 후반 행·다중 값·body error가 보존되는지 검사하지 않는다.",
+          "source_hash": "sha256:a613e53829ca7e03c2411261cfb175ba59dabaa7de98f91759840b825e214459",
+          "after_state": "14개 truncation 사례와 BEA body error, SEC facts, SDMX/JSON-stat, ARES NACE, CNB amount를 최소 fixture로 검증한다.",
+          "rationale": "실제 API 의미를 반영하지 못한 synthetic false green을 제거한다.",
+          "dependencies": [],
+          "public_contract_impacts": [
+            "offline provider fixtures"
+          ],
+          "compatibility": "외부 호출 없이 실행한다.",
+          "migration": "없음.",
+          "rollback": "r2 normalizer와 함께 제거한다.",
+          "authorization_boundary": "원문 PII와 credential을 포함하지 않는다.",
+          "contributes_to": [
+            "D-01-source-access-policy",
+            "D-02-company-capability-taxonomy"
+          ],
+          "symbol_changes": [
+            {
+              "symbol": "test_provider_error_bodies",
+              "intent": "HTTP 200 body error 판정",
+              "decision_id": "D-01-source-access-policy"
+            },
+            {
+              "symbol": "test_lossless_provider_normalizers",
+              "intent": "원자 fact 완전성",
+              "decision_id": "D-02-company-capability-taxonomy"
+            }
+          ],
+          "contribution_refs": [
+            {
+              "decision_id": "D-01-source-access-policy",
+              "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/01-d-01-source-access-policy.json",
+              "sha256": "sha256:91b45319b61412629b4ed438d528fdee0f402f2280e658f15fcd1e3aa23068e0",
+              "symbols": [
+                "test_lossless_provider_normalizers",
+                "test_provider_error_bodies",
+                "test_multi_value_preservation"
+              ],
+              "intent_change_ids": []
+            },
+            {
+              "decision_id": "D-02-company-capability-taxonomy",
+              "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/02-d-02-company-capability-taxonomy.json",
+              "sha256": "sha256:bb810f3200fba527993f9c18ad5b3bcbe27c1663d213dcdd6c666b361a2fa3e7",
+              "symbols": [
+                "test_lossless_provider_normalizers",
+                "test_provider_error_bodies",
+                "test_multi_value_preservation"
+              ],
+              "intent_change_ids": []
+            }
+          ]
+        },
+        {
+          "change_id": "D-02-classification-tests-r2",
+          "operation": "MODIFY",
+          "path": "tests/test_classification.py",
+          "symbols": [
+            "test_context_and_proxy_not_promoted",
+            "test_identity_conflict_blocks_join",
+            "test_five_state_capabilities"
+          ],
+          "current_state": "기본 capability와 분석 제외만 검사하며 cluster 오용과 identity conflict를 충분히 다루지 않는다.",
+          "source_hash": "sha256:10ecd0d514f32a5a7169bdbc26b1f6f1f5df9f0935c069ce85463fa8c4f1b57a",
+          "after_state": "context/proxy 격리, unresolved/conflict, correlation/causal 부적격을 검증한다.",
+          "rationale": "기업 가용성 분류의 의미 회귀를 막는다.",
+          "dependencies": [],
+          "public_contract_impacts": [
+            "classification tests"
+          ],
+          "compatibility": "기존 테스트를 유지한다.",
+          "migration": "없음.",
+          "rollback": "r2 상태와 함께 제거한다.",
+          "authorization_boundary": "개인정보를 사용하지 않는다.",
+          "contributes_to": [
+            "D-02-company-capability-taxonomy"
+          ],
+          "symbol_changes": [
+            {
+              "symbol": "test_five_state_capabilities",
+              "intent": "5상태 capability 검증",
+              "decision_id": "D-02-company-capability-taxonomy"
+            }
+          ],
+          "contribution_refs": [
+            {
+              "decision_id": "D-02-company-capability-taxonomy",
+              "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/02-d-02-company-capability-taxonomy.json",
+              "sha256": "sha256:bb810f3200fba527993f9c18ad5b3bcbe27c1663d213dcdd6c666b361a2fa3e7",
+              "symbols": [
+                "test_context_and_proxy_not_promoted",
+                "test_identity_conflict_blocks_join",
+                "test_five_state_capabilities"
+              ],
+              "intent_change_ids": []
+            }
+          ]
+        }
+      ],
+      "routes": [
+        {
+          "route_id": "c01-r2-tdd",
+          "skill": "tdd",
+          "requirement": "required",
+          "phase": "IMPLEMENT",
+          "purpose": "실제 반환물 모양의 offline fixture로 semantic contract를 먼저 고정",
+          "expected_artifact": "C-01 r2 source and tests"
+        },
+        {
+          "route_id": "c01-r2-research",
+          "skill": "company-intelligence-career-research",
+          "requirement": "required",
+          "phase": "IMPLEMENT",
+          "purpose": "공식 필드 의미와 검색 금지 경계를 유지",
+          "expected_artifact": "provider semantic mapping"
+        },
+        {
+          "route_id": "c01-r2-verify",
+          "skill": "verification-before-completion",
+          "requirement": "required",
+          "phase": "VALIDATE",
+          "purpose": "계획 해시와 source/catalog/connector/classification 테스트 검증",
+          "expected_artifact": "C-01 r2 validation receipt"
+        }
+      ],
+      "completion_contract": [
+        {
+          "criterion_id": "C-01-r2-semantic-contract-tests",
+          "behavior": "catalog parity, nonempty/type/body error, lossless normalization, cluster disposition과 identity/capability 상태가 offline 실제형 fixture에서 통과한다.",
+          "blocking": true,
+          "owner_skill": "verification-before-completion",
+          "phase": "VALIDATE",
+          "depends_on_criteria": [],
+          "test": {
+            "type": "pytest",
+            "value": "uv run --frozen pytest tests/test_source_catalog.py tests/test_public_connectors.py tests/test_classification.py -q",
+            "runner": "pytest",
+            "paths": [
+              "tests/test_source_catalog.py",
+              "tests/test_public_connectors.py",
+              "tests/test_classification.py"
+            ],
+            "provider_backed": false,
+            "timeout_seconds": 600
+          },
+          "expected_result": "all tests pass with no truncated production fact or semantic false green",
+          "failure_marker": "catalog/probe drift, placeholder accepted, body error passed, truncated fact, or proxy promoted",
+          "receipt": {
+            "status": "planned",
+            "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/receipts/criteria/C-01-r2-semantic-contract-tests.json",
+            "sha256": "planned"
+          },
+          "status": "planned"
+        }
+      ]
+    }
+  ],
+  "metadata": {
+    "preparation_contract": "campaign-global-ownership-v1",
+    "planned_commit_message": "fix(source-contract): enforce provider semantics and lossless facts",
+    "git_finalization_authorized": false
+  }
+}

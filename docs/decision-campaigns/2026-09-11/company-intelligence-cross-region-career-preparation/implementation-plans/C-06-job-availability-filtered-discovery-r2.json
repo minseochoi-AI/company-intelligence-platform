@@ -1,0 +1,562 @@
+{
+  "contract_version": "1.2.0",
+  "plan_id": "company-intelligence-cross-region-career-preparation--C-06-job-availability-filtered-discovery--r2",
+  "owner": {
+    "kind": "campaign-cohort",
+    "id": "C-06-job-availability-filtered-discovery"
+  },
+  "source_refs": [
+    {
+      "id": "D-10-job-availability-filtered-discovery",
+      "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/10-d-10-job-availability-filtered-discovery.json",
+      "sha256": "sha256:174014707e42a66d230f9f40387a0bd53889f1dcf8829d9d29079ccc8f3da697"
+    }
+  ],
+  "status": "contract-ready",
+  "change_slices": [
+    {
+      "slice_id": "cli-semantic-search-orchestration-r2",
+      "behavior": "로컬 CLI가 source 상태 확인, 저장 payload/warehouse 입력, 원자 profile 검색, 검사불가 설명, 기업 스크리너·시간축·가치·사건 분석과 CSV/XLSX export를 동일 run manifest로 실행한다.",
+      "dependencies": [],
+      "operations": [
+        {
+          "change_id": "D-10-job-search-r2",
+          "operation": "MODIFY",
+          "path": "src/company_intel/job_search.py",
+          "symbols": [
+            "JobSearchProfile",
+            "JobDataFrames",
+            "normalize_greenhouse_jobs",
+            "normalize_lever_jobs",
+            "normalize_mpm_jobs",
+            "normalize_mpsv_jobs",
+            "search_job_dataframes"
+          ],
+          "current_state": "17개 profile은 동작하지만 제목/본문, 다중위치, remote 범위, 근로시간/계약기간, 공고언어/요구언어, 급여 basis와 UNKNOWN을 혼합한다.",
+          "source_hash": "sha256:183851a950d90c7ffdf878c28f4473fd01da4b55fce7571c5d818827a0f688f1",
+          "after_state": "원자 profile v2와 provider별 다중 행을 사용해 strict_matches, unverifiable_candidates, no_matches, conflicts, jobs, locations, requirements, overlap, sources를 반환한다.",
+          "rationale": "실제 사용자 조건과 코드 필터 의미를 일치시키기 위해서다.",
+          "dependencies": [],
+          "public_contract_impacts": [
+            "job search DataFrame contract v2"
+          ],
+          "compatibility": "legacy 6 DataFrame view와 profile adapter를 유지한다.",
+          "migration": "legacy languages/employment_types 사용 시 warning을 반환한다.",
+          "rollback": "v2 CLI를 비활성화하고 저장 payload normalize 기능만 유지한다.",
+          "authorization_boundary": "공고는 수요 증거이며 지원·채용완료·개인 적격을 추정하지 않는다.",
+          "contributes_to": [
+            "D-10-job-availability-filtered-discovery"
+          ],
+          "symbol_changes": [
+            {
+              "symbol": "search_job_dataframes",
+              "intent": "원자 필터와 5상태 결과 분리",
+              "decision_id": "D-10-job-availability-filtered-discovery"
+            }
+          ],
+          "contribution_refs": [
+            {
+              "decision_id": "D-10-job-availability-filtered-discovery",
+              "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/10-d-10-job-availability-filtered-discovery.json",
+              "sha256": "sha256:174014707e42a66d230f9f40387a0bd53889f1dcf8829d9d29079ccc8f3da697",
+              "symbols": [
+                "JobSearchProfile",
+                "JobDataFrames",
+                "normalize_greenhouse_jobs",
+                "normalize_lever_jobs",
+                "normalize_mpm_jobs",
+                "normalize_mpsv_jobs",
+                "search_job_dataframes"
+              ],
+              "intent_change_ids": []
+            }
+          ]
+        },
+        {
+          "change_id": "D-10-cli-r2",
+          "operation": "MODIFY",
+          "path": "src/company_intel/cli.py",
+          "symbols": [
+            "main",
+            "provider_status_command",
+            "job_search_command",
+            "company_search_command",
+            "screen_command",
+            "timeline_command",
+            "valuation_command",
+            "ai_event_command",
+            "explain_command",
+            "export_command"
+          ],
+          "current_state": "validate/search/job-search/export와 demo 분석은 있으나 기능별 입력 schema, cluster routing, verdict 분리, run manifest와 일관된 exit code가 없다.",
+          "source_hash": "sha256:813b84089d9e56df133827020313e5dd292ac49d509d00927930cf17a2f68b92",
+          "after_state": "company-intel provider-status|job-search|company-search|screen|timeline|valuation|ai-event|explain|export 명령을 profile/run manifest 중심으로 구성하고 strict와 unverifiable을 별도 파일·exit status로 반환한다.",
+          "rationale": "API 서버 없이 전체 사용자 흐름을 반복 가능하게 실행하기 위해서다.",
+          "dependencies": [],
+          "public_contract_impacts": [
+            "company-intel CLI v2"
+          ],
+          "compatibility": "기존 validate/init-db/ingest/demo 명령은 유지한다.",
+          "migration": "job-search legacy 옵션을 profile schema v2 adapter로 연결한다.",
+          "rollback": "신규 subcommand를 숨기고 기존 명령을 유지한다.",
+          "authorization_boundary": "기본 명령은 저장 데이터만 읽으며 provider 갱신은 별도 명시 플래그와 권한이 필요하다.",
+          "contributes_to": [
+            "D-10-job-availability-filtered-discovery"
+          ],
+          "symbol_changes": [
+            {
+              "symbol": "main",
+              "intent": "기능별 CLI orchestration과 exit contract",
+              "decision_id": "D-10-job-availability-filtered-discovery"
+            }
+          ],
+          "contribution_refs": [
+            {
+              "decision_id": "D-10-job-availability-filtered-discovery",
+              "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/10-d-10-job-availability-filtered-discovery.json",
+              "sha256": "sha256:174014707e42a66d230f9f40387a0bd53889f1dcf8829d9d29079ccc8f3da697",
+              "symbols": [
+                "main",
+                "provider_status_command",
+                "job_search_command",
+                "company_search_command",
+                "screen_command",
+                "timeline_command",
+                "valuation_command",
+                "ai_event_command",
+                "explain_command",
+                "export_command"
+              ],
+              "intent_change_ids": []
+            }
+          ]
+        },
+        {
+          "change_id": "D-10-api-r2",
+          "operation": "MODIFY",
+          "path": "src/company_intel/api.py",
+          "symbols": [
+            "JobSearchRequest",
+            "job_search",
+            "company_search",
+            "company_screener",
+            "evidence_timeline",
+            "valuation_scenarios",
+            "ai_event_analysis"
+          ],
+          "current_state": "v1 route가 legacy profile과 flat 성공 응답을 사용해 5상태·schema version·run lineage를 노출하지 않는다.",
+          "source_hash": "sha256:d697d6621f6f4e12a5b5cd3f250ff5a4a27594dc00ff92fc9751f9c4b389c27c",
+          "after_state": "CLI와 동일 domain service/schema를 사용하고 strict/unverifiable/conflict, source disposition, warnings와 run metadata를 반환한다.",
+          "rationale": "CLI와 API의 필터 의미가 갈라지지 않게 하기 위해서다.",
+          "dependencies": [],
+          "public_contract_impacts": [
+            "POST /v2/job-search",
+            "v1 compatibility"
+          ],
+          "compatibility": "v1 route는 legacy adapter로 유지하고 v2를 추가한다.",
+          "migration": "신규 소비자는 v2 schema를 사용한다.",
+          "rollback": "v2 route만 제거한다.",
+          "authorization_boundary": "외부 provider 호출과 입사지원은 수행하지 않는다.",
+          "contributes_to": [
+            "D-10-job-availability-filtered-discovery"
+          ],
+          "symbol_changes": [
+            {
+              "symbol": "job_search",
+              "intent": "CLI/API domain parity",
+              "decision_id": "D-10-job-availability-filtered-discovery"
+            }
+          ],
+          "contribution_refs": [
+            {
+              "decision_id": "D-10-job-availability-filtered-discovery",
+              "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/10-d-10-job-availability-filtered-discovery.json",
+              "sha256": "sha256:174014707e42a66d230f9f40387a0bd53889f1dcf8829d9d29079ccc8f3da697",
+              "symbols": [
+                "JobSearchRequest",
+                "job_search",
+                "company_search",
+                "company_screener",
+                "evidence_timeline",
+                "valuation_scenarios",
+                "ai_event_analysis"
+              ],
+              "intent_change_ids": []
+            }
+          ]
+        },
+        {
+          "change_id": "D-10-job-tests-r2",
+          "operation": "MODIFY",
+          "path": "tests/test_job_search.py",
+          "symbols": [
+            "test_title_vs_description",
+            "test_lever_multi_location",
+            "test_permanent_not_full_time",
+            "test_posting_vs_required_language",
+            "test_salary_comparability",
+            "test_unknown_results",
+            "test_provider_semantic_fixtures"
+          ],
+          "current_state": "합성 payload의 currency/interval과 단일 위치·명시 required 중심이라 실제 Greenhouse/Lever/MPM/MPSV 의미 위반이 통과한다.",
+          "source_hash": "sha256:a91c48396d95fc34bfad10b18f2a10702bc67ff3dbe158e7b90ccdbc5def1f6d",
+          "after_state": "저장된 실제 응답에서 축약한 비밀·PII 없는 fixture로 14개 false-title, 다중위치, Permanent, unknown bullet, pay tier와 hourly/month code를 검증한다.",
+          "rationale": "24개 테스트 통과와 실제 검색 정확도의 차이를 제거하기 위해서다.",
+          "dependencies": [],
+          "public_contract_impacts": [
+            "offline job-search acceptance tests"
+          ],
+          "compatibility": "기존 테스트를 유지·교정한다.",
+          "migration": "실제 API raw 전문은 fixture에 넣지 않는다.",
+          "rollback": "r2 검색과 함께 제거한다.",
+          "authorization_boundary": "credential·연락처·공고 전문을 포함하지 않는다.",
+          "contributes_to": [
+            "D-10-job-availability-filtered-discovery"
+          ],
+          "symbol_changes": [
+            {
+              "symbol": "test_provider_semantic_fixtures",
+              "intent": "실제형 응답 의미 회귀 검증",
+              "decision_id": "D-10-job-availability-filtered-discovery"
+            }
+          ],
+          "contribution_refs": [
+            {
+              "decision_id": "D-10-job-availability-filtered-discovery",
+              "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/10-d-10-job-availability-filtered-discovery.json",
+              "sha256": "sha256:174014707e42a66d230f9f40387a0bd53889f1dcf8829d9d29079ccc8f3da697",
+              "symbols": [
+                "test_title_vs_description",
+                "test_lever_multi_location",
+                "test_permanent_not_full_time",
+                "test_posting_vs_required_language",
+                "test_salary_comparability",
+                "test_unknown_results",
+                "test_provider_semantic_fixtures"
+              ],
+              "intent_change_ids": []
+            }
+          ]
+        },
+        {
+          "change_id": "D-10-cli-tests-r2",
+          "operation": "CREATE",
+          "path": "tests/test_cli_workflows.py",
+          "symbols": [
+            "test_job_search_workflow",
+            "test_unverifiable_exit_contract",
+            "test_screen_and_export_workflow",
+            "test_cli_api_profile_parity"
+          ],
+          "current_state": "CLI 전체 흐름과 API profile parity를 검증하는 독립 테스트 파일이 없다.",
+          "source_hash": null,
+          "after_state": "임시 DB·profile·provider fixture로 모든 CLI 기능의 출력 파일, run manifest, exit code, schema와 v2 API parity를 검증한다.",
+          "rationale": "함수 단위 테스트가 아니라 사용 가능한 프로그램임을 증명하기 위해서다.",
+          "dependencies": [],
+          "public_contract_impacts": [
+            "CLI end-to-end acceptance tests"
+          ],
+          "compatibility": "네트워크 없는 로컬 테스트다.",
+          "migration": "없음.",
+          "rollback": "v2 CLI와 함께 제거한다.",
+          "authorization_boundary": "외부 호출·패키지 설치·지원 제출을 수행하지 않는다.",
+          "contributes_to": [
+            "D-10-job-availability-filtered-discovery"
+          ],
+          "symbol_changes": [
+            {
+              "symbol": "test_job_search_workflow",
+              "intent": "실사용 CLI end-to-end 검증",
+              "decision_id": "D-10-job-availability-filtered-discovery"
+            }
+          ],
+          "contribution_refs": [
+            {
+              "decision_id": "D-10-job-availability-filtered-discovery",
+              "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/10-d-10-job-availability-filtered-discovery.json",
+              "sha256": "sha256:174014707e42a66d230f9f40387a0bd53889f1dcf8829d9d29079ccc8f3da697",
+              "symbols": [
+                "test_job_search_workflow",
+                "test_unverifiable_exit_contract",
+                "test_screen_and_export_workflow",
+                "test_cli_api_profile_parity"
+              ],
+              "intent_change_ids": []
+            }
+          ]
+        },
+        {
+          "change_id": "D-10-provider-fixture-r2",
+          "operation": "CREATE",
+          "path": "tests/fixtures/provider_semantic_cases.json",
+          "symbols": [
+            "greenhouse",
+            "lever",
+            "mpm_public_employment",
+            "mpsv_cz",
+            "macro_contract_cases"
+          ],
+          "current_state": "실제 API 구조의 의미 경계를 재현하는 비밀·PII 없는 공통 fixture가 없다.",
+          "source_hash": null,
+          "after_state": "다중 위치, optional salary, unknown requirement, expired posting, codebook ID, body error와 truncated-array 회귀를 최소 레코드로 보존한다.",
+          "rationale": "외부 API 재호출 없이 의미 검증을 반복하기 위해서다.",
+          "dependencies": [],
+          "public_contract_impacts": [
+            "test fixture contract"
+          ],
+          "compatibility": "실제 provider 원문 대신 최소 합성·비식별 사례를 사용한다.",
+          "migration": "없음.",
+          "rollback": "r2 테스트와 함께 제거한다.",
+          "authorization_boundary": "실제 연락처·키·전체 공고 본문은 포함하지 않는다.",
+          "contributes_to": [
+            "D-10-job-availability-filtered-discovery"
+          ],
+          "symbol_changes": [
+            {
+              "symbol": "provider_semantic_cases",
+              "intent": "실제형 회귀 fixture",
+              "decision_id": "D-10-job-availability-filtered-discovery"
+            }
+          ],
+          "contribution_refs": [
+            {
+              "decision_id": "D-10-job-availability-filtered-discovery",
+              "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/10-d-10-job-availability-filtered-discovery.json",
+              "sha256": "sha256:174014707e42a66d230f9f40387a0bd53889f1dcf8829d9d29079ccc8f3da697",
+              "symbols": [
+                "greenhouse",
+                "lever",
+                "mpm_public_employment",
+                "mpsv_cz",
+                "macro_contract_cases"
+              ],
+              "intent_change_ids": []
+            }
+          ]
+        },
+        {
+          "change_id": "D-10-readme-r2",
+          "operation": "MODIFY",
+          "path": "README.md",
+          "symbols": [
+            "CLI workflows",
+            "profile schema v2",
+            "result interpretation"
+          ],
+          "current_state": "기존 실행 명령은 있으나 5상태, cluster, strict/unverifiable 결과와 실제 사용 순서를 설명하지 않는다.",
+          "source_hash": "sha256:e3de7435521711060166b3c49b30b046cbcb6b2a762cf6b051ab775775dce84f",
+          "after_state": "초기화→source 상태→ingest→profile 검색→explain→screen/analysis→export 순서와 예제 profile, exit code, 데이터 한계를 문서화한다.",
+          "rationale": "사용자가 CLI 결과의 0건과 검사불가를 구별하게 하기 위해서다.",
+          "dependencies": [],
+          "public_contract_impacts": [
+            "user documentation"
+          ],
+          "compatibility": "기존 설치·validate 안내를 유지한다.",
+          "migration": "v1 profile 예제를 v2와 함께 표시한다.",
+          "rollback": "r2 섹션만 제거한다.",
+          "authorization_boundary": "실제 API key 값이나 투자·입사지원 조언을 포함하지 않는다.",
+          "contributes_to": [
+            "D-10-job-availability-filtered-discovery"
+          ],
+          "symbol_changes": [
+            {
+              "symbol": "CLI workflows",
+              "intent": "실제 사용 순서와 판정 해석",
+              "decision_id": "D-10-job-availability-filtered-discovery"
+            }
+          ],
+          "contribution_refs": [
+            {
+              "decision_id": "D-10-job-availability-filtered-discovery",
+              "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/10-d-10-job-availability-filtered-discovery.json",
+              "sha256": "sha256:174014707e42a66d230f9f40387a0bd53889f1dcf8829d9d29079ccc8f3da697",
+              "symbols": [
+                "CLI workflows",
+                "profile schema v2",
+                "result interpretation"
+              ],
+              "intent_change_ids": []
+            }
+          ]
+        },
+        {
+          "change_id": "D-10-implementation-report-r2",
+          "operation": "MODIFY",
+          "path": "IMPLEMENTATION_REPORT_KO.md",
+          "symbols": [
+            "기능 상태표",
+            "CLI 계약",
+            "미검증 경계"
+          ],
+          "current_state": "구현 경로 통과와 실제 데이터 semantic readiness가 혼재해 10개 기능이 모두 완료된 것으로 읽힐 수 있다.",
+          "source_hash": "sha256:f77bb79b9d5c1313211ae6d28c936b458afa1fc8d00800287c1efa2d11ebf136",
+          "after_state": "기능별 implemented, semantically-verified, data-covered, provider-live-verified 상태를 분리하고 CLI 명령과 남은 외부 검증을 표시한다.",
+          "rationale": "캠페인 기계 상태와 제품 사용 가능성을 구별하기 위해서다.",
+          "dependencies": [],
+          "public_contract_impacts": [
+            "Korean implementation report"
+          ],
+          "compatibility": "기존 이력을 보존한다.",
+          "migration": "상태표 vocabulary를 확장한다.",
+          "rollback": "r2 상태표만 제거한다.",
+          "authorization_boundary": "검증하지 않은 성공을 주장하지 않는다.",
+          "contributes_to": [
+            "D-10-job-availability-filtered-discovery"
+          ],
+          "symbol_changes": [
+            {
+              "symbol": "기능 상태표",
+              "intent": "코드·의미·데이터 coverage 분리",
+              "decision_id": "D-10-job-availability-filtered-discovery"
+            }
+          ],
+          "contribution_refs": [
+            {
+              "decision_id": "D-10-job-availability-filtered-discovery",
+              "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/10-d-10-job-availability-filtered-discovery.json",
+              "sha256": "sha256:174014707e42a66d230f9f40387a0bd53889f1dcf8829d9d29079ccc8f3da697",
+              "symbols": [
+                "기능 상태표",
+                "CLI 계약",
+                "미검증 경계"
+              ],
+              "intent_change_ids": []
+            }
+          ]
+        },
+        {
+          "change_id": "D-10-atomic-report-r2",
+          "operation": "MODIFY",
+          "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/atomic-api-compatibility-report-2026-09-11.md",
+          "symbols": [
+            "CLI semantic contract",
+            "provider disposition matrix",
+            "cohort r2 turnover"
+          ],
+          "current_state": "기존 보고서는 이전 r1 pass와 최신 semantic audit의 불일치를 authoritative하게 결속하지 않는다.",
+          "source_hash": "sha256:a46732f0ba183b51890d00f9808862fe54f3f9ee409ba96e8f03f5ea7cae18f0",
+          "after_state": "29개 source 후보의 유지·격리·폐기, 공통/특수/금지 필드, 검사불가 조합, r2 CLI 명령과 cohort 검증기준을 기록한다.",
+          "rationale": "세션이 달라도 구현자가 같은 의미 계약을 읽게 하기 위해서다.",
+          "dependencies": [],
+          "public_contract_impacts": [
+            "campaign semantic report"
+          ],
+          "compatibility": "기존 검증 이력은 날짜와 revision으로 보존한다.",
+          "migration": "r2 준비·구현·검증 절을 추가한다.",
+          "rollback": "r2 절만 제거한다.",
+          "authorization_boundary": "외부 원문·credential을 복사하지 않는다.",
+          "contributes_to": [
+            "D-10-job-availability-filtered-discovery"
+          ],
+          "symbol_changes": [
+            {
+              "symbol": "CLI semantic contract",
+              "intent": "즉시 구현 가능한 사용자 흐름 결속",
+              "decision_id": "D-10-job-availability-filtered-discovery"
+            }
+          ],
+          "contribution_refs": [
+            {
+              "decision_id": "D-10-job-availability-filtered-discovery",
+              "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/10-d-10-job-availability-filtered-discovery.json",
+              "sha256": "sha256:174014707e42a66d230f9f40387a0bd53889f1dcf8829d9d29079ccc8f3da697",
+              "symbols": [
+                "CLI semantic contract",
+                "provider disposition matrix",
+                "cohort r2 turnover"
+              ],
+              "intent_change_ids": []
+            }
+          ]
+        }
+      ],
+      "routes": [
+        {
+          "route_id": "c06-r2-tdd",
+          "skill": "tdd",
+          "requirement": "required",
+          "phase": "IMPLEMENT",
+          "purpose": "실제형 provider fixture와 CLI end-to-end를 red-green-refactor로 구현",
+          "expected_artifact": "C-06 r2 CLI and tests"
+        },
+        {
+          "route_id": "c06-r2-research",
+          "skill": "company-intelligence-career-research",
+          "requirement": "required",
+          "phase": "IMPLEMENT",
+          "purpose": "채용·요건·회사 분석 경계를 유지",
+          "expected_artifact": "CLI output semantics"
+        },
+        {
+          "route_id": "c06-r2-verify",
+          "skill": "verification-before-completion",
+          "requirement": "required",
+          "phase": "VALIDATE",
+          "purpose": "job search와 전체 CLI workflow 독립 검증",
+          "expected_artifact": "C-06 r2 validation receipt"
+        }
+      ],
+      "completion_contract": [
+        {
+          "criterion_id": "C-06-r2-job-semantic-tests",
+          "behavior": "제목/본문, 다중위치, remote scope, 계약차원, 언어차원, 급여 비교, requirement necessity와 5상태 결과가 실제형 fixture에서 통과한다.",
+          "blocking": true,
+          "owner_skill": "verification-before-completion",
+          "phase": "VALIDATE",
+          "depends_on_criteria": [],
+          "test": {
+            "type": "pytest",
+            "value": "uv run --frozen pytest tests/test_job_search.py -q",
+            "runner": "pytest",
+            "paths": [
+              "tests/test_job_search.py"
+            ],
+            "provider_backed": false,
+            "timeout_seconds": 600
+          },
+          "expected_result": "all semantic job-search tests pass",
+          "failure_marker": "false title match, lost alternate location, Permanent mapped to hours, language collision, salary mismatch, or unknown exclusion",
+          "receipt": {
+            "status": "planned",
+            "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/receipts/criteria/C-06-r2-job-semantic-tests.json",
+            "sha256": "planned"
+          },
+          "status": "planned"
+        },
+        {
+          "criterion_id": "C-06-r2-cli-workflow-tests",
+          "behavior": "저장 provider payload에서 검색·설명·스크리너·분석·export까지 CLI가 동일 profile/run lineage와 결정론적 결과를 만든다.",
+          "blocking": true,
+          "owner_skill": "verification-before-completion",
+          "phase": "VALIDATE",
+          "depends_on_criteria": [
+            "C-06-r2-job-semantic-tests"
+          ],
+          "test": {
+            "type": "pytest",
+            "value": "uv run --frozen pytest tests/test_cli_workflows.py -q",
+            "runner": "pytest",
+            "paths": [
+              "tests/test_cli_workflows.py"
+            ],
+            "provider_backed": false,
+            "timeout_seconds": 900
+          },
+          "expected_result": "all CLI workflow tests pass and outputs contain strict/unverifiable/conflict/source manifests",
+          "failure_marker": "missing command, schema drift, wrong exit code, CLI/API mismatch, or absent lineage",
+          "receipt": {
+            "status": "planned",
+            "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/receipts/criteria/C-06-r2-cli-workflow-tests.json",
+            "sha256": "planned"
+          },
+          "status": "planned"
+        }
+      ]
+    }
+  ],
+  "metadata": {
+    "preparation_contract": "campaign-global-ownership-v1",
+    "planned_commit_message": "feat(cli): deliver semantic career and company workflows",
+    "git_finalization_authorized": false
+  }
+}

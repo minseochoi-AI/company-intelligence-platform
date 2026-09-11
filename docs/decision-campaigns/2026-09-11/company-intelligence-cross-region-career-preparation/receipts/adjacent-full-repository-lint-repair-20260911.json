@@ -1,0 +1,17 @@
+{
+  "contract_version": "adjacent-regression-repair-v1",
+  "campaign_id": "company-intelligence-cross-region-career-preparation",
+  "reason": "D-06 through D-10 full-repository verification exposed four pre-existing import-order errors and one invalid-input exception classification.",
+  "behavior_change": "Invalid atomic_operations container types now raise TypeError instead of ValueError; imports were mechanically sorted.",
+  "files": [
+    {"path": "src/company_intel/classification.py", "sha256": "0ffb76635f1153c26f49a35d58d5e3c7ebc23e022dd620c67ff016a2dea7b0ba"},
+    {"path": "src/company_intel/identity.py", "sha256": "085083665a28e8a1ac3ce52e18e20764cd95fd144f0d6b18dffb647c75e5e72b"},
+    {"path": "src/company_intel/source_catalog.py", "sha256": "3e0236390e1fdc10542ff7f9d0749c327b585d943589bf3c4adc60ddfe6e13a0"},
+    {"path": "src/company_intel/validation.py", "sha256": "0d9a12a86a8ac272140f4759d6f62b8bc8f99a76a64bc590202d42b6b2c3919d"}
+  ],
+  "validation": {
+    "pytest": "24 passed",
+    "ruff": "all checks passed",
+    "git_diff_check": "passed"
+  }
+}

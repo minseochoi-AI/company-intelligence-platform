@@ -1,0 +1,14 @@
+{
+  "scenario_id": "C-02-search-requirement-evidence:C-02-r2-search-requirement-tests",
+  "cohort_id": "C-02-search-requirement-evidence",
+  "criterion_id": "C-02-r2-search-requirement-tests",
+  "plan_sha256": "28f79faffd19ae0953653beee61718ac75a51eebeee8a65917b1abb9bc37b50f",
+  "command": "uv run --frozen pytest tests/test_search_profile.py tests/test_career_requirements.py -q",
+  "outcome": "pass",
+  "returncode": 0,
+  "first_failure": null,
+  "raw_log_path": ".runtime/campaign-orchestrator/company-intelligence-cross-region-career-preparation/r2-validation/C-02-search-requirement-evidence__C-02-r2-search-requirement-tests.log",
+  "raw_log_sha256": "a4ce3c4d2d126cf54794b588fe0568dcf174b80e68913316f73e0da7b9f1c64b",
+  "tail": "......                                                                   [100%]\n6 passed in 0.03s\n",
+  "completed_at": "2026-09-11T13:46:36.528328+00:00"
+}

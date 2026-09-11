@@ -1,0 +1,68 @@
+{
+  "contract_version": "scope-lock-v1",
+  "owner": {
+    "kind": "decision-campaign",
+    "id": "company-intelligence-cross-region-career-preparation"
+  },
+  "campaign_path": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/campaign.json",
+  "scope": {
+    "campaign_id": "company-intelligence-cross-region-career-preparation",
+    "decision_order": [
+      "D-01-source-access-policy",
+      "D-02-company-capability-taxonomy",
+      "D-03-search-profile-and-discovery",
+      "D-04-career-requirement-verification",
+      "D-05-spreadsheet-output-contract"
+    ],
+    "dependencies": [
+      {
+        "before": "D-01-source-access-policy",
+        "after": "D-02-company-capability-taxonomy"
+      },
+      {
+        "before": "D-02-company-capability-taxonomy",
+        "after": "D-03-search-profile-and-discovery"
+      },
+      {
+        "before": "D-03-search-profile-and-discovery",
+        "after": "D-04-career-requirement-verification"
+      },
+      {
+        "before": "D-04-career-requirement-verification",
+        "after": "D-05-spreadsheet-output-contract"
+      }
+    ],
+    "cohorts": [
+      {
+        "cohort_id": "C-01-source-identity-foundation",
+        "decision_ids": [
+          "D-01-source-access-policy",
+          "D-02-company-capability-taxonomy"
+        ]
+      },
+      {
+        "cohort_id": "C-02-search-requirement-evidence",
+        "decision_ids": [
+          "D-03-search-profile-and-discovery",
+          "D-04-career-requirement-verification"
+        ]
+      },
+      {
+        "cohort_id": "C-03-evidence-export-delivery",
+        "decision_ids": [
+          "D-05-spreadsheet-output-contract"
+        ]
+      }
+    ]
+  },
+  "scope_sha256": "7999304264b29201eaa9cf2f3966bf6ee7c33d00343e9c4613eeacfbe6f4676a",
+  "amendment": {
+    "action": "AMEND_SCOPE",
+    "requested_by": "user",
+    "requested_at": "2026-09-11T06:04:41.788Z",
+    "authority_text": "필요한 문서들 전부 읽고 캠페인, cohrot등 필요한 것들 전부 승인하여 추가해 / 의사결정 5개도 실제 목적 프로그램에 따라 추가해야 할 사항과 연결 cohort를 전부 정리해",
+    "previous_scope_sha256": "cedbc5446e2cc700908e6a93d3ab779d6c03fb43830cab81235992b91515af1a",
+    "new_scope_sha256": "7999304264b29201eaa9cf2f3966bf6ee7c33d00343e9c4613eeacfbe6f4676a",
+    "reason": "5개 결정을 실제 28개 원자 API와 프로그램 목적에 맞게 보강하고 3개 dependency-coherent 실행 cohort를 등록한다."
+  }
+}

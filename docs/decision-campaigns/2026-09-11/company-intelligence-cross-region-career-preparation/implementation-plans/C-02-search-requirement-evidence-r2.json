@@ -1,0 +1,347 @@
+{
+  "contract_version": "1.2.0",
+  "plan_id": "company-intelligence-cross-region-career-preparation--C-02-search-requirement-evidence--r2",
+  "owner": {
+    "kind": "campaign-cohort",
+    "id": "C-02-search-requirement-evidence"
+  },
+  "source_refs": [
+    {
+      "id": "D-03-search-profile-and-discovery",
+      "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/03-d-03-search-profile-and-discovery.json",
+      "sha256": "sha256:29947f9237dad64b699aa68a6d0156b60ea13a3b819edffdd2824a5ab2b0fbb4"
+    },
+    {
+      "id": "D-04-career-requirement-verification",
+      "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/04-d-04-career-requirement-verification.json",
+      "sha256": "sha256:3c6eed6a4680d79a82f7793944a8dc0a40e8e7b16e55703faaed6d301ba9e6b0"
+    }
+  ],
+  "status": "contract-ready",
+  "change_slices": [
+    {
+      "slice_id": "atomic-profile-requirement-verdict-r2",
+      "behavior": "현재 17개 검색 변수를 직무·위치·근로계약·언어·급여·기업·요건의 독립 축으로 확장하고 모든 조건을 MATCH/NO_MATCH/UNKNOWN/CONFLICT/NOT_APPLICABLE로 판정한다.",
+      "dependencies": [],
+      "operations": [
+        {
+          "change_id": "D-03-query-contract-r2",
+          "operation": "CREATE",
+          "path": "src/company_intel/query_contract.py",
+          "symbols": [
+            "AtomicSearchProfile",
+            "FilterVerdict",
+            "UnknownPolicy",
+            "combine_verdicts",
+            "ComparabilityPolicy"
+          ],
+          "current_state": "검색 입력·다중값 ANY/ALL·UNKNOWN 처리·정렬 가능성을 하나의 공통 계약으로 표현하는 모듈이 없다.",
+          "source_hash": null,
+          "after_state": "제목/본문/직업코드, 다중 위치/remote 범위, 근로시간/계약기간, 공고언어/요구언어, 급여 basis/gross-net/FX와 source policy를 독립 필드로 정의한다.",
+          "rationale": "필드 이름과 실제 검사 의미의 인지부조화를 제거하기 위해서다.",
+          "dependencies": [],
+          "public_contract_impacts": [
+            "CLI profile schema v2",
+            "five-state verdict schema"
+          ],
+          "compatibility": "기존 17개 profile을 legacy adapter로 받아 명확한 r2 필드로 변환한다.",
+          "migration": "모호한 legacy languages와 employment_types 사용 시 warning과 변환 결과를 반환한다.",
+          "rollback": "legacy profile parser만 유지한다.",
+          "authorization_boundary": "사용자가 제공하지 않은 비자·경력·언어 수준을 추정하지 않는다.",
+          "contributes_to": [
+            "D-03-search-profile-and-discovery",
+            "D-04-career-requirement-verification"
+          ],
+          "symbol_changes": [
+            {
+              "symbol": "AtomicSearchProfile",
+              "intent": "검색 축 원자화",
+              "decision_id": "D-03-search-profile-and-discovery"
+            },
+            {
+              "symbol": "FilterVerdict",
+              "intent": "요건 미확인과 불일치 분리",
+              "decision_id": "D-04-career-requirement-verification"
+            }
+          ],
+          "contribution_refs": [
+            {
+              "decision_id": "D-03-search-profile-and-discovery",
+              "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/03-d-03-search-profile-and-discovery.json",
+              "sha256": "sha256:29947f9237dad64b699aa68a6d0156b60ea13a3b819edffdd2824a5ab2b0fbb4",
+              "symbols": [
+                "AtomicSearchProfile",
+                "FilterVerdict",
+                "UnknownPolicy",
+                "combine_verdicts",
+                "ComparabilityPolicy"
+              ],
+              "intent_change_ids": []
+            },
+            {
+              "decision_id": "D-04-career-requirement-verification",
+              "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/04-d-04-career-requirement-verification.json",
+              "sha256": "sha256:3c6eed6a4680d79a82f7793944a8dc0a40e8e7b16e55703faaed6d301ba9e6b0",
+              "symbols": [
+                "AtomicSearchProfile",
+                "FilterVerdict",
+                "UnknownPolicy",
+                "combine_verdicts",
+                "ComparabilityPolicy"
+              ],
+              "intent_change_ids": []
+            }
+          ]
+        },
+        {
+          "change_id": "D-03-company-search-r2",
+          "operation": "MODIFY",
+          "path": "src/company_intel/search.py",
+          "symbols": [
+            "validate_search_profile",
+            "build_company_universe",
+            "rank_candidates",
+            "explain_candidate"
+          ],
+          "current_state": "국가·capability·넓은 keyword 중심이며 cluster별 source, 5상태 verdict, identity conflict와 비교 coverage를 반영하지 않는다.",
+          "source_hash": "sha256:c7496575fd22bfe1b7dd99887a36fcf08352f87b273ac4b4d8ac835a7944a8c5",
+          "after_state": "identity-resolved 회사 universe에만 company 필터를 적용하고 strict/unverifiable/conflict/excluded 후보를 분리하며 각 판정 근거를 반환한다.",
+          "rationale": "검색 불가와 조건 불일치를 구별하고 법인 오결합을 차단하기 위해서다.",
+          "dependencies": [],
+          "public_contract_impacts": [
+            "company search result v2"
+          ],
+          "compatibility": "기존 CandidateMatch는 legacy view로 유지한다.",
+          "migration": "신규 CLI는 verdict table을 사용한다.",
+          "rollback": "r2 endpoint를 비활성화한다.",
+          "authorization_boundary": "회사 적합성은 공개 근거와 사용자 조건만 사용한다.",
+          "contributes_to": [
+            "D-03-search-profile-and-discovery"
+          ],
+          "symbol_changes": [
+            {
+              "symbol": "rank_candidates",
+              "intent": "cluster-aware 5상태 회사 후보 판정",
+              "decision_id": "D-03-search-profile-and-discovery"
+            }
+          ],
+          "contribution_refs": [
+            {
+              "decision_id": "D-03-search-profile-and-discovery",
+              "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/03-d-03-search-profile-and-discovery.json",
+              "sha256": "sha256:29947f9237dad64b699aa68a6d0156b60ea13a3b819edffdd2824a5ab2b0fbb4",
+              "symbols": [
+                "validate_search_profile",
+                "build_company_universe",
+                "rank_candidates",
+                "explain_candidate"
+              ],
+              "intent_change_ids": []
+            }
+          ]
+        },
+        {
+          "change_id": "D-04-requirement-contract-r2",
+          "operation": "MODIFY",
+          "path": "src/company_intel/career_requirements.py",
+          "symbols": [
+            "RequirementKind",
+            "RequirementNecessity",
+            "verify_requirement",
+            "requirement_overlap"
+          ],
+          "current_state": "skill/language/education/experience/credential 기본 분류는 있으나 certification·법정면허·clearance·work authorization와 추출 불가를 충분히 분리하지 않는다.",
+          "source_hash": "sha256:2eee38f22c88fff195e85102161f1d8f80c1d22c1ec3a0b7eecfc39c331ac47c",
+          "after_state": "요건 종류, required/preferred/unknown, proficiency/value, evidence span, jurisdiction과 confidence를 원자 행으로 만들고 부재·미기재·미추출을 분리한다.",
+          "rationale": "자격증 유사어와 법정 요건을 잘못 통합하지 않기 위해서다.",
+          "dependencies": [],
+          "public_contract_impacts": [
+            "requirement evidence v2"
+          ],
+          "compatibility": "기존 normalized_key를 alias로 유지한다.",
+          "migration": "불명확 ATS bullet은 required가 아니라 unknown으로 이전한다.",
+          "rollback": "r2 분류를 숨기고 원문 근거만 반환한다.",
+          "authorization_boundary": "직무명만으로 자격증을 생성하지 않는다.",
+          "contributes_to": [
+            "D-04-career-requirement-verification"
+          ],
+          "symbol_changes": [
+            {
+              "symbol": "RequirementKind",
+              "intent": "자격·면허·취업요건 원자화",
+              "decision_id": "D-04-career-requirement-verification"
+            }
+          ],
+          "contribution_refs": [
+            {
+              "decision_id": "D-04-career-requirement-verification",
+              "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/04-d-04-career-requirement-verification.json",
+              "sha256": "sha256:3c6eed6a4680d79a82f7793944a8dc0a40e8e7b16e55703faaed6d301ba9e6b0",
+              "symbols": [
+                "RequirementKind",
+                "RequirementNecessity",
+                "verify_requirement",
+                "requirement_overlap"
+              ],
+              "intent_change_ids": []
+            }
+          ]
+        },
+        {
+          "change_id": "D-03-search-tests-r2",
+          "operation": "MODIFY",
+          "path": "tests/test_search_profile.py",
+          "symbols": [
+            "test_legacy_profile_warnings",
+            "test_five_state_combination",
+            "test_cluster_routing",
+            "test_identity_conflict"
+          ],
+          "current_state": "기본 profile 검증과 결정론 순위만 검사해 의미가 다른 legacy 필드와 UNKNOWN 조합을 잡지 못한다.",
+          "source_hash": "sha256:0adc5640d47981ca88156de77c39a16e3fe56cbea6a957091e97fea65932a663",
+          "after_state": "모든 원자 축, ANY/ALL, strict/unverifiable/conflict 분리와 legacy warning을 검증한다.",
+          "rationale": "검색 의미 회귀를 구현 전에 고정하기 위해서다.",
+          "dependencies": [],
+          "public_contract_impacts": [
+            "offline search contract tests"
+          ],
+          "compatibility": "기존 테스트를 유지한다.",
+          "migration": "없음.",
+          "rollback": "r2 profile과 함께 제거한다.",
+          "authorization_boundary": "합성 회사 fixture만 사용한다.",
+          "contributes_to": [
+            "D-03-search-profile-and-discovery"
+          ],
+          "symbol_changes": [
+            {
+              "symbol": "test_five_state_combination",
+              "intent": "조건조합 판정표 검증",
+              "decision_id": "D-03-search-profile-and-discovery"
+            }
+          ],
+          "contribution_refs": [
+            {
+              "decision_id": "D-03-search-profile-and-discovery",
+              "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/03-d-03-search-profile-and-discovery.json",
+              "sha256": "sha256:29947f9237dad64b699aa68a6d0156b60ea13a3b819edffdd2824a5ab2b0fbb4",
+              "symbols": [
+                "test_legacy_profile_warnings",
+                "test_five_state_combination",
+                "test_cluster_routing",
+                "test_identity_conflict"
+              ],
+              "intent_change_ids": []
+            }
+          ]
+        },
+        {
+          "change_id": "D-04-requirement-tests-r2",
+          "operation": "MODIFY",
+          "path": "tests/test_career_requirements.py",
+          "symbols": [
+            "test_unknown_not_required",
+            "test_posting_vs_required_language",
+            "test_certification_vs_license",
+            "test_requirement_dedupe_key"
+          ],
+          "current_state": "required/preferred와 unavailable 기본 경계만 검사하며 Lever unknown bullet, 언어 이중 의미와 자격/면허 차이를 다루지 않는다.",
+          "source_hash": "sha256:aa5b355da9220b0f836324244bced0021cbe4fcb5749986f14c818a418408694",
+          "after_state": "실제형 ATS/MPSV fixture에서 필요도·관할·proficiency·evidence span과 중복키를 검증한다.",
+          "rationale": "요건 false positive와 잘못된 career overlap을 막기 위해서다.",
+          "dependencies": [],
+          "public_contract_impacts": [
+            "offline requirement tests"
+          ],
+          "compatibility": "기존 테스트를 유지한다.",
+          "migration": "없음.",
+          "rollback": "r2 요건 계약과 함께 제거한다.",
+          "authorization_boundary": "공고 원문 전체나 개인 데이터를 복제하지 않는다.",
+          "contributes_to": [
+            "D-04-career-requirement-verification"
+          ],
+          "symbol_changes": [
+            {
+              "symbol": "test_unknown_not_required",
+              "intent": "미확인 bullet 승격 금지",
+              "decision_id": "D-04-career-requirement-verification"
+            }
+          ],
+          "contribution_refs": [
+            {
+              "decision_id": "D-04-career-requirement-verification",
+              "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/04-d-04-career-requirement-verification.json",
+              "sha256": "sha256:3c6eed6a4680d79a82f7793944a8dc0a40e8e7b16e55703faaed6d301ba9e6b0",
+              "symbols": [
+                "test_unknown_not_required",
+                "test_posting_vs_required_language",
+                "test_certification_vs_license",
+                "test_requirement_dedupe_key"
+              ],
+              "intent_change_ids": []
+            }
+          ]
+        }
+      ],
+      "routes": [
+        {
+          "route_id": "c02-r2-tdd",
+          "skill": "tdd",
+          "requirement": "required",
+          "phase": "IMPLEMENT",
+          "purpose": "5상태 진리표와 요건 의미를 테스트 우선 고정",
+          "expected_artifact": "C-02 r2 code and tests"
+        },
+        {
+          "route_id": "c02-r2-research",
+          "skill": "company-intelligence-career-research",
+          "requirement": "required",
+          "phase": "IMPLEMENT",
+          "purpose": "국가별 자격·직업 codebook 의미 검증",
+          "expected_artifact": "requirement mapping evidence"
+        },
+        {
+          "route_id": "c02-r2-verify",
+          "skill": "verification-before-completion",
+          "requirement": "required",
+          "phase": "VALIDATE",
+          "purpose": "검색·요건 계약 독립 검증",
+          "expected_artifact": "C-02 r2 validation receipt"
+        }
+      ],
+      "completion_contract": [
+        {
+          "criterion_id": "C-02-r2-search-requirement-tests",
+          "behavior": "원자 profile, 5상태 조합, 법인 충돌, 요구언어, 자격/면허, unknown 필요도가 offline fixture에서 통과한다.",
+          "blocking": true,
+          "owner_skill": "verification-before-completion",
+          "phase": "VALIDATE",
+          "depends_on_criteria": [],
+          "test": {
+            "type": "pytest",
+            "value": "uv run --frozen pytest tests/test_search_profile.py tests/test_career_requirements.py -q",
+            "runner": "pytest",
+            "paths": [
+              "tests/test_search_profile.py",
+              "tests/test_career_requirements.py"
+            ],
+            "provider_backed": false,
+            "timeout_seconds": 600
+          },
+          "expected_result": "all tests pass and UNKNOWN is never collapsed into NO_MATCH",
+          "failure_marker": "semantic alias collision, unknown promoted, identity conflict joined, or nondeterministic verdict",
+          "receipt": {
+            "status": "planned",
+            "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/receipts/criteria/C-02-r2-search-requirement-tests.json",
+            "sha256": "planned"
+          },
+          "status": "planned"
+        }
+      ]
+    }
+  ],
+  "metadata": {
+    "preparation_contract": "campaign-global-ownership-v1",
+    "planned_commit_message": "feat(search-contract): add atomic profile and five-state verdicts",
+    "git_finalization_authorized": false
+  }
+}

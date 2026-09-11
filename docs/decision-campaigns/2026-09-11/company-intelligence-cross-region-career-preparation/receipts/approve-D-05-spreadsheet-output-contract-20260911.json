@@ -1,0 +1,43 @@
+{
+  "contract_version": "atomic-json-patch-receipt-v1",
+  "target": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/05-d-05-spreadsheet-output-contract.json",
+  "outcome": "pass",
+  "before_sha256": "1c937c378e064958dd752da4763b7a6da0c948aa8619daff7ce866b3b9f50d3a",
+  "after_sha256": "3e88123616d4bdd0ea4f4f782ec514d0276633701657c9dc43e7ca3ccf697a19",
+  "proposed_after_sha256": "3e88123616d4bdd0ea4f4f782ec514d0276633701657c9dc43e7ca3ccf697a19",
+  "operations": [
+    {
+      "op": "test",
+      "path": "/status"
+    },
+    {
+      "op": "test",
+      "path": "/accepted_decision"
+    },
+    {
+      "op": "replace",
+      "path": "/status"
+    },
+    {
+      "op": "replace",
+      "path": "/accepted_decision"
+    }
+  ],
+  "backup": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/.mutation-journal/preimages/sha256-1c937c378e064958dd752da4763b7a6da0c948aa8619daff7ce866b3b9f50d3a.json",
+  "journal": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/.mutation-journal/mutations/f462ea9121008673b789289a5da3b6437b046d62efe13bcc255a31c5870d4886.json",
+  "mutation_id": "approve-D-05-spreadsheet-output-contract-20260911",
+  "validators": [
+    {
+      "command": [
+        "/usr/bin/python3",
+        "-m",
+        "json.tool",
+        "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/05-d-05-spreadsheet-output-contract.json"
+      ],
+      "returncode": 0,
+      "stdout_tail": "\n        \"API key, \\ube44\\ubc00 \\ud658\\uacbd\\ubcc0\\uc218, \\uac1c\\uc778 \\uad6c\\uc9c1\\uc790 \\ub370\\uc774\\ud130, \\ud3c9\\ubb38 URL\\uc758 \\ud0a4, \\uc57d\\uad00\\uc0c1 \\uc7ac\\ubc30\\ud3ec \\uae08\\uc9c0 \\uc6d0\\ubb38\\uc774 export\\uc5d0 \\uc5c6\\ub294\\uc9c0 \\uac80\\uc99d\\ud55c\\ub2e4.\",\n        \"\\ube48 \\ud6c4\\ubcf4\\u00b7source \\uc81c\\ud55c\\u00b7identity_unresolved\\u00b7requirement_unavailable\\uc774 \\uc131\\uacf5\\ud55c \\ucd94\\ucc9c\\ucc98\\ub7fc \\ubcf4\\uc774\\uc9c0 \\uc54a\\uace0 \\uba85\\uc2dc\\uc801 exclusion \\ub610\\ub294 limitation\\uc73c\\ub85c \\ud45c\\uc2dc\\ub418\\ub294\\uc9c0 \\uac80\\uc99d\\ud55c\\ub2e4.\",\n        \"\\ub3d9\\uc77c profile\\u00b7source snapshot\\u00b7as_of \\uae30\\uc900\\uc5d0\\uc11c\\ub294 \\uc815\\ub82c\\u00b7run manifest\\u00b7\\ud30c\\uc77c \\ud574\\uc2dc\\uac00 \\uacb0\\uc815\\ub860\\uc801\\uc778\\uc9c0 \\uac80\\uc99d\\ud55c\\ub2e4.\"\n    ],\n    \"diagram_impacts\": [\n        \"\\ubd84\\ub958\\u00b7\\uac80\\uc0c9\\u00b7\\uc694\\uac74 \\uac80\\uc99d \\uacb0\\uacfc \\u2192 export materialization \\u2192 CSV bundle/XLSX \\u2192 \\uc0ac\\uc6a9\\uc790 \\uac80\\ud1a0\\u00b7\\uc7ac\\ud604 \\ud750\\ub984\\uc744 \\ud6c4\\uc18d \\ub2e4\\uc774\\uc5b4\\uadf8\\ub7a8\\uc5d0 \\ubc18\\uc601\\ud55c\\ub2e4.\"\n    ],\n    \"context_topic_ids\": [\n        \"evidence-export\"\n    ]\n}\n",
+      "stderr_tail": ""
+    }
+  ],
+  "completed_at": "2026-09-11T06:25:52.081639+00:00"
+}

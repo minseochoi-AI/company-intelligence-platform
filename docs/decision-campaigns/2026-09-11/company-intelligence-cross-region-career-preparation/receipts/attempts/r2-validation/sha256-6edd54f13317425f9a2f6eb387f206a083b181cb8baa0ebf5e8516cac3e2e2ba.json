@@ -1,0 +1,14 @@
+{
+  "scenario_id": "C-05-timeline-valuation-event-analysis:C-05-r2-analysis-tests",
+  "cohort_id": "C-05-timeline-valuation-event-analysis",
+  "criterion_id": "C-05-r2-analysis-tests",
+  "plan_sha256": "a5a104cfc25f86ca5d42cd997fc9bc6c6106281c60bf5a9cafc915575e879360",
+  "command": "uv run --frozen pytest tests/test_analysis_service.py tests/test_analytics.py -q",
+  "outcome": "pass",
+  "returncode": 0,
+  "first_failure": null,
+  "raw_log_path": ".runtime/campaign-orchestrator/company-intelligence-cross-region-career-preparation/r2-preflight/C-05-timeline-valuation-event-analysis__C-05-r2-analysis-tests.log",
+  "raw_log_sha256": "be83418c6827542c36b0f46a974a4f7ae7c835784d076de5f0b34dbc4615d1c3",
+  "tail": "tests/test_analysis_service.py::test_point_in_time_and_analysis_limits\ntests/test_analysis_service.py::test_raw_market_prices_and_projections_are_rejected_for_evidence_analysis\ntests/test_analytics.py::test_financial_metrics_cashflow_and_margins\ntests/test_analytics.py::test_ranking_is_peer_scoped_and_lower_leverage_is_better\ntests/test_analytics.py::test_event_did_dcf_future_score\ntests/test_analytics.py::test_hiring_snapshots_do_not_claim_hires\n\n6 tests collected in 0.41s\n",
+  "completed_at": "2026-09-11T13:46:24.495822+00:00"
+}

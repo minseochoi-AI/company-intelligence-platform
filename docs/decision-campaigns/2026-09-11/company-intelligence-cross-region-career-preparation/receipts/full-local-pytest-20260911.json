@@ -1,0 +1,13 @@
+{
+  "contract_version": "campaign-local-test-run-v1",
+  "campaign_id": "company-intelligence-cross-region-career-preparation",
+  "scope_sha256": "7999304264b29201eaa9cf2f3966bf6ee7c33d00343e9c4613eeacfbe6f4676a",
+  "command": "UV_CACHE_DIR=/tmp/company-intelligence-platform-uv-cache uv run --frozen pytest -q",
+  "outcome": "pass",
+  "returncode": 0,
+  "test_count": 19,
+  "raw_log_path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/receipts/logs/full-local-pytest-20260911.log",
+  "raw_log_sha256": "c7017b8eec1722b36388aa975a0d00896001f4c76d1d7c3e7e06d63768cad177",
+  "provider_calls": "none",
+  "recorded_at": "2026-09-11T07:36:00Z"
+}

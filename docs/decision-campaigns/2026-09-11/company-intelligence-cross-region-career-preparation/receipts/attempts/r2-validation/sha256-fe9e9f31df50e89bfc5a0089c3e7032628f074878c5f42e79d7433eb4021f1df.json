@@ -1,0 +1,14 @@
+{
+  "scenario_id": "C-01-source-identity-foundation:C-01-r2-semantic-contract-tests",
+  "cohort_id": "C-01-source-identity-foundation",
+  "criterion_id": "C-01-r2-semantic-contract-tests",
+  "plan_sha256": "fbf678307462c47a3c0f1c8d739d473c5797aaaeed0a6a9dc24738b54fa971b6",
+  "command": "uv run --frozen pytest tests/test_source_catalog.py tests/test_public_connectors.py tests/test_classification.py -q",
+  "outcome": "pass",
+  "returncode": 0,
+  "first_failure": null,
+  "raw_log_path": ".runtime/campaign-orchestrator/company-intelligence-cross-region-career-preparation/r2-preflight/C-01-source-identity-foundation__C-01-r2-semantic-contract-tests.log",
+  "raw_log_sha256": "1441dc4044a026b975bc9a8c68cd5a401fc9f5b022622538a3775f365802922d",
+  "tail": "tests/test_source_catalog.py::test_catalog_declares_every_registered_atomic_probe\ntests/test_source_catalog.py::test_activation_never_exposes_a_secret_value\ntests/test_source_catalog.py::test_sec_placeholder_and_context_sources_are_not_false_green\ntests/test_source_catalog.py::test_semantic_field_check_rejects_empty_values\ntests/test_source_catalog.py::test_provider_cluster_keeps_context_and_proxy_out_of_production\ntests/test_public_connectors.py::test_public_korea_probes_use_explicit_namespaces\ntests/test_public_connectors.py::test_http_client_encodes_form_body\ntests/test_public_connectors.py::test_normalizer_preserves_all_rows_instead_of_diagnostic_compaction\ntests/test_classification.py::test_finance_only_company_is_not_promoted_to_correlation_ready\ntests/test_classification.py::test_ambiguous_identity_is_retained_not_silently_merged\ntests/test_classification.py::test_analysis_needs_identity_period_unit_and_availability\ntests/test_classification.py::test_warehouse_identity_persistence_uses_the_identity_module_contract\ntests/test_classification.py::test_context_and_proxy_capabilities_are_not_promoted\n\n13 tests collected in 0.05s\n",
+  "completed_at": "2026-09-11T13:46:21.586572+00:00"
+}

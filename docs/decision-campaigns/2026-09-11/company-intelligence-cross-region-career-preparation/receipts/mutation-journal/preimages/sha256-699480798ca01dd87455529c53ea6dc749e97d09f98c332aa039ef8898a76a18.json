@@ -1,0 +1,85 @@
+{
+  "contract_version": "decision-campaign-implementation-v1",
+  "campaign_id": "company-intelligence-cross-region-career-preparation",
+  "outcome": "running",
+  "updated_at": "2026-09-11T07:15:00Z",
+  "cohorts": [
+    {
+      "cohort_id": "C-01-source-identity-foundation",
+      "status": "running",
+      "changed_paths": [
+        "config/providers.json",
+        "sql/duckdb_schema.sql",
+        "src/company_intel/models.py",
+        "src/company_intel/source_catalog.py",
+        "src/company_intel/identity.py",
+        "src/company_intel/normalization.py",
+        "src/company_intel/classification.py",
+        "src/company_intel/connectors/registry.py",
+        "src/company_intel/validation.py",
+        "src/company_intel/warehouse.py",
+        "tests/test_source_catalog.py",
+        "tests/test_classification.py"
+      ],
+      "commands": [
+        "apply_patch repository-local implementation"
+      ],
+      "outcome": "running",
+      "raw_log_path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/receipts/logs/implementation-before-tests-20260911.log",
+      "raw_log_sha256": "d1003ea180136e189212493e36d9223e0d1a8c58122116405efc5bd187b51c87",
+      "updated_at": "2026-09-11T07:15:00Z"
+    },
+    {
+      "cohort_id": "C-02-search-requirement-evidence",
+      "status": "running",
+      "changed_paths": [
+        "src/company_intel/search.py",
+        "src/company_intel/career_requirements.py",
+        "src/company_intel/connectors/keyed.py",
+        "src/company_intel/connectors/keyless.py",
+        "src/company_intel/api.py",
+        "src/company_intel/cli.py",
+        "tests/test_search_profile.py",
+        "tests/test_career_requirements.py"
+      ],
+      "commands": [
+        "apply_patch repository-local implementation"
+      ],
+      "outcome": "running",
+      "raw_log_path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/receipts/logs/implementation-before-tests-20260911.log",
+      "raw_log_sha256": "d1003ea180136e189212493e36d9223e0d1a8c58122116405efc5bd187b51c87",
+      "updated_at": "2026-09-11T07:15:00Z"
+    },
+    {
+      "cohort_id": "C-03-evidence-export-delivery",
+      "status": "running",
+      "changed_paths": [
+        "src/company_intel/exporting.py",
+        "src/company_intel/reporting.py",
+        "src/company_intel/security.py",
+        "pyproject.toml",
+        "tests/test_exporting.py"
+      ],
+      "commands": [
+        "apply_patch repository-local implementation"
+      ],
+      "outcome": "running",
+      "raw_log_path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/receipts/logs/implementation-before-tests-20260911.log",
+      "raw_log_sha256": "d1003ea180136e189212493e36d9223e0d1a8c58122116405efc5bd187b51c87",
+      "updated_at": "2026-09-11T07:15:00Z"
+    }
+  ],
+  "telemetry": {
+    "provider": {
+      "measurement": "not-applicable",
+      "invocations": null,
+      "input_tokens": null,
+      "output_tokens": null
+    },
+    "agent_session": {
+      "measurement": "unavailable-platform",
+      "token_count": null,
+      "tool_output_chars": null
+    }
+  }
+}

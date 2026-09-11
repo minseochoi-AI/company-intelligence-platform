@@ -1,0 +1,149 @@
+{
+  "decision_id": "D-02-company-capability-taxonomy",
+  "sequence": 2,
+  "unit_id": "company-capability-taxonomy",
+  "title": "기업별 데이터 가용성·분석 적격성 분류",
+  "status": "decision-required",
+  "question": "기업별 재무·고용·채용·시장·거시 연결과 상관·인과 분석 가능 여부를 어떤 다축 taxonomy와 증거 기준으로 분류할 것인가?",
+  "five_w_one_h": {
+    "who": "플랫폼 사용자, 데이터 연구자, 분석 API 소비자",
+    "what": "기업별 source capability와 analysis eligibility를 분리하는 다축 분류 계약",
+    "where": "entity·financial_fact·workforce_fact·job_posting_snapshot·market_price·macro_observation과 분석 진입점",
+    "when": "기업을 검색·수집·스프레드시트에 내보내기 전과 분석 실행 직전",
+    "why": "재무 전용·고용 전용·공고 전용·시장 제한·상관분석 불가 기업을 같은 점수나 결론으로 표현하지 않기 위해",
+    "how": "식별자 해소, 원천별 관측 범위, 기간·빈도, 산업·지역 매핑, point-in-time 가용성, 라이선스 상태를 각각 기록하고 조합 규칙으로 eligibility를 계산한다."
+  },
+  "evidence_refs": [
+    {
+      "evidence_id": "E-D02-existing-schema",
+      "source_type": "code",
+      "locator": "sql/duckdb_schema.sql:4-180",
+      "observed_fact": "현재 스키마에는 entity·financial_fact·workforce_fact·job_posting_snapshot·market_price·macro_observation·evidence가 있으나 기업별 capability 또는 분석 적격성 테이블은 없다.",
+      "content_hash": "sha256:37cb68ba7983a2f11f4c086bbdaf319711f0b3e22a4cac165d90071f65a283c2",
+      "line_range": "4-180",
+      "question": "기존 저장 구조가 데이터 존재와 분석 가능성을 분리해 표현하는가?",
+      "observation_summary": "관측 테이블은 존재하지만 원천별 coverage·identity·기간·분석 제한을 연결한 판정 계약이 없다."
+    },
+    {
+      "evidence_id": "E-D02-sample-ingestion",
+      "source_type": "code",
+      "locator": "src/company_intel/warehouse.py:85-262",
+      "observed_fact": "정규화 적재는 삼성전자·Airtable·Spotify·IBM 등 하드코드된 예시 법인과 probe 파일명을 기준으로 동작한다.",
+      "content_hash": "sha256:6cc623eed35be3ff01209f0b9ce4566db410f4c2441644930fdc013d545303e5",
+      "line_range": "85-262",
+      "question": "현재 적재가 범용 기업별 가용성 판정을 만드는가?",
+      "observation_summary": "예시 데이터 적재에는 identifier resolution·coverage·eligibility 산출이 없다."
+    },
+    {
+      "evidence_id": "E-D02-protection-rules",
+      "source_type": "local-document",
+      "locator": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/source-verification-2026-09-11.md:43-50",
+      "observed_fact": "공식 원천 근거는 공고와 실제 채용을 분리하고, 문서형 재무·분석 적격성·직업 자격 baseline을 별도 축으로 기록하도록 요구한다.",
+      "content_hash": "sha256:c80f8552ca1a32574304cd688b04615f0ae773f9055423d8f32ef3feda05e268",
+      "line_range": "43-50",
+      "question": "국가별 서로 다른 원천을 동일한 분류 규칙으로 안전하게 비교하려면 무엇이 필요한가?",
+      "observation_summary": "단일 data_available 값으로는 기업 식별, 문서 파싱, 공고, 거시 연결, 자격 근거의 차이를 보존할 수 없다."
+    }
+  ],
+  "facts": [
+    "현재 28개 원자 API 작업은 법인 식별·재무·공고·공공기관 맥락·조달·거시·시장·활동 대리 신호로 역할이 다르다.",
+    "공통 호환 계약은 source_name, source_record_id, entity_external_id, subject_type, country_code, observation_date, available_at, collected_at, source_url, classification_reason을 서로 다른 의미로 보존해야 한다.",
+    "기존 스키마에는 entity·financial_fact·workforce_fact·job_posting_snapshot·market_price·macro_observation이 있지만 기업별 source capability·field availability·analysis eligibility 이력이 없다.",
+    "현재 정규화 적재는 삼성전자·Airtable·Spotify·IBM 표본에 결합되어 일반 기업 universe와 identifier resolution을 제공하지 않는다.",
+    "공고 수는 채용 완료 인원이나 직원 수가 아니고 거시·조달·GitHub·OpenAlex 신호는 기업 재무 fact가 아니다."
+  ],
+  "conflicts": [
+    "workforce_fact 테이블이 존재해도 공개 원천에 기업별 직원 수가 있다는 뜻은 아니다.",
+    "공고에 있는 기업 정보는 공고 제공 값이므로 감사 재무 또는 실제 인력 증감과 같은 신뢰도로 취급할 수 없다.",
+    "문서가 공개된 체코 법인이라도 구조화·검증된 재무 line item이 있다고 가정할 수 없다."
+  ],
+  "unimplemented": [
+    "company_source_capability, identifier_mapping, field_availability, classification_history와 evidence foreign key가 없다.",
+    "CIK·DART corp_code·IČO·LEI·ISIN·ALIO apbaId·ATS employer ID를 네임스페이스별로 해소하고 confidence를 기록하는 resolver가 없다.",
+    "원천별 필드를 공통 10개 provenance 속성으로 정규화하면서 원천 ID·단위·시간 의미를 보존하는 mapper와 중복 제거 키가 없다.",
+    "financial_only·workforce_only·job_only·public_context_only·market_limited·correlation_ineligible·causal_analysis_ineligible 판정 함수가 없다.",
+    "분석 endpoint가 identifier·기간·빈도·산업/지역·available_at 조건을 검사해 부적격 회귀·이벤트 스터디를 막지 않는다."
+  ],
+  "options": [
+    {
+      "option_id": "A-single-availability-score",
+      "description": "기업마다 단일 data_available 또는 coverage score를 계산하고 누락 항목은 점수 감소로만 표현한다.",
+      "impact": {
+        "data": "이질적인 원천의 의미가 한 숫자로 압축되어 공고와 재무가 섞인다.",
+        "schema_api": "작은 컬럼 추가로 끝나지만 원천·기간·식별자 근거를 잃는다.",
+        "ux": "간단한 순위는 만들 수 있으나 제외 사유를 설명하기 어렵다.",
+        "performance": "계산은 가볍지만 부정확한 분석 실행을 막지 못한다.",
+        "cost": "초기 구현은 작지만 잘못된 결과 해석과 정정 비용이 커진다.",
+        "security": "원천 라이선스·접근 경계가 결과에 드러나지 않는다.",
+        "migration": "나중에 다축 모델로 바꿀 때 과거 score를 재계산해야 한다.",
+        "tests": "점수 범위만 시험하고 각 제한 조건의 안전성을 검증하기 어렵다."
+      },
+      "opportunity_costs": [
+        "사용자에게 빠른 단일 랭킹을 제공하지만 근거의 정확한 차이를 포기한다."
+      ]
+    },
+    {
+      "option_id": "B-multiaxis-capability-and-gates",
+      "description": "기업 식별·재무·고용·공고·시장·거시·직무요건의 capability와 source evidence를 독립 저장하고, 명시적 규칙으로 correlation·causal eligibility를 계산한다.",
+      "impact": {
+        "data": "관측 범위·기간·원천·신뢰도를 보존해 부적절한 결합을 막는다.",
+        "schema_api": "capability history, identifier mapping, classification reason, eligibility rule version 계약이 추가된다.",
+        "ux": "기업별로 재무 전용·공고 전용·시장 제한·분석 부적격 사유를 보여 줄 수 있다.",
+        "performance": "수집 뒤 materialized classification으로 분석 진입 비용을 줄일 수 있다.",
+        "cost": "스키마·마이그레이션·fixture 설계 비용이 늘어난다.",
+        "security": "원천별 접근·재배포 상태를 capability와 함께 노출하지 않고 내부 정책으로 보존한다.",
+        "migration": "기존 관측 테이블을 보존한 채 capability history를 additive하게 도입할 수 있다.",
+        "tests": "각 country/source fixture와 negative eligibility case를 단위·통합 시험할 수 있다."
+      },
+      "opportunity_costs": [
+        "단일 숫자만 원하는 사용자는 상세 상태를 읽어야 하며, source evidence 유지가 필요하다."
+      ]
+    }
+  ],
+  "recommended_option_id": "B-multiaxis-capability-and-gates",
+  "recommendation_reason": "사용자가 요청한 재무 전용·고용 전용·채용 전용·경제변수 상관분석 불가 분류는 하나의 score가 아니라 source별 사실과 규칙 기반 eligibility를 동시에 보존해야 정확하게 표현된다.",
+  "impact": {
+    "data": "기업별 coverage·기간·원천·신뢰도·제한 사유를 독립 보존한다.",
+    "schema_api": "capability history와 identifier mapping, classification API·export 필드를 추가한다.",
+    "ux": "사용자는 가능한 분석과 불가능한 분석을 혼동하지 않고 후보를 필터할 수 있다.",
+    "performance": "분석 전에 eligibility를 계산해 무의미한 고비용 실행을 차단한다.",
+    "cost": "초기 스키마와 fixture 구축 비용이 있지만 사후 해석 오류를 줄인다.",
+    "security": "접근·라이선스 상태를 정책 계층에서 통제하고 개인·비밀 데이터를 capability에 넣지 않는다.",
+    "migration": "기존 entity·관측 테이블을 파괴하지 않는 additive migration으로 진행한다.",
+    "tests": "국가·원천·누락 조건별 분류와 analysis gate 검증을 추가한다."
+  },
+  "opportunity_costs": [
+    "충분한 증거가 없는 기업은 단일 순위 또는 회귀 결과에서 제외되며, 이는 데이터 공백을 숨기는 것보다 우선한다.",
+    "법인 해소가 안 된 공고는 익명 수요 집계로만 보존하고 회사 분석 후보에 넣지 않는다."
+  ],
+  "dependencies": [
+    "D-01-source-access-policy"
+  ],
+  "dependency_waivers": {},
+  "accepted_decision": null,
+  "implementation_targets": [
+    "sql/duckdb_schema.sql — company_source_capability, identifier_mapping, field_availability, classification_history 및 evidence 연결을 additive하게 추가",
+    "src/company_intel/models.py — capability·classification·eligibility·provenance value object 정의",
+    "src/company_intel/identity.py (new) — CIK·DART·IČO·LEI·ISIN·ALIO·ATS 식별자 해소와 confidence 기록",
+    "src/company_intel/normalization.py (new) — 원자 필드 의미·단위·시간·중복 제거 키를 보존하는 mapper",
+    "src/company_intel/classification.py (new) — 기업 분류와 correlation·causal eligibility 규칙",
+    "src/company_intel/warehouse.py — 범용 entity·capability 적재와 예시 하드코딩 분리",
+    "src/company_intel/api.py — 분류·필드 가용성·제외 사유 조회 endpoint",
+    "tests/test_classification.py (new) — 재무 전용·공고 전용·공공기관 맥락·문서형·상관 불가 fixture 검증"
+  ],
+  "implementation_change_ids": [],
+  "validation_requirements": [
+    "동일 원천 레코드 재수집이 source_name·source_record_id·observation_date 기준으로 중복되지 않고 revision/collected 시각만 올바르게 보존되는지 검증한다.",
+    "재무만 있는 기업은 company_financial_disclosure과 correlation_ineligible을 동시에 가질 수 있는지 fixture로 검증한다.",
+    "공고만 있고 법인 ID가 없는 레코드는 identity_unresolved 또는 employer_redacted이며 회사 분석 후보에서 제외되는지 검증한다.",
+    "공공기관 시설·행사·사업·기관 데이터가 job_available이나 workforce_available로 승격되지 않는지 검증한다.",
+    "기간·단위·산업/지역·point-in-time 중 하나라도 없으면 correlation_candidate가 false인지 검증한다.",
+    "causal analysis가 correlation candidate보다 더 엄격한 대조군·pre-trend·표본 기준을 요구하는지 검증한다."
+  ],
+  "diagram_impacts": [
+    "법인 식별 해소 → source capability history → classification → correlation/causal gate → 분석·스프레드시트 흐름을 후속 다이어그램에 반영한다."
+  ],
+  "context_topic_ids": [
+    "source-identity-capability"
+  ]
+}

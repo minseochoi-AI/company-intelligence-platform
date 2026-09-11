@@ -1,0 +1,51 @@
+{
+  "contract_version": "scope-lock-v1",
+  "owner": {
+    "kind": "decision-campaign",
+    "id": "company-intelligence-cross-region-career-preparation"
+  },
+  "campaign_path": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/campaign.json",
+  "scope": {
+    "campaign_id": "company-intelligence-cross-region-career-preparation",
+    "decision_order": [
+      "D-01-source-access-policy",
+      "D-02-company-capability-taxonomy",
+      "D-03-search-profile-and-discovery",
+      "D-04-career-requirement-verification",
+      "D-05-spreadsheet-output-contract"
+    ],
+    "dependencies": [
+      {
+        "before": "D-01-source-access-policy",
+        "after": "D-02-company-capability-taxonomy"
+      },
+      {
+        "before": "D-01-source-access-policy",
+        "after": "D-03-search-profile-and-discovery"
+      },
+      {
+        "before": "D-01-source-access-policy",
+        "after": "D-04-career-requirement-verification"
+      },
+      {
+        "before": "D-02-company-capability-taxonomy",
+        "after": "D-04-career-requirement-verification"
+      },
+      {
+        "before": "D-03-search-profile-and-discovery",
+        "after": "D-04-career-requirement-verification"
+      },
+      {
+        "before": "D-02-company-capability-taxonomy",
+        "after": "D-05-spreadsheet-output-contract"
+      },
+      {
+        "before": "D-04-career-requirement-verification",
+        "after": "D-05-spreadsheet-output-contract"
+      }
+    ],
+    "cohorts": []
+  },
+  "scope_sha256": "cedbc5446e2cc700908e6a93d3ab779d6c03fb43830cab81235992b91515af1a",
+  "amendment": null
+}

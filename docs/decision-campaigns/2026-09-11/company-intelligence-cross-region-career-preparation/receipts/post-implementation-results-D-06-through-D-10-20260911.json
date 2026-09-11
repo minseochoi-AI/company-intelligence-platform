@@ -1,0 +1,41 @@
+{
+  "contract_version": "campaign-post-implementation-results-v1",
+  "campaign_id": "company-intelligence-cross-region-career-preparation",
+  "captured_at": "2026-09-11T10:10:00Z",
+  "cohorts": [
+    {
+      "cohort_id": "C-04-peer-screener-ranking",
+      "plan_id": "company-intelligence-cross-region-career-preparation--C-04-peer-screener-ranking--r1",
+      "plan_sha256": "ad5501d7d4b1ef82a720135929c5330f165aeb0604d961e063e8bad8d21333be",
+      "operations": [
+        {"path": "src/company_intel/screening.py", "result_hash": "sha256:0bc9f5aa7df1287b465373dbb3d0df39711ab936b5406823b15696f7c6fd8b19"},
+        {"path": "tests/test_screening.py", "result_hash": "sha256:666d6e7a502f6570815dfb3c2208c1ec552577501b0b5b36b749b46bc0a6d4ea"}
+      ]
+    },
+    {
+      "cohort_id": "C-05-timeline-valuation-event-analysis",
+      "plan_id": "company-intelligence-cross-region-career-preparation--C-05-timeline-valuation-event-analysis--r1",
+      "plan_sha256": "367805654026b42a923be38b5084c4591a638fe484b5dfa10ed9cdb197c7c193",
+      "operations": [
+        {"path": "src/company_intel/analysis_service.py", "result_hash": "sha256:2520ae86cfa241bea157db92e7ef5a499c1f2e34dcebc9230f4e2f69e92b5b2b"},
+        {"path": "tests/test_analysis_service.py", "result_hash": "sha256:8e6ddf46d159c606c4603d4aa9f40aca44ec148884d7dc6b3f7e4cf9c9c5184c"}
+      ]
+    },
+    {
+      "cohort_id": "C-06-job-availability-filtered-discovery",
+      "plan_id": "company-intelligence-cross-region-career-preparation--C-06-job-availability-filtered-discovery--r1",
+      "plan_sha256": "daba7054b70c72723918ad0ef32c919ba49c02b3549e411921661158812a1f5f",
+      "operations": [
+        {"path": "src/company_intel/job_search.py", "result_hash": "sha256:183851a950d90c7ffdf878c28f4473fd01da4b55fce7571c5d818827a0f688f1"},
+        {"path": "src/company_intel/connectors/keyless.py", "result_hash": "sha256:2f44850263221028d0b46c52b73a4daa297c441a679ebdc33e8900289e56b467"},
+        {"path": "src/company_intel/api.py", "result_hash": "sha256:d697d6621f6f4e12a5b5cd3f250ff5a4a27594dc00ff92fc9751f9c4b389c27c"},
+        {"path": "src/company_intel/cli.py", "result_hash": "sha256:813b84089d9e56df133827020313e5dd292ac49d509d00927930cf17a2f68b92"},
+        {"path": "src/company_intel/exporting.py", "result_hash": "sha256:baf639878d180901ba4e883b4524d9dcf24d69f132114c37c859b353e931485d"},
+        {"path": "pyproject.toml", "result_hash": "sha256:84e86a16e36afbfe04fb3e64a88aaf423112a9ca35386bd4ade237e86533c0a1"},
+        {"path": "uv.lock", "result_hash": "sha256:3ba8c6d44be43fb930e7b8a35810789530ec0181b899d01a8f20f1d1b5f3d495"},
+        {"path": "tests/test_job_search.py", "result_hash": "sha256:a91c48396d95fc34bfad10b18f2a10702bc67ff3dbe158e7b90ccdbc5def1f6d"},
+        {"path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/atomic-api-compatibility-report-2026-09-11.md", "result_hash": "sha256:a46732f0ba183b51890d00f9808862fe54f3f9ee409ba96e8f03f5ea7cae18f0"}
+      ]
+    }
+  ]
+}

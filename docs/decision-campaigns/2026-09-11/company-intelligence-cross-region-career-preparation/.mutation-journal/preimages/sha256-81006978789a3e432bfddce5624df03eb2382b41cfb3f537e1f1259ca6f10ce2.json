@@ -1,0 +1,135 @@
+{
+  "schema_version": "1.7.0",
+  "campaign_id": "company-intelligence-cross-region-career-preparation",
+  "objective": "미국·한국·EU/체코의 무료 또는 공개 접근 가능 데이터만 근거로 기업별 재무·고용·채용·시장·거시 가용성을 분류하고, 사용자 목적 기반 기업 검색과 자격증·준비사항 검증 스프레드시트 구현을 위한 승인 가능한 설계를 고정한다.",
+  "repository_root": "/home/ubuntu/root/company-intelligence-platform",
+  "created_date": "2026-09-11",
+  "status": "decision-approved",
+  "decision_order": [
+    "D-01-source-access-policy",
+    "D-02-company-capability-taxonomy",
+    "D-03-search-profile-and-discovery",
+    "D-04-career-requirement-verification",
+    "D-05-spreadsheet-output-contract"
+  ],
+  "dependencies": [
+    {
+      "before": "D-01-source-access-policy",
+      "after": "D-02-company-capability-taxonomy"
+    },
+    {
+      "before": "D-02-company-capability-taxonomy",
+      "after": "D-03-search-profile-and-discovery"
+    },
+    {
+      "before": "D-03-search-profile-and-discovery",
+      "after": "D-04-career-requirement-verification"
+    },
+    {
+      "before": "D-04-career-requirement-verification",
+      "after": "D-05-spreadsheet-output-contract"
+    }
+  ],
+  "implementation_authorization": {
+    "authorized": true,
+    "authorized_by": "user",
+    "authorized_at": "2026-09-11T07:01:36.013986+00:00",
+    "scope": [
+      "D-01-source-access-policy",
+      "D-02-company-capability-taxonomy",
+      "D-03-search-profile-and-discovery",
+      "D-04-career-requirement-verification",
+      "D-05-spreadsheet-output-contract"
+    ],
+    "authorized_plan_refs": [
+      {
+        "cohort_id": "C-01-source-identity-foundation",
+        "plan_id": "company-intelligence-cross-region-career-preparation--C-01-source-identity-foundation--r1",
+        "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/implementation-plans/C-01-source-identity-foundation.json",
+        "sha256": "c8b5c8c96de5d900195abc2528b9ceb2762a7ecad73c2a475ab5e28148d284b6"
+      },
+      {
+        "cohort_id": "C-02-search-requirement-evidence",
+        "plan_id": "company-intelligence-cross-region-career-preparation--C-02-search-requirement-evidence--r1",
+        "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/implementation-plans/C-02-search-requirement-evidence.json",
+        "sha256": "88b644caebcf290de5296ac93c01638305224e188ca45598ed72ab07634b5daf"
+      },
+      {
+        "cohort_id": "C-03-evidence-export-delivery",
+        "plan_id": "company-intelligence-cross-region-career-preparation--C-03-evidence-export-delivery--r1",
+        "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/implementation-plans/C-03-evidence-export-delivery.json",
+        "sha256": "7eced62ade8fb756b22e7e4763fb3f8789403b8b0721fcea4618827911148ffe"
+      }
+    ]
+  },
+  "implementation_cohorts": [
+    {
+      "cohort_id": "C-01-source-identity-foundation",
+      "decision_ids": [
+        "D-01-source-access-policy",
+        "D-02-company-capability-taxonomy"
+      ],
+      "status": "contract-ready",
+      "execution_dependencies": [],
+      "implementation_plan_path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/implementation-plans/C-01-source-identity-foundation.json",
+      "implementation_plan_status": "contract-ready",
+      "implementation_plan_sha256": "c8b5c8c96de5d900195abc2528b9ceb2762a7ecad73c2a475ab5e28148d284b6",
+      "context_packet_path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/context-packets/C-01-source-identity-foundation-r1.json",
+      "context_packet_sha256": "189f3b5b4bf2149046e5a9253f85b6b79ce1e5b75449b3d80cc249dbbe9fc653"
+    },
+    {
+      "cohort_id": "C-02-search-requirement-evidence",
+      "decision_ids": [
+        "D-03-search-profile-and-discovery",
+        "D-04-career-requirement-verification"
+      ],
+      "status": "contract-ready",
+      "execution_dependencies": [
+        "C-01-source-identity-foundation"
+      ],
+      "implementation_plan_path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/implementation-plans/C-02-search-requirement-evidence.json",
+      "implementation_plan_status": "contract-ready",
+      "implementation_plan_sha256": "88b644caebcf290de5296ac93c01638305224e188ca45598ed72ab07634b5daf",
+      "context_packet_path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/context-packets/C-02-search-requirement-evidence-r1.json",
+      "context_packet_sha256": "9cc145df00a1271f07f075a09628f343cbd4db86f9844ae09d3b48db4df76524"
+    },
+    {
+      "cohort_id": "C-03-evidence-export-delivery",
+      "decision_ids": [
+        "D-05-spreadsheet-output-contract"
+      ],
+      "status": "contract-ready",
+      "execution_dependencies": [
+        "C-02-search-requirement-evidence"
+      ],
+      "implementation_plan_path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/implementation-plans/C-03-evidence-export-delivery.json",
+      "implementation_plan_status": "contract-ready",
+      "implementation_plan_sha256": "7eced62ade8fb756b22e7e4763fb3f8789403b8b0721fcea4618827911148ffe",
+      "context_packet_path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/context-packets/C-03-evidence-export-delivery-r1.json",
+      "context_packet_sha256": "474b2c80d7f0d5b8087611bd8de3a1012a32d583b859b63ea96da576d2891b35"
+    }
+  ],
+  "context_index_path": "docs/implementation-context-index.json",
+  "component_inventory_path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/component-inventory.json",
+  "component_inventory_sha256": "f9bb4f122b05db6f60de95a13fd18e446aafc96e1e36e7998c9f95168b78d2c6",
+  "workbook_path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decision-workbook.md",
+  "decision_files": {
+    "D-01-source-access-policy": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/01-d-01-source-access-policy.json",
+    "D-02-company-capability-taxonomy": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/02-d-02-company-capability-taxonomy.json",
+    "D-03-search-profile-and-discovery": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/03-d-03-search-profile-and-discovery.json",
+    "D-04-career-requirement-verification": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/04-d-04-career-requirement-verification.json",
+    "D-05-spreadsheet-output-contract": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/05-d-05-spreadsheet-output-contract.json"
+  },
+  "receipt_paths": {
+    "implementation": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/receipts/implementation.json",
+    "validation": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/receipts/validation.json",
+    "diagrams": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/receipts/diagrams.json"
+  },
+  "receipt_manifest_paths": {
+    "implementation": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/receipts/current-implementation.json",
+    "validation": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/receipts/current-validation.json",
+    "diagrams": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/receipts/current-diagrams.json"
+  },
+  "campaign_change_graph_path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/campaign-change-graph.json",
+  "campaign_change_graph_sha256": "5c7205e416f417e03668414b461a6d3965ae0a4cfbcbb92c15300099b835340d"
+}

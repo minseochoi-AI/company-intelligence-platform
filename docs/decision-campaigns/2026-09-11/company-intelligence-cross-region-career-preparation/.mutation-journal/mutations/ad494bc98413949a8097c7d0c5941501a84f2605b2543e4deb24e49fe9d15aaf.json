@@ -1,0 +1,13 @@
+{
+  "contract_version": "atomic-json-mutation-journal-v1",
+  "mutation_id": "approve-D-08-future-value-scenarios-20260911",
+  "target": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/08-d-08-future-value-scenarios.json",
+  "status": "validated",
+  "before_sha256": "cb3d9168080a610e10f2b610a8a17c7b6473f01fa68bf27e3f9b1e41d2efbb6d",
+  "proposed_after_sha256": "da875e804736036be60ff0c09876dfb6e403423f97644af24384f30e0d2757b9",
+  "preimage_path": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/.mutation-journal/preimages/sha256-cb3d9168080a610e10f2b610a8a17c7b6473f01fa68bf27e3f9b1e41d2efbb6d.json",
+  "patch_source": "inline-semantic-arguments",
+  "patch_sha256": "86ecd793e1cc8e450f10c6b96bedad496796d052939a71084afed30388f1c11f",
+  "updated_at": "2026-09-11T09:45:21.096167+00:00",
+  "observed_after_sha256": "da875e804736036be60ff0c09876dfb6e403423f97644af24384f30e0d2757b9"
+}

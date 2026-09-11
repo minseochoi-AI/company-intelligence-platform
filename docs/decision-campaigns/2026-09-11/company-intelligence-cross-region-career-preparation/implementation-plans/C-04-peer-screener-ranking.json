@@ -1,0 +1,162 @@
+{
+  "contract_version": "1.2.0",
+  "plan_id": "company-intelligence-cross-region-career-preparation--C-04-peer-screener-ranking--r1",
+  "owner": {
+    "kind": "campaign-cohort",
+    "id": "C-04-peer-screener-ranking"
+  },
+  "source_refs": [
+    {
+      "id": "D-06-peer-screener-ranking",
+      "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/06-d-06-peer-screener-ranking.json",
+      "sha256": "sha256:0df0e40c9b5460c28ac04224b404a20558c539b301acf524ccd66cc61b2c03b6"
+    }
+  ],
+  "status": "contract-ready",
+  "change_slices": [
+    {
+      "slice_id": "peer-evidence-screener",
+      "behavior": "국가·산업·규모·기준일을 고정한 동료군에서 선택 지표만 순위화하고 coverage와 제외 사유를 반환한다.",
+      "dependencies": [],
+      "operations": [
+        {
+          "change_id": "D-06-peer-screener-ranking-service",
+          "operation": "CREATE",
+          "path": "src/company_intel/screening.py",
+          "symbols": [
+            "ScreenerProfile",
+            "screen_companies"
+          ],
+          "current_state": "사용자 스크리너 서비스가 없다.",
+          "source_hash": null,
+          "after_state": "명시적 동료군과 지표 방향·최소 표본·coverage·근거를 보존한 결과를 반환한다.",
+          "rationale": "서로 비교할 수 없는 기업을 하나의 순위에 섞지 않기 위해서다.",
+          "dependencies": [],
+          "public_contract_impacts": [
+            "peer screener service"
+          ],
+          "compatibility": "기존 rank_companies는 유지한다.",
+          "migration": "신규 서비스로 추가한다.",
+          "rollback": "신규 모듈을 제거한다.",
+          "authorization_boundary": "결측을 추정하지 않고 공개 기업 사실만 처리한다.",
+          "contributes_to": [
+            "D-06-peer-screener-ranking"
+          ],
+          "symbol_changes": [
+            {
+              "symbol": "screen_companies",
+              "intent": "근거 제한 동료군 순위",
+              "decision_id": "D-06-peer-screener-ranking"
+            }
+          ],
+          "intent_change_ids": [
+            "D-06-peer-screener-ranking-service"
+          ],
+          "contribution_refs": [
+            {
+              "decision_id": "D-06-peer-screener-ranking",
+              "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/06-d-06-peer-screener-ranking.json",
+              "sha256": "sha256:0df0e40c9b5460c28ac04224b404a20558c539b301acf524ccd66cc61b2c03b6",
+              "symbols": [
+                "ScreenerProfile",
+                "screen_companies"
+              ],
+              "intent_change_ids": [
+                "D-06-peer-screener-ranking-service"
+              ]
+            }
+          ]
+        },
+        {
+          "change_id": "D-06-peer-screener-ranking-test",
+          "operation": "CREATE",
+          "path": "tests/test_screening.py",
+          "symbols": [
+            "test_peer_boundaries_and_coverage"
+          ],
+          "current_state": "사용자 스크리너 계약 테스트가 없다.",
+          "source_hash": null,
+          "after_state": "동료군 경계·결측·방향·최소 표본을 fixture로 검증한다.",
+          "rationale": "비교 불가 기업의 혼입을 막기 위해서다.",
+          "dependencies": [],
+          "public_contract_impacts": [
+            "test contract"
+          ],
+          "compatibility": "네트워크 없는 테스트다.",
+          "migration": "없음",
+          "rollback": "서비스와 함께 제거한다.",
+          "authorization_boundary": "실제 개인 데이터를 사용하지 않는다.",
+          "contributes_to": [
+            "D-06-peer-screener-ranking"
+          ],
+          "symbol_changes": [
+            {
+              "symbol": "test_peer_boundaries_and_coverage",
+              "intent": "스크리너 경계 검증",
+              "decision_id": "D-06-peer-screener-ranking"
+            }
+          ],
+          "intent_change_ids": [
+            "D-06-peer-screener-ranking-test"
+          ],
+          "contribution_refs": [
+            {
+              "decision_id": "D-06-peer-screener-ranking",
+              "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/06-d-06-peer-screener-ranking.json",
+              "sha256": "sha256:0df0e40c9b5460c28ac04224b404a20558c539b301acf524ccd66cc61b2c03b6",
+              "symbols": [
+                "test_peer_boundaries_and_coverage"
+              ],
+              "intent_change_ids": [
+                "D-06-peer-screener-ranking-test"
+              ]
+            }
+          ]
+        }
+      ],
+      "routes": [
+        {
+          "route_id": "c04-verify",
+          "skill": "verification-before-completion",
+          "requirement": "required",
+          "phase": "VALIDATE",
+          "purpose": "스크리너 동작 검증",
+          "expected_artifact": "pytest receipt"
+        }
+      ],
+      "completion_contract": [
+        {
+          "criterion_id": "C-04-screener-tests",
+          "behavior": "동료군과 coverage 계약이 통과한다.",
+          "blocking": true,
+          "owner_skill": "verification-before-completion",
+          "phase": "VALIDATE",
+          "depends_on_criteria": [],
+          "test": {
+            "type": "pytest",
+            "value": "uv run --frozen pytest tests/test_screening.py -q",
+            "runner": "pytest",
+            "paths": [
+              "tests/test_screening.py"
+            ],
+            "provider_backed": false,
+            "timeout_seconds": 300
+          },
+          "expected_result": "all tests pass",
+          "failure_marker": "peer boundary or coverage regression",
+          "receipt": {
+            "status": "planned",
+            "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/receipts/criteria/C-04-screener-tests.json",
+            "sha256": "planned"
+          },
+          "status": "planned"
+        }
+      ]
+    }
+  ],
+  "metadata": {
+    "planned_commit_message": "feat(screening): add evidence-bound peer screener",
+    "git_finalization_authorized": false,
+    "preparation_contract": "campaign-global-ownership-v1"
+  }
+}

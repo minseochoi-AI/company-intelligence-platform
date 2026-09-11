@@ -1,0 +1,51 @@
+{
+  "contract_version": "campaign-combined-authorization-v1",
+  "campaign_id": "company-intelligence-cross-region-career-preparation",
+  "campaign_path": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/campaign.json",
+  "scope_lock_path": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/scope-lock.json",
+  "scope_lock_sha256": "56439c3eb2c3d630cc34b2165c149845a04f3a3677c03d39543978b8b9375059",
+  "authorized_by": "user",
+  "authorized_at": "2026-09-11T13:33:59.758117+00:00",
+  "authorization_text": "전부 실행하면서 오류 확인 수정 테스트해",
+  "authorization_text_sha256": "33815d375e729a6a7dfd2f9d23e4d5613d558fc72a19a209bda8abd4bf98c182",
+  "authorized_plan_refs": [
+    {
+      "cohort_id": "C-01-source-identity-foundation",
+      "plan_id": "company-intelligence-cross-region-career-preparation--C-01-source-identity-foundation--r2",
+      "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/implementation-plans/C-01-source-identity-foundation-r2.json",
+      "sha256": "fbf678307462c47a3c0f1c8d739d473c5797aaaeed0a6a9dc24738b54fa971b6"
+    },
+    {
+      "cohort_id": "C-02-search-requirement-evidence",
+      "plan_id": "company-intelligence-cross-region-career-preparation--C-02-search-requirement-evidence--r2",
+      "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/implementation-plans/C-02-search-requirement-evidence-r2.json",
+      "sha256": "28f79faffd19ae0953653beee61718ac75a51eebeee8a65917b1abb9bc37b50f"
+    },
+    {
+      "cohort_id": "C-03-evidence-export-delivery",
+      "plan_id": "company-intelligence-cross-region-career-preparation--C-03-evidence-export-delivery--r2",
+      "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/implementation-plans/C-03-evidence-export-delivery-r2.json",
+      "sha256": "6cf09b190f7a2f70235f86dc913e4bf74acfdafb15b0cf82a241fe95712d9607"
+    },
+    {
+      "cohort_id": "C-04-peer-screener-ranking",
+      "plan_id": "company-intelligence-cross-region-career-preparation--C-04-peer-screener-ranking--r2",
+      "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/implementation-plans/C-04-peer-screener-ranking-r2.json",
+      "sha256": "17b155456c4036b58bbda3f6a4d92a49d25b69f8dc9790ba09ec8db6222d5604"
+    },
+    {
+      "cohort_id": "C-05-timeline-valuation-event-analysis",
+      "plan_id": "company-intelligence-cross-region-career-preparation--C-05-timeline-valuation-event-analysis--r2",
+      "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/implementation-plans/C-05-timeline-valuation-event-analysis-r2.json",
+      "sha256": "a5a104cfc25f86ca5d42cd997fc9bc6c6106281c60bf5a9cafc915575e879360"
+    },
+    {
+      "cohort_id": "C-06-job-availability-filtered-discovery",
+      "plan_id": "company-intelligence-cross-region-career-preparation--C-06-job-availability-filtered-discovery--r2",
+      "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/implementation-plans/C-06-job-availability-filtered-discovery-r2.json",
+      "sha256": "1f4cf24cc1e7f07e7224e24cb184d3e2eb68811d8bcc8142de5ac07ac371b9c0"
+    }
+  ],
+  "stop_before_validation": false,
+  "external_actions_authorized": false
+}

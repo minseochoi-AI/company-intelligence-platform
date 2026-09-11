@@ -1,0 +1,14 @@
+{
+  "scenario_id": "C-06-job-availability-filtered-discovery:C-06-r2-cli-workflow-tests",
+  "cohort_id": "C-06-job-availability-filtered-discovery",
+  "criterion_id": "C-06-r2-cli-workflow-tests",
+  "plan_sha256": "1f4cf24cc1e7f07e7224e24cb184d3e2eb68811d8bcc8142de5ac07ac371b9c0",
+  "command": "uv run --frozen pytest tests/test_cli_workflows.py -q",
+  "outcome": "pass",
+  "returncode": 0,
+  "first_failure": null,
+  "raw_log_path": ".runtime/campaign-orchestrator/company-intelligence-cross-region-career-preparation/r2-validation-final2/C-06-job-availability-filtered-discovery__C-06-r2-cli-workflow-tests.log",
+  "raw_log_sha256": "af7e7bfee33f3127fddad295d0e38762369f644faaf30179a8cdb13012e246d9",
+  "tail": "...                                                                      [100%]\n3 passed in 0.81s\n",
+  "completed_at": "2026-09-11T13:51:32.162788+00:00"
+}

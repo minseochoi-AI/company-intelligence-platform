@@ -1,0 +1,137 @@
+{
+  "contract_version": "implementation-context-packet-v2",
+  "packet_id": "C-01-source-identity-foundation-packet-49aab0a8095c",
+  "topics": [
+    "source-identity-capability"
+  ],
+  "capability_ids": [
+    "source-catalog-policy",
+    "atomic-field-contract",
+    "entity-identity-resolution",
+    "capability-taxonomy",
+    "analysis-eligibility"
+  ],
+  "required_refs": [
+    {
+      "ref_id": "providers-current",
+      "role": "must-read",
+      "path": "config/providers.json",
+      "content_hash": "sha256:3366d63c0e10e456e3024e0669a64982420ee70bc013beff009fd0c6af828d5d",
+      "line_range": "1-20",
+      "question": "현재 provider 인벤토리는 무엇인가?",
+      "observation_summary": "키 기반 및 무키 공급자 이름은 있으나 원자 필드·활성화 정책은 아직 없다."
+    },
+    {
+      "ref_id": "keyed-probes-current",
+      "role": "must-read",
+      "path": "src/company_intel/connectors/keyed.py",
+      "content_hash": "sha256:52f808405b8ffb802b7f4c6673e46a8c3b35349a376e9ad39ed2daa975b0b66d",
+      "line_range": "1-353",
+      "question": "등록 키 기반 원자 작업의 필드와 역할은 무엇인가?",
+      "observation_summary": "10개 키 기반 작업이 secret_env·required_paths·capabilities를 정의한다."
+    },
+    {
+      "ref_id": "keyless-probes-current",
+      "role": "must-read",
+      "path": "src/company_intel/connectors/keyless.py",
+      "content_hash": "sha256:4d1a72cd8ddedf8af10719f50c7bc1ca52d57dacb32fe73f5a5927c01abef008",
+      "line_range": "1-371",
+      "question": "키 없는 원자 작업의 필드와 역할은 무엇인가?",
+      "observation_summary": "18개 무키 작업이 국가별 공시·법인·거시·조달·공고·활동 신호를 정의한다."
+    },
+    {
+      "ref_id": "warehouse-schema-current",
+      "role": "must-read",
+      "path": "sql/duckdb_schema.sql",
+      "content_hash": "sha256:37cb68ba7983a2f11f4c086bbdaf319711f0b3e22a4cac165d90071f65a283c2",
+      "line_range": "1-196",
+      "question": "현재 저장 계약에서 capability와 identity가 어떻게 표현되는가?",
+      "observation_summary": "관측 테이블은 있으나 source capability·identifier mapping·field availability 이력이 없다."
+    }
+  ],
+  "current_entry_points": [
+    {
+      "kind": "code",
+      "path": "config/providers.json",
+      "symbol": "providers",
+      "source_hash": "sha256:3366d63c0e10e456e3024e0669a64982420ee70bc013beff009fd0c6af828d5d"
+    },
+    {
+      "kind": "code",
+      "path": "sql/duckdb_schema.sql",
+      "symbol": "company_source_capability",
+      "source_hash": "sha256:37cb68ba7983a2f11f4c086bbdaf319711f0b3e22a4cac165d90071f65a283c2"
+    },
+    {
+      "kind": "code",
+      "path": "src/company_intel/models.py",
+      "symbol": "SourcePolicy",
+      "source_hash": "sha256:ad84062f97673e08a5d4163530d27c524af3ba903d2a06e873c7c7515a075052"
+    },
+    {
+      "kind": "code",
+      "path": "src/company_intel/connectors/registry.py",
+      "symbol": "ConnectorRegistry",
+      "source_hash": "sha256:3f9e38e145a9e35a3f2ee46914fad85623d13abff0263bd0091cbef004ec7220"
+    },
+    {
+      "kind": "code",
+      "path": "src/company_intel/validation.py",
+      "symbol": "ValidationOutcome",
+      "source_hash": "sha256:927a93efe71898fdc531544840c854eafa1ad3a3d4591db4d717e5f6be3e69f8"
+    },
+    {
+      "kind": "code",
+      "path": "src/company_intel/warehouse.py",
+      "symbol": "upsert_identity",
+      "source_hash": "sha256:6cc623eed35be3ff01209f0b9ce4566db410f4c2441644930fdc013d545303e5"
+    }
+  ],
+  "planned_entry_points": [
+    {
+      "kind": "code",
+      "path": "src/company_intel/source_catalog.py",
+      "symbol": "SourceCatalog",
+      "change_id": "file-change-954e39bf4b3a"
+    },
+    {
+      "kind": "code",
+      "path": "src/company_intel/identity.py",
+      "symbol": "CompanyIdentityResolver",
+      "change_id": "file-change-bdb2949cb581"
+    },
+    {
+      "kind": "code",
+      "path": "src/company_intel/normalization.py",
+      "symbol": "AtomicObservationMapper",
+      "change_id": "file-change-58fda9542e8a"
+    },
+    {
+      "kind": "code",
+      "path": "src/company_intel/classification.py",
+      "symbol": "classify_company",
+      "change_id": "file-change-c2dd27200b1c"
+    },
+    {
+      "kind": "test",
+      "path": "tests/test_source_catalog.py",
+      "symbol": "test_all_28_atomic_operations_are_declared",
+      "change_id": "file-change-d0c6f2fbd963"
+    },
+    {
+      "kind": "test",
+      "path": "tests/test_classification.py",
+      "symbol": "test_atomic_capability_classes",
+      "change_id": "file-change-7a2cfff77575"
+    }
+  ],
+  "external_entry_points": [],
+  "invariants": [
+    "원자 작업 ID와 source catalog record는 일대일이어야 한다.",
+    "공고·거시·재무·공공기관 맥락은 서로 다른 capability로 유지한다.",
+    "identifier·기간·단위·available_at이 불완전하면 분석 적격성을 부여하지 않는다.",
+    "비밀값은 URL·로그·보고서·export에 기록하지 않는다."
+  ],
+  "unresolved_conflicts": [],
+  "resume_digest": "Prepared C-01-source-identity-foundation from current decision hashes and one global file-ownership graph."
+}

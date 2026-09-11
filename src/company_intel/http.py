@@ -43,6 +43,9 @@ class HttpClient:
         if probe.json_body is not None:
             data = json.dumps(probe.json_body, ensure_ascii=False).encode("utf-8")
             headers.setdefault("Content-Type", "application/json")
+        elif probe.form_body is not None:
+            data = urllib.parse.urlencode(probe.form_body, doseq=True).encode("utf-8")
+            headers.setdefault("Content-Type", "application/x-www-form-urlencoded")
 
         last: HttpResult | None = None
         for attempt in range(self.retries + 1):

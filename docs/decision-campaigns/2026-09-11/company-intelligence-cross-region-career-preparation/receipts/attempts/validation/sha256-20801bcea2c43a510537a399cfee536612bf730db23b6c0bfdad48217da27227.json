@@ -1,0 +1,14 @@
+{
+  "scenario_id": "C-03-evidence-export-delivery:C-03-export-tests",
+  "cohort_id": "C-03-evidence-export-delivery",
+  "criterion_id": "C-03-export-tests",
+  "plan_sha256": "7eced62ade8fb756b22e7e4763fb3f8789403b8b0721fcea4618827911148ffe",
+  "command": "uv run --frozen pytest tests/test_exporting.py -q",
+  "outcome": "pass",
+  "returncode": 0,
+  "first_failure": null,
+  "raw_log_path": ".runtime/campaign-orchestrator/company-intelligence-cross-region-career-preparation/validation/C-03-evidence-export-delivery__C-03-export-tests.log",
+  "raw_log_sha256": "35d86279d96ed65491ba8ff0748e1c8e7891711531404dc5d4b9cd6ae33de3ec",
+  "tail": ".                                                                        [100%]\n1 passed in 0.03s\n",
+  "completed_at": "2026-09-11T07:30:02.592833+00:00"
+}

@@ -1,0 +1,11 @@
+{
+  "schema_version": "1.0.0",
+  "active_campaign_id": "company-intelligence-cross-region-career-preparation",
+  "campaigns": [
+    {
+      "campaign_id": "company-intelligence-cross-region-career-preparation",
+      "created_date": "2026-09-11",
+      "manifest": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/campaign.json"
+    }
+  ]
+}

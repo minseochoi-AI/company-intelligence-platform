@@ -15,6 +15,15 @@ from .evidence import EvidenceStore, utc_now, write_json
 from .http import HttpClient
 from .models import Probe
 from .security import redact_url
+from .source_catalog import load_source_catalog, validate_atomic_contract
+
+
+class SemanticFieldCheck:
+    """A required path is usable only when it contains a non-empty value."""
+
+    @staticmethod
+    def present(value: Any) -> bool:
+        return value is not MISSING and value not in (None, "") and value != [] and value != {}
 
 
 def enumerate_paths(value: Any, prefix: str = "", depth: int = 0, limit: int = 800) -> list[str]:
@@ -59,6 +68,10 @@ def _provider_error(probe: Probe, parsed: Any, normalized: dict[str, Any] | None
         return f"Alpha Vantage: {normalized['provider_note']}"
     if probe.provider == "ecos" and isinstance(parsed, dict) and "StatisticSearch" not in parsed:
         return f"ECOS: {parsed.get('RESULT') or parsed}"
+    if probe.provider == "mpm_public_employment" and normalized:
+        result_code = normalized.get("result_code")
+        if result_code and result_code not in {"00", "0", "000"}:
+            return f"MPM public employment {result_code}: {normalized.get('result_message')}"
     return None
 
 
@@ -73,6 +86,11 @@ def validate(
     store = EvidenceStore(settings.artifact_dir, list(secrets.values()))
     client = HttpClient(timeout=timeout, retries=retries)
     probes = build_probes(settings, providers)
+    catalog_errors = validate_atomic_contract(
+        load_source_catalog(settings.project_root / "config/providers.json"), {probe.id for probe in build_probes(settings)}
+    )
+    if catalog_errors:
+        raise ValueError("source catalog contract invalid: " + "; ".join(catalog_errors))
     started_at = utc_now()
     results: list[dict[str, Any]] = []
     catalogs: dict[str, Any] = {}
@@ -111,7 +129,7 @@ def validate(
                 normalized = probe.normalizer(response.body, response.headers.get("content-type", ""))
             validation_root = parsed if probe.expected_format == "json" else normalized
             for path in probe.required_paths:
-                field_checks[path] = get_path(validation_root, path) is not MISSING
+                field_checks[path] = SemanticFieldCheck.present(get_path(validation_root, path))
         except (ValueError, TypeError, KeyError, IndexError, UnicodeError, ET.ParseError) as error:
             parse_error = f"{type(error).__name__}: {error}"
 
@@ -172,6 +190,7 @@ def validate(
             "not_passed": len(results) - status_counts.get("passed", 0),
             "status_counts": dict(status_counts),
             "configured_keyed_providers": sorted(name for name in secrets),
+            "source_catalog": "validated",
         },
         "results": results,
     }

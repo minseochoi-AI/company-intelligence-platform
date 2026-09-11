@@ -1,0 +1,43 @@
+{
+  "contract_version": "atomic-json-patch-receipt-v1",
+  "target": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/02-d-02-company-capability-taxonomy.json",
+  "outcome": "pass",
+  "before_sha256": "e37ca8dae014a848e23619fa2745648ffd1b7ffbdca3dc32c6479416df5c9937",
+  "after_sha256": "93f47ff26c63cf8d05502d4515b1dba95edca8b12bfac1ec37c5353c6b46a17b",
+  "proposed_after_sha256": "93f47ff26c63cf8d05502d4515b1dba95edca8b12bfac1ec37c5353c6b46a17b",
+  "operations": [
+    {
+      "op": "test",
+      "path": "/status"
+    },
+    {
+      "op": "test",
+      "path": "/accepted_decision"
+    },
+    {
+      "op": "replace",
+      "path": "/status"
+    },
+    {
+      "op": "replace",
+      "path": "/accepted_decision"
+    }
+  ],
+  "backup": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/.mutation-journal/preimages/sha256-e37ca8dae014a848e23619fa2745648ffd1b7ffbdca3dc32c6479416df5c9937.json",
+  "journal": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/.mutation-journal/mutations/c5075618a51ce08aae891d15a79191cf9fca2073e390060b6ad6607abef3c8c6.json",
+  "mutation_id": "approve-D-02-company-capability-taxonomy-20260911",
+  "validators": [
+    {
+      "command": [
+        "/usr/bin/python3",
+        "-m",
+        "json.tool",
+        "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/02-d-02-company-capability-taxonomy.json"
+      ],
+      "returncode": 0,
+      "stdout_tail": "0 \\ud68c\\uc0ac \\ubd84\\uc11d \\ud6c4\\ubcf4\\uc5d0\\uc11c \\uc81c\\uc678\\ub418\\ub294\\uc9c0 \\uac80\\uc99d\\ud55c\\ub2e4.\",\n        \"\\uacf5\\uacf5\\uae30\\uad00 \\uc2dc\\uc124\\u00b7\\ud589\\uc0ac\\u00b7\\uc0ac\\uc5c5\\u00b7\\uae30\\uad00 \\ub370\\uc774\\ud130\\uac00 job_available\\uc774\\ub098 workforce_available\\ub85c \\uc2b9\\uaca9\\ub418\\uc9c0 \\uc54a\\ub294\\uc9c0 \\uac80\\uc99d\\ud55c\\ub2e4.\",\n        \"\\uae30\\uac04\\u00b7\\ub2e8\\uc704\\u00b7\\uc0b0\\uc5c5/\\uc9c0\\uc5ed\\u00b7point-in-time \\uc911 \\ud558\\ub098\\ub77c\\ub3c4 \\uc5c6\\uc73c\\uba74 correlation_candidate\\uac00 false\\uc778\\uc9c0 \\uac80\\uc99d\\ud55c\\ub2e4.\",\n        \"causal analysis\\uac00 correlation candidate\\ubcf4\\ub2e4 \\ub354 \\uc5c4\\uaca9\\ud55c \\ub300\\uc870\\uad70\\u00b7pre-trend\\u00b7\\ud45c\\ubcf8 \\uae30\\uc900\\uc744 \\uc694\\uad6c\\ud558\\ub294\\uc9c0 \\uac80\\uc99d\\ud55c\\ub2e4.\"\n    ],\n    \"diagram_impacts\": [\n        \"\\ubc95\\uc778 \\uc2dd\\ubcc4 \\ud574\\uc18c \\u2192 source capability history \\u2192 classification \\u2192 correlation/causal gate \\u2192 \\ubd84\\uc11d\\u00b7\\uc2a4\\ud504\\ub808\\ub4dc\\uc2dc\\ud2b8 \\ud750\\ub984\\uc744 \\ud6c4\\uc18d \\ub2e4\\uc774\\uc5b4\\uadf8\\ub7a8\\uc5d0 \\ubc18\\uc601\\ud55c\\ub2e4.\"\n    ],\n    \"context_topic_ids\": [\n        \"source-identity-capability\"\n    ]\n}\n",
+      "stderr_tail": ""
+    }
+  ],
+  "completed_at": "2026-09-11T06:25:50.886921+00:00"
+}

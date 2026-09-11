@@ -1,0 +1,113 @@
+{
+  "contract_version": "scope-lock-v1",
+  "owner": {
+    "kind": "decision-campaign",
+    "id": "company-intelligence-cross-region-career-preparation"
+  },
+  "campaign_path": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/campaign.json",
+  "scope": {
+    "campaign_id": "company-intelligence-cross-region-career-preparation",
+    "decision_order": [
+      "D-01-source-access-policy",
+      "D-02-company-capability-taxonomy",
+      "D-03-search-profile-and-discovery",
+      "D-04-career-requirement-verification",
+      "D-05-spreadsheet-output-contract",
+      "D-06-peer-screener-ranking",
+      "D-07-company-timeline-macro-comparison",
+      "D-08-future-value-scenarios",
+      "D-09-ai-event-effect-validation",
+      "D-10-job-availability-filtered-discovery"
+    ],
+    "dependencies": [
+      {
+        "before": "D-01-source-access-policy",
+        "after": "D-02-company-capability-taxonomy"
+      },
+      {
+        "before": "D-02-company-capability-taxonomy",
+        "after": "D-03-search-profile-and-discovery"
+      },
+      {
+        "before": "D-03-search-profile-and-discovery",
+        "after": "D-04-career-requirement-verification"
+      },
+      {
+        "before": "D-04-career-requirement-verification",
+        "after": "D-05-spreadsheet-output-contract"
+      },
+      {
+        "before": "D-02-company-capability-taxonomy",
+        "after": "D-06-peer-screener-ranking"
+      },
+      {
+        "before": "D-02-company-capability-taxonomy",
+        "after": "D-07-company-timeline-macro-comparison"
+      },
+      {
+        "before": "D-06-peer-screener-ranking",
+        "after": "D-08-future-value-scenarios"
+      },
+      {
+        "before": "D-07-company-timeline-macro-comparison",
+        "after": "D-08-future-value-scenarios"
+      },
+      {
+        "before": "D-07-company-timeline-macro-comparison",
+        "after": "D-09-ai-event-effect-validation"
+      },
+      {
+        "before": "D-03-search-profile-and-discovery",
+        "after": "D-10-job-availability-filtered-discovery"
+      },
+      {
+        "before": "D-04-career-requirement-verification",
+        "after": "D-10-job-availability-filtered-discovery"
+      }
+    ],
+    "cohorts": [
+      {
+        "cohort_id": "C-01-source-identity-foundation",
+        "decision_ids": [
+          "D-01-source-access-policy",
+          "D-02-company-capability-taxonomy"
+        ]
+      },
+      {
+        "cohort_id": "C-02-search-requirement-evidence",
+        "decision_ids": [
+          "D-03-search-profile-and-discovery",
+          "D-04-career-requirement-verification"
+        ]
+      },
+      {
+        "cohort_id": "C-03-evidence-export-delivery",
+        "decision_ids": [
+          "D-05-spreadsheet-output-contract"
+        ]
+      },
+      {
+        "cohort_id": "C-04-peer-screener-ranking",
+        "decision_ids": [
+          "D-06-peer-screener-ranking"
+        ]
+      },
+      {
+        "cohort_id": "C-05-timeline-valuation-event-analysis",
+        "decision_ids": [
+          "D-07-company-timeline-macro-comparison",
+          "D-08-future-value-scenarios",
+          "D-09-ai-event-effect-validation"
+        ]
+      },
+      {
+        "cohort_id": "C-06-job-availability-filtered-discovery",
+        "decision_ids": [
+          "D-10-job-availability-filtered-discovery"
+        ]
+      }
+    ]
+  },
+  "scope_sha256": "a9b21df1af2059742e4603c1c935feaf5b62d5539f31318e0c93c495987c1de3",
+  "amendment": null
+}

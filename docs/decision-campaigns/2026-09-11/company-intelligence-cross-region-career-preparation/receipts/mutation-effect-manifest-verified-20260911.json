@@ -1,0 +1,95 @@
+{
+  "contract_version": "atomic-json-patch-receipt-v1",
+  "target": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/reports/execution/7999304264b29201eaa9cf2f3966bf6ee7c33d00343e9c4613eeacfbe6f4676a/db0ce21ded810181de44fcddd1db3fe69de57539.effects.json",
+  "outcome": "pass",
+  "before_sha256": "6179ad4917b2970544953c4770428ff2246b9c18f4898162a962ab3d4caf6323",
+  "after_sha256": "88299e1c469adc76e96e3d655049095aef964b0a868959c192fa705bb4b2cc63",
+  "proposed_after_sha256": "88299e1c469adc76e96e3d655049095aef964b0a868959c192fa705bb4b2cc63",
+  "operations": [
+    {
+      "op": "test",
+      "path": "/effects/0/verification"
+    },
+    {
+      "op": "test",
+      "path": "/effects/1/verification"
+    },
+    {
+      "op": "test",
+      "path": "/effects/2/verification"
+    },
+    {
+      "op": "test",
+      "path": "/effects/3/verification"
+    },
+    {
+      "op": "test",
+      "path": "/effects/4/verification"
+    },
+    {
+      "op": "test",
+      "path": "/component_contracts/0/verification_status"
+    },
+    {
+      "op": "test",
+      "path": "/component_contracts/1/verification_status"
+    },
+    {
+      "op": "test",
+      "path": "/component_contracts/2/verification_status"
+    },
+    {
+      "op": "test",
+      "path": "/component_contracts/3/verification_status"
+    },
+    {
+      "op": "test",
+      "path": "/component_contracts/4/verification_status"
+    },
+    {
+      "op": "replace",
+      "path": "/effects/0/verification"
+    },
+    {
+      "op": "replace",
+      "path": "/effects/1/verification"
+    },
+    {
+      "op": "replace",
+      "path": "/effects/2/verification"
+    },
+    {
+      "op": "replace",
+      "path": "/effects/3/verification"
+    },
+    {
+      "op": "replace",
+      "path": "/effects/4/verification"
+    },
+    {
+      "op": "replace",
+      "path": "/component_contracts/0/verification_status"
+    },
+    {
+      "op": "replace",
+      "path": "/component_contracts/1/verification_status"
+    },
+    {
+      "op": "replace",
+      "path": "/component_contracts/2/verification_status"
+    },
+    {
+      "op": "replace",
+      "path": "/component_contracts/3/verification_status"
+    },
+    {
+      "op": "replace",
+      "path": "/component_contracts/4/verification_status"
+    }
+  ],
+  "backup": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/receipts/mutation-journal/preimages/sha256-6179ad4917b2970544953c4770428ff2246b9c18f4898162a962ab3d4caf6323.json",
+  "journal": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/receipts/mutation-journal/mutations/a203bf2d7affcd778c73a9526281167856d2cf33b6e3f08981da7a7ae8bffe8b.json",
+  "mutation_id": "effect-manifest-verified-20260911",
+  "validators": [],
+  "completed_at": "2026-09-11T07:36:46.001233+00:00"
+}

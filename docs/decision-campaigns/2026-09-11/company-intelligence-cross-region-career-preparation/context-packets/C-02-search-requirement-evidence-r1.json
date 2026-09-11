@@ -1,0 +1,104 @@
+{
+  "contract_version": "implementation-context-packet-v2",
+  "packet_id": "C-02-search-requirement-evidence-packet-da4d78f3037c",
+  "topics": [
+    "search-career-evidence"
+  ],
+  "capability_ids": [
+    "search-profile-validation",
+    "source-aware-discovery",
+    "candidate-explanation",
+    "requirement-evidence",
+    "country-source-policy"
+  ],
+  "required_refs": [
+    {
+      "ref_id": "warehouse-sample-ingestion",
+      "role": "must-read",
+      "path": "src/company_intel/warehouse.py",
+      "content_hash": "sha256:6cc623eed35be3ff01209f0b9ce4566db410f4c2441644930fdc013d545303e5",
+      "line_range": "1-268",
+      "question": "현재 기업·공고 적재가 범용 검색을 지원하는가?",
+      "observation_summary": "현재 적재는 고정 표본 중심이며 사용자 프로필 기반 회사 universe와 requirement evidence가 없다."
+    },
+    {
+      "ref_id": "keyed-employment-probes",
+      "role": "must-read",
+      "path": "src/company_intel/connectors/keyed.py",
+      "content_hash": "sha256:52f808405b8ffb802b7f4c6673e46a8c3b35349a376e9ad39ed2daa975b0b66d",
+      "line_range": "220-353",
+      "question": "한국 공공기관 맥락과 공공취업 목록은 어떤 필드를 실제 제공하는가?",
+      "observation_summary": "ALIO Plus 4개 작업은 기관 맥락이고 MPM 목록은 공고 메타데이터이며 상세 자격요건 근거는 아직 없다."
+    },
+    {
+      "ref_id": "keyless-ats-probes",
+      "role": "must-read",
+      "path": "src/company_intel/connectors/keyless.py",
+      "content_hash": "sha256:4d1a72cd8ddedf8af10719f50c7bc1ca52d57dacb32fe73f5a5927c01abef008",
+      "line_range": "260-371",
+      "question": "현재 무키 기업 공고 표본은 어떤 범위인가?",
+      "observation_summary": "Greenhouse와 Lever 고정 보드 표본은 공고 메타데이터를 제공하지만 범용 회사 발견이나 구조화 자격요건은 제공하지 않는다."
+    }
+  ],
+  "current_entry_points": [
+    {
+      "kind": "code",
+      "path": "src/company_intel/connectors/keyed.py",
+      "symbol": "keyed_discovery_adapters",
+      "source_hash": "sha256:52f808405b8ffb802b7f4c6673e46a8c3b35349a376e9ad39ed2daa975b0b66d"
+    },
+    {
+      "kind": "code",
+      "path": "src/company_intel/connectors/keyless.py",
+      "symbol": "keyless_discovery_adapters",
+      "source_hash": "sha256:4d1a72cd8ddedf8af10719f50c7bc1ca52d57dacb32fe73f5a5927c01abef008"
+    },
+    {
+      "kind": "code",
+      "path": "src/company_intel/api.py",
+      "symbol": "get_company_capabilities",
+      "source_hash": "sha256:5bcc8cf61419cc3c880d03399787e5ff8497db8349ada8828330b340d10e8607"
+    },
+    {
+      "kind": "code",
+      "path": "src/company_intel/cli.py",
+      "symbol": "search_command",
+      "source_hash": "sha256:842594207e87d0d06bb9417bc11514d6f3f2415ac3a5cf60224196aaa4ee6e01"
+    }
+  ],
+  "planned_entry_points": [
+    {
+      "kind": "code",
+      "path": "src/company_intel/search.py",
+      "symbol": "validate_search_profile",
+      "change_id": "file-change-019d6886b2c8"
+    },
+    {
+      "kind": "code",
+      "path": "src/company_intel/career_requirements.py",
+      "symbol": "extract_job_requirements",
+      "change_id": "file-change-ef3ea7e59ee6"
+    },
+    {
+      "kind": "test",
+      "path": "tests/test_search_profile.py",
+      "symbol": "test_profile_validation",
+      "change_id": "file-change-bde11e1b67fd"
+    },
+    {
+      "kind": "test",
+      "path": "tests/test_career_requirements.py",
+      "symbol": "test_required_vs_preferred",
+      "change_id": "file-change-70da2ae09abe"
+    }
+  ],
+  "external_entry_points": [],
+  "invariants": [
+    "사용자가 제공하지 않은 경력·언어·취업 자격을 추정하지 않는다.",
+    "고정 probe 표본을 실제 추천 후보로 자동 승격하지 않는다.",
+    "상세 근거가 없는 목록 공고에서 자격증을 생성하지 않는다.",
+    "익명·만료·정책 제한 공고는 회사별 자격 결과에서 제외 사유를 보존한다."
+  ],
+  "unresolved_conflicts": [],
+  "resume_digest": "Prepared C-02-search-requirement-evidence from current decision hashes and one global file-ownership graph."
+}

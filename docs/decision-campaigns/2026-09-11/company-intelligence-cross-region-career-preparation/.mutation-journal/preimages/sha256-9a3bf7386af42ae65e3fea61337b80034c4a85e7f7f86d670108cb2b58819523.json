@@ -1,0 +1,144 @@
+{
+  "decision_id": "D-05-spreadsheet-output-contract",
+  "sequence": 5,
+  "unit_id": "spreadsheet-output-contract",
+  "title": "스프레드시트 반환 계약과 운영 경계",
+  "status": "decision-required",
+  "question": "기업·가용성·채용공고·자격요건·원천 근거·제외 사유를 어떤 스프레드시트 계약으로 반환해 사용자가 직접 검토하고 재현할 수 있게 할 것인가?",
+  "five_w_one_h": {
+    "who": "기업·직무 후보를 검토하는 사용자와 결과를 생성하는 플랫폼",
+    "what": "다중 시트 또는 정규화된 CSV bundle의 evidence-first spreadsheet export 계약",
+    "where": "warehouse query, reporting/export module, CLI/API download 경계",
+    "when": "profile 기반 검색·분류·요건 검증 후 사용자에게 결과를 반환할 때",
+    "why": "한 줄 요약만으로는 재무 전용·공고 전용·미확인 자격증·원천 제한과 시간 기준을 검토할 수 없기 때문에",
+    "how": "companies, capabilities, job_postings, requirements, sources, exclusions, run_manifest를 외래키·원천 URL·확인일·분류 사유와 함께 결정론적으로 생성한다."
+  },
+  "evidence_refs": [
+    {
+      "evidence_id": "E-D05-current-reporting",
+      "source_type": "code",
+      "locator": "src/company_intel/reporting.py:1-67",
+      "observed_fact": "현재 reporting 모듈은 API probe 결과의 한국어 Markdown 표를 만들며 기업 후보·요건·근거 스프레드시트 export는 제공하지 않는다.",
+      "content_hash": "sha256:8fa8e14a4fc9ec2c0f9542e3de94922b8c97423f60bc5c706d8f2e3ce5fdfac2",
+      "line_range": "1-67",
+      "question": "현재 산출물이 사용자의 기업·자격요건 검토 목적을 지원하는가?",
+      "observation_summary": "provider validation report는 있으나 회사·공고·요건·원천의 관계형 결과를 반환하지 않는다."
+    },
+    {
+      "evidence_id": "E-D05-time-and-provenance-rules",
+      "source_type": "local-document",
+      "locator": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/source-verification-2026-09-11.md:43-50",
+      "observed_fact": "보호 규칙은 source_name, source_record_id, source_url, retrieved_at, license_attribution_status, company_match_confidence, classification_reason을 모든 스프레드시트 행에 보존하도록 요구한다.",
+      "content_hash": "sha256:c80f8552ca1a32574304cd688b04615f0ae773f9055423d8f32ef3feda05e268",
+      "line_range": "43-50",
+      "question": "스프레드시트가 신뢰 가능한 원천과 제한 사유를 어떻게 보존해야 하는가?",
+      "observation_summary": "사용자용 결과도 provenance·시간·분류·제외 사유를 잃지 않아야 한다."
+    },
+    {
+      "evidence_id": "E-D05-readme-artifact-policy",
+      "source_type": "code",
+      "locator": "README.md:7-10,28",
+      "observed_fact": "현재 프로젝트는 비밀 마스킹, raw/normalized/log artifact, period_end·available_at·collected_at·revision_at 분리를 원칙으로 한다.",
+      "content_hash": "sha256:8c7c58f2d30560ba50d26143c9a7080313f878824c77e887420fc3b4d451bd83",
+      "line_range": "7-10,28",
+      "question": "새 export가 기존 보안·시간 구조 원칙을 어떻게 이어야 하는가?",
+      "observation_summary": "스프레드시트는 비밀을 포함하지 않고 run time과 원천 시점을 보존해야 한다."
+    }
+  ],
+  "facts": [
+    "현재 플랫폼은 validation 결과 JSON과 Markdown 보고서를 생성하지만 기업 검색·자격요건 스프레드시트 또는 다운로드 API가 없다.",
+    "기업, 원천 capability, 채용공고, 자격요건은 다대다 관계이므로 단일 기업 행에 모두 병합하면 원문 근거와 제한 사유가 손실된다.",
+    "원천 검증 규칙은 모든 결과 행에 source record·URL·수집 시각·라이선스·매칭 confidence·classification reason을 요구한다.",
+    "사용자 검색 프로필과 승인된 source policy가 없으면 실제 후보 spreadsheet가 아니라 빈 결과·제한·필수 입력만 반환해야 한다."
+  ],
+  "conflicts": [
+    "한 장의 요약은 사용하기 쉽지만 같은 기업의 여러 원천·여러 공고·여러 요건·서로 다른 확인일을 정확히 표현할 수 없다.",
+    "XLSX는 사용성이 높지만 추가 라이브러리·스타일·수식이 필요하며 CSV만으로는 다중 시트·연결을 표현할 수 없다.",
+    "스프레드시트가 결과물이어도 원천 약관상 재배포가 제한된 원문 전체나 비밀·개인정보를 포함하면 안 된다."
+  ],
+  "unimplemented": [
+    "export schema, header version, workbook/CSV renderer, run manifest, source attribution formatter가 없다.",
+    "기업·capability·공고·requirement·source·exclusion 간 foreign key와 orphan 검증이 없다.",
+    "CLI/API에서 profile 기반 결과를 파일로 생성·다운로드하는 경계가 없다.",
+    "비밀·민감 필드·원문 재배포 제한을 export 전에 차단하는 sanitizer가 없다."
+  ],
+  "options": [
+    {
+      "option_id": "A-flat-company-summary-csv",
+      "description": "기업마다 한 행의 CSV를 만들고 대표 분류·대표 공고·추천 준비사항만 요약한다.",
+      "impact": {
+        "data": "여러 원천·공고·요건의 provenance와 시간 차이가 사라진다.",
+        "schema_api": "간단한 column list만 필요하고 기존 query 위에 빠르게 올릴 수 있다.",
+        "ux": "가볍고 익숙하지만 사용자가 근거·제외·중복을 검토하기 어렵다.",
+        "performance": "파일은 작지만 근거 탐색을 위해 원본을 다시 조회해야 한다.",
+        "cost": "초기 구현은 낮지만 요구가 늘면 column 폭발과 재설계가 발생한다.",
+        "security": "요약 과정에서 source attribution·재배포 제한이 누락될 위험이 있다.",
+        "migration": "나중에 관계형 export로 전환하면 과거 CSV의 의미를 복원하기 어렵다.",
+        "tests": "헤더와 값만 시험하게 되어 cross-sheet provenance 검증이 없다."
+      },
+      "opportunity_costs": [
+        "사용자가 결론을 재현하거나 자격요건의 직접 근거를 확인할 수 없다."
+      ]
+    },
+    {
+      "option_id": "B-evidence-first-workbook-bundle",
+      "description": "정규화된 CSV bundle을 기준 산출물로 만들고, 같은 계약을 다중 시트 XLSX로 렌더링한다. companies, capabilities, job_postings, requirements, sources, exclusions, run_manifest를 분리한다.",
+      "impact": {
+        "data": "관계형 evidence와 시간·제한 사유를 보존하면서 user-facing summary를 만들 수 있다.",
+        "schema_api": "ExportSchemaVersion, foreign key, workbook renderer, download manifest 계약이 추가된다.",
+        "ux": "사용자는 요약과 상세 근거 시트를 오가며 필수·우대·미확인·제외를 검토할 수 있다.",
+        "performance": "파일 생성은 늘지만 query 결과를 한 번 materialize해 반복 다운로드를 줄일 수 있다.",
+        "cost": "XLSX renderer와 export QA 비용이 생기지만 향후 열 확장 비용을 낮춘다.",
+        "security": "sanitizer와 attribution 필수 열로 비밀·제한 원문 누출을 막을 수 있다.",
+        "migration": "CSV contract를 안정 기준으로 유지해 XLSX 라이브러리 변경과 분리한다.",
+        "tests": "결정론적 CSV, XLSX sheet/header, foreign key, mandatory provenance, redaction을 검증할 수 있다."
+      },
+      "opportunity_costs": [
+        "단순 CSV만 원하는 경우에도 최소한의 provenance 시트를 함께 받게 되며 export 계약을 버전 관리해야 한다."
+      ]
+    }
+  ],
+  "recommended_option_id": "B-evidence-first-workbook-bundle",
+  "recommendation_reason": "기업 후보와 정확한 자격요건은 여러 원천·시간·검증 상태의 관계형 결과이므로, 정규화 CSV를 안정된 기준으로 하고 다중 시트 XLSX를 제공해야 사용성과 재현성·보안·출처 검토를 함께 충족한다.",
+  "impact": {
+    "data": "회사·capability·공고·요건·원천·제외·실행 시점을 독립 시트와 foreign key로 보존한다.",
+    "schema_api": "versioned export contract, CSV renderer, optional XLSX renderer, download manifest를 추가한다.",
+    "ux": "한 파일에서 후보 요약과 세부 근거·미확인·제외 사유를 검토할 수 있다.",
+    "performance": "한 번의 materialized export run으로 반복 조회를 줄이고 파일 크기 한계를 명시한다.",
+    "cost": "XLSX 지원과 QA 비용이 추가되지만 재설계·수동 검증 비용을 줄인다.",
+    "security": "비밀·개인정보·약관상 재배포 금지 원문을 sanitizer로 제외하고 출처 표기를 강제한다.",
+    "migration": "기존 artifact JSON은 보존하고 새로운 export run을 additive하게 도입한다.",
+    "tests": "mandatory provenance, referential integrity, deterministic ordering, redaction, sheet contract를 검증한다."
+  },
+  "opportunity_costs": [
+    "profile·source policy·capability 근거가 없으면 후보를 채운 spreadsheet 대신 제한·미해결 입력을 포함한 결과만 생성한다.",
+    "원천 약관이 허용하지 않는 전체 원문·공고 설명·개인정보는 export에서 제외한다."
+  ],
+  "dependencies": [
+    "D-02-company-capability-taxonomy",
+    "D-04-career-requirement-verification"
+  ],
+  "dependency_waivers": {},
+  "accepted_decision": null,
+  "implementation_targets": [
+    "src/company_intel/exporting.py (new) — versioned CSV bundle과 optional XLSX workbook renderer",
+    "src/company_intel/reporting.py — export run manifest와 한국어 사용자 안내 연결",
+    "src/company_intel/warehouse.py — export query와 foreign key·provenance materialization",
+    "src/company_intel/cli.py — profile 결과 export 명령과 output path 안전 검사",
+    "src/company_intel/api.py — export job 생성·상태·다운로드 metadata endpoint",
+    "pyproject.toml — 선택된 XLSX renderer 의존성 및 보안 검토",
+    "tests/test_exporting.py (new) — headers, ordering, links, mandatory evidence, redaction, empty/limited output 검증"
+  ],
+  "implementation_change_ids": [],
+  "validation_requirements": [
+    "모든 user-facing 회사·공고·요건 행이 source 또는 exclusion record로 추적되는지 검증한다.",
+    "CSV bundle과 XLSX의 sheet/header·row key가 versioned contract와 일치하는지 검증한다.",
+    "API key, 비밀 환경변수, 개인 구직자 데이터, 약관상 재배포 금지 원문이 export에 없는지 검증한다.",
+    "빈 후보·source 제한·identity_unresolved 결과가 성공한 추천처럼 보이지 않고 명시적 exclusion 또는 limitation으로 표시되는지 검증한다.",
+    "동일 입력 snapshot에서는 정렬·run manifest·해시가 결정론적인지 검증한다."
+  ],
+  "diagram_impacts": [
+    "분류·검색·요건 검증 결과 → export materialization → CSV bundle/XLSX → 사용자 검토·재현 흐름을 후속 다이어그램에 반영한다."
+  ],
+  "context_topic_ids": []
+}

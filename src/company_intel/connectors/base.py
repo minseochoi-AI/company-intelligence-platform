@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import json
 import xml.etree.ElementTree as ET
+from copy import deepcopy
 from typing import Any
 
 MISSING = object()
@@ -40,6 +41,7 @@ def to_number(value: Any) -> float | None:
 
 
 def compact(value: Any, max_items: int = 5, depth: int = 0) -> Any:
+    """Diagnostic-only sample; never use for normalized production facts."""
     if depth >= 3:
         if isinstance(value, list):
             return {"_type": "array", "_length": len(value)}
@@ -59,3 +61,8 @@ def compact(value: Any, max_items: int = 5, depth: int = 0) -> Any:
     if isinstance(value, str) and len(value) > 600:
         return value[:600] + f"…<{len(value) - 600} chars omitted>"
     return value
+
+
+def preserve_payload(value: Any) -> Any:
+    """Retain all parsed provider values for evidence normalization."""
+    return deepcopy(value)

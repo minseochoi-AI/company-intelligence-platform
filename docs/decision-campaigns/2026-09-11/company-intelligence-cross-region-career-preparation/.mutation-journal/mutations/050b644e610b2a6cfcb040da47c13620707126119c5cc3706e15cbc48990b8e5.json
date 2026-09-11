@@ -1,0 +1,13 @@
+{
+  "contract_version": "atomic-json-mutation-journal-v1",
+  "mutation_id": "approve-D-04-career-requirement-verification-20260911",
+  "target": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/04-d-04-career-requirement-verification.json",
+  "status": "validated",
+  "before_sha256": "d96d5b416e553e3c26b17ea0518cac802e9f7d677f7d993933b6baf250d2ef55",
+  "proposed_after_sha256": "cebf8480da7023d3c3faa3912dc945fa133007a1edae0848863c40fcb21f592f",
+  "preimage_path": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/.mutation-journal/preimages/sha256-d96d5b416e553e3c26b17ea0518cac802e9f7d677f7d993933b6baf250d2ef55.json",
+  "patch_source": "inline-semantic-arguments",
+  "patch_sha256": "ee4328b897f7373af21e063d3cb5a6ad163540058642dad01a7da69c84d9b321",
+  "updated_at": "2026-09-11T06:25:51.746346+00:00",
+  "observed_after_sha256": "cebf8480da7023d3c3faa3912dc945fa133007a1edae0848863c40fcb21f592f"
+}

@@ -1,0 +1,3 @@
+IMPLEMENT action: the repository-local source and test-contract paths for C-01, C-02, and C-03 were written under the authorized plans.
+C-01 repair: after C-01-classification-tests returned a missing `missing-aligned-series` analysis-eligibility reason, src/company_intel/classification.py was patched so evidence_complete=false preserves that explicit exclusion reason without changing direct missing-period-alignment behavior.
+No provider call, external API call, paid usage, external upload, commit, or push was performed.

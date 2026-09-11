@@ -1,0 +1,240 @@
+{
+  "contract_version": "1.2.0",
+  "plan_id": "company-intelligence-cross-region-career-preparation--C-05-timeline-valuation-event-analysis--r1",
+  "owner": {
+    "kind": "campaign-cohort",
+    "id": "C-05-timeline-valuation-event-analysis"
+  },
+  "source_refs": [
+    {
+      "id": "D-07-company-timeline-macro-comparison",
+      "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/07-d-07-company-timeline-macro-comparison.json",
+      "sha256": "sha256:933e42d1121878b8d8ef25b5f461b7aa96f359273699456bc32b65c90e1b0ca6"
+    },
+    {
+      "id": "D-08-future-value-scenarios",
+      "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/08-d-08-future-value-scenarios.json",
+      "sha256": "sha256:4426faec5d6b32b4438be70c77d28b5f3b55429e448654f516ea47e1248e915c"
+    },
+    {
+      "id": "D-09-ai-event-effect-validation",
+      "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/09-d-09-ai-event-effect-validation.json",
+      "sha256": "sha256:a2029236097ad639b1176cf7c534fd867ad1f4b704d6158f0fed249f2e96d50f"
+    }
+  ],
+  "status": "contract-ready",
+  "change_slices": [
+    {
+      "slice_id": "point-in-time-analysis",
+      "behavior": "기업·시장·거시를 관측 가능 시점으로 정렬하고 DCF·AI 사건 계산에 근거·가정·적격성 제한을 결속한다.",
+      "dependencies": [],
+      "operations": [
+        {
+          "change_id": "D-07-D-09-analysis-evidence-service",
+          "operation": "CREATE",
+          "path": "src/company_intel/analysis_service.py",
+          "symbols": [
+            "build_company_timeline",
+            "evaluate_valuation_scenarios",
+            "evaluate_ai_event"
+          ],
+          "current_state": "계산 함수와 실제 근거·적격성 사이 서비스가 없다.",
+          "source_hash": null,
+          "after_state": "point-in-time 정렬, 입력 provenance, 제한 상태를 포함한 분석 결과를 반환한다.",
+          "rationale": "미래정보 유입과 예측·인과 과장을 막기 위해서다.",
+          "dependencies": [],
+          "public_contract_impacts": [
+            "analysis evidence service"
+          ],
+          "compatibility": "기존 analytics 계산 함수를 재사용한다.",
+          "migration": "신규 서비스로 추가한다.",
+          "rollback": "서비스를 제거하고 기존 계산기만 유지한다.",
+          "authorization_boundary": "투자 조언이나 인과 확정을 출력하지 않는다.",
+          "contributes_to": [
+            "D-07-company-timeline-macro-comparison",
+            "D-08-future-value-scenarios",
+            "D-09-ai-event-effect-validation"
+          ],
+          "symbol_changes": [
+            {
+              "symbol": "build_company_timeline",
+              "intent": "시점 정렬 비교",
+              "decision_id": "D-07-company-timeline-macro-comparison"
+            },
+            {
+              "symbol": "evaluate_valuation_scenarios",
+              "intent": "근거 제한 시나리오",
+              "decision_id": "D-08-future-value-scenarios"
+            },
+            {
+              "symbol": "evaluate_ai_event",
+              "intent": "사건 분석 적격성",
+              "decision_id": "D-09-ai-event-effect-validation"
+            }
+          ],
+          "intent_change_ids": [
+            "D-07-company-timeline-macro-comparison-service",
+            "D-08-future-value-scenarios-service",
+            "D-09-ai-event-effect-validation-service"
+          ],
+          "contribution_refs": [
+            {
+              "decision_id": "D-07-company-timeline-macro-comparison",
+              "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/07-d-07-company-timeline-macro-comparison.json",
+              "sha256": "sha256:933e42d1121878b8d8ef25b5f461b7aa96f359273699456bc32b65c90e1b0ca6",
+              "symbols": [
+                "build_company_timeline",
+                "evaluate_valuation_scenarios",
+                "evaluate_ai_event"
+              ],
+              "intent_change_ids": [
+                "D-07-company-timeline-macro-comparison-service"
+              ]
+            },
+            {
+              "decision_id": "D-08-future-value-scenarios",
+              "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/08-d-08-future-value-scenarios.json",
+              "sha256": "sha256:4426faec5d6b32b4438be70c77d28b5f3b55429e448654f516ea47e1248e915c",
+              "symbols": [
+                "build_company_timeline",
+                "evaluate_valuation_scenarios",
+                "evaluate_ai_event"
+              ],
+              "intent_change_ids": [
+                "D-08-future-value-scenarios-service"
+              ]
+            },
+            {
+              "decision_id": "D-09-ai-event-effect-validation",
+              "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/09-d-09-ai-event-effect-validation.json",
+              "sha256": "sha256:a2029236097ad639b1176cf7c534fd867ad1f4b704d6158f0fed249f2e96d50f",
+              "symbols": [
+                "build_company_timeline",
+                "evaluate_valuation_scenarios",
+                "evaluate_ai_event"
+              ],
+              "intent_change_ids": [
+                "D-09-ai-event-effect-validation-service"
+              ]
+            }
+          ]
+        },
+        {
+          "change_id": "D-07-D-09-analysis-evidence-test",
+          "operation": "CREATE",
+          "path": "tests/test_analysis_service.py",
+          "symbols": [
+            "test_point_in_time_and_analysis_limits"
+          ],
+          "current_state": "근거 결속 분석 테스트가 없다.",
+          "source_hash": null,
+          "after_state": "미래정보 차단·가정·적격성·경고를 fixture로 검증한다.",
+          "rationale": "계산 가능과 해석 가능을 구분하기 위해서다.",
+          "dependencies": [],
+          "public_contract_impacts": [
+            "test contract"
+          ],
+          "compatibility": "네트워크 없는 테스트다.",
+          "migration": "없음",
+          "rollback": "서비스와 함께 제거한다.",
+          "authorization_boundary": "실제 거래 판단을 수행하지 않는다.",
+          "contributes_to": [
+            "D-07-company-timeline-macro-comparison",
+            "D-08-future-value-scenarios",
+            "D-09-ai-event-effect-validation"
+          ],
+          "symbol_changes": [
+            {
+              "symbol": "test_point_in_time_and_analysis_limits",
+              "intent": "분석 제한 검증",
+              "decision_id": "D-07-company-timeline-macro-comparison"
+            }
+          ],
+          "intent_change_ids": [
+            "D-07-company-timeline-macro-comparison-test",
+            "D-08-future-value-scenarios-test",
+            "D-09-ai-event-effect-validation-test"
+          ],
+          "contribution_refs": [
+            {
+              "decision_id": "D-07-company-timeline-macro-comparison",
+              "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/07-d-07-company-timeline-macro-comparison.json",
+              "sha256": "sha256:933e42d1121878b8d8ef25b5f461b7aa96f359273699456bc32b65c90e1b0ca6",
+              "symbols": [
+                "test_point_in_time_and_analysis_limits"
+              ],
+              "intent_change_ids": [
+                "D-07-company-timeline-macro-comparison-test"
+              ]
+            },
+            {
+              "decision_id": "D-08-future-value-scenarios",
+              "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/08-d-08-future-value-scenarios.json",
+              "sha256": "sha256:4426faec5d6b32b4438be70c77d28b5f3b55429e448654f516ea47e1248e915c",
+              "symbols": [
+                "test_point_in_time_and_analysis_limits"
+              ],
+              "intent_change_ids": [
+                "D-08-future-value-scenarios-test"
+              ]
+            },
+            {
+              "decision_id": "D-09-ai-event-effect-validation",
+              "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/09-d-09-ai-event-effect-validation.json",
+              "sha256": "sha256:a2029236097ad639b1176cf7c534fd867ad1f4b704d6158f0fed249f2e96d50f",
+              "symbols": [
+                "test_point_in_time_and_analysis_limits"
+              ],
+              "intent_change_ids": [
+                "D-09-ai-event-effect-validation-test"
+              ]
+            }
+          ]
+        }
+      ],
+      "routes": [
+        {
+          "route_id": "c05-verify",
+          "skill": "verification-before-completion",
+          "requirement": "required",
+          "phase": "VALIDATE",
+          "purpose": "분석 근거 경계 검증",
+          "expected_artifact": "pytest receipt"
+        }
+      ],
+      "completion_contract": [
+        {
+          "criterion_id": "C-05-analysis-tests",
+          "behavior": "시점·가정·적격성 계약이 통과한다.",
+          "blocking": true,
+          "owner_skill": "verification-before-completion",
+          "phase": "VALIDATE",
+          "depends_on_criteria": [],
+          "test": {
+            "type": "pytest",
+            "value": "uv run --frozen pytest tests/test_analysis_service.py -q",
+            "runner": "pytest",
+            "paths": [
+              "tests/test_analysis_service.py"
+            ],
+            "provider_backed": false,
+            "timeout_seconds": 300
+          },
+          "expected_result": "all tests pass",
+          "failure_marker": "look-ahead or interpretation boundary regression",
+          "receipt": {
+            "status": "planned",
+            "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/receipts/criteria/C-05-analysis-tests.json",
+            "sha256": "planned"
+          },
+          "status": "planned"
+        }
+      ]
+    }
+  ],
+  "metadata": {
+    "planned_commit_message": "feat(analysis): bind timelines and scenarios to evidence",
+    "git_finalization_authorized": false,
+    "preparation_contract": "campaign-global-ownership-v1"
+  }
+}

@@ -1,0 +1,43 @@
+{
+  "contract_version": "atomic-json-patch-receipt-v1",
+  "target": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/campaign.json",
+  "outcome": "pass",
+  "before_sha256": "81006978789a3e432bfddce5624df03eb2382b41cfb3f537e1f1259ca6f10ce2",
+  "after_sha256": "d806c8f6fe922a78549590f0d3e813d21dae365ada2c6f6a661df897d4ba09e8",
+  "proposed_after_sha256": "d806c8f6fe922a78549590f0d3e813d21dae365ada2c6f6a661df897d4ba09e8",
+  "operations": [
+    {
+      "op": "test",
+      "path": "/status"
+    },
+    {
+      "op": "test",
+      "path": "/implementation_cohorts"
+    },
+    {
+      "op": "replace",
+      "path": "/status"
+    },
+    {
+      "op": "replace",
+      "path": "/implementation_cohorts"
+    }
+  ],
+  "backup": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/.mutation-journal/preimages/sha256-81006978789a3e432bfddce5624df03eb2382b41cfb3f537e1f1259ca6f10ce2.json",
+  "journal": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/.mutation-journal/mutations/196a3a1eaa9a626c12945ce3e9ede9536848cba7f5a5a4b73371d5f065d289a6.json",
+  "mutation_id": "implementation-status-20260911",
+  "validators": [
+    {
+      "command": [
+        "python",
+        "-m",
+        "json.tool",
+        "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/campaign.json"
+      ],
+      "returncode": 0,
+      "stdout_tail": "ct.json\"\n    },\n    \"receipt_paths\": {\n        \"implementation\": \"docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/receipts/implementation.json\",\n        \"validation\": \"docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/receipts/validation.json\",\n        \"diagrams\": \"docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/receipts/diagrams.json\"\n    },\n    \"receipt_manifest_paths\": {\n        \"implementation\": \"docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/receipts/current-implementation.json\",\n        \"validation\": \"docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/receipts/current-validation.json\",\n        \"diagrams\": \"docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/receipts/current-diagrams.json\"\n    },\n    \"campaign_change_graph_path\": \"docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/campaign-change-graph.json\",\n    \"campaign_change_graph_sha256\": \"5c7205e416f417e03668414b461a6d3965ae0a4cfbcbb92c15300099b835340d\"\n}\n",
+      "stderr_tail": ""
+    }
+  ],
+  "completed_at": "2026-09-11T07:12:40.752320+00:00"
+}

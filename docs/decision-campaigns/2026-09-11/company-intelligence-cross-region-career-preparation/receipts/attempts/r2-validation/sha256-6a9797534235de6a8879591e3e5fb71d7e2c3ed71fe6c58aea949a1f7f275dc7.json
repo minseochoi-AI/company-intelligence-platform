@@ -1,0 +1,14 @@
+{
+  "scenario_id": "C-05-timeline-valuation-event-analysis:C-05-r2-analysis-tests",
+  "cohort_id": "C-05-timeline-valuation-event-analysis",
+  "criterion_id": "C-05-r2-analysis-tests",
+  "plan_sha256": "a5a104cfc25f86ca5d42cd997fc9bc6c6106281c60bf5a9cafc915575e879360",
+  "command": "uv run --frozen pytest tests/test_analysis_service.py tests/test_analytics.py -q",
+  "outcome": "pass",
+  "returncode": 0,
+  "first_failure": null,
+  "raw_log_path": ".runtime/campaign-orchestrator/company-intelligence-cross-region-career-preparation/r2-validation-final2/C-05-timeline-valuation-event-analysis__C-05-r2-analysis-tests.log",
+  "raw_log_sha256": "32474846ae4372c596eb55783e16b294e33c945a8fe0076ae5634338fd1acc37",
+  "tail": "......                                                                   [100%]\n6 passed in 0.53s\n",
+  "completed_at": "2026-09-11T13:51:28.157778+00:00"
+}

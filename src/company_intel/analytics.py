@@ -304,6 +304,12 @@ def dcf_scenarios(
     }
 
 
+def guarded_dcf_scenarios(revenue: float | None, net_debt: float | None, shares: float | None, *, evidence_complete: bool, years: int = 5) -> dict[str, Any]:
+    if not evidence_complete or None in {revenue, net_debt, shares}:
+        return {"status": "unavailable", "reason": "actual_period_unit_currency_evidence_required"}
+    return {"status": "scenario-only", "result": dcf_scenarios(float(revenue), float(net_debt), float(shares), years=years)}
+
+
 DEFAULT_SCORE_WEIGHTS = {
     "financial_health": 0.20,
     "profitability": 0.20,

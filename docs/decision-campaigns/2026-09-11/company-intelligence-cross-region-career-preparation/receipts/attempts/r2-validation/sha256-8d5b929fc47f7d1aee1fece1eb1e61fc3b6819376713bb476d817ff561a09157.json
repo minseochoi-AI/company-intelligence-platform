@@ -1,0 +1,14 @@
+{
+  "scenario_id": "C-06-job-availability-filtered-discovery:C-06-r2-job-semantic-tests",
+  "cohort_id": "C-06-job-availability-filtered-discovery",
+  "criterion_id": "C-06-r2-job-semantic-tests",
+  "plan_sha256": "1f4cf24cc1e7f07e7224e24cb184d3e2eb68811d8bcc8142de5ac07ac371b9c0",
+  "command": "uv run --frozen pytest tests/test_job_search.py -q",
+  "outcome": "pass",
+  "returncode": 0,
+  "first_failure": null,
+  "raw_log_path": ".runtime/campaign-orchestrator/company-intelligence-cross-region-career-preparation/r2-validation/C-06-job-availability-filtered-discovery__C-06-r2-job-semantic-tests.log",
+  "raw_log_sha256": "cd9f00546c34cfb5721e29ec23a1ed6cb673c65a1f499cca23fbf0be701ed940",
+  "tail": "....                                                                     [100%]\n4 passed in 0.42s\n",
+  "completed_at": "2026-09-11T13:46:40.722305+00:00"
+}

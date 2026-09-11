@@ -1,0 +1,266 @@
+{
+  "contract_version": "1.2.0",
+  "plan_id": "company-intelligence-cross-region-career-preparation--C-03-evidence-export-delivery--r2",
+  "owner": {
+    "kind": "campaign-cohort",
+    "id": "C-03-evidence-export-delivery"
+  },
+  "source_refs": [
+    {
+      "id": "D-05-spreadsheet-output-contract",
+      "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/05-d-05-spreadsheet-output-contract.json",
+      "sha256": "sha256:9677beb7fa51330c8bcdaff01c7bf37283351aa685b32c3a03564f483aa213e9"
+    }
+  ],
+  "status": "contract-ready",
+  "change_slices": [
+    {
+      "slice_id": "verdict-lineage-export-r2",
+      "behavior": "strict match, unverifiable, no-match, conflict와 source lineage를 서로 다른 표로 내보내고 CSV/XLSX parity와 비밀·PII·수식 방어를 유지한다.",
+      "dependencies": [],
+      "operations": [
+        {
+          "change_id": "D-05-export-verdicts-r2",
+          "operation": "MODIFY",
+          "path": "src/company_intel/exporting.py",
+          "symbols": [
+            "TABLE_HEADERS",
+            "ExportBundle",
+            "render_csv_bundle",
+            "render_xlsx_workbook",
+            "build_export_manifest"
+          ],
+          "current_state": "기존 6개 표는 생성되지만 5상태 판정과 raw artifact SHA·operation ID·변환계약을 완전하게 분리하지 않는다.",
+          "source_hash": "sha256:baf639878d180901ba4e883b4524d9dcf24d69f132114c37c859b353e931485d",
+          "after_state": "companies/jobs/locations/requirements/overlap/strict_matches/unverifiable/exclusions/conflicts/sources/runs를 안정적 관계키와 schema version으로 반환한다.",
+          "rationale": "빈 결과가 실제 불일치인지 정보 부족인지 스프레드시트에서 검증할 수 있게 하기 위해서다.",
+          "dependencies": [],
+          "public_contract_impacts": [
+            "CSV/XLSX export schema v2"
+          ],
+          "compatibility": "기존 6개 sheet 이름은 legacy view로 유지한다.",
+          "migration": "manifest에 schema version과 table aliases를 기록한다.",
+          "rollback": "v2 sheet를 비활성화하고 legacy bundle을 반환한다.",
+          "authorization_boundary": "공고 전문·연락처·secret은 기본 출력에서 제외한다.",
+          "contributes_to": [
+            "D-05-spreadsheet-output-contract"
+          ],
+          "symbol_changes": [
+            {
+              "symbol": "ExportBundle",
+              "intent": "5상태와 lineage 분리 export",
+              "decision_id": "D-05-spreadsheet-output-contract"
+            }
+          ],
+          "contribution_refs": [
+            {
+              "decision_id": "D-05-spreadsheet-output-contract",
+              "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/05-d-05-spreadsheet-output-contract.json",
+              "sha256": "sha256:9677beb7fa51330c8bcdaff01c7bf37283351aa685b32c3a03564f483aa213e9",
+              "symbols": [
+                "TABLE_HEADERS",
+                "ExportBundle",
+                "render_csv_bundle",
+                "render_xlsx_workbook",
+                "build_export_manifest"
+              ],
+              "intent_change_ids": []
+            }
+          ]
+        },
+        {
+          "change_id": "D-05-reporting-r2",
+          "operation": "MODIFY",
+          "path": "src/company_intel/reporting.py",
+          "symbols": [
+            "render_export_summary",
+            "render_provider_limitations",
+            "render_verdict_counts"
+          ],
+          "current_state": "provider 제한은 설명하지만 semantic-ready, strict/unverifiable/conflict와 폐기·격리 source를 사용자에게 구분하지 않는다.",
+          "source_hash": "sha256:d29597658dc2bec27e69e0f3a82bcf6f6c4900316ad60b675340ca9783969232",
+          "after_state": "CLI run별 입력 profile, snapshot, source disposition, verdict 개수, 검사 불가 이유와 분석 부적격을 한국어로 요약한다.",
+          "rationale": "0건 결과와 데이터 coverage 부족을 혼동하지 않게 하기 위해서다.",
+          "dependencies": [],
+          "public_contract_impacts": [
+            "Korean CLI summary"
+          ],
+          "compatibility": "기존 validation report 함수를 유지한다.",
+          "migration": "신규 run summary를 manifest에 연결한다.",
+          "rollback": "요약만 제거해도 데이터 파일은 유지된다.",
+          "authorization_boundary": "원문이나 credential 값을 출력하지 않는다.",
+          "contributes_to": [
+            "D-05-spreadsheet-output-contract"
+          ],
+          "symbol_changes": [
+            {
+              "symbol": "render_verdict_counts",
+              "intent": "판정 가능성과 결과 분리 보고",
+              "decision_id": "D-05-spreadsheet-output-contract"
+            }
+          ],
+          "contribution_refs": [
+            {
+              "decision_id": "D-05-spreadsheet-output-contract",
+              "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/05-d-05-spreadsheet-output-contract.json",
+              "sha256": "sha256:9677beb7fa51330c8bcdaff01c7bf37283351aa685b32c3a03564f483aa213e9",
+              "symbols": [
+                "render_export_summary",
+                "render_provider_limitations",
+                "render_verdict_counts"
+              ],
+              "intent_change_ids": []
+            }
+          ]
+        },
+        {
+          "change_id": "D-05-security-r2",
+          "operation": "MODIFY",
+          "path": "src/company_intel/security.py",
+          "symbols": [
+            "sanitize_export_value",
+            "ExportFieldPolicy",
+            "validate_output_directory",
+            "drop_restricted_fields"
+          ],
+          "current_state": "기본 formula/secret sanitizer는 있으나 신규 source·conflict·원문 evidence 열 전체의 정책이 명시적이지 않다.",
+          "source_hash": "sha256:7264c2c705d4a0f57fad90193c551d955da455011aae49eae8cda4ddbef9b422",
+          "after_state": "테이블별 허용열 정책으로 ALIO·MPSV 연락처, credential, 제한 원문과 formula payload를 제거하고 provenance locator만 남긴다.",
+          "rationale": "검증 가능성과 데이터 최소화를 동시에 지키기 위해서다.",
+          "dependencies": [],
+          "public_contract_impacts": [
+            "export field policy v2"
+          ],
+          "compatibility": "기존 sanitizer를 primitive로 재사용한다.",
+          "migration": "모든 신규 sheet가 공통 policy를 통과한다.",
+          "rollback": "export 기능을 비활성화한다.",
+          "authorization_boundary": "외부 업로드·공유는 포함하지 않는다.",
+          "contributes_to": [
+            "D-05-spreadsheet-output-contract"
+          ],
+          "symbol_changes": [
+            {
+              "symbol": "ExportFieldPolicy",
+              "intent": "테이블별 허용 필드 계약",
+              "decision_id": "D-05-spreadsheet-output-contract"
+            }
+          ],
+          "contribution_refs": [
+            {
+              "decision_id": "D-05-spreadsheet-output-contract",
+              "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/05-d-05-spreadsheet-output-contract.json",
+              "sha256": "sha256:9677beb7fa51330c8bcdaff01c7bf37283351aa685b32c3a03564f483aa213e9",
+              "symbols": [
+                "sanitize_export_value",
+                "ExportFieldPolicy",
+                "validate_output_directory",
+                "drop_restricted_fields"
+              ],
+              "intent_change_ids": []
+            }
+          ]
+        },
+        {
+          "change_id": "D-05-export-tests-r2",
+          "operation": "MODIFY",
+          "path": "tests/test_exporting.py",
+          "symbols": [
+            "test_verdict_tables",
+            "test_source_lineage",
+            "test_csv_xlsx_parity",
+            "test_export_redaction",
+            "test_deterministic_manifest"
+          ],
+          "current_state": "기본 CSV/XLSX와 redaction은 검사하지만 5상태 표·raw SHA·operation lineage와 검사불가 설명을 검증하지 않는다.",
+          "source_hash": "sha256:a6b457853d5acc7b37bfba87771fef84de5b47691f55d42c4c188cc682153a18",
+          "after_state": "모든 판정표의 관계 무결성, CSV/XLSX parity, 안정적 hash, PII/secret/formula 제거와 empty/unknown 결과를 검증한다.",
+          "rationale": "보기 좋은 파일이 아니라 감사 가능한 데이터 제품을 보장하기 위해서다.",
+          "dependencies": [],
+          "public_contract_impacts": [
+            "offline export acceptance tests"
+          ],
+          "compatibility": "기존 테스트를 유지한다.",
+          "migration": "없음.",
+          "rollback": "v2 export와 함께 제거한다.",
+          "authorization_boundary": "합성 데이터만 사용한다.",
+          "contributes_to": [
+            "D-05-spreadsheet-output-contract"
+          ],
+          "symbol_changes": [
+            {
+              "symbol": "test_verdict_tables",
+              "intent": "5상태 export 회귀 검증",
+              "decision_id": "D-05-spreadsheet-output-contract"
+            }
+          ],
+          "contribution_refs": [
+            {
+              "decision_id": "D-05-spreadsheet-output-contract",
+              "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/05-d-05-spreadsheet-output-contract.json",
+              "sha256": "sha256:9677beb7fa51330c8bcdaff01c7bf37283351aa685b32c3a03564f483aa213e9",
+              "symbols": [
+                "test_verdict_tables",
+                "test_source_lineage",
+                "test_csv_xlsx_parity",
+                "test_export_redaction",
+                "test_deterministic_manifest"
+              ],
+              "intent_change_ids": []
+            }
+          ]
+        }
+      ],
+      "routes": [
+        {
+          "route_id": "c03-r2-tdd",
+          "skill": "tdd",
+          "requirement": "required",
+          "phase": "IMPLEMENT",
+          "purpose": "verdict/source 관계와 export 보안을 테스트 우선 구현",
+          "expected_artifact": "C-03 r2 code and tests"
+        },
+        {
+          "route_id": "c03-r2-verify",
+          "skill": "verification-before-completion",
+          "requirement": "required",
+          "phase": "VALIDATE",
+          "purpose": "CSV/XLSX parity와 redaction 독립 검증",
+          "expected_artifact": "C-03 r2 validation receipt"
+        }
+      ],
+      "completion_contract": [
+        {
+          "criterion_id": "C-03-r2-export-tests",
+          "behavior": "판정별 표, lineage, deterministic manifest, CSV/XLSX parity와 redaction이 통과한다.",
+          "blocking": true,
+          "owner_skill": "verification-before-completion",
+          "phase": "VALIDATE",
+          "depends_on_criteria": [],
+          "test": {
+            "type": "pytest",
+            "value": "uv run --frozen pytest tests/test_exporting.py -q",
+            "runner": "pytest",
+            "paths": [
+              "tests/test_exporting.py"
+            ],
+            "provider_backed": false,
+            "timeout_seconds": 600
+          },
+          "expected_result": "all tests pass with no secret, PII, formula, missing lineage, or verdict collapse",
+          "failure_marker": "table relation drift, unsafe cell, missing source hash, or UNKNOWN merged with exclusion",
+          "receipt": {
+            "status": "planned",
+            "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/receipts/criteria/C-03-r2-export-tests.json",
+            "sha256": "planned"
+          },
+          "status": "planned"
+        }
+      ]
+    }
+  ],
+  "metadata": {
+    "preparation_contract": "campaign-global-ownership-v1",
+    "planned_commit_message": "feat(export): separate verdicts and source lineage",
+    "git_finalization_authorized": false
+  }
+}

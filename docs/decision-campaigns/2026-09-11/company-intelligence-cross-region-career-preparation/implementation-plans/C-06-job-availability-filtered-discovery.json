@@ -1,0 +1,612 @@
+{
+  "contract_version": "1.2.0",
+  "plan_id": "company-intelligence-cross-region-career-preparation--C-06-job-availability-filtered-discovery--r1",
+  "owner": {
+    "kind": "campaign-cohort",
+    "id": "C-06-job-availability-filtered-discovery"
+  },
+  "source_refs": [
+    {
+      "id": "D-10-job-availability-filtered-discovery",
+      "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/10-d-10-job-availability-filtered-discovery.json",
+      "sha256": "sha256:4df847994d4f65f456cd5e79dc5a22b972bd8d1ce5bcce06fc369b03303a0cf8"
+    }
+  ],
+  "status": "contract-ready",
+  "change_slices": [
+    {
+      "slice_id": "provider-semantic-job-dataframes",
+      "behavior": "저장된 실제 Greenhouse·Lever·MPM 응답과 체코 MPSV 스키마를 provider별로 해석한 뒤 공통 의미만 정규화하고 국가·직종·연봉·위치·근무형태·언어·기업분류·검증 요건으로 필터링 가능한 DataFrame 묶음을 만든다.",
+      "dependencies": [],
+      "operations": [
+        {
+          "change_id": "D-10-job-standardization-service",
+          "operation": "CREATE",
+          "path": "src/company_intel/job_search.py",
+          "symbols": [
+            "JobSearchProfile",
+            "normalize_greenhouse_jobs",
+            "normalize_lever_jobs",
+            "normalize_mpm_jobs",
+            "normalize_mpsv_jobs",
+            "search_job_dataframes"
+          ],
+          "current_state": "provider 원문 의미를 보존하는 통합 채용 DataFrame과 실제 필터 엔진이 없다.",
+          "source_hash": null,
+          "after_state": "공고·요건·기업·career overlap·제외·source DataFrame을 반환하고 unknown을 하드 필터 일치로 처리하지 않는다.",
+          "rationale": "형식이 다른 공고를 의미 손실 없이 같은 조건으로 비교하기 위해서다.",
+          "dependencies": [],
+          "public_contract_impacts": [
+            "job search dataframe contract"
+          ],
+          "compatibility": "기존 회사 검색을 변경하지 않는 additive 서비스다.",
+          "migration": "저장된 raw/normalized 응답을 provider 이름과 함께 입력한다.",
+          "rollback": "신규 서비스를 제거한다.",
+          "authorization_boundary": "공고는 채용 수요이며 지원·개인정보 처리·근거 없는 요건 추론을 하지 않는다.",
+          "contributes_to": [
+            "D-10-job-availability-filtered-discovery"
+          ],
+          "symbol_changes": [
+            {
+              "symbol": "search_job_dataframes",
+              "intent": "의미 보존 공고 필터와 career overlap",
+              "decision_id": "D-10-job-availability-filtered-discovery"
+            }
+          ],
+          "intent_change_ids": [
+            "D-10-job-standardization-service"
+          ],
+          "contribution_refs": [
+            {
+              "decision_id": "D-10-job-availability-filtered-discovery",
+              "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/10-d-10-job-availability-filtered-discovery.json",
+              "sha256": "sha256:4df847994d4f65f456cd5e79dc5a22b972bd8d1ce5bcce06fc369b03303a0cf8",
+              "symbols": [
+                "JobSearchProfile",
+                "normalize_greenhouse_jobs",
+                "normalize_lever_jobs",
+                "normalize_mpm_jobs",
+                "normalize_mpsv_jobs",
+                "search_job_dataframes"
+              ],
+              "intent_change_ids": []
+            }
+          ]
+        },
+        {
+          "change_id": "D-10-keyless-normalized-fields",
+          "operation": "MODIFY",
+          "path": "src/company_intel/connectors/keyless.py",
+          "symbols": [
+            "_greenhouse",
+            "_lever"
+          ],
+          "current_state": "실제 응답의 language·office·deadline·commitment·salaryRange·lists가 정규화 산출물에서 손실된다.",
+          "source_hash": "sha256:380ed972840191094dce0582b2c9717f900a7d4011163ef2b59ddb94917be788",
+          "after_state": "실제 응답에 존재하는 구조 필드를 의미 변경 없이 보존한다.",
+          "rationale": "필터와 요건 추출이 raw 전문에 종속되지 않게 하기 위해서다.",
+          "dependencies": [],
+          "public_contract_impacts": [
+            "normalized ATS artifact"
+          ],
+          "compatibility": "기존 정규화 필드는 유지한다.",
+          "migration": "다음 validation부터 확장 필드가 기록된다.",
+          "rollback": "확장 필드를 제거한다.",
+          "authorization_boundary": "지원자 질문·PII는 수집하지 않는다.",
+          "contributes_to": [
+            "D-10-job-availability-filtered-discovery"
+          ],
+          "symbol_changes": [
+            {
+              "symbol": "_greenhouse",
+              "intent": "실제 구조 필드 보존",
+              "decision_id": "D-10-job-availability-filtered-discovery"
+            }
+          ],
+          "intent_change_ids": [
+            "D-10-keyless-normalized-fields"
+          ],
+          "contribution_refs": [
+            {
+              "decision_id": "D-10-job-availability-filtered-discovery",
+              "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/10-d-10-job-availability-filtered-discovery.json",
+              "sha256": "sha256:4df847994d4f65f456cd5e79dc5a22b972bd8d1ce5bcce06fc369b03303a0cf8",
+              "symbols": [
+                "_greenhouse",
+                "_lever"
+              ],
+              "intent_change_ids": []
+            }
+          ]
+        },
+        {
+          "change_id": "D-10-job-search-api",
+          "operation": "MODIFY",
+          "path": "src/company_intel/api.py",
+          "symbols": [
+            "JobSearchRequest",
+            "job_search"
+          ],
+          "current_state": "공고·요건 DataFrame 검색 endpoint가 없다.",
+          "source_hash": "sha256:59330f230279ba5a5582d9ed7ff06091ebcec03ebc15595da6841eaa64fa976f",
+          "after_state": "파일 기반 provider 레코드와 profile을 받아 표별 schema·행·shortage를 JSON으로 반환한다.",
+          "rationale": "사용자 검색 경계를 노출하기 위해서다.",
+          "dependencies": [
+            "D-10-job-standardization-service"
+          ],
+          "public_contract_impacts": [
+            "POST /v1/job-search"
+          ],
+          "compatibility": "기존 endpoint를 유지한다.",
+          "migration": "신규 v1 route를 사용한다.",
+          "rollback": "route를 제거한다.",
+          "authorization_boundary": "외부 지원 요청은 하지 않는다.",
+          "contributes_to": [
+            "D-10-job-availability-filtered-discovery",
+            "D-06-peer-screener-ranking",
+            "D-07-company-timeline-macro-comparison",
+            "D-08-future-value-scenarios",
+            "D-09-ai-event-effect-validation"
+          ],
+          "symbol_changes": [
+            {
+              "symbol": "job_search",
+              "intent": "통합 기능 API 경계",
+              "decision_id": "D-10-job-availability-filtered-discovery"
+            }
+          ],
+          "intent_change_ids": [
+            "D-10-job-search-api"
+          ],
+          "contribution_refs": [
+            {
+              "decision_id": "D-10-job-availability-filtered-discovery",
+              "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/10-d-10-job-availability-filtered-discovery.json",
+              "sha256": "sha256:4df847994d4f65f456cd5e79dc5a22b972bd8d1ce5bcce06fc369b03303a0cf8",
+              "symbols": [
+                "JobSearchRequest",
+                "job_search"
+              ],
+              "intent_change_ids": []
+            },
+            {
+              "decision_id": "D-06-peer-screener-ranking",
+              "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/06-d-06-peer-screener-ranking.json",
+              "sha256": "sha256:0df0e40c9b5460c28ac04224b404a20558c539b301acf524ccd66cc61b2c03b6",
+              "symbols": [
+                "JobSearchRequest",
+                "job_search"
+              ],
+              "intent_change_ids": []
+            },
+            {
+              "decision_id": "D-07-company-timeline-macro-comparison",
+              "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/07-d-07-company-timeline-macro-comparison.json",
+              "sha256": "sha256:933e42d1121878b8d8ef25b5f461b7aa96f359273699456bc32b65c90e1b0ca6",
+              "symbols": [
+                "JobSearchRequest",
+                "job_search"
+              ],
+              "intent_change_ids": []
+            },
+            {
+              "decision_id": "D-08-future-value-scenarios",
+              "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/08-d-08-future-value-scenarios.json",
+              "sha256": "sha256:4426faec5d6b32b4438be70c77d28b5f3b55429e448654f516ea47e1248e915c",
+              "symbols": [
+                "JobSearchRequest",
+                "job_search"
+              ],
+              "intent_change_ids": []
+            },
+            {
+              "decision_id": "D-09-ai-event-effect-validation",
+              "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/09-d-09-ai-event-effect-validation.json",
+              "sha256": "sha256:a2029236097ad639b1176cf7c534fd867ad1f4b704d6158f0fed249f2e96d50f",
+              "symbols": [
+                "JobSearchRequest",
+                "job_search"
+              ],
+              "intent_change_ids": []
+            }
+          ]
+        },
+        {
+          "change_id": "D-10-job-search-cli",
+          "operation": "MODIFY",
+          "path": "src/company_intel/cli.py",
+          "symbols": [
+            "job_search_command"
+          ],
+          "current_state": "저장된 실제 응답을 profile로 필터링하는 CLI가 없다.",
+          "source_hash": "sha256:e9442583150c23c8d5248f6a89f7057da861b7b0887e83efcc5629238bed4146",
+          "after_state": "profile과 provider 응답 파일을 받아 JSON·CSV DataFrame 묶음을 생성한다.",
+          "rationale": "API 서버 없이 동일 검색을 재현하기 위해서다.",
+          "dependencies": [
+            "D-10-job-standardization-service"
+          ],
+          "public_contract_impacts": [
+            "company-intel job-search"
+          ],
+          "compatibility": "기존 명령을 유지한다.",
+          "migration": "신규 subcommand를 사용한다.",
+          "rollback": "subcommand를 제거한다.",
+          "authorization_boundary": "입력 파일만 읽고 provider 갱신은 별도 validate 명령으로 둔다.",
+          "contributes_to": [
+            "D-10-job-availability-filtered-discovery"
+          ],
+          "symbol_changes": [
+            {
+              "symbol": "job_search_command",
+              "intent": "로컬 검색 실행",
+              "decision_id": "D-10-job-availability-filtered-discovery"
+            }
+          ],
+          "intent_change_ids": [
+            "D-10-job-search-cli"
+          ],
+          "contribution_refs": [
+            {
+              "decision_id": "D-10-job-availability-filtered-discovery",
+              "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/10-d-10-job-availability-filtered-discovery.json",
+              "sha256": "sha256:4df847994d4f65f456cd5e79dc5a22b972bd8d1ce5bcce06fc369b03303a0cf8",
+              "symbols": [
+                "job_search_command"
+              ],
+              "intent_change_ids": []
+            }
+          ]
+        },
+        {
+          "change_id": "D-10-export-career-overlap",
+          "operation": "MODIFY",
+          "path": "src/company_intel/exporting.py",
+          "symbols": [
+            "TABLE_HEADERS",
+            "render_csv_bundle"
+          ],
+          "current_state": "검색 일치·career overlap 표를 export하지 않는다.",
+          "source_hash": "sha256:3925b5c93b488278564b346c7673ab4af1d5304b743595c444800725ce9a7806",
+          "after_state": "정규화 jobs·requirements·career_overlap·exclusions·sources 표를 CSV/XLSX로 보존한다.",
+          "rationale": "겹치는 커리어 요건을 비교 가능한 스프레드시트로 전달하기 위해서다.",
+          "dependencies": [
+            "D-10-job-standardization-service"
+          ],
+          "public_contract_impacts": [
+            "export table version 2"
+          ],
+          "compatibility": "기존 표 이름과 헤더는 유지하고 additive 표를 추가한다.",
+          "migration": "manifest format version을 올린다.",
+          "rollback": "추가 표를 제거한다.",
+          "authorization_boundary": "공고 전문·PII·secret은 export하지 않는다.",
+          "contributes_to": [
+            "D-10-job-availability-filtered-discovery"
+          ],
+          "symbol_changes": [
+            {
+              "symbol": "TABLE_HEADERS",
+              "intent": "career overlap export",
+              "decision_id": "D-10-job-availability-filtered-discovery"
+            }
+          ],
+          "intent_change_ids": [
+            "D-10-export-career-overlap"
+          ],
+          "contribution_refs": [
+            {
+              "decision_id": "D-10-job-availability-filtered-discovery",
+              "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/10-d-10-job-availability-filtered-discovery.json",
+              "sha256": "sha256:4df847994d4f65f456cd5e79dc5a22b972bd8d1ce5bcce06fc369b03303a0cf8",
+              "symbols": [
+                "TABLE_HEADERS",
+                "render_csv_bundle"
+              ],
+              "intent_change_ids": []
+            }
+          ]
+        },
+        {
+          "change_id": "D-10-pandas-dependency",
+          "operation": "MODIFY",
+          "path": "pyproject.toml",
+          "symbols": [
+            "project.dependencies"
+          ],
+          "current_state": "pandas가 설치 계약에 없어 실제 DataFrame 반환을 보장하지 않는다.",
+          "source_hash": "sha256:73f4f8e5b814b6e400623583f78ab20abf34e46fdf9525b4e005d255d8f2341b",
+          "after_state": "핵심 런타임에 pandas 2.x를 고정한다.",
+          "rationale": "사용자가 요구한 원자 DataFrame 계약을 실제 타입으로 제공하기 위해서다.",
+          "dependencies": [],
+          "public_contract_impacts": [
+            "runtime dependency"
+          ],
+          "compatibility": "Python 3.11 이상과 호환되는 범위를 사용한다.",
+          "migration": "uv lock을 갱신한다.",
+          "rollback": "의존성과 DataFrame API를 함께 제거한다.",
+          "authorization_boundary": "로컬 패키지 설치만 수행한다.",
+          "contributes_to": [
+            "D-10-job-availability-filtered-discovery"
+          ],
+          "symbol_changes": [
+            {
+              "symbol": "project.dependencies",
+              "intent": "pandas DataFrame 런타임",
+              "decision_id": "D-10-job-availability-filtered-discovery"
+            }
+          ],
+          "intent_change_ids": [
+            "D-10-pandas-dependency"
+          ],
+          "contribution_refs": [
+            {
+              "decision_id": "D-10-job-availability-filtered-discovery",
+              "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/10-d-10-job-availability-filtered-discovery.json",
+              "sha256": "sha256:4df847994d4f65f456cd5e79dc5a22b972bd8d1ce5bcce06fc369b03303a0cf8",
+              "symbols": [
+                "project.dependencies"
+              ],
+              "intent_change_ids": []
+            }
+          ]
+        },
+        {
+          "change_id": "D-10-lockfile",
+          "operation": "MODIFY",
+          "path": "uv.lock",
+          "symbols": [
+            "package:pandas"
+          ],
+          "current_state": "pandas 해상 결과가 없다.",
+          "source_hash": "sha256:920aebcf673c1f0dd7bd545969cc95fbc3778f8398fd1ee5d6711e17690af984",
+          "after_state": "재현 가능한 pandas 의존성 해시가 기록된다.",
+          "rationale": "frozen 테스트를 재현하기 위해서다.",
+          "dependencies": [
+            "D-10-pandas-dependency"
+          ],
+          "public_contract_impacts": [
+            "lockfile"
+          ],
+          "compatibility": "기존 패키지 범위를 유지한다.",
+          "migration": "uv lock으로 기계적 갱신한다.",
+          "rollback": "이전 lock으로 되돌린다.",
+          "authorization_boundary": "공급망 패키지는 PyPI 해시 검증을 따른다.",
+          "contributes_to": [
+            "D-10-job-availability-filtered-discovery"
+          ],
+          "symbol_changes": [
+            {
+              "symbol": "package:pandas",
+              "intent": "재현 가능한 DataFrame 의존성",
+              "decision_id": "D-10-job-availability-filtered-discovery"
+            }
+          ],
+          "intent_change_ids": [
+            "D-10-lockfile"
+          ],
+          "contribution_refs": [
+            {
+              "decision_id": "D-10-job-availability-filtered-discovery",
+              "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/10-d-10-job-availability-filtered-discovery.json",
+              "sha256": "sha256:4df847994d4f65f456cd5e79dc5a22b972bd8d1ce5bcce06fc369b03303a0cf8",
+              "symbols": [
+                "package:pandas"
+              ],
+              "intent_change_ids": []
+            }
+          ]
+        },
+        {
+          "change_id": "D-10-job-search-test",
+          "operation": "CREATE",
+          "path": "tests/test_job_search.py",
+          "symbols": [
+            "test_provider_semantics_and_filters",
+            "test_career_overlap_dataframes"
+          ],
+          "current_state": "실제 provider 의미와 필터의 통합 테스트가 없다.",
+          "source_hash": null,
+          "after_state": "Greenhouse·Lever·MPM·MPSV fixture로 국가·직종·연봉·위치·근무형태·언어·요건·unknown 규칙을 검증한다.",
+          "rationale": "서로 다른 의미의 필드가 잘못 합쳐지는 회귀를 막기 위해서다.",
+          "dependencies": [
+            "D-10-job-standardization-service"
+          ],
+          "public_contract_impacts": [
+            "test contract"
+          ],
+          "compatibility": "실제 반환 구조를 축약한 네트워크 없는 fixture다.",
+          "migration": "없음",
+          "rollback": "기능과 함께 제거한다.",
+          "authorization_boundary": "지원자 PII나 공고 전문을 fixture에 복제하지 않는다.",
+          "contributes_to": [
+            "D-10-job-availability-filtered-discovery"
+          ],
+          "symbol_changes": [
+            {
+              "symbol": "test_provider_semantics_and_filters",
+              "intent": "provider 의미·필터 검증",
+              "decision_id": "D-10-job-availability-filtered-discovery"
+            }
+          ],
+          "intent_change_ids": [
+            "D-10-job-search-test"
+          ],
+          "contribution_refs": [
+            {
+              "decision_id": "D-10-job-availability-filtered-discovery",
+              "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/10-d-10-job-availability-filtered-discovery.json",
+              "sha256": "sha256:4df847994d4f65f456cd5e79dc5a22b972bd8d1ce5bcce06fc369b03303a0cf8",
+              "symbols": [
+                "test_provider_semantics_and_filters",
+                "test_career_overlap_dataframes"
+              ],
+              "intent_change_ids": []
+            }
+          ]
+        },
+        {
+          "change_id": "D-10-field-contract-report",
+          "operation": "MODIFY",
+          "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/atomic-api-compatibility-report-2026-09-11.md",
+          "symbols": [
+            "D-06-D-10 implementation matrix"
+          ],
+          "current_state": "실제 저장 응답을 기준으로 한 검색 변수의 통합·분리 규칙과 기능 검증표가 없다.",
+          "source_hash": "sha256:491caf69cf4cd7bf586d0059520b096831f7085cf5d656f83605bc71b3915388",
+          "after_state": "provider별 raw→canonical 필드, 병합 금지 의미, 검색 가능성, 실제 샘플 coverage와 cohort 완료도를 기록한다.",
+          "rationale": "코드와 사용자 목적 사이 검증 근거를 남기기 위해서다.",
+          "dependencies": [],
+          "public_contract_impacts": [
+            "campaign report"
+          ],
+          "compatibility": "기존 보고서에 섹션을 추가한다.",
+          "migration": "없음",
+          "rollback": "추가 섹션을 제거한다.",
+          "authorization_boundary": "secret과 raw 전문은 기록하지 않는다.",
+          "contributes_to": [
+            "D-10-job-availability-filtered-discovery",
+            "D-06-peer-screener-ranking",
+            "D-07-company-timeline-macro-comparison",
+            "D-08-future-value-scenarios",
+            "D-09-ai-event-effect-validation"
+          ],
+          "symbol_changes": [
+            {
+              "symbol": "D-06-D-10 implementation matrix",
+              "intent": "기능·필드 비판 검증",
+              "decision_id": "D-10-job-availability-filtered-discovery"
+            }
+          ],
+          "intent_change_ids": [
+            "D-10-field-contract-report"
+          ],
+          "contribution_refs": [
+            {
+              "decision_id": "D-10-job-availability-filtered-discovery",
+              "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/10-d-10-job-availability-filtered-discovery.json",
+              "sha256": "sha256:4df847994d4f65f456cd5e79dc5a22b972bd8d1ce5bcce06fc369b03303a0cf8",
+              "symbols": [
+                "D-06-D-10 implementation matrix"
+              ],
+              "intent_change_ids": []
+            },
+            {
+              "decision_id": "D-06-peer-screener-ranking",
+              "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/06-d-06-peer-screener-ranking.json",
+              "sha256": "sha256:0df0e40c9b5460c28ac04224b404a20558c539b301acf524ccd66cc61b2c03b6",
+              "symbols": [
+                "D-06-D-10 implementation matrix"
+              ],
+              "intent_change_ids": []
+            },
+            {
+              "decision_id": "D-07-company-timeline-macro-comparison",
+              "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/07-d-07-company-timeline-macro-comparison.json",
+              "sha256": "sha256:933e42d1121878b8d8ef25b5f461b7aa96f359273699456bc32b65c90e1b0ca6",
+              "symbols": [
+                "D-06-D-10 implementation matrix"
+              ],
+              "intent_change_ids": []
+            },
+            {
+              "decision_id": "D-08-future-value-scenarios",
+              "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/08-d-08-future-value-scenarios.json",
+              "sha256": "sha256:4426faec5d6b32b4438be70c77d28b5f3b55429e448654f516ea47e1248e915c",
+              "symbols": [
+                "D-06-D-10 implementation matrix"
+              ],
+              "intent_change_ids": []
+            },
+            {
+              "decision_id": "D-09-ai-event-effect-validation",
+              "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/09-d-09-ai-event-effect-validation.json",
+              "sha256": "sha256:a2029236097ad639b1176cf7c534fd867ad1f4b704d6158f0fed249f2e96d50f",
+              "symbols": [
+                "D-06-D-10 implementation matrix"
+              ],
+              "intent_change_ids": []
+            }
+          ]
+        }
+      ],
+      "routes": [
+        {
+          "route_id": "c06-career-research",
+          "skill": "company-intelligence-career-research",
+          "requirement": "required",
+          "phase": "IMPLEMENT",
+          "purpose": "실제 provider 응답과 공식 스키마의 의미 경계 확인",
+          "expected_artifact": "field compatibility report"
+        },
+        {
+          "route_id": "c06-verify",
+          "skill": "verification-before-completion",
+          "requirement": "required",
+          "phase": "VALIDATE",
+          "purpose": "필터·DataFrame·전체 회귀 검증",
+          "expected_artifact": "pytest receipt"
+        }
+      ],
+      "completion_contract": [
+        {
+          "criterion_id": "C-06-job-search-tests",
+          "behavior": "provider 의미 보존과 모든 명시 필터·overlap DataFrame이 통과한다.",
+          "blocking": true,
+          "owner_skill": "verification-before-completion",
+          "phase": "VALIDATE",
+          "depends_on_criteria": [],
+          "test": {
+            "type": "pytest",
+            "value": "uv run --frozen pytest tests/test_job_search.py -q",
+            "runner": "pytest",
+            "paths": [
+              "tests/test_job_search.py"
+            ],
+            "provider_backed": false,
+            "timeout_seconds": 300
+          },
+          "expected_result": "all tests pass",
+          "failure_marker": "provider meanings collapsed, hard-filter unknown accepted, or overlap provenance lost",
+          "receipt": {
+            "status": "planned",
+            "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/receipts/criteria/C-06-job-search-tests.json",
+            "sha256": "planned"
+          },
+          "status": "planned"
+        },
+        {
+          "criterion_id": "C-06-full-regression",
+          "behavior": "전체 로컬 suite와 lint가 통과한다.",
+          "blocking": true,
+          "owner_skill": "verification-before-completion",
+          "phase": "VALIDATE",
+          "depends_on_criteria": [
+            "C-06-job-search-tests"
+          ],
+          "test": {
+            "type": "command",
+            "value": "uv run --frozen pytest -q",
+            "runner": "pytest",
+            "paths": [
+              "tests"
+            ],
+            "provider_backed": false,
+            "timeout_seconds": 600
+          },
+          "expected_result": "all tests pass",
+          "failure_marker": "existing behavior regression",
+          "receipt": {
+            "status": "planned",
+            "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/receipts/criteria/C-06-full-regression.json",
+            "sha256": "planned"
+          },
+          "status": "planned"
+        }
+      ]
+    }
+  ],
+  "metadata": {
+    "planned_commit_message": "feat(career): add provider-semantic job dataframe search",
+    "git_finalization_authorized": false,
+    "preparation_contract": "campaign-global-ownership-v1"
+  }
+}

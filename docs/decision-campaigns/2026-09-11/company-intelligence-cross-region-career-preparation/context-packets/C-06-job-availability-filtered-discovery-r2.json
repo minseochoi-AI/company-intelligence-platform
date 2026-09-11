@@ -1,0 +1,110 @@
+{
+  "contract_version": "implementation-context-packet-v2",
+  "packet_id": "C-06-job-availability-filtered-discovery-packet-028f1e17ecd4",
+  "topics": [
+    "search-career-evidence"
+  ],
+  "capability_ids": [
+    "atomic-search-profile",
+    "five-state-verdict",
+    "multi-location-search",
+    "requirement-evidence",
+    "unverifiable-candidates"
+  ],
+  "required_refs": [
+    {
+      "ref_id": "semantic-audit-search",
+      "role": "must-read",
+      "path": "/home/ubuntu/.codex/attachments/5602dc52-29e5-4b64-93b8-365e045a58a4/pasted-text.txt",
+      "content_hash": "sha256:b09f773da9535a05e20ea8e6298fb218e227f90c926e34bc191eefa758b74844",
+      "line_range": "250-591",
+      "question": "현재 17개 검색변수의 의미 충돌과 검사 불가 조합은 무엇인가?",
+      "observation_summary": "제목과 본문, 공고언어와 요구언어, 근로시간과 계약기간, 미확인과 불일치를 분리해야 한다."
+    },
+    {
+      "ref_id": "job-search-current",
+      "role": "must-read",
+      "path": "src/company_intel/job_search.py",
+      "content_hash": "sha256:183851a950d90c7ffdf878c28f4473fd01da4b55fce7571c5d818827a0f688f1",
+      "line_range": "1-617",
+      "question": "현재 provider 정규화와 필터는 어떤 의미 오류를 가진가?",
+      "observation_summary": "본문 전체 keyword, 단일 위치, Permanent→full-time, posting language 필터, unknown hard exclusion이 실제 사용자 의미와 충돌한다."
+    },
+    {
+      "ref_id": "career-requirements-current",
+      "role": "must-read",
+      "path": "src/company_intel/career_requirements.py",
+      "content_hash": "sha256:2eee38f22c88fff195e85102161f1d8f80c1d22c1ec3a0b7eecfc39c331ac47c",
+      "line_range": "1-260",
+      "question": "요건 근거 수준과 필요도가 어떻게 표현되는가?",
+      "observation_summary": "기본 경계는 있으나 자격증·법정면허·취업자격과 미추출 상태를 더 원자적으로 분리해야 한다."
+    }
+  ],
+  "current_entry_points": [
+    {
+      "kind": "code",
+      "path": "src/company_intel/job_search.py",
+      "symbol": "JobSearchProfile",
+      "source_hash": "sha256:183851a950d90c7ffdf878c28f4473fd01da4b55fce7571c5d818827a0f688f1"
+    },
+    {
+      "kind": "code",
+      "path": "src/company_intel/cli.py",
+      "symbol": "main",
+      "source_hash": "sha256:813b84089d9e56df133827020313e5dd292ac49d509d00927930cf17a2f68b92"
+    },
+    {
+      "kind": "code",
+      "path": "src/company_intel/api.py",
+      "symbol": "JobSearchRequest",
+      "source_hash": "sha256:d697d6621f6f4e12a5b5cd3f250ff5a4a27594dc00ff92fc9751f9c4b389c27c"
+    },
+    {
+      "kind": "test",
+      "path": "tests/test_job_search.py",
+      "symbol": "test_title_vs_description",
+      "source_hash": "sha256:a91c48396d95fc34bfad10b18f2a10702bc67ff3dbe158e7b90ccdbc5def1f6d"
+    },
+    {
+      "kind": "code",
+      "path": "README.md",
+      "symbol": "CLI workflows",
+      "source_hash": "sha256:e3de7435521711060166b3c49b30b046cbcb6b2a762cf6b051ab775775dce84f"
+    },
+    {
+      "kind": "code",
+      "path": "IMPLEMENTATION_REPORT_KO.md",
+      "symbol": "기능 상태표",
+      "source_hash": "sha256:f77bb79b9d5c1313211ae6d28c936b458afa1fc8d00800287c1efa2d11ebf136"
+    },
+    {
+      "kind": "code",
+      "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/atomic-api-compatibility-report-2026-09-11.md",
+      "symbol": "CLI semantic contract",
+      "source_hash": "sha256:a46732f0ba183b51890d00f9808862fe54f3f9ee409ba96e8f03f5ea7cae18f0"
+    }
+  ],
+  "planned_entry_points": [
+    {
+      "kind": "test",
+      "path": "tests/test_cli_workflows.py",
+      "symbol": "test_job_search_workflow",
+      "change_id": "D-10-cli-tests-r2"
+    },
+    {
+      "kind": "test",
+      "path": "tests/fixtures/provider_semantic_cases.json",
+      "symbol": "greenhouse",
+      "change_id": "D-10-provider-fixture-r2"
+    }
+  ],
+  "external_entry_points": [],
+  "invariants": [
+    "UNKNOWN은 NO_MATCH로 축약하지 않는다.",
+    "직무 제목 검색과 설명문 기술 검색을 분리한다.",
+    "공고언어와 지원자 요구언어를 분리한다.",
+    "급여는 통화·기간·basis·gross/net·지역 tier가 비교 가능할 때만 정렬한다."
+  ],
+  "unresolved_conflicts": [],
+  "resume_digest": "Prepared C-06-job-availability-filtered-discovery from current decision hashes and one global file-ownership graph."
+}

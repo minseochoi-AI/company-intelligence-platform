@@ -1,0 +1,27 @@
+from company_intel.analysis_service import (
+    build_company_timeline,
+    evaluate_ai_event,
+    evaluate_valuation_scenarios,
+)
+
+
+def test_point_in_time_and_analysis_limits() -> None:
+    result = build_company_timeline([
+        {"entity_id": "A", "axis": "financial", "period_end": "2025-12-31", "available_at": "2026-02-01", "value": 10},
+        {"entity_id": "A", "axis": "macro", "observation_date": "2026-01-01", "available_at": "2026-06-01", "value": 2},
+    ], entity_id="A", as_of="2026-03-01")
+    assert list(result["timeline"]["observation_axis"]) == ["financial"]
+    assert list(result["exclusions"]["exclusion_reason"]) == ["not_available_as_of"]
+
+    unavailable = evaluate_valuation_scenarios(revenue=100, net_debt=10, shares=10, evidence={"source_url": None})
+    assert unavailable["status"] == "unavailable"
+    event = evaluate_ai_event(asset_returns=[0.0] * 7, benchmark_returns=[0.0] * 7, event_index=3, event_evidence={"event_date": "2026-01-01", "source_url": "https://e", "available_at": "2026-01-01"})
+    assert event["status"] == "association-only"
+    assert event["causal_ready"] is False
+
+
+def test_raw_market_prices_and_projections_are_rejected_for_evidence_analysis() -> None:
+    valuation = evaluate_valuation_scenarios(revenue=10, net_debt=1, shares=1, evidence={"source_url": "https://x", "available_at": "2026-01-01", "unit": "USD", "currency": "USD", "period": "2025", "concept": "revenue", "observation_kind": "projection"})
+    assert valuation["status"] == "unavailable"
+    event = evaluate_ai_event(asset_returns=[0.0] * 7, benchmark_returns=[0.0] * 7, event_index=3, event_evidence={"event_date": "2026-01-01", "source_url": "https://e", "available_at": "2026-01-01", "price_adjustment": "raw"})
+    assert event["status"] == "ineligible"

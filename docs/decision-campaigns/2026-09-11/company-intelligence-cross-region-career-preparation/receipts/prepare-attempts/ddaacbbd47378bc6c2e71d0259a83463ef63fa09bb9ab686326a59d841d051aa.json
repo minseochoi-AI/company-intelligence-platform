@@ -1,0 +1,11 @@
+{
+  "contract_version": "campaign-prepare-attempt-v1",
+  "status": "pass",
+  "campaign": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/campaign.json",
+  "cohorts": "all",
+  "files": 17,
+  "operations": 25,
+  "unique_paths": 25,
+  "transaction_sha256": "ddaacbbd47378bc6c2e71d0259a83463ef63fa09bb9ab686326a59d841d051aa",
+  "graph_sha256": "5c7205e416f417e03668414b461a6d3965ae0a4cfbcbb92c15300099b835340d"
+}

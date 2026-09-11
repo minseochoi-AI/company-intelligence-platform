@@ -1,0 +1,135 @@
+{
+  "contract_version": "atomic-json-patch-receipt-v1",
+  "target": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/05-d-05-spreadsheet-output-contract.json",
+  "outcome": "pass",
+  "before_sha256": "4765a763135579a667ebf99870c6d2539dff93596d268443ac22804d40f4f6d9",
+  "after_sha256": "1727fed86826540ecec8bf1ac927cf6e0f016195306b6017e6e0fd765897aa66",
+  "proposed_after_sha256": "1727fed86826540ecec8bf1ac927cf6e0f016195306b6017e6e0fd765897aa66",
+  "operations": [
+    {
+      "op": "test",
+      "path": "/status"
+    },
+    {
+      "op": "test",
+      "path": "/question"
+    },
+    {
+      "op": "test",
+      "path": "/five_w_one_h"
+    },
+    {
+      "op": "test",
+      "path": "/evidence_refs"
+    },
+    {
+      "op": "test",
+      "path": "/facts"
+    },
+    {
+      "op": "test",
+      "path": "/conflicts"
+    },
+    {
+      "op": "test",
+      "path": "/unimplemented"
+    },
+    {
+      "op": "test",
+      "path": "/options"
+    },
+    {
+      "op": "test",
+      "path": "/recommended_option_id"
+    },
+    {
+      "op": "test",
+      "path": "/recommendation_reason"
+    },
+    {
+      "op": "test",
+      "path": "/impact"
+    },
+    {
+      "op": "test",
+      "path": "/opportunity_costs"
+    },
+    {
+      "op": "test",
+      "path": "/implementation_targets"
+    },
+    {
+      "op": "test",
+      "path": "/validation_requirements"
+    },
+    {
+      "op": "test",
+      "path": "/diagram_impacts"
+    },
+    {
+      "op": "replace",
+      "path": "/status"
+    },
+    {
+      "op": "replace",
+      "path": "/question"
+    },
+    {
+      "op": "replace",
+      "path": "/five_w_one_h"
+    },
+    {
+      "op": "replace",
+      "path": "/evidence_refs"
+    },
+    {
+      "op": "replace",
+      "path": "/facts"
+    },
+    {
+      "op": "replace",
+      "path": "/conflicts"
+    },
+    {
+      "op": "replace",
+      "path": "/unimplemented"
+    },
+    {
+      "op": "replace",
+      "path": "/options"
+    },
+    {
+      "op": "replace",
+      "path": "/recommended_option_id"
+    },
+    {
+      "op": "replace",
+      "path": "/recommendation_reason"
+    },
+    {
+      "op": "replace",
+      "path": "/impact"
+    },
+    {
+      "op": "replace",
+      "path": "/opportunity_costs"
+    },
+    {
+      "op": "replace",
+      "path": "/implementation_targets"
+    },
+    {
+      "op": "replace",
+      "path": "/validation_requirements"
+    },
+    {
+      "op": "replace",
+      "path": "/diagram_impacts"
+    }
+  ],
+  "backup": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/.mutation-journal/preimages/sha256-4765a763135579a667ebf99870c6d2539dff93596d268443ac22804d40f4f6d9.json",
+  "journal": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/.mutation-journal/mutations/79d6f65baa52b6e45bcf04addb25e4d51b2542d444229e0bf664c3cbb35ecd3c.json",
+  "mutation_id": "DISCUSS-D05-spreadsheet-output-contract-v1",
+  "validators": [],
+  "completed_at": "2026-09-11T02:26:32.587110+00:00"
+}

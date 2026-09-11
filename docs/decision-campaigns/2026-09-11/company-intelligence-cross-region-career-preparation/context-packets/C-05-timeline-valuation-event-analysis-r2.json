@@ -1,0 +1,69 @@
+{
+  "contract_version": "implementation-context-packet-v2",
+  "packet_id": "C-05-timeline-valuation-event-analysis-packet-a90e60ab2250",
+  "topics": [
+    "time-value-events"
+  ],
+  "capability_ids": [
+    "point-in-time-alignment",
+    "series-signature",
+    "valuation-evidence-gate",
+    "event-causal-boundary"
+  ],
+  "required_refs": [
+    {
+      "ref_id": "analysis-service-current-r2",
+      "role": "must-read",
+      "path": "src/company_intel/analysis_service.py",
+      "content_hash": "sha256:2520ae86cfa241bea157db92e7ef5a499c1f2e34dcebc9230f4e2f69e92b5b2b",
+      "line_range": "1-100",
+      "question": "현재 서비스가 원천별 관측 의미와 시점 적격성을 검증하는가?",
+      "observation_summary": "계산 경계는 있으나 손실된 macro normalization과 series signature를 입력 단계에서 차단하지 않는다."
+    },
+    {
+      "ref_id": "analytics-current-r2",
+      "role": "must-read",
+      "path": "src/company_intel/analytics.py",
+      "content_hash": "sha256:f4f76a87c9c7c2a226ff9164c783eb1c89beeed89c15cf1cc47346fe71a0f269",
+      "line_range": "1-360",
+      "question": "계산 결과가 예측·인과 확정으로 오해되지 않도록 제한되는가?",
+      "observation_summary": "기본 warning은 있으나 provider fact의 vintage·unit·adjustment·event evidence 적격성과 더 강하게 결속해야 한다."
+    }
+  ],
+  "current_entry_points": [
+    {
+      "kind": "code",
+      "path": "src/company_intel/analysis_service.py",
+      "symbol": "build_company_timeline",
+      "source_hash": "sha256:2520ae86cfa241bea157db92e7ef5a499c1f2e34dcebc9230f4e2f69e92b5b2b"
+    },
+    {
+      "kind": "code",
+      "path": "src/company_intel/analytics.py",
+      "symbol": "rank_companies",
+      "source_hash": "sha256:f4f76a87c9c7c2a226ff9164c783eb1c89beeed89c15cf1cc47346fe71a0f269"
+    },
+    {
+      "kind": "test",
+      "path": "tests/test_analysis_service.py",
+      "symbol": "test_incompatible_series_unavailable",
+      "source_hash": "sha256:8e6ddf46d159c606c4603d4aa9f40aca44ec148884d7dc6b3f7e4cf9c9c5184c"
+    },
+    {
+      "kind": "test",
+      "path": "tests/test_analytics.py",
+      "symbol": "test_guarded_dcf",
+      "source_hash": "sha256:55817354f79447faa7c9ddb14dd65606c2c38391d0c2cb76e3390e7b21137d4d"
+    }
+  ],
+  "planned_entry_points": [],
+  "external_entry_points": [],
+  "invariants": [
+    "available_at 이후 정보는 과거 분석에 유입되지 않는다.",
+    "actual·estimate·projection을 분리한다.",
+    "GitHub/OpenAlex 활동은 AI 도입 사건의 직접 증거가 아니다.",
+    "control이 없으면 association-only다."
+  ],
+  "unresolved_conflicts": [],
+  "resume_digest": "Prepared C-05-timeline-valuation-event-analysis from current decision hashes and one global file-ownership graph."
+}

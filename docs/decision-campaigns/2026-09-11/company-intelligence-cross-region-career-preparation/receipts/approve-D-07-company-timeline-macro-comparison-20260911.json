@@ -1,0 +1,31 @@
+{
+  "contract_version": "atomic-json-patch-receipt-v1",
+  "target": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/07-d-07-company-timeline-macro-comparison.json",
+  "outcome": "pass",
+  "before_sha256": "145ad12ef2e4b8b4d9effd61bc73dd0eab1879e9496960d85ca3ff1c944e3ea6",
+  "after_sha256": "3ffb8fc8eb637d28c90b8e5d636a09d56249b29b84ade00735723f96cfe6750e",
+  "proposed_after_sha256": "3ffb8fc8eb637d28c90b8e5d636a09d56249b29b84ade00735723f96cfe6750e",
+  "operations": [
+    {
+      "op": "test",
+      "path": "/status"
+    },
+    {
+      "op": "test",
+      "path": "/accepted_decision"
+    },
+    {
+      "op": "replace",
+      "path": "/status"
+    },
+    {
+      "op": "replace",
+      "path": "/accepted_decision"
+    }
+  ],
+  "backup": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/.mutation-journal/preimages/sha256-145ad12ef2e4b8b4d9effd61bc73dd0eab1879e9496960d85ca3ff1c944e3ea6.json",
+  "journal": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/.mutation-journal/mutations/22e5763554878cff3904fd2fd6acbe07a2cefc873cab95e7d8b58101a254e11a.json",
+  "mutation_id": "approve-D-07-company-timeline-macro-comparison-20260911",
+  "validators": [],
+  "completed_at": "2026-09-11T09:45:20.870900+00:00"
+}

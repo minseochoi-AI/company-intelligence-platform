@@ -1,0 +1,14 @@
+{
+  "scenario_id": "C-01-source-identity-foundation:C-01-r2-semantic-contract-tests",
+  "cohort_id": "C-01-source-identity-foundation",
+  "criterion_id": "C-01-r2-semantic-contract-tests",
+  "plan_sha256": "fbf678307462c47a3c0f1c8d739d473c5797aaaeed0a6a9dc24738b54fa971b6",
+  "command": "uv run --frozen pytest tests/test_source_catalog.py tests/test_public_connectors.py tests/test_classification.py -q",
+  "outcome": "pass",
+  "returncode": 0,
+  "first_failure": null,
+  "raw_log_path": ".runtime/campaign-orchestrator/company-intelligence-cross-region-career-preparation/r2-validation/C-01-source-identity-foundation__C-01-r2-semantic-contract-tests.log",
+  "raw_log_sha256": "661cc27a2db83afc41ffb9cb1dfa7f808a3742eaaa8ed5e185534ce62c7aa5eb",
+  "tail": ".............                                                            [100%]\n13 passed in 0.27s\n",
+  "completed_at": "2026-09-11T13:46:36.144353+00:00"
+}

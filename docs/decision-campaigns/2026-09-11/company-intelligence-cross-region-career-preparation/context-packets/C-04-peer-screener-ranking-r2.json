@@ -1,0 +1,56 @@
+{
+  "contract_version": "implementation-context-packet-v2",
+  "packet_id": "C-04-peer-screener-ranking-packet-0c7951b2ce27",
+  "topics": [
+    "company-screening"
+  ],
+  "capability_ids": [
+    "comparable-peer-signature",
+    "coverage-threshold",
+    "metric-provenance",
+    "ranking-exclusions"
+  ],
+  "required_refs": [
+    {
+      "ref_id": "screening-current-r2",
+      "role": "must-read",
+      "path": "src/company_intel/screening.py",
+      "content_hash": "sha256:0bc9f5aa7df1287b465373dbb3d0df39711ab936b5406823b15696f7c6fd8b19",
+      "line_range": "1-80",
+      "question": "현재 peer group이 실제 fact comparability를 보장하는가?",
+      "observation_summary": "국가·산업·규모는 검사하지만 통화·기간·concept·vintage·coverage가 같은지 확인하지 않는다."
+    },
+    {
+      "ref_id": "semantic-audit-screening",
+      "role": "must-read",
+      "path": "/home/ubuntu/.codex/attachments/5602dc52-29e5-4b64-93b8-365e045a58a4/pasted-text.txt",
+      "content_hash": "sha256:b09f773da9535a05e20ea8e6298fb218e227f90c926e34bc191eefa758b74844",
+      "line_range": "420-591",
+      "question": "기업 정렬에 사용 금지인 provider 필드는 무엇인가?",
+      "observation_summary": "거시·조달·활동 proxy와 catalog metadata는 기업 재무 metric으로 점수화할 수 없다."
+    }
+  ],
+  "current_entry_points": [
+    {
+      "kind": "code",
+      "path": "src/company_intel/screening.py",
+      "symbol": "ScreenerProfile",
+      "source_hash": "sha256:0bc9f5aa7df1287b465373dbb3d0df39711ab936b5406823b15696f7c6fd8b19"
+    },
+    {
+      "kind": "test",
+      "path": "tests/test_screening.py",
+      "symbol": "test_incompatible_units_excluded",
+      "source_hash": "sha256:666d6e7a502f6570815dfb3c2208c1ec552577501b0b5b36b749b46bc0a6d4ea"
+    }
+  ],
+  "planned_entry_points": [],
+  "external_entry_points": [],
+  "invariants": [
+    "비교 signature가 다른 기업은 같은 순위에 넣지 않는다.",
+    "결측값을 0으로 대체하지 않는다.",
+    "proxy를 재무 metric으로 승격하지 않는다."
+  ],
+  "unresolved_conflicts": [],
+  "resume_digest": "Prepared C-04-peer-screener-ranking from current decision hashes and one global file-ownership graph."
+}

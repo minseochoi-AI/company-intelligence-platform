@@ -1,0 +1,14 @@
+{
+  "scenario_id": "C-04-peer-screener-ranking:C-04-r2-screener-tests",
+  "cohort_id": "C-04-peer-screener-ranking",
+  "criterion_id": "C-04-r2-screener-tests",
+  "plan_sha256": "17b155456c4036b58bbda3f6a4d92a49d25b69f8dc9790ba09ec8db6222d5604",
+  "command": "uv run --frozen pytest tests/test_screening.py -q",
+  "outcome": "pass",
+  "returncode": 0,
+  "first_failure": null,
+  "raw_log_path": ".runtime/campaign-orchestrator/company-intelligence-cross-region-career-preparation/r2-preflight/C-04-peer-screener-ranking__C-04-r2-screener-tests.log",
+  "raw_log_sha256": "6a7cf544bba614fb52c521214fd54fca49b3df35b7613f26c6a1360ac4242e9c",
+  "tail": "tests/test_screening.py::test_peer_boundaries_and_coverage\ntests/test_screening.py::test_incompatible_units_and_proxy_metrics_are_not_ranked\n\n2 tests collected in 0.52s\n",
+  "completed_at": "2026-09-11T13:46:23.088448+00:00"
+}

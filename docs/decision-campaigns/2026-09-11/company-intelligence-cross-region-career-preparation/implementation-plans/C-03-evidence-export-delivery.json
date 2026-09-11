@@ -1,0 +1,416 @@
+{
+  "contract_version": "1.2.0",
+  "plan_id": "company-intelligence-cross-region-career-preparation--C-03-evidence-export-delivery--r1",
+  "owner": {
+    "kind": "campaign-cohort",
+    "id": "C-03-evidence-export-delivery"
+  },
+  "source_refs": [
+    {
+      "id": "D-05-spreadsheet-output-contract",
+      "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/05-d-05-spreadsheet-output-contract.json",
+      "sha256": "sha256:a124f06f0256ef1386a9e65a81901449202e22fb3fd49fbd1c4c704db555ca05"
+    }
+  ],
+  "status": "contract-ready",
+  "change_slices": [
+    {
+      "slice_id": "evidence-first-spreadsheet-delivery",
+      "behavior": "동일 snapshot의 기업·capability·공고·요건·원천·제외를 관계형 CSV bundle과 선택적 XLSX로 안전하고 결정론적으로 반환한다.",
+      "dependencies": [],
+      "operations": [
+        {
+          "change_id": "file-change-82feda91e73b",
+          "operation": "CREATE",
+          "path": "src/company_intel/exporting.py",
+          "symbols": [
+            "ExportBundle",
+            "render_csv_bundle",
+            "render_xlsx_workbook",
+            "build_export_manifest"
+          ],
+          "current_state": "파일이 없고 기업·자격요건 spreadsheet renderer가 없다.",
+          "source_hash": null,
+          "result_hash": null,
+          "expected_result": "versioned headers와 안정적 row key/order를 가진 CSV bundle을 기준 계약으로 만들고 동일 데이터를 XLSX sheet로 렌더링한다.",
+          "after_state": "versioned headers와 안정적 row key/order를 가진 CSV bundle을 기준 계약으로 만들고 동일 데이터를 XLSX sheet로 렌더링한다.",
+          "rationale": "사용자가 검증 근거와 함께 바로 분석 가능한 스프레드시트를 받게 한다.",
+          "dependencies": [],
+          "public_contract_impacts": [
+            "CSV bundle v1",
+            "XLSX workbook v1",
+            "export manifest v1"
+          ],
+          "compatibility": "CSV가 canonical이며 XLSX는 동일 row set의 표현 계층이다.",
+          "migration": "초기 header version 1을 고정하고 이후 변경은 version 상승으로 처리한다.",
+          "rollback": "XLSX renderer를 비활성화해도 CSV bundle 계약은 유지한다.",
+          "authorization_boundary": "로컬 파일 생성만 구현하며 외부 업로드·공유는 별도 승인 없이는 수행하지 않는다.",
+          "consumer_search": null,
+          "contributes_to": [
+            "D-05-spreadsheet-output-contract"
+          ],
+          "contribution_refs": [
+            {
+              "decision_id": "D-05-spreadsheet-output-contract",
+              "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/05-d-05-spreadsheet-output-contract.json",
+              "sha256": "sha256:a124f06f0256ef1386a9e65a81901449202e22fb3fd49fbd1c4c704db555ca05",
+              "symbols": [
+                "ExportBundle",
+                "render_csv_bundle",
+                "render_xlsx_workbook",
+                "build_export_manifest"
+              ],
+              "intent_change_ids": [
+                "D-05-spreadsheet-output-contract-exporting"
+              ]
+            }
+          ],
+          "intent_change_ids": [
+            "D-05-spreadsheet-output-contract-exporting"
+          ],
+          "symbol_changes": [
+            {
+              "symbol": "ExportBundle",
+              "intent": "versioned headers와 안정적 row key/order를 가진 CSV bundle을 기준 계약으로 만들고 동일 데이터를 XLSX sheet로 렌더링한다.",
+              "decision_id": "D-05-spreadsheet-output-contract"
+            },
+            {
+              "symbol": "render_csv_bundle",
+              "intent": "versioned headers와 안정적 row key/order를 가진 CSV bundle을 기준 계약으로 만들고 동일 데이터를 XLSX sheet로 렌더링한다.",
+              "decision_id": "D-05-spreadsheet-output-contract"
+            },
+            {
+              "symbol": "render_xlsx_workbook",
+              "intent": "versioned headers와 안정적 row key/order를 가진 CSV bundle을 기준 계약으로 만들고 동일 데이터를 XLSX sheet로 렌더링한다.",
+              "decision_id": "D-05-spreadsheet-output-contract"
+            },
+            {
+              "symbol": "build_export_manifest",
+              "intent": "versioned headers와 안정적 row key/order를 가진 CSV bundle을 기준 계약으로 만들고 동일 데이터를 XLSX sheet로 렌더링한다.",
+              "decision_id": "D-05-spreadsheet-output-contract"
+            }
+          ]
+        },
+        {
+          "change_id": "file-change-c46a3c2c1704",
+          "operation": "MODIFY",
+          "path": "src/company_intel/reporting.py",
+          "symbols": [
+            "render_export_summary",
+            "render_provider_limitations",
+            "render_korean_guidance"
+          ],
+          "current_state": "provider validation Markdown만 생성하며 export run과 제한을 사용자에게 설명하지 않는다.",
+          "source_hash": "sha256:8fa8e14a4fc9ec2c0f9542e3de94922b8c97423f60bc5c706d8f2e3ce5fdfac2",
+          "result_hash": null,
+          "expected_result": "export manifest, source freshness, unavailable/exclusion 통계, 한국어 사용 안내를 생성한다.",
+          "after_state": "export manifest, source freshness, unavailable/exclusion 통계, 한국어 사용 안내를 생성한다.",
+          "rationale": "빈 셀을 정보 부재로 오해하지 않도록 한다.",
+          "dependencies": [],
+          "public_contract_impacts": [
+            "Korean export summary"
+          ],
+          "compatibility": "기존 validation report 함수는 유지한다.",
+          "migration": "export 전용 report 함수를 추가한다.",
+          "rollback": "신규 함수 호출을 제거한다.",
+          "authorization_boundary": "근거 링크만 제공하며 제한 원문을 복제하지 않는다.",
+          "consumer_search": null,
+          "contributes_to": [
+            "D-05-spreadsheet-output-contract"
+          ],
+          "contribution_refs": [
+            {
+              "decision_id": "D-05-spreadsheet-output-contract",
+              "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/05-d-05-spreadsheet-output-contract.json",
+              "sha256": "sha256:a124f06f0256ef1386a9e65a81901449202e22fb3fd49fbd1c4c704db555ca05",
+              "symbols": [
+                "render_export_summary",
+                "render_provider_limitations",
+                "render_korean_guidance"
+              ],
+              "intent_change_ids": [
+                "D-05-spreadsheet-output-contract-reporting"
+              ]
+            }
+          ],
+          "intent_change_ids": [
+            "D-05-spreadsheet-output-contract-reporting"
+          ],
+          "symbol_changes": [
+            {
+              "symbol": "render_export_summary",
+              "intent": "export manifest, source freshness, unavailable/exclusion 통계, 한국어 사용 안내를 생성한다.",
+              "decision_id": "D-05-spreadsheet-output-contract"
+            },
+            {
+              "symbol": "render_provider_limitations",
+              "intent": "export manifest, source freshness, unavailable/exclusion 통계, 한국어 사용 안내를 생성한다.",
+              "decision_id": "D-05-spreadsheet-output-contract"
+            },
+            {
+              "symbol": "render_korean_guidance",
+              "intent": "export manifest, source freshness, unavailable/exclusion 통계, 한국어 사용 안내를 생성한다.",
+              "decision_id": "D-05-spreadsheet-output-contract"
+            }
+          ]
+        },
+        {
+          "change_id": "file-change-36b865e1eb42",
+          "operation": "MODIFY",
+          "path": "src/company_intel/security.py",
+          "symbols": [
+            "sanitize_export_value",
+            "ExportFieldPolicy",
+            "validate_output_directory"
+          ],
+          "current_state": "secret masking은 있으나 spreadsheet formula injection, 개인정보, 재배포 제한 원문 정책이 없다.",
+          "source_hash": "sha256:05961908ffc8906b1732303119c33ad5ee5c305884126e6d7eeb6375514ab399",
+          "result_hash": null,
+          "expected_result": "secret/PII/restricted text 제거, CSV formula injection 방지, output path 경계 검증을 제공한다.",
+          "after_state": "secret/PII/restricted text 제거, CSV formula injection 방지, output path 경계 검증을 제공한다.",
+          "rationale": "사용자 파일에서 비밀 유출과 수식 실행 위험을 막는다.",
+          "dependencies": [],
+          "public_contract_impacts": [
+            "export sanitization policy"
+          ],
+          "compatibility": "기존 mask 함수는 내부 primitive로 재사용한다.",
+          "migration": "모든 export cell과 경로가 새 sanitizer를 통과하게 한다.",
+          "rollback": "export 자체를 비활성화하고 기존 report masking만 유지한다.",
+          "authorization_boundary": "raw credential, 개인 연락처, 제한 전문을 export하지 않는다.",
+          "consumer_search": null,
+          "contributes_to": [
+            "D-05-spreadsheet-output-contract"
+          ],
+          "contribution_refs": [
+            {
+              "decision_id": "D-05-spreadsheet-output-contract",
+              "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/05-d-05-spreadsheet-output-contract.json",
+              "sha256": "sha256:a124f06f0256ef1386a9e65a81901449202e22fb3fd49fbd1c4c704db555ca05",
+              "symbols": [
+                "sanitize_export_value",
+                "ExportFieldPolicy",
+                "validate_output_directory"
+              ],
+              "intent_change_ids": [
+                "D-05-spreadsheet-output-contract-security"
+              ]
+            }
+          ],
+          "intent_change_ids": [
+            "D-05-spreadsheet-output-contract-security"
+          ],
+          "symbol_changes": [
+            {
+              "symbol": "sanitize_export_value",
+              "intent": "secret/PII/restricted text 제거, CSV formula injection 방지, output path 경계 검증을 제공한다.",
+              "decision_id": "D-05-spreadsheet-output-contract"
+            },
+            {
+              "symbol": "ExportFieldPolicy",
+              "intent": "secret/PII/restricted text 제거, CSV formula injection 방지, output path 경계 검증을 제공한다.",
+              "decision_id": "D-05-spreadsheet-output-contract"
+            },
+            {
+              "symbol": "validate_output_directory",
+              "intent": "secret/PII/restricted text 제거, CSV formula injection 방지, output path 경계 검증을 제공한다.",
+              "decision_id": "D-05-spreadsheet-output-contract"
+            }
+          ]
+        },
+        {
+          "change_id": "file-change-50c86b7ed8ac",
+          "operation": "MODIFY",
+          "path": "pyproject.toml",
+          "symbols": [
+            "project.dependencies",
+            "openpyxl"
+          ],
+          "current_state": "XLSX renderer 의존성이 명시되지 않았다.",
+          "source_hash": "sha256:6f163cb3fc098b808c134abfbd27438ab9270475511d11a4ec0c13c31b863400",
+          "result_hash": null,
+          "expected_result": "검토된 openpyxl 3.1 호환 범위를 XLSX extra 또는 직접 의존성으로 명시하고 lockfile 갱신을 구현 단계에 수행한다.",
+          "after_state": "검토된 openpyxl 3.1 호환 범위를 XLSX extra 또는 직접 의존성으로 명시하고 lockfile 갱신을 구현 단계에 수행한다.",
+          "rationale": "수작업 OOXML 생성 없이 안정적인 workbook 출력을 제공한다.",
+          "dependencies": [],
+          "public_contract_impacts": [
+            "optional XLSX dependency"
+          ],
+          "compatibility": "CSV-only 설치 경로를 유지하도록 optional extra를 우선한다.",
+          "migration": "구현 시 uv lock 갱신과 dependency audit를 수행한다.",
+          "rollback": "XLSX extra와 renderer를 제거하면 CSV는 유지된다.",
+          "authorization_boundary": "dependency 다운로드/lock 갱신은 IMPLEMENT 권한에서 수행한다.",
+          "consumer_search": null,
+          "contributes_to": [
+            "D-05-spreadsheet-output-contract"
+          ],
+          "contribution_refs": [
+            {
+              "decision_id": "D-05-spreadsheet-output-contract",
+              "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/05-d-05-spreadsheet-output-contract.json",
+              "sha256": "sha256:a124f06f0256ef1386a9e65a81901449202e22fb3fd49fbd1c4c704db555ca05",
+              "symbols": [
+                "project.dependencies",
+                "openpyxl"
+              ],
+              "intent_change_ids": [
+                "D-05-spreadsheet-output-contract-dependency"
+              ]
+            }
+          ],
+          "intent_change_ids": [
+            "D-05-spreadsheet-output-contract-dependency"
+          ],
+          "symbol_changes": [
+            {
+              "symbol": "project.dependencies",
+              "intent": "검토된 openpyxl 3.1 호환 범위를 XLSX extra 또는 직접 의존성으로 명시하고 lockfile 갱신을 구현 단계에 수행한다.",
+              "decision_id": "D-05-spreadsheet-output-contract"
+            },
+            {
+              "symbol": "openpyxl",
+              "intent": "검토된 openpyxl 3.1 호환 범위를 XLSX extra 또는 직접 의존성으로 명시하고 lockfile 갱신을 구현 단계에 수행한다.",
+              "decision_id": "D-05-spreadsheet-output-contract"
+            }
+          ]
+        },
+        {
+          "change_id": "file-change-c1f9750959a4",
+          "operation": "CREATE",
+          "path": "tests/test_exporting.py",
+          "symbols": [
+            "test_csv_contract",
+            "test_xlsx_parity",
+            "test_export_redaction",
+            "test_deterministic_bundle",
+            "test_empty_limited_output"
+          ],
+          "current_state": "스프레드시트 headers, 관계키, 근거, redaction, 결정론 테스트가 없다.",
+          "source_hash": null,
+          "result_hash": null,
+          "expected_result": "CSV/XLSX parity, 정렬, hyperlinks, mandatory evidence/exclusion, formula/secret redaction, empty/limited output을 검증한다.",
+          "after_state": "CSV/XLSX parity, 정렬, hyperlinks, mandatory evidence/exclusion, formula/secret redaction, empty/limited output을 검증한다.",
+          "rationale": "보기 좋은 파일보다 신뢰 가능한 데이터 계약을 우선한다.",
+          "dependencies": [],
+          "public_contract_impacts": [
+            "export acceptance tests"
+          ],
+          "compatibility": "고정 fixture와 임시 디렉터리만 사용한다.",
+          "migration": "없음; 신규 테스트다.",
+          "rollback": "export 기능과 함께 제거한다.",
+          "authorization_boundary": "실제 개인 데이터나 provider 호출을 사용하지 않는다.",
+          "consumer_search": null,
+          "contributes_to": [
+            "D-05-spreadsheet-output-contract"
+          ],
+          "contribution_refs": [
+            {
+              "decision_id": "D-05-spreadsheet-output-contract",
+              "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/05-d-05-spreadsheet-output-contract.json",
+              "sha256": "sha256:a124f06f0256ef1386a9e65a81901449202e22fb3fd49fbd1c4c704db555ca05",
+              "symbols": [
+                "test_csv_contract",
+                "test_xlsx_parity",
+                "test_export_redaction",
+                "test_deterministic_bundle",
+                "test_empty_limited_output"
+              ],
+              "intent_change_ids": [
+                "D-05-spreadsheet-output-contract-test"
+              ]
+            }
+          ],
+          "intent_change_ids": [
+            "D-05-spreadsheet-output-contract-test"
+          ],
+          "symbol_changes": [
+            {
+              "symbol": "test_csv_contract",
+              "intent": "CSV/XLSX parity, 정렬, hyperlinks, mandatory evidence/exclusion, formula/secret redaction, empty/limited output을 검증한다.",
+              "decision_id": "D-05-spreadsheet-output-contract"
+            },
+            {
+              "symbol": "test_xlsx_parity",
+              "intent": "CSV/XLSX parity, 정렬, hyperlinks, mandatory evidence/exclusion, formula/secret redaction, empty/limited output을 검증한다.",
+              "decision_id": "D-05-spreadsheet-output-contract"
+            },
+            {
+              "symbol": "test_export_redaction",
+              "intent": "CSV/XLSX parity, 정렬, hyperlinks, mandatory evidence/exclusion, formula/secret redaction, empty/limited output을 검증한다.",
+              "decision_id": "D-05-spreadsheet-output-contract"
+            },
+            {
+              "symbol": "test_deterministic_bundle",
+              "intent": "CSV/XLSX parity, 정렬, hyperlinks, mandatory evidence/exclusion, formula/secret redaction, empty/limited output을 검증한다.",
+              "decision_id": "D-05-spreadsheet-output-contract"
+            },
+            {
+              "symbol": "test_empty_limited_output",
+              "intent": "CSV/XLSX parity, 정렬, hyperlinks, mandatory evidence/exclusion, formula/secret redaction, empty/limited output을 검증한다.",
+              "decision_id": "D-05-spreadsheet-output-contract"
+            }
+          ]
+        }
+      ],
+      "routes": [
+        {
+          "route_id": "c03-tdd",
+          "skill": "tdd",
+          "requirement": "required",
+          "phase": "IMPLEMENT",
+          "purpose": "CSV 기준 계약과 XLSX parity/redaction을 테스트 우선 구현",
+          "expected_artifact": "C-03 구현/테스트 변경"
+        },
+        {
+          "route_id": "c03-verify",
+          "skill": "verification-before-completion",
+          "requirement": "required",
+          "phase": "VALIDATE",
+          "purpose": "계획 해시와 독립 export 테스트 확인",
+          "expected_artifact": "C-03 validation receipt"
+        }
+      ],
+      "completion_contract": [
+        {
+          "criterion_id": "C-03-export-tests",
+          "behavior": "CSV bundle과 XLSX가 동일 관계 데이터·근거·제외를 안전하고 결정론적으로 반환한다.",
+          "blocking": true,
+          "owner_skill": "verification-before-completion",
+          "phase": "VALIDATE",
+          "depends_on_criteria": [],
+          "test": {
+            "type": "pytest",
+            "value": "uv run --frozen pytest tests/test_exporting.py -q",
+            "runner": "pytest",
+            "paths": [
+              "tests/test_exporting.py"
+            ],
+            "provider_backed": false,
+            "timeout_seconds": 300
+          },
+          "expected_result": "all tests pass",
+          "failure_marker": "header drift, relation mismatch, secret/formula leakage, missing evidence, or nondeterministic hash",
+          "receipt": {
+            "status": "planned",
+            "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/receipts/criteria/C-03-export-tests.json",
+            "sha256": "planned"
+          },
+          "status": "planned"
+        }
+      ]
+    }
+  ],
+  "metadata": {
+    "compiled_from_decision_intents": true,
+    "five_w_one_h": {
+      "who": "export/reporting/security 구현자",
+      "what": "근거 우선 CSV/XLSX 결과 반환",
+      "where": "exporting, reporting, security, dependency, tests",
+      "when": "C-01과 C-02 결과 계약 후",
+      "why": "기업·자격증·준비사항을 추적 가능한 spreadsheet로 반환",
+      "how": "canonical CSV, XLSX parity, manifest, redaction, deterministic tests"
+    },
+    "planned_commit_message": "feat(export): add evidence-first career spreadsheet bundle",
+    "git_finalization_authorized": false,
+    "preparation_contract": "campaign-global-ownership-v1"
+  }
+}

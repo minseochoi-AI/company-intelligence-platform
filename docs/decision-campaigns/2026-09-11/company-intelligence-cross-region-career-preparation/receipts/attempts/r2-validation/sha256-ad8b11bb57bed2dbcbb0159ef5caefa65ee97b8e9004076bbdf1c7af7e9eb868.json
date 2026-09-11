@@ -1,0 +1,14 @@
+{
+  "scenario_id": "C-02-search-requirement-evidence:C-02-r2-search-requirement-tests",
+  "cohort_id": "C-02-search-requirement-evidence",
+  "criterion_id": "C-02-r2-search-requirement-tests",
+  "plan_sha256": "28f79faffd19ae0953653beee61718ac75a51eebeee8a65917b1abb9bc37b50f",
+  "command": "uv run --frozen pytest tests/test_search_profile.py tests/test_career_requirements.py -q",
+  "outcome": "pass",
+  "returncode": 0,
+  "first_failure": null,
+  "raw_log_path": ".runtime/campaign-orchestrator/company-intelligence-cross-region-career-preparation/r2-preflight/C-02-search-requirement-evidence__C-02-r2-search-requirement-tests.log",
+  "raw_log_sha256": "a3b5c1c45c492432e9c57682e3f178d075655a8398416af9bd3b2f828a5ead6e",
+  "tail": "tests/test_search_profile.py::test_profile_requires_explicit_country_and_goal\ntests/test_search_profile.py::test_ranking_preserves_unresolved_identity_as_an_exclusion\ntests/test_search_profile.py::test_five_state_filter_combination_preserves_unknown\ntests/test_career_requirements.py::test_required_and_preferred_requirements_remain_distinct\ntests/test_career_requirements.py::test_missing_detail_is_unavailable_not_an_invented_certificate\ntests/test_career_requirements.py::test_license_and_certificate_do_not_share_a_deduplication_key\n\n6 tests collected in 0.02s\n",
+  "completed_at": "2026-09-11T13:46:22.012316+00:00"
+}

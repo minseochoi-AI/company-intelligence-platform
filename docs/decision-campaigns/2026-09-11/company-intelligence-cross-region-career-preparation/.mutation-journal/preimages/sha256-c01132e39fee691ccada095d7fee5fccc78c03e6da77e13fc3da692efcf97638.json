@@ -1,0 +1,74 @@
+{
+  "schema_version": "1.6.0",
+  "campaign_id": "company-intelligence-cross-region-career-preparation",
+  "objective": "미국·한국·EU/체코의 무료 또는 공개 접근 가능 데이터만 근거로 기업별 재무·고용·채용·시장·거시 가용성을 분류하고, 사용자 목적 기반 기업 검색과 자격증·준비사항 검증 스프레드시트 구현을 위한 승인 가능한 설계를 고정한다.",
+  "repository_root": "/home/ubuntu/root/company-intelligence-platform",
+  "created_date": "2026-09-11",
+  "status": "decision-required",
+  "decision_order": [
+    "D-01-source-access-policy",
+    "D-02-company-capability-taxonomy",
+    "D-03-search-profile-and-discovery",
+    "D-04-career-requirement-verification",
+    "D-05-spreadsheet-output-contract"
+  ],
+  "dependencies": [
+    {
+      "before": "D-01-source-access-policy",
+      "after": "D-02-company-capability-taxonomy"
+    },
+    {
+      "before": "D-01-source-access-policy",
+      "after": "D-03-search-profile-and-discovery"
+    },
+    {
+      "before": "D-01-source-access-policy",
+      "after": "D-04-career-requirement-verification"
+    },
+    {
+      "before": "D-02-company-capability-taxonomy",
+      "after": "D-04-career-requirement-verification"
+    },
+    {
+      "before": "D-03-search-profile-and-discovery",
+      "after": "D-04-career-requirement-verification"
+    },
+    {
+      "before": "D-02-company-capability-taxonomy",
+      "after": "D-05-spreadsheet-output-contract"
+    },
+    {
+      "before": "D-04-career-requirement-verification",
+      "after": "D-05-spreadsheet-output-contract"
+    }
+  ],
+  "implementation_authorization": {
+    "authorized": false,
+    "authorized_by": null,
+    "authorized_at": null,
+    "scope": [],
+    "authorized_plan_refs": []
+  },
+  "implementation_cohorts": [],
+  "context_index_path": "docs/implementation-context-index.json",
+  "component_inventory_path": null,
+  "component_inventory_sha256": null,
+  "workbook_path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decision-workbook.md",
+  "decision_files": {
+    "D-01-source-access-policy": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/01-d-01-source-access-policy.json",
+    "D-02-company-capability-taxonomy": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/02-d-02-company-capability-taxonomy.json",
+    "D-03-search-profile-and-discovery": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/03-d-03-search-profile-and-discovery.json",
+    "D-04-career-requirement-verification": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/04-d-04-career-requirement-verification.json",
+    "D-05-spreadsheet-output-contract": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/05-d-05-spreadsheet-output-contract.json"
+  },
+  "receipt_paths": {
+    "implementation": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/receipts/implementation.json",
+    "validation": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/receipts/validation.json",
+    "diagrams": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/receipts/diagrams.json"
+  },
+  "receipt_manifest_paths": {
+    "implementation": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/receipts/current-implementation.json",
+    "validation": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/receipts/current-validation.json",
+    "diagrams": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/receipts/current-diagrams.json"
+  }
+}

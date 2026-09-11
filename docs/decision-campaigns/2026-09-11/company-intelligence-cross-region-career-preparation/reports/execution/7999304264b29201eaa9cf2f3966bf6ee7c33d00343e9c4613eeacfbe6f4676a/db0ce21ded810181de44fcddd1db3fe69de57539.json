@@ -1,0 +1,1591 @@
+{
+  "campaign_id": "company-intelligence-cross-region-career-preparation",
+  "change_rows": [],
+  "contract_version": "campaign-execution-turnover-v2",
+  "counts": {
+    "changed_paths_by_kind": {
+      "documentation": 0,
+      "implementation": 0,
+      "other": 0,
+      "test": 0
+    },
+    "changed_paths_total": 0,
+    "cohorts_total": 3,
+    "component_contract_count": 5,
+    "component_contract_gap_count": 0,
+    "decision_branch_count": 0,
+    "decisions_total": 5,
+    "effect_contract_count": 5,
+    "graph_bound_symbol_count": 0,
+    "graph_operations_total": 25,
+    "kotlin_static_regex_declarations": {
+      "added": 0,
+      "modified": 0,
+      "removed": 0
+    },
+    "python_ast_components": {
+      "added": 0,
+      "modified": 0,
+      "removed": 0
+    },
+    "semantic_target_count": 0,
+    "unowned_changed_path_count": 0
+  },
+  "decision_rows": [
+    {
+      "changed_paths": [],
+      "cohort_id": "C-01-source-identity-foundation",
+      "decision_id": "D-01-source-access-policy",
+      "dependencies": [],
+      "effects": [
+        {
+          "after": "28개 operation ID를 catalog로 선언하고 credential, SEC User-Agent, HTTP-only 경계를 ready/waiting 상태로 분리한다.",
+          "before": "provider 목록과 probe 구현이 분리되어 있으며 원자 작업별 필드 의미·활성화 상태를 단일 계약으로 검증하지 못했다.",
+          "cohort_ids": [
+            "C-01-source-identity-foundation"
+          ],
+          "decision_ids": [
+            "D-01-source-access-policy"
+          ],
+          "effect_id": "E-01-atomic-source-catalog",
+          "efficiency": {
+            "claim": "측정하지 않음",
+            "measurement": "not-measured",
+            "status": "not-measured"
+          },
+          "evidence": [
+            {
+              "kind": "implementation",
+              "note": "",
+              "path": "src/company_intel/source_catalog.py",
+              "symbols": [
+                "SourceCatalog",
+                "validate_atomic_contract",
+                "evaluate_activation"
+              ]
+            },
+            {
+              "kind": "test",
+              "note": "",
+              "path": "tests/test_source_catalog.py",
+              "symbols": [
+                "test_catalog_declares_every_registered_atomic_probe"
+              ]
+            }
+          ],
+          "next_branch": {
+            "condition": "C-01 catalog/classification tests pass",
+            "if_met": "C-02 profile/requirement tests를 실행",
+            "if_not_met": "실패한 source contract 또는 activation rule만 수정"
+          },
+          "paths": [
+            "config/providers.json",
+            "src/company_intel/source_catalog.py",
+            "src/company_intel/connectors/registry.py",
+            "src/company_intel/validation.py",
+            "tests/test_source_catalog.py"
+          ],
+          "preserved_boundaries": [
+            "secret 값은 catalog·receipt·export에 저장하지 않음",
+            "provider 호출은 이번 구현에서 수행하지 않음"
+          ],
+          "semantic_augmentation": "무료·공개 접근 가능 여부와 실제 기업/채용/거시 사용 가능 여부를 같은 의미로 오해하지 않는다.",
+          "technical_augmentation": "probe ID와 catalog ID의 일대일 검증 및 production 선택 gate를 추가했다.",
+          "title": "28개 원자 원천 계약과 실행 gate",
+          "verification": {
+            "receipt_path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/receipts/validation.json",
+            "result": "C-01 catalog 2개와 classification 3개 pytest가 현재 plan hash에서 통과했다.",
+            "status": "verified",
+            "test_scope": "suite"
+          }
+        }
+      ],
+      "graph_symbols": [],
+      "observation": "not-observed",
+      "semantic_targets": [
+        "config/providers.json — 28개 원자 작업별 access_mode·data_role·required_paths·field_semantics·quota·license·last_verified·activation_policy 계약 추가",
+        "src/company_intel/models.py — source policy, atomic field contract, provider health 모델 추가",
+        "src/company_intel/source_catalog.py (new) — catalog 로드·검증·실행 가능 상태·staleness 판정",
+        "src/company_intel/connectors/registry.py — catalog 승인 상태와 probe/production 용도에 따라 adapter 선택",
+        "src/company_intel/validation.py — 접근성·필드 계약·provider error를 분리한 상태와 redacted receipt 생성",
+        "tests/test_source_catalog.py (new) — 28개 작업 완전성, activation gate, HTTP-only 경계, 비밀 마스킹 검증"
+      ],
+      "status": "accepted",
+      "title": "무료·공개 API 접근 정책"
+    },
+    {
+      "changed_paths": [],
+      "cohort_id": "C-01-source-identity-foundation",
+      "decision_id": "D-02-company-capability-taxonomy",
+      "dependencies": [
+        "D-01-source-access-policy"
+      ],
+      "effects": [
+        {
+          "after": "CIK/DART/IČO/LEI 등 namespace를 보존하고 ambiguity를 unresolved로 유지하며, capability와 correlation/causal gate를 분리한다.",
+          "before": "기업 식별자, source capability, 필드 가용성, 상관 분석 제외 사유를 독립적으로 저장하거나 설명하지 못했다.",
+          "cohort_ids": [
+            "C-01-source-identity-foundation"
+          ],
+          "decision_ids": [
+            "D-02-company-capability-taxonomy"
+          ],
+          "effect_id": "E-02-identity-capability-gates",
+          "efficiency": {
+            "claim": "측정하지 않음",
+            "measurement": "not-measured",
+            "status": "not-measured"
+          },
+          "evidence": [
+            {
+              "kind": "implementation",
+              "note": "",
+              "path": "src/company_intel/classification.py",
+              "symbols": [
+                "classify_company",
+                "evaluate_analysis_eligibility"
+              ]
+            },
+            {
+              "kind": "test",
+              "note": "",
+              "path": "tests/test_classification.py",
+              "symbols": [
+                "test_ambiguous_identity_is_retained_not_silently_merged"
+              ]
+            }
+          ],
+          "next_branch": {
+            "condition": "C-01 classification tests pass",
+            "if_met": "저장 snapshot을 C-02 검색에 연결",
+            "if_not_met": "identity/capability fixture를 기준으로 수정"
+          },
+          "paths": [
+            "sql/duckdb_schema.sql",
+            "src/company_intel/models.py",
+            "src/company_intel/identity.py",
+            "src/company_intel/normalization.py",
+            "src/company_intel/classification.py",
+            "src/company_intel/warehouse.py",
+            "tests/test_classification.py"
+          ],
+          "preserved_boundaries": [
+            "이름 유사도만으로 법인을 병합하지 않음",
+            "기존 테이블을 삭제하지 않음"
+          ],
+          "semantic_augmentation": "재무 전용·공고 전용·고용 전용·근거 부족 기업을 추천 또는 인과 분석 대상으로 자동 승격하지 않는다.",
+          "technical_augmentation": "additive DuckDB tables와 typed identity/classification model을 추가했다.",
+          "title": "법인 identity·capability·분석 적격성 분리",
+          "verification": {
+            "receipt_path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/receipts/validation.json",
+            "result": "C-01 classification pytest 3개가 현재 plan hash에서 통과했다.",
+            "status": "verified",
+            "test_scope": "suite"
+          }
+        }
+      ],
+      "graph_symbols": [],
+      "observation": "not-observed",
+      "semantic_targets": [
+        "sql/duckdb_schema.sql — company_source_capability, identifier_mapping, field_availability, classification_history 및 evidence 연결을 additive하게 추가",
+        "src/company_intel/models.py — capability·classification·eligibility·provenance value object 정의",
+        "src/company_intel/identity.py (new) — CIK·DART·IČO·LEI·ISIN·ALIO·ATS 식별자 해소와 confidence 기록",
+        "src/company_intel/normalization.py (new) — 원자 필드 의미·단위·시간·중복 제거 키를 보존하는 mapper",
+        "src/company_intel/classification.py (new) — 기업 분류와 correlation·causal eligibility 규칙",
+        "src/company_intel/warehouse.py — 범용 entity·capability 적재와 예시 하드코딩 분리",
+        "src/company_intel/api.py — 분류·필드 가용성·제외 사유 조회 endpoint",
+        "tests/test_classification.py (new) — 재무 전용·공고 전용·공공기관 맥락·문서형·상관 불가 fixture 검증"
+      ],
+      "status": "accepted",
+      "title": "기업별 데이터 가용성·분석 적격성 분류"
+    },
+    {
+      "changed_paths": [],
+      "cohort_id": "C-02-search-requirement-evidence",
+      "decision_id": "D-03-search-profile-and-discovery",
+      "dependencies": [
+        "D-02-company-capability-taxonomy"
+      ],
+      "effects": [
+        {
+          "after": "SearchProfile의 국가·직무·capability 입력을 검증하고 stored evidence에서 identity/capability/exclusion 이유를 가진 후보를 결정론적으로 반환한다.",
+          "before": "고정 probe 표본을 실제 검색 후보와 분리하는 API/CLI 계약이 없었다.",
+          "cohort_ids": [
+            "C-02-search-requirement-evidence"
+          ],
+          "decision_ids": [
+            "D-03-search-profile-and-discovery"
+          ],
+          "effect_id": "E-03-profile-company-search",
+          "efficiency": {
+            "claim": "측정하지 않음",
+            "measurement": "not-measured",
+            "status": "not-measured"
+          },
+          "evidence": [
+            {
+              "kind": "implementation",
+              "note": "",
+              "path": "src/company_intel/search.py",
+              "symbols": [
+                "validate_search_profile",
+                "rank_candidates"
+              ]
+            },
+            {
+              "kind": "test",
+              "note": "",
+              "path": "tests/test_search_profile.py",
+              "symbols": [
+                "test_ranking_preserves_unresolved_identity_as_an_exclusion"
+              ]
+            }
+          ],
+          "next_branch": {
+            "condition": "C-02 search tests pass",
+            "if_met": "요건 evidence 결과와 후보를 조합",
+            "if_not_met": "profile validation 또는 ranking exclusion을 수정"
+          },
+          "paths": [
+            "src/company_intel/search.py",
+            "src/company_intel/connectors/registry.py",
+            "src/company_intel/connectors/keyed.py",
+            "src/company_intel/connectors/keyless.py",
+            "src/company_intel/api.py",
+            "src/company_intel/cli.py",
+            "tests/test_search_profile.py"
+          ],
+          "preserved_boundaries": [
+            "현재 검색은 저장 snapshot 기준",
+            "외부 기업 발견 호출은 이번 구현에서 수행하지 않음"
+          ],
+          "semantic_augmentation": "사용자가 입력하지 않은 경력·언어·취업 자격을 추정하지 않는다.",
+          "technical_augmentation": "`/v1/company-search` 및 `company-intel search`가 동일 domain profile을 사용한다.",
+          "title": "명시적 profile 기반 회사 검색",
+          "verification": {
+            "receipt_path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/receipts/validation.json",
+            "result": "C-02 search pytest 2개가 현재 plan hash에서 통과했다.",
+            "status": "verified",
+            "test_scope": "suite"
+          }
+        }
+      ],
+      "graph_symbols": [],
+      "observation": "not-observed",
+      "semantic_targets": [
+        "src/company_intel/models.py — SearchProfile, CountryAllocation, CandidateMatch, ExclusionReason 모델 추가",
+        "src/company_intel/search.py (new) — profile validation, source-aware company universe, capability filter, 설명 가능한 후보 순위",
+        "src/company_intel/identity.py (new) — 후보 entity와 source identifier 연결",
+        "src/company_intel/connectors/ — 검증용 sample probe와 허용된 company/job discovery adapter 분리",
+        "src/company_intel/cli.py — 검색 profile 입력·검증·실행 명령",
+        "src/company_intel/api.py — profile 기반 후보 조회, missing profile, provenance 응답",
+        "tests/test_search_profile.py (new) — 필수 프로필·국가별 부족분·익명 공고·제외 사유·결정론적 순위 검증"
+      ],
+      "status": "accepted",
+      "title": "사용자 목적 기반 기업 검색 프로필과 발견 절차"
+    },
+    {
+      "changed_paths": [],
+      "cohort_id": "C-02-search-requirement-evidence",
+      "decision_id": "D-04-career-requirement-verification",
+      "dependencies": [
+        "D-03-search-profile-and-discovery"
+      ],
+      "effects": [
+        {
+          "after": "required/preferred, source URL, evidence scope를 분리하고 상세 근거가 없으면 `requirement_unavailable`로 반환한다.",
+          "before": "공고 목록의 title과 institution metadata를 자격증 또는 준비사항으로 잘못 해석할 위험이 있었다.",
+          "cohort_ids": [
+            "C-02-search-requirement-evidence"
+          ],
+          "decision_ids": [
+            "D-04-career-requirement-verification"
+          ],
+          "effect_id": "E-04-requirement-evidence",
+          "efficiency": {
+            "claim": "측정하지 않음",
+            "measurement": "not-measured",
+            "status": "not-measured"
+          },
+          "evidence": [
+            {
+              "kind": "implementation",
+              "note": "",
+              "path": "src/company_intel/career_requirements.py",
+              "symbols": [
+                "normalize_requirement",
+                "verify_requirement"
+              ]
+            },
+            {
+              "kind": "test",
+              "note": "",
+              "path": "tests/test_career_requirements.py",
+              "symbols": [
+                "test_missing_detail_is_unavailable_not_an_invented_certificate"
+              ]
+            }
+          ],
+          "next_branch": {
+            "condition": "C-02 requirement tests pass",
+            "if_met": "공식 MPM detail/체코 source field 검증 권한을 별도로 검토",
+            "if_not_met": "evidence scope와 unavailable mapping을 수정"
+          },
+          "paths": [
+            "src/company_intel/career_requirements.py",
+            "src/company_intel/connectors/keyed.py",
+            "src/company_intel/connectors/keyless.py",
+            "src/company_intel/warehouse.py",
+            "src/company_intel/api.py",
+            "tests/test_career_requirements.py"
+          ],
+          "preserved_boundaries": [
+            "자격증을 추론하지 않음",
+            "새 체코 endpoint를 호출하지 않음"
+          ],
+          "semantic_augmentation": "한국 MPM 목록과 ALIO 기관 맥락은 상세 요건 증거가 아님을 코드 경계에서 보존한다.",
+          "technical_augmentation": "MPM/ATS detail helper는 입력으로 받은 명시적 detail만 처리하며 체코 공공 source는 공식 필드 검증 전 pending으로 둔다.",
+          "title": "자격요건 근거 수준과 unavailable 처리",
+          "verification": {
+            "receipt_path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/receipts/validation.json",
+            "result": "C-02 requirement pytest 2개가 현재 plan hash에서 통과했다.",
+            "status": "verified",
+            "test_scope": "suite"
+          }
+        }
+      ],
+      "graph_symbols": [],
+      "observation": "not-observed",
+      "semantic_targets": [
+        "sql/duckdb_schema.sql — job_requirement, credential_evidence, requirement_verification, source excerpt/provenance 테이블을 additive하게 추가",
+        "src/company_intel/models.py — RequirementStatus, EvidenceScope, VerificationStatus, RequirementAvailability 모델 추가",
+        "src/company_intel/career_requirements.py (new) — 공고·국가 baseline·crosswalk 정규화와 unresolved 처리",
+        "src/company_intel/connectors/ — MPM 상세·허용된 ATS 원문·체코 MPSV/NSP/NSK adapter를 source policy와 연결",
+        "src/company_intel/warehouse.py — 공고 snapshot과 requirement evidence 적재·증분 갱신",
+        "src/company_intel/api.py — 기업·공고별 검증된 준비사항과 제한 사유 조회",
+        "tests/test_career_requirements.py (new) — required/preferred·상세 필드 부재·국가 기준·원천 제한·stale 공고 검증"
+      ],
+      "status": "accepted",
+      "title": "채용 자격증·준비사항 원문 검증 계약"
+    },
+    {
+      "changed_paths": [],
+      "cohort_id": "C-03-evidence-export-delivery",
+      "decision_id": "D-05-spreadsheet-output-contract",
+      "dependencies": [
+        "D-04-career-requirement-verification"
+      ],
+      "effects": [
+        {
+          "after": "CSV를 canonical bundle로 만들고 optional XLSX, manifest SHA, formula/secret/PII sanitizer, API/CLI export entry point를 추가한다.",
+          "before": "provider validation Markdown 외에 기업·공고·요건·출처·제외를 관계형 spreadsheet로 전달하는 계약이 없었다.",
+          "cohort_ids": [
+            "C-03-evidence-export-delivery"
+          ],
+          "decision_ids": [
+            "D-05-spreadsheet-output-contract"
+          ],
+          "effect_id": "E-05-evidence-spreadsheet-bundle",
+          "efficiency": {
+            "claim": "측정하지 않음",
+            "measurement": "not-measured",
+            "status": "not-measured"
+          },
+          "evidence": [
+            {
+              "kind": "implementation",
+              "note": "",
+              "path": "src/company_intel/exporting.py",
+              "symbols": [
+                "build_export_bundle",
+                "render_csv_bundle",
+                "render_xlsx_workbook"
+              ]
+            },
+            {
+              "kind": "test",
+              "note": "",
+              "path": "tests/test_exporting.py",
+              "symbols": [
+                "test_export_keeps_evidence_and_exclusion_rows_and_sanitizes_cells"
+              ]
+            }
+          ],
+          "next_branch": {
+            "condition": "C-03 export tests pass and XLSX extra is installed",
+            "if_met": "export API/CLI smoke test를 별도 승인 하에 수행",
+            "if_not_met": "CSV parity, sanitizer 또는 dependency 경계를 수정"
+          },
+          "paths": [
+            "src/company_intel/exporting.py",
+            "src/company_intel/reporting.py",
+            "src/company_intel/security.py",
+            "src/company_intel/api.py",
+            "src/company_intel/cli.py",
+            "pyproject.toml",
+            "tests/test_exporting.py"
+          ],
+          "preserved_boundaries": [
+            "외부 업로드·공유를 구현하지 않음",
+            "workspace 밖 export output은 CLI/API 경계에서 차단"
+          ],
+          "semantic_augmentation": "빈 요건은 확정 요건이 아니라 evidence/exclusion limitation과 함께 전달된다.",
+          "technical_augmentation": "XLSX는 optional `openpyxl` extra이며 설치되지 않은 경우 CSV contract를 유지한다.",
+          "title": "근거 우선 CSV/XLSX export bundle",
+          "verification": {
+            "receipt_path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/receipts/validation.json",
+            "result": "C-03 export pytest 1개가 현재 plan hash에서 통과했다.",
+            "status": "verified",
+            "test_scope": "suite"
+          }
+        }
+      ],
+      "graph_symbols": [],
+      "observation": "not-observed",
+      "semantic_targets": [
+        "src/company_intel/exporting.py (new) — versioned CSV bundle과 optional XLSX workbook renderer",
+        "src/company_intel/reporting.py — export run manifest, provider status, 한국어 사용자 안내 연결",
+        "src/company_intel/warehouse.py — export query와 foreign key·provenance materialization",
+        "src/company_intel/security.py — 비밀·개인정보·재배포 제한 원문 export sanitizer",
+        "src/company_intel/cli.py — profile 결과 export 명령과 output path 안전 검사",
+        "src/company_intel/api.py — export job 생성·상태·download metadata endpoint",
+        "pyproject.toml — 선택된 XLSX renderer 의존성 및 보안 검토",
+        "tests/test_exporting.py (new) — headers, ordering, links, mandatory evidence, redaction, empty/limited output 검증"
+      ],
+      "status": "accepted",
+      "title": "스프레드시트 반환 계약과 운영 경계"
+    }
+  ],
+  "dependency_rows": [],
+  "effect_contracts": {
+    "component_contracts": [
+      {
+        "after": "28개 원자 source policy와 activation 상태를 단일 catalog에서 읽음",
+        "before": "원천 정책이 분산됨",
+        "boundary": "secret 값 및 live call은 catalog에 없음",
+        "compatibility": "기존 Probe ID 유지",
+        "component_id": "source-policy-catalog",
+        "decision_ids": [
+          "D-01-source-access-policy"
+        ],
+        "effect_ids": [
+          "E-01-atomic-source-catalog"
+        ],
+        "evidence": [
+          {
+            "kind": "test",
+            "note": "",
+            "path": "tests/test_source_catalog.py",
+            "symbols": [
+              "test_catalog_declares_every_registered_atomic_probe"
+            ]
+          }
+        ],
+        "next_branch": "catalog test 실행",
+        "paths": [
+          "src/company_intel/source_catalog.py",
+          "config/providers.json"
+        ],
+        "verification_status": "verified"
+      },
+      {
+        "after": "ambiguity와 capability/analysis gate를 별도 persistence/model로 보존",
+        "before": "법인 match와 분석 적격성이 분리되지 않음",
+        "boundary": "강제 이름 병합과 인과 주장 금지",
+        "compatibility": "기존 schema additive",
+        "component_id": "identity-capability-store",
+        "decision_ids": [
+          "D-02-company-capability-taxonomy"
+        ],
+        "effect_ids": [
+          "E-02-identity-capability-gates"
+        ],
+        "evidence": [
+          {
+            "kind": "test",
+            "note": "",
+            "path": "tests/test_classification.py",
+            "symbols": [
+              "test_analysis_needs_identity_period_unit_and_availability"
+            ]
+          }
+        ],
+        "next_branch": "classification test 실행",
+        "paths": [
+          "src/company_intel/identity.py",
+          "src/company_intel/classification.py",
+          "src/company_intel/warehouse.py",
+          "sql/duckdb_schema.sql"
+        ],
+        "verification_status": "verified"
+      },
+      {
+        "after": "동일 profile domain model로 API/CLI 후보를 반환",
+        "before": "profile 기반 후보 검색 없음",
+        "boundary": "snapshot-only, implicit attribute inference 금지",
+        "compatibility": "기존 분석 endpoint 유지",
+        "component_id": "profile-search-service",
+        "decision_ids": [
+          "D-03-search-profile-and-discovery"
+        ],
+        "effect_ids": [
+          "E-03-profile-company-search"
+        ],
+        "evidence": [
+          {
+            "kind": "test",
+            "note": "",
+            "path": "tests/test_search_profile.py",
+            "symbols": [
+              "test_profile_requires_explicit_country_and_goal"
+            ]
+          }
+        ],
+        "next_branch": "search test 실행",
+        "paths": [
+          "src/company_intel/search.py",
+          "src/company_intel/api.py",
+          "src/company_intel/cli.py"
+        ],
+        "verification_status": "verified"
+      },
+      {
+        "after": "evidence scope와 unavailable status를 가진 요건만 반환",
+        "before": "공고 detail과 requirement claim의 분리가 없음",
+        "boundary": "목록 metadata로 자격증 추론 금지",
+        "compatibility": "기존 connector probe 유지",
+        "component_id": "requirement-evidence-service",
+        "decision_ids": [
+          "D-04-career-requirement-verification"
+        ],
+        "effect_ids": [
+          "E-04-requirement-evidence"
+        ],
+        "evidence": [
+          {
+            "kind": "test",
+            "note": "",
+            "path": "tests/test_career_requirements.py",
+            "symbols": [
+              "test_required_and_preferred_requirements_remain_distinct"
+            ]
+          }
+        ],
+        "next_branch": "requirement test 실행",
+        "paths": [
+          "src/company_intel/career_requirements.py",
+          "src/company_intel/connectors/keyed.py",
+          "src/company_intel/connectors/keyless.py"
+        ],
+        "verification_status": "verified"
+      },
+      {
+        "after": "canonical CSV와 optional XLSX/manifest/sanitizer를 제공",
+        "before": "spreadsheet export contract 없음",
+        "boundary": "no external publishing and no sensitive cells",
+        "compatibility": "기존 validation Markdown 유지",
+        "component_id": "evidence-export-bundle",
+        "decision_ids": [
+          "D-05-spreadsheet-output-contract"
+        ],
+        "effect_ids": [
+          "E-05-evidence-spreadsheet-bundle"
+        ],
+        "evidence": [
+          {
+            "kind": "test",
+            "note": "",
+            "path": "tests/test_exporting.py",
+            "symbols": [
+              "test_export_keeps_evidence_and_exclusion_rows_and_sanitizes_cells"
+            ]
+          }
+        ],
+        "next_branch": "export test 실행",
+        "paths": [
+          "src/company_intel/exporting.py",
+          "src/company_intel/security.py",
+          "src/company_intel/reporting.py"
+        ],
+        "verification_status": "verified"
+      }
+    ],
+    "effects": [
+      {
+        "after": "28개 operation ID를 catalog로 선언하고 credential, SEC User-Agent, HTTP-only 경계를 ready/waiting 상태로 분리한다.",
+        "before": "provider 목록과 probe 구현이 분리되어 있으며 원자 작업별 필드 의미·활성화 상태를 단일 계약으로 검증하지 못했다.",
+        "cohort_ids": [
+          "C-01-source-identity-foundation"
+        ],
+        "decision_ids": [
+          "D-01-source-access-policy"
+        ],
+        "effect_id": "E-01-atomic-source-catalog",
+        "efficiency": {
+          "claim": "측정하지 않음",
+          "measurement": "not-measured",
+          "status": "not-measured"
+        },
+        "evidence": [
+          {
+            "kind": "implementation",
+            "note": "",
+            "path": "src/company_intel/source_catalog.py",
+            "symbols": [
+              "SourceCatalog",
+              "validate_atomic_contract",
+              "evaluate_activation"
+            ]
+          },
+          {
+            "kind": "test",
+            "note": "",
+            "path": "tests/test_source_catalog.py",
+            "symbols": [
+              "test_catalog_declares_every_registered_atomic_probe"
+            ]
+          }
+        ],
+        "next_branch": {
+          "condition": "C-01 catalog/classification tests pass",
+          "if_met": "C-02 profile/requirement tests를 실행",
+          "if_not_met": "실패한 source contract 또는 activation rule만 수정"
+        },
+        "paths": [
+          "config/providers.json",
+          "src/company_intel/source_catalog.py",
+          "src/company_intel/connectors/registry.py",
+          "src/company_intel/validation.py",
+          "tests/test_source_catalog.py"
+        ],
+        "preserved_boundaries": [
+          "secret 값은 catalog·receipt·export에 저장하지 않음",
+          "provider 호출은 이번 구현에서 수행하지 않음"
+        ],
+        "semantic_augmentation": "무료·공개 접근 가능 여부와 실제 기업/채용/거시 사용 가능 여부를 같은 의미로 오해하지 않는다.",
+        "technical_augmentation": "probe ID와 catalog ID의 일대일 검증 및 production 선택 gate를 추가했다.",
+        "title": "28개 원자 원천 계약과 실행 gate",
+        "verification": {
+          "receipt_path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/receipts/validation.json",
+          "result": "C-01 catalog 2개와 classification 3개 pytest가 현재 plan hash에서 통과했다.",
+          "status": "verified",
+          "test_scope": "suite"
+        }
+      },
+      {
+        "after": "CIK/DART/IČO/LEI 등 namespace를 보존하고 ambiguity를 unresolved로 유지하며, capability와 correlation/causal gate를 분리한다.",
+        "before": "기업 식별자, source capability, 필드 가용성, 상관 분석 제외 사유를 독립적으로 저장하거나 설명하지 못했다.",
+        "cohort_ids": [
+          "C-01-source-identity-foundation"
+        ],
+        "decision_ids": [
+          "D-02-company-capability-taxonomy"
+        ],
+        "effect_id": "E-02-identity-capability-gates",
+        "efficiency": {
+          "claim": "측정하지 않음",
+          "measurement": "not-measured",
+          "status": "not-measured"
+        },
+        "evidence": [
+          {
+            "kind": "implementation",
+            "note": "",
+            "path": "src/company_intel/classification.py",
+            "symbols": [
+              "classify_company",
+              "evaluate_analysis_eligibility"
+            ]
+          },
+          {
+            "kind": "test",
+            "note": "",
+            "path": "tests/test_classification.py",
+            "symbols": [
+              "test_ambiguous_identity_is_retained_not_silently_merged"
+            ]
+          }
+        ],
+        "next_branch": {
+          "condition": "C-01 classification tests pass",
+          "if_met": "저장 snapshot을 C-02 검색에 연결",
+          "if_not_met": "identity/capability fixture를 기준으로 수정"
+        },
+        "paths": [
+          "sql/duckdb_schema.sql",
+          "src/company_intel/models.py",
+          "src/company_intel/identity.py",
+          "src/company_intel/normalization.py",
+          "src/company_intel/classification.py",
+          "src/company_intel/warehouse.py",
+          "tests/test_classification.py"
+        ],
+        "preserved_boundaries": [
+          "이름 유사도만으로 법인을 병합하지 않음",
+          "기존 테이블을 삭제하지 않음"
+        ],
+        "semantic_augmentation": "재무 전용·공고 전용·고용 전용·근거 부족 기업을 추천 또는 인과 분석 대상으로 자동 승격하지 않는다.",
+        "technical_augmentation": "additive DuckDB tables와 typed identity/classification model을 추가했다.",
+        "title": "법인 identity·capability·분석 적격성 분리",
+        "verification": {
+          "receipt_path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/receipts/validation.json",
+          "result": "C-01 classification pytest 3개가 현재 plan hash에서 통과했다.",
+          "status": "verified",
+          "test_scope": "suite"
+        }
+      },
+      {
+        "after": "SearchProfile의 국가·직무·capability 입력을 검증하고 stored evidence에서 identity/capability/exclusion 이유를 가진 후보를 결정론적으로 반환한다.",
+        "before": "고정 probe 표본을 실제 검색 후보와 분리하는 API/CLI 계약이 없었다.",
+        "cohort_ids": [
+          "C-02-search-requirement-evidence"
+        ],
+        "decision_ids": [
+          "D-03-search-profile-and-discovery"
+        ],
+        "effect_id": "E-03-profile-company-search",
+        "efficiency": {
+          "claim": "측정하지 않음",
+          "measurement": "not-measured",
+          "status": "not-measured"
+        },
+        "evidence": [
+          {
+            "kind": "implementation",
+            "note": "",
+            "path": "src/company_intel/search.py",
+            "symbols": [
+              "validate_search_profile",
+              "rank_candidates"
+            ]
+          },
+          {
+            "kind": "test",
+            "note": "",
+            "path": "tests/test_search_profile.py",
+            "symbols": [
+              "test_ranking_preserves_unresolved_identity_as_an_exclusion"
+            ]
+          }
+        ],
+        "next_branch": {
+          "condition": "C-02 search tests pass",
+          "if_met": "요건 evidence 결과와 후보를 조합",
+          "if_not_met": "profile validation 또는 ranking exclusion을 수정"
+        },
+        "paths": [
+          "src/company_intel/search.py",
+          "src/company_intel/connectors/registry.py",
+          "src/company_intel/connectors/keyed.py",
+          "src/company_intel/connectors/keyless.py",
+          "src/company_intel/api.py",
+          "src/company_intel/cli.py",
+          "tests/test_search_profile.py"
+        ],
+        "preserved_boundaries": [
+          "현재 검색은 저장 snapshot 기준",
+          "외부 기업 발견 호출은 이번 구현에서 수행하지 않음"
+        ],
+        "semantic_augmentation": "사용자가 입력하지 않은 경력·언어·취업 자격을 추정하지 않는다.",
+        "technical_augmentation": "`/v1/company-search` 및 `company-intel search`가 동일 domain profile을 사용한다.",
+        "title": "명시적 profile 기반 회사 검색",
+        "verification": {
+          "receipt_path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/receipts/validation.json",
+          "result": "C-02 search pytest 2개가 현재 plan hash에서 통과했다.",
+          "status": "verified",
+          "test_scope": "suite"
+        }
+      },
+      {
+        "after": "required/preferred, source URL, evidence scope를 분리하고 상세 근거가 없으면 `requirement_unavailable`로 반환한다.",
+        "before": "공고 목록의 title과 institution metadata를 자격증 또는 준비사항으로 잘못 해석할 위험이 있었다.",
+        "cohort_ids": [
+          "C-02-search-requirement-evidence"
+        ],
+        "decision_ids": [
+          "D-04-career-requirement-verification"
+        ],
+        "effect_id": "E-04-requirement-evidence",
+        "efficiency": {
+          "claim": "측정하지 않음",
+          "measurement": "not-measured",
+          "status": "not-measured"
+        },
+        "evidence": [
+          {
+            "kind": "implementation",
+            "note": "",
+            "path": "src/company_intel/career_requirements.py",
+            "symbols": [
+              "normalize_requirement",
+              "verify_requirement"
+            ]
+          },
+          {
+            "kind": "test",
+            "note": "",
+            "path": "tests/test_career_requirements.py",
+            "symbols": [
+              "test_missing_detail_is_unavailable_not_an_invented_certificate"
+            ]
+          }
+        ],
+        "next_branch": {
+          "condition": "C-02 requirement tests pass",
+          "if_met": "공식 MPM detail/체코 source field 검증 권한을 별도로 검토",
+          "if_not_met": "evidence scope와 unavailable mapping을 수정"
+        },
+        "paths": [
+          "src/company_intel/career_requirements.py",
+          "src/company_intel/connectors/keyed.py",
+          "src/company_intel/connectors/keyless.py",
+          "src/company_intel/warehouse.py",
+          "src/company_intel/api.py",
+          "tests/test_career_requirements.py"
+        ],
+        "preserved_boundaries": [
+          "자격증을 추론하지 않음",
+          "새 체코 endpoint를 호출하지 않음"
+        ],
+        "semantic_augmentation": "한국 MPM 목록과 ALIO 기관 맥락은 상세 요건 증거가 아님을 코드 경계에서 보존한다.",
+        "technical_augmentation": "MPM/ATS detail helper는 입력으로 받은 명시적 detail만 처리하며 체코 공공 source는 공식 필드 검증 전 pending으로 둔다.",
+        "title": "자격요건 근거 수준과 unavailable 처리",
+        "verification": {
+          "receipt_path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/receipts/validation.json",
+          "result": "C-02 requirement pytest 2개가 현재 plan hash에서 통과했다.",
+          "status": "verified",
+          "test_scope": "suite"
+        }
+      },
+      {
+        "after": "CSV를 canonical bundle로 만들고 optional XLSX, manifest SHA, formula/secret/PII sanitizer, API/CLI export entry point를 추가한다.",
+        "before": "provider validation Markdown 외에 기업·공고·요건·출처·제외를 관계형 spreadsheet로 전달하는 계약이 없었다.",
+        "cohort_ids": [
+          "C-03-evidence-export-delivery"
+        ],
+        "decision_ids": [
+          "D-05-spreadsheet-output-contract"
+        ],
+        "effect_id": "E-05-evidence-spreadsheet-bundle",
+        "efficiency": {
+          "claim": "측정하지 않음",
+          "measurement": "not-measured",
+          "status": "not-measured"
+        },
+        "evidence": [
+          {
+            "kind": "implementation",
+            "note": "",
+            "path": "src/company_intel/exporting.py",
+            "symbols": [
+              "build_export_bundle",
+              "render_csv_bundle",
+              "render_xlsx_workbook"
+            ]
+          },
+          {
+            "kind": "test",
+            "note": "",
+            "path": "tests/test_exporting.py",
+            "symbols": [
+              "test_export_keeps_evidence_and_exclusion_rows_and_sanitizes_cells"
+            ]
+          }
+        ],
+        "next_branch": {
+          "condition": "C-03 export tests pass and XLSX extra is installed",
+          "if_met": "export API/CLI smoke test를 별도 승인 하에 수행",
+          "if_not_met": "CSV parity, sanitizer 또는 dependency 경계를 수정"
+        },
+        "paths": [
+          "src/company_intel/exporting.py",
+          "src/company_intel/reporting.py",
+          "src/company_intel/security.py",
+          "src/company_intel/api.py",
+          "src/company_intel/cli.py",
+          "pyproject.toml",
+          "tests/test_exporting.py"
+        ],
+        "preserved_boundaries": [
+          "외부 업로드·공유를 구현하지 않음",
+          "workspace 밖 export output은 CLI/API 경계에서 차단"
+        ],
+        "semantic_augmentation": "빈 요건은 확정 요건이 아니라 evidence/exclusion limitation과 함께 전달된다.",
+        "technical_augmentation": "XLSX는 optional `openpyxl` extra이며 설치되지 않은 경우 CSV contract를 유지한다.",
+        "title": "근거 우선 CSV/XLSX export bundle",
+        "verification": {
+          "receipt_path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/receipts/validation.json",
+          "result": "C-03 export pytest 1개가 현재 plan hash에서 통과했다.",
+          "status": "verified",
+          "test_scope": "suite"
+        }
+      }
+    ],
+    "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/reports/execution/7999304264b29201eaa9cf2f3966bf6ee7c33d00343e9c4613eeacfbe6f4676a/db0ce21ded810181de44fcddd1db3fe69de57539.effects.json",
+    "provided": true,
+    "sha256": "88299e1c469adc76e96e3d655049095aef964b0a868959c192fa705bb4b2cc63"
+  },
+  "execution_environment": {
+    "captured_at": "2026-09-11T07:37:03.871343+00:00",
+    "configuration_sources": {
+      "bge_evidence": {
+        "ADK_BGE_EVIDENCE_INDEX_URI": {
+          "present": false,
+          "source": null,
+          "value_emitted": false
+        },
+        "ADK_BGE_TEXT_EMBEDDING_BASE_URL": {
+          "present": false,
+          "source": null,
+          "value_emitted": false
+        },
+        "ready": false,
+        "requires": [
+          "ADK_BGE_TEXT_EMBEDDING_BASE_URL",
+          "ADK_BGE_EVIDENCE_INDEX_URI",
+          "fresh citation-bound evidence corpus"
+        ]
+      },
+      "env_files": [],
+      "gemma_google_search": {
+        "GEMMA_GROUNDING_ENABLED": false,
+        "activation": "set GEMMA_GROUNDING_ENABLED=true in the bounded live-run environment; never persist the key value",
+        "ready": false,
+        "requires": [
+          "GOOGLE_API_KEY|GEMINI_API_KEY",
+          "GEMMA_GROUNDING_ENABLED=true"
+        ]
+      },
+      "google_ads": {
+        "GOOGLE_ADS_CUSTOMER_ID": {
+          "present": false,
+          "source": null,
+          "value_emitted": false
+        },
+        "configuration_file_readable": false,
+        "configuration_file_supplied": false,
+        "ready": false,
+        "runtime_argument_path": "pass --ads-config <protected profile> and --ads-customer-id <operator value> to the Phase 0 live probe; do not store the customer ID"
+      },
+      "google_genai": {
+        "GEMINI_API_KEY": {
+          "present": true,
+          "source": "process",
+          "value_emitted": false
+        },
+        "GOOGLE_API_KEY": {
+          "present": true,
+          "source": "process",
+          "value_emitted": false
+        },
+        "ready": true
+      },
+      "missing_env_files": [],
+      "youtube_data": {
+        "YOUTUBE_API_KEY": {
+          "present": false,
+          "source": null,
+          "value_emitted": false
+        },
+        "ready": false
+      }
+    },
+    "media_policy": {
+      "bytes_acquisition": "intentionally-disabled",
+      "strategy": "SEMANTIC_ONLY"
+    },
+    "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/receipts/execution-environment-after-validation-20260911.json",
+    "provided": true,
+    "repository": {
+      "cwd_matches_root": true,
+      "invocation_cwd": "/home/ubuntu/root/company-intelligence-platform",
+      "root": "/home/ubuntu/root/company-intelligence-platform"
+    },
+    "resume": {
+      "campaign_path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/campaign.json",
+      "criteria": [
+        {
+          "cohort_id": "C-01-source-identity-foundation",
+          "command": "uv run --cache-dir /tmp/company-intelligence-platform-uv-cache --frozen pytest tests/test_source_catalog.py -q",
+          "criterion_id": "C-01-catalog-tests",
+          "declared_paths": [
+            "tests/test_source_catalog.py"
+          ],
+          "depends_on_criteria": [],
+          "missing_paths": [],
+          "plan_path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/implementation-plans/C-01-source-identity-foundation.json",
+          "plan_sha256": "c8b5c8c96de5d900195abc2528b9ceb2762a7ecad73c2a475ab5e28148d284b6",
+          "preflight": "ready-to-run",
+          "provider_backed": false,
+          "status": "planned"
+        },
+        {
+          "cohort_id": "C-01-source-identity-foundation",
+          "command": "uv run --cache-dir /tmp/company-intelligence-platform-uv-cache --frozen pytest tests/test_classification.py -q",
+          "criterion_id": "C-01-classification-tests",
+          "declared_paths": [
+            "tests/test_classification.py"
+          ],
+          "depends_on_criteria": [
+            "C-01-catalog-tests"
+          ],
+          "missing_paths": [],
+          "plan_path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/implementation-plans/C-01-source-identity-foundation.json",
+          "plan_sha256": "c8b5c8c96de5d900195abc2528b9ceb2762a7ecad73c2a475ab5e28148d284b6",
+          "preflight": "ready-to-run",
+          "provider_backed": false,
+          "status": "planned"
+        },
+        {
+          "cohort_id": "C-02-search-requirement-evidence",
+          "command": "uv run --cache-dir /tmp/company-intelligence-platform-uv-cache --frozen pytest tests/test_career_requirements.py -q",
+          "criterion_id": "C-02-requirement-tests",
+          "declared_paths": [
+            "tests/test_career_requirements.py"
+          ],
+          "depends_on_criteria": [
+            "C-02-search-tests"
+          ],
+          "missing_paths": [],
+          "plan_path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/implementation-plans/C-02-search-requirement-evidence.json",
+          "plan_sha256": "88b644caebcf290de5296ac93c01638305224e188ca45598ed72ab07634b5daf",
+          "preflight": "ready-to-run",
+          "provider_backed": false,
+          "status": "planned"
+        },
+        {
+          "cohort_id": "C-02-search-requirement-evidence",
+          "command": "uv run --cache-dir /tmp/company-intelligence-platform-uv-cache --frozen pytest tests/test_search_profile.py -q",
+          "criterion_id": "C-02-search-tests",
+          "declared_paths": [
+            "tests/test_search_profile.py"
+          ],
+          "depends_on_criteria": [],
+          "missing_paths": [],
+          "plan_path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/implementation-plans/C-02-search-requirement-evidence.json",
+          "plan_sha256": "88b644caebcf290de5296ac93c01638305224e188ca45598ed72ab07634b5daf",
+          "preflight": "ready-to-run",
+          "provider_backed": false,
+          "status": "planned"
+        },
+        {
+          "cohort_id": "C-03-evidence-export-delivery",
+          "command": "uv run --cache-dir /tmp/company-intelligence-platform-uv-cache --frozen pytest tests/test_exporting.py -q",
+          "criterion_id": "C-03-export-tests",
+          "declared_paths": [
+            "tests/test_exporting.py"
+          ],
+          "depends_on_criteria": [],
+          "missing_paths": [],
+          "plan_path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/implementation-plans/C-03-evidence-export-delivery.json",
+          "plan_sha256": "7eced62ade8fb756b22e7e4763fb3f8789403b8b0721fcea4618827911148ffe",
+          "preflight": "ready-to-run",
+          "provider_backed": false,
+          "status": "planned"
+        }
+      ],
+      "known_blockers": [
+        "실제 provider 호출과 API·CLI·DuckDB smoke는 current local pytest criteria에 포함되지 않았고 별도 외부 실행 권한이 필요하다."
+      ],
+      "rule": "Run local criteria first, then provider-backed criteria only with current plan-hash approval; record each attempt separately."
+    },
+    "runtime": {
+      "command_prefix": "uv run --cache-dir /tmp/company-intelligence-platform-uv-cache --frozen",
+      "requires_python": ">=3.11",
+      "uv_cache_dir": "/tmp/company-intelligence-platform-uv-cache",
+      "uv_executable": "/home/ubuntu/.local/bin/uv",
+      "uv_lock_path": "uv.lock",
+      "uv_lock_sha256": "920aebcf673c1f0dd7bd545969cc95fbc3778f8398fd1ee5d6711e17690af984",
+      "uv_version": "uv 0.10.11",
+      "venv_python": "/home/ubuntu/root/company-intelligence-platform/.venv/bin/python",
+      "venv_python_exists": true,
+      "venv_python_version": "Python 3.13.12"
+    },
+    "sandbox_network": {
+      "current_mode": "not-probed",
+      "interpretation": "network mode describes the runner boundary only; provider success requires a new receipt",
+      "previous_observations": []
+    },
+    "sha256": "9863b91a2a861fcd76f9abb382a9fc3ff99e7944f5ce23d806d9f5ae4d6f7d75"
+  },
+  "generated_from": {
+    "campaign_path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/campaign.json",
+    "campaign_sha256": "0b81fd8236af5b3bb64936394b78e8f111a3370bdf14efb533a1102d48858b16",
+    "change_graph_path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/campaign-change-graph.json",
+    "change_graph_sha256": "5c7205e416f417e03668414b461a6d3965ae0a4cfbcbb92c15300099b835340d",
+    "declared_repository_root": "/home/ubuntu/root/company-intelligence-platform",
+    "git_base": "db0ce21ded810181de44fcddd1db3fe69de57539",
+    "git_head": "db0ce21ded810181de44fcddd1db3fe69de57539",
+    "git_repository_prefix": ".",
+    "git_worktree_root": "/home/ubuntu/root/company-intelligence-platform",
+    "report_repository_root": "/home/ubuntu/root/company-intelligence-platform",
+    "scope_lock_file_sha256": "f1c5c8527bd4c267afcdcb86efeb727e90ac45327646118fa61ab8e073db99a8",
+    "scope_lock_path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/scope-lock.json",
+    "scope_sha256": "7999304264b29201eaa9cf2f3966bf6ee7c33d00343e9c4613eeacfbe6f4676a"
+  },
+  "glossary": [
+    {
+      "definition_ko": "결정은 무엇을 선택했는지, 계획은 어떤 파일을 어떻게 바꿀지, 영수증은 실제 실행 결과를 각각 분리해 보관하는 규칙",
+      "term": "3계층 분리 계약"
+    },
+    {
+      "definition_ko": "결정 순서·의존성·cohort 구성을 해시로 고정해 임의의 범위 변경을 드러내는 기준",
+      "term": "scope lock"
+    },
+    {
+      "definition_ko": "파일 경로 하나마다 담당 cohort와 기여 decision을 연결한 변경 소유 관계표",
+      "term": "change graph"
+    },
+    {
+      "definition_ko": "한 파일 변경이 어떤 decision의 어떤 symbol 요구를 구현하는지 해시와 함께 가리키는 참조",
+      "term": "contribution ref"
+    },
+    {
+      "definition_ko": "구현 승인 전에 존재하던 파일 내용의 해시로, 계획이 어떤 출발점에서 승인됐는지 증명하는 값",
+      "term": "source hash"
+    },
+    {
+      "definition_ko": "구현 뒤 실제 파일 내용의 해시로, 승인 전 source hash를 덮어쓰지 않고 결과를 증명하는 값",
+      "term": "result hash"
+    },
+    {
+      "definition_ko": "명령·종료 코드·요약 출력·해시를 보관해 테스트나 검증이 실제 실행됐음을 증명하는 영수증",
+      "term": "receipt"
+    },
+    {
+      "definition_ko": "계획이 묶은 source hash와 현재 파일 또는 범위가 달라 더 이상 그대로 실행·완료 처리할 수 없는 상태",
+      "term": "stale plan"
+    },
+    {
+      "definition_ko": "Git에는 바뀌었지만 현재 change graph에 담당 operation이 없어 어느 decision 구현인지 증명되지 않는 변경",
+      "term": "unowned change"
+    },
+    {
+      "definition_ko": "선택한 cohort 밖의 담당자가 소유한 파일 경로가 이번 변경 범위에 들어온 상태",
+      "term": "cross-cohort path"
+    },
+    {
+      "definition_ko": "Python 코드를 실행하지 않고 함수·class 같은 문법 구조로 읽어 구성요소 수를 세는 문법 나무",
+      "term": "AST"
+    },
+    {
+      "definition_ko": "Kotlin 선언을 실행하지 않고 정규식으로 보수적으로 찾는 방식이며 실제 동작 의미를 완전히 증명하지는 않는 검사",
+      "term": "static regex"
+    },
+    {
+      "definition_ko": "코드 변화가 이전 동작을 무엇으로 바꾸고 어떤 증거와 조건에서 다음 결정을 여는지 사람이 명시한 전후 변화 계약",
+      "term": "effect contract"
+    },
+    {
+      "definition_ko": "다음 검증을 같은 저장소·Python·uv·권한·비밀값 없는 설정 경계에서 재개하게 하는 실행 스냅샷",
+      "term": "execution environment"
+    }
+  ],
+  "receipt_summary": {
+    "count": 68,
+    "fail_count": 0,
+    "latest": {
+      "failed": false,
+      "passed": true,
+      "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/receipts/mutation-journal/preimages/sha256-cf21a6d5ee5c32b8f0939552e1b4913737520897e633625e94770d35090c836f.json",
+      "sha256": "cf21a6d5ee5c32b8f0939552e1b4913737520897e633625e94770d35090c836f",
+      "test_count": 3,
+      "timestamp": "2026-09-11T07:30:02.592833+00:00"
+    },
+    "pass_count": 3
+  },
+  "unexplained_component_paths": [],
+  "verdict": "OBSERVED_WITH_WARNINGS",
+  "warnings": [
+    {
+      "detail": "owner=C-01-source-identity-foundation; contributor=D-04-career-requirement-verification/C-02-search-requirement-evidence",
+      "kind": "cross-cohort-contribution",
+      "path": "sql/duckdb_schema.sql"
+    },
+    {
+      "detail": "owner=C-02-search-requirement-evidence; contributor=D-02-company-capability-taxonomy/C-01-source-identity-foundation",
+      "kind": "cross-cohort-contribution",
+      "path": "src/company_intel/api.py"
+    },
+    {
+      "detail": "owner=C-02-search-requirement-evidence; contributor=D-05-spreadsheet-output-contract/C-03-evidence-export-delivery",
+      "kind": "cross-cohort-contribution",
+      "path": "src/company_intel/api.py"
+    },
+    {
+      "detail": "owner=C-02-search-requirement-evidence; contributor=D-05-spreadsheet-output-contract/C-03-evidence-export-delivery",
+      "kind": "cross-cohort-contribution",
+      "path": "src/company_intel/cli.py"
+    },
+    {
+      "detail": "owner=C-01-source-identity-foundation; contributor=D-03-search-profile-and-discovery/C-02-search-requirement-evidence",
+      "kind": "cross-cohort-contribution",
+      "path": "src/company_intel/connectors/registry.py"
+    },
+    {
+      "detail": "owner=C-01-source-identity-foundation; contributor=D-04-career-requirement-verification/C-02-search-requirement-evidence",
+      "kind": "cross-cohort-contribution",
+      "path": "src/company_intel/connectors/registry.py"
+    },
+    {
+      "detail": "owner=C-01-source-identity-foundation; contributor=D-03-search-profile-and-discovery/C-02-search-requirement-evidence",
+      "kind": "cross-cohort-contribution",
+      "path": "src/company_intel/identity.py"
+    },
+    {
+      "detail": "owner=C-01-source-identity-foundation; contributor=D-03-search-profile-and-discovery/C-02-search-requirement-evidence",
+      "kind": "cross-cohort-contribution",
+      "path": "src/company_intel/models.py"
+    },
+    {
+      "detail": "owner=C-01-source-identity-foundation; contributor=D-04-career-requirement-verification/C-02-search-requirement-evidence",
+      "kind": "cross-cohort-contribution",
+      "path": "src/company_intel/models.py"
+    },
+    {
+      "detail": "owner=C-01-source-identity-foundation; contributor=D-04-career-requirement-verification/C-02-search-requirement-evidence",
+      "kind": "cross-cohort-contribution",
+      "path": "src/company_intel/warehouse.py"
+    },
+    {
+      "detail": "owner=C-01-source-identity-foundation; contributor=D-05-spreadsheet-output-contract/C-03-evidence-export-delivery",
+      "kind": "cross-cohort-contribution",
+      "path": "src/company_intel/warehouse.py"
+    },
+    {
+      "detail": "E-01-atomic-source-catalog",
+      "kind": "effect-path-not-in-git-delta",
+      "path": "config/providers.json"
+    },
+    {
+      "detail": "E-01-atomic-source-catalog",
+      "kind": "effect-path-not-in-git-delta",
+      "path": "src/company_intel/source_catalog.py"
+    },
+    {
+      "detail": "E-01-atomic-source-catalog",
+      "kind": "effect-path-not-in-git-delta",
+      "path": "src/company_intel/connectors/registry.py"
+    },
+    {
+      "detail": "E-01-atomic-source-catalog",
+      "kind": "effect-path-not-in-git-delta",
+      "path": "src/company_intel/validation.py"
+    },
+    {
+      "detail": "E-01-atomic-source-catalog",
+      "kind": "effect-path-not-in-git-delta",
+      "path": "tests/test_source_catalog.py"
+    },
+    {
+      "detail": "E-01-atomic-source-catalog implementation evidence is not in Git base..head",
+      "kind": "effect-evidence-not-in-git-delta",
+      "path": "src/company_intel/source_catalog.py"
+    },
+    {
+      "detail": "E-01-atomic-source-catalog test evidence is not in Git base..head",
+      "kind": "effect-evidence-not-in-git-delta",
+      "path": "tests/test_source_catalog.py"
+    },
+    {
+      "detail": "E-01-atomic-source-catalog",
+      "kind": "effect-verified-without-test-and-passing-receipt",
+      "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/reports/execution/7999304264b29201eaa9cf2f3966bf6ee7c33d00343e9c4613eeacfbe6f4676a/db0ce21ded810181de44fcddd1db3fe69de57539.effects.json"
+    },
+    {
+      "detail": "E-02-identity-capability-gates",
+      "kind": "effect-path-not-in-git-delta",
+      "path": "sql/duckdb_schema.sql"
+    },
+    {
+      "detail": "E-02-identity-capability-gates",
+      "kind": "effect-path-not-in-git-delta",
+      "path": "src/company_intel/models.py"
+    },
+    {
+      "detail": "E-02-identity-capability-gates",
+      "kind": "effect-path-not-in-git-delta",
+      "path": "src/company_intel/identity.py"
+    },
+    {
+      "detail": "E-02-identity-capability-gates",
+      "kind": "effect-path-not-in-git-delta",
+      "path": "src/company_intel/normalization.py"
+    },
+    {
+      "detail": "E-02-identity-capability-gates",
+      "kind": "effect-path-not-in-git-delta",
+      "path": "src/company_intel/classification.py"
+    },
+    {
+      "detail": "E-02-identity-capability-gates",
+      "kind": "effect-path-not-in-git-delta",
+      "path": "src/company_intel/warehouse.py"
+    },
+    {
+      "detail": "E-02-identity-capability-gates",
+      "kind": "effect-path-not-in-git-delta",
+      "path": "tests/test_classification.py"
+    },
+    {
+      "detail": "E-02-identity-capability-gates implementation evidence is not in Git base..head",
+      "kind": "effect-evidence-not-in-git-delta",
+      "path": "src/company_intel/classification.py"
+    },
+    {
+      "detail": "E-02-identity-capability-gates test evidence is not in Git base..head",
+      "kind": "effect-evidence-not-in-git-delta",
+      "path": "tests/test_classification.py"
+    },
+    {
+      "detail": "E-02-identity-capability-gates",
+      "kind": "effect-verified-without-test-and-passing-receipt",
+      "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/reports/execution/7999304264b29201eaa9cf2f3966bf6ee7c33d00343e9c4613eeacfbe6f4676a/db0ce21ded810181de44fcddd1db3fe69de57539.effects.json"
+    },
+    {
+      "detail": "E-03-profile-company-search",
+      "kind": "effect-path-not-in-git-delta",
+      "path": "src/company_intel/search.py"
+    },
+    {
+      "detail": "E-03-profile-company-search",
+      "kind": "effect-path-not-in-git-delta",
+      "path": "src/company_intel/connectors/registry.py"
+    },
+    {
+      "detail": "E-03-profile-company-search",
+      "kind": "effect-path-not-in-git-delta",
+      "path": "src/company_intel/connectors/keyed.py"
+    },
+    {
+      "detail": "E-03-profile-company-search",
+      "kind": "effect-path-not-in-git-delta",
+      "path": "src/company_intel/connectors/keyless.py"
+    },
+    {
+      "detail": "E-03-profile-company-search",
+      "kind": "effect-path-not-in-git-delta",
+      "path": "src/company_intel/api.py"
+    },
+    {
+      "detail": "E-03-profile-company-search",
+      "kind": "effect-path-not-in-git-delta",
+      "path": "src/company_intel/cli.py"
+    },
+    {
+      "detail": "E-03-profile-company-search",
+      "kind": "effect-path-not-in-git-delta",
+      "path": "tests/test_search_profile.py"
+    },
+    {
+      "detail": "E-03-profile-company-search implementation evidence is not in Git base..head",
+      "kind": "effect-evidence-not-in-git-delta",
+      "path": "src/company_intel/search.py"
+    },
+    {
+      "detail": "E-03-profile-company-search test evidence is not in Git base..head",
+      "kind": "effect-evidence-not-in-git-delta",
+      "path": "tests/test_search_profile.py"
+    },
+    {
+      "detail": "E-03-profile-company-search",
+      "kind": "effect-verified-without-test-and-passing-receipt",
+      "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/reports/execution/7999304264b29201eaa9cf2f3966bf6ee7c33d00343e9c4613eeacfbe6f4676a/db0ce21ded810181de44fcddd1db3fe69de57539.effects.json"
+    },
+    {
+      "detail": "E-04-requirement-evidence",
+      "kind": "effect-path-not-in-git-delta",
+      "path": "src/company_intel/career_requirements.py"
+    },
+    {
+      "detail": "E-04-requirement-evidence",
+      "kind": "effect-path-not-in-git-delta",
+      "path": "src/company_intel/connectors/keyed.py"
+    },
+    {
+      "detail": "E-04-requirement-evidence",
+      "kind": "effect-path-not-in-git-delta",
+      "path": "src/company_intel/connectors/keyless.py"
+    },
+    {
+      "detail": "E-04-requirement-evidence",
+      "kind": "effect-path-not-in-git-delta",
+      "path": "src/company_intel/warehouse.py"
+    },
+    {
+      "detail": "E-04-requirement-evidence",
+      "kind": "effect-path-not-in-git-delta",
+      "path": "src/company_intel/api.py"
+    },
+    {
+      "detail": "E-04-requirement-evidence",
+      "kind": "effect-path-not-in-git-delta",
+      "path": "tests/test_career_requirements.py"
+    },
+    {
+      "detail": "E-04-requirement-evidence implementation evidence is not in Git base..head",
+      "kind": "effect-evidence-not-in-git-delta",
+      "path": "src/company_intel/career_requirements.py"
+    },
+    {
+      "detail": "E-04-requirement-evidence test evidence is not in Git base..head",
+      "kind": "effect-evidence-not-in-git-delta",
+      "path": "tests/test_career_requirements.py"
+    },
+    {
+      "detail": "E-04-requirement-evidence",
+      "kind": "effect-verified-without-test-and-passing-receipt",
+      "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/reports/execution/7999304264b29201eaa9cf2f3966bf6ee7c33d00343e9c4613eeacfbe6f4676a/db0ce21ded810181de44fcddd1db3fe69de57539.effects.json"
+    },
+    {
+      "detail": "E-05-evidence-spreadsheet-bundle",
+      "kind": "effect-path-not-in-git-delta",
+      "path": "src/company_intel/exporting.py"
+    },
+    {
+      "detail": "E-05-evidence-spreadsheet-bundle",
+      "kind": "effect-path-not-in-git-delta",
+      "path": "src/company_intel/reporting.py"
+    },
+    {
+      "detail": "E-05-evidence-spreadsheet-bundle",
+      "kind": "effect-path-not-in-git-delta",
+      "path": "src/company_intel/security.py"
+    },
+    {
+      "detail": "E-05-evidence-spreadsheet-bundle",
+      "kind": "effect-path-not-in-git-delta",
+      "path": "src/company_intel/api.py"
+    },
+    {
+      "detail": "E-05-evidence-spreadsheet-bundle",
+      "kind": "effect-path-not-in-git-delta",
+      "path": "src/company_intel/cli.py"
+    },
+    {
+      "detail": "E-05-evidence-spreadsheet-bundle",
+      "kind": "effect-path-not-in-git-delta",
+      "path": "pyproject.toml"
+    },
+    {
+      "detail": "E-05-evidence-spreadsheet-bundle",
+      "kind": "effect-path-not-in-git-delta",
+      "path": "tests/test_exporting.py"
+    },
+    {
+      "detail": "E-05-evidence-spreadsheet-bundle implementation evidence is not in Git base..head",
+      "kind": "effect-evidence-not-in-git-delta",
+      "path": "src/company_intel/exporting.py"
+    },
+    {
+      "detail": "E-05-evidence-spreadsheet-bundle test evidence is not in Git base..head",
+      "kind": "effect-evidence-not-in-git-delta",
+      "path": "tests/test_exporting.py"
+    },
+    {
+      "detail": "E-05-evidence-spreadsheet-bundle",
+      "kind": "effect-verified-without-test-and-passing-receipt",
+      "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/reports/execution/7999304264b29201eaa9cf2f3966bf6ee7c33d00343e9c4613eeacfbe6f4676a/db0ce21ded810181de44fcddd1db3fe69de57539.effects.json"
+    },
+    {
+      "detail": "source-policy-catalog",
+      "kind": "component-contract-path-not-in-git-delta",
+      "path": "src/company_intel/source_catalog.py"
+    },
+    {
+      "detail": "source-policy-catalog",
+      "kind": "component-contract-path-not-in-git-delta",
+      "path": "config/providers.json"
+    },
+    {
+      "detail": "source-policy-catalog test evidence is not in Git base..head",
+      "kind": "effect-evidence-not-in-git-delta",
+      "path": "tests/test_source_catalog.py"
+    },
+    {
+      "detail": "identity-capability-store",
+      "kind": "component-contract-path-not-in-git-delta",
+      "path": "src/company_intel/identity.py"
+    },
+    {
+      "detail": "identity-capability-store",
+      "kind": "component-contract-path-not-in-git-delta",
+      "path": "src/company_intel/classification.py"
+    },
+    {
+      "detail": "identity-capability-store",
+      "kind": "component-contract-path-not-in-git-delta",
+      "path": "src/company_intel/warehouse.py"
+    },
+    {
+      "detail": "identity-capability-store",
+      "kind": "component-contract-path-not-in-git-delta",
+      "path": "sql/duckdb_schema.sql"
+    },
+    {
+      "detail": "identity-capability-store test evidence is not in Git base..head",
+      "kind": "effect-evidence-not-in-git-delta",
+      "path": "tests/test_classification.py"
+    },
+    {
+      "detail": "profile-search-service",
+      "kind": "component-contract-path-not-in-git-delta",
+      "path": "src/company_intel/search.py"
+    },
+    {
+      "detail": "profile-search-service",
+      "kind": "component-contract-path-not-in-git-delta",
+      "path": "src/company_intel/api.py"
+    },
+    {
+      "detail": "profile-search-service",
+      "kind": "component-contract-path-not-in-git-delta",
+      "path": "src/company_intel/cli.py"
+    },
+    {
+      "detail": "profile-search-service test evidence is not in Git base..head",
+      "kind": "effect-evidence-not-in-git-delta",
+      "path": "tests/test_search_profile.py"
+    },
+    {
+      "detail": "requirement-evidence-service",
+      "kind": "component-contract-path-not-in-git-delta",
+      "path": "src/company_intel/career_requirements.py"
+    },
+    {
+      "detail": "requirement-evidence-service",
+      "kind": "component-contract-path-not-in-git-delta",
+      "path": "src/company_intel/connectors/keyed.py"
+    },
+    {
+      "detail": "requirement-evidence-service",
+      "kind": "component-contract-path-not-in-git-delta",
+      "path": "src/company_intel/connectors/keyless.py"
+    },
+    {
+      "detail": "requirement-evidence-service test evidence is not in Git base..head",
+      "kind": "effect-evidence-not-in-git-delta",
+      "path": "tests/test_career_requirements.py"
+    },
+    {
+      "detail": "evidence-export-bundle",
+      "kind": "component-contract-path-not-in-git-delta",
+      "path": "src/company_intel/exporting.py"
+    },
+    {
+      "detail": "evidence-export-bundle",
+      "kind": "component-contract-path-not-in-git-delta",
+      "path": "src/company_intel/security.py"
+    },
+    {
+      "detail": "evidence-export-bundle",
+      "kind": "component-contract-path-not-in-git-delta",
+      "path": "src/company_intel/reporting.py"
+    },
+    {
+      "detail": "evidence-export-bundle test evidence is not in Git base..head",
+      "kind": "effect-evidence-not-in-git-delta",
+      "path": "tests/test_exporting.py"
+    }
+  ]
+}

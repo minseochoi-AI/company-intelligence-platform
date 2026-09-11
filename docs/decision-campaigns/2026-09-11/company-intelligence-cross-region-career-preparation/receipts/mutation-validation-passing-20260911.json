@@ -1,0 +1,52 @@
+{
+  "contract_version": "atomic-json-patch-receipt-v1",
+  "target": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/receipts/validation.json",
+  "outcome": "pass",
+  "before_sha256": "cf21a6d5ee5c32b8f0939552e1b4913737520897e633625e94770d35090c836f",
+  "after_sha256": "0695f63a9623e70456a369b35d387e051efb22ed5259ee259441479b1759e788",
+  "proposed_after_sha256": "0695f63a9623e70456a369b35d387e051efb22ed5259ee259441479b1759e788",
+  "operations": [
+    {
+      "op": "test",
+      "path": "/outcome"
+    },
+    {
+      "op": "test",
+      "path": "/updated_at"
+    },
+    {
+      "op": "test",
+      "path": "/cohorts"
+    },
+    {
+      "op": "replace",
+      "path": "/outcome"
+    },
+    {
+      "op": "replace",
+      "path": "/updated_at"
+    },
+    {
+      "op": "replace",
+      "path": "/cohorts"
+    }
+  ],
+  "backup": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/receipts/mutation-journal/preimages/sha256-cf21a6d5ee5c32b8f0939552e1b4913737520897e633625e94770d35090c836f.json",
+  "journal": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/receipts/mutation-journal/mutations/fb4a4451eaeccd8a59c51ad44bfa5bd2d607ab932b872374ffc3bb4ee95ec817.json",
+  "mutation_id": "validation-passing-20260911",
+  "validators": [
+    {
+      "command": [
+        "python",
+        "/home/ubuntu/.codex/skills/decision-campaign-workbook/scripts/validate_decision_campaign.py",
+        "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/campaign.json",
+        "--post-implementation-results",
+        "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/receipts/post-implementation-results-after-repair-20260911.json"
+      ],
+      "returncode": 0,
+      "stdout_tail": "VALID: company-intelligence-cross-region-career-preparation (5 decisions, status=implementing)\n",
+      "stderr_tail": ""
+    }
+  ],
+  "completed_at": "2026-09-11T07:35:15.401828+00:00"
+}

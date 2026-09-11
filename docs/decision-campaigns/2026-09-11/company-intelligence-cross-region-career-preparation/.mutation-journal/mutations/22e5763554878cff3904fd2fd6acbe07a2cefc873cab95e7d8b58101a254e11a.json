@@ -1,0 +1,13 @@
+{
+  "contract_version": "atomic-json-mutation-journal-v1",
+  "mutation_id": "approve-D-07-company-timeline-macro-comparison-20260911",
+  "target": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/07-d-07-company-timeline-macro-comparison.json",
+  "status": "validated",
+  "before_sha256": "145ad12ef2e4b8b4d9effd61bc73dd0eab1879e9496960d85ca3ff1c944e3ea6",
+  "proposed_after_sha256": "3ffb8fc8eb637d28c90b8e5d636a09d56249b29b84ade00735723f96cfe6750e",
+  "preimage_path": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/.mutation-journal/preimages/sha256-145ad12ef2e4b8b4d9effd61bc73dd0eab1879e9496960d85ca3ff1c944e3ea6.json",
+  "patch_source": "inline-semantic-arguments",
+  "patch_sha256": "7027f28bc7c6f5774e6e2452e22fb365ff348450034181131a29a825f3e2563a",
+  "updated_at": "2026-09-11T09:45:20.867786+00:00",
+  "observed_after_sha256": "3ffb8fc8eb637d28c90b8e5d636a09d56249b29b84ade00735723f96cfe6750e"
+}

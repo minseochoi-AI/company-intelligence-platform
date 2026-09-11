@@ -1,0 +1,13 @@
+{
+  "contract_version": "atomic-json-mutation-journal-v1",
+  "mutation_id": "amend-scope-function-inventory-20260911-retry",
+  "target": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/campaign.json",
+  "status": "validated",
+  "before_sha256": "0b81fd8236af5b3bb64936394b78e8f111a3370bdf14efb533a1102d48858b16",
+  "proposed_after_sha256": "bfb087c47383c5f1dcbd8cc3a059af6d2abbd027fb534a35c5a62a69ae2c710d",
+  "preimage_path": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/.mutation-journal/preimages/sha256-0b81fd8236af5b3bb64936394b78e8f111a3370bdf14efb533a1102d48858b16.json",
+  "patch_source": "inline-semantic-arguments",
+  "patch_sha256": "dd5cd92f434dab328e6bca9c72b166f7a05a45f9ec9a6f9ceeacb52d05f944b6",
+  "updated_at": "2026-09-11T07:57:38.009417+00:00",
+  "observed_after_sha256": "bfb087c47383c5f1dcbd8cc3a059af6d2abbd027fb534a35c5a62a69ae2c710d"
+}

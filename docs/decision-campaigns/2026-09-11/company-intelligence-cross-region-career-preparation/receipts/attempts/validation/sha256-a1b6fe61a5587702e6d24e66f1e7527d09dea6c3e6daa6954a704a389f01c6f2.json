@@ -1,0 +1,14 @@
+{
+  "scenario_id": "C-01-source-identity-foundation:C-01-classification-tests",
+  "cohort_id": "C-01-source-identity-foundation",
+  "criterion_id": "C-01-classification-tests",
+  "plan_sha256": "c8b5c8c96de5d900195abc2528b9ceb2762a7ecad73c2a475ab5e28148d284b6",
+  "command": "uv run --frozen pytest tests/test_classification.py -q",
+  "outcome": "fail",
+  "returncode": 1,
+  "first_failure": "F..                                                                      [100%]",
+  "raw_log_path": ".runtime/campaign-orchestrator/company-intelligence-cross-region-career-preparation/validation/C-01-source-identity-foundation__C-01-classification-tests.log",
+  "raw_log_sha256": "366965cf5a9edf487eb5e57cccbfe636539ed52fb8454ca38469d4905f478085",
+  "tail": "unavailable\"},\n            evidence_complete=False,\n        )\n    \n        assert classification.capabilities[\"financial\"] == \"available\"\n        assert classification.analysis_eligibility.correlation_ready is False\n>       assert \"missing-aligned-series\" in classification.analysis_eligibility.reasons\nE       AssertionError: assert 'missing-aligned-series' in ('missing-period-alignment',)\nE        +  where ('missing-period-alignment',) = AnalysisEligibility(correlation_ready=False, causal_ready=False, reasons=('missing-period-alignment',)).reasons\nE        +    where AnalysisEligibility(correlation_ready=False, causal_ready=False, reasons=('missing-period-alignment',)) = CompanyClassification(entity_id='SEC:0000320193', capabilities={'financial': 'available', 'job_posting': 'unavailable'...yment_unavailable', 'market_unavailable', 'macro_unavailable', 'public_context_unavailable', 'missing-aligned-series')).analysis_eligibility\n\ntests/test_classification.py:14: AssertionError\n=========================== short test summary info ============================\nFAILED tests/test_classification.py::test_finance_only_company_is_not_promoted_to_correlation_ready\n1 failed, 2 passed in 0.04s\n",
+  "completed_at": "2026-09-11T07:27:55.116118+00:00"
+}

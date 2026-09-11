@@ -1,0 +1,189 @@
+{
+  "campaign_id": "company-intelligence-cross-region-career-preparation",
+  "captured_at": "2026-09-11T07:13:07.297230+00:00",
+  "configuration_sources": {
+    "bge_evidence": {
+      "ADK_BGE_EVIDENCE_INDEX_URI": {
+        "present": false,
+        "source": null,
+        "value_emitted": false
+      },
+      "ADK_BGE_TEXT_EMBEDDING_BASE_URL": {
+        "present": false,
+        "source": null,
+        "value_emitted": false
+      },
+      "ready": false,
+      "requires": [
+        "ADK_BGE_TEXT_EMBEDDING_BASE_URL",
+        "ADK_BGE_EVIDENCE_INDEX_URI",
+        "fresh citation-bound evidence corpus"
+      ]
+    },
+    "env_files": [
+      {
+        "exists": true,
+        "expected_key_count": 0,
+        "path": "/home/ubuntu/root/company-intelligence-platform/.env"
+      }
+    ],
+    "gemma_google_search": {
+      "GEMMA_GROUNDING_ENABLED": false,
+      "activation": "set GEMMA_GROUNDING_ENABLED=true in the bounded live-run environment; never persist the key value",
+      "ready": false,
+      "requires": [
+        "GOOGLE_API_KEY|GEMINI_API_KEY",
+        "GEMMA_GROUNDING_ENABLED=true"
+      ]
+    },
+    "google_ads": {
+      "GOOGLE_ADS_CUSTOMER_ID": {
+        "present": false,
+        "source": null,
+        "value_emitted": false
+      },
+      "configuration_file_readable": false,
+      "configuration_file_supplied": false,
+      "ready": false,
+      "runtime_argument_path": "pass --ads-config <protected profile> and --ads-customer-id <operator value> to the Phase 0 live probe; do not store the customer ID"
+    },
+    "google_genai": {
+      "GEMINI_API_KEY": {
+        "present": true,
+        "source": "process",
+        "value_emitted": false
+      },
+      "GOOGLE_API_KEY": {
+        "present": true,
+        "source": "process",
+        "value_emitted": false
+      },
+      "ready": true
+    },
+    "missing_env_files": [],
+    "youtube_data": {
+      "YOUTUBE_API_KEY": {
+        "present": false,
+        "source": null,
+        "value_emitted": false
+      },
+      "ready": false
+    }
+  },
+  "credential_values_emitted": false,
+  "media_policy": {
+    "bytes_acquisition": "intentionally-disabled",
+    "strategy": "SEMANTIC_ONLY"
+  },
+  "repository": {
+    "cwd_matches_root": true,
+    "invocation_cwd": "/home/ubuntu/root/company-intelligence-platform",
+    "root": "/home/ubuntu/root/company-intelligence-platform"
+  },
+  "resume": {
+    "campaign_path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/campaign.json",
+    "criteria": [
+      {
+        "cohort_id": "C-01-source-identity-foundation",
+        "command": "uv run --frozen pytest tests/test_source_catalog.py -q",
+        "criterion_id": "C-01-catalog-tests",
+        "declared_paths": [
+          "tests/test_source_catalog.py"
+        ],
+        "depends_on_criteria": [],
+        "missing_paths": [],
+        "plan_path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/implementation-plans/C-01-source-identity-foundation.json",
+        "plan_sha256": "c8b5c8c96de5d900195abc2528b9ceb2762a7ecad73c2a475ab5e28148d284b6",
+        "preflight": "ready-to-run",
+        "provider_backed": false,
+        "status": "planned"
+      },
+      {
+        "cohort_id": "C-01-source-identity-foundation",
+        "command": "uv run --frozen pytest tests/test_classification.py -q",
+        "criterion_id": "C-01-classification-tests",
+        "declared_paths": [
+          "tests/test_classification.py"
+        ],
+        "depends_on_criteria": [
+          "C-01-catalog-tests"
+        ],
+        "missing_paths": [],
+        "plan_path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/implementation-plans/C-01-source-identity-foundation.json",
+        "plan_sha256": "c8b5c8c96de5d900195abc2528b9ceb2762a7ecad73c2a475ab5e28148d284b6",
+        "preflight": "ready-to-run",
+        "provider_backed": false,
+        "status": "planned"
+      },
+      {
+        "cohort_id": "C-02-search-requirement-evidence",
+        "command": "uv run --frozen pytest tests/test_career_requirements.py -q",
+        "criterion_id": "C-02-requirement-tests",
+        "declared_paths": [
+          "tests/test_career_requirements.py"
+        ],
+        "depends_on_criteria": [
+          "C-02-search-tests"
+        ],
+        "missing_paths": [],
+        "plan_path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/implementation-plans/C-02-search-requirement-evidence.json",
+        "plan_sha256": "88b644caebcf290de5296ac93c01638305224e188ca45598ed72ab07634b5daf",
+        "preflight": "ready-to-run",
+        "provider_backed": false,
+        "status": "planned"
+      },
+      {
+        "cohort_id": "C-02-search-requirement-evidence",
+        "command": "uv run --frozen pytest tests/test_search_profile.py -q",
+        "criterion_id": "C-02-search-tests",
+        "declared_paths": [
+          "tests/test_search_profile.py"
+        ],
+        "depends_on_criteria": [],
+        "missing_paths": [],
+        "plan_path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/implementation-plans/C-02-search-requirement-evidence.json",
+        "plan_sha256": "88b644caebcf290de5296ac93c01638305224e188ca45598ed72ab07634b5daf",
+        "preflight": "ready-to-run",
+        "provider_backed": false,
+        "status": "planned"
+      },
+      {
+        "cohort_id": "C-03-evidence-export-delivery",
+        "command": "uv run --frozen pytest tests/test_exporting.py -q",
+        "criterion_id": "C-03-export-tests",
+        "declared_paths": [
+          "tests/test_exporting.py"
+        ],
+        "depends_on_criteria": [],
+        "missing_paths": [],
+        "plan_path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/implementation-plans/C-03-evidence-export-delivery.json",
+        "plan_sha256": "7eced62ade8fb756b22e7e4763fb3f8789403b8b0721fcea4618827911148ffe",
+        "preflight": "ready-to-run",
+        "provider_backed": false,
+        "status": "planned"
+      }
+    ],
+    "known_blockers": [
+      "사용자 요청에 따라 pytest와 provider 호출을 테스트 전 turnover 이후로 연기함"
+    ],
+    "rule": "Run local criteria first, then provider-backed criteria only with current plan-hash approval; record each attempt separately."
+  },
+  "runtime": {
+    "command_prefix": "uv run --frozen",
+    "requires_python": ">=3.11",
+    "uv_cache_dir": null,
+    "uv_executable": "/home/ubuntu/.local/bin/uv",
+    "uv_lock_path": "uv.lock",
+    "uv_lock_sha256": "920aebcf673c1f0dd7bd545969cc95fbc3778f8398fd1ee5d6711e17690af984",
+    "uv_version": "uv 0.10.11",
+    "venv_python": "/home/ubuntu/root/company-intelligence-platform/.venv/bin/python",
+    "venv_python_exists": true,
+    "venv_python_version": "Python 3.13.12"
+  },
+  "sandbox_network": {
+    "current_mode": "not-probed",
+    "interpretation": "network mode describes the runner boundary only; provider success requires a new receipt",
+    "previous_observations": []
+  },
+  "schema_version": "campaign-execution-environment-v1"
+}

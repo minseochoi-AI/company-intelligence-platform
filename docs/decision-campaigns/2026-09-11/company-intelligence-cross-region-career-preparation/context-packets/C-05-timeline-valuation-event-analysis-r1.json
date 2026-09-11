@@ -1,0 +1,65 @@
+{
+  "contract_version": "implementation-context-packet-v2",
+  "packet_id": "C-05-timeline-valuation-event-analysis-packet-8e2337145102",
+  "topics": [
+    "time-value-events"
+  ],
+  "capability_ids": [
+    "point-in-time-timeline",
+    "macro-market-alignment",
+    "evidence-bound-valuation",
+    "event-study-eligibility"
+  ],
+  "required_refs": [
+    {
+      "ref_id": "analytics-time-value-current",
+      "role": "must-read",
+      "path": "src/company_intel/analytics.py",
+      "content_hash": "sha256:f4f76a87c9c7c2a226ff9164c783eb1c89beeed89c15cf1cc47346fe71a0f269",
+      "line_range": "1-300",
+      "question": "현재 계산 함수가 시점·근거·적격성을 사용자 흐름으로 보존하는가?",
+      "observation_summary": "순위·DCF·event/DiD 계산기는 있으나 실제 저장 원천과 point-in-time eligibility 결합은 없다."
+    },
+    {
+      "ref_id": "api-analysis-current",
+      "role": "must-read",
+      "path": "src/company_intel/api.py",
+      "content_hash": "sha256:59330f230279ba5a5582d9ed7ff06091ebcec03ebc15595da6841eaa64fa976f",
+      "line_range": "1-230",
+      "question": "현재 분석 API가 시장·거시·가정·사건 근거를 함께 반환하는가?",
+      "observation_summary": "계산 endpoint는 있으나 데이터 적격성, 관측시점, 근거와 제한 상태가 하나의 응답으로 결속되지 않는다."
+    },
+    {
+      "ref_id": "warehouse-schema-analysis-current",
+      "role": "must-read",
+      "path": "sql/duckdb_schema.sql",
+      "content_hash": "sha256:fe701d386efa4dcd77385f8ca4c694a9e1404718d9dd18fae80aceddec9812f2",
+      "line_range": "1-260",
+      "question": "시간축 비교에 필요한 available_at·period·unit·source가 저장되는가?",
+      "observation_summary": "원자 fact의 시점 필드는 있으나 분석 실행·가정·event eligibility 결과 저장 계약은 없다."
+    }
+  ],
+  "current_entry_points": [],
+  "planned_entry_points": [
+    {
+      "kind": "code",
+      "path": "src/company_intel/analysis_service.py",
+      "symbol": "build_company_timeline",
+      "change_id": "D-07-D-09-analysis-evidence-service"
+    },
+    {
+      "kind": "test",
+      "path": "tests/test_analysis_service.py",
+      "symbol": "test_point_in_time_and_analysis_limits",
+      "change_id": "D-07-D-09-analysis-evidence-test"
+    }
+  ],
+  "external_entry_points": [],
+  "invariants": [
+    "available_at 이후의 정보가 과거 분석 시점에 유입되지 않는다.",
+    "기업 fact·시장·거시는 동일 의미로 합치지 않고 축과 단위를 보존한다.",
+    "DCF와 사건 분석은 예측·인과 확정이 아니라 입력 가정·적격성·제한을 반환한다."
+  ],
+  "unresolved_conflicts": [],
+  "resume_digest": "Prepared C-05-timeline-valuation-event-analysis from current decision hashes and one global file-ownership graph."
+}

@@ -1,0 +1,170 @@
+{
+  "contract_version": "1.2.0",
+  "plan_id": "company-intelligence-cross-region-career-preparation--C-04-peer-screener-ranking--r2",
+  "owner": {
+    "kind": "campaign-cohort",
+    "id": "C-04-peer-screener-ranking"
+  },
+  "source_refs": [
+    {
+      "id": "D-06-peer-screener-ranking",
+      "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/06-d-06-peer-screener-ranking.json",
+      "sha256": "sha256:8e29a292998d859c86ae336f0585a387e38f8f6f02f4834f8fbd3f181da75166"
+    }
+  ],
+  "status": "contract-ready",
+  "change_slices": [
+    {
+      "slice_id": "comparable-peer-ranking-r2",
+      "behavior": "국가·산업·규모뿐 아니라 통화·기간·회계개념·단위·vintage·coverage가 같은 기업 fact만 동료군으로 묶고 비교 불가 후보를 별도 반환한다.",
+      "dependencies": [],
+      "operations": [
+        {
+          "change_id": "D-06-screening-signature-r2",
+          "operation": "MODIFY",
+          "path": "src/company_intel/screening.py",
+          "symbols": [
+            "ScreenerProfile",
+            "screen_companies",
+            "ComparabilitySignature",
+            "ScreenerResult"
+          ],
+          "current_state": "국가·산업·규모와 일부 metric 존재만 검사해 서로 다른 통화·기간·concept·vintage가 같은 순위로 섞일 수 있다.",
+          "source_hash": "sha256:0bc9f5aa7df1287b465373dbb3d0df39711ab936b5406823b15696f7c6fd8b19",
+          "after_state": "metric별 비교 signature와 최소 coverage/peer size를 강제하고 macro·procurement·activity proxy를 재무 순위에서 거부한다.",
+          "rationale": "숫자가 존재한다는 이유만으로 비교 불가능한 회사를 정렬하지 않기 위해서다.",
+          "dependencies": [],
+          "public_contract_impacts": [
+            "company screener result v2"
+          ],
+          "compatibility": "기존 country×industry×size 필터를 포함한다.",
+          "migration": "signature 없는 기존 행은 unverifiable로 분리한다.",
+          "rollback": "r2 screener endpoint를 비활성화한다.",
+          "authorization_boundary": "순위는 투자 조언이나 가격 목표가 아니다.",
+          "contributes_to": [
+            "D-06-peer-screener-ranking"
+          ],
+          "symbol_changes": [
+            {
+              "symbol": "screen_companies",
+              "intent": "비교 signature 기반 동료군",
+              "decision_id": "D-06-peer-screener-ranking"
+            }
+          ],
+          "contribution_refs": [
+            {
+              "decision_id": "D-06-peer-screener-ranking",
+              "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/06-d-06-peer-screener-ranking.json",
+              "sha256": "sha256:8e29a292998d859c86ae336f0585a387e38f8f6f02f4834f8fbd3f181da75166",
+              "symbols": [
+                "ScreenerProfile",
+                "screen_companies",
+                "ComparabilitySignature",
+                "ScreenerResult"
+              ],
+              "intent_change_ids": []
+            }
+          ]
+        },
+        {
+          "change_id": "D-06-screening-tests-r2",
+          "operation": "MODIFY",
+          "path": "tests/test_screening.py",
+          "symbols": [
+            "test_incompatible_units_excluded",
+            "test_proxy_metric_rejected",
+            "test_coverage_threshold",
+            "test_deterministic_peer_rank"
+          ],
+          "current_state": "기본 peer count와 결측 제외만 검사하고 semantic comparability를 검증하지 않는다.",
+          "source_hash": "sha256:666d6e7a502f6570815dfb3c2208c1ec552577501b0b5b36b749b46bc0a6d4ea",
+          "after_state": "통화·기간·concept·vintage 불일치, proxy 오용, coverage 미달과 동일 signature 순위를 fixture로 검증한다.",
+          "rationale": "스크리너의 계산 성공과 비교 타당성을 구분하기 위해서다.",
+          "dependencies": [],
+          "public_contract_impacts": [
+            "offline screener acceptance tests"
+          ],
+          "compatibility": "기존 테스트를 유지한다.",
+          "migration": "없음.",
+          "rollback": "r2 screener와 함께 제거한다.",
+          "authorization_boundary": "합성 재무 fact만 사용한다.",
+          "contributes_to": [
+            "D-06-peer-screener-ranking"
+          ],
+          "symbol_changes": [
+            {
+              "symbol": "test_incompatible_units_excluded",
+              "intent": "비교 불가 동료군 차단",
+              "decision_id": "D-06-peer-screener-ranking"
+            }
+          ],
+          "contribution_refs": [
+            {
+              "decision_id": "D-06-peer-screener-ranking",
+              "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/06-d-06-peer-screener-ranking.json",
+              "sha256": "sha256:8e29a292998d859c86ae336f0585a387e38f8f6f02f4834f8fbd3f181da75166",
+              "symbols": [
+                "test_incompatible_units_excluded",
+                "test_proxy_metric_rejected",
+                "test_coverage_threshold",
+                "test_deterministic_peer_rank"
+              ],
+              "intent_change_ids": []
+            }
+          ]
+        }
+      ],
+      "routes": [
+        {
+          "route_id": "c04-r2-tdd",
+          "skill": "tdd",
+          "requirement": "required",
+          "phase": "IMPLEMENT",
+          "purpose": "비교 signature와 제외 규칙을 테스트 우선 구현",
+          "expected_artifact": "C-04 r2 code and tests"
+        },
+        {
+          "route_id": "c04-r2-verify",
+          "skill": "verification-before-completion",
+          "requirement": "required",
+          "phase": "VALIDATE",
+          "purpose": "동료군 비교 가능성과 결정론 검증",
+          "expected_artifact": "C-04 r2 validation receipt"
+        }
+      ],
+      "completion_contract": [
+        {
+          "criterion_id": "C-04-r2-screener-tests",
+          "behavior": "동일 signature 동료군만 순위화되고 단위·기간·concept·proxy·coverage 위반은 설명 가능한 제외로 반환된다.",
+          "blocking": true,
+          "owner_skill": "verification-before-completion",
+          "phase": "VALIDATE",
+          "depends_on_criteria": [],
+          "test": {
+            "type": "pytest",
+            "value": "uv run --frozen pytest tests/test_screening.py -q",
+            "runner": "pytest",
+            "paths": [
+              "tests/test_screening.py"
+            ],
+            "provider_backed": false,
+            "timeout_seconds": 600
+          },
+          "expected_result": "all tests pass with no incomparable company ranking",
+          "failure_marker": "mixed signature ranked, proxy promoted, missing coverage accepted, or unstable order",
+          "receipt": {
+            "status": "planned",
+            "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/receipts/criteria/C-04-r2-screener-tests.json",
+            "sha256": "planned"
+          },
+          "status": "planned"
+        }
+      ]
+    }
+  ],
+  "metadata": {
+    "preparation_contract": "campaign-global-ownership-v1",
+    "planned_commit_message": "fix(screening): rank only comparable peer facts",
+    "git_finalization_authorized": false
+  }
+}

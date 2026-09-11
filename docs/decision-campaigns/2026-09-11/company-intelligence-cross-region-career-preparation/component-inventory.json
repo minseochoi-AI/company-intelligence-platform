@@ -1,0 +1,627 @@
+{
+  "contract_version": "change-surface-inventory-v1",
+  "repository": "/home/ubuntu/root/company-intelligence-platform",
+  "modules": [
+    {
+      "component_id": "scripts.migrate_api_key_names",
+      "module": "scripts.migrate_api_key_names",
+      "path": "scripts/migrate_api_key_names.py",
+      "symbols": [
+        "main",
+        "migrate"
+      ],
+      "imports": [],
+      "test_nodes": []
+    },
+    {
+      "component_id": "src.company_intel",
+      "module": "src.company_intel",
+      "path": "src/company_intel/__init__.py",
+      "symbols": [],
+      "imports": [],
+      "test_nodes": []
+    },
+    {
+      "component_id": "src.company_intel.analysis_service",
+      "module": "src.company_intel.analysis_service",
+      "path": "src/company_intel/analysis_service.py",
+      "symbols": [
+        "build_company_timeline",
+        "evaluate_ai_event",
+        "evaluate_valuation_scenarios"
+      ],
+      "imports": [],
+      "test_nodes": []
+    },
+    {
+      "component_id": "src.company_intel.analytics",
+      "module": "src.company_intel.analytics",
+      "path": "src/company_intel/analytics.py",
+      "symbols": [
+        "DCFScenario",
+        "_percentile",
+        "_robust_z",
+        "dcf_scenarios",
+        "difference_in_differences",
+        "event_study",
+        "financial_metrics",
+        "future_value_score",
+        "hiring_change",
+        "macro_sensitivity",
+        "pct_change",
+        "rank_companies",
+        "safe_div"
+      ],
+      "imports": [],
+      "test_nodes": []
+    },
+    {
+      "component_id": "src.company_intel.api",
+      "module": "src.company_intel.api",
+      "path": "src/company_intel/api.py",
+      "symbols": [
+        "AiEventEvidenceRequest",
+        "DcfRequest",
+        "DidRequest",
+        "EventStudyRequest",
+        "EvidenceTimelineRequest",
+        "ExportRequest",
+        "FutureScoreRequest",
+        "JobSearchRequest",
+        "JobSearchRequest.to_domain",
+        "RankingRequest",
+        "ScreenerRequest",
+        "SearchProfileRequest",
+        "SearchProfileRequest.to_domain",
+        "ValuationEvidenceRequest",
+        "ai_event_analysis",
+        "calculate_dcf",
+        "calculate_did",
+        "calculate_event_study",
+        "calculate_future_score",
+        "company_capabilities",
+        "company_screener",
+        "company_search",
+        "company_timeline",
+        "create_export",
+        "evidence_timeline",
+        "export_metadata",
+        "health",
+        "job_requirements",
+        "job_search",
+        "latest_validation",
+        "rankings",
+        "valuation_scenarios"
+      ],
+      "imports": [],
+      "test_nodes": []
+    },
+    {
+      "component_id": "src.company_intel.career_requirements",
+      "module": "src.company_intel.career_requirements",
+      "path": "src/company_intel/career_requirements.py",
+      "symbols": [
+        "extract_job_requirements",
+        "normalize_requirement",
+        "requirement_rows",
+        "resolve_country_baseline",
+        "verify_requirement"
+      ],
+      "imports": [],
+      "test_nodes": []
+    },
+    {
+      "component_id": "src.company_intel.classification",
+      "module": "src.company_intel.classification",
+      "path": "src/company_intel/classification.py",
+      "symbols": [
+        "classify_company",
+        "evaluate_analysis_eligibility"
+      ],
+      "imports": [],
+      "test_nodes": []
+    },
+    {
+      "component_id": "src.company_intel.cli",
+      "module": "src.company_intel.cli",
+      "path": "src/company_intel/cli.py",
+      "symbols": [
+        "_demo",
+        "main"
+      ],
+      "imports": [],
+      "test_nodes": []
+    },
+    {
+      "component_id": "src.company_intel.config",
+      "module": "src.company_intel.config",
+      "path": "src/company_intel/config.py",
+      "symbols": [
+        "Settings",
+        "Settings.from_env",
+        "configured_secrets",
+        "load_dotenv"
+      ],
+      "imports": [],
+      "test_nodes": []
+    },
+    {
+      "component_id": "src.company_intel.connectors",
+      "module": "src.company_intel.connectors",
+      "path": "src/company_intel/connectors/__init__.py",
+      "symbols": [],
+      "imports": [],
+      "test_nodes": []
+    },
+    {
+      "component_id": "src.company_intel.connectors.base",
+      "module": "src.company_intel.connectors.base",
+      "path": "src/company_intel/connectors/base.py",
+      "symbols": [
+        "compact",
+        "get_path",
+        "json_payload",
+        "to_number",
+        "xml_payload"
+      ],
+      "imports": [],
+      "test_nodes": []
+    },
+    {
+      "component_id": "src.company_intel.connectors.keyed",
+      "module": "src.company_intel.connectors.keyed",
+      "path": "src/company_intel/connectors/keyed.py",
+      "symbols": [
+        "_alio_plus",
+        "_alpha",
+        "_bea",
+        "_dart",
+        "_ecos",
+        "_fred",
+        "_public_employment",
+        "alio_context_evidence",
+        "keyed_probes",
+        "mpm_detail_evidence"
+      ],
+      "imports": [],
+      "test_nodes": []
+    },
+    {
+      "component_id": "src.company_intel.connectors.keyless",
+      "module": "src.company_intel.connectors.keyless",
+      "path": "src/company_intel/connectors/keyless.py",
+      "symbols": [
+        "_greenhouse",
+        "_lever",
+        "_select",
+        "ats_detail_evidence",
+        "czech_public_requirement_source",
+        "keyless_probes"
+      ],
+      "imports": [],
+      "test_nodes": []
+    },
+    {
+      "component_id": "src.company_intel.connectors.registry",
+      "module": "src.company_intel.connectors.registry",
+      "path": "src/company_intel/connectors/registry.py",
+      "symbols": [
+        "build_probes",
+        "source_health"
+      ],
+      "imports": [],
+      "test_nodes": []
+    },
+    {
+      "component_id": "src.company_intel.evidence",
+      "module": "src.company_intel.evidence",
+      "path": "src/company_intel/evidence.py",
+      "symbols": [
+        "EvidenceStore",
+        "EvidenceStore.__init__",
+        "EvidenceStore.append_log",
+        "EvidenceStore.preserve",
+        "sha256_bytes",
+        "utc_now",
+        "write_json"
+      ],
+      "imports": [],
+      "test_nodes": []
+    },
+    {
+      "component_id": "src.company_intel.exporting",
+      "module": "src.company_intel.exporting",
+      "path": "src/company_intel/exporting.py",
+      "symbols": [
+        "ExportBundle",
+        "_csv_bytes",
+        "build_export_bundle",
+        "build_export_manifest",
+        "item_or_empty",
+        "render_csv_bundle",
+        "render_xlsx_workbook"
+      ],
+      "imports": [],
+      "test_nodes": []
+    },
+    {
+      "component_id": "src.company_intel.http",
+      "module": "src.company_intel.http",
+      "path": "src/company_intel/http.py",
+      "symbols": [
+        "HttpClient",
+        "HttpClient.__init__",
+        "HttpClient.execute",
+        "_selected_headers"
+      ],
+      "imports": [],
+      "test_nodes": []
+    },
+    {
+      "component_id": "src.company_intel.identity",
+      "module": "src.company_intel.identity",
+      "path": "src/company_intel/identity.py",
+      "symbols": [
+        "CompanyIdentityResolver",
+        "CompanyIdentityResolver.__init__",
+        "CompanyIdentityResolver.add",
+        "CompanyIdentityResolver.resolve",
+        "IdentifierLink",
+        "ResolutionResult",
+        "explain_resolution",
+        "resolve_candidate_company"
+      ],
+      "imports": [],
+      "test_nodes": []
+    },
+    {
+      "component_id": "src.company_intel.job_search",
+      "module": "src.company_intel.job_search",
+      "path": "src/company_intel/job_search.py",
+      "symbols": [
+        "JobDataFrames",
+        "JobDataFrames.as_records",
+        "JobDataFrames.write_csv",
+        "JobSearchProfile",
+        "_ListTextParser",
+        "_ListTextParser.__init__",
+        "_ListTextParser.handle_data",
+        "_ListTextParser.handle_endtag",
+        "_ListTextParser.handle_starttag",
+        "_active_at",
+        "_atomic_requirements",
+        "_contains",
+        "_country_from_location",
+        "_employment",
+        "_html_parts",
+        "_mpsv_location",
+        "_mpsv_salary_period",
+        "_necessity",
+        "_records",
+        "_requirement_matches",
+        "_snapshot",
+        "_validate_profile",
+        "_value",
+        "_workplace",
+        "normalize_greenhouse_jobs",
+        "normalize_lever_jobs",
+        "normalize_mpm_jobs",
+        "normalize_mpsv_jobs",
+        "normalize_provider_payloads",
+        "search_job_dataframes"
+      ],
+      "imports": [],
+      "test_nodes": []
+    },
+    {
+      "component_id": "src.company_intel.models",
+      "module": "src.company_intel.models",
+      "path": "src/company_intel/models.py",
+      "symbols": [
+        "AnalysisEligibility",
+        "AtomicFieldContract",
+        "CandidateMatch",
+        "CompanyClassification",
+        "HttpResult",
+        "Probe",
+        "ProviderHealth",
+        "RequirementEvidence",
+        "RequirementVerification",
+        "SearchProfile",
+        "SourcePolicy"
+      ],
+      "imports": [],
+      "test_nodes": []
+    },
+    {
+      "component_id": "src.company_intel.normalization",
+      "module": "src.company_intel.normalization",
+      "path": "src/company_intel/normalization.py",
+      "symbols": [
+        "AtomicObservationMapper",
+        "AtomicObservationMapper.map",
+        "NormalizedObservation",
+        "deduplication_key",
+        "normalize_unit"
+      ],
+      "imports": [],
+      "test_nodes": []
+    },
+    {
+      "component_id": "src.company_intel.pipeline",
+      "module": "src.company_intel.pipeline",
+      "path": "src/company_intel/pipeline.py",
+      "symbols": [
+        "_load",
+        "actual_analysis"
+      ],
+      "imports": [],
+      "test_nodes": []
+    },
+    {
+      "component_id": "src.company_intel.reporting",
+      "module": "src.company_intel.reporting",
+      "path": "src/company_intel/reporting.py",
+      "symbols": [
+        "render_export_summary",
+        "validation_report_ko",
+        "write_export_summary",
+        "write_validation_report"
+      ],
+      "imports": [],
+      "test_nodes": []
+    },
+    {
+      "component_id": "src.company_intel.screening",
+      "module": "src.company_intel.screening",
+      "path": "src/company_intel/screening.py",
+      "symbols": [
+        "ScreenerProfile",
+        "ScreenerResult",
+        "screen_companies"
+      ],
+      "imports": [],
+      "test_nodes": []
+    },
+    {
+      "component_id": "src.company_intel.search",
+      "module": "src.company_intel.search",
+      "path": "src/company_intel/search.py",
+      "symbols": [
+        "build_company_universe",
+        "explain_candidate",
+        "rank_candidates",
+        "validate_search_profile"
+      ],
+      "imports": [],
+      "test_nodes": []
+    },
+    {
+      "component_id": "src.company_intel.security",
+      "module": "src.company_intel.security",
+      "path": "src/company_intel/security.py",
+      "symbols": [
+        "redact_body",
+        "redact_url",
+        "redact_value",
+        "sanitize_export_row",
+        "sanitize_export_value",
+        "validate_output_directory"
+      ],
+      "imports": [],
+      "test_nodes": []
+    },
+    {
+      "component_id": "src.company_intel.source_catalog",
+      "module": "src.company_intel.source_catalog",
+      "path": "src/company_intel/source_catalog.py",
+      "symbols": [
+        "SourceCatalog",
+        "SourceCatalog.by_id",
+        "_policy",
+        "evaluate_activation",
+        "load_source_catalog",
+        "validate_atomic_contract"
+      ],
+      "imports": [],
+      "test_nodes": []
+    },
+    {
+      "component_id": "src.company_intel.validation",
+      "module": "src.company_intel.validation",
+      "path": "src/company_intel/validation.py",
+      "symbols": [
+        "_parse_raw",
+        "_provider_error",
+        "enumerate_paths",
+        "validate"
+      ],
+      "imports": [],
+      "test_nodes": []
+    },
+    {
+      "component_id": "src.company_intel.warehouse",
+      "module": "src.company_intel.warehouse",
+      "path": "src/company_intel/warehouse.py",
+      "symbols": [
+        "Warehouse",
+        "Warehouse.__init__",
+        "Warehouse.connect",
+        "Warehouse.ingest_normalized_artifacts",
+        "Warehouse.ingest_validation_evidence",
+        "Warehouse.initialize",
+        "Warehouse.materialize_export_snapshot",
+        "Warehouse.query",
+        "Warehouse.query_export_bundle",
+        "Warehouse.record_classification",
+        "Warehouse.record_field_availability",
+        "Warehouse.search_candidates",
+        "Warehouse.store_job_snapshot",
+        "Warehouse.store_requirement_evidence",
+        "Warehouse.upsert_capability",
+        "Warehouse.upsert_identity",
+        "duckdb_path"
+      ],
+      "imports": [],
+      "test_nodes": []
+    },
+    {
+      "component_id": "tests.test_analysis_service",
+      "module": "tests.test_analysis_service",
+      "path": "tests/test_analysis_service.py",
+      "symbols": [
+        "test_point_in_time_and_analysis_limits"
+      ],
+      "imports": [],
+      "test_nodes": [
+        "tests/test_analysis_service.py::test_point_in_time_and_analysis_limits"
+      ]
+    },
+    {
+      "component_id": "tests.test_analytics",
+      "module": "tests.test_analytics",
+      "path": "tests/test_analytics.py",
+      "symbols": [
+        "test_event_did_dcf_future_score",
+        "test_financial_metrics_cashflow_and_margins",
+        "test_hiring_snapshots_do_not_claim_hires",
+        "test_ranking_is_peer_scoped_and_lower_leverage_is_better"
+      ],
+      "imports": [],
+      "test_nodes": [
+        "tests/test_analytics.py::test_event_did_dcf_future_score",
+        "tests/test_analytics.py::test_financial_metrics_cashflow_and_margins",
+        "tests/test_analytics.py::test_hiring_snapshots_do_not_claim_hires",
+        "tests/test_analytics.py::test_ranking_is_peer_scoped_and_lower_leverage_is_better"
+      ]
+    },
+    {
+      "component_id": "tests.test_career_requirements",
+      "module": "tests.test_career_requirements",
+      "path": "tests/test_career_requirements.py",
+      "symbols": [
+        "test_missing_detail_is_unavailable_not_an_invented_certificate",
+        "test_required_and_preferred_requirements_remain_distinct"
+      ],
+      "imports": [],
+      "test_nodes": [
+        "tests/test_career_requirements.py::test_missing_detail_is_unavailable_not_an_invented_certificate",
+        "tests/test_career_requirements.py::test_required_and_preferred_requirements_remain_distinct"
+      ]
+    },
+    {
+      "component_id": "tests.test_classification",
+      "module": "tests.test_classification",
+      "path": "tests/test_classification.py",
+      "symbols": [
+        "test_ambiguous_identity_is_retained_not_silently_merged",
+        "test_analysis_needs_identity_period_unit_and_availability",
+        "test_finance_only_company_is_not_promoted_to_correlation_ready",
+        "test_warehouse_identity_persistence_uses_the_identity_module_contract"
+      ],
+      "imports": [],
+      "test_nodes": [
+        "tests/test_classification.py::test_ambiguous_identity_is_retained_not_silently_merged",
+        "tests/test_classification.py::test_analysis_needs_identity_period_unit_and_availability",
+        "tests/test_classification.py::test_finance_only_company_is_not_promoted_to_correlation_ready",
+        "tests/test_classification.py::test_warehouse_identity_persistence_uses_the_identity_module_contract"
+      ]
+    },
+    {
+      "component_id": "tests.test_exporting",
+      "module": "tests.test_exporting",
+      "path": "tests/test_exporting.py",
+      "symbols": [
+        "test_export_keeps_evidence_and_exclusion_rows_and_sanitizes_cells"
+      ],
+      "imports": [],
+      "test_nodes": [
+        "tests/test_exporting.py::test_export_keeps_evidence_and_exclusion_rows_and_sanitizes_cells"
+      ]
+    },
+    {
+      "component_id": "tests.test_job_search",
+      "module": "tests.test_job_search",
+      "path": "tests/test_job_search.py",
+      "symbols": [
+        "test_career_overlap_and_mpsv_structured_requirements",
+        "test_provider_semantics_and_hard_filters"
+      ],
+      "imports": [],
+      "test_nodes": [
+        "tests/test_job_search.py::test_career_overlap_and_mpsv_structured_requirements",
+        "tests/test_job_search.py::test_provider_semantics_and_hard_filters"
+      ]
+    },
+    {
+      "component_id": "tests.test_public_connectors",
+      "module": "tests.test_public_connectors",
+      "path": "tests/test_public_connectors.py",
+      "symbols": [
+        "test_http_client_encodes_form_body",
+        "test_public_korea_probes_use_explicit_namespaces"
+      ],
+      "imports": [],
+      "test_nodes": [
+        "tests/test_public_connectors.py::test_http_client_encodes_form_body",
+        "tests/test_public_connectors.py::test_public_korea_probes_use_explicit_namespaces"
+      ]
+    },
+    {
+      "component_id": "tests.test_screening",
+      "module": "tests.test_screening",
+      "path": "tests/test_screening.py",
+      "symbols": [
+        "test_peer_boundaries_and_coverage"
+      ],
+      "imports": [],
+      "test_nodes": [
+        "tests/test_screening.py::test_peer_boundaries_and_coverage"
+      ]
+    },
+    {
+      "component_id": "tests.test_search_profile",
+      "module": "tests.test_search_profile",
+      "path": "tests/test_search_profile.py",
+      "symbols": [
+        "test_profile_requires_explicit_country_and_goal",
+        "test_ranking_preserves_unresolved_identity_as_an_exclusion"
+      ],
+      "imports": [],
+      "test_nodes": [
+        "tests/test_search_profile.py::test_profile_requires_explicit_country_and_goal",
+        "tests/test_search_profile.py::test_ranking_preserves_unresolved_identity_as_an_exclusion"
+      ]
+    },
+    {
+      "component_id": "tests.test_security",
+      "module": "tests.test_security",
+      "path": "tests/test_security.py",
+      "symbols": [
+        "test_body_without_secret_is_byte_exact",
+        "test_json_body_secrets_are_redacted",
+        "test_url_secrets_are_redacted"
+      ],
+      "imports": [],
+      "test_nodes": [
+        "tests/test_security.py::test_body_without_secret_is_byte_exact",
+        "tests/test_security.py::test_json_body_secrets_are_redacted",
+        "tests/test_security.py::test_url_secrets_are_redacted"
+      ]
+    },
+    {
+      "component_id": "tests.test_source_catalog",
+      "module": "tests.test_source_catalog",
+      "path": "tests/test_source_catalog.py",
+      "symbols": [
+        "test_activation_never_exposes_a_secret_value",
+        "test_catalog_declares_every_registered_atomic_probe"
+      ],
+      "imports": [],
+      "test_nodes": [
+        "tests/test_source_catalog.py::test_activation_never_exposes_a_secret_value",
+        "tests/test_source_catalog.py::test_catalog_declares_every_registered_atomic_probe"
+      ]
+    }
+  ]
+}

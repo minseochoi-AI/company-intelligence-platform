@@ -1,0 +1,51 @@
+{
+  "contract_version": "atomic-json-patch-receipt-v1",
+  "target": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/campaign.json",
+  "outcome": "pass",
+  "before_sha256": "c01132e39fee691ccada095d7fee5fccc78c03e6da77e13fc3da692efcf97638",
+  "after_sha256": "a6238ca30f1e1c37461304075d06f03e9325f04eb0ab6f15c365ccfc3b397875",
+  "proposed_after_sha256": "a6238ca30f1e1c37461304075d06f03e9325f04eb0ab6f15c365ccfc3b397875",
+  "operations": [
+    {
+      "op": "test",
+      "path": "/dependencies"
+    },
+    {
+      "op": "test",
+      "path": "/implementation_cohorts"
+    },
+    {
+      "op": "test",
+      "path": "/implementation_authorization"
+    },
+    {
+      "op": "replace",
+      "path": "/dependencies"
+    },
+    {
+      "op": "replace",
+      "path": "/implementation_cohorts"
+    },
+    {
+      "op": "replace",
+      "path": "/implementation_authorization"
+    }
+  ],
+  "backup": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/.mutation-journal/preimages/sha256-c01132e39fee691ccada095d7fee5fccc78c03e6da77e13fc3da692efcf97638.json",
+  "journal": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/.mutation-journal/mutations/2c29702436f7b610a18d974344328c4d78eede93851cd39069c4acf0b7de75a9.json",
+  "mutation_id": "amend-campaign-cohorts-20260911-attempt2",
+  "validators": [
+    {
+      "command": [
+        "/usr/bin/python3",
+        "-m",
+        "json.tool",
+        "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/campaign.json"
+      ],
+      "returncode": 0,
+      "stdout_tail": "ion-career-preparation/decisions/04-d-04-career-requirement-verification.json\",\n        \"D-05-spreadsheet-output-contract\": \"docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/05-d-05-spreadsheet-output-contract.json\"\n    },\n    \"receipt_paths\": {\n        \"implementation\": \"docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/receipts/implementation.json\",\n        \"validation\": \"docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/receipts/validation.json\",\n        \"diagrams\": \"docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/receipts/diagrams.json\"\n    },\n    \"receipt_manifest_paths\": {\n        \"implementation\": \"docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/receipts/current-implementation.json\",\n        \"validation\": \"docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/receipts/current-validation.json\",\n        \"diagrams\": \"docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/receipts/current-diagrams.json\"\n    }\n}\n",
+      "stderr_tail": ""
+    }
+  ],
+  "completed_at": "2026-09-11T06:04:01.924746+00:00"
+}
