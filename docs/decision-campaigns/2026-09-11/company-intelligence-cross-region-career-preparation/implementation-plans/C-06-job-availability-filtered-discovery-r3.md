@@ -28,3 +28,4 @@ Status: `contract-ready`
 ### Completion criteria
 
 - `C06-r3-interactive-and-job-tests` [planned] `tdd` phase=VALIDATE, depends=-: interactive selector, profile compiler, job verdict tables와 API parity가 offline으로 동작한다.
+

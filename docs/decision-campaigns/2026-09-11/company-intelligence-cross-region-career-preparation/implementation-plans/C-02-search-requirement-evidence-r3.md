@@ -21,3 +21,4 @@ Status: `contract-ready`
 ### Completion criteria
 
 - `C02-r3-company-search-tests` [planned] `tdd` phase=VALIDATE, depends=-: 기업 taxonomy 조건, allocation, verdict가 실제로 적용된다.
+
