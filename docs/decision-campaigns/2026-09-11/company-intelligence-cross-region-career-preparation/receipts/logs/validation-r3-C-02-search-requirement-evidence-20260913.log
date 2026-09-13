@@ -25,11 +25,11 @@ __________ test_ranking_preserves_unresolved_identity_as_an_exclusion __________
                 },
             ],
         )
-    
+
         assert [match.entity_id for match in matches if match.status == "matched"] == ["KR:1"]
 >       assert matches[1].exclusion_reason == "identity_unresolved"
 E       AssertionError: assert 'job_keyword_no_match' == 'identity_unresolved'
-E         
+E
 E         - identity_unresolved
 E         + job_keyword_no_match
 

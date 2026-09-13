@@ -14,4 +14,3 @@ Traceback (most recent call last):
 RuntimeError: The starlette.testclient module requires the httpx2 package to be installed.
 You can install this with:
     $ pip install httpx2
-

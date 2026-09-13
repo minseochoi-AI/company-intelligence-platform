@@ -19,4 +19,3 @@ Status: `contract-ready`
 ### Completion criteria
 
 - `C04-r3-screener-group-tests` [planned] `tdd` phase=VALIDATE, depends=-: screen은 비교 집단과 제외 사유를 숨기지 않는다.
-

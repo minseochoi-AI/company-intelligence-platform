@@ -21,4 +21,3 @@ Status: `contract-ready`
 ### Completion criteria
 
 - `C05-r3-analysis-groups-tests` [planned] `tdd` phase=VALIDATE, depends=-: 다축 timeline과 valuation/event precondition이 올바르게 설명된다.
-

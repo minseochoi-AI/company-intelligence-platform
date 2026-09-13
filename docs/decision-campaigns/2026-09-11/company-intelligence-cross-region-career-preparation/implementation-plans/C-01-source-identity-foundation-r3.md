@@ -26,4 +26,3 @@ Status: `contract-ready`
 ### Completion criteria
 
 - `C01-r3-taxonomy-facet-tests` [planned] `tdd` phase=VALIDATE, depends=-: 원천 namespace와 facet availability가 회귀 없이 동작한다.
-

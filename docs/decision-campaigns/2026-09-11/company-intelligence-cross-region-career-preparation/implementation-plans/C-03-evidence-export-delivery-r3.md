@@ -22,4 +22,3 @@ Status: `contract-ready`
 ### Completion criteria
 
 - `C03-r3-export-lineage-tests` [planned] `tdd` phase=VALIDATE, depends=-: export와 run manifest가 verdict·coverage·sanitization을 보존한다.
-
