@@ -1,0 +1,77 @@
+STDOUT
+.....F.....F.                                                            [100%]
+=================================== FAILURES ===================================
+__________ test_ranking_preserves_unresolved_identity_as_an_exclusion __________
+
+    def test_ranking_preserves_unresolved_identity_as_an_exclusion():
+        profile = SearchProfile(countries=("KR",), job_keywords=("data",), required_capabilities=("job_posting",))
+        matches = rank_candidates(
+            profile,
+            [
+                {
+                    "entity_id": "KR:1",
+                    "country_code": "KR",
+                    "name": "Verified",
+                    "title": "Data engineer",
+                    "capabilities": {"job_posting": "available"},
+                    "identity_status": "resolved",
+                },
+                {
+                    "entity_id": "KR:2",
+                    "country_code": "KR",
+                    "name": "Unknown",
+                    "capabilities": {"job_posting": "available"},
+                    "identity_status": "unresolved",
+                },
+            ],
+        )
+    
+        assert [match.entity_id for match in matches if match.status == "matched"] == ["KR:1"]
+>       assert matches[1].exclusion_reason == "identity_unresolved"
+E       AssertionError: assert 'job_keyword_no_match' == 'identity_unresolved'
+E         
+E         - identity_unresolved
+E         + job_keyword_no_match
+
+tests/test_search_profile.py:47: AssertionError
+_ test_legacy_job_only_filter_is_explained_as_not_applicable_to_company_search _
+
+    def test_legacy_job_only_filter_is_explained_as_not_applicable_to_company_search():
+        profile = SearchProfile(countries=("US",), job_keywords=("data",), languages=("korean",))
+        evaluation = rank_candidate_evaluations(
+            profile,
+            [
+                {
+                    "entity_id": "US:1",
+                    "country_code": "US",
+                    "name": "Data company",
+                    "identity_status": "resolved",
+                }
+            ],
+        )[0]
+    
+        explanation = explain_company_evaluation(evaluation)
+        assert explanation["status"] == "matched"
+>       assert explanation["field_verdicts"][-1] == {
+            "field": "languages",
+            "verdict": "not_applicable",
+            "expected": ["korean"],
+            "mode": "any",
+            "observed": [],
+            "reason": "languages_requires_job_search",
+        }
+E       AssertionError: assert {'expected': ...ved': (), ...} == {'expected': ...ved': [], ...}
+E         
+E         Omitting 4 identical items, use -vv to show
+E         Differing items:
+E         {'expected': ('korean',)} != {'expected': ['korean']}
+E         {'observed': ()} != {'observed': []}
+E         Use -v to get more diff
+
+tests/test_search_profile.py:206: AssertionError
+=========================== short test summary info ============================
+FAILED tests/test_search_profile.py::test_ranking_preserves_unresolved_identity_as_an_exclusion
+FAILED tests/test_search_profile.py::test_legacy_job_only_filter_is_explained_as_not_applicable_to_company_search
+2 failed, 11 passed in 0.08s
+
+STDERR

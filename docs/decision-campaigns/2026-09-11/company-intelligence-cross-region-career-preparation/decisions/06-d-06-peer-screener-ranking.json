@@ -121,8 +121,8 @@
     "새 screener 통합 테스트"
   ],
   "implementation_change_ids": [
-    "D-06-screening-signature-r2",
-    "D-06-screening-tests-r2"
+    "D-06-screener-group-tests-r3",
+    "D-06-screener-signature-groups-r3"
   ],
   "validation_requirements": [
     "동일 산업·국가·규모가 아닌 행이 같은 peer_group에 섞이지 않는지 확인한다.",

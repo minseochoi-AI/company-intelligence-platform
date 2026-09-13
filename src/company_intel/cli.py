@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import sys
 from pathlib import Path
 
 from .analysis_service import build_company_timeline, evaluate_ai_event, evaluate_valuation_scenarios
@@ -14,17 +15,28 @@ from .analytics import (
     hiring_change,
     macro_sensitivity,
     rank_companies,
+    event_study_prerequisites,
+    valuation_prerequisites,
 )
 from .config import Settings
 from .connectors.registry import source_health
 from .evidence import write_json
 from .exporting import build_export_bundle
-from .job_search import JobSearchProfile, search_job_dataframes
+from .facets import build_job_facets
+from .interactive import ArrowMenu, build_interactive_request, load_scripted_selector, write_interactive_profile
+from .job_search import JobSearchProfile, normalize_provider_payloads, search_job_dataframes
 from .models import SearchProfile
 from .pipeline import actual_analysis
 from .reporting import write_validation_report
+from .query_contract import company_search_profile_from_mapping
+from .run_manifest import build_run_manifest, write_run_manifest
 from .screening import ScreenerProfile, screen_companies
-from .search import rank_candidates, validate_search_profile
+from .search import (
+    explain_company_evaluation,
+    rank_candidate_evaluations,
+    rank_candidates,
+    validate_search_profile,
+)
 from .validation import validate
 from .warehouse import Warehouse
 
@@ -126,6 +138,37 @@ def _demo(settings: Settings) -> dict:
     return result
 
 
+def _records(value: Any) -> list[dict[str, Any]]:
+    """Convert a DataFrame-like result to JSON rows without changing values."""
+
+    to_dict = getattr(value, "to_dict", None)
+    if callable(to_dict):
+        records = to_dict("records")
+        if isinstance(records, list):
+            return [item for item in records if isinstance(item, dict)]
+    return [item for item in value if isinstance(item, dict)] if isinstance(value, list) else []
+
+
+def _job_verdict_counts(frames: Any) -> dict[str, int]:
+    return {
+        "matched": len(frames.jobs),
+        "strict_matches": len(frames.strict_matches),
+        "unverifiable": len(frames.unverifiable_candidates),
+        "no_match": len(frames.no_matches),
+        "conflict": len(frames.conflicts),
+    }
+
+
+def _supplied_table_rows(supplied: dict[str, Any], name: str) -> list[dict[str, Any]]:
+    """Accept both an export table object and ``JobDataFrames.as_records``."""
+
+    tables = supplied.get("tables") if isinstance(supplied.get("tables"), dict) else supplied
+    value = tables.get(name, []) if isinstance(tables, dict) else []
+    if isinstance(value, dict):
+        value = value.get("rows", [])
+    return [item for item in value if isinstance(item, dict)] if isinstance(value, list) else []
+
+
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(prog="company-intel")
     subparsers = parser.add_subparsers(dest="command", required=True)
@@ -147,6 +190,13 @@ def main(argv: list[str] | None = None) -> int:
     company_search_parser = subparsers.add_parser("company-search", help="Alias for search with an explicit company profile")
     company_search_parser.add_argument("--profile", type=Path, required=True)
     subparsers.add_parser("provider-status", help="Show configured provider activation and semantic boundaries")
+    interactive_parser = subparsers.add_parser(
+        "interactive", help="Choose an evidence-aware local CLI workflow with arrow keys"
+    )
+    interactive_parser.add_argument("--data-dir", type=Path, default=Path("artifacts"), help="Saved local JSON snapshots only")
+    interactive_parser.add_argument("--output", type=Path, default=Path("artifacts/interactive"))
+    interactive_parser.add_argument("--script", type=Path, help="Saved JSON answers for non-TTY/repeatable selection")
+    interactive_parser.add_argument("--dry-run", action="store_true", help="Print the compiled command without executing it")
     job_search_parser = subparsers.add_parser(
         "job-search", help="Normalize and filter saved provider job responses into DataFrames"
     )
@@ -178,6 +228,29 @@ def main(argv: list[str] | None = None) -> int:
     serve_parser.add_argument("--port", type=int, default=8000)
     args = parser.parse_args(argv)
     settings = Settings.from_env(Path.cwd())
+
+    if args.command == "interactive":
+        if args.script:
+            selector = load_scripted_selector(args.script)
+        elif not sys.stdin.isatty() or not sys.stdout.isatty():
+            print(json.dumps({
+                "status": "tty_required", "message": "Use --script for a repeatable non-TTY interactive selection.",
+                "boundary": "No provider refresh was attempted.",
+            }, ensure_ascii=False, indent=2))
+            return 1
+        else:
+            selector = ArrowMenu()
+        request = build_interactive_request(selector, args.data_dir, args.output)
+        request = write_interactive_profile(request, args.output)
+        print(json.dumps(request.as_dict(), ensure_ascii=False, indent=2))
+        if not request.runnable:
+            return 1
+        if args.dry_run:
+            return 0
+        # The compiled argv always calls one existing local-data command.  It
+        # intentionally contains no refresh, provider validation, install, or
+        # application-submission branch.
+        return main(list(request.argv))
 
     if args.command == "validate":
         providers = {item.strip() for item in args.providers.split(",") if item.strip()}
@@ -220,20 +293,40 @@ def main(argv: list[str] | None = None) -> int:
         return 0
     if args.command in {"search", "company-search"}:
         value = json.loads(args.profile.read_text(encoding="utf-8"))
-        profile = validate_search_profile(SearchProfile(
-            countries=tuple(value.get("countries", [])), job_keywords=tuple(value.get("job_keywords", [])),
-            industries=tuple(value.get("industries", [])), required_capabilities=tuple(value.get("required_capabilities", [])),
-            languages=tuple(value.get("languages", [])), employment_types=tuple(value.get("employment_types", [])),
-            country_allocation=value.get("country_allocation", {}),
-        ))
-        result = [item.__dict__ for item in rank_candidates(profile, Warehouse(settings).search_candidates(profile.countries))]
-        print(json.dumps({"candidates": result}, ensure_ascii=False, indent=2))
+        semantic_keys = {
+            "semantic_filters", "ownership_sectors", "ownership_sector", "legal_forms", "legal_form",
+            "business_activities", "business_activity", "market_statuses", "market_status",
+            "public_institution_types", "public_institution_type", "entity_categories", "entity_category",
+            "source_operations", "source_operation", "providers", "provider", "require_resolved_identity",
+            "unknown_policy",
+        }
+        if args.command == "company-search" or semantic_keys & set(value):
+            profile = validate_search_profile(company_search_profile_from_mapping(value))
+        else:
+            profile = validate_search_profile(SearchProfile(
+                countries=tuple(value.get("countries", [])), job_keywords=tuple(value.get("job_keywords", [])),
+                industries=tuple(value.get("industries", [])), required_capabilities=tuple(value.get("required_capabilities", [])),
+                languages=tuple(value.get("languages", [])), employment_types=tuple(value.get("employment_types", [])),
+                country_allocation=value.get("country_allocation", {}),
+            ))
+        candidates = Warehouse(settings).search_candidates(profile.countries)
+        evaluations = rank_candidate_evaluations(profile, candidates)
+        legacy = [item.__dict__ for item in rank_candidates(profile, candidates)]
+        counts: dict[str, int] = {}
+        for evaluation in evaluations:
+            counts[evaluation.status] = counts.get(evaluation.status, 0) + 1
+        print(json.dumps({
+            "profile": value,
+            "candidates": legacy,
+            "evaluations": [explain_company_evaluation(item) for item in evaluations],
+            "verdict_counts": dict(sorted(counts.items())),
+        }, ensure_ascii=False, indent=2, default=str))
         return 0
     if args.command == "job-search":
         value = json.loads(args.profile.read_text(encoding="utf-8"))
         tuple_fields = {
             "countries", "job_keywords", "occupations", "locations", "workplace_types",
-            "employment_types", "languages", "industries", "company_types",
+            "employment_types", "languages", "posting_languages", "business_units", "industries", "company_types",
             "required_requirement_terms", "preferred_requirement_terms", "required_languages",
         }
         profile_values = {
@@ -269,7 +362,28 @@ def main(argv: list[str] | None = None) -> int:
             payloads[provider] = payload
         frames = search_job_dataframes(payloads, JobSearchProfile(**profile_values))
         files = frames.write_csv(args.output)
-        print(json.dumps({"metadata": frames.metadata, "files": [str(path) for path in files]}, ensure_ascii=False, indent=2))
+        # Facets describe all locally supplied rows, not just rows that passed
+        # the current filter.  This keeps a zero-result search explainable and
+        # makes the manifest a faithful snapshot-scoped selection record.
+        all_jobs, _all_requirements, _all_sources = normalize_provider_payloads(payloads)
+        facets = build_job_facets(all_jobs)
+        verdict_counts = _job_verdict_counts(frames)
+        run_manifest = build_run_manifest(
+            "job-search",
+            value,
+            facets,
+            _records(frames.sources),
+            verdict_counts,
+            {path.name: path for path in files},
+        )
+        manifest_path = write_run_manifest(args.output / "run-manifest.json", run_manifest)
+        print(json.dumps({
+            "metadata": frames.metadata,
+            "verdict_counts": verdict_counts,
+            "facets": facets,
+            "run_manifest": {"run_id": run_manifest["run_id"], "path": str(manifest_path)},
+            "files": [str(path) for path in files] + [str(manifest_path)],
+        }, ensure_ascii=False, indent=2))
         return 0
     if args.command == "screen":
         profile = json.loads(args.profile.read_text(encoding="utf-8"))
@@ -277,6 +391,7 @@ def main(argv: list[str] | None = None) -> int:
         result = screen_companies(rows, ScreenerProfile(
             tuple(profile["countries"]), tuple(profile["industries"]), tuple(profile["size_buckets"]),
             profile["metrics"], profile.get("directions", {}), profile.get("as_of"), profile.get("minimum_peer_size", 2),
+            profile.get("comparability_group"), profile.get("require_complete_signature", True),
         ))
         print(json.dumps({"rankings": result.rankings.to_dict("records"), "exclusions": result.exclusions.to_dict("records"), "metadata": result.metadata}, ensure_ascii=False, default=str))
         return 0
@@ -286,24 +401,99 @@ def main(argv: list[str] | None = None) -> int:
         print(json.dumps({"timeline": result["timeline"].to_dict("records"), "exclusions": result["exclusions"].to_dict("records"), "metadata": result["metadata"]}, ensure_ascii=False, default=str))
         return 0
     if args.command == "valuation":
-        print(json.dumps(evaluate_valuation_scenarios(**json.loads(args.input.read_text(encoding="utf-8"))), ensure_ascii=False, default=str))
+        value = json.loads(args.input.read_text(encoding="utf-8"))
+        prerequisites = valuation_prerequisites(
+            value.get("revenue"), value.get("net_debt"), value.get("shares"), value.get("evidence")
+        )
+        if prerequisites["status"] != "ready":
+            print(json.dumps({"status": prerequisites["status"], "prerequisites": prerequisites}, ensure_ascii=False, default=str))
+            return 0
+        result = evaluate_valuation_scenarios(**value)
+        print(json.dumps({**result, "prerequisites": prerequisites}, ensure_ascii=False, default=str))
         return 0
     if args.command == "ai-event":
-        print(json.dumps(evaluate_ai_event(**json.loads(args.input.read_text(encoding="utf-8"))), ensure_ascii=False, default=str))
+        value = json.loads(args.input.read_text(encoding="utf-8"))
+        prerequisites = event_study_prerequisites(
+            value.get("asset_returns", []), value.get("benchmark_returns", []), value.get("event_index"),
+            value.get("event_evidence"), value.get("treated_pre"), value.get("treated_post"),
+            value.get("control_pre"), value.get("control_post"),
+        )
+        if prerequisites["status"] != "association-only":
+            print(json.dumps({"status": prerequisites["status"], "prerequisites": prerequisites}, ensure_ascii=False, default=str))
+            return 0
+        result = evaluate_ai_event(**value)
+        print(json.dumps({**result, "prerequisites": prerequisites}, ensure_ascii=False, default=str))
         return 0
     if args.command == "explain":
         value = json.loads(args.input.read_text(encoding="utf-8"))
-        print(json.dumps({"status": value.get("status"), "limitations": value.get("limitations") or value.get("warning") or value.get("metadata"), "source": value.get("source")}, ensure_ascii=False, default=str))
+        if value.get("run_id") and isinstance(value.get("lineage"), dict):
+            print(json.dumps({
+                "status": "run-lineage",
+                "run_id": value.get("run_id"),
+                "command": value.get("command"),
+                "verdict_counts": value.get("verdict_counts", {}),
+                "facet_count": len(value.get("facets", [])) if isinstance(value.get("facets"), list) else 0,
+                "source_count": len(value.get("sources", [])) if isinstance(value.get("sources"), list) else 0,
+                "lineage": value["lineage"],
+                "limitations": [
+                    "This record describes saved snapshots only; it does not refresh provider state.",
+                    "Unknown and no-match verdicts remain distinct in the linked output tables.",
+                ],
+            }, ensure_ascii=False, default=str))
+        elif isinstance(value.get("tables"), dict) and isinstance(value.get("metadata"), dict):
+            tables = value["tables"]
+            print(json.dumps({
+                "status": "local-result",
+                "metadata": value["metadata"],
+                "tables": {name: len(_supplied_table_rows(value, name)) for name in (
+                    "jobs", "strict_matches", "unverifiable_candidates", "no_matches", "conflicts", "requirements",
+                )},
+                "limitations": value["metadata"].get("limitations", []),
+            }, ensure_ascii=False, default=str))
+        else:
+            print(json.dumps({"status": value.get("status"), "limitations": value.get("limitations") or value.get("warning") or value.get("metadata"), "source": value.get("source")}, ensure_ascii=False, default=str))
         return 0
     if args.command == "export":
         if args.tables:
             supplied = json.loads(args.tables.read_text(encoding="utf-8"))
-            data = {name: supplied.get(name, []) for name in ("companies", "capabilities", "jobs", "requirements", "sources", "exclusions", "career_overlap", "unverifiable", "conflicts")}
+            data = {
+                name: _supplied_table_rows(supplied, name)
+                for name in (
+                    "companies", "capabilities", "jobs", "requirements", "sources", "exclusions", "locations",
+                    "career_overlap", "strict_matches", "no_matches", "unverifiable", "unverifiable_candidates", "conflicts", "facets",
+                )
+            }
+            metadata = supplied.get("metadata") if isinstance(supplied.get("metadata"), dict) else {}
+            run_manifest = supplied.get("run_manifest") if isinstance(supplied.get("run_manifest"), dict) else None
+            if run_manifest is None:
+                run_manifest = build_run_manifest(
+                    "export",
+                    {"tables_path": str(args.tables)},
+                    data["facets"],
+                    data["sources"],
+                    {},
+                    {"input_tables.json": args.tables},
+                )
             allowed_root = args.output.parent
         else:
             data = Warehouse(settings).materialize_export_snapshot(args.entity_id or None)
+            metadata = {"entity_ids": args.entity_id}
+            run_manifest = build_run_manifest(
+                "export",
+                {"entity_ids": args.entity_id},
+                [],
+                data.get("sources", []),
+                {},
+            )
             allowed_root = settings.artifact_dir
-        bundle = build_export_bundle(args.output, include_xlsx=not args.no_xlsx, allowed_root=allowed_root, **data)
+        bundle = build_export_bundle(
+            args.output,
+            include_xlsx=not args.no_xlsx,
+            allowed_root=allowed_root,
+            metadata=metadata,
+            run_manifest=run_manifest,
+            **data,
+        )
         print(json.dumps(bundle.manifest, ensure_ascii=False, indent=2))
         return 0
     if args.command == "serve":

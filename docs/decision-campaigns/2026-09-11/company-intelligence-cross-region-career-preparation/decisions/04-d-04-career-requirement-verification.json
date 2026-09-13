@@ -140,9 +140,7 @@
     "tests/test_career_requirements.py (new) — required/preferred·상세 필드 부재·국가 기준·원천 제한·stale 공고 검증"
   ],
   "implementation_change_ids": [
-    "D-03-query-contract-r2",
-    "D-04-requirement-contract-r2",
-    "D-04-requirement-tests-r2"
+    "D-03-company-search-engine-r3"
   ],
   "validation_requirements": [
     "모든 반환 requirement에 source_url, source_record_id, retrieved_at, country_code, evidence_scope, verification_status가 있는지 검증한다.",

@@ -1,0 +1,47 @@
+{
+  "cohort_id": "C-06-job-availability-filtered-discovery",
+  "status": "completed",
+  "changed_paths": [
+    "tests/test_job_search.py",
+    "tests/test_cli_workflows.py",
+    "tests/test_interactive.py"
+  ],
+  "commands": [
+    "uv run --cache-dir /tmp/cil-uv-cache --frozen pytest -q tests/test_job_search.py tests/test_cli_workflows.py tests/test_interactive.py"
+  ],
+  "outcome": "pass",
+  "raw_log_path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/receipts/logs/validation-r3-C-06-job-availability-filtered-discovery-20260913.log",
+  "raw_log_sha256": "52e970cc4aea7f0b09959371fce0016dc80b670e5bfb92a7ccf06dfdf1c9484e",
+  "first_failure": null,
+  "stdout_tail": null,
+  "stderr_tail": null,
+  "telemetry": {
+    "provider": {
+      "measurement": "instrumented",
+      "invocations": 0,
+      "input_tokens": null,
+      "output_tokens": null
+    },
+    "agent_session": {
+      "measurement": "unavailable-platform",
+      "token_count": null,
+      "tool_output_chars": null
+    }
+  },
+  "provider_guard": {
+    "receipt_path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/receipts/validation-r3-C-06-job-availability-filtered-discovery-20260913.json",
+    "receipt_sha256": "a783c3b7c236f5d581d06516e04d340a0a163e52ae2dffc6a39101119e7529f4",
+    "scope": "python-tcp-transport-including-loopback",
+    "observed": true,
+    "provider_invocations": 0,
+    "network_attempts": []
+  },
+  "updated_at": "2026-09-13T09:20:50.320899+00:00",
+  "context_packet_id": "company-intelligence-cross-region-career-preparation--C-06-job-availability-filtered-discovery--r3",
+  "context_packet_sha256": "cb1f78d6900b7d6e31d4b1070a8927de394b64aae78b7df0c14ae27590a42c4f",
+  "implementation_plan_id": "company-intelligence-cross-region-career-preparation--C-06-job-availability-filtered-discovery--r3",
+  "implementation_plan_sha256": "aa1c4aa49fbcd3fe2e05a233c789b6b3588d3cc5d9588476aaec26c301ea8606",
+  "passed_criterion_ids": [
+    "C06-r3-interactive-and-job-tests"
+  ]
+}

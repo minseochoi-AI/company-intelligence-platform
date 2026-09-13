@@ -1,0 +1,38 @@
+{
+  "contract_version": "chainup-command-receipt-v2",
+  "executed_at": "2026-09-13T12:34:18.921157+00:00",
+  "command": [
+    "env",
+    "ARTIFACT_DIR=/tmp/cil-api-artifacts",
+    "uv",
+    "run",
+    "--cache-dir",
+    "/tmp/cil-uv-cache",
+    "--frozen",
+    "python",
+    "/tmp/cil-api-smoke.py"
+  ],
+  "exit_code": 1,
+  "passed": false,
+  "raw_log_path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/receipts/logs/api-r3-smoke-20260913.log",
+  "raw_log_sha256": "62bb7daaef904c0bf597657a60fd78890cdcf833264d8e6856bd7fd45b26b54d",
+  "first_failure": "Traceback (most recent call last):",
+  "stdout_tail": "",
+  "stderr_tail": "Traceback (most recent call last):\n  File \"/tmp/cil-api-smoke.py\", line 4, in <module>\n    from fastapi.testclient import TestClient\n  File \"/home/ubuntu/root/company-intelligence-platform/.venv/lib/python3.13/site-packages/fastapi/testclient.py\", line 1, in <module>\n    from starlette.testclient import TestClient as TestClient  # noqa\n    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/ubuntu/root/company-intelligence-platform/.venv/lib/python3.13/site-packages/starlette/testclient.py\", line 41, in <module>\n    raise RuntimeError(\n    ...<3 lines>...\n    ) from None\nRuntimeError: The starlette.testclient module requires the httpx2 package to be installed.\nYou can install this with:\n    $ pip install httpx2\n\n",
+  "provider_guard": {
+    "enabled": true,
+    "scope": "python-tcp-transport-including-loopback",
+    "observed": true,
+    "removed_provider_env_names": [
+      "GEMINI_API_KEY",
+      "GOOGLE_API_KEY"
+    ],
+    "network_attempts": [],
+    "provider_invocations": 0
+  },
+  "agent_session": {
+    "measurement": "unavailable-platform",
+    "token_count": null,
+    "tool_output_chars": null
+  }
+}

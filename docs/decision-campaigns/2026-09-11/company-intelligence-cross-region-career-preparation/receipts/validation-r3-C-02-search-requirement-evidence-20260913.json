@@ -1,0 +1,38 @@
+{
+  "contract_version": "chainup-command-receipt-v2",
+  "executed_at": "2026-09-13T09:15:50.234407+00:00",
+  "command": [
+    "uv",
+    "run",
+    "--cache-dir",
+    "/tmp/cil-uv-cache",
+    "--frozen",
+    "pytest",
+    "-q",
+    "tests/test_query_contract.py",
+    "tests/test_search_profile.py"
+  ],
+  "exit_code": 1,
+  "passed": false,
+  "raw_log_path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/receipts/logs/validation-r3-C-02-search-requirement-evidence-20260913.log",
+  "raw_log_sha256": "130e389ac1ae7bfef36c34690c070b1e34f5f89b63c53001c4f05fe8bdbf1a96",
+  "first_failure": "=================================== FAILURES ===================================",
+  "stdout_tail": "                   \"identity_status\": \"resolved\",\n                }\n            ],\n        )[0]\n    \n        explanation = explain_company_evaluation(evaluation)\n        assert explanation[\"status\"] == \"matched\"\n>       assert explanation[\"field_verdicts\"][-1] == {\n            \"field\": \"languages\",\n            \"verdict\": \"not_applicable\",\n            \"expected\": [\"korean\"],\n            \"mode\": \"any\",\n            \"observed\": [],\n            \"reason\": \"languages_requires_job_search\",\n        }\nE       AssertionError: assert {'expected': ...ved': (), ...} == {'expected': ...ved': [], ...}\nE         \nE         Omitting 4 identical items, use -vv to show\nE         Differing items:\nE         {'expected': ('korean',)} != {'expected': ['korean']}\nE         {'observed': ()} != {'observed': []}\nE         Use -v to get more diff\n\ntests/test_search_profile.py:206: AssertionError\n=========================== short test summary info ============================\nFAILED tests/test_search_profile.py::test_ranking_preserves_unresolved_identity_as_an_exclusion\nFAILED tests/test_search_profile.py::test_legacy_job_only_filter_is_explained_as_not_applicable_to_company_search\n2 failed, 11 passed in 0.08s\n",
+  "stderr_tail": "",
+  "provider_guard": {
+    "enabled": true,
+    "scope": "python-tcp-transport-including-loopback",
+    "observed": true,
+    "removed_provider_env_names": [
+      "GEMINI_API_KEY",
+      "GOOGLE_API_KEY"
+    ],
+    "network_attempts": [],
+    "provider_invocations": 0
+  },
+  "agent_session": {
+    "measurement": "unavailable-platform",
+    "token_count": null,
+    "tool_output_chars": null
+  }
+}

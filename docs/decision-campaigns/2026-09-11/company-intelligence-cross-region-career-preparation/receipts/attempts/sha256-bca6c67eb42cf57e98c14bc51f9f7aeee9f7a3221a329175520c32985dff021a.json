@@ -1,0 +1,45 @@
+{
+  "cohort_id": "C-04-peer-screener-ranking",
+  "status": "completed",
+  "changed_paths": [
+    "tests/test_screening.py"
+  ],
+  "commands": [
+    "uv run --cache-dir /tmp/cil-uv-cache --frozen pytest -q tests/test_screening.py"
+  ],
+  "outcome": "pass",
+  "raw_log_path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/receipts/logs/validation-r3-C-04-peer-screener-ranking-20260913.log",
+  "raw_log_sha256": "e7fda679ce348225bf6a8cbac68ca6944837dbba5d045f44bf6169bcb2e4b116",
+  "first_failure": null,
+  "stdout_tail": null,
+  "stderr_tail": null,
+  "telemetry": {
+    "provider": {
+      "measurement": "instrumented",
+      "invocations": 0,
+      "input_tokens": null,
+      "output_tokens": null
+    },
+    "agent_session": {
+      "measurement": "unavailable-platform",
+      "token_count": null,
+      "tool_output_chars": null
+    }
+  },
+  "provider_guard": {
+    "receipt_path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/receipts/validation-r3-C-04-peer-screener-ranking-20260913.json",
+    "receipt_sha256": "89beaa01cdb6d45d655cc06cb7f30ae3ac4f9902a1f9fc5bdfd0f485498cded3",
+    "scope": "python-tcp-transport-including-loopback",
+    "observed": true,
+    "provider_invocations": 0,
+    "network_attempts": []
+  },
+  "updated_at": "2026-09-13T09:20:49.743538+00:00",
+  "context_packet_id": "company-intelligence-cross-region-career-preparation--C-04-peer-screener-ranking--r3",
+  "context_packet_sha256": "9a22f5e68ac3d652a014c33925016c2d3cf00165bc2e6bd3f6f73ae0924c04ef",
+  "implementation_plan_id": "company-intelligence-cross-region-career-preparation--C-04-peer-screener-ranking--r3",
+  "implementation_plan_sha256": "a70a138b32038c0570d6c96466fdef0343448aadc583d4fb32b6bf68f733564c",
+  "passed_criterion_ids": [
+    "C04-r3-screener-group-tests"
+  ]
+}

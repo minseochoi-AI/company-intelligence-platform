@@ -297,3 +297,27 @@ redacted manifest를 별도 immutable receipt로 생성해야 한다.
 현재 CLI는 `provider-status`, `company-search`, `job-search`, `screen`, `timeline`, `valuation`, `ai-event`, `explain`, `export`를 제공한다. 저장 응답 기반 검색에서 `Permanent`는 기간 표현일 뿐 근무시간을 보장하지 않아 `full-time` 필터에 자동 합치지 않는다. 공고 표기 언어와 지원자 요구 언어는 각각 `posting_language`와 requirement `kind=language`로 분리한다.
 
 비교·정렬은 country, industry, size bucket, currency, period, unit, concept, vintage, coverage의 comparability signature가 일치할 때만 허용한다. GitHub/OpenAlex는 proxy, ALIO Plus는 context, MPM 목록은 metadata-only로 처리한다. 결과 내보내기에는 `exclusions`, `unverifiable`, `conflicts`를 분리해 0건의 원인을 감사할 수 있게 한다.
+
+## 12. r3 CLI facet 및 provider-native 분류 계약 (구현 후 테스트 전)
+
+이번 r3 UI는 API를 하나의 가짜 표준으로 바꾸지 않는다. 각 provider 반환값을 원자 field로 보존한 뒤, 아래처럼 **선택 가능**, **표시 전용**, **검사 불가**, **사용 금지**를 구분한다. 선택지는 saved snapshot의 값·건수·provider coverage·filter/sort 가능성·disabled reason을 같이 표시한다.
+
+| 검색 축 | 공통 field | 예시 raw source | 처리 |
+|---|---|---|---|
+| 국가·위치 | `country_code`, `location`, `locations` | Lever `country/allLocations`, Greenhouse `location/offices`, MPSV `mistoVykonuPrace` | filter 가능. ISO가 없으면 text hint로만 보조하며 모호하면 unverifiable |
+| 직무·직종 | `job_keywords`, `occupations` | title/text, MPSV CZ-ISCO | title keyword와 code는 같은 값으로 병합하지 않음 |
+| 근무 방식 | `workplace_type` | Lever `workplaceType`, ATS location text | filter 가능. unknown은 선택지에서 count만 보이고 hard match가 아님 |
+| 고용 형태 | `employment_type` + raw | Lever commitment, MPSV 관계 code | 확실한 표현만 normalize. `Permanent`를 `full-time`으로 변환 금지 |
+| 공고 표시 언어 | `posting_language` | Greenhouse language, MPSV=`cs`, MPM=`ko` | `required_languages`와 절대 통합하지 않음 |
+| 요구 언어·자격 | requirement evidence | MPSV structured fields, ATS explicit qualification section | provider field/명시 문장만 filter. 목록-only MPM은 unverifiable |
+| 급여 | `salary_min/max/currency/period/basis` | Lever `salaryRange`, GH single structured range, MPSV pay fields | signature 동일 때만 filter/sort. prose pay/OTE/FX/연환산은 forbidden |
+| 공고 조직 단위 | `business_unit` | Greenhouse departments, Lever team/department | job-level filter/display 가능; legal form/industry로 승격 금지 |
+| 소유 부문 | `ownership_sector` | ALIO/MPM public context, registry evidence | 공공성 근거가 있을 때만 filter. 이름 기반 추정 금지 |
+| 공공기관 유형 | `public_institution_type` | ALIO `apbaTypeNa`, MPM `type01` | namespace+raw code/label 유지. codebook 미확인은 display-only |
+| 법적 형태 | `legal_form` | ARES `pravniForma`, GLEIF `legalForm` | provider namespace를 포함한 exact filter. crosswalk 없이는 통합 금지 |
+| 산업 | `industry` | ARES `czNace`, SEC `sic/sicDescription` | multi-valued native code 유지. ATS department는 산업이 아님 |
+| 시장 상태 | `market_status` | SEC exchange/ticker context, GLEIF entity status | listing과 legal entity status를 같은 축으로 합치지 않음 |
+
+`company_type`은 legacy display adapter일 뿐이다. 실제 기업/기관 검색은 `ownership_sector`, `public_institution_type`, `legal_form`, `industry`, `market_status`를 독립 condition으로 평가한다. 선택된 값이 provider에 존재하지 않거나 field capability가 `display-only`/`unavailable`이면 UI가 disabled reason을 보여 주고 profile에 넣지 않는다.
+
+`job-search` 결과는 기존 `companies/jobs/requirements/career_overlap/exclusions/sources`를 유지하면서 `strict_matches`, `unverifiable_candidates`, `no_matches`, `conflicts`, `locations`를 추가한다. `country_allocation`은 이제 결과 상한으로 실제 적용되며, 초과한 공고는 `country_allocation_reached`라는 no-match 근거를 남긴다. 이 모든 변경은 테스트 전 turnover 시점에는 구현 결속만 완료됐고, pytest/provider 호출로 검증되지는 않았다.

@@ -32,5 +32,22 @@ def test_screen_and_export_workflow(tmp_path, capsys, monkeypatch):
 
 
 def test_cli_and_api_job_profile_use_the_same_domain_fields():
-    request = JobSearchRequest(payloads={}, countries=["US"], job_keywords=["data"], required_languages=["korean"], salary_basis="gross")
-    assert request.to_domain() == JobSearchProfile(countries=("US",), job_keywords=("data",), required_languages=("korean",), salary_basis="gross")
+    request = JobSearchRequest(payloads={}, countries=["US"], job_keywords=["data"], required_languages=["korean"], posting_languages=["english"], business_units=["data"], salary_basis="gross")
+    assert request.to_domain() == JobSearchProfile(countries=("US",), job_keywords=("data",), required_languages=("korean",), posting_languages=("english",), business_units=("data",), salary_basis="gross")
+
+
+def test_interactive_scripted_preview_and_non_tty_guidance(tmp_path, capsys, monkeypatch):
+    monkeypatch.chdir(tmp_path)
+    _write(tmp_path / "greenhouse-jobs.json", {"jobs": [{
+        "id": "1", "title": "Data Engineer", "location": {"name": "Remote - US"},
+        "content": "<li>SQL required</li>",
+    }]})
+    script = _write(tmp_path / "interactive.json", {
+        "main-category": "discovery", "category-action": "job-search",
+        "job-country_code": ["US"], "job-keywords": "data engineer",
+    })
+    assert main(["interactive", "--data-dir", str(tmp_path), "--output", str(tmp_path / "out"), "--script", str(script), "--dry-run"]) == 0
+    assert (tmp_path / "out" / "job-search-profile.json").is_file()
+    assert "job-search" in capsys.readouterr().out
+    assert main(["interactive"]) == 1
+    assert "tty_required" in capsys.readouterr().out

@@ -1,0 +1,276 @@
+{
+  "contract_version": "1.2.0",
+  "plan_id": "company-intelligence-cross-region-career-preparation--C-05-timeline-valuation-event-analysis--r3",
+  "owner": {
+    "kind": "campaign-cohort",
+    "id": "C-05-timeline-valuation-event-analysis"
+  },
+  "source_refs": [
+    {
+      "id": "D-07-company-timeline-macro-comparison",
+      "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/07-d-07-company-timeline-macro-comparison.json",
+      "sha256": "sha256:70a5bfd87e9514e509b120a0565b12758d495e183b45b8911625bd4e0c2c2b59"
+    },
+    {
+      "id": "D-08-future-value-scenarios",
+      "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/08-d-08-future-value-scenarios.json",
+      "sha256": "sha256:5c01ce7e36b514dedf0979f43b109f2ca8636017ef08598c962a606054277cf8"
+    },
+    {
+      "id": "D-09-ai-event-effect-validation",
+      "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/09-d-09-ai-event-effect-validation.json",
+      "sha256": "sha256:842c9a4384a922d460b557f56678b569ab3071752078f4253d30caed6112755f"
+    }
+  ],
+  "status": "contract-ready",
+  "metadata": {
+    "preparation_contract": "campaign-global-ownership-v1",
+    "planned_commit_message": "fix(timeline): retain compatible axis series",
+    "git_finalization_authorized": false,
+    "test_execution_deferred": true
+  },
+  "change_slices": [
+    {
+      "slice_id": "timeline-and-analysis-prerequisites-r3",
+      "behavior": "timeline/valuation/ai-event 메뉴가 서로 다른 축과 series signature를 섞지 않고, 선택 전의 비교 불가 조건과 필요한 evidence를 설명한다.",
+      "dependencies": [
+        "C-04-peer-screener-ranking"
+      ],
+      "operations": [
+        {
+          "change_id": "D-07-axis-series-timeline-r3",
+          "operation": "MODIFY",
+          "path": "src/company_intel/analysis_service.py",
+          "symbols": [
+            "validate_series_signature",
+            "build_company_timeline",
+            "timeline_series_groups"
+          ],
+          "current_state": "timeline이 하나의 global signature를 강제해 company/market/macro의 다른 축을 모두 제외할 수 있다.",
+          "source_hash": "sha256:d576bc39cccc2bac36d52a98748da738ebeececd23e2f8c2dd62887bd1f00c0e",
+          "after_state": "axis별·signature별 series group를 유지하고 date alignment 및 제외 사유를 명시한다.",
+          "rationale": "다축 비교를 허용하면서 단위·통화·기간 혼합을 막기 위해서다.",
+          "dependencies": [],
+          "public_contract_impacts": [
+            "timeline axis and series group contract"
+          ],
+          "compatibility": "기존 timeline rows와 axes_remain_distinct를 유지한다.",
+          "migration": "legacy global group은 기본 selected_group으로 표현한다.",
+          "rollback": "단일 signature validation을 선택할 수 있다.",
+          "authorization_boundary": "원본 series를 자동 환산하거나 causal claim으로 바꾸지 않는다.",
+          "contributes_to": [
+            "D-07-company-timeline-macro-comparison"
+          ],
+          "symbol_changes": [
+            {
+              "symbol": "timeline_series_groups",
+              "intent": "axis와 signature 분리",
+              "decision_id": "D-07-company-timeline-macro-comparison"
+            }
+          ],
+          "contribution_refs": [
+            {
+              "decision_id": "D-07-company-timeline-macro-comparison",
+              "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/07-d-07-company-timeline-macro-comparison.json",
+              "sha256": "sha256:70a5bfd87e9514e509b120a0565b12758d495e183b45b8911625bd4e0c2c2b59",
+              "symbols": [
+                "validate_series_signature",
+                "build_company_timeline",
+                "timeline_series_groups"
+              ],
+              "intent_change_ids": []
+            }
+          ]
+        },
+        {
+          "change_id": "D-08-D09-analysis-prerequisite-r3",
+          "operation": "MODIFY",
+          "path": "src/company_intel/analytics.py",
+          "symbols": [
+            "valuation_prerequisites",
+            "event_study_prerequisites"
+          ],
+          "current_state": "분석 함수는 caller rows만 검사하고 interactive selection에 필요한 source/time/unit/control prerequisite를 표준화하지 않는다.",
+          "source_hash": "sha256:7d1de8faec145f4e3ea440bf54773585605221e9514ca4d3a394b96fbff17e44",
+          "after_state": "가치 시나리오와 AI 사건 분석 전에 필요 evidence, comparison/control 한계, association-only 상태를 반환한다.",
+          "rationale": "입력 JSON이 존재한다는 이유만으로 분석 가능하다고 표시하지 않기 위해서다.",
+          "dependencies": [],
+          "public_contract_impacts": [
+            "valuation and event prerequisite explanations"
+          ],
+          "compatibility": "기존 numeric calculators를 유지한다.",
+          "migration": "CLI는 prerequisite를 먼저 표시한다.",
+          "rollback": "기존 calculator 결과만 표시한다.",
+          "authorization_boundary": "미래 가치나 인과관계를 단정하지 않는다.",
+          "contributes_to": [
+            "D-08-future-value-scenarios",
+            "D-09-ai-event-effect-validation"
+          ],
+          "symbol_changes": [
+            {
+              "symbol": "valuation_prerequisites",
+              "intent": "시나리오 evidence 사전조건",
+              "decision_id": "D-08-future-value-scenarios"
+            }
+          ],
+          "contribution_refs": [
+            {
+              "decision_id": "D-08-future-value-scenarios",
+              "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/08-d-08-future-value-scenarios.json",
+              "sha256": "sha256:5c01ce7e36b514dedf0979f43b109f2ca8636017ef08598c962a606054277cf8",
+              "symbols": [
+                "valuation_prerequisites",
+                "event_study_prerequisites"
+              ],
+              "intent_change_ids": []
+            },
+            {
+              "decision_id": "D-09-ai-event-effect-validation",
+              "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/09-d-09-ai-event-effect-validation.json",
+              "sha256": "sha256:842c9a4384a922d460b557f56678b569ab3071752078f4253d30caed6112755f",
+              "symbols": [
+                "valuation_prerequisites",
+                "event_study_prerequisites"
+              ],
+              "intent_change_ids": []
+            }
+          ]
+        },
+        {
+          "change_id": "D-07-timeline-tests-r3",
+          "operation": "MODIFY",
+          "path": "tests/test_analysis_service.py",
+          "symbols": [
+            "test_multi_axis_timeline_groups"
+          ],
+          "current_state": "테스트는 global signature 통과/실패만 검증한다.",
+          "source_hash": "sha256:739f5918cf2cd1e4813f67b5f2c33b5dfbcf1526f990a24eadb7b20c1263d7a4",
+          "after_state": "company/market/macro axes와 incompatible signature가 독립 group으로 남는지 검증한다.",
+          "rationale": "timeline data loss regression을 막기 위해서다.",
+          "dependencies": [
+            "D-07-axis-series-timeline-r3"
+          ],
+          "public_contract_impacts": [
+            "offline timeline tests"
+          ],
+          "compatibility": "기존 tests를 유지한다.",
+          "migration": "없음.",
+          "rollback": "추가 case를 제거한다.",
+          "authorization_boundary": "외부 series 호출을 하지 않는다.",
+          "contributes_to": [
+            "D-07-company-timeline-macro-comparison"
+          ],
+          "symbol_changes": [
+            {
+              "symbol": "test_multi_axis_timeline_groups",
+              "intent": "다축 group 회귀 검증",
+              "decision_id": "D-07-company-timeline-macro-comparison"
+            }
+          ],
+          "contribution_refs": [
+            {
+              "decision_id": "D-07-company-timeline-macro-comparison",
+              "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/07-d-07-company-timeline-macro-comparison.json",
+              "sha256": "sha256:70a5bfd87e9514e509b120a0565b12758d495e183b45b8911625bd4e0c2c2b59",
+              "symbols": [
+                "test_multi_axis_timeline_groups"
+              ],
+              "intent_change_ids": []
+            }
+          ]
+        },
+        {
+          "change_id": "D-08-D09-analytics-tests-r3",
+          "operation": "MODIFY",
+          "path": "tests/test_analytics.py",
+          "symbols": [
+            "test_analysis_prerequisites"
+          ],
+          "current_state": "계산 결과 위주라 prerequisite explanation을 검증하지 않는다.",
+          "source_hash": "sha256:55817354f79447faa7c9ddb14dd65606c2c38391d0c2cb76e3390e7b21137d4d",
+          "after_state": "missing source/time/unit/control의 deterministic explanation을 검증한다.",
+          "rationale": "UI가 분석 제한을 숨기지 않게 하기 위해서다.",
+          "dependencies": [
+            "D-08-D09-analysis-prerequisite-r3"
+          ],
+          "public_contract_impacts": [
+            "offline analysis prerequisite tests"
+          ],
+          "compatibility": "기존 tests를 유지한다.",
+          "migration": "없음.",
+          "rollback": "추가 case를 제거한다.",
+          "authorization_boundary": "예측 또는 인과 claim을 테스트 fixture로 만들지 않는다.",
+          "contributes_to": [
+            "D-08-future-value-scenarios",
+            "D-09-ai-event-effect-validation"
+          ],
+          "symbol_changes": [
+            {
+              "symbol": "test_analysis_prerequisites",
+              "intent": "제한 설명 검증",
+              "decision_id": "D-08-future-value-scenarios"
+            }
+          ],
+          "contribution_refs": [
+            {
+              "decision_id": "D-08-future-value-scenarios",
+              "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/08-d-08-future-value-scenarios.json",
+              "sha256": "sha256:5c01ce7e36b514dedf0979f43b109f2ca8636017ef08598c962a606054277cf8",
+              "symbols": [
+                "test_analysis_prerequisites"
+              ],
+              "intent_change_ids": []
+            },
+            {
+              "decision_id": "D-09-ai-event-effect-validation",
+              "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/09-d-09-ai-event-effect-validation.json",
+              "sha256": "sha256:842c9a4384a922d460b557f56678b569ab3071752078f4253d30caed6112755f",
+              "symbols": [
+                "test_analysis_prerequisites"
+              ],
+              "intent_change_ids": []
+            }
+          ]
+        }
+      ],
+      "routes": [
+        {
+          "route_id": "analysis-implementation",
+          "skill": "company-intelligence-career-research",
+          "requirement": "required",
+          "phase": "IMPLEMENT",
+          "purpose": "series meaning과 evidence limit을 보존한다."
+        },
+        {
+          "route_id": "analysis-tests",
+          "skill": "tdd",
+          "requirement": "required",
+          "phase": "VALIDATE",
+          "purpose": "offline timeline/analytics tests를 실행한다."
+        }
+      ],
+      "completion_contract": [
+        {
+          "criterion_id": "C05-r3-analysis-groups-tests",
+          "behavior": "다축 timeline과 valuation/event precondition이 올바르게 설명된다.",
+          "blocking": true,
+          "owner_skill": "tdd",
+          "phase": "VALIDATE",
+          "test": {
+            "type": "pytest",
+            "runner": "pytest",
+            "value": "tests/test_analysis_service.py tests/test_analytics.py",
+            "paths": [
+              "tests/test_analysis_service.py",
+              "tests/test_analytics.py"
+            ]
+          },
+          "expected_result": "offline tests pass",
+          "failure_marker": "global timeline rejection or hidden analysis prerequisite",
+          "receipt": {},
+          "status": "planned"
+        }
+      ]
+    }
+  ]
+}

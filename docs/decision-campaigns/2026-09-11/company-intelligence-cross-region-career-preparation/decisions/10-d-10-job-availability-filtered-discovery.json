@@ -126,15 +126,16 @@
     "새 job discovery 통합 테스트"
   ],
   "implementation_change_ids": [
-    "D-10-api-r2",
-    "D-10-atomic-report-r2",
-    "D-10-cli-r2",
-    "D-10-cli-tests-r2",
-    "D-10-implementation-report-r2",
-    "D-10-job-search-r2",
-    "D-10-job-tests-r2",
-    "D-10-provider-fixture-r2",
-    "D-10-readme-r2"
+    "D-10-api-compatibility-report-r3",
+    "D-10-api-profile-parity-r3",
+    "D-10-cli-docs-r3",
+    "D-10-cli-interactive-routing-r3",
+    "D-10-cli-workflow-tests-r3",
+    "D-10-interactive-module-r3",
+    "D-10-interactive-tests-r3",
+    "D-10-job-search-tests-r3",
+    "D-10-job-search-verdicts-r3",
+    "D-10-korean-status-docs-r3"
   ],
   "validation_requirements": [
     "industries·languages·employment_types와 국가 필터 각각이 실제 결과 집합을 줄이는지 확인한다.",

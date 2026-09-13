@@ -135,18 +135,8 @@
     "tests/test_source_catalog.py (new) — 28개 작업 완전성, activation gate, HTTP-only 경계, 비밀 마스킹 검증"
   ],
   "implementation_change_ids": [
-    "D-01-catalog-validator-r2",
-    "D-01-connector-tests-r2",
-    "D-01-env-contract-r2",
-    "D-01-k3s-config-r2",
-    "D-01-keyed-semantics-r2",
-    "D-01-keyless-semantics-r2",
-    "D-01-lossless-base-r2",
-    "D-01-provider-catalog-r2",
-    "D-01-provider-clusters-r2",
-    "D-01-registry-routing-r2",
-    "D-01-runtime-validator-r2",
-    "D-01-source-tests-r2"
+    "D-01-field-capability-catalog-r3",
+    "D-01-nested-field-resolution-r3"
   ],
   "validation_requirements": [
     "코드의 28개 Probe ID와 source catalog record가 누락·중복 없이 일대일 대응하는지 검증한다.",

@@ -1,0 +1,35 @@
+{
+  "contract_version": "chainup-command-receipt-v2",
+  "executed_at": "2026-09-13T12:37:32.377146+00:00",
+  "command": [
+    "env",
+    "ARTIFACT_DIR=/tmp/cil-api-artifacts",
+    "uv",
+    "run",
+    "--cache-dir",
+    "/tmp/cil-uv-cache",
+    "--frozen",
+    "python",
+    "/tmp/cil-api-http-smoke.py"
+  ],
+  "exit_code": 1,
+  "passed": false,
+  "raw_log_path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/receipts/logs/api-r3-http-smoke-20260913.log",
+  "raw_log_sha256": "14001186f7d96f4422d19ae2612aec7407418c247157ea953b8cd80c9a83e4ba",
+  "first_failure": "Traceback (most recent call last):",
+  "stdout_tail": "",
+  "stderr_tail": "gnu/lib/python3.13/urllib/request.py\", line 189, in urlopen\n    return opener.open(url, data, timeout)\n           ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^\n  File \"/home/ubuntu/.local/share/uv/python/cpython-3.13.12-linux-x86_64-gnu/lib/python3.13/urllib/request.py\", line 489, in open\n    response = self._open(req, data)\n  File \"/home/ubuntu/.local/share/uv/python/cpython-3.13.12-linux-x86_64-gnu/lib/python3.13/urllib/request.py\", line 506, in _open\n    result = self._call_chain(self.handle_open, protocol, protocol +\n                              '_open', req)\n  File \"/home/ubuntu/.local/share/uv/python/cpython-3.13.12-linux-x86_64-gnu/lib/python3.13/urllib/request.py\", line 466, in _call_chain\n    result = func(*args)\n  File \"/home/ubuntu/.local/share/uv/python/cpython-3.13.12-linux-x86_64-gnu/lib/python3.13/urllib/request.py\", line 1348, in http_open\n    return self.do_open(http.client.HTTPConnection, req)\n           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/ubuntu/.local/share/uv/python/cpython-3.13.12-linux-x86_64-gnu/lib/python3.13/urllib/request.py\", line 1322, in do_open\n    raise URLError(err)\nurllib.error.URLError: <urlopen error [Errno 1] Operation not permitted>\n",
+  "provider_guard": {
+    "enabled": false,
+    "scope": "not-enabled",
+    "observed": false,
+    "removed_provider_env_names": [],
+    "network_attempts": [],
+    "provider_invocations": null
+  },
+  "agent_session": {
+    "measurement": "unavailable-platform",
+    "token_count": null,
+    "tool_output_chars": null
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "contract_version": "chainup-command-receipt-v2",
+  "executed_at": "2026-09-13T09:17:48.939408+00:00",
+  "command": [
+    "uv",
+    "run",
+    "--cache-dir",
+    "/tmp/cil-uv-cache",
+    "--frozen",
+    "pytest",
+    "-q",
+    "tests/test_exporting.py",
+    "tests/test_run_manifest.py"
+  ],
+  "exit_code": 0,
+  "passed": true,
+  "raw_log_path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/receipts/logs/validation-r3-C-03-evidence-export-delivery-20260913.log",
+  "raw_log_sha256": "5b162b6d675994e885b1d1cf1246a28156ffc21a7ed1a7f816673bad526e8f0f",
+  "first_failure": null,
+  "stdout_tail": ".....                                                                    [100%]\n5 passed in 0.29s\n",
+  "stderr_tail": "",
+  "provider_guard": {
+    "enabled": true,
+    "scope": "python-tcp-transport-including-loopback",
+    "observed": true,
+    "removed_provider_env_names": [
+      "GEMINI_API_KEY",
+      "GOOGLE_API_KEY"
+    ],
+    "network_attempts": [],
+    "provider_invocations": 0
+  },
+  "agent_session": {
+    "measurement": "unavailable-platform",
+    "token_count": null,
+    "tool_output_chars": null
+  }
+}

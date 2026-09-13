@@ -1,0 +1,38 @@
+{
+  "contract_version": "chainup-command-receipt-v2",
+  "executed_at": "2026-09-13T09:16:46.284291+00:00",
+  "command": [
+    "uv",
+    "run",
+    "--cache-dir",
+    "/tmp/cil-uv-cache",
+    "--frozen",
+    "pytest",
+    "-q",
+    "tests/test_query_contract.py",
+    "tests/test_search_profile.py"
+  ],
+  "exit_code": 1,
+  "passed": false,
+  "raw_log_path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/receipts/logs/validation-r3-C-02-search-requirement-evidence-20260913-retry1.log",
+  "raw_log_sha256": "30c5b6e55291b536ccd508343a1923ae741fb91a81352897c6ad45e7c9924345",
+  "first_failure": "=================================== FAILURES ===================================",
+  "stdout_tail": "            {\n                    \"entity_id\": \"KR:1\",\n                    \"country_code\": \"KR\",\n                    \"name\": \"Verified\",\n                    \"title\": \"Data engineer\",\n                    \"capabilities\": {\"job_posting\": \"available\"},\n                    \"identity_status\": \"resolved\",\n                },\n                {\n                    \"entity_id\": \"KR:2\",\n                    \"country_code\": \"KR\",\n                    \"name\": \"Unknown\",\n                    \"capabilities\": {\"job_posting\": \"available\"},\n                    \"identity_status\": \"unresolved\",\n                },\n            ],\n        )\n    \n        assert [match.entity_id for match in matches if match.status == \"matched\"] == [\"KR:1\"]\n>       assert matches[1].exclusion_reason == \"identity_unresolved\"\nE       AssertionError: assert 'job_keyword_no_match' == 'identity_unresolved'\nE         \nE         - identity_unresolved\nE         + job_keyword_no_match\n\ntests/test_search_profile.py:47: AssertionError\n=========================== short test summary info ============================\nFAILED tests/test_search_profile.py::test_ranking_preserves_unresolved_identity_as_an_exclusion\n1 failed, 12 passed in 0.09s\n",
+  "stderr_tail": "",
+  "provider_guard": {
+    "enabled": true,
+    "scope": "python-tcp-transport-including-loopback",
+    "observed": true,
+    "removed_provider_env_names": [
+      "GEMINI_API_KEY",
+      "GOOGLE_API_KEY"
+    ],
+    "network_attempts": [],
+    "provider_invocations": 0
+  },
+  "agent_session": {
+    "measurement": "unavailable-platform",
+    "token_count": null,
+    "tool_output_chars": null
+  }
+}

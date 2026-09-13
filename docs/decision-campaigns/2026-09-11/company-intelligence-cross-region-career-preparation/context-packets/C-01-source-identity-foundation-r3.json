@@ -1,0 +1,119 @@
+{
+  "contract_version": "implementation-context-packet-v2",
+  "packet_id": "C-01-source-identity-foundation-packet-5b4859d01f87",
+  "topics": [
+    "source-identity-capability"
+  ],
+  "capability_ids": [
+    "semantic-provider-contract",
+    "lossless-normalization",
+    "provider-clustering",
+    "entity-resolution",
+    "five-state-availability"
+  ],
+  "required_refs": [
+    {
+      "ref_id": "semantic-audit",
+      "role": "must-read",
+      "path": "/home/ubuntu/.codex/attachments/5602dc52-29e5-4b64-93b8-365e045a58a4/pasted-text.txt",
+      "content_hash": "sha256:b09f773da9535a05e20ea8e6298fb218e227f90c926e34bc191eefa758b74844",
+      "line_range": "1-591",
+      "question": "실제 반환물에서 어떤 의미 위반과 검색 불가 조합이 확인됐는가?",
+      "observation_summary": "HTTP 성공과 의미 사용 가능성은 다르며 28개 operation을 역할별로 격리하고 MATCH/NO_MATCH/UNKNOWN/CONFLICT/NOT_APPLICABLE을 분리해야 한다."
+    },
+    {
+      "ref_id": "providers-r2-current",
+      "role": "must-read",
+      "path": "config/providers.json",
+      "content_hash": "sha256:3d4196fab89a6438ddc6752fbd741e1d2321168bd2619af8eaa2728a1b8f82a2",
+      "line_range": "1-49",
+      "question": "현재 operation과 field contract는 어떻게 선언되는가?",
+      "observation_summary": "고정 검증 probe와 production 검색 source가 혼재하며 ALIO·OECD·IMF·World Bank 계약 교정이 필요하다."
+    },
+    {
+      "ref_id": "validation-current",
+      "role": "must-read",
+      "path": "src/company_intel/validation.py",
+      "content_hash": "sha256:a9d3b7bea84c19129b39b9fab05adbc17a9ce0d0e081c1e54083265631c93b25",
+      "line_range": "1-205",
+      "question": "현재 pass가 값의 의미와 완전성을 보장하는가?",
+      "observation_summary": "required path 존재만 확인하므로 null, 빈 값, 잘못된 자료형과 의미 위반이 통과할 수 있다."
+    },
+    {
+      "ref_id": "compact-current",
+      "role": "must-read",
+      "path": "src/company_intel/connectors/base.py",
+      "content_hash": "sha256:95f83c5fc910f4988af1e64208888ee3b3bfc01c71a25e4dd36e0b89d334f38f",
+      "line_range": "1-61",
+      "question": "정규화 결과가 모든 관측을 보존하는가?",
+      "observation_summary": "compact는 목록 5개와 깊이 3에서 데이터를 축약하므로 preview에는 적합하지만 검색·분석 입력에는 부적합하다."
+    }
+  ],
+  "current_entry_points": [
+    {
+      "kind": "code",
+      "path": "src/company_intel/models.py",
+      "symbol": "TaxonomyFact",
+      "source_hash": "sha256:6c54b354368caf47d20585a4ebb252562516b9f07e3075311eeb825ea370757f"
+    },
+    {
+      "kind": "code",
+      "path": "src/company_intel/classification.py",
+      "symbol": "classify_company",
+      "source_hash": "sha256:675ede9bb03fd1fd30d21f7ae3f26b15cb651f7c23b8ed3e98f7dabb11e24a36"
+    },
+    {
+      "kind": "code",
+      "path": "src/company_intel/normalization.py",
+      "symbol": "AtomicObservationMapper",
+      "source_hash": "sha256:1ae5213b9d6ed62c7bbc6f6c179f90facd3730a14df489ce17a20eda71309f14"
+    },
+    {
+      "kind": "code",
+      "path": "src/company_intel/source_catalog.py",
+      "symbol": "SourceCatalog",
+      "source_hash": "sha256:4b5494236973e11f0213c381d15b9552c4e48adf2dcc9830b0c9e28760c0c6d0"
+    },
+    {
+      "kind": "test",
+      "path": "tests/test_classification.py",
+      "symbol": "test_classify_company",
+      "source_hash": "sha256:51b5bb54d4773218684d03452b664d8a5a6a98e3a37786d5a0d003c59b72f65b"
+    }
+  ],
+  "planned_entry_points": [
+    {
+      "kind": "code",
+      "path": "src/company_intel/taxonomy.py",
+      "symbol": "taxonomy_facts_from_record",
+      "change_id": "D-02-taxonomy-module-r3"
+    },
+    {
+      "kind": "code",
+      "path": "src/company_intel/facets.py",
+      "symbol": "FacetDefinition",
+      "change_id": "D-02-facet-catalog-r3"
+    },
+    {
+      "kind": "test",
+      "path": "tests/test_taxonomy.py",
+      "symbol": "test_provider_native_taxonomy",
+      "change_id": "D-02-taxonomy-tests-r3"
+    },
+    {
+      "kind": "test",
+      "path": "tests/test_facets.py",
+      "symbol": "test_dynamic_facet_availability",
+      "change_id": "D-02-facet-tests-r3"
+    }
+  ],
+  "external_entry_points": [],
+  "invariants": [
+    "HTTP 200은 semantic-ready와 동의어가 아니다.",
+    "preview 축약물은 검색·분석 입력이 아니다.",
+    "고정 회사 probe를 production discovery로 승격하지 않는다.",
+    "법인 ID와 시점·단위가 불완전하면 분석 적격성을 부여하지 않는다."
+  ],
+  "unresolved_conflicts": [],
+  "resume_digest": "Prepared C-01-source-identity-foundation from current decision hashes and one global file-ownership graph."
+}

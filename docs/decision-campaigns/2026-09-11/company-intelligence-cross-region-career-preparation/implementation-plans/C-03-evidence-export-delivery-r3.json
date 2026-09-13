@@ -1,0 +1,293 @@
+{
+  "contract_version": "1.2.0",
+  "plan_id": "company-intelligence-cross-region-career-preparation--C-03-evidence-export-delivery--r3",
+  "owner": {
+    "kind": "campaign-cohort",
+    "id": "C-03-evidence-export-delivery"
+  },
+  "source_refs": [
+    {
+      "id": "D-05-spreadsheet-output-contract",
+      "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/05-d-05-spreadsheet-output-contract.json",
+      "sha256": "sha256:32808eb15193d1b000198b6846a92a7cae8464f9f7d8ce35615c1965e312371d"
+    }
+  ],
+  "status": "contract-ready",
+  "metadata": {
+    "preparation_contract": "campaign-global-ownership-v1",
+    "planned_commit_message": "feat(export): bind CLI selections to evidence manifests",
+    "git_finalization_authorized": false,
+    "test_execution_deferred": true
+  },
+  "change_slices": [
+    {
+      "slice_id": "run-lineage-and-export-r3",
+      "behavior": "선택한 facet, 원천 coverage, verdict 및 출력 파일을 하나의 offline run manifest로 묶어 explain/export가 같은 판단 근거를 사용하게 한다.",
+      "dependencies": [
+        "C-01-source-identity-foundation",
+        "C-02-search-requirement-evidence"
+      ],
+      "operations": [
+        {
+          "change_id": "D-05-run-manifest-r3",
+          "operation": "CREATE",
+          "path": "src/company_intel/run_manifest.py",
+          "symbols": [
+            "build_run_manifest",
+            "write_run_manifest"
+          ],
+          "current_state": "검색/분석 실행의 입력 profile, facet availability, source coverage, verdict 연결을 표준 JSON으로 남기는 모듈이 없다.",
+          "source_hash": null,
+          "after_state": "비밀을 제외한 input·coverage·field provenance·output hash를 재현 가능한 run manifest로 작성한다.",
+          "rationale": "explain과 export가 다른 근거를 보여 주는 문제를 막기 위해서다.",
+          "dependencies": [],
+          "public_contract_impacts": [
+            "run manifest v1"
+          ],
+          "compatibility": "새 독립 모듈이다.",
+          "migration": "기존 export manifest는 그대로 둔다.",
+          "rollback": "run manifest emission을 끈다.",
+          "authorization_boundary": "credentials, 원문 비밀, live refresh metadata를 포함하지 않는다.",
+          "contributes_to": [
+            "D-05-spreadsheet-output-contract"
+          ],
+          "symbol_changes": [
+            {
+              "symbol": "build_run_manifest",
+              "intent": "선택과 증거 결속",
+              "decision_id": "D-05-spreadsheet-output-contract"
+            }
+          ],
+          "contribution_refs": [
+            {
+              "decision_id": "D-05-spreadsheet-output-contract",
+              "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/05-d-05-spreadsheet-output-contract.json",
+              "sha256": "sha256:32808eb15193d1b000198b6846a92a7cae8464f9f7d8ce35615c1965e312371d",
+              "symbols": [
+                "build_run_manifest",
+                "write_run_manifest"
+              ],
+              "intent_change_ids": []
+            }
+          ]
+        },
+        {
+          "change_id": "D-05-export-verdict-tables-r3",
+          "operation": "MODIFY",
+          "path": "src/company_intel/exporting.py",
+          "symbols": [
+            "build_export_bundle",
+            "build_export_manifest"
+          ],
+          "current_state": "export bundle은 일부 verdict table을 선택적으로 받고 run linkage와 strict/no-match 표를 일관되게 묶지 않는다.",
+          "source_hash": "sha256:fb35b38c109adfdca8089dc1bf518c0f8bd5cd4581ed8bea332e69dfdfb8b663",
+          "after_state": "strict, unverifiable, no-match, conflict, facets, run manifest를 evidence-first CSV/XLSX bundle에 포함한다.",
+          "rationale": "0건과 검사 불가를 스프레드시트에서 구별하게 하기 위해서다.",
+          "dependencies": [
+            "D-05-run-manifest-r3"
+          ],
+          "public_contract_impacts": [
+            "export table set and manifest"
+          ],
+          "compatibility": "기존 table arguments와 CSV/XLSX를 유지한다.",
+          "migration": "새 tables는 empty table로도 명시한다.",
+          "rollback": "legacy six-table export를 사용할 수 있다.",
+          "authorization_boundary": "formula/secret sanitizer를 우회하지 않는다.",
+          "contributes_to": [
+            "D-05-spreadsheet-output-contract"
+          ],
+          "symbol_changes": [
+            {
+              "symbol": "build_export_bundle",
+              "intent": "verdict와 lineage export",
+              "decision_id": "D-05-spreadsheet-output-contract"
+            }
+          ],
+          "contribution_refs": [
+            {
+              "decision_id": "D-05-spreadsheet-output-contract",
+              "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/05-d-05-spreadsheet-output-contract.json",
+              "sha256": "sha256:32808eb15193d1b000198b6846a92a7cae8464f9f7d8ce35615c1965e312371d",
+              "symbols": [
+                "build_export_bundle",
+                "build_export_manifest"
+              ],
+              "intent_change_ids": []
+            }
+          ]
+        },
+        {
+          "change_id": "D-05-export-reporting-r3",
+          "operation": "MODIFY",
+          "path": "src/company_intel/reporting.py",
+          "symbols": [
+            "render_verdict_counts",
+            "render_run_lineage_summary"
+          ],
+          "current_state": "reporting은 result count를 보이지만 facet availability와 run provenance를 설명하지 않는다.",
+          "source_hash": "sha256:d51564683a2d6310d825f903b49ee2d7ff7dd0a5d857ab3029a6f71195f0d741",
+          "after_state": "사용자에게 적용 조건, 제외/검사 불가, source coverage를 함께 요약한다.",
+          "rationale": "결과 표의 의미를 숨기지 않기 위해서다.",
+          "dependencies": [
+            "D-05-run-manifest-r3"
+          ],
+          "public_contract_impacts": [
+            "export explanation"
+          ],
+          "compatibility": "기존 Korean summary output을 유지한다.",
+          "migration": "추가 section은 optional이다.",
+          "rollback": "새 lineage section을 생략한다.",
+          "authorization_boundary": "검증되지 않은 provider live status를 주장하지 않는다.",
+          "contributes_to": [
+            "D-05-spreadsheet-output-contract"
+          ],
+          "symbol_changes": [
+            {
+              "symbol": "render_run_lineage_summary",
+              "intent": "근거 요약",
+              "decision_id": "D-05-spreadsheet-output-contract"
+            }
+          ],
+          "contribution_refs": [
+            {
+              "decision_id": "D-05-spreadsheet-output-contract",
+              "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/05-d-05-spreadsheet-output-contract.json",
+              "sha256": "sha256:32808eb15193d1b000198b6846a92a7cae8464f9f7d8ce35615c1965e312371d",
+              "symbols": [
+                "render_verdict_counts",
+                "render_run_lineage_summary"
+              ],
+              "intent_change_ids": []
+            }
+          ]
+        },
+        {
+          "change_id": "D-05-export-tests-r3",
+          "operation": "MODIFY",
+          "path": "tests/test_exporting.py",
+          "symbols": [
+            "test_export_bundle",
+            "test_verdict_and_lineage_export"
+          ],
+          "current_state": "테스트는 legacy table output 위주다.",
+          "source_hash": "sha256:ff48347e5b0c9b789bfe46370c6a10a83b6819b523b242ae204c2f2a475cc176",
+          "after_state": "새 verdict/facet/run manifest table과 sanitizer를 offline으로 검증한다.",
+          "rationale": "선택 근거가 export 중에 누락되는 회귀를 막기 위해서다.",
+          "dependencies": [
+            "D-05-export-verdict-tables-r3"
+          ],
+          "public_contract_impacts": [
+            "offline export tests"
+          ],
+          "compatibility": "기존 tests를 유지한다.",
+          "migration": "없음.",
+          "rollback": "신규 case를 제거한다.",
+          "authorization_boundary": "실제 provider payload나 secret을 쓰지 않는다.",
+          "contributes_to": [
+            "D-05-spreadsheet-output-contract"
+          ],
+          "symbol_changes": [
+            {
+              "symbol": "test_verdict_and_lineage_export",
+              "intent": "증거 table 회귀 검증",
+              "decision_id": "D-05-spreadsheet-output-contract"
+            }
+          ],
+          "contribution_refs": [
+            {
+              "decision_id": "D-05-spreadsheet-output-contract",
+              "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/05-d-05-spreadsheet-output-contract.json",
+              "sha256": "sha256:32808eb15193d1b000198b6846a92a7cae8464f9f7d8ce35615c1965e312371d",
+              "symbols": [
+                "test_export_bundle",
+                "test_verdict_and_lineage_export"
+              ],
+              "intent_change_ids": []
+            }
+          ]
+        },
+        {
+          "change_id": "D-05-run-manifest-tests-r3",
+          "operation": "CREATE",
+          "path": "tests/test_run_manifest.py",
+          "symbols": [
+            "test_run_manifest_redacts_sensitive_values"
+          ],
+          "current_state": "run manifest contract test가 없다.",
+          "source_hash": null,
+          "after_state": "input, coverage, fields, output hashes가 남고 secret이 남지 않는지 검증한다.",
+          "rationale": "CLI explanation의 증거 경계를 보장하기 위해서다.",
+          "dependencies": [
+            "D-05-run-manifest-r3"
+          ],
+          "public_contract_impacts": [
+            "offline run manifest tests"
+          ],
+          "compatibility": "새 테스트 파일이다.",
+          "migration": "없음.",
+          "rollback": "모듈과 함께 제거한다.",
+          "authorization_boundary": "외부 API를 호출하지 않는다.",
+          "contributes_to": [
+            "D-05-spreadsheet-output-contract"
+          ],
+          "symbol_changes": [
+            {
+              "symbol": "test_run_manifest_redacts_sensitive_values",
+              "intent": "manifest safety 검증",
+              "decision_id": "D-05-spreadsheet-output-contract"
+            }
+          ],
+          "contribution_refs": [
+            {
+              "decision_id": "D-05-spreadsheet-output-contract",
+              "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/05-d-05-spreadsheet-output-contract.json",
+              "sha256": "sha256:32808eb15193d1b000198b6846a92a7cae8464f9f7d8ce35615c1965e312371d",
+              "symbols": [
+                "test_run_manifest_redacts_sensitive_values"
+              ],
+              "intent_change_ids": []
+            }
+          ]
+        }
+      ],
+      "routes": [
+        {
+          "route_id": "export-implementation",
+          "skill": "decision-campaign-workbook",
+          "requirement": "required",
+          "phase": "IMPLEMENT",
+          "purpose": "evidence/run receipt를 연결한다."
+        },
+        {
+          "route_id": "export-tests",
+          "skill": "tdd",
+          "requirement": "required",
+          "phase": "VALIDATE",
+          "purpose": "offline export contract를 검증한다."
+        }
+      ],
+      "completion_contract": [
+        {
+          "criterion_id": "C03-r3-export-lineage-tests",
+          "behavior": "export와 run manifest가 verdict·coverage·sanitization을 보존한다.",
+          "blocking": true,
+          "owner_skill": "tdd",
+          "phase": "VALIDATE",
+          "test": {
+            "type": "pytest",
+            "runner": "pytest",
+            "value": "tests/test_exporting.py tests/test_run_manifest.py",
+            "paths": [
+              "tests/test_exporting.py",
+              "tests/test_run_manifest.py"
+            ]
+          },
+          "expected_result": "offline tests pass",
+          "failure_marker": "export lineage or sanitizer regression",
+          "receipt": {},
+          "status": "planned"
+        }
+      ]
+    }
+  ]
+}

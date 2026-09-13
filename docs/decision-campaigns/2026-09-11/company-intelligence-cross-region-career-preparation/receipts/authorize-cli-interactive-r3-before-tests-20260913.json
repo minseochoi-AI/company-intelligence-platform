@@ -1,0 +1,51 @@
+{
+  "contract_version": "campaign-combined-authorization-v1",
+  "campaign_id": "company-intelligence-cross-region-career-preparation",
+  "campaign_path": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/campaign.json",
+  "scope_lock_path": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/scope-lock.json",
+  "scope_lock_sha256": "56439c3eb2c3d630cc34b2165c149845a04f3a3677c03d39543978b8b9375059",
+  "authorized_by": "user",
+  "authorized_at": "2026-09-13T08:19:05.623666+00:00",
+  "authorization_text": "[$decision-campaign-workbook] 전부 적용하여 구현하고 테스트 전 턴오버 해",
+  "authorization_text_sha256": "9472fccb2303cb159e9405b55990ce1d8f972a9f9e0c0de74a14cb7ea042206b",
+  "authorized_plan_refs": [
+    {
+      "cohort_id": "C-01-source-identity-foundation",
+      "plan_id": "company-intelligence-cross-region-career-preparation--C-01-source-identity-foundation--r3",
+      "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/implementation-plans/C-01-source-identity-foundation-r3.json",
+      "sha256": "29b89c280e2598784e20d9ef213f83212b4cc62787e85e93fa0be336777cfd88"
+    },
+    {
+      "cohort_id": "C-02-search-requirement-evidence",
+      "plan_id": "company-intelligence-cross-region-career-preparation--C-02-search-requirement-evidence--r3",
+      "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/implementation-plans/C-02-search-requirement-evidence-r3.json",
+      "sha256": "c988fec11105b80a25a48e8bc881c8f98b26f9b2f14580d61c95637faf47d59c"
+    },
+    {
+      "cohort_id": "C-03-evidence-export-delivery",
+      "plan_id": "company-intelligence-cross-region-career-preparation--C-03-evidence-export-delivery--r3",
+      "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/implementation-plans/C-03-evidence-export-delivery-r3.json",
+      "sha256": "fa2933fb85bbcd306c70dfab4f10acc70968bcdcb9adc3bbbaa861a7022b4a8d"
+    },
+    {
+      "cohort_id": "C-04-peer-screener-ranking",
+      "plan_id": "company-intelligence-cross-region-career-preparation--C-04-peer-screener-ranking--r3",
+      "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/implementation-plans/C-04-peer-screener-ranking-r3.json",
+      "sha256": "a70a138b32038c0570d6c96466fdef0343448aadc583d4fb32b6bf68f733564c"
+    },
+    {
+      "cohort_id": "C-05-timeline-valuation-event-analysis",
+      "plan_id": "company-intelligence-cross-region-career-preparation--C-05-timeline-valuation-event-analysis--r3",
+      "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/implementation-plans/C-05-timeline-valuation-event-analysis-r3.json",
+      "sha256": "0628be1faaa8c4b7cff99ad5e4a818848dd85d24d9e045a2d5bdb322cc1f88da"
+    },
+    {
+      "cohort_id": "C-06-job-availability-filtered-discovery",
+      "plan_id": "company-intelligence-cross-region-career-preparation--C-06-job-availability-filtered-discovery--r3",
+      "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/implementation-plans/C-06-job-availability-filtered-discovery-r3.json",
+      "sha256": "aa1c4aa49fbcd3fe2e05a233c789b6b3588d3cc5d9588476aaec26c301ea8606"
+    }
+  ],
+  "stop_before_validation": true,
+  "external_actions_authorized": false
+}

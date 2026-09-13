@@ -1,0 +1,158 @@
+{
+  "contract_version": "1.2.0",
+  "plan_id": "company-intelligence-cross-region-career-preparation--C-04-peer-screener-ranking--r3",
+  "owner": {
+    "kind": "campaign-cohort",
+    "id": "C-04-peer-screener-ranking"
+  },
+  "source_refs": [
+    {
+      "id": "D-06-peer-screener-ranking",
+      "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/06-d-06-peer-screener-ranking.json",
+      "sha256": "sha256:3aa0aeeeb9af4244db4f25646b7631c9539708d2597bfbdcf0ced44ee0758133"
+    }
+  ],
+  "status": "contract-ready",
+  "metadata": {
+    "preparation_contract": "campaign-global-ownership-v1",
+    "planned_commit_message": "fix(screen): expose comparability groups",
+    "git_finalization_authorized": false,
+    "test_execution_deferred": true
+  },
+  "change_slices": [
+    {
+      "slice_id": "screener-comparability-selection-r3",
+      "behavior": "screen 명령이 서로 다른 통화·단위·기간·available_at를 한 집단으로 묵시적으로 삭제하지 않고, 선택 가능한 비교 집단과 제외 근거를 반환한다.",
+      "dependencies": [
+        "C-01-source-identity-foundation"
+      ],
+      "operations": [
+        {
+          "change_id": "D-06-screener-signature-groups-r3",
+          "operation": "MODIFY",
+          "path": "src/company_intel/screening.py",
+          "symbols": [
+            "ScreenerProfile",
+            "ScreenerResult",
+            "screen_companies"
+          ],
+          "current_state": "screener가 exact signature의 가장 큰 집단만 남겨 다른 비교 가능한 집단을 조용히 제외한다.",
+          "source_hash": "sha256:3116db3b18256dbe4494188a9d0a579a9550ba86a69b6720c7eed2763ceb33ce",
+          "after_state": "signature group와 coverage/exclusion reason을 반환하고 UI가 사용자가 비교 집단을 선택하게 한다.",
+          "rationale": "비교 가능성과 단순 데이터 수를 혼동하지 않기 위해서다.",
+          "dependencies": [],
+          "public_contract_impacts": [
+            "screener comparability group contract"
+          ],
+          "compatibility": "기본 선택은 기존 canonical group 행동을 유지한다.",
+          "migration": "새 group selector가 없으면 legacy group을 명시한다.",
+          "rollback": "legacy largest group selector로 되돌린다.",
+          "authorization_boundary": "다른 시점 관측을 같은 시점 값으로 정렬하지 않는다.",
+          "contributes_to": [
+            "D-06-peer-screener-ranking"
+          ],
+          "symbol_changes": [
+            {
+              "symbol": "ScreenerResult",
+              "intent": "비교 집단과 제외 근거 노출",
+              "decision_id": "D-06-peer-screener-ranking"
+            }
+          ],
+          "contribution_refs": [
+            {
+              "decision_id": "D-06-peer-screener-ranking",
+              "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/06-d-06-peer-screener-ranking.json",
+              "sha256": "sha256:3aa0aeeeb9af4244db4f25646b7631c9539708d2597bfbdcf0ced44ee0758133",
+              "symbols": [
+                "ScreenerProfile",
+                "ScreenerResult",
+                "screen_companies"
+              ],
+              "intent_change_ids": []
+            }
+          ]
+        },
+        {
+          "change_id": "D-06-screener-group-tests-r3",
+          "operation": "MODIFY",
+          "path": "tests/test_screening.py",
+          "symbols": [
+            "test_multiple_comparability_groups"
+          ],
+          "current_state": "테스트는 단일 canonical signature만 다룬다.",
+          "source_hash": "sha256:6259def1097dfe9daec6e4ec521d1bb6c30772cb90e0596711cba7669debe95b",
+          "after_state": "여러 group, 선택되지 않은 group, coverage 경고를 offline으로 검증한다.",
+          "rationale": "선택 UI가 삭제된 데이터를 볼 수 있게 하기 위해서다.",
+          "dependencies": [
+            "D-06-screener-signature-groups-r3"
+          ],
+          "public_contract_impacts": [
+            "offline screener tests"
+          ],
+          "compatibility": "기존 cases를 유지한다.",
+          "migration": "없음.",
+          "rollback": "추가 case를 제거한다.",
+          "authorization_boundary": "provider 새 호출을 하지 않는다.",
+          "contributes_to": [
+            "D-06-peer-screener-ranking"
+          ],
+          "symbol_changes": [
+            {
+              "symbol": "test_multiple_comparability_groups",
+              "intent": "그룹 노출 검증",
+              "decision_id": "D-06-peer-screener-ranking"
+            }
+          ],
+          "contribution_refs": [
+            {
+              "decision_id": "D-06-peer-screener-ranking",
+              "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/06-d-06-peer-screener-ranking.json",
+              "sha256": "sha256:3aa0aeeeb9af4244db4f25646b7631c9539708d2597bfbdcf0ced44ee0758133",
+              "symbols": [
+                "test_multiple_comparability_groups"
+              ],
+              "intent_change_ids": []
+            }
+          ]
+        }
+      ],
+      "routes": [
+        {
+          "route_id": "screening-implementation",
+          "skill": "company-intelligence-career-research",
+          "requirement": "required",
+          "phase": "IMPLEMENT",
+          "purpose": "비교 가능성 경계를 유지한다."
+        },
+        {
+          "route_id": "screening-tests",
+          "skill": "tdd",
+          "requirement": "required",
+          "phase": "VALIDATE",
+          "purpose": "offline screener tests를 실행한다."
+        }
+      ],
+      "completion_contract": [
+        {
+          "criterion_id": "C04-r3-screener-group-tests",
+          "behavior": "screen은 비교 집단과 제외 사유를 숨기지 않는다.",
+          "blocking": true,
+          "owner_skill": "tdd",
+          "phase": "VALIDATE",
+          "test": {
+            "type": "pytest",
+            "runner": "pytest",
+            "value": "tests/test_screening.py",
+            "paths": [
+              "tests/test_screening.py"
+            ]
+          },
+          "expected_result": "offline tests pass",
+          "failure_marker": "silent comparability group loss",
+          "receipt": {},
+          "status": "planned"
+        }
+      ]
+    }
+  ]
+}

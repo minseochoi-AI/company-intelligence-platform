@@ -1,0 +1,208 @@
+{
+  "campaign_id": "company-intelligence-cross-region-career-preparation",
+  "captured_at": "2026-09-13T09:22:24.578014+00:00",
+  "configuration_sources": {
+    "env_files": [
+      {
+        "exists": true,
+        "path": "/home/ubuntu/root/company-intelligence-platform/.env"
+      }
+    ],
+    "missing_env_files": [],
+    "presence": {
+      "ALIO_BUSINESS_API_KEY": {
+        "present": false,
+        "source": null,
+        "value_emitted": false
+      },
+      "ALIO_EVENT_API_KEY": {
+        "present": false,
+        "source": null,
+        "value_emitted": false
+      },
+      "ALIO_FACILITY_API_KEY": {
+        "present": false,
+        "source": null,
+        "value_emitted": false
+      },
+      "ALIO_INSTITUTION_API_KEY": {
+        "present": false,
+        "source": null,
+        "value_emitted": false
+      },
+      "BEA_API_KEY": {
+        "present": true,
+        "source": "env-file:/home/ubuntu/root/company-intelligence-platform/.env",
+        "value_emitted": false
+      },
+      "DATABASE_URL": {
+        "present": false,
+        "source": null,
+        "value_emitted": false
+      },
+      "ECOS_API_KEY": {
+        "present": true,
+        "source": "env-file:/home/ubuntu/root/company-intelligence-platform/.env",
+        "value_emitted": false
+      },
+      "FRED_API_KEY": {
+        "present": true,
+        "source": "env-file:/home/ubuntu/root/company-intelligence-platform/.env",
+        "value_emitted": false
+      },
+      "MPM_PUBLIC_EMPLOYMENT_API_KEY": {
+        "present": true,
+        "source": "env-file:/home/ubuntu/root/company-intelligence-platform/.env",
+        "value_emitted": false
+      },
+      "OPENDART_API_KEY": {
+        "present": true,
+        "source": "env-file:/home/ubuntu/root/company-intelligence-platform/.env",
+        "value_emitted": false
+      },
+      "SEC_USER_AGENT": {
+        "present": false,
+        "source": null,
+        "value_emitted": false
+      }
+    },
+    "readiness": "not-probed"
+  },
+  "credential_values_emitted": false,
+  "media_policy": {
+    "bytes_acquisition": "intentionally-disabled",
+    "strategy": "SEMANTIC_ONLY"
+  },
+  "repository": {
+    "cwd_matches_root": true,
+    "invocation_cwd": "/home/ubuntu/root/company-intelligence-platform",
+    "root": "/home/ubuntu/root/company-intelligence-platform"
+  },
+  "resume": {
+    "campaign_path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/campaign.json",
+    "criteria": [
+      {
+        "cohort_id": "C-01-source-identity-foundation",
+        "command": "tests/test_classification.py tests/test_taxonomy.py tests/test_facets.py",
+        "criterion_id": "C01-r3-taxonomy-facet-tests",
+        "declared_paths": [
+          "tests/test_classification.py",
+          "tests/test_taxonomy.py",
+          "tests/test_facets.py"
+        ],
+        "depends_on_criteria": [],
+        "missing_paths": [],
+        "plan_path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/implementation-plans/C-01-source-identity-foundation-r3.json",
+        "plan_sha256": "29b89c280e2598784e20d9ef213f83212b4cc62787e85e93fa0be336777cfd88",
+        "preflight": "ready-to-run",
+        "provider_backed": false,
+        "status": "planned"
+      },
+      {
+        "cohort_id": "C-02-search-requirement-evidence",
+        "command": "tests/test_query_contract.py tests/test_search_profile.py",
+        "criterion_id": "C02-r3-company-search-tests",
+        "declared_paths": [
+          "tests/test_query_contract.py",
+          "tests/test_search_profile.py"
+        ],
+        "depends_on_criteria": [],
+        "missing_paths": [],
+        "plan_path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/implementation-plans/C-02-search-requirement-evidence-r3.json",
+        "plan_sha256": "c988fec11105b80a25a48e8bc881c8f98b26f9b2f14580d61c95637faf47d59c",
+        "preflight": "ready-to-run",
+        "provider_backed": false,
+        "status": "planned"
+      },
+      {
+        "cohort_id": "C-03-evidence-export-delivery",
+        "command": "tests/test_exporting.py tests/test_run_manifest.py",
+        "criterion_id": "C03-r3-export-lineage-tests",
+        "declared_paths": [
+          "tests/test_exporting.py",
+          "tests/test_run_manifest.py"
+        ],
+        "depends_on_criteria": [],
+        "missing_paths": [],
+        "plan_path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/implementation-plans/C-03-evidence-export-delivery-r3.json",
+        "plan_sha256": "fa2933fb85bbcd306c70dfab4f10acc70968bcdcb9adc3bbbaa861a7022b4a8d",
+        "preflight": "ready-to-run",
+        "provider_backed": false,
+        "status": "planned"
+      },
+      {
+        "cohort_id": "C-04-peer-screener-ranking",
+        "command": "tests/test_screening.py",
+        "criterion_id": "C04-r3-screener-group-tests",
+        "declared_paths": [
+          "tests/test_screening.py"
+        ],
+        "depends_on_criteria": [],
+        "missing_paths": [],
+        "plan_path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/implementation-plans/C-04-peer-screener-ranking-r3.json",
+        "plan_sha256": "a70a138b32038c0570d6c96466fdef0343448aadc583d4fb32b6bf68f733564c",
+        "preflight": "ready-to-run",
+        "provider_backed": false,
+        "status": "planned"
+      },
+      {
+        "cohort_id": "C-05-timeline-valuation-event-analysis",
+        "command": "tests/test_analysis_service.py tests/test_analytics.py",
+        "criterion_id": "C05-r3-analysis-groups-tests",
+        "declared_paths": [
+          "tests/test_analysis_service.py",
+          "tests/test_analytics.py"
+        ],
+        "depends_on_criteria": [],
+        "missing_paths": [],
+        "plan_path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/implementation-plans/C-05-timeline-valuation-event-analysis-r3.json",
+        "plan_sha256": "0628be1faaa8c4b7cff99ad5e4a818848dd85d24d9e045a2d5bdb322cc1f88da",
+        "preflight": "ready-to-run",
+        "provider_backed": false,
+        "status": "planned"
+      },
+      {
+        "cohort_id": "C-06-job-availability-filtered-discovery",
+        "command": "tests/test_job_search.py tests/test_cli_workflows.py tests/test_interactive.py",
+        "criterion_id": "C06-r3-interactive-and-job-tests",
+        "declared_paths": [
+          "tests/test_job_search.py",
+          "tests/test_cli_workflows.py",
+          "tests/test_interactive.py"
+        ],
+        "depends_on_criteria": [],
+        "missing_paths": [],
+        "plan_path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/implementation-plans/C-06-job-availability-filtered-discovery-r3.json",
+        "plan_sha256": "aa1c4aa49fbcd3fe2e05a233c789b6b3588d3cc5d9588476aaec26c301ea8606",
+        "preflight": "ready-to-run",
+        "provider_backed": false,
+        "status": "planned"
+      }
+    ],
+    "known_blockers": [
+      "오프라인 pytest 통과; CLI/API smoke 및 외부 provider 검증이 남아 있음"
+    ],
+    "rule": "Run local criteria first, then provider-backed criteria only with current plan-hash approval; record each attempt separately."
+  },
+  "runtime": {
+    "command_prefix": "uv run --cache-dir /tmp/cil-uv-cache --frozen",
+    "project_root": "/home/ubuntu/root/company-intelligence-platform",
+    "requires_python": ">=3.11",
+    "uv_cache_dir": "/tmp/cil-uv-cache",
+    "uv_executable": "/home/ubuntu/.local/bin/uv",
+    "uv_lock_path": "uv.lock",
+    "uv_lock_sha256": "3ba8c6d44be43fb930e7b8a35810789530ec0181b899d01a8f20f1d1b5f3d495",
+    "uv_version": "uv 0.10.11",
+    "venv_python": "/home/ubuntu/root/company-intelligence-platform/.venv/bin/python",
+    "venv_python_exists": true,
+    "venv_python_version": "Python 3.13.12"
+  },
+  "sandbox_network": {
+    "current_mode": "not-probed; provider validation pending",
+    "interpretation": "network mode describes the runner boundary only; provider success requires a new receipt",
+    "previous_observations": [
+      "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/receipts/execution-environment-cli-interactive-r3-before-tests-20260913.json"
+    ]
+  },
+  "schema_version": "campaign-execution-environment-v1"
+}

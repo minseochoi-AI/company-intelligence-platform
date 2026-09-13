@@ -1,0 +1,95 @@
+{
+  "contract_version": "atomic-json-patch-receipt-v1",
+  "target": "/home/ubuntu/root/company-intelligence-platform/docs/implementation-context-index-cli-r2.json",
+  "outcome": "pass",
+  "before_sha256": "ac8542988091e7da9726c4dd7c8ebae62013715f332742a2c312c6dbd7107c7a",
+  "after_sha256": "90489eaf23231b0224d18bd90c3e5158dad4443c5adddaa1ae44b65cdddecfab",
+  "proposed_after_sha256": "90489eaf23231b0224d18bd90c3e5158dad4443c5adddaa1ae44b65cdddecfab",
+  "operations": [
+    {
+      "op": "test",
+      "path": "/topics/0/refs/1/content_hash"
+    },
+    {
+      "op": "test",
+      "path": "/topics/0/refs/2/content_hash"
+    },
+    {
+      "op": "test",
+      "path": "/topics/0/refs/3/content_hash"
+    },
+    {
+      "op": "test",
+      "path": "/topics/1/refs/1/content_hash"
+    },
+    {
+      "op": "test",
+      "path": "/topics/1/refs/2/content_hash"
+    },
+    {
+      "op": "test",
+      "path": "/topics/2/refs/0/content_hash"
+    },
+    {
+      "op": "test",
+      "path": "/topics/2/refs/1/content_hash"
+    },
+    {
+      "op": "test",
+      "path": "/topics/3/refs/0/content_hash"
+    },
+    {
+      "op": "test",
+      "path": "/topics/4/refs/0/content_hash"
+    },
+    {
+      "op": "test",
+      "path": "/topics/4/refs/1/content_hash"
+    },
+    {
+      "op": "replace",
+      "path": "/topics/0/refs/1/content_hash"
+    },
+    {
+      "op": "replace",
+      "path": "/topics/0/refs/2/content_hash"
+    },
+    {
+      "op": "replace",
+      "path": "/topics/0/refs/3/content_hash"
+    },
+    {
+      "op": "replace",
+      "path": "/topics/1/refs/1/content_hash"
+    },
+    {
+      "op": "replace",
+      "path": "/topics/1/refs/2/content_hash"
+    },
+    {
+      "op": "replace",
+      "path": "/topics/2/refs/0/content_hash"
+    },
+    {
+      "op": "replace",
+      "path": "/topics/2/refs/1/content_hash"
+    },
+    {
+      "op": "replace",
+      "path": "/topics/3/refs/0/content_hash"
+    },
+    {
+      "op": "replace",
+      "path": "/topics/4/refs/0/content_hash"
+    },
+    {
+      "op": "replace",
+      "path": "/topics/4/refs/1/content_hash"
+    }
+  ],
+  "backup": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/.mutation-journal/preimages/sha256-ac8542988091e7da9726c4dd7c8ebae62013715f332742a2c312c6dbd7107c7a.json",
+  "journal": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/.mutation-journal/mutations/7c7375e3ab7d8f0e3a7a3cb8801daf23cf1b6213887867e14f79b1db8cc6f086.json",
+  "mutation_id": "refresh-context-index-r3-20260913",
+  "validators": [],
+  "completed_at": "2026-09-13T08:18:40.850762+00:00"
+}

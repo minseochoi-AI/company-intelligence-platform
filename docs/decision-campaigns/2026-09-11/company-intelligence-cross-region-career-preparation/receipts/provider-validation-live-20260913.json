@@ -1,0 +1,31 @@
+{
+  "contract_version": "company-intel-live-provider-validation-v1",
+  "collected_at": "2026-09-13",
+  "command": "company-intel validate --providers all --timeout 30 --retries 1",
+  "source_artifact": "/tmp/cip-live-validation/validation_results.json",
+  "source_artifact_sha256": "3003d2eb44bb383344741f6509444dd199618eb468317a6373c527dceb8f7d6d",
+  "probe_count": 28,
+  "passed": 26,
+  "not_passed": 2,
+  "status_counts": {"passed": 26, "provider_error": 1, "http_error": 1},
+  "external_read_only": true,
+  "failures": [
+    {
+      "probe_id": "bea_dataset_catalog",
+      "provider": "bea",
+      "status": "provider_error",
+      "http_status": 200,
+      "reason": "BEA UserId is not active; response lacks DatasetName",
+      "action": "activate/replace BEA_API_KEY; no code fallback"
+    },
+    {
+      "probe_id": "imf_czech_growth",
+      "provider": "imf",
+      "status": "http_error",
+      "http_status": 403,
+      "reason": "legacy IMF Data Mapper endpoint forbids anonymous request",
+      "action": "retain provider disposition rejected; use Eurostat/OECD/World Bank for Czech macro"
+    }
+  ],
+  "interpretation": "26/28 live probes passed. The two failures are external credential/endpoint boundaries and are not hidden or substituted."
+}

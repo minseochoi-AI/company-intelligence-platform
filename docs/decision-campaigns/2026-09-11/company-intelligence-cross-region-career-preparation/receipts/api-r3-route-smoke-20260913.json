@@ -1,0 +1,38 @@
+{
+  "contract_version": "chainup-command-receipt-v2",
+  "executed_at": "2026-09-13T12:41:50.571228+00:00",
+  "command": [
+    "env",
+    "ARTIFACT_DIR=/tmp/cil-api-artifacts",
+    "uv",
+    "run",
+    "--cache-dir",
+    "/tmp/cil-uv-cache",
+    "--frozen",
+    "python",
+    "/tmp/cil-api-route-smoke.py"
+  ],
+  "exit_code": 0,
+  "passed": true,
+  "raw_log_path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/receipts/logs/api-r3-route-smoke-20260913.log",
+  "raw_log_sha256": "ffd040e72ed32467fa158b2567c3fc5f1231c7ee73a40409ebbfdae2007a49fe",
+  "first_failure": null,
+  "stdout_tail": "{\"status\": \"passed\", \"routes\": [\"health\", \"job-search\", \"company-search\", \"company-screener\", \"company-timeline\", \"valuation\", \"ai-event\", \"exports\", \"export-detail\"]}\n",
+  "stderr_tail": "",
+  "provider_guard": {
+    "enabled": true,
+    "scope": "python-tcp-transport-including-loopback",
+    "observed": true,
+    "removed_provider_env_names": [
+      "GEMINI_API_KEY",
+      "GOOGLE_API_KEY"
+    ],
+    "network_attempts": [],
+    "provider_invocations": 0
+  },
+  "agent_session": {
+    "measurement": "unavailable-platform",
+    "token_count": null,
+    "tool_output_chars": null
+  }
+}

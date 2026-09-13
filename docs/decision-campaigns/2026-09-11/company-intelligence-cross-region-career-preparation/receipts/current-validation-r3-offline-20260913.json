@@ -1,0 +1,31 @@
+{
+  "contract_version": "campaign-attempt-manifest-v1",
+  "campaign_id": "company-intelligence-cross-region-career-preparation",
+  "active": {
+    "C-01-source-identity-foundation": {
+      "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/receipts/attempts/sha256-ab3bc532e93ee7ef8631311ea98544d7aa2493cf3c9f88e475324ed60708bb8d.json",
+      "sha256": "ab3bc532e93ee7ef8631311ea98544d7aa2493cf3c9f88e475324ed60708bb8d"
+    },
+    "C-02-search-requirement-evidence": {
+      "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/receipts/attempts/sha256-0863f0ac78c90061e627a351acb03da169e00983cd336c035dee0e74ea08ac4b.json",
+      "sha256": "0863f0ac78c90061e627a351acb03da169e00983cd336c035dee0e74ea08ac4b"
+    },
+    "C-03-evidence-export-delivery": {
+      "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/receipts/attempts/sha256-fc3bf67cf064fb142ca79d27414f7713737f01835202973541a709c7d5825773.json",
+      "sha256": "fc3bf67cf064fb142ca79d27414f7713737f01835202973541a709c7d5825773"
+    },
+    "C-04-peer-screener-ranking": {
+      "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/receipts/attempts/sha256-bca6c67eb42cf57e98c14bc51f9f7aeee9f7a3221a329175520c32985dff021a.json",
+      "sha256": "bca6c67eb42cf57e98c14bc51f9f7aeee9f7a3221a329175520c32985dff021a"
+    },
+    "C-05-timeline-valuation-event-analysis": {
+      "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/receipts/attempts/sha256-a3069741d8a15c2b07c2a82779f16b6052c870ad118ca0ba9bd6948022e33c5f.json",
+      "sha256": "a3069741d8a15c2b07c2a82779f16b6052c870ad118ca0ba9bd6948022e33c5f"
+    },
+    "C-06-job-availability-filtered-discovery": {
+      "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/receipts/attempts/sha256-ad343cbd29c926b0b6127a10799b5f5d505f87cf2fc1fa833690e30443bb6ae0.json",
+      "sha256": "ad343cbd29c926b0b6127a10799b5f5d505f87cf2fc1fa833690e30443bb6ae0"
+    }
+  },
+  "updated_at": "2026-09-13T09:20:50.320899+00:00"
+}

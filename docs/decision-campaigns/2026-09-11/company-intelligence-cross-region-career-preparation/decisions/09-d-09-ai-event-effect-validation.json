@@ -122,10 +122,8 @@
     "새 event evidence 통합 테스트"
   ],
   "implementation_change_ids": [
-    "D-07-analysis-service-r2",
-    "D-07-analysis-service-tests-r2",
-    "D-07-analytics-r2",
-    "D-07-analytics-tests-r2"
+    "D-08-D09-analysis-prerequisite-r3",
+    "D-08-D09-analytics-tests-r3"
   ],
   "validation_requirements": [
     "사건 분석이 source URL·event_date·entity identity·available_at·대조군 근거 없이 실행되지 않는지 확인한다.",

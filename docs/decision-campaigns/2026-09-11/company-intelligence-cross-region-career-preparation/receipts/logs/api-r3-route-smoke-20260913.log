@@ -1,0 +1,4 @@
+STDOUT
+{"status": "passed", "routes": ["health", "job-search", "company-search", "company-screener", "company-timeline", "valuation", "ai-event", "exports", "export-detail"]}
+
+STDERR

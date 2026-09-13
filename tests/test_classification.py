@@ -1,5 +1,11 @@
-from company_intel.classification import classify_company, evaluate_analysis_eligibility
+from company_intel.classification import (
+    classify_company,
+    classify_taxonomy_axes,
+    evaluate_analysis_eligibility,
+    legacy_company_type,
+)
 from company_intel.identity import CompanyIdentityResolver, IdentifierLink
+from company_intel.models import TaxonomyFact
 from company_intel.warehouse import Warehouse
 
 
@@ -46,3 +52,19 @@ def test_context_and_proxy_capabilities_are_not_promoted():
     classification = classify_company("X", {"financial": "available", "public_context": "context_only", "market": "proxy_only"}, evidence_complete=True, period_aligned=True)
     assert classification.capabilities["public_context"] == "context_only"
     assert "market_proxy_only" in classification.classification_reasons
+
+
+def test_taxonomy_axes_keep_legal_form_public_context_and_posting_unit_separate():
+    facts = (
+        TaxonomyFact("legal_form", "121", "ARES:pravniForma", "ares", "pravniForma", "121", "ICO:1"),
+        TaxonomyFact("ownership_sector", "public_institution", "ALIO:source_scope", "alioplus", "provider_scope", "public_institution_context", "ALIO:2", evidence_status="provider_context", filterability="display_only"),
+        TaxonomyFact("posting_organization_unit", "Engineering", "ATS:GREENHOUSE:department", "greenhouse", "departments", {"name": "Engineering"}, None, evidence_status="posting_scope"),
+    )
+
+    axes = classify_taxonomy_axes(facts)
+
+    assert axes["legal_form"][0].namespace == "ARES:pravniForma"
+    assert axes["ownership_sector"][0].value == "public_institution"
+    assert axes["posting_organization_unit"][0].value == "Engineering"
+    assert legacy_company_type(facts) == "public_institution"
+    assert legacy_company_type(facts[:1]) == "unknown"

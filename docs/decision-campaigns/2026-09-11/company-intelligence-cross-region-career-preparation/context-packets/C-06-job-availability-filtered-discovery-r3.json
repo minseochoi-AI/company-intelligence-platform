@@ -1,0 +1,116 @@
+{
+  "contract_version": "implementation-context-packet-v2",
+  "packet_id": "C-06-job-availability-filtered-discovery-packet-87487ea146ca",
+  "topics": [
+    "search-career-evidence"
+  ],
+  "capability_ids": [
+    "atomic-search-profile",
+    "five-state-verdict",
+    "multi-location-search",
+    "requirement-evidence",
+    "unverifiable-candidates"
+  ],
+  "required_refs": [
+    {
+      "ref_id": "semantic-audit-search",
+      "role": "must-read",
+      "path": "/home/ubuntu/.codex/attachments/5602dc52-29e5-4b64-93b8-365e045a58a4/pasted-text.txt",
+      "content_hash": "sha256:b09f773da9535a05e20ea8e6298fb218e227f90c926e34bc191eefa758b74844",
+      "line_range": "250-591",
+      "question": "현재 17개 검색변수의 의미 충돌과 검사 불가 조합은 무엇인가?",
+      "observation_summary": "제목과 본문, 공고언어와 요구언어, 근로시간과 계약기간, 미확인과 불일치를 분리해야 한다."
+    },
+    {
+      "ref_id": "job-search-current",
+      "role": "must-read",
+      "path": "src/company_intel/job_search.py",
+      "content_hash": "sha256:57f7bc4b0114afa46c4410fce2b813835598ab756bb8f0e76fe5bfddd5c7873b",
+      "line_range": "1-617",
+      "question": "현재 provider 정규화와 필터는 어떤 의미 오류를 가진가?",
+      "observation_summary": "본문 전체 keyword, 단일 위치, Permanent→full-time, posting language 필터, unknown hard exclusion이 실제 사용자 의미와 충돌한다."
+    },
+    {
+      "ref_id": "career-requirements-current",
+      "role": "must-read",
+      "path": "src/company_intel/career_requirements.py",
+      "content_hash": "sha256:404dbb872590baa3513a62673e73622a2c19db07eba80b347260f428cfc92a0c",
+      "line_range": "1-260",
+      "question": "요건 근거 수준과 필요도가 어떻게 표현되는가?",
+      "observation_summary": "기본 경계는 있으나 자격증·법정면허·취업자격과 미추출 상태를 더 원자적으로 분리해야 한다."
+    }
+  ],
+  "current_entry_points": [
+    {
+      "kind": "code",
+      "path": "src/company_intel/job_search.py",
+      "symbol": "JobSearchProfile",
+      "source_hash": "sha256:57f7bc4b0114afa46c4410fce2b813835598ab756bb8f0e76fe5bfddd5c7873b"
+    },
+    {
+      "kind": "code",
+      "path": "src/company_intel/cli.py",
+      "symbol": "main",
+      "source_hash": "sha256:c0c60ee83f9a392ec12e9aafa54820f4cfa143b5c12296549fc7dc60cdcb870b"
+    },
+    {
+      "kind": "code",
+      "path": "src/company_intel/api.py",
+      "symbol": "JobSearchRequest",
+      "source_hash": "sha256:c19c8f6d8e5b46bab987858d0d8c45fbcb2d4187d0fe29c6225725a599bd27e9"
+    },
+    {
+      "kind": "test",
+      "path": "tests/test_job_search.py",
+      "symbol": "test_unknown_policy",
+      "source_hash": "sha256:ef561f7b4158abc71c5d5afd0db129cf38401718d3d0fa11ebff713702a7b31e"
+    },
+    {
+      "kind": "test",
+      "path": "tests/test_cli_workflows.py",
+      "symbol": "test_interactive_scripted_preview",
+      "source_hash": "sha256:6b5c6589f6af5df8a09577d0c65ce2680d83d0be118e6af25310d80cc6f96ebd"
+    },
+    {
+      "kind": "code",
+      "path": "README.md",
+      "symbol": "Interactive CLI",
+      "source_hash": "sha256:efa322ccb86fda2536d3fd761bb6c34f686fcd077530a9d714da104de449f4f4"
+    },
+    {
+      "kind": "code",
+      "path": "IMPLEMENTATION_REPORT_KO.md",
+      "symbol": "대화형 CLI 상태",
+      "source_hash": "sha256:4824331f9afffb289cedc407b10d378341f2936c075a37a3a949105330c9badf"
+    },
+    {
+      "kind": "code",
+      "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/atomic-api-compatibility-report-2026-09-11.md",
+      "symbol": "CLI facet field contract",
+      "source_hash": "sha256:8e3adf82a00db9a31d29cf67899e7824ee9f3982943d2a9a289379dceb99adf4"
+    }
+  ],
+  "planned_entry_points": [
+    {
+      "kind": "code",
+      "path": "src/company_intel/interactive.py",
+      "symbol": "ArrowMenu",
+      "change_id": "D-10-interactive-module-r3"
+    },
+    {
+      "kind": "test",
+      "path": "tests/test_interactive.py",
+      "symbol": "test_arrow_menu_scripted_selection",
+      "change_id": "D-10-interactive-tests-r3"
+    }
+  ],
+  "external_entry_points": [],
+  "invariants": [
+    "UNKNOWN은 NO_MATCH로 축약하지 않는다.",
+    "직무 제목 검색과 설명문 기술 검색을 분리한다.",
+    "공고언어와 지원자 요구언어를 분리한다.",
+    "급여는 통화·기간·basis·gross/net·지역 tier가 비교 가능할 때만 정렬한다."
+  ],
+  "unresolved_conflicts": [],
+  "resume_digest": "Prepared C-06-job-availability-filtered-discovery from current decision hashes and one global file-ownership graph."
+}

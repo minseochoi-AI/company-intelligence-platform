@@ -122,10 +122,8 @@
     "새 valuation 통합 테스트"
   ],
   "implementation_change_ids": [
-    "D-07-analysis-service-r2",
-    "D-07-analysis-service-tests-r2",
-    "D-07-analytics-r2",
-    "D-07-analytics-tests-r2"
+    "D-08-D09-analysis-prerequisite-r3",
+    "D-08-D09-analytics-tests-r3"
   ],
   "validation_requirements": [
     "모든 기업별 가치 결과에 scenario assumptions, currency, as_of, source coverage가 있는지 확인한다.",

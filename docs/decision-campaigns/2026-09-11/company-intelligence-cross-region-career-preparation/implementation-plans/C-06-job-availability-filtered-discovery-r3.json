@@ -1,0 +1,563 @@
+{
+  "contract_version": "1.2.0",
+  "plan_id": "company-intelligence-cross-region-career-preparation--C-06-job-availability-filtered-discovery--r3",
+  "owner": {
+    "kind": "campaign-cohort",
+    "id": "C-06-job-availability-filtered-discovery"
+  },
+  "source_refs": [
+    {
+      "id": "D-10-job-availability-filtered-discovery",
+      "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/10-d-10-job-availability-filtered-discovery.json",
+      "sha256": "sha256:059bd0caece8fe8039fd024c4ace14b1ca2aa859d2e5400ff95a8892069a85ae"
+    }
+  ],
+  "status": "contract-ready",
+  "metadata": {
+    "preparation_contract": "campaign-global-ownership-v1",
+    "planned_commit_message": "feat(cli): add evidence-aware interactive selection",
+    "git_finalization_authorized": false,
+    "test_execution_deferred": true
+  },
+  "change_slices": [
+    {
+      "slice_id": "interactive-cli-and-job-verdicts-r3",
+      "behavior": "9개 scriptable CLI를 유지하면서, 저장된 API snapshot의 실제 facet을 화살표/공백/Enter로 선택하고 strict/unverifiable/no-match/conflict를 분리하는 대화형 offline workflow를 제공한다.",
+      "dependencies": [
+        "C-01-source-identity-foundation",
+        "C-02-search-requirement-evidence",
+        "C-03-evidence-export-delivery",
+        "C-04-peer-screener-ranking",
+        "C-05-timeline-valuation-event-analysis"
+      ],
+      "operations": [
+        {
+          "change_id": "D-10-job-search-verdicts-r3",
+          "operation": "MODIFY",
+          "path": "src/company_intel/job_search.py",
+          "symbols": [
+            "JobSearchProfile",
+            "JobDataFrames",
+            "normalize_greenhouse_jobs",
+            "normalize_lever_jobs",
+            "normalize_mpm_jobs",
+            "search_job_dataframes"
+          ],
+          "current_state": "언어/부서/다중 위치 일부와 unknown policy가 profile 계약대로 적용되지 않으며 six tables만 반환한다.",
+          "source_hash": "sha256:57f7bc4b0114afa46c4410fce2b813835598ab756bb8f0e76fe5bfddd5c7873b",
+          "after_state": "posting/requirement language, business unit, all locations, salary signature, field verdict와 strict/unverifiable/no-match/conflict/locations tables를 제공한다.",
+          "rationale": "사용자가 원하는 조건의 0건·불일치·검사 불가를 구분하기 위해서다.",
+          "dependencies": [],
+          "public_contract_impacts": [
+            "job search DataFrame contract v3"
+          ],
+          "compatibility": "기존 six table view와 legacy profile alias를 유지한다.",
+          "migration": "legacy languages를 posting_language alias로 경고와 함께 처리한다.",
+          "rollback": "legacy fields/tables만 사용한다.",
+          "authorization_boundary": "본문의 비구조화 보상이나 업무 설명을 임의 구조화 조건으로 만들지 않는다.",
+          "contributes_to": [
+            "D-10-job-availability-filtered-discovery"
+          ],
+          "symbol_changes": [
+            {
+              "symbol": "JobDataFrames",
+              "intent": "5상태 결과와 location/facet 근거 분리",
+              "decision_id": "D-10-job-availability-filtered-discovery"
+            }
+          ],
+          "contribution_refs": [
+            {
+              "decision_id": "D-10-job-availability-filtered-discovery",
+              "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/10-d-10-job-availability-filtered-discovery.json",
+              "sha256": "sha256:059bd0caece8fe8039fd024c4ace14b1ca2aa859d2e5400ff95a8892069a85ae",
+              "symbols": [
+                "JobSearchProfile",
+                "JobDataFrames",
+                "normalize_greenhouse_jobs",
+                "normalize_lever_jobs",
+                "normalize_mpm_jobs",
+                "search_job_dataframes"
+              ],
+              "intent_change_ids": []
+            }
+          ]
+        },
+        {
+          "change_id": "D-10-interactive-module-r3",
+          "operation": "CREATE",
+          "path": "src/company_intel/interactive.py",
+          "symbols": [
+            "ArrowMenu",
+            "InteractiveWorkflow",
+            "ScriptedSelector",
+            "build_interactive_request"
+          ],
+          "current_state": "화살표 선택, facet availability 표시, testable scripted UI adapter가 없다.",
+          "source_hash": null,
+          "after_state": "표준 curses 기반 arrow/space/Enter selector와 non-TTY scripted adapter로 provider-status, discovery, comparison, analysis, explain, export menu를 구성한다.",
+          "rationale": "사용자가 API raw field를 직접 외우지 않고도 의미 있는 조건만 고르게 하기 위해서다.",
+          "dependencies": [
+            "D-10-job-search-verdicts-r3"
+          ],
+          "public_contract_impacts": [
+            "interactive CLI workflow"
+          ],
+          "compatibility": "비대화형 명령과 JSON profile 입력을 그대로 유지한다.",
+          "migration": "interactive는 saved snapshots only이며 직접 command arguments를 생성한다.",
+          "rollback": "interactive subcommand만 제거한다.",
+          "authorization_boundary": "interactive mode는 provider refresh, package install, application submission을 수행하지 않는다.",
+          "contributes_to": [
+            "D-10-job-availability-filtered-discovery"
+          ],
+          "symbol_changes": [
+            {
+              "symbol": "InteractiveWorkflow",
+              "intent": "facet 기반 arrow-key workflow",
+              "decision_id": "D-10-job-availability-filtered-discovery"
+            }
+          ],
+          "contribution_refs": [
+            {
+              "decision_id": "D-10-job-availability-filtered-discovery",
+              "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/10-d-10-job-availability-filtered-discovery.json",
+              "sha256": "sha256:059bd0caece8fe8039fd024c4ace14b1ca2aa859d2e5400ff95a8892069a85ae",
+              "symbols": [
+                "ArrowMenu",
+                "InteractiveWorkflow",
+                "ScriptedSelector",
+                "build_interactive_request"
+              ],
+              "intent_change_ids": []
+            }
+          ]
+        },
+        {
+          "change_id": "D-10-cli-interactive-routing-r3",
+          "operation": "MODIFY",
+          "path": "src/company_intel/cli.py",
+          "symbols": [
+            "main",
+            "interactive_command",
+            "job_search_command",
+            "company_search_command",
+            "explain_command",
+            "export_command"
+          ],
+          "current_state": "9개 명령은 scriptable하지만 interactive entrypoint, preview, shared error envelope가 없다.",
+          "source_hash": "sha256:c0c60ee83f9a392ec12e9aafa54820f4cfa143b5c12296549fc7dc60cdcb870b",
+          "after_state": "company-intel interactive가 saved data path에서 facet menu를 표시하고 profile/run manifest preview 또는 선택한 command 실행을 안전하게 라우팅한다.",
+          "rationale": "UI와 기존 CLI command semantics를 한 구현으로 유지하기 위해서다.",
+          "dependencies": [
+            "D-10-interactive-module-r3"
+          ],
+          "public_contract_impacts": [
+            "interactive command and stable JSON envelope"
+          ],
+          "compatibility": "기존 9 commands와 aliases를 유지한다.",
+          "migration": "non-TTY는 --script 또는 profile command 안내를 반환한다.",
+          "rollback": "interactive parser만 비활성화한다.",
+          "authorization_boundary": "기본적으로 local artifact만 읽고 외부 refresh를 금지한다.",
+          "contributes_to": [
+            "D-10-job-availability-filtered-discovery"
+          ],
+          "symbol_changes": [
+            {
+              "symbol": "interactive_command",
+              "intent": "화살표 UX를 기존 command에 결속",
+              "decision_id": "D-10-job-availability-filtered-discovery"
+            }
+          ],
+          "contribution_refs": [
+            {
+              "decision_id": "D-10-job-availability-filtered-discovery",
+              "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/10-d-10-job-availability-filtered-discovery.json",
+              "sha256": "sha256:059bd0caece8fe8039fd024c4ace14b1ca2aa859d2e5400ff95a8892069a85ae",
+              "symbols": [
+                "main",
+                "interactive_command",
+                "job_search_command",
+                "company_search_command",
+                "explain_command",
+                "export_command"
+              ],
+              "intent_change_ids": []
+            }
+          ]
+        },
+        {
+          "change_id": "D-10-api-profile-parity-r3",
+          "operation": "MODIFY",
+          "path": "src/company_intel/api.py",
+          "symbols": [
+            "JobSearchRequest",
+            "SearchProfileRequest",
+            "job_search",
+            "company_search"
+          ],
+          "current_state": "API request adapters가 새로운 filter/verdict/profile fields를 lossless하게 전달하지 않는다.",
+          "source_hash": "sha256:c19c8f6d8e5b46bab987858d0d8c45fbcb2d4187d0fe29c6225725a599bd27e9",
+          "after_state": "CLI와 API가 같은 semantic profile, verdict tables, facet/run metadata를 사용한다.",
+          "rationale": "interactive preview와 API consumer의 판단이 달라지는 것을 막기 위해서다.",
+          "dependencies": [
+            "D-10-job-search-verdicts-r3"
+          ],
+          "public_contract_impacts": [
+            "CLI/API semantic profile parity"
+          ],
+          "compatibility": "v1 fields는 optional legacy aliases로 유지한다.",
+          "migration": "신규 response fields는 additive다.",
+          "rollback": "신규 fields를 생략한다.",
+          "authorization_boundary": "API route에서 provider live call을 추가하지 않는다.",
+          "contributes_to": [
+            "D-10-job-availability-filtered-discovery"
+          ],
+          "symbol_changes": [
+            {
+              "symbol": "JobSearchRequest",
+              "intent": "profile/v3 verdict parity",
+              "decision_id": "D-10-job-availability-filtered-discovery"
+            }
+          ],
+          "contribution_refs": [
+            {
+              "decision_id": "D-10-job-availability-filtered-discovery",
+              "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/10-d-10-job-availability-filtered-discovery.json",
+              "sha256": "sha256:059bd0caece8fe8039fd024c4ace14b1ca2aa859d2e5400ff95a8892069a85ae",
+              "symbols": [
+                "JobSearchRequest",
+                "SearchProfileRequest",
+                "job_search",
+                "company_search"
+              ],
+              "intent_change_ids": []
+            }
+          ]
+        },
+        {
+          "change_id": "D-10-job-search-tests-r3",
+          "operation": "MODIFY",
+          "path": "tests/test_job_search.py",
+          "symbols": [
+            "test_unknown_policy",
+            "test_salary_ceiling_signature",
+            "test_lever_all_locations",
+            "test_job_verdict_tables"
+          ],
+          "current_state": "현재 테스트는 include/report, salary ceiling signature, all_locations, verdict tables의 실제 오류를 잡지 못한다.",
+          "source_hash": "sha256:ef561f7b4158abc71c5d5afd0db129cf38401718d3d0fa11ebff713702a7b31e",
+          "after_state": "offline fixture로 이질 salary, Permanent, language, business unit, unknown policy와 5상태 table을 검증한다.",
+          "rationale": "실제 snapshot 의미가 local logic에서 깨지는 회귀를 막기 위해서다.",
+          "dependencies": [
+            "D-10-job-search-verdicts-r3"
+          ],
+          "public_contract_impacts": [
+            "offline job search tests"
+          ],
+          "compatibility": "기존 tests를 유지한다.",
+          "migration": "없음.",
+          "rollback": "추가 cases를 제거한다.",
+          "authorization_boundary": "network/credential을 사용하지 않는다.",
+          "contributes_to": [
+            "D-10-job-availability-filtered-discovery"
+          ],
+          "symbol_changes": [
+            {
+              "symbol": "test_job_verdict_tables",
+              "intent": "5상태 output 검증",
+              "decision_id": "D-10-job-availability-filtered-discovery"
+            }
+          ],
+          "contribution_refs": [
+            {
+              "decision_id": "D-10-job-availability-filtered-discovery",
+              "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/10-d-10-job-availability-filtered-discovery.json",
+              "sha256": "sha256:059bd0caece8fe8039fd024c4ace14b1ca2aa859d2e5400ff95a8892069a85ae",
+              "symbols": [
+                "test_unknown_policy",
+                "test_salary_ceiling_signature",
+                "test_lever_all_locations",
+                "test_job_verdict_tables"
+              ],
+              "intent_change_ids": []
+            }
+          ]
+        },
+        {
+          "change_id": "D-10-cli-workflow-tests-r3",
+          "operation": "MODIFY",
+          "path": "tests/test_cli_workflows.py",
+          "symbols": [
+            "test_interactive_scripted_preview",
+            "test_non_tty_guidance",
+            "test_cli_profile_parity"
+          ],
+          "current_state": "CLI workflow tests는 interactive command/arrow selection compiler를 검증하지 않는다.",
+          "source_hash": "sha256:6b5c6589f6af5df8a09577d0c65ce2680d83d0be118e6af25310d80cc6f96ebd",
+          "after_state": "scripted selector로 profile preview, facet disabled reason, non-TTY guidance, command parity를 offline으로 검증한다.",
+          "rationale": "TTY를 자동화하지 않아도 interactive logic을 회귀 검증하기 위해서다.",
+          "dependencies": [
+            "D-10-cli-interactive-routing-r3"
+          ],
+          "public_contract_impacts": [
+            "offline CLI workflow tests"
+          ],
+          "compatibility": "기존 workflow tests를 유지한다.",
+          "migration": "없음.",
+          "rollback": "추가 cases를 제거한다.",
+          "authorization_boundary": "provider call을 하지 않는다.",
+          "contributes_to": [
+            "D-10-job-availability-filtered-discovery"
+          ],
+          "symbol_changes": [
+            {
+              "symbol": "test_interactive_scripted_preview",
+              "intent": "interactive command compiler 검증",
+              "decision_id": "D-10-job-availability-filtered-discovery"
+            }
+          ],
+          "contribution_refs": [
+            {
+              "decision_id": "D-10-job-availability-filtered-discovery",
+              "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/10-d-10-job-availability-filtered-discovery.json",
+              "sha256": "sha256:059bd0caece8fe8039fd024c4ace14b1ca2aa859d2e5400ff95a8892069a85ae",
+              "symbols": [
+                "test_interactive_scripted_preview",
+                "test_non_tty_guidance",
+                "test_cli_profile_parity"
+              ],
+              "intent_change_ids": []
+            }
+          ]
+        },
+        {
+          "change_id": "D-10-interactive-tests-r3",
+          "operation": "CREATE",
+          "path": "tests/test_interactive.py",
+          "symbols": [
+            "test_arrow_menu_scripted_selection",
+            "test_disabled_facet_is_explained"
+          ],
+          "current_state": "curses adapter와 scriptable selector의 독립 테스트가 없다.",
+          "source_hash": null,
+          "after_state": "arrow/space/Enter selection model, disabled options, multi-select와 profile compiler를 offline으로 검증한다.",
+          "rationale": "실제 terminal interaction에 의존하지 않는 UI regression test를 만들기 위해서다.",
+          "dependencies": [
+            "D-10-interactive-module-r3"
+          ],
+          "public_contract_impacts": [
+            "offline interactive UI tests"
+          ],
+          "compatibility": "새 테스트 파일이다.",
+          "migration": "없음.",
+          "rollback": "interactive module과 함께 제거한다.",
+          "authorization_boundary": "외부 API나 terminal automation을 실행하지 않는다.",
+          "contributes_to": [
+            "D-10-job-availability-filtered-discovery"
+          ],
+          "symbol_changes": [
+            {
+              "symbol": "test_arrow_menu_scripted_selection",
+              "intent": "화살표 선택 model 검증",
+              "decision_id": "D-10-job-availability-filtered-discovery"
+            }
+          ],
+          "contribution_refs": [
+            {
+              "decision_id": "D-10-job-availability-filtered-discovery",
+              "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/10-d-10-job-availability-filtered-discovery.json",
+              "sha256": "sha256:059bd0caece8fe8039fd024c4ace14b1ca2aa859d2e5400ff95a8892069a85ae",
+              "symbols": [
+                "test_arrow_menu_scripted_selection",
+                "test_disabled_facet_is_explained"
+              ],
+              "intent_change_ids": []
+            }
+          ]
+        },
+        {
+          "change_id": "D-10-cli-docs-r3",
+          "operation": "MODIFY",
+          "path": "README.md",
+          "symbols": [
+            "Interactive CLI",
+            "facet semantics",
+            "offline data boundary"
+          ],
+          "current_state": "문서는 scriptable commands를 설명하지만 arrow-key selection과 facet limitation을 안내하지 않는다.",
+          "source_hash": "sha256:efa322ccb86fda2536d3fd761bb6c34f686fcd077530a9d714da104de449f4f4",
+          "after_state": "interactive command, arrow/space/Enter control, saved snapshot boundary, 5상태 결과와 feature menu를 문서화한다.",
+          "rationale": "사용자가 UI의 provider coverage를 live inventory로 오해하지 않게 하기 위해서다.",
+          "dependencies": [
+            "D-10-cli-interactive-routing-r3"
+          ],
+          "public_contract_impacts": [
+            "user CLI documentation"
+          ],
+          "compatibility": "기존 usage guide를 유지한다.",
+          "migration": "interactive section을 추가한다.",
+          "rollback": "새 section을 제거한다.",
+          "authorization_boundary": "키값이나 투자/지원 조언을 포함하지 않는다.",
+          "contributes_to": [
+            "D-10-job-availability-filtered-discovery"
+          ],
+          "symbol_changes": [
+            {
+              "symbol": "Interactive CLI",
+              "intent": "실제 사용 경로 문서화",
+              "decision_id": "D-10-job-availability-filtered-discovery"
+            }
+          ],
+          "contribution_refs": [
+            {
+              "decision_id": "D-10-job-availability-filtered-discovery",
+              "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/10-d-10-job-availability-filtered-discovery.json",
+              "sha256": "sha256:059bd0caece8fe8039fd024c4ace14b1ca2aa859d2e5400ff95a8892069a85ae",
+              "symbols": [
+                "Interactive CLI",
+                "facet semantics",
+                "offline data boundary"
+              ],
+              "intent_change_ids": []
+            }
+          ]
+        },
+        {
+          "change_id": "D-10-korean-status-docs-r3",
+          "operation": "MODIFY",
+          "path": "IMPLEMENTATION_REPORT_KO.md",
+          "symbols": [
+            "대화형 CLI 상태",
+            "검증 경계"
+          ],
+          "current_state": "상태 보고가 비대화형 CLI와 새 facet UI의 구현/검증 경계를 구분하지 않는다.",
+          "source_hash": "sha256:4824331f9afffb289cedc407b10d378341f2936c075a37a3a949105330c9badf",
+          "after_state": "interactive 기능의 구현 상태, offline snapshot 제한, 테스트 전/후 상태를 명시한다.",
+          "rationale": "코드 작성과 의미/실데이터 검증을 혼동하지 않기 위해서다.",
+          "dependencies": [
+            "D-10-cli-interactive-routing-r3"
+          ],
+          "public_contract_impacts": [
+            "Korean implementation status"
+          ],
+          "compatibility": "기존 이력을 보존한다.",
+          "migration": "상태 표에 interactive row를 추가한다.",
+          "rollback": "새 row를 제거한다.",
+          "authorization_boundary": "테스트 전 성공을 주장하지 않는다.",
+          "contributes_to": [
+            "D-10-job-availability-filtered-discovery"
+          ],
+          "symbol_changes": [
+            {
+              "symbol": "대화형 CLI 상태",
+              "intent": "구현·검증 구분",
+              "decision_id": "D-10-job-availability-filtered-discovery"
+            }
+          ],
+          "contribution_refs": [
+            {
+              "decision_id": "D-10-job-availability-filtered-discovery",
+              "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/10-d-10-job-availability-filtered-discovery.json",
+              "sha256": "sha256:059bd0caece8fe8039fd024c4ace14b1ca2aa859d2e5400ff95a8892069a85ae",
+              "symbols": [
+                "대화형 CLI 상태",
+                "검증 경계"
+              ],
+              "intent_change_ids": []
+            }
+          ]
+        },
+        {
+          "change_id": "D-10-api-compatibility-report-r3",
+          "operation": "MODIFY",
+          "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/atomic-api-compatibility-report-2026-09-11.md",
+          "symbols": [
+            "CLI facet field contract",
+            "provider-native classification"
+          ],
+          "current_state": "report가 raw field 분류와 non-unifiable rule은 설명하지만 implementation binding과 menu selector mapping은 없다.",
+          "source_hash": "sha256:8e3adf82a00db9a31d29cf67899e7824ee9f3982943d2a9a289379dceb99adf4",
+          "after_state": "CLI facet, filter/sort/display-only/forbidden classification, public/private axes, provider handling을 implementation contract로 남긴다.",
+          "rationale": "UI가 provider raw semantics를 바꾸지 않는 근거를 보존하기 위해서다.",
+          "dependencies": [
+            "D-10-cli-interactive-routing-r3"
+          ],
+          "public_contract_impacts": [
+            "atomic API compatibility report"
+          ],
+          "compatibility": "과거 return evidence를 유지한다.",
+          "migration": "새 r3 section을 append한다.",
+          "rollback": "r3 section만 제거한다.",
+          "authorization_boundary": "새 API 재호출이나 실제 채용 충족 판단을 주장하지 않는다.",
+          "contributes_to": [
+            "D-10-job-availability-filtered-discovery"
+          ],
+          "symbol_changes": [
+            {
+              "symbol": "CLI facet field contract",
+              "intent": "원자적 UI mapping 근거",
+              "decision_id": "D-10-job-availability-filtered-discovery"
+            }
+          ],
+          "contribution_refs": [
+            {
+              "decision_id": "D-10-job-availability-filtered-discovery",
+              "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/10-d-10-job-availability-filtered-discovery.json",
+              "sha256": "sha256:059bd0caece8fe8039fd024c4ace14b1ca2aa859d2e5400ff95a8892069a85ae",
+              "symbols": [
+                "CLI facet field contract",
+                "provider-native classification"
+              ],
+              "intent_change_ids": []
+            }
+          ]
+        }
+      ],
+      "routes": [
+        {
+          "route_id": "cli-implementation",
+          "skill": "cli-creator",
+          "requirement": "required",
+          "phase": "IMPLEMENT",
+          "purpose": "composable scriptable/interactive CLI를 구현한다."
+        },
+        {
+          "route_id": "job-semantics",
+          "skill": "company-intelligence-career-research",
+          "requirement": "required",
+          "phase": "IMPLEMENT",
+          "purpose": "채용 조건과 provider field meaning을 보존한다."
+        },
+        {
+          "route_id": "cli-tests",
+          "skill": "tdd",
+          "requirement": "required",
+          "phase": "VALIDATE",
+          "purpose": "offline CLI/UI tests를 실행한다."
+        }
+      ],
+      "completion_contract": [
+        {
+          "criterion_id": "C06-r3-interactive-and-job-tests",
+          "behavior": "interactive selector, profile compiler, job verdict tables와 API parity가 offline으로 동작한다.",
+          "blocking": true,
+          "owner_skill": "tdd",
+          "phase": "VALIDATE",
+          "test": {
+            "type": "pytest",
+            "runner": "pytest",
+            "value": "tests/test_job_search.py tests/test_cli_workflows.py tests/test_interactive.py",
+            "paths": [
+              "tests/test_job_search.py",
+              "tests/test_cli_workflows.py",
+              "tests/test_interactive.py"
+            ]
+          },
+          "expected_result": "offline tests pass",
+          "failure_marker": "interactive workflow or filter verdict regression",
+          "receipt": {},
+          "status": "planned"
+        }
+      ]
+    }
+  ]
+}

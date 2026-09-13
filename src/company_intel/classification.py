@@ -1,8 +1,18 @@
 from __future__ import annotations
 
-from .models import AnalysisEligibility, CompanyClassification
+from collections.abc import Iterable
+
+from .models import AnalysisEligibility, CompanyClassification, TaxonomyFact
 
 CAPABILITY_AXES = ("financial", "job_posting", "employment", "market", "macro", "public_context")
+TAXONOMY_AXES = (
+    "ownership_sector",
+    "public_institution_type",
+    "legal_form",
+    "industry",
+    "market_status",
+    "posting_organization_unit",
+)
 
 
 def evaluate_analysis_eligibility(*, identity_resolved: bool, period_aligned: bool, unit_aligned: bool, available_at_present: bool) -> AnalysisEligibility:
@@ -20,7 +30,56 @@ def evaluate_analysis_eligibility(*, identity_resolved: bool, period_aligned: bo
     return AnalysisEligibility(False, False, tuple(reasons))
 
 
-def classify_company(entity_id: str, capabilities: dict[str, str], *, evidence_complete: bool, identity_resolved: bool = True, period_aligned: bool = False, unit_aligned: bool = True, available_at_present: bool = True) -> CompanyClassification:
+def classify_taxonomy_axes(facts: Iterable[TaxonomyFact]) -> dict[str, tuple[TaxonomyFact, ...]]:
+    """Group taxonomy facts without converting provider-native codes.
+
+    The returned values are facts rather than a single string because a legal
+    form, industry code, or public-institution type can be multi-valued.  In
+    particular, this function intentionally does *not* infer an ownership
+    sector from a legal-form code or a current market status from a listing
+    venue.  Callers that need a cross-provider comparison must first select a
+    common namespace and document their mapping.
+    """
+
+    grouped: dict[str, list[TaxonomyFact]] = {axis: [] for axis in TAXONOMY_AXES}
+    for fact in facts:
+        grouped.setdefault(fact.semantic_field, []).append(fact)
+    return {
+        axis: tuple(
+            sorted(
+                entries,
+                key=lambda item: (item.namespace, item.value, item.raw_field),
+            )
+        )
+        for axis, entries in grouped.items()
+    }
+
+
+def legacy_company_type(facts: Iterable[TaxonomyFact]) -> str:
+    """Return the conservative legacy company-type value used by old callers.
+
+    ``company_type`` was historically a catch-all field.  Only a source that
+    explicitly declares an ownership sector may populate the legacy adapter;
+    legal forms, ATS departments, and filing entity types remain ``unknown``.
+    """
+
+    ownership = [fact.value for fact in facts if fact.semantic_field == "ownership_sector"]
+    if len(set(ownership)) == 1 and ownership:
+        return ownership[0]
+    return "unknown"
+
+
+def classify_company(
+    entity_id: str,
+    capabilities: dict[str, str],
+    *,
+    evidence_complete: bool,
+    identity_resolved: bool = True,
+    period_aligned: bool = False,
+    unit_aligned: bool = True,
+    available_at_present: bool = True,
+    taxonomy_facts: Iterable[TaxonomyFact] = (),
+) -> CompanyClassification:
     allowed = {"available", "unavailable", "unknown", "context_only", "proxy_only"}
     normalized = {axis: capabilities.get(axis, "unknown") for axis in CAPABILITY_AXES}
     normalized = {axis: status if status in allowed else "unknown" for axis, status in normalized.items()}
@@ -39,4 +98,5 @@ def classify_company(entity_id: str, capabilities: dict[str, str], *, evidence_c
             eligibility.causal_ready,
             (*eligibility.reasons, "missing-aligned-series"),
         )
-    return CompanyClassification(entity_id, normalized, eligibility, tuple(reasons))
+    facts = tuple(taxonomy_facts)
+    return CompanyClassification(entity_id, normalized, eligibility, tuple(reasons), facts)

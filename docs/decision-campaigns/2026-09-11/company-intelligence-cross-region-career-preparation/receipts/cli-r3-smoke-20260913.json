@@ -1,0 +1,31 @@
+{
+  "contract_version": "chainup-command-receipt-v2",
+  "executed_at": "2026-09-13T12:44:00.055221+00:00",
+  "command": [
+    "bash",
+    "/tmp/cil-cli-smoke.sh"
+  ],
+  "exit_code": 0,
+  "passed": true,
+  "raw_log_path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/receipts/logs/cli-r3-smoke-20260913.log",
+  "raw_log_sha256": "f90ff5eec5140dcab4777f0619c716a3074911277ba2c04664d0be393c4084a1",
+  "first_failure": null,
+  "stdout_tail": "{\"status\":\"passed\",\"commands\":[\"provider-status\",\"job-search\",\"company-search\",\"screen\",\"timeline\",\"valuation\",\"ai-event\",\"explain\",\"export\"]}\n",
+  "stderr_tail": "",
+  "provider_guard": {
+    "enabled": true,
+    "scope": "python-tcp-transport-including-loopback",
+    "observed": true,
+    "removed_provider_env_names": [
+      "GEMINI_API_KEY",
+      "GOOGLE_API_KEY"
+    ],
+    "network_attempts": [],
+    "provider_invocations": 0
+  },
+  "agent_session": {
+    "measurement": "unavailable-platform",
+    "token_count": null,
+    "tool_output_chars": null
+  }
+}

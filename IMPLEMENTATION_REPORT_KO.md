@@ -152,3 +152,23 @@ K3s에서는 `secret.example.yaml`을 복사해 실제 Secret을 별도 생성�
 ## 보안 메모
 
 실제 키는 코드, Git, 배포 예시, 결과 JSON에 저장하지 않았다. BEA처럼 응답 본문에 키를 반사할 수 있는 공급자는 마스킹 전 본문의 SHA-256만 기록하고 저장 원문에서는 값을 제거한다. 사용자가 채팅에 직접 공개한 키는 작업 완료 후 재발급하는 것이 안전하다.
+
+## r3 대화형 CLI 및 의미 규격 보강 — 구현 후 테스트 전
+
+이 절의 상태는 **implemented-not-verified**다. 아래 변경은 저장된 API 반환물의 의미를 기준으로 작성됐지만, 이 turnover 시점에는 pytest·provider 재호출을 의도적으로 실행하지 않았다.
+
+| 사용자 목적 | r3 구현 경로 | 테스트 전 확인 경계 |
+|---|---|---|
+| 화살표로 기능과 조건 선택 | `company-intel interactive`, `interactive.py` | TTY에서는 ↑/↓·Space·Enter, non-TTY에서는 `--script`만 허용 |
+| 실제 선택 가능한 값만 노출 | facet catalog의 count/provider coverage/filterability | saved snapshot의 coverage이며 시장 전체 coverage가 아님 |
+| 채용 0건의 이유 구분 | `strict_matches`, `unverifiable_candidates`, `no_matches`, `conflicts`, `locations` | `unknown_policy=include` 외에는 검사 불가가 hard match를 만족하지 않음 |
+| 공공/민간·법적 형태·산업 분리 | source-native taxonomy axes | 같은 회사명/코드를 자동 entity merge하지 않음 |
+| 동일 조건 비교 | screen signature group, timeline axis/series group | FX·연환산·causal inference를 자동 수행하지 않음 |
+
+채용 필터에서 `languages`는 하위 호환용 **공고 표시 언어** alias이며, 새 `posting_languages`와 같다. 지원자에게 요구되는 언어는 여전히 `required_languages`와 requirement evidence로만 판정한다. `business_units`는 Greenhouse department 또는 Lever team/department 같은 **공고 조직 단위**여서 법인 산업·법적 형태 필터가 아니다.
+
+급여 floor와 ceiling은 모두 동일한 `currency + period + optional basis` signature가 맞을 때만 숫자로 비교한다. 하나라도 없거나 맞지 않으면 `salary_comparability_unverifiable`로 남기며, 본문 OTE 또는 지역별 보상 문구를 수치 필드로 승격하지 않는다.
+
+이번 r3 구현은 local `job-search`와 `/v1/job-search`에 동일한 facet·verdict·redacted run manifest 형식을 추가했다. `company-search`/`/v1/company-search`는 legacy candidate 목록을 유지하면서 `evaluations`에 field별 `match/no_match/unknown/conflict/not_applicable` 근거를 추가한다. 회사 taxonomy selector는 namespace 전체를 보존하므로 `ARES:pravniForma:…`처럼 namespace 안에 `:`가 있어도 첫 `:` 기준으로 잘라 비교하지 않는다.
+
+`screen`은 선택 가능한 comparability signature group을 metadata로 모두 표시하고, 명시한 `comparability_group`만 순위화할 수 있다. `timeline`은 회사·시장·거시 사실을 하나의 수열로 섞지 않고 axis × signature group별로 정렬한다. `valuation`과 `ai-event`는 계산 전에 evidence/input prerequisite를 반환하며, 준비되지 않은 입력을 점수나 인과 효과로 승격하지 않는다.

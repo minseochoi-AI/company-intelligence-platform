@@ -15,6 +15,7 @@ from .query_contract import FilterVerdict, UnknownPolicy, text_verdict
 
 JOB_COLUMNS = (
     "provider", "job_id", "entity_id", "company_name", "company_type", "industry_raw",
+    "business_unit", "institution_type_code", "institution_type_raw",
     "title_raw", "occupation_label", "occupation_code", "occupation_system",
     "country_code", "location_raw", "city", "region", "workplace_type",
     "employment_type", "employment_type_raw", "posting_language", "salary_min",
@@ -33,6 +34,13 @@ OVERLAP_COLUMNS = (
     "requirement_kind", "normalized_key", "label", "required_count", "preferred_count",
     "posting_count", "company_count", "country_count", "prevalence",
 )
+LOCATION_COLUMNS = (
+    "provider", "job_id", "company_name", "location_raw", "country_code", "city", "region",
+    "location_role", "source_field",
+)
+VERDICT_COLUMNS = (
+    "provider", "job_id", "company_name", "field", "verdict", "reason", "observed_value",
+)
 
 
 @dataclass(frozen=True)
@@ -43,7 +51,11 @@ class JobSearchProfile:
     locations: tuple[str, ...] = ()
     workplace_types: tuple[str, ...] = ()
     employment_types: tuple[str, ...] = ()
+    # ``languages`` is retained as a legacy alias.  It filters the posting's
+    # display language, never an applicant-language requirement.
     languages: tuple[str, ...] = ()
+    posting_languages: tuple[str, ...] = ()
+    business_units: tuple[str, ...] = ()
     industries: tuple[str, ...] = ()
     company_types: tuple[str, ...] = ()
     minimum_salary_floor: float | None = None
@@ -68,6 +80,11 @@ class JobDataFrames:
     career_overlap: pd.DataFrame
     exclusions: pd.DataFrame
     sources: pd.DataFrame
+    strict_matches: pd.DataFrame
+    unverifiable_candidates: pd.DataFrame
+    no_matches: pd.DataFrame
+    conflicts: pd.DataFrame
+    locations: pd.DataFrame
     metadata: dict[str, Any]
 
     def as_records(self) -> dict[str, Any]:
@@ -78,6 +95,11 @@ class JobDataFrames:
             "career_overlap": self.career_overlap,
             "exclusions": self.exclusions,
             "sources": self.sources,
+            "strict_matches": self.strict_matches,
+            "unverifiable_candidates": self.unverifiable_candidates,
+            "no_matches": self.no_matches,
+            "conflicts": self.conflicts,
+            "locations": self.locations,
         }
         return {
             "tables": {
@@ -93,7 +115,10 @@ class JobDataFrames:
     def write_csv(self, destination: Path) -> list[Path]:
         destination.mkdir(parents=True, exist_ok=True)
         outputs = []
-        for name in ("companies", "jobs", "requirements", "career_overlap", "exclusions", "sources"):
+        for name in (
+            "companies", "jobs", "requirements", "career_overlap", "exclusions", "sources",
+            "strict_matches", "unverifiable_candidates", "no_matches", "conflicts", "locations",
+        ):
             path = destination / f"{name}.csv"
             getattr(self, name).to_csv(path, index=False)
             outputs.append(path)
@@ -275,7 +300,7 @@ def normalize_greenhouse_jobs(payload: Any) -> tuple[list[dict[str, Any]], list[
         location = str(location_obj.get("name") if isinstance(location_obj, dict) else location_obj or "")
         country, note = _country_from_location(location)
         office_locations = [
-            str(_value(office, "location") or "")
+            str(_value(office, "location") or _value(office, "name") or "")
             for office in (record.get("offices") or [])
             if isinstance(office, dict)
         ]
@@ -295,7 +320,8 @@ def normalize_greenhouse_jobs(payload: Any) -> tuple[list[dict[str, Any]], list[
         job = {
             "provider": "greenhouse", "job_id": job_id, "entity_id": record.get("entity_id"),
             "company_name": company, "company_type": record.get("company_type", "unknown"),
-            "industry_raw": record.get("industry"), "title_raw": record.get("title"),
+            "industry_raw": record.get("industry"), "business_unit": "; ".join(department_names) or None,
+            "institution_type_code": None, "institution_type_raw": None, "title_raw": record.get("title"),
             "occupation_label": record.get("title"), "occupation_code": None, "occupation_system": "title-only",
             "country_code": record.get("country") or country, "location_raw": location, "city": None, "region": None,
             "workplace_type": _workplace(location, record.get("workplace_type")), "employment_type": "unknown",
@@ -308,7 +334,8 @@ def normalize_greenhouse_jobs(payload: Any) -> tuple[list[dict[str, Any]], list[
             "source_url": source_url,
             "normalization_notes": ";".join(filter(None, (note, "department:" + ",".join(department_names) if department_names else None, "multiple_salary_tiers" if len(pay_ranges) > 1 else None))),
             "_title_text": str(record.get("title") or ""), "_description_text": content_text,
-            "_location_text": " ".join((location, *office_locations)), "_department_text": " ".join(department_names),
+            "_location_text": " ".join((location, *office_locations)), "_location_candidates": [location, *office_locations],
+            "_department_text": " ".join(department_names),
         }
         jobs.append(job)
         requirements.extend(_atomic_requirements(provider="greenhouse", job_id=job_id, company_name=company, texts=bullets, source_url=source_url))
@@ -322,10 +349,15 @@ def normalize_lever_jobs(payload: Any) -> tuple[list[dict[str, Any]], list[dict[
         job_id = str(record.get("job_id") or record.get("id") or "")
         categories = record.get("categories") if isinstance(record.get("categories"), dict) else {}
         location = str(record.get("location") or categories.get("location") or "")
+        all_locations = record.get("allLocations") or record.get("all_locations") or []
+        if isinstance(all_locations, str):
+            all_locations = [all_locations]
+        location_candidates = [location, *(str(item) for item in all_locations if item)]
         country = record.get("country")
         country_note = "provider_country" if country else _country_from_location(location)[1]
         if not country:
-            country = _country_from_location(location)[0]
+            candidate_countries = {code for item in location_candidates if (code := _country_from_location(item)[0])}
+            country = candidate_countries.pop() if len(candidate_countries) == 1 else _country_from_location(location)[0]
         commitment = record.get("commitment") or categories.get("commitment")
         employment, employment_raw = _employment(commitment)
         salary = record.get("salaryRange") or record.get("salary_range") or {}
@@ -350,7 +382,9 @@ def normalize_lever_jobs(payload: Any) -> tuple[list[dict[str, Any]], list[dict[
             "provider": "lever", "job_id": job_id,
             "entity_id": record.get("entity_id") or (f"ATS:LEVER:{board_slug.upper()}" if board_slug else None),
             "company_name": company_name, "company_type": record.get("company_type", "unknown"),
-            "industry_raw": record.get("industry"), "title_raw": record.get("title") or record.get("text"),
+            "industry_raw": record.get("industry"),
+            "business_unit": " / ".join(filter(None, (str(categories.get("team") or ""), str(categories.get("department") or "")))) or None,
+            "institution_type_code": None, "institution_type_raw": None, "title_raw": record.get("title") or record.get("text"),
             "occupation_label": record.get("title") or record.get("text"), "occupation_code": None, "occupation_system": "title-only",
             "country_code": country, "location_raw": location, "city": None, "region": None,
             "workplace_type": _workplace(location, record.get("workplaceType") or record.get("workplace_type")),
@@ -362,7 +396,8 @@ def normalize_lever_jobs(payload: Any) -> tuple[list[dict[str, Any]], list[dict[
             "source_url": source_url,
             "normalization_notes": ";".join(filter(None, (country_note, "company_from_board_slug" if not record.get("company_name") and board_slug else None))),
             "_title_text": str(record.get("text") or record.get("title") or ""), "_description_text": str(plain),
-            "_location_text": location, "_department_text": " ".join((str(categories.get("team") or ""), str(categories.get("department") or ""))),
+            "_location_text": " ".join(location_candidates), "_location_candidates": location_candidates,
+            "_department_text": " ".join((str(categories.get("team") or ""), str(categories.get("department") or ""))),
         }
         jobs.append(job)
         requirements.extend(_atomic_requirements(provider="lever", job_id=job_id, company_name=company_name, texts=requirement_texts, source_url=source_url, default_necessity="required"))
@@ -377,7 +412,10 @@ def normalize_mpm_jobs(payload: Any) -> tuple[list[dict[str, Any]], list[dict[st
         jobs.append({
             "provider": "mpm_public_employment", "job_id": job_id, "entity_id": None,
             "company_name": record.get("institution_name") or record.get("insttname"), "company_type": "public-sector-employer",
-            "industry_raw": None, "title_raw": record.get("title"), "occupation_label": record.get("title"),
+            "industry_raw": None, "business_unit": None,
+            "institution_type_code": record.get("institution_type") or record.get("type01"),
+            "institution_type_raw": record.get("institution_type_name") or record.get("type01_name") or record.get("type01"),
+            "title_raw": record.get("title"), "occupation_label": record.get("title"),
             "occupation_code": None, "occupation_system": "title-only", "country_code": "KR", "location_raw": None,
             "city": None, "region": None, "workplace_type": "unknown", "employment_type": "unknown",
             "employment_type_raw": record.get("posting_type") or record.get("type02"), "posting_language": "ko",
@@ -389,7 +427,7 @@ def normalize_mpm_jobs(payload: Any) -> tuple[list[dict[str, Any]], list[dict[st
             ),
             "source_url": record.get("source_url"),
             "normalization_notes": "list_metadata_only;requirements_unavailable;location_unavailable;salary_unavailable",
-            "_title_text": str(record.get("title") or ""), "_description_text": "", "_location_text": "", "_department_text": "",
+            "_title_text": str(record.get("title") or ""), "_description_text": "", "_location_text": "", "_location_candidates": [], "_department_text": "",
         })
     return jobs, [], {"provider": "mpm_public_employment", "snapshot_at": snapshot_at, "record_count": len(jobs), "source_url": "https://www.gojobs.go.kr", "coverage": "institution, title, posting type, registered/closing date", "limitations": "list metadata only; no verified location, salary, or qualification fields"}
 
@@ -430,7 +468,8 @@ def normalize_mpsv_jobs(payload: Any) -> tuple[list[dict[str, Any]], list[dict[s
         job = {
             "provider": "mpsv_cz", "job_id": job_id, "entity_id": f"ICO:{employer.get('ico')}" if employer.get("ico") else None,
             "company_name": company, "company_type": "public-sector-employer" if record.get("statniSpravaSamosprava") else "unknown",
-            "industry_raw": None, "title_raw": title, "occupation_label": title, "occupation_code": occupation,
+            "industry_raw": None, "business_unit": None, "institution_type_code": None, "institution_type_raw": None,
+            "title_raw": title, "occupation_label": title, "occupation_code": occupation,
             "occupation_system": "CZ-ISCO", "country_code": "CZ", "location_raw": location, "city": city, "region": region,
             "workplace_type": "unknown", "employment_type": employment, "employment_type_raw": employment_raw,
             "posting_language": "cs", "salary_min": record.get("mesicniMzdaOd"), "salary_max": record.get("mesicniMzdaDo"),
@@ -441,7 +480,7 @@ def normalize_mpsv_jobs(payload: Any) -> tuple[list[dict[str, Any]], list[dict[s
             "source_url": source_url,
             "normalization_notes": "official_open_data;salary_not_annualized;codebook_ids_preserved",
             "_title_text": str(title or ""), "_description_text": str(_value(record.get("upresnujiciInformace"), "cs") or ""),
-            "_location_text": str(location or ""), "_department_text": "",
+            "_location_text": str(location or ""), "_location_candidates": [str(location)] if location else [], "_department_text": "",
         }
         jobs.append(job)
         structured = [
@@ -503,9 +542,65 @@ def _contains(value: Any, terms: tuple[str, ...]) -> bool:
     return any(term.casefold() in lowered for term in terms)
 
 
+def _membership_verdict(value: Any, expected: tuple[str, ...]) -> FilterVerdict:
+    """Evaluate an enum field without converting missing data to a rejection."""
+    if not expected:
+        return FilterVerdict.NOT_APPLICABLE
+    if value is None or not str(value).strip() or str(value).casefold() == "unknown":
+        return FilterVerdict.UNKNOWN
+    return FilterVerdict.MATCH if str(value) in expected else FilterVerdict.NO_MATCH
+
+
+def _contains_verdict(value: Any, terms: tuple[str, ...]) -> FilterVerdict:
+    if not terms:
+        return FilterVerdict.NOT_APPLICABLE
+    if value is None or not str(value).strip():
+        return FilterVerdict.UNKNOWN
+    return FilterVerdict.MATCH if _contains(value, terms) else FilterVerdict.NO_MATCH
+
+
+def _language_verdict(value: Any, terms: tuple[str, ...]) -> FilterVerdict:
+    if not terms:
+        return FilterVerdict.NOT_APPLICABLE
+    if value is None or not str(value).strip():
+        return FilterVerdict.UNKNOWN
+    aliases = {"en": "english", "ko": "korean", "cs": "czech", "de": "german", "fr": "french", "es": "spanish", "ja": "japanese", "zh": "mandarin"}
+    observed = str(value).casefold().strip()
+    expanded = " ".join((observed, aliases.get(observed, "")))
+    return FilterVerdict.MATCH if _contains(expanded, terms) else FilterVerdict.NO_MATCH
+
+
+def _salary_signature_verdict(row: dict[str, Any], profile: JobSearchProfile) -> FilterVerdict:
+    """Return whether a structured range has the requested comparison signature."""
+    if profile.minimum_salary_floor is None and profile.maximum_salary_ceiling is None:
+        return FilterVerdict.NOT_APPLICABLE
+    required = (profile.salary_currency, profile.salary_period)
+    observed = (row.get("salary_currency"), row.get("salary_period"))
+    if any(value is None or not str(value).strip() for value in (*required, *observed)):
+        return FilterVerdict.UNKNOWN
+    if observed != required:
+        return FilterVerdict.UNKNOWN
+    if profile.salary_basis is not None and row.get("salary_basis") != profile.salary_basis:
+        return FilterVerdict.UNKNOWN
+    return FilterVerdict.MATCH
+
+
+def _reason_for(field: str, verdict: FilterVerdict) -> str:
+    return {
+        FilterVerdict.NO_MATCH: f"{field}_not_matched",
+        FilterVerdict.UNKNOWN: f"{field}_unverifiable",
+        FilterVerdict.CONFLICT: f"{field}_conflict",
+    }.get(verdict, f"{field}_not_applicable")
+
+
 def _requirement_matches(rows: list[dict[str, Any]], term: str, *, required_only: bool) -> bool:
     for row in rows:
         if required_only and row.get("necessity") != "required":
+            continue
+        # A preferred filter is a ranking signal over explicit applicant
+        # requirements only.  Do not let an unclassified responsibility or
+        # prose fragment become a preference match.
+        if not required_only and row.get("necessity") not in {"required", "preferred"}:
             continue
         haystack = " ".join(str(row.get(key) or "") for key in ("normalized_key", "label", "value"))
         if term.casefold() in haystack.casefold():
@@ -536,8 +631,8 @@ def _validate_profile(profile: JobSearchProfile) -> None:
     unknown = set(profile.country_allocation) - set(profile.countries)
     if unknown:
         raise ValueError("country_allocation contains out-of-scope countries")
-    if profile.minimum_salary_floor is not None and (not profile.salary_currency or not profile.salary_period):
-        raise ValueError("salary_currency and salary_period are required with a salary floor")
+    if (profile.minimum_salary_floor is not None or profile.maximum_salary_ceiling is not None) and (not profile.salary_currency or not profile.salary_period):
+        raise ValueError("salary_currency and salary_period are required with a salary floor or ceiling")
     if profile.unknown_policy not in {item.value for item in UnknownPolicy}:
         raise ValueError("unknown_policy must be exclude, report, or include")
     if profile.keyword_scope not in {"title_or_occupation", "title_or_description"}:
@@ -551,61 +646,126 @@ def search_job_dataframes(payloads: dict[str, Any], profile: JobSearchProfile) -
     for row in requirements:
         requirements_by_job.setdefault((str(row["provider"]), str(row["job_id"])), []).append(row)
 
-    matched: list[dict[str, Any]] = []
+    included: list[dict[str, Any]] = []
+    unverifiable_candidates: list[dict[str, Any]] = []
+    no_match_candidates: list[dict[str, Any]] = []
+    conflict_candidates: list[dict[str, Any]] = []
     exclusions: list[dict[str, Any]] = []
     for row in jobs:
-        reasons: list[tuple[str, str, Any]] = []
-        if row.get("country_code") not in profile.countries:
-            reasons.append(("country", "country_not_matched_or_unknown", row.get("country_code")))
+        verdicts: list[tuple[str, FilterVerdict, Any]] = []
+
+        def evaluate(field: str, verdict: FilterVerdict, observed: Any) -> None:
+            if verdict != FilterVerdict.NOT_APPLICABLE:
+                verdicts.append((field, verdict, observed))
+
+        evaluate("country", _membership_verdict(row.get("country_code"), profile.countries), row.get("country_code"))
         keyword_text = " ".join((str(row.get("_title_text") or ""), str(row.get("occupation_label") or "")))
         if profile.keyword_scope == "title_or_description":
             keyword_text = " ".join((keyword_text, str(row.get("_description_text") or "")))
-        _record_verdict(reasons, "job_keywords", text_verdict(keyword_text, profile.job_keywords), keyword_text or None)
+        evaluate("job_keywords", text_verdict(keyword_text, profile.job_keywords), keyword_text or None)
         occupation_text = " ".join(str(row.get(key) or "") for key in ("occupation_label", "occupation_code"))
-        if profile.occupations and not _contains(occupation_text, profile.occupations):
-            reasons.append(("occupations", "occupation_not_matched", occupation_text))
-        if profile.locations and not _contains(row.get("location_raw"), profile.locations):
-            reasons.append(("locations", "location_not_matched_or_unknown", row.get("location_raw")))
-        if profile.workplace_types and row.get("workplace_type") not in profile.workplace_types:
-            reasons.append(("workplace_types", "workplace_type_not_matched_or_unknown", row.get("workplace_type")))
-        if profile.employment_types and row.get("employment_type") not in profile.employment_types:
-            reasons.append(("employment_types", "employment_type_not_matched_or_unknown", row.get("employment_type")))
-        # Display language is not proof that an applicant must know that language.
-        if profile.industries and not _contains(row.get("industry_raw"), profile.industries):
-            reasons.append(("industries", "industry_not_matched_or_unknown", row.get("industry_raw")))
-        if profile.company_types and row.get("company_type") not in profile.company_types:
-            reasons.append(("company_types", "company_type_not_matched_or_unknown", row.get("company_type")))
-        if profile.active_only and row.get("is_active") is not True:
-            reasons.append(("is_active", "inactive_posting", row.get("is_active")))
-        if profile.minimum_salary_floor is not None:
-            if (row.get("salary_currency") != profile.salary_currency or row.get("salary_period") != profile.salary_period
-                    or (profile.salary_basis is not None and row.get("salary_basis") != profile.salary_basis)):
-                reasons.append(("salary", "salary_comparability_unverifiable", f"{row.get('salary_currency')}/{row.get('salary_period')}/{row.get('salary_basis')}"))
-            elif row.get("salary_min") is None or float(row["salary_min"]) < profile.minimum_salary_floor:
-                reasons.append(("salary_min", "salary_floor_not_met_or_unknown", row.get("salary_min")))
-        if profile.maximum_salary_ceiling is not None and (row.get("salary_max") is None or float(row["salary_max"]) > profile.maximum_salary_ceiling):
-            reasons.append(("salary_max", "salary_ceiling_not_met_or_unknown", row.get("salary_max")))
+        evaluate("occupations", _contains_verdict(occupation_text, profile.occupations), occupation_text or None)
+        evaluate("locations", _contains_verdict(row.get("_location_text") or row.get("location_raw"), profile.locations), row.get("_location_text") or row.get("location_raw"))
+        evaluate("workplace_types", _membership_verdict(row.get("workplace_type"), profile.workplace_types), row.get("workplace_type"))
+        evaluate("employment_types", _membership_verdict(row.get("employment_type"), profile.employment_types), row.get("employment_type"))
+        # Display language is deliberately independent of an applicant language requirement.
+        posting_languages = profile.posting_languages or profile.languages
+        evaluate("posting_languages", _language_verdict(row.get("posting_language"), posting_languages), row.get("posting_language"))
+        evaluate("industries", _contains_verdict(row.get("industry_raw"), profile.industries), row.get("industry_raw"))
+        evaluate("company_types", _membership_verdict(row.get("company_type"), profile.company_types), row.get("company_type"))
+        evaluate("business_units", _contains_verdict(row.get("_department_text") or row.get("business_unit"), profile.business_units), row.get("business_unit"))
+        if profile.active_only:
+            active_value = row.get("is_active")
+            evaluate("is_active", FilterVerdict.MATCH if active_value is True else (FilterVerdict.UNKNOWN if active_value is None else FilterVerdict.NO_MATCH), active_value)
+        signature = _salary_signature_verdict(row, profile)
+        if signature != FilterVerdict.NOT_APPLICABLE:
+            signature_observed = f"{row.get('salary_currency')}/{row.get('salary_period')}/{row.get('salary_basis')}"
+            evaluate("salary_comparability", signature, signature_observed)
+            if signature == FilterVerdict.MATCH and profile.minimum_salary_floor is not None:
+                minimum = row.get("salary_min")
+                evaluate("salary_min", FilterVerdict.UNKNOWN if minimum is None else (FilterVerdict.MATCH if float(minimum) >= profile.minimum_salary_floor else FilterVerdict.NO_MATCH), minimum)
+            if signature == FilterVerdict.MATCH and profile.maximum_salary_ceiling is not None:
+                maximum = row.get("salary_max")
+                evaluate("salary_max", FilterVerdict.UNKNOWN if maximum is None else (FilterVerdict.MATCH if float(maximum) <= profile.maximum_salary_ceiling else FilterVerdict.NO_MATCH), maximum)
         job_requirements = requirements_by_job.get((str(row["provider"]), str(row["job_id"])), [])
         for term in profile.required_requirement_terms:
-            _record_verdict(reasons, "required_requirements", _requirement_verdict(job_requirements, term, required_only=True), term)
+            evaluate("required_requirements", _requirement_verdict(job_requirements, term, required_only=True), term)
         for language in profile.required_languages:
             language_rows = [item for item in job_requirements if item.get("requirement_kind") == "language"]
-            _record_verdict(reasons, "required_languages", _requirement_verdict(language_rows, language, required_only=True), language)
-        if reasons:
-            exclusions.extend({"provider": row["provider"], "job_id": row["job_id"], "company_name": row.get("company_name"), "field": field, "reason": reason, "observed_value": value} for field, reason, value in reasons)
-            only_unknown = all(reason.endswith(("_unverifiable", "_conflict")) for _, reason, _ in reasons)
-            if not (only_unknown and profile.unknown_policy == UnknownPolicy.INCLUDE.value):
+            evaluate("required_languages", _requirement_verdict(language_rows, language, required_only=True), language)
+
+        for field, verdict, observed in verdicts:
+            if verdict in {FilterVerdict.MATCH, FilterVerdict.NOT_APPLICABLE}:
+                continue
+            reason = _reason_for(field, verdict)
+            exclusions.append({"provider": row["provider"], "job_id": row["job_id"], "company_name": row.get("company_name"), "field": field, "reason": reason, "observed_value": observed})
+
+        no_match = [entry for entry in verdicts if entry[1] == FilterVerdict.NO_MATCH]
+        unknown = [entry for entry in verdicts if entry[1] == FilterVerdict.UNKNOWN]
+        conflicts = [entry for entry in verdicts if entry[1] == FilterVerdict.CONFLICT]
+        verdict_rows = [
+            {"provider": row["provider"], "job_id": row["job_id"], "company_name": row.get("company_name"), "field": field,
+             "verdict": verdict.value, "reason": _reason_for(field, verdict), "observed_value": observed}
+            for field, verdict, observed in verdicts if verdict not in {FilterVerdict.MATCH, FilterVerdict.NOT_APPLICABLE}
+        ]
+        candidate = {**row, "_verdict_rows": verdict_rows}
+        if conflicts:
+            conflict_candidates.append(candidate)
+            continue
+        if no_match:
+            no_match_candidates.append(candidate)
+            continue
+        if unknown:
+            unverifiable_candidates.append(candidate)
+            if profile.unknown_policy != UnknownPolicy.INCLUDE.value:
                 continue
         preference_hits = sum(_requirement_matches(job_requirements, term, required_only=False) for term in profile.preferred_requirement_terms)
-        matched.append({**row, "preference_hits": preference_hits})
+        candidate = {**candidate, "preference_hits": preference_hits}
+        included.append(candidate)
 
-    matched_keys = {(str(row["provider"]), str(row["job_id"])) for row in matched}
+    included.sort(key=lambda row: (-int(row.get("preference_hits", 0)), str(row.get("country_code")), str(row.get("company_name")), str(row.get("job_id"))))
+    if profile.country_allocation:
+        selected: list[dict[str, Any]] = []
+        country_counts: dict[str, int] = {}
+        for row in included:
+            country = str(row.get("country_code") or "")
+            limit = profile.country_allocation.get(country)
+            if limit is not None and country_counts.get(country, 0) >= limit:
+                exclusion = {"provider": row["provider"], "job_id": row["job_id"], "company_name": row.get("company_name"), "field": "country_allocation", "reason": "country_allocation_reached", "observed_value": country}
+                exclusions.append(exclusion)
+                no_match_candidates.append({
+                    **row,
+                    "_verdict_rows": [*row.get("_verdict_rows", []), {
+                        "provider": row["provider"], "job_id": row["job_id"], "company_name": row.get("company_name"),
+                        "field": "country_allocation", "verdict": FilterVerdict.NO_MATCH.value,
+                        "reason": "country_allocation_reached", "observed_value": country,
+                    }],
+                })
+                continue
+            country_counts[country] = country_counts.get(country, 0) + 1
+            selected.append(row)
+        included = selected
+
+    matched_keys = {(str(row["provider"]), str(row["job_id"])) for row in included}
     matched_requirements = [row for row in requirements if (str(row["provider"]), str(row["job_id"])) in matched_keys]
-    matched.sort(key=lambda row: (-int(row.get("preference_hits", 0)), str(row.get("country_code")), str(row.get("company_name")), str(row.get("job_id"))))
-    job_output = [{key: row.get(key) for key in JOB_COLUMNS} | {"preference_hits": row.get("preference_hits", 0)} for row in matched]
+    job_output = [{key: row.get(key) for key in JOB_COLUMNS} | {"preference_hits": row.get("preference_hits", 0)} for row in included]
+
+    def verdict_output(rows: list[dict[str, Any]]) -> list[dict[str, Any]]:
+        return [item for row in rows for item in row.get("_verdict_rows", [])]
+
+    strict_output = [{key: row.get(key) for key in JOB_COLUMNS} | {"preference_hits": row.get("preference_hits", 0)} for row in included if not row.get("_verdict_rows")]
+    unverifiable_output = verdict_output(unverifiable_candidates)
+    no_match_output = verdict_output(no_match_candidates)
+    conflict_output = verdict_output(conflict_candidates)
+    location_output = [
+        {"provider": row["provider"], "job_id": row["job_id"], "company_name": row.get("company_name"),
+         "location_raw": location, "country_code": row.get("country_code"), "city": row.get("city"), "region": row.get("region"),
+         "location_role": "primary" if index == 0 else "additional", "source_field": "location/offices/allLocations"}
+        for row in included for index, location in enumerate(row.get("_location_candidates") or [row.get("location_raw")]) if location
+    ]
 
     company_groups: dict[tuple[str, str, str], dict[str, Any]] = {}
-    for row in matched:
+    for row in included:
         key = (str(row.get("entity_id") or ""), str(row.get("company_name") or ""), str(row.get("country_code") or ""))
         current = company_groups.setdefault(key, {"entity_id": row.get("entity_id"), "company_name": row.get("company_name"), "country_code": row.get("country_code"), "company_type": row.get("company_type"), "industry_raw": row.get("industry_raw"), "matched_job_count": 0})
         current["matched_job_count"] += 1
@@ -622,16 +782,16 @@ def search_job_dataframes(payloads: dict[str, Any], profile: JobSearchProfile) -
             group["preferred_count"] += 1
         group["jobs"].add((requirement["provider"], requirement["job_id"]))
         group["companies"].add(requirement.get("company_name"))
-        job = next((item for item in matched if item["provider"] == requirement["provider"] and item["job_id"] == requirement["job_id"]), None)
+        job = next((item for item in included if item["provider"] == requirement["provider"] and item["job_id"] == requirement["job_id"]), None)
         if job and job.get("country_code"):
             group["countries"].add(job["country_code"])
     overlap = []
-    denominator = len(matched) or 1
+    denominator = len(included) or 1
     for group in overlap_groups.values():
         overlap.append({key: group[key] for key in ("requirement_kind", "normalized_key", "label", "required_count", "preferred_count")} | {"posting_count": len(group["jobs"]), "company_count": len(group["companies"]), "country_count": len(group["countries"]), "prevalence": len(group["jobs"]) / denominator})
     overlap.sort(key=lambda row: (-row["posting_count"], row["requirement_kind"], row["normalized_key"]))
 
-    shortages = {country: max(profile.country_allocation.get(country, 0) - sum(row.get("country_code") == country for row in matched), 0) for country in profile.countries}
+    shortages = {country: max(profile.country_allocation.get(country, 0) - sum(row.get("country_code") == country for row in included), 0) for country in profile.countries}
     limitations = [
         "A job posting is evidence of advertised demand, not a completed hire.",
         "Unknown fields are reported separately and do not satisfy a hard filter unless unknown_policy=include is explicit.",
@@ -646,5 +806,15 @@ def search_job_dataframes(payloads: dict[str, Any], profile: JobSearchProfile) -
         career_overlap=pd.DataFrame(overlap, columns=OVERLAP_COLUMNS),
         exclusions=pd.DataFrame(exclusions, columns=EXCLUSION_COLUMNS),
         sources=pd.DataFrame(sources, columns=SOURCE_COLUMNS),
-        metadata={"matched_jobs": len(matched), "total_jobs": len(jobs), "country_shortages": shortages, "limitations": limitations},
+        strict_matches=pd.DataFrame(strict_output, columns=(*JOB_COLUMNS, "preference_hits")),
+        unverifiable_candidates=pd.DataFrame(unverifiable_output, columns=VERDICT_COLUMNS),
+        no_matches=pd.DataFrame(no_match_output, columns=VERDICT_COLUMNS),
+        conflicts=pd.DataFrame(conflict_output, columns=VERDICT_COLUMNS),
+        locations=pd.DataFrame(location_output, columns=LOCATION_COLUMNS),
+        metadata={
+            "matched_jobs": len(included), "strict_matches": len(strict_output), "unverifiable_candidates": len(unverifiable_candidates),
+            "no_matches": len(no_match_candidates), "conflicts": len(conflict_candidates), "total_jobs": len(jobs),
+            "country_shortages": shortages, "legacy_languages_alias_used": bool(profile.languages and not profile.posting_languages),
+            "limitations": limitations,
+        },
     )

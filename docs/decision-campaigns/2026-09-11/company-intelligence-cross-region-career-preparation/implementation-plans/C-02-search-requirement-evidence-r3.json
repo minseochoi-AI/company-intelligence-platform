@@ -1,0 +1,270 @@
+{
+  "contract_version": "1.2.0",
+  "plan_id": "company-intelligence-cross-region-career-preparation--C-02-search-requirement-evidence--r3",
+  "owner": {
+    "kind": "campaign-cohort",
+    "id": "C-02-search-requirement-evidence"
+  },
+  "source_refs": [
+    {
+      "id": "D-03-search-profile-and-discovery",
+      "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/03-d-03-search-profile-and-discovery.json",
+      "sha256": "sha256:32031bc36dd8044863715df4415af53cc790d9db3f01cdebb6529dfa486c6fe5"
+    },
+    {
+      "id": "D-04-career-requirement-verification",
+      "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/04-d-04-career-requirement-verification.json",
+      "sha256": "sha256:7a5d231c0af2efbe26e10ccc10d942d8b6b94a10f9987714c441544e3abc0c55"
+    }
+  ],
+  "status": "contract-ready",
+  "metadata": {
+    "preparation_contract": "campaign-global-ownership-v1",
+    "planned_commit_message": "fix(search): apply semantic company filters",
+    "git_finalization_authorized": false,
+    "test_execution_deferred": true
+  },
+  "change_slices": [
+    {
+      "slice_id": "semantic-company-search-profile-r3",
+      "behavior": "기업 검색에서 이름/식별자와 provider-native taxonomy 조건을 명시적으로 구분하고, 적용되지 않는 legacy job 조건을 조용히 무시하지 않는다.",
+      "dependencies": [
+        "C-01-source-identity-foundation"
+      ],
+      "operations": [
+        {
+          "change_id": "D-03-company-search-contract-r3",
+          "operation": "MODIFY",
+          "path": "src/company_intel/query_contract.py",
+          "symbols": [
+            "AtomicSearchProfile",
+            "FieldFilter",
+            "FilterMode",
+            "FieldVerdict"
+          ],
+          "current_state": "검색 조건은 값 목록 중심이며 ALL/ANY, 필드 적용성, public/private taxonomy를 명시하지 않는다.",
+          "source_hash": "sha256:7cb1df9dc4a72c495cd25c76d0ba3d81ff117c729218415c59ba202963e5db5e",
+          "after_state": "필드별 ALL/ANY, applicability, no-match/unverifiable/conflict verdict를 가진 검색 계약을 제공한다.",
+          "rationale": "다른 API에서 온 동일해 보이는 값을 정당한 조건으로만 합치기 위해서다.",
+          "dependencies": [],
+          "public_contract_impacts": [
+            "company search semantic filter contract"
+          ],
+          "compatibility": "기존 AtomicSearchProfile을 adapter로 유지한다.",
+          "migration": "legacy 조건은 unsupported warning으로 명시한다.",
+          "rollback": "legacy profile parser만 사용한다.",
+          "authorization_boundary": "없는 원천값을 unknown match로 바꾸지 않는다.",
+          "contributes_to": [
+            "D-03-search-profile-and-discovery"
+          ],
+          "symbol_changes": [
+            {
+              "symbol": "FieldFilter",
+              "intent": "필드별 적용성 및 조합 계약",
+              "decision_id": "D-03-search-profile-and-discovery"
+            }
+          ],
+          "contribution_refs": [
+            {
+              "decision_id": "D-03-search-profile-and-discovery",
+              "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/03-d-03-search-profile-and-discovery.json",
+              "sha256": "sha256:32031bc36dd8044863715df4415af53cc790d9db3f01cdebb6529dfa486c6fe5",
+              "symbols": [
+                "AtomicSearchProfile",
+                "FieldFilter",
+                "FilterMode",
+                "FieldVerdict"
+              ],
+              "intent_change_ids": []
+            }
+          ]
+        },
+        {
+          "change_id": "D-03-company-search-engine-r3",
+          "operation": "MODIFY",
+          "path": "src/company_intel/search.py",
+          "symbols": [
+            "CompanySearchProfile",
+            "rank_candidates",
+            "apply_country_allocation"
+          ],
+          "current_state": "company-search는 keyword ranking alias이며 industries/languages/employment/country_allocation 일부를 적용하지 않는다.",
+          "source_hash": "sha256:770d932ac63391079567fdb54696c1b31f4733d0d7f55d06e99dedab8c960cc4",
+          "after_state": "기업 전용 profile로 country, identity, ownership, legal form, industry, market/public-institution taxonomy와 실제 country allocation을 판정한다.",
+          "rationale": "사용자가 입력한 필터가 실제 평가되지 않는 묵시적 오류를 제거하기 위해서다.",
+          "dependencies": [
+            "D-03-company-search-contract-r3"
+          ],
+          "public_contract_impacts": [
+            "company search results and explanations"
+          ],
+          "compatibility": "SearchProfile과 rank_candidates 호출을 adapter로 유지한다.",
+          "migration": "job-only filter는 unsupported/disabled reason으로 돌려준다.",
+          "rollback": "legacy keyword path를 선택할 수 있다.",
+          "authorization_boundary": "각 provider raw code를 crosswalk 없이 동일 taxonomy로 병합하지 않는다.",
+          "contributes_to": [
+            "D-03-search-profile-and-discovery",
+            "D-04-career-requirement-verification"
+          ],
+          "symbol_changes": [
+            {
+              "symbol": "CompanySearchProfile",
+              "intent": "기업과 공고 검색 조건 분리",
+              "decision_id": "D-03-search-profile-and-discovery"
+            }
+          ],
+          "contribution_refs": [
+            {
+              "decision_id": "D-03-search-profile-and-discovery",
+              "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/03-d-03-search-profile-and-discovery.json",
+              "sha256": "sha256:32031bc36dd8044863715df4415af53cc790d9db3f01cdebb6529dfa486c6fe5",
+              "symbols": [
+                "CompanySearchProfile",
+                "rank_candidates",
+                "apply_country_allocation"
+              ],
+              "intent_change_ids": []
+            },
+            {
+              "decision_id": "D-04-career-requirement-verification",
+              "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/04-d-04-career-requirement-verification.json",
+              "sha256": "sha256:7a5d231c0af2efbe26e10ccc10d942d8b6b94a10f9987714c441544e3abc0c55",
+              "symbols": [
+                "CompanySearchProfile",
+                "rank_candidates",
+                "apply_country_allocation"
+              ],
+              "intent_change_ids": []
+            }
+          ]
+        },
+        {
+          "change_id": "D-03-search-profile-tests-r3",
+          "operation": "MODIFY",
+          "path": "tests/test_search_profile.py",
+          "symbols": [
+            "test_company_taxonomy_filters",
+            "test_country_allocation"
+          ],
+          "current_state": "profile tests는 keyword/capability 위주라 적용되지 않는 옵션을 탐지하지 못한다.",
+          "source_hash": "sha256:d4854042461f3a1e0748db84664e301b99f6533fe0464d821ef1ac492ace9ece",
+          "after_state": "taxonomy filter, allocation, unsupported legacy field, ALL/ANY verdict를 offline으로 검증한다.",
+          "rationale": "선택 UI와 실제 search engine의 의미를 결속하기 위해서다.",
+          "dependencies": [
+            "D-03-company-search-engine-r3"
+          ],
+          "public_contract_impacts": [
+            "offline company search tests"
+          ],
+          "compatibility": "기존 cases를 유지한다.",
+          "migration": "없음.",
+          "rollback": "추가 case를 제거한다.",
+          "authorization_boundary": "실제 provider 호출 없이 fixture로 검증한다.",
+          "contributes_to": [
+            "D-03-search-profile-and-discovery"
+          ],
+          "symbol_changes": [
+            {
+              "symbol": "test_company_taxonomy_filters",
+              "intent": "적용 여부 회귀 검증",
+              "decision_id": "D-03-search-profile-and-discovery"
+            }
+          ],
+          "contribution_refs": [
+            {
+              "decision_id": "D-03-search-profile-and-discovery",
+              "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/03-d-03-search-profile-and-discovery.json",
+              "sha256": "sha256:32031bc36dd8044863715df4415af53cc790d9db3f01cdebb6529dfa486c6fe5",
+              "symbols": [
+                "test_company_taxonomy_filters",
+                "test_country_allocation"
+              ],
+              "intent_change_ids": []
+            }
+          ]
+        },
+        {
+          "change_id": "D-03-query-contract-tests-r3",
+          "operation": "CREATE",
+          "path": "tests/test_query_contract.py",
+          "symbols": [
+            "test_field_filter_verdicts"
+          ],
+          "current_state": "필드 조합과 applicability contract에 대한 독립 테스트가 없다.",
+          "source_hash": null,
+          "after_state": "strict/unverifiable/no-match/conflict와 ALL/ANY 조합을 검증한다.",
+          "rationale": "검색 결과 상태가 UI에서 설명 가능하게 하기 위해서다.",
+          "dependencies": [
+            "D-03-company-search-contract-r3"
+          ],
+          "public_contract_impacts": [
+            "offline query contract tests"
+          ],
+          "compatibility": "새 테스트 파일이다.",
+          "migration": "없음.",
+          "rollback": "contract와 함께 제거한다.",
+          "authorization_boundary": "외부 데이터를 쓰지 않는다.",
+          "contributes_to": [
+            "D-03-search-profile-and-discovery"
+          ],
+          "symbol_changes": [
+            {
+              "symbol": "test_field_filter_verdicts",
+              "intent": "5상태 판단 검증",
+              "decision_id": "D-03-search-profile-and-discovery"
+            }
+          ],
+          "contribution_refs": [
+            {
+              "decision_id": "D-03-search-profile-and-discovery",
+              "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/03-d-03-search-profile-and-discovery.json",
+              "sha256": "sha256:32031bc36dd8044863715df4415af53cc790d9db3f01cdebb6529dfa486c6fe5",
+              "symbols": [
+                "test_field_filter_verdicts"
+              ],
+              "intent_change_ids": []
+            }
+          ]
+        }
+      ],
+      "routes": [
+        {
+          "route_id": "search-contract-implementation",
+          "skill": "company-intelligence-career-research",
+          "requirement": "required",
+          "phase": "IMPLEMENT",
+          "purpose": "검색 조건의 원천 의미를 보존한다."
+        },
+        {
+          "route_id": "search-contract-tests",
+          "skill": "tdd",
+          "requirement": "required",
+          "phase": "VALIDATE",
+          "purpose": "offline profile regressions를 실행한다."
+        }
+      ],
+      "completion_contract": [
+        {
+          "criterion_id": "C02-r3-company-search-tests",
+          "behavior": "기업 taxonomy 조건, allocation, verdict가 실제로 적용된다.",
+          "blocking": true,
+          "owner_skill": "tdd",
+          "phase": "VALIDATE",
+          "test": {
+            "type": "pytest",
+            "runner": "pytest",
+            "value": "tests/test_query_contract.py tests/test_search_profile.py",
+            "paths": [
+              "tests/test_query_contract.py",
+              "tests/test_search_profile.py"
+            ]
+          },
+          "expected_result": "offline tests pass",
+          "failure_marker": "ignored or ambiguous company search filter",
+          "receipt": {},
+          "status": "planned"
+        }
+      ]
+    }
+  ]
+}

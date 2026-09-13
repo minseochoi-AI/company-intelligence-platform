@@ -56,22 +56,85 @@ def write_validation_report(path: Path, payload: dict[str, Any]) -> None:
     path.write_text(validation_report_ko(payload), encoding="utf-8")
 
 
-def render_export_summary(manifest: dict[str, Any], *, unavailable_count: int = 0) -> str:
+def render_export_summary(
+    manifest: dict[str, Any], *, unavailable_count: int = 0, run_manifest: dict[str, Any] | None = None
+) -> str:
     lines = ["# 기업·채용 근거 내보내기", "", f"- 형식 버전: `{manifest.get('format_version')}`", f"- 생성 시각: `{manifest.get('generated_at')}`", f"- 요건 미확인/제한 행: **{unavailable_count}**", "", "## 파일", ""]
     for item in manifest.get("files", []):
         lines.append(f"- `{item['name']}` — SHA-256 `{item['sha256']}`")
     lines.extend(["", "## 안내", "", "- CSV bundle이 기준 계약이며 XLSX는 동일 테이블의 표시 형식이다.", "- 자격요건에 원천 URL 또는 제외 사유가 없으면 확정 요건으로 해석하지 않는다."])
-    return "\n".join(lines) + "\n"
+    summary = "\n".join(lines) + "\n"
+    return summary if run_manifest is None else summary + "\n" + render_run_lineage_summary(run_manifest)
 
 
 def render_verdict_counts(*, matched: int, no_match: int, unverifiable: int, conflict: int) -> str:
     return f"일치 {matched}, 불일치 {no_match}, 검증불가 {unverifiable}, 충돌 {conflict}"
 
 
+def render_run_lineage_summary(manifest: dict[str, Any]) -> str:
+    """Render a Korean, non-sensitive explanation of a saved local run.
+
+    The full profile and source snapshots remain in the JSON manifest.  This
+    summary deliberately reports their hashes and coverage counts instead of
+    echoing user-entered values or provider response bodies.
+    """
+    lineage = manifest.get("lineage")
+    if not isinstance(lineage, dict):
+        lineage = {}
+    facets = manifest.get("facets")
+    sources = manifest.get("sources")
+    verdict_counts = manifest.get("verdict_counts")
+    outputs = manifest.get("output_files")
+    lines = [
+        "## 실행 근거와 적용 범위",
+        "",
+        f"- 실행 ID: `{manifest.get('run_id', 'unknown')}`",
+        f"- 명령: `{manifest.get('command', 'unknown')}`",
+        f"- 생성 시각: `{manifest.get('generated_at', 'unknown')}`",
+        f"- profile SHA-256: `{lineage.get('profile_sha256', 'unknown')}`",
+        f"- facet snapshot SHA-256: `{lineage.get('facet_snapshot_sha256', 'unknown')}`",
+        f"- source snapshot SHA-256: `{lineage.get('source_snapshot_sha256', 'unknown')}`",
+        (
+            f"- 선택지: **{len(facets) if isinstance(facets, list) else 0}개**, "
+            f"원천: **{len(sources) if isinstance(sources, list) else 0}개**"
+        ),
+    ]
+    if isinstance(verdict_counts, dict):
+        ordered_counts = ", ".join(
+            f"{key} {verdict_counts[key]}" for key in sorted(verdict_counts)
+        )
+        lines.append(f"- 판정: {ordered_counts or '기록 없음'}")
+    else:
+        lines.append("- 판정: 기록 없음")
+    if isinstance(outputs, list):
+        lines.append(f"- 출력 파일: **{len(outputs)}개**")
+    lines.extend(
+        [
+            "",
+            "- `불일치`는 제공된 구조화 값이 조건과 맞지 않는 경우이고, `검증불가`는 원천이 해당 필드를 제공하지 않거나 비교 규격이 맞지 않는 경우입니다.",
+            "- 이 요약은 저장된 snapshot의 coverage만 설명하며, live provider 상태나 현재 채용 여부를 새로 주장하지 않습니다.",
+        ]
+    )
+    return "\n".join(lines) + "\n"
+
+
 def render_provider_limitations(sources: list[dict[str, object]]) -> list[str]:
     return [f"{row.get('provider', 'unknown')}: {row.get('limitations', '제한 정보 없음')}" for row in sources]
 
 
-def write_export_summary(path: Path, manifest: dict[str, Any], *, unavailable_count: int = 0) -> None:
+def write_export_summary(
+    path: Path,
+    manifest: dict[str, Any],
+    *,
+    unavailable_count: int = 0,
+    run_manifest: dict[str, Any] | None = None,
+) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(render_export_summary(manifest, unavailable_count=unavailable_count), encoding="utf-8")
+    path.write_text(
+        render_export_summary(
+            manifest,
+            unavailable_count=unavailable_count,
+            run_manifest=run_manifest,
+        ),
+        encoding="utf-8",
+    )

@@ -1,0 +1,46 @@
+{
+  "cohort_id": "C-05-timeline-valuation-event-analysis",
+  "status": "completed",
+  "changed_paths": [
+    "tests/test_analysis_service.py",
+    "tests/test_analytics.py"
+  ],
+  "commands": [
+    "uv run --cache-dir /tmp/cil-uv-cache --frozen pytest -q tests/test_analysis_service.py tests/test_analytics.py"
+  ],
+  "outcome": "pass",
+  "raw_log_path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/receipts/logs/validation-r3-C-05-timeline-valuation-event-analysis-20260913.log",
+  "raw_log_sha256": "ed2362836a1a99d828630bac2c55e0d86e85cbada3b22df057c7d3f8e7a2d2fe",
+  "first_failure": null,
+  "stdout_tail": null,
+  "stderr_tail": null,
+  "telemetry": {
+    "provider": {
+      "measurement": "instrumented",
+      "invocations": 0,
+      "input_tokens": null,
+      "output_tokens": null
+    },
+    "agent_session": {
+      "measurement": "unavailable-platform",
+      "token_count": null,
+      "tool_output_chars": null
+    }
+  },
+  "provider_guard": {
+    "receipt_path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/receipts/validation-r3-C-05-timeline-valuation-event-analysis-20260913.json",
+    "receipt_sha256": "e7a0eb5996b5c1f795d0b3a57bf1d02e7114734a08c3dac45b61330aa3c1f6d3",
+    "scope": "python-tcp-transport-including-loopback",
+    "observed": true,
+    "provider_invocations": 0,
+    "network_attempts": []
+  },
+  "updated_at": "2026-09-13T09:20:50.023847+00:00",
+  "context_packet_id": "company-intelligence-cross-region-career-preparation--C-05-timeline-valuation-event-analysis--r3",
+  "context_packet_sha256": "d7dc311e718c3e2c11dde3c208026e531d009997601adc7d0aad409833d369f8",
+  "implementation_plan_id": "company-intelligence-cross-region-career-preparation--C-05-timeline-valuation-event-analysis--r3",
+  "implementation_plan_sha256": "0628be1faaa8c4b7cff99ad5e4a818848dd85d24d9e045a2d5bdb322cc1f88da",
+  "passed_criterion_ids": [
+    "C05-r3-analysis-groups-tests"
+  ]
+}

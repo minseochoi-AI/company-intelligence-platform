@@ -1,0 +1,499 @@
+{
+  "contract_version": "1.2.0",
+  "plan_id": "company-intelligence-cross-region-career-preparation--C-01-source-identity-foundation--r3",
+  "owner": {
+    "kind": "campaign-cohort",
+    "id": "C-01-source-identity-foundation"
+  },
+  "source_refs": [
+    {
+      "id": "D-01-source-access-policy",
+      "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/01-d-01-source-access-policy.json",
+      "sha256": "sha256:81a1fffd37209dfb4afe74664d013ed92567c09747ebeb11884ef1be94aae576"
+    },
+    {
+      "id": "D-02-company-capability-taxonomy",
+      "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/02-d-02-company-capability-taxonomy.json",
+      "sha256": "sha256:6be3f1e0bf9b7d94e76bee74b44d9cfaab7554bcb9919db55f71519d2e592232"
+    }
+  ],
+  "status": "contract-ready",
+  "metadata": {
+    "preparation_contract": "campaign-global-ownership-v1",
+    "planned_commit_message": "feat(taxonomy): preserve provider-native company facets",
+    "git_finalization_authorized": false,
+    "test_execution_deferred": true
+  },
+  "change_slices": [
+    {
+      "slice_id": "provider-native-taxonomy-and-facets-r3",
+      "behavior": "법인·공공기관·공고 조직단위의 서로 다른 의미를 합치지 않고, 원천 namespace와 증거 상태를 유지한 facet catalog를 만든다.",
+      "dependencies": [],
+      "operations": [
+        {
+          "change_id": "D-02-taxonomy-model-r3",
+          "operation": "MODIFY",
+          "path": "src/company_intel/models.py",
+          "symbols": [
+            "TaxonomyFact",
+            "FacetAvailability",
+            "CompanyClassification"
+          ],
+          "current_state": "기업 분류는 capability 중심이며 법적 형태·소유 부문·공공기관 유형·시장 상태를 원천 namespace와 함께 표현하지 못한다.",
+          "source_hash": "sha256:6c54b354368caf47d20585a4ebb252562516b9f07e3075311eeb825ea370757f",
+          "after_state": "법인/기관 taxonomy와 facet availability를 명시적으로 표현하는 불변 모델을 제공한다.",
+          "rationale": "company_type 하나로 ARES·GLEIF·SEC·ALIO·MPM의 이질적 코드를 같은 뜻으로 오해하지 않기 위해서다.",
+          "dependencies": [],
+          "public_contract_impacts": [
+            "provider-native taxonomy contract"
+          ],
+          "compatibility": "기존 CompanyClassification 필드는 유지한다.",
+          "migration": "신규 축은 optional 값으로 추가한다.",
+          "rollback": "새 taxonomy consumer만 비활성화한다.",
+          "authorization_boundary": "저장된 원천 반환물만 해석하며 외부 provider를 호출하지 않는다.",
+          "contributes_to": [
+            "D-02-company-capability-taxonomy"
+          ],
+          "symbol_changes": [
+            {
+              "symbol": "TaxonomyFact",
+              "intent": "원천 namespace 보존",
+              "decision_id": "D-02-company-capability-taxonomy"
+            }
+          ],
+          "contribution_refs": [
+            {
+              "decision_id": "D-02-company-capability-taxonomy",
+              "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/02-d-02-company-capability-taxonomy.json",
+              "sha256": "sha256:6be3f1e0bf9b7d94e76bee74b44d9cfaab7554bcb9919db55f71519d2e592232",
+              "symbols": [
+                "TaxonomyFact",
+                "FacetAvailability",
+                "CompanyClassification"
+              ],
+              "intent_change_ids": []
+            }
+          ]
+        },
+        {
+          "change_id": "D-02-taxonomy-classification-r3",
+          "operation": "MODIFY",
+          "path": "src/company_intel/classification.py",
+          "symbols": [
+            "classify_company",
+            "classify_taxonomy_axes"
+          ],
+          "current_state": "분석 적격성은 분류 축의 evidence/identity 한계를 검색 결과에 전달하지 못한다.",
+          "source_hash": "sha256:675ede9bb03fd1fd30d21f7ae3f26b15cb651f7c23b8ed3e98f7dabb11e24a36",
+          "after_state": "소유 부문, 공공기관 유형, 법적 형태, 산업, 시장 상태, 공고 조직단위를 독립 축으로 분류한다.",
+          "rationale": "필터·정렬 가능성과 표시 전용 정보를 구분하기 위해서다.",
+          "dependencies": [
+            "D-02-taxonomy-model-r3"
+          ],
+          "public_contract_impacts": [
+            "classification axes"
+          ],
+          "compatibility": "legacy company_type adapter는 보존한다.",
+          "migration": "기존 capability classification과 병행한다.",
+          "rollback": "새 축을 출력에서 제외한다.",
+          "authorization_boundary": "공공 여부를 이름만으로 추정하지 않는다.",
+          "contributes_to": [
+            "D-02-company-capability-taxonomy"
+          ],
+          "symbol_changes": [
+            {
+              "symbol": "classify_taxonomy_axes",
+              "intent": "서로 다른 분류 축 분리",
+              "decision_id": "D-02-company-capability-taxonomy"
+            }
+          ],
+          "contribution_refs": [
+            {
+              "decision_id": "D-02-company-capability-taxonomy",
+              "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/02-d-02-company-capability-taxonomy.json",
+              "sha256": "sha256:6be3f1e0bf9b7d94e76bee74b44d9cfaab7554bcb9919db55f71519d2e592232",
+              "symbols": [
+                "classify_company",
+                "classify_taxonomy_axes"
+              ],
+              "intent_change_ids": []
+            }
+          ]
+        },
+        {
+          "change_id": "D-01-nested-field-resolution-r3",
+          "operation": "MODIFY",
+          "path": "src/company_intel/normalization.py",
+          "symbols": [
+            "AtomicObservationMapper",
+            "resolve_field_path"
+          ],
+          "current_state": "원자 mapper가 중첩 path와 다값 classification을 안전하게 보존하지 못한다.",
+          "source_hash": "sha256:1ae5213b9d6ed62c7bbc6f6c179f90facd3730a14df489ce17a20eda71309f14",
+          "after_state": "dotted/nested 원천 필드를 lossless하게 추출하고, 단일 의미를 강제로 평탄화하지 않는다.",
+          "rationale": "GLEIF legalForm, SEC SIC, ARES NACE와 ALIO 분류를 실제 반환 경로대로 다루기 위해서다.",
+          "dependencies": [],
+          "public_contract_impacts": [
+            "atomic observation field resolution"
+          ],
+          "compatibility": "기존 top-level field mapping을 유지한다.",
+          "migration": "새 nested path는 opt-in policy field로 사용한다.",
+          "rollback": "nested mapping을 비활성화한다.",
+          "authorization_boundary": "원문 값의 의미를 임의 번역하지 않는다.",
+          "contributes_to": [
+            "D-01-source-access-policy",
+            "D-02-company-capability-taxonomy"
+          ],
+          "symbol_changes": [
+            {
+              "symbol": "resolve_field_path",
+              "intent": "중첩 원천 필드 보존",
+              "decision_id": "D-01-source-access-policy"
+            }
+          ],
+          "contribution_refs": [
+            {
+              "decision_id": "D-01-source-access-policy",
+              "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/01-d-01-source-access-policy.json",
+              "sha256": "sha256:81a1fffd37209dfb4afe74664d013ed92567c09747ebeb11884ef1be94aae576",
+              "symbols": [
+                "AtomicObservationMapper",
+                "resolve_field_path"
+              ],
+              "intent_change_ids": []
+            },
+            {
+              "decision_id": "D-02-company-capability-taxonomy",
+              "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/02-d-02-company-capability-taxonomy.json",
+              "sha256": "sha256:6be3f1e0bf9b7d94e76bee74b44d9cfaab7554bcb9919db55f71519d2e592232",
+              "symbols": [
+                "AtomicObservationMapper",
+                "resolve_field_path"
+              ],
+              "intent_change_ids": []
+            }
+          ]
+        },
+        {
+          "change_id": "D-01-field-capability-catalog-r3",
+          "operation": "MODIFY",
+          "path": "src/company_intel/source_catalog.py",
+          "symbols": [
+            "SourceCatalog",
+            "field_capabilities"
+          ],
+          "current_state": "catalog은 operation 수준 상태만 제공하여 어떤 원천 필드가 filter/sort/display 가능한지 표현하지 못한다.",
+          "source_hash": "sha256:4b5494236973e11f0213c381d15b9552c4e48adf2dcc9830b0c9e28760c0c6d0",
+          "after_state": "provider-native field capability와 금지된 통합 용도를 선언한다.",
+          "rationale": "UI가 없는 값 또는 비교 불가 값을 선택지로 제시하지 않게 하기 위해서다.",
+          "dependencies": [],
+          "public_contract_impacts": [
+            "source field capability contract"
+          ],
+          "compatibility": "기존 policy parsing과 activation check를 유지한다.",
+          "migration": "capability가 없는 legacy provider는 display-only로 표시한다.",
+          "rollback": "facet catalog가 capability metadata를 무시한다.",
+          "authorization_boundary": "provider 상태를 실제 live coverage로 과장하지 않는다.",
+          "contributes_to": [
+            "D-01-source-access-policy",
+            "D-02-company-capability-taxonomy"
+          ],
+          "symbol_changes": [
+            {
+              "symbol": "field_capabilities",
+              "intent": "원자 field 사용 경계",
+              "decision_id": "D-01-source-access-policy"
+            }
+          ],
+          "contribution_refs": [
+            {
+              "decision_id": "D-01-source-access-policy",
+              "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/01-d-01-source-access-policy.json",
+              "sha256": "sha256:81a1fffd37209dfb4afe74664d013ed92567c09747ebeb11884ef1be94aae576",
+              "symbols": [
+                "SourceCatalog",
+                "field_capabilities"
+              ],
+              "intent_change_ids": []
+            },
+            {
+              "decision_id": "D-02-company-capability-taxonomy",
+              "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/02-d-02-company-capability-taxonomy.json",
+              "sha256": "sha256:6be3f1e0bf9b7d94e76bee74b44d9cfaab7554bcb9919db55f71519d2e592232",
+              "symbols": [
+                "SourceCatalog",
+                "field_capabilities"
+              ],
+              "intent_change_ids": []
+            }
+          ]
+        },
+        {
+          "change_id": "D-02-taxonomy-module-r3",
+          "operation": "CREATE",
+          "path": "src/company_intel/taxonomy.py",
+          "symbols": [
+            "taxonomy_facts_from_record",
+            "TAXONOMY_AXES"
+          ],
+          "current_state": "provider raw classification을 namespace 보존 taxonomy facts로 만드는 모듈이 없다.",
+          "source_hash": null,
+          "after_state": "ARES, GLEIF, SEC, ALIO, MPM과 ATS business unit을 명시적 축과 evidence 상태로 변환한다.",
+          "rationale": "법인/공공기관/공고 조직단위 간 인지부조화를 제거하기 위해서다.",
+          "dependencies": [
+            "D-02-taxonomy-model-r3"
+          ],
+          "public_contract_impacts": [
+            "taxonomy facts"
+          ],
+          "compatibility": "새 독립 모듈이다.",
+          "migration": "consumer가 source-native fact를 명시적으로 선택한다.",
+          "rollback": "taxonomy-based facets를 비활성화한다.",
+          "authorization_boundary": "동일 이름 entity를 자동 병합하지 않는다.",
+          "contributes_to": [
+            "D-02-company-capability-taxonomy"
+          ],
+          "symbol_changes": [
+            {
+              "symbol": "taxonomy_facts_from_record",
+              "intent": "provider-native taxonomy 추출",
+              "decision_id": "D-02-company-capability-taxonomy"
+            }
+          ],
+          "contribution_refs": [
+            {
+              "decision_id": "D-02-company-capability-taxonomy",
+              "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/02-d-02-company-capability-taxonomy.json",
+              "sha256": "sha256:6be3f1e0bf9b7d94e76bee74b44d9cfaab7554bcb9919db55f71519d2e592232",
+              "symbols": [
+                "taxonomy_facts_from_record",
+                "TAXONOMY_AXES"
+              ],
+              "intent_change_ids": []
+            }
+          ]
+        },
+        {
+          "change_id": "D-02-facet-catalog-r3",
+          "operation": "CREATE",
+          "path": "src/company_intel/facets.py",
+          "symbols": [
+            "FacetDefinition",
+            "FacetOption",
+            "build_job_facets",
+            "build_taxonomy_facets"
+          ],
+          "current_state": "동적 선택지, coverage, provider provenance, filter/sort 가능성을 함께 표현하는 facet registry가 없다.",
+          "source_hash": null,
+          "after_state": "저장된 snapshot에서 선택지 수, provider coverage, evidence 상태, disabled 사유를 가진 facet catalog를 생성한다.",
+          "rationale": "arrow UI가 의미 없는 또는 지원되지 않는 조건을 선택하지 않게 하기 위해서다.",
+          "dependencies": [
+            "D-02-taxonomy-module-r3",
+            "D-01-field-capability-catalog-r3"
+          ],
+          "public_contract_impacts": [
+            "facet option contract"
+          ],
+          "compatibility": "기존 JSON profile 필드는 그대로 지원한다.",
+          "migration": "CLI는 facet contract를 선택 UI에만 사용한다.",
+          "rollback": "CLI는 기존 직접 profile 입력으로 돌아간다.",
+          "authorization_boundary": "facet count는 저장된 표본 coverage이지 시장 전체 수가 아니다.",
+          "contributes_to": [
+            "D-02-company-capability-taxonomy"
+          ],
+          "symbol_changes": [
+            {
+              "symbol": "FacetOption",
+              "intent": "선택 가능성·근거·coverage 표시",
+              "decision_id": "D-02-company-capability-taxonomy"
+            }
+          ],
+          "contribution_refs": [
+            {
+              "decision_id": "D-02-company-capability-taxonomy",
+              "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/02-d-02-company-capability-taxonomy.json",
+              "sha256": "sha256:6be3f1e0bf9b7d94e76bee74b44d9cfaab7554bcb9919db55f71519d2e592232",
+              "symbols": [
+                "FacetDefinition",
+                "FacetOption",
+                "build_job_facets",
+                "build_taxonomy_facets"
+              ],
+              "intent_change_ids": []
+            }
+          ]
+        },
+        {
+          "change_id": "D-02-classification-tests-r3",
+          "operation": "MODIFY",
+          "path": "tests/test_classification.py",
+          "symbols": [
+            "test_classify_company",
+            "test_taxonomy_axes"
+          ],
+          "current_state": "기존 테스트는 capability 적격성만 검증한다.",
+          "source_hash": "sha256:51b5bb54d4773218684d03452b664d8a5a6a98e3a37786d5a0d003c59b72f65b",
+          "after_state": "서로 다른 legal/public/business axes가 합쳐지지 않는 회귀 사례를 추가한다.",
+          "rationale": "taxonomy semantics regression을 막기 위해서다.",
+          "dependencies": [
+            "D-02-taxonomy-classification-r3"
+          ],
+          "public_contract_impacts": [
+            "offline classification tests"
+          ],
+          "compatibility": "기존 테스트를 유지한다.",
+          "migration": "없음.",
+          "rollback": "신규 case를 제거한다.",
+          "authorization_boundary": "fixture에 credential이나 전체 provider payload를 넣지 않는다.",
+          "contributes_to": [
+            "D-02-company-capability-taxonomy"
+          ],
+          "symbol_changes": [
+            {
+              "symbol": "test_taxonomy_axes",
+              "intent": "축 혼합 방지 검증",
+              "decision_id": "D-02-company-capability-taxonomy"
+            }
+          ],
+          "contribution_refs": [
+            {
+              "decision_id": "D-02-company-capability-taxonomy",
+              "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/02-d-02-company-capability-taxonomy.json",
+              "sha256": "sha256:6be3f1e0bf9b7d94e76bee74b44d9cfaab7554bcb9919db55f71519d2e592232",
+              "symbols": [
+                "test_classify_company",
+                "test_taxonomy_axes"
+              ],
+              "intent_change_ids": []
+            }
+          ]
+        },
+        {
+          "change_id": "D-02-taxonomy-tests-r3",
+          "operation": "CREATE",
+          "path": "tests/test_taxonomy.py",
+          "symbols": [
+            "test_provider_native_taxonomy"
+          ],
+          "current_state": "원천 namespace taxonomy mapper의 독립 회귀 테스트가 없다.",
+          "source_hash": null,
+          "after_state": "ARES/GLEIF/SEC/ALIO/MPM/ATS 최소 반환 형태를 offline으로 검증한다.",
+          "rationale": "동일 의미가 아닌 raw code를 자동 통합하는 회귀를 막기 위해서다.",
+          "dependencies": [
+            "D-02-taxonomy-module-r3"
+          ],
+          "public_contract_impacts": [
+            "offline taxonomy tests"
+          ],
+          "compatibility": "새 테스트 파일이다.",
+          "migration": "없음.",
+          "rollback": "모듈과 함께 제거한다.",
+          "authorization_boundary": "외부 API를 호출하지 않는다.",
+          "contributes_to": [
+            "D-02-company-capability-taxonomy"
+          ],
+          "symbol_changes": [
+            {
+              "symbol": "test_provider_native_taxonomy",
+              "intent": "원천 namespace 보존 검증",
+              "decision_id": "D-02-company-capability-taxonomy"
+            }
+          ],
+          "contribution_refs": [
+            {
+              "decision_id": "D-02-company-capability-taxonomy",
+              "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/02-d-02-company-capability-taxonomy.json",
+              "sha256": "sha256:6be3f1e0bf9b7d94e76bee74b44d9cfaab7554bcb9919db55f71519d2e592232",
+              "symbols": [
+                "test_provider_native_taxonomy"
+              ],
+              "intent_change_ids": []
+            }
+          ]
+        },
+        {
+          "change_id": "D-02-facet-tests-r3",
+          "operation": "CREATE",
+          "path": "tests/test_facets.py",
+          "symbols": [
+            "test_dynamic_facet_availability"
+          ],
+          "current_state": "facet coverage와 unavailable reason을 검증하는 테스트가 없다.",
+          "source_hash": null,
+          "after_state": "unknown-only 회사 유형과 구조화되지 않은 급여를 disabled/display-only로 반환하는 사례를 검증한다.",
+          "rationale": "사용자에게 잘못된 선택 가능성을 보이지 않기 위해서다.",
+          "dependencies": [
+            "D-02-facet-catalog-r3"
+          ],
+          "public_contract_impacts": [
+            "offline facet tests"
+          ],
+          "compatibility": "새 테스트 파일이다.",
+          "migration": "없음.",
+          "rollback": "facet module과 함께 제거한다.",
+          "authorization_boundary": "외부 데이터를 새로 수집하지 않는다.",
+          "contributes_to": [
+            "D-02-company-capability-taxonomy"
+          ],
+          "symbol_changes": [
+            {
+              "symbol": "test_dynamic_facet_availability",
+              "intent": "coverage 기반 선택지 검증",
+              "decision_id": "D-02-company-capability-taxonomy"
+            }
+          ],
+          "contribution_refs": [
+            {
+              "decision_id": "D-02-company-capability-taxonomy",
+              "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/02-d-02-company-capability-taxonomy.json",
+              "sha256": "sha256:6be3f1e0bf9b7d94e76bee74b44d9cfaab7554bcb9919db55f71519d2e592232",
+              "symbols": [
+                "test_dynamic_facet_availability"
+              ],
+              "intent_change_ids": []
+            }
+          ]
+        }
+      ],
+      "routes": [
+        {
+          "route_id": "taxonomy-implementation",
+          "skill": "company-intelligence-career-research",
+          "requirement": "required",
+          "phase": "IMPLEMENT",
+          "purpose": "provider field semantics를 보존한다."
+        },
+        {
+          "route_id": "taxonomy-validation",
+          "skill": "tdd",
+          "requirement": "required",
+          "phase": "VALIDATE",
+          "purpose": "offline taxonomy/facet regression을 실행한다."
+        }
+      ],
+      "completion_contract": [
+        {
+          "criterion_id": "C01-r3-taxonomy-facet-tests",
+          "behavior": "원천 namespace와 facet availability가 회귀 없이 동작한다.",
+          "blocking": true,
+          "owner_skill": "tdd",
+          "phase": "VALIDATE",
+          "test": {
+            "type": "pytest",
+            "runner": "pytest",
+            "value": "tests/test_classification.py tests/test_taxonomy.py tests/test_facets.py",
+            "paths": [
+              "tests/test_classification.py",
+              "tests/test_taxonomy.py",
+              "tests/test_facets.py"
+            ]
+          },
+          "expected_result": "offline tests pass",
+          "failure_marker": "taxonomy or facet semantics regression",
+          "receipt": {},
+          "status": "planned"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,221 @@
+{
+  "schema_version": "campaign-execution-effects-v1",
+  "campaign_id": "company-intelligence-cross-region-career-preparation",
+  "scope_sha256": "a9b21df1af2059742e4603c1c935feaf5b62d5539f31318e0c93c495987c1de3",
+  "git_base": "cdb2ca12a1a7ff17823706da99ab33b7846ea6dc",
+  "git_head": "cdb2ca12a1a7ff17823706da99ab33b7846ea6dc",
+  "effects": [
+    {
+      "effect_id": "E-01-source-native-taxonomy",
+      "title": "원천 namespace를 보존한 기업·기관 분류",
+      "decision_ids": ["D-01-source-access-policy", "D-02-company-capability-taxonomy"],
+      "cohort_ids": ["C-01-source-identity-foundation"],
+      "paths": ["src/company_intel/taxonomy.py", "src/company_intel/facets.py", "src/company_intel/classification.py"],
+      "before": "법적 형태, 소유 부문, 공공기관 유형, ATS 조직단위가 검색 화면에서 구별 가능한 원천 namespace 계약으로 분리돼 있지 않았다.",
+      "after": "ARES·GLEIF·SEC·ALIO·MPM·ATS 값을 TaxonomyFact와 facet으로 분리하고, 선택 불가 필드를 disabled reason으로 보인다.",
+      "semantic_augmentation": "공공기관 문맥, 법적 형태, 산업, 시장 상태를 회사명이나 비슷한 문자열만으로 합치지 않고 각각의 근거로 확인한다.",
+      "technical_augmentation": "중첩/배열 raw field를 손실 없이 읽고 provider namespace·raw field·filterability를 결과에 유지한다.",
+      "efficiency": {"claim": "측정하지 않음", "measurement": "not-measured", "status": "not-measured"},
+      "preserved_boundaries": ["법인 이름 기반 자동 병합 금지", "ATS department/team을 회사 산업·법적 형태로 승격 금지"],
+      "evidence": [
+        {"kind": "implementation", "path": "src/company_intel/taxonomy.py", "symbols": ["taxonomy_facts_from_record"]},
+        {"kind": "test", "path": "tests/test_taxonomy.py", "symbols": ["test_provider_taxonomy"]}
+      ],
+      "verification": {"status": "verified", "result": "C-01 오프라인 pytest 11개 통과; provider-free guard 네트워크 시도 0건.", "receipt_path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/receipts/validation-r3-C-01-source-identity-foundation-20260913.json", "test_scope": "suite"},
+      "next_branch": {"condition": "C-01 offline taxonomy/facet criterion이 통과", "if_met": "C-02/C-06 통합 검색을 실행 검증", "if_not_met": "원천별 mapper 또는 facet 계약을 수정 후 동일 criterion 재실행"}
+    },
+    {
+      "effect_id": "E-02-five-state-company-search",
+      "title": "namespace-aware 기업 검색과 다섯 상태 판정",
+      "decision_ids": ["D-03-search-profile-and-discovery", "D-04-career-requirement-verification"],
+      "cohort_ids": ["C-02-search-requirement-evidence"],
+      "paths": ["src/company_intel/query_contract.py", "src/company_intel/search.py"],
+      "before": "회사의 provider-native 분류값, 검사 불가, namespace 충돌과 일반 불일치를 하나의 후보 상태로 충분히 설명할 수 없었다.",
+      "after": "any/all semantic filter, namespace 전체 selector, match/no_match/unknown/conflict/not_applicable field verdict와 country allocation을 제공한다.",
+      "semantic_augmentation": "사용자는 법적 형태나 기관 유형을 원천 namespace까지 지정해 검색하고, 알 수 없음과 불일치를 구분한다.",
+      "technical_augmentation": "namespace 안의 ':'를 보존해 ARES:pravniForma:값처럼 모호한 selector를 첫 구분자 기준으로 잘라 비교하지 않는다.",
+      "efficiency": {"claim": "측정하지 않음", "measurement": "not-measured", "status": "not-measured"},
+      "preserved_boundaries": ["job-only language/employment 조건은 company search에서 NOT_APPLICABLE로 보이며 회사 속성으로 추정하지 않음"],
+      "evidence": [
+        {"kind": "implementation", "path": "src/company_intel/search.py", "symbols": ["rank_candidate_evaluations", "explain_company_evaluation"]},
+        {"kind": "test", "path": "tests/test_query_contract.py", "symbols": ["test_namespaced_selector"]}
+      ],
+      "verification": {"status": "verified", "result": "C-02 수정 후 오프라인 pytest 13개 통과; provider-free guard 네트워크 시도 0건.", "receipt_path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/receipts/validation-r3-C-02-search-requirement-evidence-20260913-retry2.json", "test_scope": "suite"},
+      "next_branch": {"condition": "C-02 contract/search criterion이 통과", "if_met": "CLI/API company-search parity를 smoke 검증", "if_not_met": "profile adapter 또는 verdict evaluator를 수정"}
+    },
+    {
+      "effect_id": "E-03-evidence-export-lineage",
+      "title": "증거 표와 redacted run lineage",
+      "decision_ids": ["D-05-spreadsheet-output-contract"],
+      "cohort_ids": ["C-03-evidence-export-delivery"],
+      "paths": ["src/company_intel/run_manifest.py", "src/company_intel/exporting.py", "src/company_intel/reporting.py"],
+      "before": "CSV/XLSX가 필터 결과와 원천 제한을 담았더라도 실행 profile, facet, verdict count와 파일 hash의 재현 가능한 연결이 없었다.",
+      "after": "run manifest, locations, strict/no-match/unverifiable/conflict, facets와 redaction-aware export bundle을 추가했다.",
+      "semantic_augmentation": "사용자는 0건 결과가 어떤 저장 snapshot·조건·검사 불가 때문에 생겼는지 내보낸 표에서 확인한다.",
+      "technical_augmentation": "profile·URL query·raw/contact/credential-shaped 값은 lineage에 복사하지 않고 hash 또는 redacted projection으로 남긴다.",
+      "efficiency": {"claim": "측정하지 않음", "measurement": "not-measured", "status": "not-measured"},
+      "preserved_boundaries": ["CSV가 canonical contract", "XLSX는 같은 표의 표시 형식", "secret 및 원문 payload export 금지"],
+      "evidence": [
+        {"kind": "implementation", "path": "src/company_intel/run_manifest.py", "symbols": ["build_run_manifest", "write_run_manifest"]},
+        {"kind": "test", "path": "tests/test_exporting.py", "symbols": ["test_verdict_and_lineage_export_keeps_tables_and_redacts_sensitive_values"]}
+      ],
+      "verification": {"status": "verified", "result": "C-03 오프라인 pytest 5개 통과; provider-free guard 네트워크 시도 0건.", "receipt_path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/receipts/validation-r3-C-03-evidence-export-delivery-20260913.json", "test_scope": "suite"},
+      "next_branch": {"condition": "C-03 criterion이 통과", "if_met": "저장된 job search result를 export/explain으로 smoke 검증", "if_not_met": "header/redaction/manifest hash contract를 수정"}
+    },
+    {
+      "effect_id": "E-04-comparability-group-selection",
+      "title": "비교 규격 group을 명시하는 기업 스크리너",
+      "decision_ids": ["D-06-peer-screener-ranking"],
+      "cohort_ids": ["C-04-peer-screener-ranking"],
+      "paths": ["src/company_intel/screening.py"],
+      "before": "동일 국가·산업·규모 안의 서로 다른 통화·기간·개념·coverage를 사용자가 선택 가능한 cohort로 명확히 보지 못했다.",
+      "after": "comparability group ID와 signature metadata를 노출하고 명시 선택 또는 호환 가능한 legacy-largest fallback을 제공한다.",
+      "semantic_augmentation": "순위는 하나의 전역 기업 점수가 아니라 동일 규격의 동료군 안에서만 해석된다.",
+      "technical_augmentation": "누락된 signature와 proxy metric은 제외 근거를 남기고 rank input에 넣지 않는다.",
+      "efficiency": {"claim": "측정하지 않음", "measurement": "not-measured", "status": "not-measured"},
+      "preserved_boundaries": ["환율·기간·개념의 자동 변환 금지", "최소 동료 수 미달 순위 금지"],
+      "evidence": [
+        {"kind": "implementation", "path": "src/company_intel/screening.py", "symbols": ["ScreenerProfile", "screen_companies"]},
+        {"kind": "test", "path": "tests/test_screening.py", "symbols": ["test_comparability_group_selection"]}
+      ],
+      "verification": {"status": "verified", "result": "C-04 오프라인 pytest 4개 통과; provider-free guard 네트워크 시도 0건.", "receipt_path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/receipts/validation-r3-C-04-peer-screener-ranking-20260913.json", "test_scope": "suite"},
+      "next_branch": {"condition": "C-04 criterion이 통과", "if_met": "screen CLI/API result의 group 선택 smoke 검증", "if_not_met": "signature grouping 또는 exclusions를 수정"}
+    },
+    {
+      "effect_id": "E-05-analysis-prerequisite-gates",
+      "title": "시간축 분리와 가치·AI 분석 사전조건",
+      "decision_ids": ["D-07-company-timeline-macro-comparison", "D-08-future-value-scenarios", "D-09-ai-event-effect-validation"],
+      "cohort_ids": ["C-05-timeline-valuation-event-analysis"],
+      "paths": ["src/company_intel/analysis_service.py", "src/company_intel/analytics.py"],
+      "before": "회사·시장·거시 관측의 series 규격과 가치·AI 사건 계산의 준비 여부가 CLI/API에서 먼저 명시되지 않았다.",
+      "after": "timeline axis × signature group과 valuation/event-study prerequisite helper를 제공하고, CLI/API가 계산 전 상태를 출력한다.",
+      "semantic_augmentation": "데이터가 부족하면 미래가치나 AI 인과 효과처럼 보이는 수치를 만들지 않고 unavailable 또는 association-only 이유를 보여 준다.",
+      "technical_augmentation": "available_at, unit, currency, period, concept 및 event/benchmark/control 조건을 별도 readiness contract로 검사한다.",
+      "efficiency": {"claim": "측정하지 않음", "measurement": "not-measured", "status": "not-measured"},
+      "preserved_boundaries": ["scenario는 forecast/price target이 아님", "control data만으로 causal claim을 만들지 않음"],
+      "evidence": [
+        {"kind": "implementation", "path": "src/company_intel/analytics.py", "symbols": ["valuation_prerequisites", "event_study_prerequisites"]},
+        {"kind": "test", "path": "tests/test_analytics.py", "symbols": ["test_valuation_prerequisites"]}
+      ],
+      "verification": {"status": "verified", "result": "C-05 오프라인 pytest 8개 통과; provider-free guard 네트워크 시도 0건.", "receipt_path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/receipts/validation-r3-C-05-timeline-valuation-event-analysis-20260913.json", "test_scope": "suite"},
+      "next_branch": {"condition": "C-05 criterion이 통과", "if_met": "저장된 facts로 timeline/valuation/ai-event smoke 검증", "if_not_met": "series signature 또는 prerequisite response를 수정"}
+    },
+    {
+      "effect_id": "E-06-interactive-local-career-discovery",
+      "title": "저장된 공고 기반 화살표 CLI와 필터 판정 표",
+      "decision_ids": ["D-10-job-availability-filtered-discovery"],
+      "cohort_ids": ["C-06-job-availability-filtered-discovery"],
+      "paths": ["src/company_intel/interactive.py", "src/company_intel/job_search.py", "src/company_intel/cli.py", "src/company_intel/api.py"],
+      "before": "사용자는 raw API field를 직접 알아야 했고, 다중 위치·공고 언어·요건·급여 규격·검사 불가를 같은 검색 결과에서 선택·설명하기 어려웠다.",
+      "after": "arrow/space/Enter interactive compiler와 scripted adapter, expanded JobSearchProfile, five verdict tables, locations, facet/run metadata를 구현했다.",
+      "semantic_augmentation": "국가·직종·위치·근무방식·고용형태·요건·우대조건·지원자 언어·구조화 급여를 저장된 실제 값에서 고르고, 0건의 이유를 구분한다.",
+      "technical_augmentation": "Permanent→full-time, prose OTE→salary, posting language→candidate language 같은 잘못된 통합을 차단하고 API와 CLI profile을 맞춘다.",
+      "efficiency": {"claim": "측정하지 않음", "measurement": "not-measured", "status": "not-measured"},
+      "preserved_boundaries": ["interactive는 provider refresh·package install·지원 제출을 하지 않음", "salary 비교는 동일 currency/period/basis signature만 허용"],
+      "evidence": [
+        {"kind": "implementation", "path": "src/company_intel/interactive.py", "symbols": ["ArrowMenu", "build_interactive_request"]},
+        {"kind": "test", "path": "tests/test_interactive.py", "symbols": ["test_interactive_job_search_compiles_saved_snapshot_profile"]}
+      ],
+      "verification": {"status": "verified", "result": "C-06 오프라인 pytest 14개 통과; provider-free guard 네트워크 시도 0건. CLI/API smoke는 별도 미실행.", "receipt_path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/receipts/validation-r3-C-06-job-availability-filtered-discovery-20260913.json", "test_scope": "suite"},
+      "next_branch": {"condition": "C-06 criterion이 통과", "if_met": "scripted interactive, job-search, explain, export 순으로 local smoke 검증", "if_not_met": "profile compiler 또는 verdict table contract를 수정"}
+    }
+  ],
+  "component_contracts": [
+    {
+      "component_id": "source-taxonomy-facet-projection",
+      "effect_ids": ["E-01-source-native-taxonomy"],
+      "decision_ids": ["D-01-source-access-policy", "D-02-company-capability-taxonomy"],
+      "paths": ["src/company_intel/taxonomy.py", "src/company_intel/facets.py", "src/company_intel/classification.py"],
+      "before": "원천별 법적 형태·소유 부문·기관 유형을 사용자 선택지와 검색 기준으로 분리해 보존하는 단일 계약이 없었다.",
+      "after": "TaxonomyFact가 provider namespace, raw field, 값, filterability와 disabled reason을 보존하고 facet으로 투영한다.",
+      "boundary": "회사명 추정 병합, ATS 조직단위의 회사 속성 승격, disabled 값의 필터 적용을 금지한다.",
+      "compatibility": "기존 classification 결과는 유지하고 source-native taxonomy/facet 메타데이터를 추가한다.",
+      "evidence": [
+        {"kind": "implementation", "path": "src/company_intel/taxonomy.py", "symbols": ["taxonomy_facts_from_record"]},
+        {"kind": "test", "path": "tests/test_taxonomy.py", "symbols": ["test_provider_taxonomy"]}
+      ],
+      "verification_status": "verified",
+      "next_branch": "C-01 offline taxonomy/facet criterion 통과 후 C-02/C-06 통합 검증으로 진행한다."
+    },
+    {
+      "component_id": "semantic-company-query-verdict",
+      "effect_ids": ["E-02-five-state-company-search"],
+      "decision_ids": ["D-03-search-profile-and-discovery", "D-04-career-requirement-verification"],
+      "paths": ["src/company_intel/query_contract.py", "src/company_intel/search.py"],
+      "before": "원천 namespace 선택, any/all 조건, 불일치와 검사 불가를 구별하는 검색 판정 계약이 없었다.",
+      "after": "CompanySearchProfile과 FieldFilter가 namespaced selector 및 match/no_match/unknown/conflict/not_applicable verdict를 반환한다.",
+      "boundary": "job-only 속성을 회사 속성으로 추정하지 않고 NOT_APPLICABLE로 보이며, namespace의 ':'는 손실 없이 보존한다.",
+      "compatibility": "기존 후보 목록을 유지하면서 evaluations와 verdict count를 추가한다.",
+      "evidence": [
+        {"kind": "implementation", "path": "src/company_intel/search.py", "symbols": ["rank_candidate_evaluations", "explain_company_evaluation"]},
+        {"kind": "test", "path": "tests/test_query_contract.py", "symbols": ["test_namespaced_selector"]}
+      ],
+      "verification_status": "verified",
+      "next_branch": "C-02 criterion 통과 후 CLI/API company-search parity를 smoke 검증한다."
+    },
+    {
+      "component_id": "evidence-export-lineage",
+      "effect_ids": ["E-03-evidence-export-lineage"],
+      "decision_ids": ["D-05-spreadsheet-output-contract"],
+      "paths": ["src/company_intel/run_manifest.py", "src/company_intel/exporting.py", "src/company_intel/reporting.py"],
+      "before": "검색 결과의 facet·verdict·snapshot·profile과 내보낸 표를 재현 가능한 manifest로 연결하지 못했다.",
+      "after": "run manifest 및 export bundle이 locations, verdict 표, facet, redacted lineage와 파일 hash를 기록한다.",
+      "boundary": "CSV가 canonical이고 XLSX는 표시 형식이며 secret, raw payload, 연락처·credential-shaped 값은 export하지 않는다.",
+      "compatibility": "기존 export 표에 lineage와 판정 표를 추가하며 기존 표 이름은 보존한다.",
+      "evidence": [
+        {"kind": "implementation", "path": "src/company_intel/run_manifest.py", "symbols": ["build_run_manifest", "write_run_manifest"]},
+        {"kind": "test", "path": "tests/test_exporting.py", "symbols": ["test_verdict_and_lineage_export_keeps_tables_and_redacts_sensitive_values"]}
+      ],
+      "verification_status": "verified",
+      "next_branch": "C-03 criterion 통과 후 저장된 검색 결과의 export/explain smoke를 실행한다."
+    },
+    {
+      "component_id": "comparability-group-screener",
+      "effect_ids": ["E-04-comparability-group-selection"],
+      "decision_ids": ["D-06-peer-screener-ranking"],
+      "paths": ["src/company_intel/screening.py"],
+      "before": "비교 규격이 다른 수치가 한 스크리너 결과에서 구분 없이 순위화될 수 있었다.",
+      "after": "ScreenerProfile이 comparability group과 complete signature 요구를 받고 exclusions를 보존한다.",
+      "boundary": "통화·기간·개념의 자동 변환과 최소 동료 수 미달의 순위화를 금지한다.",
+      "compatibility": "명시 group 미지정 시 호환 가능한 legacy-largest fallback만 사용한다.",
+      "evidence": [
+        {"kind": "implementation", "path": "src/company_intel/screening.py", "symbols": ["ScreenerProfile", "screen_companies"]},
+        {"kind": "test", "path": "tests/test_screening.py", "symbols": ["test_comparability_group_selection"]}
+      ],
+      "verification_status": "verified",
+      "next_branch": "C-04 criterion 통과 후 screen CLI/API의 group 선택을 smoke 검증한다."
+    },
+    {
+      "component_id": "analysis-readiness-gates",
+      "effect_ids": ["E-05-analysis-prerequisite-gates"],
+      "decision_ids": ["D-07-company-timeline-macro-comparison", "D-08-future-value-scenarios", "D-09-ai-event-effect-validation"],
+      "paths": ["src/company_intel/analysis_service.py", "src/company_intel/analytics.py"],
+      "before": "timeline 규격과 가치·AI 분석 입력의 준비 여부가 계산 결과 앞에서 명시되지 않았다.",
+      "after": "axis × signature timeline group 및 valuation/event-study prerequisite helper가 readiness와 제한 사유를 만든다.",
+      "boundary": "불완전 관측으로 forecast·price target·causal claim을 만들지 않고 unavailable 또는 association-only로 제한한다.",
+      "compatibility": "기존 계산 경로에 사전조건 응답을 추가하며 계산식의 자동 단위·통화 변환은 추가하지 않는다.",
+      "evidence": [
+        {"kind": "implementation", "path": "src/company_intel/analytics.py", "symbols": ["valuation_prerequisites", "event_study_prerequisites"]},
+        {"kind": "test", "path": "tests/test_analytics.py", "symbols": ["test_valuation_prerequisites"]}
+      ],
+      "verification_status": "verified",
+      "next_branch": "C-05 criterion 통과 후 저장된 facts로 timeline/valuation/ai-event smoke를 실행한다."
+    },
+    {
+      "component_id": "interactive-cli-profile-compiler",
+      "effect_ids": ["E-06-interactive-local-career-discovery"],
+      "decision_ids": ["D-10-job-availability-filtered-discovery"],
+      "paths": ["src/company_intel/interactive.py", "src/company_intel/job_search.py", "src/company_intel/cli.py", "src/company_intel/api.py"],
+      "before": "사용자가 raw API 필드 의미를 알아야 하고 다중 위치·요건·급여 규격·검사 불가를 하나의 선택 흐름에서 구분할 수 없었다.",
+      "after": "ArrowMenu와 scripted adapter가 저장 snapshot facet을 선택해 JobSearchProfile을 만들고 CLI/API가 같은 판정 표와 manifest를 반환한다.",
+      "boundary": "interactive는 provider refresh·package install·지원 제출을 하지 않으며, 급여는 같은 currency/period/basis signature에서만 비교한다.",
+      "compatibility": "기존 non-interactive profile JSON 경로는 유지하고 display language와 posting language를 구분한다.",
+      "evidence": [
+        {"kind": "implementation", "path": "src/company_intel/interactive.py", "symbols": ["ArrowMenu", "build_interactive_request"]},
+        {"kind": "test", "path": "tests/test_interactive.py", "symbols": ["test_interactive_job_search_compiles_saved_snapshot_profile"]}
+      ],
+      "verification_status": "verified",
+      "next_branch": "C-06 criterion 통과 후 scripted interactive, job-search, explain, export 순으로 local smoke를 실행한다."
+    }
+  ]
+}

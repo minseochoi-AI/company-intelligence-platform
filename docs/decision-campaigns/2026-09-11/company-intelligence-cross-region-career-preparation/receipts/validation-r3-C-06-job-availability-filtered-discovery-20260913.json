@@ -1,0 +1,39 @@
+{
+  "contract_version": "chainup-command-receipt-v2",
+  "executed_at": "2026-09-13T09:18:28.655718+00:00",
+  "command": [
+    "uv",
+    "run",
+    "--cache-dir",
+    "/tmp/cil-uv-cache",
+    "--frozen",
+    "pytest",
+    "-q",
+    "tests/test_job_search.py",
+    "tests/test_cli_workflows.py",
+    "tests/test_interactive.py"
+  ],
+  "exit_code": 0,
+  "passed": true,
+  "raw_log_path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/receipts/logs/validation-r3-C-06-job-availability-filtered-discovery-20260913.log",
+  "raw_log_sha256": "52e970cc4aea7f0b09959371fce0016dc80b670e5bfb92a7ccf06dfdf1c9484e",
+  "first_failure": null,
+  "stdout_tail": "..............                                                           [100%]\n14 passed in 1.37s\n",
+  "stderr_tail": "",
+  "provider_guard": {
+    "enabled": true,
+    "scope": "python-tcp-transport-including-loopback",
+    "observed": true,
+    "removed_provider_env_names": [
+      "GEMINI_API_KEY",
+      "GOOGLE_API_KEY"
+    ],
+    "network_attempts": [],
+    "provider_invocations": 0
+  },
+  "agent_session": {
+    "measurement": "unavailable-platform",
+    "token_count": null,
+    "tool_output_chars": null
+  }
+}

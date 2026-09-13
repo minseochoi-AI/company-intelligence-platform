@@ -25,3 +25,62 @@ def test_raw_market_prices_and_projections_are_rejected_for_evidence_analysis() 
     assert valuation["status"] == "unavailable"
     event = evaluate_ai_event(asset_returns=[0.0] * 7, benchmark_returns=[0.0] * 7, event_index=3, event_evidence={"event_date": "2026-01-01", "source_url": "https://e", "available_at": "2026-01-01", "price_adjustment": "raw"})
     assert event["status"] == "ineligible"
+
+
+def test_multi_axis_timeline_groups_keep_incompatible_signatures_independent() -> None:
+    result = build_company_timeline(
+        [
+            {
+                "entity_id": "A",
+                "axis": "financial",
+                "series_id": "revenue",
+                "unit": "USD",
+                "currency": "USD",
+                "frequency": "annual",
+                "adjustment": "reported",
+                "period_end": "2025-12-31",
+                "available_at": "2026-02-01",
+            },
+            {
+                "entity_id": "A",
+                "axis": "market",
+                "series_id": "close",
+                "unit": "USD/share",
+                "currency": "USD",
+                "frequency": "daily",
+                "adjustment": "adjusted",
+                "observation_date": "2026-01-02",
+                "available_at": "2026-01-02",
+            },
+            {
+                "entity_id": "A",
+                "axis": "macro",
+                "series_id": "policy_rate",
+                "unit": "percent",
+                "currency": None,
+                "frequency": "monthly",
+                "adjustment": "seasonally_adjusted",
+                "observation_date": "2026-01-01",
+                "available_at": "2026-02-01",
+            },
+            {
+                "entity_id": "A",
+                "axis": "financial",
+                "series_id": "revenue",
+                "unit": "EUR",
+                "currency": "EUR",
+                "frequency": "annual",
+                "adjustment": "reported",
+                "period_end": "2024-12-31",
+                "available_at": "2025-02-01",
+            },
+        ],
+        entity_id="A",
+        as_of="2026-03-01",
+    )
+
+    assert len(result["timeline"]) == 4
+    assert result["timeline"]["series_group_id"].nunique() == 4
+    assert len(result["metadata"]["series_groups"]) == 4
+    assert result["metadata"]["alignment"]["key"] == "observation_date"
+    assert "incompatible_series_signature" not in set(result["exclusions"].get("exclusion_reason", []))

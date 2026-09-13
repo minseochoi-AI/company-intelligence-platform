@@ -3,11 +3,13 @@ import math
 from company_intel.analytics import (
     dcf_scenarios,
     difference_in_differences,
+    event_study_prerequisites,
     event_study,
     financial_metrics,
     future_value_score,
     hiring_change,
     rank_companies,
+    valuation_prerequisites,
 )
 
 
@@ -75,3 +77,44 @@ def test_hiring_snapshots_do_not_claim_hires():
     )
     assert result[-1]["open_postings"] == 2
     assert result[-1]["absolute_change"] == 1
+
+
+def test_analysis_prerequisites_return_deterministic_readiness_reasons():
+    valuation = valuation_prerequisites(
+        100,
+        None,
+        10,
+        {"source_url": "https://evidence.example", "available_at": "2026-01-01"},
+    )
+    assert valuation["status"] == "unavailable"
+    assert valuation["reasons"] == [
+        "missing_input:net_debt",
+        "missing_evidence:unit",
+        "missing_evidence:currency",
+        "missing_evidence:period",
+        "missing_evidence:concept",
+    ]
+
+    event = event_study_prerequisites(
+        [0.0] * 7,
+        [0.0] * 7,
+        3,
+        {"event_date": "2026-01-01", "source_url": "https://evidence.example", "available_at": "2026-01-02"},
+    )
+    assert event["status"] == "association-only"
+    assert event["causal_ready"] is False
+    assert event["causal_limitations"] == ["control_group_or_pre_post_outcomes_missing"]
+
+    raw_price_event = event_study_prerequisites(
+        [0.0] * 7,
+        [0.0] * 7,
+        3,
+        {
+            "event_date": "2026-01-01",
+            "source_url": "https://evidence.example",
+            "available_at": "2026-01-02",
+            "price_adjustment": "raw",
+        },
+    )
+    assert raw_price_event["status"] == "ineligible"
+    assert raw_price_event["reasons"] == ["raw_price_series_not_accepted"]

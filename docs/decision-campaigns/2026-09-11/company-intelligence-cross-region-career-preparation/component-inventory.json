@@ -28,7 +28,8 @@
       "symbols": [
         "build_company_timeline",
         "evaluate_ai_event",
-        "evaluate_valuation_scenarios"
+        "evaluate_valuation_scenarios",
+        "validate_series_signature"
       ],
       "imports": [],
       "test_nodes": []
@@ -46,6 +47,7 @@
         "event_study",
         "financial_metrics",
         "future_value_score",
+        "guarded_dcf_scenarios",
         "hiring_change",
         "macro_sensitivity",
         "pct_change",
@@ -101,8 +103,12 @@
       "module": "src.company_intel.career_requirements",
       "path": "src/company_intel/career_requirements.py",
       "symbols": [
+        "RequirementKind",
+        "RequirementNecessity",
         "extract_job_requirements",
         "normalize_requirement",
+        "requirement_dedupe_key",
+        "requirement_overlap",
         "requirement_rows",
         "resolve_country_baseline",
         "verify_requirement"
@@ -161,6 +167,7 @@
         "compact",
         "get_path",
         "json_payload",
+        "preserve_payload",
         "to_number",
         "xml_payload"
       ],
@@ -207,6 +214,7 @@
       "path": "src/company_intel/connectors/registry.py",
       "symbols": [
         "build_probes",
+        "production_adapters",
         "source_health"
       ],
       "imports": [],
@@ -235,6 +243,7 @@
       "symbols": [
         "ExportBundle",
         "_csv_bytes",
+        "_json_export_default",
         "build_export_bundle",
         "build_export_manifest",
         "item_or_empty",
@@ -266,6 +275,7 @@
         "CompanyIdentityResolver.__init__",
         "CompanyIdentityResolver.add",
         "CompanyIdentityResolver.resolve",
+        "CompanyIdentityResolver.resolve_for_join",
         "IdentifierLink",
         "ResolutionResult",
         "explain_resolution",
@@ -297,8 +307,10 @@
         "_mpsv_location",
         "_mpsv_salary_period",
         "_necessity",
+        "_record_verdict",
         "_records",
         "_requirement_matches",
+        "_requirement_verdict",
         "_snapshot",
         "_validate_profile",
         "_value",
@@ -319,15 +331,19 @@
       "path": "src/company_intel/models.py",
       "symbols": [
         "AnalysisEligibility",
+        "AtomicFact",
         "AtomicFieldContract",
         "CandidateMatch",
         "CompanyClassification",
+        "ComparabilitySignature",
+        "ComparabilitySignature.key",
         "HttpResult",
         "Probe",
         "ProviderHealth",
         "RequirementEvidence",
         "RequirementVerification",
         "SearchProfile",
+        "SourceDisposition",
         "SourcePolicy"
       ],
       "imports": [],
@@ -341,6 +357,7 @@
         "AtomicObservationMapper",
         "AtomicObservationMapper.map",
         "NormalizedObservation",
+        "comparability_signature",
         "deduplication_key",
         "normalize_unit"
       ],
@@ -359,11 +376,43 @@
       "test_nodes": []
     },
     {
+      "component_id": "src.company_intel.provider_clusters",
+      "module": "src.company_intel.provider_clusters",
+      "path": "src/company_intel/provider_clusters.py",
+      "symbols": [
+        "OperationSelection",
+        "ProviderCluster",
+        "ProviderDisposition",
+        "_cluster_for_role",
+        "classify_operation",
+        "select_operations"
+      ],
+      "imports": [],
+      "test_nodes": []
+    },
+    {
+      "component_id": "src.company_intel.query_contract",
+      "module": "src.company_intel.query_contract",
+      "path": "src/company_intel/query_contract.py",
+      "symbols": [
+        "AtomicSearchProfile",
+        "ComparabilityPolicy",
+        "FilterVerdict",
+        "UnknownPolicy",
+        "combine_verdicts",
+        "text_verdict"
+      ],
+      "imports": [],
+      "test_nodes": []
+    },
+    {
       "component_id": "src.company_intel.reporting",
       "module": "src.company_intel.reporting",
       "path": "src/company_intel/reporting.py",
       "symbols": [
         "render_export_summary",
+        "render_provider_limitations",
+        "render_verdict_counts",
         "validation_report_ko",
         "write_export_summary",
         "write_validation_report"
@@ -389,6 +438,7 @@
       "path": "src/company_intel/search.py",
       "symbols": [
         "build_company_universe",
+        "candidate_verdict",
         "explain_candidate",
         "rank_candidates",
         "validate_search_profile"
@@ -401,6 +451,8 @@
       "module": "src.company_intel.security",
       "path": "src/company_intel/security.py",
       "symbols": [
+        "ExportFieldPolicy",
+        "drop_restricted_fields",
         "redact_body",
         "redact_url",
         "redact_value",
@@ -431,6 +483,8 @@
       "module": "src.company_intel.validation",
       "path": "src/company_intel/validation.py",
       "symbols": [
+        "SemanticFieldCheck",
+        "SemanticFieldCheck.present",
         "_parse_raw",
         "_provider_error",
         "enumerate_paths",
@@ -455,9 +509,13 @@
         "Warehouse.query_export_bundle",
         "Warehouse.record_classification",
         "Warehouse.record_field_availability",
+        "Warehouse.resolve_current_fact",
         "Warehouse.search_candidates",
+        "Warehouse.store_atomic_fact",
         "Warehouse.store_job_snapshot",
         "Warehouse.store_requirement_evidence",
+        "Warehouse.store_source_snapshot",
+        "Warehouse.store_verdict",
         "Warehouse.upsert_capability",
         "Warehouse.upsert_identity",
         "duckdb_path"
@@ -470,11 +528,13 @@
       "module": "tests.test_analysis_service",
       "path": "tests/test_analysis_service.py",
       "symbols": [
-        "test_point_in_time_and_analysis_limits"
+        "test_point_in_time_and_analysis_limits",
+        "test_raw_market_prices_and_projections_are_rejected_for_evidence_analysis"
       ],
       "imports": [],
       "test_nodes": [
-        "tests/test_analysis_service.py::test_point_in_time_and_analysis_limits"
+        "tests/test_analysis_service.py::test_point_in_time_and_analysis_limits",
+        "tests/test_analysis_service.py::test_raw_market_prices_and_projections_are_rejected_for_evidence_analysis"
       ]
     },
     {
@@ -500,11 +560,13 @@
       "module": "tests.test_career_requirements",
       "path": "tests/test_career_requirements.py",
       "symbols": [
+        "test_license_and_certificate_do_not_share_a_deduplication_key",
         "test_missing_detail_is_unavailable_not_an_invented_certificate",
         "test_required_and_preferred_requirements_remain_distinct"
       ],
       "imports": [],
       "test_nodes": [
+        "tests/test_career_requirements.py::test_license_and_certificate_do_not_share_a_deduplication_key",
         "tests/test_career_requirements.py::test_missing_detail_is_unavailable_not_an_invented_certificate",
         "tests/test_career_requirements.py::test_required_and_preferred_requirements_remain_distinct"
       ]
@@ -516,6 +578,7 @@
       "symbols": [
         "test_ambiguous_identity_is_retained_not_silently_merged",
         "test_analysis_needs_identity_period_unit_and_availability",
+        "test_context_and_proxy_capabilities_are_not_promoted",
         "test_finance_only_company_is_not_promoted_to_correlation_ready",
         "test_warehouse_identity_persistence_uses_the_identity_module_contract"
       ],
@@ -523,8 +586,26 @@
       "test_nodes": [
         "tests/test_classification.py::test_ambiguous_identity_is_retained_not_silently_merged",
         "tests/test_classification.py::test_analysis_needs_identity_period_unit_and_availability",
+        "tests/test_classification.py::test_context_and_proxy_capabilities_are_not_promoted",
         "tests/test_classification.py::test_finance_only_company_is_not_promoted_to_correlation_ready",
         "tests/test_classification.py::test_warehouse_identity_persistence_uses_the_identity_module_contract"
+      ]
+    },
+    {
+      "component_id": "tests.test_cli_workflows",
+      "module": "tests.test_cli_workflows",
+      "path": "tests/test_cli_workflows.py",
+      "symbols": [
+        "_write",
+        "test_cli_and_api_job_profile_use_the_same_domain_fields",
+        "test_job_search_workflow_and_unverifiable_result",
+        "test_screen_and_export_workflow"
+      ],
+      "imports": [],
+      "test_nodes": [
+        "tests/test_cli_workflows.py::test_cli_and_api_job_profile_use_the_same_domain_fields",
+        "tests/test_cli_workflows.py::test_job_search_workflow_and_unverifiable_result",
+        "tests/test_cli_workflows.py::test_screen_and_export_workflow"
       ]
     },
     {
@@ -532,11 +613,15 @@
       "module": "tests.test_exporting",
       "path": "tests/test_exporting.py",
       "symbols": [
-        "test_export_keeps_evidence_and_exclusion_rows_and_sanitizes_cells"
+        "test_export_keeps_evidence_and_exclusion_rows_and_sanitizes_cells",
+        "test_export_separates_unverifiable_and_conflicting_evidence",
+        "test_export_serializes_duckdb_style_datetime_values_to_iso8601"
       ],
       "imports": [],
       "test_nodes": [
-        "tests/test_exporting.py::test_export_keeps_evidence_and_exclusion_rows_and_sanitizes_cells"
+        "tests/test_exporting.py::test_export_keeps_evidence_and_exclusion_rows_and_sanitizes_cells",
+        "tests/test_exporting.py::test_export_separates_unverifiable_and_conflicting_evidence",
+        "tests/test_exporting.py::test_export_serializes_duckdb_style_datetime_values_to_iso8601"
       ]
     },
     {
@@ -545,12 +630,16 @@
       "path": "tests/test_job_search.py",
       "symbols": [
         "test_career_overlap_and_mpsv_structured_requirements",
-        "test_provider_semantics_and_hard_filters"
+        "test_provider_semantics_and_hard_filters",
+        "test_required_language_uses_requirement_evidence_not_posting_language",
+        "test_title_language_and_unknown_requirement_semantics_are_separate"
       ],
       "imports": [],
       "test_nodes": [
         "tests/test_job_search.py::test_career_overlap_and_mpsv_structured_requirements",
-        "tests/test_job_search.py::test_provider_semantics_and_hard_filters"
+        "tests/test_job_search.py::test_provider_semantics_and_hard_filters",
+        "tests/test_job_search.py::test_required_language_uses_requirement_evidence_not_posting_language",
+        "tests/test_job_search.py::test_title_language_and_unknown_requirement_semantics_are_separate"
       ]
     },
     {
@@ -558,12 +647,16 @@
       "module": "tests.test_public_connectors",
       "path": "tests/test_public_connectors.py",
       "symbols": [
+        "test_alio_organization_falls_back_to_display_name_without_claiming_identity",
         "test_http_client_encodes_form_body",
+        "test_normalizer_preserves_all_rows_instead_of_diagnostic_compaction",
         "test_public_korea_probes_use_explicit_namespaces"
       ],
       "imports": [],
       "test_nodes": [
+        "tests/test_public_connectors.py::test_alio_organization_falls_back_to_display_name_without_claiming_identity",
         "tests/test_public_connectors.py::test_http_client_encodes_form_body",
+        "tests/test_public_connectors.py::test_normalizer_preserves_all_rows_instead_of_diagnostic_compaction",
         "tests/test_public_connectors.py::test_public_korea_probes_use_explicit_namespaces"
       ]
     },
@@ -572,10 +665,12 @@
       "module": "tests.test_screening",
       "path": "tests/test_screening.py",
       "symbols": [
+        "test_incompatible_units_and_proxy_metrics_are_not_ranked",
         "test_peer_boundaries_and_coverage"
       ],
       "imports": [],
       "test_nodes": [
+        "tests/test_screening.py::test_incompatible_units_and_proxy_metrics_are_not_ranked",
         "tests/test_screening.py::test_peer_boundaries_and_coverage"
       ]
     },
@@ -584,11 +679,13 @@
       "module": "tests.test_search_profile",
       "path": "tests/test_search_profile.py",
       "symbols": [
+        "test_five_state_filter_combination_preserves_unknown",
         "test_profile_requires_explicit_country_and_goal",
         "test_ranking_preserves_unresolved_identity_as_an_exclusion"
       ],
       "imports": [],
       "test_nodes": [
+        "tests/test_search_profile.py::test_five_state_filter_combination_preserves_unknown",
         "tests/test_search_profile.py::test_profile_requires_explicit_country_and_goal",
         "tests/test_search_profile.py::test_ranking_preserves_unresolved_identity_as_an_exclusion"
       ]
@@ -615,12 +712,32 @@
       "path": "tests/test_source_catalog.py",
       "symbols": [
         "test_activation_never_exposes_a_secret_value",
-        "test_catalog_declares_every_registered_atomic_probe"
+        "test_catalog_declares_every_registered_atomic_probe",
+        "test_provider_cluster_keeps_context_and_proxy_out_of_production",
+        "test_provider_status_keeps_catalog_activation_and_live_probe_result_distinct",
+        "test_sec_placeholder_and_context_sources_are_not_false_green",
+        "test_semantic_field_check_rejects_empty_values"
       ],
       "imports": [],
       "test_nodes": [
         "tests/test_source_catalog.py::test_activation_never_exposes_a_secret_value",
-        "tests/test_source_catalog.py::test_catalog_declares_every_registered_atomic_probe"
+        "tests/test_source_catalog.py::test_catalog_declares_every_registered_atomic_probe",
+        "tests/test_source_catalog.py::test_provider_cluster_keeps_context_and_proxy_out_of_production",
+        "tests/test_source_catalog.py::test_provider_status_keeps_catalog_activation_and_live_probe_result_distinct",
+        "tests/test_source_catalog.py::test_sec_placeholder_and_context_sources_are_not_false_green",
+        "tests/test_source_catalog.py::test_semantic_field_check_rejects_empty_values"
+      ]
+    },
+    {
+      "component_id": "tests.test_warehouse",
+      "module": "tests.test_warehouse",
+      "path": "tests/test_warehouse.py",
+      "symbols": [
+        "test_open_dart_source_identifier_makes_ingested_entity_searchable"
+      ],
+      "imports": [],
+      "test_nodes": [
+        "tests/test_warehouse.py::test_open_dart_source_identifier_makes_ingested_entity_searchable"
       ]
     }
   ]

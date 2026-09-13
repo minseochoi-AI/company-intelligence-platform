@@ -139,18 +139,15 @@
     "tests/test_classification.py (new) — 재무 전용·공고 전용·공공기관 맥락·문서형·상관 불가 fixture 검증"
   ],
   "implementation_change_ids": [
-    "D-01-connector-tests-r2",
-    "D-01-keyed-semantics-r2",
-    "D-01-keyless-semantics-r2",
-    "D-01-lossless-base-r2",
-    "D-01-provider-clusters-r2",
-    "D-02-classification-r2",
-    "D-02-classification-tests-r2",
-    "D-02-identity-r2",
-    "D-02-model-contract-r2",
-    "D-02-normalization-r2",
-    "D-02-schema-r2",
-    "D-02-warehouse-r2"
+    "D-01-field-capability-catalog-r3",
+    "D-01-nested-field-resolution-r3",
+    "D-02-classification-tests-r3",
+    "D-02-facet-catalog-r3",
+    "D-02-facet-tests-r3",
+    "D-02-taxonomy-classification-r3",
+    "D-02-taxonomy-model-r3",
+    "D-02-taxonomy-module-r3",
+    "D-02-taxonomy-tests-r3"
   ],
   "validation_requirements": [
     "동일 원천 레코드 재수집이 source_name·source_record_id·observation_date 기준으로 중복되지 않고 revision/collected 시각만 올바르게 보존되는지 검증한다.",

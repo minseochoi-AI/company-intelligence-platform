@@ -1,0 +1,46 @@
+{
+  "cohort_id": "C-03-evidence-export-delivery",
+  "status": "completed",
+  "changed_paths": [
+    "tests/test_exporting.py",
+    "tests/test_run_manifest.py"
+  ],
+  "commands": [
+    "uv run --cache-dir /tmp/cil-uv-cache --frozen pytest -q tests/test_exporting.py tests/test_run_manifest.py"
+  ],
+  "outcome": "pass",
+  "raw_log_path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/receipts/logs/validation-r3-C-03-evidence-export-delivery-20260913.log",
+  "raw_log_sha256": "5b162b6d675994e885b1d1cf1246a28156ffc21a7ed1a7f816673bad526e8f0f",
+  "first_failure": null,
+  "stdout_tail": null,
+  "stderr_tail": null,
+  "telemetry": {
+    "provider": {
+      "measurement": "instrumented",
+      "invocations": 0,
+      "input_tokens": null,
+      "output_tokens": null
+    },
+    "agent_session": {
+      "measurement": "unavailable-platform",
+      "token_count": null,
+      "tool_output_chars": null
+    }
+  },
+  "provider_guard": {
+    "receipt_path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/receipts/validation-r3-C-03-evidence-export-delivery-20260913.json",
+    "receipt_sha256": "0c7f1b68d514ccf9982b7fa100252a3479e5486bf9fb03fc77b768812e82a651",
+    "scope": "python-tcp-transport-including-loopback",
+    "observed": true,
+    "provider_invocations": 0,
+    "network_attempts": []
+  },
+  "updated_at": "2026-09-13T09:20:49.403448+00:00",
+  "context_packet_id": "company-intelligence-cross-region-career-preparation--C-03-evidence-export-delivery--r3",
+  "context_packet_sha256": "088b91f553349f61fe505d79cec02781d4451c2a92bf8c5ce331812b3e7ca5df",
+  "implementation_plan_id": "company-intelligence-cross-region-career-preparation--C-03-evidence-export-delivery--r3",
+  "implementation_plan_sha256": "fa2933fb85bbcd306c70dfab4f10acc70968bcdcb9adc3bbbaa861a7022b4a8d",
+  "passed_criterion_ids": [
+    "C03-r3-export-lineage-tests"
+  ]
+}

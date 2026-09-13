@@ -1,0 +1,42 @@
+{
+  "contract_version": "campaign-static-implementation-checks-v1",
+  "campaign_id": "company-intelligence-cross-region-career-preparation",
+  "scope_lock_sha256": "56439c3eb2c3d630cc34b2165c149845a04f3a3677c03d39543978b8b9375059",
+  "implementation_result_receipt": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/receipts/post-implementation-results-cli-interactive-r3-20260913.json",
+  "status": "passed-static-only",
+  "checks": [
+    {
+      "name": "scope-lock",
+      "result": "current",
+      "command": "decisionctl.py check-scope --campaign campaign.json --lock scope-lock.json"
+    },
+    {
+      "name": "campaign-result-hash-validator",
+      "result": "VALID",
+      "command": "validate_decision_campaign.py campaign.json --post-implementation-results post-implementation-results-cli-interactive-r3-20260913.json"
+    },
+    {
+      "name": "derived-workbook",
+      "result": "CURRENT",
+      "command": "render_decision_workbook.py campaign.json --check"
+    },
+    {
+      "name": "whitespace-diff",
+      "result": "passed",
+      "command": "git diff --check"
+    },
+    {
+      "name": "python-ast-parse",
+      "result": "STATIC_AST_OK 31",
+      "command": "python3 -B static ast.parse over 31 plan-owned changed Python source and test modules"
+    }
+  ],
+  "not_executed": {
+    "pytest": true,
+    "application_import_or_cli_smoke": true,
+    "provider_api_calls": true,
+    "commit": true,
+    "push": true
+  },
+  "interpretation": "Static checks confirm campaign artifact integrity, whitespace, and Python parseability only. They do not prove runtime behavior, offline tests, provider availability, or CLI/API operation."
+}

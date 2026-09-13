@@ -120,10 +120,8 @@
     "새 timeline 통합 테스트"
   ],
   "implementation_change_ids": [
-    "D-07-analysis-service-r2",
-    "D-07-analysis-service-tests-r2",
-    "D-07-analytics-r2",
-    "D-07-analytics-tests-r2"
+    "D-07-axis-series-timeline-r3",
+    "D-07-timeline-tests-r3"
   ],
   "validation_requirements": [
     "기업·시장·거시 series가 각 원천·단위·관측일·available_at을 보존하는지 확인한다.",

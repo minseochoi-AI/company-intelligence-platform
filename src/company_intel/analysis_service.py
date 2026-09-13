@@ -1,19 +1,69 @@
 from __future__ import annotations
 
+import hashlib
+import json
 from typing import Any
 
 import pandas as pd
 
-from .analytics import dcf_scenarios, difference_in_differences, event_study
+from .analytics import (
+    dcf_scenarios,
+    difference_in_differences,
+    event_study,
+)
+
+SERIES_SIGNATURE_FIELDS = ("series_id", "unit", "currency", "frequency", "adjustment")
+
+
+def _series_signature(row: dict[str, Any]) -> tuple[Any, ...]:
+    return tuple(row.get(field) for field in SERIES_SIGNATURE_FIELDS)
+
+
+def _series_group_id(axis: str, signature: tuple[Any, ...]) -> str:
+    encoded = json.dumps([axis, signature], ensure_ascii=False, default=str, separators=(",", ":"))
+    return f"{axis}:{hashlib.sha256(encoded.encode('utf-8')).hexdigest()[:12]}"
 
 
 def validate_series_signature(rows: list[dict[str, Any]]) -> tuple[bool, str | None]:
     """Time series must share metric, unit, currency, frequency and adjustment."""
-    keys = {
-        (row.get("series_id"), row.get("unit"), row.get("currency"), row.get("frequency"), row.get("adjustment"))
-        for row in rows
-    }
+    keys = {_series_signature(row) for row in rows}
     return (len(keys) <= 1, None if len(keys) <= 1 else "incompatible_series_signature")
+
+
+def timeline_series_groups(rows: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    """Describe compatible series groups without collapsing different axes.
+
+    A financial statement, a market-price series and a macro series normally
+    have different metrics, units and frequencies.  They can be aligned on
+    observation date for display, but are only comparable inside their own
+    ``observation_axis × series signature`` group.
+    """
+    grouped: dict[tuple[str, tuple[Any, ...]], list[dict[str, Any]]] = {}
+    for row in rows:
+        axis = str(row.get("observation_axis") or row.get("axis") or "unknown")
+        key = (axis, _series_signature(row))
+        grouped.setdefault(key, []).append(row)
+    output: list[dict[str, Any]] = []
+    for (axis, signature), group_rows in sorted(
+        grouped.items(), key=lambda item: (item[0][0], tuple(str(value) for value in item[0][1]))
+    ):
+        dates = sorted(
+            str(row["observation_date"])
+            for row in group_rows
+            if row.get("observation_date") is not None
+        )
+        output.append(
+            {
+                "series_group_id": _series_group_id(axis, signature),
+                "observation_axis": axis,
+                "signature": dict(zip(SERIES_SIGNATURE_FIELDS, signature, strict=True)),
+                "row_count": len(group_rows),
+                "first_observation_date": dates[0] if dates else None,
+                "last_observation_date": dates[-1] if dates else None,
+                "comparison_scope": "within_group_only",
+            }
+        )
+    return output
 
 
 def build_company_timeline(
@@ -29,16 +79,37 @@ def build_company_timeline(
             excluded.append({**row, "exclusion_reason": "not_available_as_of"})
             continue
         item = dict(row)
-        item["observation_axis"] = item.get("axis", "unknown")
+        item["observation_axis"] = item.get("axis") or "unknown"
         item["observation_date"] = (
             item.get("observation_date") or item.get("period_end") or item.get("event_date")
         )
+        if not item["observation_date"]:
+            excluded.append({**item, "exclusion_reason": "observation_date_missing"})
+            continue
         accepted.append(item)
-    compatible, reason = validate_series_signature(accepted)
-    if not compatible:
-        excluded.extend({**row, "exclusion_reason": reason} for row in accepted)
-        accepted = []
-    accepted.sort(key=lambda item: (str(item.get("observation_date", "")), str(item.get("available_at", ""))))
+    series_groups = timeline_series_groups(accepted)
+    group_ids = {
+        (
+            group["observation_axis"],
+            tuple(group["signature"].get(field) for field in SERIES_SIGNATURE_FIELDS),
+        ): group["series_group_id"]
+        for group in series_groups
+    }
+    for item in accepted:
+        key = (str(item["observation_axis"]), _series_signature(item))
+        item["series_group_id"] = group_ids[key]
+    accepted.sort(
+        key=lambda item: (
+            str(item.get("observation_date", "")),
+            str(item.get("observation_axis", "")),
+            str(item.get("series_group_id", "")),
+            str(item.get("available_at", "")),
+        )
+    )
+    exclusion_reasons: dict[str, int] = {}
+    for item in excluded:
+        reason = str(item.get("exclusion_reason", "unknown"))
+        exclusion_reasons[reason] = exclusion_reasons.get(reason, 0) + 1
     return {
         "timeline": pd.DataFrame(accepted),
         "exclusions": pd.DataFrame(excluded),
@@ -46,7 +117,21 @@ def build_company_timeline(
             "entity_id": entity_id,
             "as_of": as_of,
             "axes_remain_distinct": True,
-            "warning": "Company, market and macro observations are aligned, not treated as equivalent facts.",
+            "alignment": {
+                "key": "observation_date",
+                "method": "outer-date-alignment",
+                "comparability": "within_axis_and_signature_only",
+            },
+            "series_groups": series_groups,
+            "excluded_count": len(excluded),
+            "exclusions": {
+                "count": len(excluded),
+                "by_reason": dict(sorted(exclusion_reasons.items())),
+            },
+            "warning": (
+                "Company, market and macro observations are date-aligned, "
+                "not treated as equivalent facts."
+            ),
         },
     }
 

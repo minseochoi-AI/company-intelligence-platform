@@ -1,0 +1,119 @@
+{
+  "contract_version": "atomic-json-patch-receipt-v1",
+  "target": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/campaign.json",
+  "outcome": "pass",
+  "before_sha256": "e0cc8f1f9ba12f616f565856e5854f12dede00ebf3de1051e082ba9e6d745b66",
+  "after_sha256": "72cd04bd9eaca4526996e4a6d5071c932db4dc1aba89285664c5a341a52cd610",
+  "proposed_after_sha256": "72cd04bd9eaca4526996e4a6d5071c932db4dc1aba89285664c5a341a52cd610",
+  "operations": [
+    {
+      "op": "test",
+      "path": "/implementation_cohorts/0/implementation_plan_path"
+    },
+    {
+      "op": "test",
+      "path": "/implementation_cohorts/0/implementation_plan_sha256"
+    },
+    {
+      "op": "test",
+      "path": "/implementation_cohorts/1/implementation_plan_path"
+    },
+    {
+      "op": "test",
+      "path": "/implementation_cohorts/1/implementation_plan_sha256"
+    },
+    {
+      "op": "test",
+      "path": "/implementation_cohorts/2/implementation_plan_path"
+    },
+    {
+      "op": "test",
+      "path": "/implementation_cohorts/2/implementation_plan_sha256"
+    },
+    {
+      "op": "test",
+      "path": "/implementation_cohorts/3/implementation_plan_path"
+    },
+    {
+      "op": "test",
+      "path": "/implementation_cohorts/3/implementation_plan_sha256"
+    },
+    {
+      "op": "test",
+      "path": "/implementation_cohorts/4/implementation_plan_path"
+    },
+    {
+      "op": "test",
+      "path": "/implementation_cohorts/4/implementation_plan_sha256"
+    },
+    {
+      "op": "test",
+      "path": "/implementation_cohorts/5/implementation_plan_path"
+    },
+    {
+      "op": "test",
+      "path": "/implementation_cohorts/5/implementation_plan_sha256"
+    },
+    {
+      "op": "test",
+      "path": "/implementation_authorization"
+    },
+    {
+      "op": "replace",
+      "path": "/implementation_cohorts/0/implementation_plan_path"
+    },
+    {
+      "op": "replace",
+      "path": "/implementation_cohorts/0/implementation_plan_sha256"
+    },
+    {
+      "op": "replace",
+      "path": "/implementation_cohorts/1/implementation_plan_path"
+    },
+    {
+      "op": "replace",
+      "path": "/implementation_cohorts/1/implementation_plan_sha256"
+    },
+    {
+      "op": "replace",
+      "path": "/implementation_cohorts/2/implementation_plan_path"
+    },
+    {
+      "op": "replace",
+      "path": "/implementation_cohorts/2/implementation_plan_sha256"
+    },
+    {
+      "op": "replace",
+      "path": "/implementation_cohorts/3/implementation_plan_path"
+    },
+    {
+      "op": "replace",
+      "path": "/implementation_cohorts/3/implementation_plan_sha256"
+    },
+    {
+      "op": "replace",
+      "path": "/implementation_cohorts/4/implementation_plan_path"
+    },
+    {
+      "op": "replace",
+      "path": "/implementation_cohorts/4/implementation_plan_sha256"
+    },
+    {
+      "op": "replace",
+      "path": "/implementation_cohorts/5/implementation_plan_path"
+    },
+    {
+      "op": "replace",
+      "path": "/implementation_cohorts/5/implementation_plan_sha256"
+    },
+    {
+      "op": "replace",
+      "path": "/implementation_authorization"
+    }
+  ],
+  "backup": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/.mutation-journal/preimages/sha256-e0cc8f1f9ba12f616f565856e5854f12dede00ebf3de1051e082ba9e6d745b66.json",
+  "journal": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/.mutation-journal/mutations/26ecdc572ec1e629c5f97aa2f2c81b843d98d3059eead71b45a1422cbe625f5a.json",
+  "mutation_id": "bind-r3-cli-interactive-20260913",
+  "validators": [],
+  "completed_at": "2026-09-13T08:17:32.700547+00:00"
+}

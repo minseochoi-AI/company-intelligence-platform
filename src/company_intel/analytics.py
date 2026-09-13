@@ -3,7 +3,7 @@ from __future__ import annotations
 import math
 import statistics
 from collections import defaultdict
-from collections.abc import Iterable
+from collections.abc import Iterable, Mapping
 from dataclasses import asdict, dataclass
 from typing import Any
 
@@ -308,6 +308,127 @@ def guarded_dcf_scenarios(revenue: float | None, net_debt: float | None, shares:
     if not evidence_complete or None in {revenue, net_debt, shares}:
         return {"status": "unavailable", "reason": "actual_period_unit_currency_evidence_required"}
     return {"status": "scenario-only", "result": dcf_scenarios(float(revenue), float(net_debt), float(shares), years=years)}
+
+
+VALUATION_EVIDENCE_FIELDS = (
+    "source_url",
+    "available_at",
+    "unit",
+    "currency",
+    "period",
+    "concept",
+)
+
+
+def _finite_number(value: Any) -> bool:
+    try:
+        return math.isfinite(float(value))
+    except (TypeError, ValueError):
+        return False
+
+
+def valuation_prerequisites(
+    revenue: float | None,
+    net_debt: float | None,
+    shares: float | None,
+    evidence: Mapping[str, Any] | None = None,
+) -> dict[str, Any]:
+    """Explain whether an evidence-bound valuation scenario can be calculated.
+
+    This is a readiness contract, not a valuation calculator.  It deliberately
+    separates a missing input from a missing fact lineage so the interactive
+    CLI can disable only the unsupported step and explain why.
+    """
+    evidence = evidence or {}
+    values = {"revenue": revenue, "net_debt": net_debt, "shares": shares}
+    missing_inputs = [name for name, value in values.items() if value is None]
+    invalid_inputs = [
+        name for name, value in values.items() if value is not None and not _finite_number(value)
+    ]
+    missing_evidence = [name for name in VALUATION_EVIDENCE_FIELDS if not evidence.get(name)]
+    observation_kind = evidence.get("observation_kind")
+    actual_observation_required = observation_kind not in {None, "actual"}
+    reasons = [f"missing_input:{name}" for name in missing_inputs]
+    reasons.extend(f"invalid_input:{name}" for name in invalid_inputs)
+    reasons.extend(f"missing_evidence:{name}" for name in missing_evidence)
+    if actual_observation_required:
+        reasons.append("actual_observation_required")
+    return {
+        "status": "ready" if not reasons else "unavailable",
+        "reasons": reasons,
+        "missing_inputs": missing_inputs,
+        "invalid_inputs": invalid_inputs,
+        "missing_evidence": missing_evidence,
+        "required_inputs": list(values),
+        "required_evidence": list(VALUATION_EVIDENCE_FIELDS),
+        "actual_observation_required": actual_observation_required,
+        "warning": "A ready scenario remains assumption-bound and is not a forecast or price target.",
+    }
+
+
+def event_study_prerequisites(
+    asset_returns: Iterable[float],
+    benchmark_returns: Iterable[float],
+    event_index: int,
+    event_evidence: Mapping[str, Any] | None,
+    treated_pre: Iterable[float] | None = None,
+    treated_post: Iterable[float] | None = None,
+    control_pre: Iterable[float] | None = None,
+    control_post: Iterable[float] | None = None,
+) -> dict[str, Any]:
+    """Explain event-study readiness without upgrading association to causality."""
+    asset = list(asset_returns)
+    benchmark = list(benchmark_returns)
+    evidence = event_evidence or {}
+    missing_evidence = [
+        name for name in ("event_date", "source_url", "available_at") if not evidence.get(name)
+    ]
+    reasons = [f"missing_evidence:{name}" for name in missing_evidence]
+    if evidence.get("price_adjustment") == "raw":
+        reasons.append("raw_price_series_not_accepted")
+    if len(asset) != len(benchmark) or len(asset) < 7:
+        reasons.append("insufficient_or_unaligned_return_series")
+    if not isinstance(event_index, int) or event_index < 0 or event_index >= len(asset):
+        reasons.append("event_index_out_of_range")
+
+    did_inputs = (treated_pre, treated_post, control_pre, control_post)
+    did_series = [list(values) if values is not None else [] for values in did_inputs]
+    control_complete = all(did_series) and bool(evidence.get("control_signature"))
+    if missing_evidence:
+        status = "unavailable"
+    elif {
+        "raw_price_series_not_accepted",
+        "insufficient_or_unaligned_return_series",
+        "event_index_out_of_range",
+    } & set(reasons):
+        status = "ineligible"
+    else:
+        status = "association-only"
+
+    causal_limitations = (
+        ["parallel_pre_trends_not_established", "simultaneous_shocks_not_ruled_out"]
+        if control_complete
+        else ["control_group_or_pre_post_outcomes_missing"]
+    )
+    return {
+        "status": status,
+        "reasons": reasons,
+        "missing_evidence": missing_evidence,
+        "return_series": {
+            "asset_observations": len(asset),
+            "benchmark_observations": len(benchmark),
+            "aligned": len(asset) == len(benchmark),
+            "minimum_observations": 7,
+        },
+        "event_index": event_index,
+        "event_study_ready": status == "association-only",
+        "did_inputs_present": control_complete,
+        "causal_ready": False,
+        "causal_limitations": causal_limitations,
+        "warning": (
+            "Event-study outputs describe association; control data alone does not establish causality."
+        ),
+    }
 
 
 DEFAULT_SCORE_WEIGHTS = {

@@ -1,0 +1,116 @@
+{
+  "contract_version": "campaign-post-implementation-results-v1",
+  "campaign_id": "company-intelligence-cross-region-career-preparation",
+  "recorded_at": "2026-09-13T08:45:00+00:00",
+  "implementation_status": "implemented-not-verified",
+  "scope_lock_path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/scope-lock.json",
+  "scope_lock_sha256": "56439c3eb2c3d630cc34b2165c149845a04f3a3677c03d39543978b8b9375059",
+  "authorization_receipt": {
+    "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/receipts/authorize-cli-interactive-r3-before-tests-20260913.json",
+    "sha256": "13475fa3bd3facd7da2a9ebd1457d13910594b51aad7ed04688d60d9a8d8273d",
+    "stop_before_validation": true,
+    "external_actions_authorized": false
+  },
+  "execution_boundary": {
+    "pytest": "not-run-by-user-request",
+    "provider_calls": "not-run-by-user-request",
+    "commit": "not-run-by-user-request",
+    "push": "not-run-by-user-request"
+  },
+  "cohorts": [
+    {
+      "cohort_id": "C-01-source-identity-foundation",
+      "plan_id": "company-intelligence-cross-region-career-preparation--C-01-source-identity-foundation--r3",
+      "plan_sha256": "29b89c280e2598784e20d9ef213f83212b4cc62787e85e93fa0be336777cfd88",
+      "context_packet_path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/context-packets/C-01-source-identity-foundation-r3.json",
+      "context_packet_sha256": "7f3fe344358072abf2ba0fc3fca6764dc79955f17a37c742cf1fb6405e67ad56",
+      "status": "implemented-not-verified",
+      "operations": [
+        {"path": "src/company_intel/models.py", "result_hash": "sha256:bea49ec9b53f122cb45f54918210d29c01c8c962b3aaa6710ca1cbf6b99f24f0"},
+        {"path": "src/company_intel/classification.py", "result_hash": "sha256:0c145eed1c441a62369b28ef8a8fd81423ea8358e2d8e2a2ab56dc919e4fb428"},
+        {"path": "src/company_intel/normalization.py", "result_hash": "sha256:e37bc2ef638d535a4265031cc652403883fe1798bb9d95f11188cfdf369fbaa0"},
+        {"path": "src/company_intel/source_catalog.py", "result_hash": "sha256:fc1def39b12c5c5297d41e004ecade09f0d91a0dd3bd5f6fe5cd34598a18c3d7"},
+        {"path": "src/company_intel/taxonomy.py", "result_hash": "sha256:6e3631645577f727e6cc158c2e5a3858a1e6050c24ec705670654edce940b401"},
+        {"path": "src/company_intel/facets.py", "result_hash": "sha256:72fd3f3707d831672b9a08eeef0e2cbaf6f99b6b7b500d6ba6c102f5bbe8a611"},
+        {"path": "tests/test_classification.py", "result_hash": "sha256:a187d876fbf188010149c20fd62ed91dc641363fdb277ee3959afc7ecf78c2b0"},
+        {"path": "tests/test_taxonomy.py", "result_hash": "sha256:9399e350d9bf1494f84f25183eac4c18c924dc6e6e0f15c11bc5c54b592d5870"},
+        {"path": "tests/test_facets.py", "result_hash": "sha256:ca066bc3e245b05dc9db3657e3996a83ea9cea22328c3d61c449017f14e097c1"}
+      ]
+    },
+    {
+      "cohort_id": "C-02-search-requirement-evidence",
+      "plan_id": "company-intelligence-cross-region-career-preparation--C-02-search-requirement-evidence--r3",
+      "plan_sha256": "c988fec11105b80a25a48e8bc881c8f98b26f9b2f14580d61c95637faf47d59c",
+      "context_packet_path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/context-packets/C-02-search-requirement-evidence-r3.json",
+      "context_packet_sha256": "c544a2291eebc94c1112486b8119f9c7d39ef0c45f665659f540a2b35f713cb3",
+      "status": "implemented-not-verified",
+      "operations": [
+        {"path": "src/company_intel/query_contract.py", "result_hash": "sha256:0efef6245a0de8e7fa33c75a1ea561946159a9cd6e85fe99ec15a22c37470d1a"},
+        {"path": "src/company_intel/search.py", "result_hash": "sha256:6864c22a25119686b6f8908f5f9c4ce50534099e2dd99336c9b0c5c0ebce7a09"},
+        {"path": "tests/test_search_profile.py", "result_hash": "sha256:c4dd1f885eeb8a3cb9b60c350655c04b3e68b796301910780a253365f3746891"},
+        {"path": "tests/test_query_contract.py", "result_hash": "sha256:67d25951197061989341f7b692a809fea4c2bbf0c55fce460a2041781a5890db"}
+      ]
+    },
+    {
+      "cohort_id": "C-03-evidence-export-delivery",
+      "plan_id": "company-intelligence-cross-region-career-preparation--C-03-evidence-export-delivery--r3",
+      "plan_sha256": "fa2933fb85bbcd306c70dfab4f10acc70968bcdcb9adc3bbbaa861a7022b4a8d",
+      "context_packet_path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/context-packets/C-03-evidence-export-delivery-r3.json",
+      "context_packet_sha256": "088b91f553349f61fe505d79cec02781d4451c2a92bf8c5ce331812b3e7ca5df",
+      "status": "implemented-not-verified",
+      "operations": [
+        {"path": "src/company_intel/run_manifest.py", "result_hash": "sha256:473b7746813bdf725f21b6f65f2a6a63599d56ed9fc8e44e8d59e30e68f4dd87"},
+        {"path": "src/company_intel/exporting.py", "result_hash": "sha256:cb3cd5c8921995d911e66385839ffea17267818ae9964abd6443bc0d9a4fa6cb"},
+        {"path": "src/company_intel/reporting.py", "result_hash": "sha256:5038b61a812e6676da5f93fd617e9c901ccead12b2c0fe86cc7a77f36bf0ad8b"},
+        {"path": "tests/test_exporting.py", "result_hash": "sha256:7c43e347af8550894b713854e742ca84a9834f2a5a477c429fca32cb9cfe6cad"},
+        {"path": "tests/test_run_manifest.py", "result_hash": "sha256:257dffcacf94255b7a8c6d320dfacbda088aab66fcdbb60fe8060ae6b14bcf9e"}
+      ]
+    },
+    {
+      "cohort_id": "C-04-peer-screener-ranking",
+      "plan_id": "company-intelligence-cross-region-career-preparation--C-04-peer-screener-ranking--r3",
+      "plan_sha256": "a70a138b32038c0570d6c96466fdef0343448aadc583d4fb32b6bf68f733564c",
+      "context_packet_path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/context-packets/C-04-peer-screener-ranking-r3.json",
+      "context_packet_sha256": "9a22f5e68ac3d652a014c33925016c2d3cf00165bc2e6bd3f6f73ae0924c04ef",
+      "status": "implemented-not-verified",
+      "operations": [
+        {"path": "src/company_intel/screening.py", "result_hash": "sha256:0ab8563872c8907ea2a6770d6306e347c9546bc3894122866893d2e914361d2a"},
+        {"path": "tests/test_screening.py", "result_hash": "sha256:9171c7aa28226f53c951249c74906779f615ea526dc369768a2d37c1807e8c0b"}
+      ]
+    },
+    {
+      "cohort_id": "C-05-timeline-valuation-event-analysis",
+      "plan_id": "company-intelligence-cross-region-career-preparation--C-05-timeline-valuation-event-analysis--r3",
+      "plan_sha256": "0628be1faaa8c4b7cff99ad5e4a818848dd85d24d9e045a2d5bdb322cc1f88da",
+      "context_packet_path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/context-packets/C-05-timeline-valuation-event-analysis-r3.json",
+      "context_packet_sha256": "d7dc311e718c3e2c11dde3c208026e531d009997601adc7d0aad409833d369f8",
+      "status": "implemented-not-verified",
+      "operations": [
+        {"path": "src/company_intel/analysis_service.py", "result_hash": "sha256:cdbb79e1222ce4a7a1e5d90ca846659378363a251288a08d10f1e33a6d4eb4ad"},
+        {"path": "src/company_intel/analytics.py", "result_hash": "sha256:2600f9606bf74be060b0af2878cda3769f4c65f0ad0db463fc4f57556b6e19ac"},
+        {"path": "tests/test_analysis_service.py", "result_hash": "sha256:59c7893c0c7163ea2b39f088f1f57030b06c5008e1cfd9e77d01a05ef63187da"},
+        {"path": "tests/test_analytics.py", "result_hash": "sha256:eaa89ab061fc164c0ea839bfb695201e8023cee7539b3b30b3ad9a5c62dd99dc"}
+      ]
+    },
+    {
+      "cohort_id": "C-06-job-availability-filtered-discovery",
+      "plan_id": "company-intelligence-cross-region-career-preparation--C-06-job-availability-filtered-discovery--r3",
+      "plan_sha256": "aa1c4aa49fbcd3fe2e05a233c789b6b3588d3cc5d9588476aaec26c301ea8606",
+      "context_packet_path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/context-packets/C-06-job-availability-filtered-discovery-r3.json",
+      "context_packet_sha256": "cb1f78d6900b7d6e31d4b1070a8927de394b64aae78b7df0c14ae27590a42c4f",
+      "status": "implemented-not-verified",
+      "operations": [
+        {"path": "src/company_intel/job_search.py", "result_hash": "sha256:dc859e7af8de87c462772b38b8230b076e4e322d3579592ea02fb8955368f808"},
+        {"path": "src/company_intel/interactive.py", "result_hash": "sha256:1195b3136a5e06d2376cacfbfe0657ea9bd3beabc8ce631f59515ff857f5e585"},
+        {"path": "src/company_intel/cli.py", "result_hash": "sha256:7ddae6fad260be564ef5b3264a962d2a763c1dcc7f32e89dd7dcec39b53c15ac"},
+        {"path": "src/company_intel/api.py", "result_hash": "sha256:62a5c8f5716eb0c0e5bb566ddfebc01e2043c67b748fe5f6ab71167f0259a0bf"},
+        {"path": "tests/test_job_search.py", "result_hash": "sha256:7e577ff99fe591caf5773c4aeede07286364faa4a3cf0d6c2a675e1a9d2a0050"},
+        {"path": "tests/test_cli_workflows.py", "result_hash": "sha256:3ee390b6662e45ac9b298fb990ac679f9003b75484b3bba56b3f70f9a5b843b8"},
+        {"path": "tests/test_interactive.py", "result_hash": "sha256:e585cfefb6a7ebe3335c751d27e824877236b461603cfc05ba53d36395ecbe42"},
+        {"path": "README.md", "result_hash": "sha256:d12a849edf151d1cdd2e3e8673ac574cb780b2c8bafba0250034ffe92ae19733"},
+        {"path": "IMPLEMENTATION_REPORT_KO.md", "result_hash": "sha256:5df9138933bed42bb0497405953da24555cddfa2650cc34cf512572704e51342"},
+        {"path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/atomic-api-compatibility-report-2026-09-11.md", "result_hash": "sha256:41a56acf2148b2f37a6c55fabb116b65ee0cc0b6d1f89615159fe70ad6287380"}
+      ]
+    }
+  ]
+}

@@ -83,6 +83,66 @@ class CompanyClassification:
     capabilities: dict[str, str]
     analysis_eligibility: AnalysisEligibility
     classification_reasons: tuple[str, ...]
+    taxonomy_facts: tuple["TaxonomyFact", ...] = ()
+
+
+@dataclass(frozen=True)
+class TaxonomyFact:
+    """A provider-native company or posting classification observation.
+
+    A taxonomy fact deliberately carries both its semantic axis and its
+    provider namespace.  For example, an ARES ``pravniForma`` code and a
+    GLEIF legal-form identifier may both concern a legal form, but their codes
+    are not interchangeable.  Consumers may filter inside a namespace only
+    when ``filterability`` permits it; they must not use this object to infer
+    ownership, a market listing, or a cross-provider identity match.
+    """
+
+    semantic_field: str
+    value: str
+    namespace: str
+    provider: str
+    raw_field: str
+    raw_value: Any
+    entity_id: str | None = None
+    source_record_id: str | None = None
+    evidence_status: str = "observed"
+    filterability: str = "filterable"
+    sortability: str = "not_sortable"
+
+
+@dataclass(frozen=True)
+class FacetAvailability:
+    """Whether a semantic field can be offered by a saved-snapshot facet UI."""
+
+    semantic_field: str
+    scope: str
+    filterability: str
+    sortability: str
+    record_count: int
+    coverage_ratio: float
+    evidence_status: str
+    providers: tuple[str, ...] = ()
+    unavailable_reason: str | None = None
+
+    @property
+    def selectable(self) -> bool:
+        return self.filterability == "filterable" and self.unavailable_reason is None
+
+    def as_dict(self) -> dict[str, Any]:
+        return {
+            "semantic_field": self.semantic_field,
+            "scope": self.scope,
+            "filterability": self.filterability.replace("_", "-"),
+            "sortability": self.sortability,
+            "record_count": self.record_count,
+            "coverage_ratio": self.coverage_ratio,
+            "evidence_status": self.evidence_status,
+            "provider": list(self.providers),
+            "providers": list(self.providers),
+            "unavailable_reason": self.unavailable_reason,
+            "selectable": self.selectable,
+        }
 
 
 @dataclass(frozen=True)

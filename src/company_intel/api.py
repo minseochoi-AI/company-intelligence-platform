@@ -14,15 +14,19 @@ from .analytics import (
     dcf_scenarios,
     difference_in_differences,
     event_study,
+    event_study_prerequisites,
     future_value_score,
     rank_companies,
+    valuation_prerequisites,
 )
 from .config import Settings
 from .exporting import build_export_bundle
-from .job_search import JobSearchProfile, search_job_dataframes
-from .models import SearchProfile
+from .facets import build_job_facets
+from .job_search import JobSearchProfile, normalize_provider_payloads, search_job_dataframes
+from .query_contract import company_search_profile_from_mapping
+from .run_manifest import build_run_manifest
 from .screening import ScreenerProfile, screen_companies
-from .search import rank_candidates, validate_search_profile
+from .search import explain_company_evaluation, rank_candidate_evaluations, rank_candidates, validate_search_profile
 from .warehouse import Warehouse
 
 app = FastAPI(title="Company Intelligence API", version="0.1.0")
@@ -62,19 +66,29 @@ class FutureScoreRequest(BaseModel):
 
 class SearchProfileRequest(BaseModel):
     countries: list[str]
-    job_keywords: list[str]
+    job_keywords: list[str] = Field(default_factory=list)
     industries: list[str] = Field(default_factory=list)
     required_capabilities: list[str] = Field(default_factory=list)
     languages: list[str] = Field(default_factory=list)
     employment_types: list[str] = Field(default_factory=list)
     country_allocation: dict[str, int] = Field(default_factory=dict)
+    ownership_sectors: list[str] = Field(default_factory=list)
+    legal_forms: list[str] = Field(default_factory=list)
+    business_activities: list[str] = Field(default_factory=list)
+    market_statuses: list[str] = Field(default_factory=list)
+    public_institution_types: list[str] = Field(default_factory=list)
+    entity_categories: list[str] = Field(default_factory=list)
+    source_operations: list[str] = Field(default_factory=list)
+    providers: list[str] = Field(default_factory=list)
+    semantic_filters: dict[str, list[str]] = Field(default_factory=dict)
+    field_filters: list[dict[str, Any]] = Field(default_factory=list)
+    require_resolved_identity: bool = True
+    unknown_policy: str = "report"
 
-    def to_domain(self) -> SearchProfile:
-        return SearchProfile(
-            countries=tuple(self.countries), job_keywords=tuple(self.job_keywords), industries=tuple(self.industries),
-            required_capabilities=tuple(self.required_capabilities), languages=tuple(self.languages),
-            employment_types=tuple(self.employment_types), country_allocation=self.country_allocation,
-        )
+    def to_domain(self):
+        """Use the same namespaced semantic contract as ``company-search``."""
+
+        return company_search_profile_from_mapping(self.model_dump())
 
 
 class ExportRequest(BaseModel):
@@ -90,7 +104,11 @@ class JobSearchRequest(BaseModel):
     locations: list[str] = Field(default_factory=list)
     workplace_types: list[str] = Field(default_factory=list)
     employment_types: list[str] = Field(default_factory=list)
+    # Legacy ``languages`` means a posting display language.  It is distinct
+    # from ``required_languages``, which means a candidate requirement.
     languages: list[str] = Field(default_factory=list)
+    posting_languages: list[str] = Field(default_factory=list)
+    business_units: list[str] = Field(default_factory=list)
     industries: list[str] = Field(default_factory=list)
     company_types: list[str] = Field(default_factory=list)
     minimum_salary_floor: float | None = None
@@ -110,7 +128,7 @@ class JobSearchRequest(BaseModel):
         values = self.model_dump(exclude={"payloads"})
         for key in (
             "countries", "job_keywords", "occupations", "locations", "workplace_types",
-            "employment_types", "languages", "industries", "company_types",
+            "employment_types", "languages", "posting_languages", "business_units", "industries", "company_types",
             "required_requirement_terms", "preferred_requirement_terms", "required_languages",
         ):
             values[key] = tuple(values[key])
@@ -126,6 +144,8 @@ class ScreenerRequest(BaseModel):
     directions: dict[str, bool] = Field(default_factory=dict)
     as_of: str | None = None
     minimum_peer_size: int = 2
+    comparability_group: str | None = None
+    require_complete_signature: bool = True
 
 
 class EvidenceTimelineRequest(BaseModel):
@@ -233,16 +253,48 @@ def company_search(request: SearchProfileRequest) -> dict[str, Any]:
     profile = validate_search_profile(request.to_domain())
     settings = Settings.from_env(Path.cwd())
     try:
-        matches = rank_candidates(profile, Warehouse(settings).search_candidates(profile.countries))
+        candidates = Warehouse(settings).search_candidates(profile.countries)
+        evaluations = rank_candidate_evaluations(profile, candidates)
+        matches = rank_candidates(profile, candidates)
     except Exception as error:
         raise HTTPException(503, str(error)) from error
-    return {"profile": request.model_dump(), "candidates": [item.__dict__ for item in matches]}
+    verdict_counts: dict[str, int] = {}
+    for evaluation in evaluations:
+        verdict_counts[evaluation.status] = verdict_counts.get(evaluation.status, 0) + 1
+    return {
+        "profile": request.model_dump(),
+        "candidates": [item.__dict__ for item in matches],
+        "evaluations": [explain_company_evaluation(item) for item in evaluations],
+        "verdict_counts": dict(sorted(verdict_counts.items())),
+    }
 
 
 @app.post("/v1/job-search")
 def job_search(request: JobSearchRequest) -> dict[str, Any]:
     try:
-        return search_job_dataframes(request.payloads, request.to_domain()).as_records()
+        profile = request.to_domain()
+        frames = search_job_dataframes(request.payloads, profile)
+        all_jobs, _requirements, _sources = normalize_provider_payloads(request.payloads)
+        facets = build_job_facets(all_jobs)
+        sources = frames.sources.astype(object).where(frames.sources.notna(), None).to_dict("records")
+        verdict_counts = {
+            "matched": len(frames.jobs),
+            "strict_matches": len(frames.strict_matches),
+            "unverifiable": len(frames.unverifiable_candidates),
+            "no_match": len(frames.no_matches),
+            "conflict": len(frames.conflicts),
+        }
+        return {
+            **frames.as_records(),
+            "facets": facets,
+            "run_manifest": build_run_manifest(
+                "v1/job-search",
+                request.model_dump(exclude={"payloads"}),
+                facets,
+                sources,
+                verdict_counts,
+            ),
+        }
     except ValueError as error:
         raise HTTPException(422, str(error)) from error
 
@@ -254,6 +306,7 @@ def company_screener(request: ScreenerRequest) -> dict[str, Any]:
         ScreenerProfile(
             tuple(request.countries), tuple(request.industries), tuple(request.size_buckets),
             request.metrics, request.directions, request.as_of, request.minimum_peer_size,
+            request.comparability_group, request.require_complete_signature,
         ),
     )
     return {
@@ -275,15 +328,28 @@ def evidence_timeline(request: EvidenceTimelineRequest) -> dict[str, Any]:
 
 @app.post("/v1/analysis/valuation-scenarios")
 def valuation_scenarios(request: ValuationEvidenceRequest) -> dict[str, Any]:
-    return evaluate_valuation_scenarios(
+    prerequisites = valuation_prerequisites(
+        request.revenue, request.net_debt, request.shares, request.evidence
+    )
+    if prerequisites["status"] != "ready":
+        return {"status": prerequisites["status"], "prerequisites": prerequisites}
+    result = evaluate_valuation_scenarios(
         revenue=request.revenue, net_debt=request.net_debt, shares=request.shares,
         evidence=request.evidence, years=request.years,
     )
+    return {**result, "prerequisites": prerequisites}
 
 
 @app.post("/v1/analysis/ai-event")
 def ai_event_analysis(request: AiEventEvidenceRequest) -> dict[str, Any]:
-    return evaluate_ai_event(**request.model_dump())
+    value = request.model_dump()
+    prerequisites = event_study_prerequisites(
+        value["asset_returns"], value["benchmark_returns"], value["event_index"], value["event_evidence"],
+        value.get("treated_pre"), value.get("treated_post"), value.get("control_pre"), value.get("control_post"),
+    )
+    if prerequisites["status"] != "association-only":
+        return {"status": prerequisites["status"], "prerequisites": prerequisites}
+    return {**evaluate_ai_event(**value), "prerequisites": prerequisites}
 
 
 @app.get("/v1/jobs/{provider}/{job_id}/requirements")
@@ -303,7 +369,21 @@ def create_export(request: ExportRequest) -> dict[str, Any]:
     output = settings.artifact_dir / "exports" / run_id
     try:
         data = Warehouse(settings).materialize_export_snapshot(request.entity_ids or None)
-        bundle = build_export_bundle(output, include_xlsx=request.include_xlsx, allowed_root=settings.artifact_dir, **data)
+        run_manifest = build_run_manifest(
+            "v1/exports",
+            {"entity_ids": request.entity_ids},
+            [],
+            data.get("sources", []),
+            {},
+        )
+        bundle = build_export_bundle(
+            output,
+            include_xlsx=request.include_xlsx,
+            allowed_root=settings.artifact_dir,
+            run_manifest=run_manifest,
+            metadata={"api_run_id": run_id},
+            **data,
+        )
     except Exception as error:
         raise HTTPException(503, str(error)) from error
     return {"run_id": run_id, "status": "completed", "output_directory": str(output), "manifest": bundle.manifest}

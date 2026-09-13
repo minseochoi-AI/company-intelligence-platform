@@ -139,10 +139,11 @@
     "tests/test_exporting.py (new) — headers, ordering, links, mandatory evidence, redaction, empty/limited output 검증"
   ],
   "implementation_change_ids": [
-    "D-05-export-tests-r2",
-    "D-05-export-verdicts-r2",
-    "D-05-reporting-r2",
-    "D-05-security-r2"
+    "D-05-export-reporting-r3",
+    "D-05-export-tests-r3",
+    "D-05-export-verdict-tables-r3",
+    "D-05-run-manifest-r3",
+    "D-05-run-manifest-tests-r3"
   ],
   "validation_requirements": [
     "모든 user-facing 회사·공고·요건 행이 source 또는 exclusion record로 추적되는지 검증한다.",

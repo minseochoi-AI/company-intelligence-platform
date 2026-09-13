@@ -1,0 +1,47 @@
+{
+  "cohort_id": "C-01-source-identity-foundation",
+  "status": "completed",
+  "changed_paths": [
+    "tests/test_classification.py",
+    "tests/test_taxonomy.py",
+    "tests/test_facets.py"
+  ],
+  "commands": [
+    "uv run --cache-dir /tmp/cil-uv-cache --frozen pytest -q tests/test_classification.py tests/test_taxonomy.py tests/test_facets.py"
+  ],
+  "outcome": "pass",
+  "raw_log_path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/receipts/logs/validation-r3-C-01-source-identity-foundation-20260913.log",
+  "raw_log_sha256": "f0915cb7084e8e300a024fad9fced93f3d9571c51152c0cdb4328b03516a6846",
+  "first_failure": null,
+  "stdout_tail": null,
+  "stderr_tail": null,
+  "telemetry": {
+    "provider": {
+      "measurement": "instrumented",
+      "invocations": 0,
+      "input_tokens": null,
+      "output_tokens": null
+    },
+    "agent_session": {
+      "measurement": "unavailable-platform",
+      "token_count": null,
+      "tool_output_chars": null
+    }
+  },
+  "provider_guard": {
+    "receipt_path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/receipts/validation-r3-C-01-source-identity-foundation-20260913.json",
+    "receipt_sha256": "0060137c3c1400e90555e39f70e364f219ce408a729c37602f37ed2838865601",
+    "scope": "python-tcp-transport-including-loopback",
+    "observed": true,
+    "provider_invocations": 0,
+    "network_attempts": []
+  },
+  "updated_at": "2026-09-13T09:20:48.567436+00:00",
+  "context_packet_id": "company-intelligence-cross-region-career-preparation--C-01-source-identity-foundation--r3",
+  "context_packet_sha256": "7f3fe344358072abf2ba0fc3fca6764dc79955f17a37c742cf1fb6405e67ad56",
+  "implementation_plan_id": "company-intelligence-cross-region-career-preparation--C-01-source-identity-foundation--r3",
+  "implementation_plan_sha256": "29b89c280e2598784e20d9ef213f83212b4cc62787e85e93fa0be336777cfd88",
+  "passed_criterion_ids": [
+    "C01-r3-taxonomy-facet-tests"
+  ]
+}

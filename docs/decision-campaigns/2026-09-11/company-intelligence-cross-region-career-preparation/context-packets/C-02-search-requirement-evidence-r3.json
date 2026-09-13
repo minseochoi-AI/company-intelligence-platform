@@ -1,0 +1,80 @@
+{
+  "contract_version": "implementation-context-packet-v2",
+  "packet_id": "C-02-search-requirement-evidence-packet-c0e2a5466c70",
+  "topics": [
+    "search-career-evidence"
+  ],
+  "capability_ids": [
+    "atomic-search-profile",
+    "five-state-verdict",
+    "multi-location-search",
+    "requirement-evidence",
+    "unverifiable-candidates"
+  ],
+  "required_refs": [
+    {
+      "ref_id": "semantic-audit-search",
+      "role": "must-read",
+      "path": "/home/ubuntu/.codex/attachments/5602dc52-29e5-4b64-93b8-365e045a58a4/pasted-text.txt",
+      "content_hash": "sha256:b09f773da9535a05e20ea8e6298fb218e227f90c926e34bc191eefa758b74844",
+      "line_range": "250-591",
+      "question": "현재 17개 검색변수의 의미 충돌과 검사 불가 조합은 무엇인가?",
+      "observation_summary": "제목과 본문, 공고언어와 요구언어, 근로시간과 계약기간, 미확인과 불일치를 분리해야 한다."
+    },
+    {
+      "ref_id": "job-search-current",
+      "role": "must-read",
+      "path": "src/company_intel/job_search.py",
+      "content_hash": "sha256:57f7bc4b0114afa46c4410fce2b813835598ab756bb8f0e76fe5bfddd5c7873b",
+      "line_range": "1-617",
+      "question": "현재 provider 정규화와 필터는 어떤 의미 오류를 가진가?",
+      "observation_summary": "본문 전체 keyword, 단일 위치, Permanent→full-time, posting language 필터, unknown hard exclusion이 실제 사용자 의미와 충돌한다."
+    },
+    {
+      "ref_id": "career-requirements-current",
+      "role": "must-read",
+      "path": "src/company_intel/career_requirements.py",
+      "content_hash": "sha256:404dbb872590baa3513a62673e73622a2c19db07eba80b347260f428cfc92a0c",
+      "line_range": "1-260",
+      "question": "요건 근거 수준과 필요도가 어떻게 표현되는가?",
+      "observation_summary": "기본 경계는 있으나 자격증·법정면허·취업자격과 미추출 상태를 더 원자적으로 분리해야 한다."
+    }
+  ],
+  "current_entry_points": [
+    {
+      "kind": "code",
+      "path": "src/company_intel/query_contract.py",
+      "symbol": "AtomicSearchProfile",
+      "source_hash": "sha256:7cb1df9dc4a72c495cd25c76d0ba3d81ff117c729218415c59ba202963e5db5e"
+    },
+    {
+      "kind": "code",
+      "path": "src/company_intel/search.py",
+      "symbol": "CompanySearchProfile",
+      "source_hash": "sha256:770d932ac63391079567fdb54696c1b31f4733d0d7f55d06e99dedab8c960cc4"
+    },
+    {
+      "kind": "test",
+      "path": "tests/test_search_profile.py",
+      "symbol": "test_company_taxonomy_filters",
+      "source_hash": "sha256:d4854042461f3a1e0748db84664e301b99f6533fe0464d821ef1ac492ace9ece"
+    }
+  ],
+  "planned_entry_points": [
+    {
+      "kind": "test",
+      "path": "tests/test_query_contract.py",
+      "symbol": "test_field_filter_verdicts",
+      "change_id": "D-03-query-contract-tests-r3"
+    }
+  ],
+  "external_entry_points": [],
+  "invariants": [
+    "UNKNOWN은 NO_MATCH로 축약하지 않는다.",
+    "직무 제목 검색과 설명문 기술 검색을 분리한다.",
+    "공고언어와 지원자 요구언어를 분리한다.",
+    "급여는 통화·기간·basis·gross/net·지역 tier가 비교 가능할 때만 정렬한다."
+  ],
+  "unresolved_conflicts": [],
+  "resume_digest": "Prepared C-02-search-requirement-evidence from current decision hashes and one global file-ownership graph."
+}

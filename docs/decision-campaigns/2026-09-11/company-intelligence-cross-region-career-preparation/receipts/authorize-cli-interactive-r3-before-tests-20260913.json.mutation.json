@@ -1,0 +1,23 @@
+{
+  "contract_version": "atomic-json-patch-receipt-v1",
+  "target": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/campaign.json",
+  "outcome": "pass",
+  "before_sha256": "9fe46409babca7adbea7620bf818130862b0381d32e8f641548b4f8860d0527e",
+  "after_sha256": "ce9987f24d37e2933fb3a543efb6d700c90167f5038ecaabaacd8e9bf29ca3e4",
+  "proposed_after_sha256": "ce9987f24d37e2933fb3a543efb6d700c90167f5038ecaabaacd8e9bf29ca3e4",
+  "operations": [
+    {
+      "op": "test",
+      "path": "/implementation_authorization"
+    },
+    {
+      "op": "replace",
+      "path": "/implementation_authorization"
+    }
+  ],
+  "backup": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/.mutation-journal/preimages/sha256-9fe46409babca7adbea7620bf818130862b0381d32e8f641548b4f8860d0527e.json",
+  "journal": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/.mutation-journal/mutations/dd720a15ad7469145be73e0d4b380d3e54b32fd10439812e00f827194e0ea1ec.json",
+  "mutation_id": "combined-authorization:company-intelligence-cross-region-career-preparation:9472fccb2303cb15",
+  "validators": [],
+  "completed_at": "2026-09-13T08:19:05.641450+00:00"
+}
