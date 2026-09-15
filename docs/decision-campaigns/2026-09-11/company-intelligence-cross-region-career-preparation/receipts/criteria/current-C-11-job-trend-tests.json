@@ -1,0 +1,11 @@
+{
+  "contract_version": "campaign-attempt-manifest-v1",
+  "campaign_id": "company-intelligence-cross-region-career-preparation",
+  "active": {
+    "C-11-job-trend-series-analysis": {
+      "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/receipts/criteria/attempts/sha256-cb93ff1bde1c3da66ccf3eb741b70c47d93341d84e4998c91661ec50077dbb32.json",
+      "sha256": "cb93ff1bde1c3da66ccf3eb741b70c47d93341d84e4998c91661ec50077dbb32"
+    }
+  },
+  "updated_at": "2026-09-14T14:34:22.377720+00:00"
+}

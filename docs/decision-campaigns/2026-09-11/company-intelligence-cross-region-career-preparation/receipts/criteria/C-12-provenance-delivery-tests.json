@@ -1,0 +1,61 @@
+{
+  "contract_version": "campaign-cohort-result-v1",
+  "campaign_id": "company-intelligence-cross-region-career-preparation",
+  "outcome": "pass",
+  "updated_at": "2026-09-14T14:34:22.438506+00:00",
+  "cohorts": [
+    {
+      "cohort_id": "C-12-selection-provenance-delivery",
+      "status": "completed",
+      "changed_paths": [],
+      "commands": [
+        "uv run --cache-dir /tmp/company-intel-uv-cache-20260914 --frozen pytest tests/test_selection_provenance.py tests/test_run_manifest.py tests/test_exporting.py tests/test_cli_workflows.py -q"
+      ],
+      "outcome": "pass",
+      "raw_log_path": ".runtime/campaign-validation-20260914/C-12-retry1.log",
+      "raw_log_sha256": "5042bd427c94eee8c6529c6f5223294ee274e1f8b59f036bde080b22e6c02de0",
+      "first_failure": null,
+      "stdout_tail": "............. [100%] 13 passed in 0.94s",
+      "stderr_tail": null,
+      "telemetry": {
+        "provider": {
+          "measurement": "not-applicable",
+          "invocations": null,
+          "input_tokens": null,
+          "output_tokens": null
+        },
+        "agent_session": {
+          "measurement": "unavailable-platform",
+          "token_count": null,
+          "tool_output_chars": null
+        }
+      },
+      "provider_guard": null,
+      "updated_at": "2026-09-14T14:34:22.438506+00:00",
+      "context_packet_id": "C-12-selection-provenance-delivery-r1",
+      "context_packet_sha256": "cfa924c7c112014813ecbb944c529f92ab58286ac883d9f4b88260fb200035b5",
+      "implementation_plan_id": "company-intelligence-cross-region-career-preparation--C-12-selection-provenance-delivery--r1",
+      "implementation_plan_sha256": "de4ce2fd771295fb7a85d2720cd7b4f3b460f51807642c504ca31b968b529f1a",
+      "passed_criterion_ids": [
+        "C-12-provenance-delivery-tests"
+      ],
+      "attempt_ref": {
+        "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/receipts/criteria/attempts/sha256-5f9cf96677fb368e53ecbae2fa117d6a47d52319e5af85a1cea831eac9ea8d55.json",
+        "sha256": "5f9cf96677fb368e53ecbae2fa117d6a47d52319e5af85a1cea831eac9ea8d55"
+      }
+    }
+  ],
+  "telemetry": {
+    "provider": {
+      "measurement": "not-applicable",
+      "invocations": null,
+      "input_tokens": null,
+      "output_tokens": null
+    },
+    "agent_session": {
+      "measurement": "unavailable-platform",
+      "token_count": null,
+      "tool_output_chars": null
+    }
+  }
+}

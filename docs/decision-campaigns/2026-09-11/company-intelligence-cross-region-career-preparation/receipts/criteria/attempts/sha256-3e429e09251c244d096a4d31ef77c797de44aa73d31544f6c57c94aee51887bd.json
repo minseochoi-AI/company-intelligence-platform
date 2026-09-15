@@ -1,0 +1,36 @@
+{
+  "cohort_id": "C-10-current-job-search-execution",
+  "status": "completed",
+  "changed_paths": [],
+  "commands": [
+    "uv run --cache-dir /tmp/company-intel-uv-cache-20260914 --frozen pytest tests/test_current_jobs.py tests/test_job_search.py -q"
+  ],
+  "outcome": "pass",
+  "raw_log_path": ".runtime/campaign-validation-20260914/C-10-retry1.log",
+  "raw_log_sha256": "b362ef056d6f4223a2968706879dcd3857ee23f6a5d16e2ebd8cf34153686b97",
+  "first_failure": null,
+  "stdout_tail": "......... [100%] 9 passed in 0.44s",
+  "stderr_tail": null,
+  "telemetry": {
+    "provider": {
+      "measurement": "not-applicable",
+      "invocations": null,
+      "input_tokens": null,
+      "output_tokens": null
+    },
+    "agent_session": {
+      "measurement": "unavailable-platform",
+      "token_count": null,
+      "tool_output_chars": null
+    }
+  },
+  "provider_guard": null,
+  "updated_at": "2026-09-14T14:34:22.308884+00:00",
+  "context_packet_id": "C-10-current-job-search-execution-r1",
+  "context_packet_sha256": "6bb4b00ed0b5cf9c00db6d149a2caf24c1eb5171a6821ecd756820badf74cc49",
+  "implementation_plan_id": "company-intelligence-cross-region-career-preparation--C-10-current-job-search-execution--r1",
+  "implementation_plan_sha256": "137eceba5f6d71fd6d3a3cc1bf085a02a46eeac49d9947e05bfe2638916f7258",
+  "passed_criterion_ids": [
+    "C-10-current-job-tests"
+  ]
+}

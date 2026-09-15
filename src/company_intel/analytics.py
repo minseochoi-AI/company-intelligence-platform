@@ -195,6 +195,26 @@ def hiring_change(snapshots: list[dict[str, Any]]) -> list[dict[str, Any]]:
     return output
 
 
+def series_signature(row: Mapping[str, Any]) -> tuple[str, ...]:
+    """Comparison key for a job trend; dimensions must not be mixed."""
+
+    return tuple(str(row.get(field) or "unknown") for field in (
+        "provider", "country_code", "taxonomy_version", "normalizer_version", "coverage_cohort", "metric", "unit",
+    ))
+
+
+def coverage_break(rows: Iterable[Mapping[str, Any]]) -> str | None:
+    signatures = {series_signature(row) for row in rows}
+    return None if len(signatures) <= 1 else "coverage_or_version_break"
+
+
+def trend_comparison_groups(rows: Iterable[Mapping[str, Any]]) -> dict[tuple[str, ...], list[dict[str, Any]]]:
+    groups: dict[tuple[str, ...], list[dict[str, Any]]] = defaultdict(list)
+    for row in rows:
+        groups[series_signature(row)].append(dict(row))
+    return {key: sorted(value, key=lambda item: str(item.get("collected_at") or item.get("snapshot_date") or "")) for key, value in groups.items()}
+
+
 def event_study(
     asset_returns: list[float],
     benchmark_returns: list[float],

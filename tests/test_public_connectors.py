@@ -1,7 +1,7 @@
 from company_intel.config import Settings
 from company_intel.connectors import build_probes
-from company_intel.connectors.keyed import alio_context_evidence
-from company_intel.connectors.keyless import _select
+from company_intel.connectors.keyed import MPMPublicEmploymentConnector, alio_context_evidence
+from company_intel.connectors.keyless import MPSVVacancyConnector, _select
 from company_intel.http import HttpClient
 from company_intel.models import Probe
 
@@ -96,3 +96,10 @@ def test_normalizer_preserves_all_rows_instead_of_diagnostic_compaction():
     normalizer = _select({"rows": "rows"})
     rows = [{"id": number, "nested": {"value": number}} for number in range(9)]
     assert normalizer(("{\"rows\": " + __import__("json").dumps(rows) + "}").encode(), "application/json")["rows"] == rows
+
+
+def test_public_snapshot_connectors_are_bounded_and_preserve_ids():
+    connector = MPMPublicEmploymentConnector(lambda params: {"jobs": [{"posting_id": str(params["pageNo"])}]} if params["pageNo"] == 1 else {"jobs": []})
+    assert connector.collect_snapshot(page_size=1)["record_count"] == 1
+    snapshot = MPSVVacancyConnector().download_snapshot([b'{"polozky":[{"portalId":"x"}]}'], collected_at="2026-09-14T00:00:00Z")
+    assert snapshot["record_count"] == 1

@@ -1,0 +1,146 @@
+{
+  "decision_id": "D-13-public-sector-identity-linkage",
+  "sequence": 13,
+  "unit_id": "public-sector-identity-linkage",
+  "title": "한국·체코 공공부문 기관 identity 결합",
+  "status": "accepted",
+  "question": "공고 원천의 공공 맥락과 기관·법인 원천의 법적 분류를 어떤 identity 근거로 결합하고 미연결을 어떻게 보존할 것인가?",
+  "five_w_one_h": {
+    "who": "공무·공기업·공공기관 채용을 구분해 찾는 사용자",
+    "what": "MPM↔ALIO와 MPSV IČO↔ARES의 근거 기반 기관 identity link",
+    "where": "taxonomy, warehouse entity/link tables, company/job search facets",
+    "when": "공공 영역과 기관 유형·법적 형태를 선택할 때",
+    "why": "공고 source나 기관명만으로 공기업·소유부문을 잘못 확정하지 않기 위해",
+    "how": "공식 식별자를 우선하고 정규화 이름 매칭은 후보로만 두며 축별 evidence status를 유지한다."
+  },
+  "evidence_refs": [
+    {
+      "evidence_id": "E-D13-provider-meaning",
+      "source_type": "local-document",
+      "locator": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/live-category-tree-scope-amendment-2026-09-13.md:9-18",
+      "observed_fact": "MPM은 공공취업 맥락이지만 목록만으로 공기업 법적 형태를 확정할 수 없고 MPSV 공공행정 flag도 국영기업을 뜻하지 않는다. ALIO와 ARES가 각각 보강 원천이다.",
+      "content_hash": "sha256:babe85bec25ea7f1effad8f924071b5977a0359f0377b6b759ed874dea6c17bd",
+      "line_range": "9-18",
+      "question": "공고 provider의 공공 표지가 기업 소유·법적 유형과 같은가?",
+      "observation_summary": "공고 맥락, 공공기관 유형, 법적 형태, 소유부문은 분리하고 identity 근거로만 결합해야 한다."
+    },
+    {
+      "evidence_id": "E-D13-taxonomy-axes",
+      "source_type": "code",
+      "locator": "src/company_intel/taxonomy.py:19-25",
+      "observed_fact": "현재 taxonomy는 ownership_sector, public_institution_type, legal_form, industry, market_status를 독립 축으로 정의한다.",
+      "content_hash": "sha256:6e3631645577f727e6cc158c2e5a3858a1e6050c24ec705670654edce940b401",
+      "line_range": "19-25",
+      "question": "기존 모델이 축 분리를 수용하는가?",
+      "observation_summary": "축은 이미 분리됐지만 공고 고용주와 registry entity의 연결 계약이 부족하다."
+    }
+  ],
+  "facts": [
+    "MPM 목록에는 기관명이 있으나 검증된 ALIO 기관 식별자 연결이 없다.",
+    "MPSV는 고용주 IČO를 제공하므로 ARES exact identity join이 가능하다.",
+    "ARES legal form은 ownership_sector와 동의어가 아니다."
+  ],
+  "conflicts": [
+    "이름 fuzzy match는 coverage를 높이지만 잘못된 기관 결합을 만들 수 있다.",
+    "exact ID만 허용하면 한국 MPM처럼 공통 식별자가 부족한 원천의 미연결 비율이 높다."
+  ],
+  "unimplemented": [
+    "MPM 기관명과 ALIO 기관의 검증·후보·충돌 link 상태가 없다.",
+    "MPSV IČO를 ARES entity와 결합한 검색 facet이 없다.",
+    "공공행정 직무와 공기업/공공기관 법적 유형을 UI에서 분리하지 않는다."
+  ],
+  "options": [
+    {
+      "option_id": "A-collapse-public-signals",
+      "description": "공공 원천 또는 공공행정 flag가 있으면 하나의 public company 유형으로 합친다.",
+      "impact": {
+        "data": "서로 다른 법적 의미가 한 값으로 손실된다.",
+        "schema_api": "단일 company_type으로 단순화한다.",
+        "ux": "필터는 쉽지만 오분류가 발생한다.",
+        "performance": "join이 적어 빠르다.",
+        "cost": "낮다.",
+        "security": "변화 없음.",
+        "migration": "기존 legacy 필드를 유지한다.",
+        "tests": "source flag만 검사한다."
+      },
+      "opportunity_costs": [
+        "공무원·공공행정·공기업을 정확히 구분할 수 없다."
+      ]
+    },
+    {
+      "option_id": "B-evidence-linked-separate-axes",
+      "description": "공고 맥락과 기관 identity를 공식 ID·검증된 link로 결합하고 ownership·institution type·legal form을 독립 축으로 유지한다.",
+      "impact": {
+        "data": "entity_link와 축별 provenance·confidence가 생긴다.",
+        "schema_api": "linked, candidate, unresolved, conflict 상태를 반환한다.",
+        "ux": "확정 공공기관과 공공 맥락 미확인을 따로 선택한다.",
+        "performance": "identity join과 후보 검토가 추가된다.",
+        "cost": "crosswalk와 review workflow가 필요하다.",
+        "security": "공개 기관 식별자만 처리한다.",
+        "migration": "legacy company_type은 표시용으로만 남긴다.",
+        "tests": "exact ID, 이름 후보, 충돌, 미연결을 검사한다."
+      },
+      "opportunity_costs": [
+        "근거가 부족한 기관은 미확인으로 남아 확정 결과 수가 줄어든다."
+      ]
+    }
+  ],
+  "recommended_option_id": "B-evidence-linked-separate-axes",
+  "recommendation_reason": "사용자가 원하는 공무·공공기관·공기업 구분은 공고 맥락 하나가 아니라 기관 identity와 서로 다른 법적 축을 필요로 한다.",
+  "impact": {
+    "data": "provider entity와 canonical entity 간 link evidence를 저장한다.",
+    "schema_api": "공공분류 facet에 namespace와 link_status를 노출한다.",
+    "ux": "확정·후보·미연결을 구분한다.",
+    "performance": "registry enrichment를 snapshot 단계에서 수행한다.",
+    "cost": "한국 이름 후보 검토와 체코 ARES join 유지비가 든다.",
+    "security": "개인 연락처는 identity 데이터에서 제외한다.",
+    "migration": "기존 taxonomy fact를 확장한다.",
+    "tests": "MPM↔ALIO 및 MPSV↔ARES 경계를 fixture로 검증한다."
+  },
+  "opportunity_costs": [
+    "법적 소유 근거가 없는 체코 고용주는 공공행정 flag만 표시되고 국영기업으로 검색되지 않는다."
+  ],
+  "dependencies": [
+    "D-02-company-capability-taxonomy",
+    "D-11-live-source-refresh-snapshot-contract"
+  ],
+  "dependency_waivers": {},
+  "accepted_decision": {
+    "disposition": "ACCEPT",
+    "option_id": "B-evidence-linked-separate-axes",
+    "rule": "사용자가 2026-09-14 요청에서 D-11~D-17의 권장안 B 승인을 명시했다.",
+    "rationale": "공공 원천 맥락과 법적 기관 identity·소유부문을 혼동하지 않고 근거가 있는 축만 결합한다.",
+    "decided_by": "user",
+    "decided_at": "2026-09-14T12:33:36.975023+00:00"
+  },
+  "implementation_targets": [
+    "src/company_intel/taxonomy.py",
+    "src/company_intel/identity.py",
+    "src/company_intel/warehouse.py",
+    "src/company_intel/job_search.py",
+    "tests/test_taxonomy.py",
+    "tests/test_identity.py"
+  ],
+  "validation_requirements": [
+    "MPSV IČO exact join이 ARES legal_form과 CZ-NACE만 보강하고 ownership을 추정하지 않는지 확인한다.",
+    "MPM 이름 후보가 자동 확정되지 않고 link_status로 남는지 확인한다.",
+    "공공행정·공공기관·소유부문 facet이 독립적으로 필터되는지 확인한다."
+  ],
+  "diagram_impacts": [
+    "job employer → identity link → ALIO/ARES taxonomy enrichment 흐름을 추가한다."
+  ],
+  "context_topic_ids": [
+    "public-sector-identity"
+  ],
+  "implementation_change_ids": [
+    "file-change-019d6886b2c8",
+    "file-change-068da823a7c2",
+    "file-change-42c469cea05e",
+    "file-change-46da3fcbd9b9",
+    "file-change-4e2a56e63819",
+    "file-change-79c10e85533c",
+    "file-change-c2dd27200b1c",
+    "file-change-d8bc97a982b6",
+    "file-change-ec13a6928783"
+  ]
+}

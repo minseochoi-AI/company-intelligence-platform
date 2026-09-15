@@ -1,0 +1,142 @@
+{
+  "decision_id": "D-17-selection-session-result-provenance",
+  "sequence": 17,
+  "unit_id": "selection-session-result-provenance",
+  "title": "트리 선택 세션과 결과 provenance·재현성",
+  "status": "accepted",
+  "question": "화살표 트리의 최종 선택을 실제 command/profile, snapshot, 결과·설명·spreadsheet와 어떻게 결속할 것인가?",
+  "five_w_one_h": {
+    "who": "검색 결과를 반복·검토·내보내는 사용자",
+    "what": "selection manifest와 compiled query 및 result provenance",
+    "where": "interactive session, explain, export, run manifest",
+    "when": "최종 실행 전 미리보기부터 결과 저장·재실행까지",
+    "why": "화면 선택과 실제 실행 조건이 달라지거나 결과 개수의 근거가 사라지는 것을 막기 위해",
+    "how": "정규화 선택값·비활성 사유·compiled profile·snapshot hash·result partition hash를 하나의 redacted manifest로 연결한다."
+  },
+  "evidence_refs": [
+    {
+      "evidence_id": "E-D17-delivery-contract",
+      "source_type": "local-document",
+      "locator": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/live-category-tree-scope-amendment-2026-09-13.md:54-63;79-87;103-110",
+      "observed_fact": "트리 최종 leaf는 실행 이력, 포함·제외·미확인·충돌, 원천·수집시각·snapshot hash, CSV/XLSX와 재실행 profile을 제공해야 한다.",
+      "content_hash": "sha256:babe85bec25ea7f1effad8f924071b5977a0359f0377b6b759ed874dea6c17bd",
+      "line_range": "54-63;79-87;103-110",
+      "question": "사용자의 선택부터 spreadsheet까지 동일 조건임을 증명할 수 있는가?",
+      "observation_summary": "선택 manifest와 실행·결과 artifact를 content hash로 연결해야 한다."
+    }
+  ],
+  "facts": [
+    "기존 interactive는 compiled command와 profile을 만들고 export는 manifest hash를 지원한다.",
+    "새 current/trend 모드는 snapshot 및 eligibility 근거가 추가되어 기존 profile만으로 충분하지 않다.",
+    "provider 비밀값과 원문 연락처는 재현 manifest에 포함할 필요가 없다."
+  ],
+  "conflicts": [
+    "모든 원시 응답을 manifest에 넣으면 재현 정보는 많지만 비밀·PII·용량 위험이 커진다.",
+    "결과 파일만 저장하면 가볍지만 어떤 선택과 snapshot으로 생성됐는지 증명하기 어렵다."
+  ],
+  "unimplemented": [
+    "트리의 단계별 선택과 무효화 이력이 최종 run manifest에 없다.",
+    "current/trend eligibility 및 분모가 explain·export와 동일 hash chain에 결속되지 않는다."
+  ],
+  "options": [
+    {
+      "option_id": "A-save-results-only",
+      "description": "최종 CSV/XLSX와 사람이 읽는 조건 설명만 저장한다.",
+      "impact": {
+        "data": "실행 입력과 snapshot lineage가 일부 손실된다.",
+        "schema_api": "변경이 적다.",
+        "ux": "파일은 단순하다.",
+        "performance": "가볍다.",
+        "cost": "낮다.",
+        "security": "저장 정보가 적다.",
+        "migration": "없다.",
+        "tests": "파일 생성만 검사한다."
+      },
+      "opportunity_costs": [
+        "동일 검색을 재현하거나 결과 개수의 기준을 감사하기 어렵다."
+      ]
+    },
+    {
+      "option_id": "B-redacted-hash-linked-run-manifest",
+      "description": "선택값, compiled profile/command, snapshot·taxonomy version, eligibility, 결과 partition과 export를 비밀 제거 hash chain으로 결속한다.",
+      "impact": {
+        "data": "작은 provenance manifest와 artifact hash가 추가된다.",
+        "schema_api": "run_id와 manifest 조회·재실행 계약이 생긴다.",
+        "ux": "실행 전 preview와 실행 후 explain/replay를 제공한다.",
+        "performance": "hash 계산 비용은 제한적이다.",
+        "cost": "manifest schema와 migration 관리가 필요하다.",
+        "security": "API key, 개인 연락처, 불필요 원문은 allowlist 밖으로 제거한다.",
+        "migration": "기존 export manifest를 상위 run manifest에 연결한다.",
+        "tests": "redaction, hash 일치, replay parity, tamper detection을 검사한다."
+      },
+      "opportunity_costs": [
+        "provider 데이터가 변경되면 live 재호출 결과가 같다는 보장은 없고 동일 snapshot 재생만 보장한다."
+      ]
+    }
+  ],
+  "recommended_option_id": "B-redacted-hash-linked-run-manifest",
+  "recommendation_reason": "단계형 UI의 편의성과 CLI/API의 정확한 재현성·근거 추적을 하나의 실행 계약으로 연결한다.",
+  "impact": {
+    "data": "selection, query, snapshot, result, export hash chain을 저장한다.",
+    "schema_api": "run manifest와 replay/explain 입력을 정의한다.",
+    "ux": "최종 실행 전 조건·예상 분모를 확인하고 이후 동일 snapshot으로 재생한다.",
+    "performance": "작은 manifest hash 비용만 추가된다.",
+    "cost": "버전 호환과 보존 정책이 필요하다.",
+    "security": "allowlist redaction과 secret scanning을 적용한다.",
+    "migration": "기존 export manifest·interactive script를 포함한다.",
+    "tests": "화살표/script/API parity와 redaction·tamper 검증을 수행한다."
+  },
+  "opportunity_costs": [
+    "manifest schema가 바뀔 때 backward-compatible reader를 유지해야 한다."
+  ],
+  "dependencies": [
+    "D-05-spreadsheet-output-contract",
+    "D-15-current-job-search-result-contract",
+    "D-16-job-trend-series-analysis-contract"
+  ],
+  "dependency_waivers": {},
+  "accepted_decision": {
+    "disposition": "ACCEPT",
+    "option_id": "B-redacted-hash-linked-run-manifest",
+    "rule": "사용자가 2026-09-14 요청에서 D-11~D-17의 권장안 B 승인을 명시했다.",
+    "rationale": "사용자 선택부터 profile·snapshot·결과·export를 비밀 제거 hash chain으로 재현한다.",
+    "decided_by": "user",
+    "decided_at": "2026-09-14T12:33:36.975023+00:00"
+  },
+  "implementation_targets": [
+    "src/company_intel/interactive.py",
+    "src/company_intel/reporting.py",
+    "src/company_intel/exporting.py",
+    "src/company_intel/cli.py",
+    "src/company_intel/api.py",
+    "tests/test_interactive.py",
+    "tests/test_exporting.py",
+    "tests/test_cli_workflows.py"
+  ],
+  "validation_requirements": [
+    "화살표 선택과 scripted/API 입력이 같은 normalized profile을 생성하는지 확인한다.",
+    "manifest가 secret과 개인 연락처를 포함하지 않는지 확인한다.",
+    "snapshot·결과·export 변조 시 hash 검증이 실패하고 동일 snapshot replay가 같은 결과를 내는지 확인한다."
+  ],
+  "diagram_impacts": [
+    "selection session → compiled query → result partitions → explain/export/replay provenance 흐름을 추가한다."
+  ],
+  "context_topic_ids": [
+    "selection-provenance"
+  ],
+  "implementation_change_ids": [
+    "file-change-36b865e1eb42",
+    "file-change-4b44bff78139",
+    "file-change-71ee7f968ed8",
+    "file-change-82feda91e73b",
+    "file-change-8aba2c25f5c6",
+    "file-change-952daa25d2bf",
+    "file-change-b33563055168",
+    "file-change-b9452dd0ae77",
+    "file-change-c1f9750959a4",
+    "file-change-c46a3c2c1704",
+    "file-change-e633c98e50e6",
+    "file-change-ef7ba7f0a5f0",
+    "file-change-fc01cd5b489d"
+  ]
+}

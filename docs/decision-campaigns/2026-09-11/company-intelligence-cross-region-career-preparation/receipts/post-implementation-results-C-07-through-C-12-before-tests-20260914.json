@@ -1,0 +1,127 @@
+{
+  "contract_version": "campaign-post-implementation-results-v1",
+  "campaign_id": "company-intelligence-cross-region-career-preparation",
+  "recorded_at": "2026-09-14T22:26:15+09:00",
+  "implementation_status": "implemented-not-verified",
+  "scope_lock_path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/scope-lock.json",
+  "scope_lock_sha256": "b01342d1d6756805b15812b1b9a5197be6c122cf2f1a2716b974470aa7d12f28",
+  "authorization_receipt": {
+    "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/receipts/authorize-C-07-through-C-12-implementation-before-tests-20260914.json",
+    "sha256": "557ff79487540a49cb9ce7a89e9d54392d2f3c364f529823028e45051e3f730c",
+    "stop_before_validation": true,
+    "external_actions_authorized": false
+  },
+  "execution_boundary": {
+    "pytest": "not-run-by-user-request",
+    "provider_calls": "not-run-by-user-request",
+    "cli_api_smoke": "not-run-by-user-request",
+    "commit": "not-run-by-user-request",
+    "push": "not-run-by-user-request"
+  },
+  "cohorts": [
+    {
+      "cohort_id": "C-07-live-source-snapshot-foundation",
+      "plan_id": "company-intelligence-cross-region-career-preparation--C-07-live-source-snapshot-foundation--r1",
+      "plan_sha256": "7abde58da2f3fab3b0926c1d7cf98dea64b5840bf61a66b68a2fff62c778fb05",
+      "context_packet_path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/context-packets/C-07-live-source-snapshot-foundation-r1.json",
+      "context_packet_sha256": "3e6dd4ea746839c82843c8d564e0a4a5f61c97ab76c1c71e6e6b605f26665f01",
+      "status": "implemented-not-verified",
+      "operations": [
+        {"path": "config/providers.json", "result_hash": "sha256:7326ce184630938758edeafcf3eeeb272f32246f71da413b60b50bc6ee66b84c"},
+        {"path": "src/company_intel/connectors/keyed.py", "result_hash": "sha256:a23b1ba496c6cd2fff4a27e2b502a08a48c5161298a58a9b13e6306131166d36"},
+        {"path": "src/company_intel/connectors/keyless.py", "result_hash": "sha256:749eb418824d2fd9922893fe677dac630db68d5cd04250f386faba80a4a35e71"},
+        {"path": "src/company_intel/warehouse.py", "result_hash": "sha256:95c785db7818296a46310add6a81dbc47ca224129b3cd0aaeaad74e173cab368"},
+        {"path": "src/company_intel/live_snapshots.py", "result_hash": "sha256:fe72392896767a1e8b522c70cacd132dbbd6fc3e806fa96c4b977f0940a91903"},
+        {"path": "tests/test_live_snapshots.py", "result_hash": "sha256:869147ad40c76c915eb7491961bd23999dc3eb04ec7d7e15df315840f0ab822a"},
+        {"path": "tests/test_public_connectors.py", "result_hash": "sha256:58df3a8076d18483482f5ba564ad8d98592568ec12c51ed07475f007d4a88d27"}
+      ]
+    },
+    {
+      "cohort_id": "C-08-public-sector-identity-linkage",
+      "plan_id": "company-intelligence-cross-region-career-preparation--C-08-public-sector-identity-linkage--r1",
+      "plan_sha256": "2b2e1a84a2848c95a637fcefe1599b7393927da415fe74eecc04fc778885126d",
+      "context_packet_path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/context-packets/C-08-public-sector-identity-linkage-r1.json",
+      "context_packet_sha256": "1a52943f9971aeccf2be32d9892f4332c5f97429284597e730c9952ce52837a2",
+      "status": "implemented-not-verified",
+      "operations": [
+        {"path": "src/company_intel/public_identity.py", "result_hash": "sha256:d14c7d18f629036048eb9d2a80430cee9aae8fc1a55a9628eb61b8326732737c"},
+        {"path": "src/company_intel/taxonomy.py", "result_hash": "sha256:2f6a75b6df2f623889c6c2976f7e4c63ed81bd01f06c522fbe5fa6b25325fbad"},
+        {"path": "src/company_intel/classification.py", "result_hash": "sha256:41c894e19928e59716bf78c7b86a3c938a2593104408637eaf51e31d086a6304"},
+        {"path": "tests/test_public_identity.py", "result_hash": "sha256:9b7b8417410b72f859cd9e2d35e36c8958eea8beefb6d4dbc028a3ffdb67caf8"},
+        {"path": "tests/test_taxonomy.py", "result_hash": "sha256:7888f193fe1aeb85f88d2284a4ff2a4729608c110cb9059013668aa105977146"}
+      ]
+    },
+    {
+      "cohort_id": "C-09-mode-and-tree-query-contract",
+      "plan_id": "company-intelligence-cross-region-career-preparation--C-09-mode-and-tree-query-contract--r1",
+      "plan_sha256": "c6cb23a8d352e66eaee6283d2f664b4095b5502d501539ca5848043c7fb83f18",
+      "context_packet_path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/context-packets/C-09-mode-and-tree-query-contract-r1.json",
+      "context_packet_sha256": "52925e82abebca0919990cf586acf659a97cdf5293d0a602091246019ffc84e4",
+      "status": "implemented-not-verified",
+      "operations": [
+        {"path": "src/company_intel/category_tree.py", "result_hash": "sha256:7529269773128f8d645c693039c15f4b891b026f84627a1de75080b629ce68ec"},
+        {"path": "src/company_intel/interactive.py", "result_hash": "sha256:e5f4181c3271ea3d9a43749943a3252214fc402095d63fb7aed6c6fd6f0c147b"},
+        {"path": "src/company_intel/facets.py", "result_hash": "sha256:dfc309f6331bf01460fe42c0889288ea8eae6a0c309d9b000aa7823fc09535ad"},
+        {"path": "src/company_intel/query_contract.py", "result_hash": "sha256:131eb58008c519d785dcf934c8eb50754a142fc114a3f2662ff8eb14e8a94ed7"},
+        {"path": "tests/test_category_tree.py", "result_hash": "sha256:8ee6d88102c9b48a1254ffaed8da3557bf9984d5a8448726921b50e845acb62d"},
+        {"path": "tests/test_interactive.py", "result_hash": "sha256:737322fac3749f858cbbf4304b5a5e2a4d3ef606e9947e2bc968353dad2be43f"},
+        {"path": "tests/test_facets.py", "result_hash": "sha256:9a9b2d73cf5da9823ecc1e09f97cc9dec6b4dc8f199abf469fddc55240b30562"},
+        {"path": "tests/test_query_contract.py", "result_hash": "sha256:34561b0679868fbbd8ced6b7e64307982c392b808a617d141c4ae8b3b535e58a"}
+      ]
+    },
+    {
+      "cohort_id": "C-10-current-job-search-execution",
+      "plan_id": "company-intelligence-cross-region-career-preparation--C-10-current-job-search-execution--r1",
+      "plan_sha256": "137eceba5f6d71fd6d3a3cc1bf085a02a46eeac49d9947e05bfe2638916f7258",
+      "context_packet_path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/context-packets/C-10-current-job-search-execution-r1.json",
+      "context_packet_sha256": "6bb4b00ed0b5cf9c00db6d149a2caf24c1eb5171a6821ecd756820badf74cc49",
+      "status": "implemented-not-verified",
+      "operations": [
+        {"path": "src/company_intel/current_jobs.py", "result_hash": "sha256:293c061caeee305968868c5f5b55972ad0da1b07acade68003b878116a0ce6b8"},
+        {"path": "src/company_intel/job_search.py", "result_hash": "sha256:97f2ab67c5212321b94bcee0b1a81bcc8196beecadcc0741ba93ec0d79cc0c4e"},
+        {"path": "src/company_intel/search.py", "result_hash": "sha256:74a05b78bc708e2bdaae6330559d8139c752669e4742c76642a254ab2de573ab"},
+        {"path": "tests/test_current_jobs.py", "result_hash": "sha256:e127d094e912b81ed75ddc2b9587d23f039e111c0ae674af703d109072430178"},
+        {"path": "tests/test_job_search.py", "result_hash": "sha256:49bdea76d851fb916a21e1eddba1da4cf04bb3d1b81fea44b4e93ad94c8e0ad6"}
+      ]
+    },
+    {
+      "cohort_id": "C-11-job-trend-series-analysis",
+      "plan_id": "company-intelligence-cross-region-career-preparation--C-11-job-trend-series-analysis--r1",
+      "plan_sha256": "92fdca605dd8438c86be16ee31e171e74e675d7e60e975adcb68b1dfd5974417",
+      "context_packet_path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/context-packets/C-11-job-trend-series-analysis-r1.json",
+      "context_packet_sha256": "9603bb9319f4e71d28dcff10148e2771882cffd46ac8f13e3a2c2dbab6d9214f",
+      "status": "implemented-not-verified",
+      "operations": [
+        {"path": "src/company_intel/job_trends.py", "result_hash": "sha256:6f0626f3cd4afa22e635edeb358418a4b936d415328bdad7b8d3b9b754305294"},
+        {"path": "src/company_intel/analytics.py", "result_hash": "sha256:8b2ce1db9f1e038426b3fa8a8fbd65daa405ddda5295367a6b6f624c0dc71fd0"},
+        {"path": "src/company_intel/analysis_service.py", "result_hash": "sha256:5829f55ba792d74a45e257f78d504fb759d0254a803f55511b115ffd6d31b051"},
+        {"path": "tests/test_job_trends.py", "result_hash": "sha256:6e04ec42a243cd0e1f4b24350226a994dfd2d162d6f19a005883741ede269462"},
+        {"path": "tests/test_analytics.py", "result_hash": "sha256:4210a97992d6c14bb79cf26c4c3e5ed2146d07456bfb6ff0bf17cb17d16f2fb5"},
+        {"path": "tests/test_analysis_service.py", "result_hash": "sha256:e0975a88fb9efd61b0a5dd03d0ddf7ea4d2642e8e295dc07bc8b06d88acd7661"}
+      ]
+    },
+    {
+      "cohort_id": "C-12-selection-provenance-delivery",
+      "plan_id": "company-intelligence-cross-region-career-preparation--C-12-selection-provenance-delivery--r1",
+      "plan_sha256": "de4ce2fd771295fb7a85d2720cd7b4f3b460f51807642c504ca31b968b529f1a",
+      "context_packet_path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/context-packets/C-12-selection-provenance-delivery-r1.json",
+      "context_packet_sha256": "cfa924c7c112014813ecbb944c529f92ab58286ac883d9f4b88260fb200035b5",
+      "status": "implemented-not-verified",
+      "operations": [
+        {"path": "src/company_intel/selection_provenance.py", "result_hash": "sha256:e79a7d9e048d77ccf796c7e684c8ba40dba130219a2756ddeb23e62448d86f72"},
+        {"path": "src/company_intel/run_manifest.py", "result_hash": "sha256:a4acf36a2012583c7837d45377ae58db982827a4a2c585e1c1832ee2425226a6"},
+        {"path": "src/company_intel/exporting.py", "result_hash": "sha256:8864b8e6ace3baa2e5217fecdb76c8577800c97033cfa2ae886df334db31f759"},
+        {"path": "src/company_intel/reporting.py", "result_hash": "sha256:ed4e11ab7a0df44a889af5c378641e953d3bd81c335bf01ef73e56e0a65633dd"},
+        {"path": "src/company_intel/security.py", "result_hash": "sha256:5d3aa92f86cb6a3badf9dfc7b507a092872812f86f0e25586e6d2d61575180d2"},
+        {"path": "src/company_intel/cli.py", "result_hash": "sha256:e72c1419dafbe9a8c4628101518650b8d00e63269b46363f79b16a4be1ed606f"},
+        {"path": "src/company_intel/api.py", "result_hash": "sha256:60cbf8798567dcb8eafc58bca02f4f5966c79dc69eb3e5a9c0f4c8a896b19f0b"},
+        {"path": "tests/test_selection_provenance.py", "result_hash": "sha256:1ec54cb31ba78be23a0ea8b79d4430cea92a8a723976615b8330998510eed878"},
+        {"path": "tests/test_run_manifest.py", "result_hash": "sha256:fc9eea00160ca9b9e4e2a95400df7f4144b6f9b6a9cdd20c001ac8def4fe2746"},
+        {"path": "tests/test_exporting.py", "result_hash": "sha256:578fc47a93aa9f0ce656abfc279fa4162f9622d70109a3e2ccbf1748fd703442"},
+        {"path": "tests/test_cli_workflows.py", "result_hash": "sha256:76086e2399a1763ec07124da7df40f0ffe06412219ba624fe0a68bb47796a33f"},
+        {"path": "README.md", "result_hash": "sha256:823d37fffca574d44133767c6c15e016a7996730743bb26d6acb12ae38809921"},
+        {"path": "IMPLEMENTATION_REPORT_KO.md", "result_hash": "sha256:cbc35f2c10f9a24d053cd4a7bfc716e16662f1b0e296c2189bf0fb5b44a3945d"}
+      ]
+    }
+  ]
+}

@@ -121,10 +121,7 @@
     "tests/test_analytics.py",
     "새 valuation 통합 테스트"
   ],
-  "implementation_change_ids": [
-    "D-08-D09-analysis-prerequisite-r3",
-    "D-08-D09-analytics-tests-r3"
-  ],
+  "implementation_change_ids": [],
   "validation_requirements": [
     "모든 기업별 가치 결과에 scenario assumptions, currency, as_of, source coverage가 있는지 확인한다.",
     "시장·재무 적격성이 없는 기업에 단일 가치 숫자가 반환되지 않는지 확인한다.",

@@ -16,6 +16,7 @@ from .query_contract import FilterVerdict, UnknownPolicy, text_verdict
 JOB_COLUMNS = (
     "provider", "job_id", "entity_id", "company_name", "company_type", "industry_raw",
     "business_unit", "institution_type_code", "institution_type_raw",
+    "identity_link_status", "public_context", "public_institution_type", "legal_form", "ownership_sector",
     "title_raw", "occupation_label", "occupation_code", "occupation_system",
     "country_code", "location_raw", "city", "region", "workplace_type",
     "employment_type", "employment_type_raw", "posting_language", "salary_min",
@@ -66,6 +67,11 @@ class JobSearchProfile:
     required_requirement_terms: tuple[str, ...] = ()
     preferred_requirement_terms: tuple[str, ...] = ()
     required_languages: tuple[str, ...] = ()
+    identity_link_statuses: tuple[str, ...] = ()
+    public_contexts: tuple[str, ...] = ()
+    public_institution_types: tuple[str, ...] = ()
+    legal_forms: tuple[str, ...] = ()
+    ownership_sectors: tuple[str, ...] = ()
     active_only: bool = True
     country_allocation: dict[str, int] = field(default_factory=dict)
     unknown_policy: str = "exclude"
@@ -321,7 +327,7 @@ def normalize_greenhouse_jobs(payload: Any) -> tuple[list[dict[str, Any]], list[
             "provider": "greenhouse", "job_id": job_id, "entity_id": record.get("entity_id"),
             "company_name": company, "company_type": record.get("company_type", "unknown"),
             "industry_raw": record.get("industry"), "business_unit": "; ".join(department_names) or None,
-            "institution_type_code": None, "institution_type_raw": None, "title_raw": record.get("title"),
+            "institution_type_code": None, "institution_type_raw": None, "identity_link_status": "unresolved", "public_context": None, "public_institution_type": None, "legal_form": None, "ownership_sector": None, "title_raw": record.get("title"),
             "occupation_label": record.get("title"), "occupation_code": None, "occupation_system": "title-only",
             "country_code": record.get("country") or country, "location_raw": location, "city": None, "region": None,
             "workplace_type": _workplace(location, record.get("workplace_type")), "employment_type": "unknown",
@@ -384,7 +390,7 @@ def normalize_lever_jobs(payload: Any) -> tuple[list[dict[str, Any]], list[dict[
             "company_name": company_name, "company_type": record.get("company_type", "unknown"),
             "industry_raw": record.get("industry"),
             "business_unit": " / ".join(filter(None, (str(categories.get("team") or ""), str(categories.get("department") or "")))) or None,
-            "institution_type_code": None, "institution_type_raw": None, "title_raw": record.get("title") or record.get("text"),
+            "institution_type_code": None, "institution_type_raw": None, "identity_link_status": "unresolved", "public_context": None, "public_institution_type": None, "legal_form": None, "ownership_sector": None, "title_raw": record.get("title") or record.get("text"),
             "occupation_label": record.get("title") or record.get("text"), "occupation_code": None, "occupation_system": "title-only",
             "country_code": country, "location_raw": location, "city": None, "region": None,
             "workplace_type": _workplace(location, record.get("workplaceType") or record.get("workplace_type")),
@@ -415,6 +421,8 @@ def normalize_mpm_jobs(payload: Any) -> tuple[list[dict[str, Any]], list[dict[st
             "industry_raw": None, "business_unit": None,
             "institution_type_code": record.get("institution_type") or record.get("type01"),
             "institution_type_raw": record.get("institution_type_name") or record.get("type01_name") or record.get("type01"),
+            "identity_link_status": "unresolved", "public_context": "public_employment_listing", "public_institution_type": None,
+            "legal_form": None, "ownership_sector": None,
             "title_raw": record.get("title"), "occupation_label": record.get("title"),
             "occupation_code": None, "occupation_system": "title-only", "country_code": "KR", "location_raw": None,
             "city": None, "region": None, "workplace_type": "unknown", "employment_type": "unknown",
@@ -469,6 +477,8 @@ def normalize_mpsv_jobs(payload: Any) -> tuple[list[dict[str, Any]], list[dict[s
             "provider": "mpsv_cz", "job_id": job_id, "entity_id": f"ICO:{employer.get('ico')}" if employer.get("ico") else None,
             "company_name": company, "company_type": "public-sector-employer" if record.get("statniSpravaSamosprava") else "unknown",
             "industry_raw": None, "business_unit": None, "institution_type_code": None, "institution_type_raw": None,
+            "identity_link_status": "unresolved", "public_context": "public_administration" if record.get("statniSpravaSamosprava") else None,
+            "public_institution_type": None, "legal_form": None, "ownership_sector": None,
             "title_raw": title, "occupation_label": title, "occupation_code": occupation,
             "occupation_system": "CZ-ISCO", "country_code": "CZ", "location_raw": location, "city": city, "region": region,
             "workplace_type": "unknown", "employment_type": employment, "employment_type_raw": employment_raw,
@@ -673,6 +683,11 @@ def search_job_dataframes(payloads: dict[str, Any], profile: JobSearchProfile) -
         evaluate("posting_languages", _language_verdict(row.get("posting_language"), posting_languages), row.get("posting_language"))
         evaluate("industries", _contains_verdict(row.get("industry_raw"), profile.industries), row.get("industry_raw"))
         evaluate("company_types", _membership_verdict(row.get("company_type"), profile.company_types), row.get("company_type"))
+        evaluate("identity_link_status", _membership_verdict(row.get("identity_link_status"), profile.identity_link_statuses), row.get("identity_link_status"))
+        evaluate("public_context", _membership_verdict(row.get("public_context"), profile.public_contexts), row.get("public_context"))
+        evaluate("public_institution_type", _membership_verdict(row.get("public_institution_type"), profile.public_institution_types), row.get("public_institution_type"))
+        evaluate("legal_form", _membership_verdict(row.get("legal_form"), profile.legal_forms), row.get("legal_form"))
+        evaluate("ownership_sector", _membership_verdict(row.get("ownership_sector"), profile.ownership_sectors), row.get("ownership_sector"))
         evaluate("business_units", _contains_verdict(row.get("_department_text") or row.get("business_unit"), profile.business_units), row.get("business_unit"))
         if profile.active_only:
             active_value = row.get("is_active")
@@ -818,3 +833,25 @@ def search_job_dataframes(payloads: dict[str, Any], profile: JobSearchProfile) -
             "limitations": limitations,
         },
     )
+
+
+def active_as_of(row: dict[str, Any], cutoff: str) -> bool | None:
+    """Evaluate a posting's active state at a supplied snapshot cutoff."""
+
+    closing = row.get("closing_at")
+    if closing in (None, ""):
+        return row.get("is_active") if isinstance(row.get("is_active"), bool) else None
+    return _active_at(closing, cutoff, listed_as_live=bool(row.get("is_active")))
+
+
+def build_denominators(payloads: dict[str, Any], frames: JobDataFrames) -> dict[str, int]:
+    jobs, _requirements, sources = normalize_provider_payloads(payloads)
+    return {
+        "provider_returned": sum(int(item.get("record_count") or 0) for item in sources),
+        "normalized": len(jobs),
+        "active": sum(1 for row in jobs if row.get("is_active") is True),
+        "strict_match": len(frames.strict_matches),
+        "unverifiable": len(frames.unverifiable_candidates),
+        "no_match": len(frames.no_matches),
+        "conflict": len(frames.conflicts),
+    }

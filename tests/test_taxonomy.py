@@ -1,4 +1,4 @@
-from company_intel.taxonomy import TAXONOMY_AXES, taxonomy_facts_from_record
+from company_intel.taxonomy import TAXONOMY_AXES, normalize_ares_taxonomy, taxonomy_facts_from_record
 
 
 def _by_axis(facts, axis):
@@ -57,3 +57,10 @@ def test_sec_alio_mpm_and_ats_stay_on_their_own_axes():
     assert _by_axis(greenhouse, "posting_organization_unit")[0].namespace == "ATS:GREENHOUSE:department"
     assert {fact.value for fact in _by_axis(lever, "posting_organization_unit")} == {"Platform", "Engineering"}
     assert "market_status" in TAXONOMY_AXES
+
+
+def test_mpsv_public_context_and_ares_legal_form_remain_separate():
+    mpsv = taxonomy_facts_from_record("mpsv_cz", {"portalId": "x", "statniSpravaSamosprava": True, "zamestnavatel": {"ico": "1", "nazev": "기관"}})
+    ares = normalize_ares_taxonomy({"ico": "1", "pravniForma": "121"})
+    assert _by_axis(mpsv, "ownership_sector")[0].value == "public_administration_context"
+    assert _by_axis(ares, "legal_form")[0].value == "121"

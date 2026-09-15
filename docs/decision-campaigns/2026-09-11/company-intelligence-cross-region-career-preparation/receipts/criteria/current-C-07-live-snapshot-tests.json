@@ -1,0 +1,11 @@
+{
+  "contract_version": "campaign-attempt-manifest-v1",
+  "campaign_id": "company-intelligence-cross-region-career-preparation",
+  "active": {
+    "C-07-live-source-snapshot-foundation": {
+      "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/receipts/criteria/attempts/sha256-1948e62621a9eb2ed879453f1bebfd23758831e23bb93bdf121baea99d5c4513.json",
+      "sha256": "1948e62621a9eb2ed879453f1bebfd23758831e23bb93bdf121baea99d5c4513"
+    }
+  },
+  "updated_at": "2026-09-14T14:34:22.099582+00:00"
+}

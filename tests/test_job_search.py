@@ -160,3 +160,9 @@ def test_lever_all_locations_and_mpm_institution_type_are_preserved() -> None:
     jobs, _, _ = normalize_mpm_jobs(payload["mpm_public_employment"])
     assert jobs[0]["institution_type_code"] == "e01"
     assert jobs[0]["employment_type_raw"] == "g01"
+
+
+def test_public_context_is_filterable_without_claiming_legal_form() -> None:
+    payload = {"mpm_public_employment": {"jobs": [{"posting_id": "k1", "institution_name": "기관", "title": "데이터", "closing_at": "20990101"}]}}
+    result = search_job_dataframes(payload, JobSearchProfile(countries=("KR",), job_keywords=("데이터",), public_contexts=("public_employment_listing",)))
+    assert list(result.jobs["job_id"]) == ["k1"]

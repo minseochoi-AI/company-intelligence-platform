@@ -1,0 +1,140 @@
+{
+  "decision_id": "D-16-job-trend-series-analysis-contract",
+  "sequence": 16,
+  "unit_id": "job-trend-series-analysis-contract",
+  "title": "채용 동향 snapshot 시계열과 비교 적격성",
+  "status": "accepted",
+  "question": "반복 수집된 채용 snapshot에서 신규·활성·종료·급여·요건 변화를 어떤 비교 적격성으로 계산할 것인가?",
+  "five_w_one_h": {
+    "who": "국가·기관군·직종별 채용 변화와 커리어 공통요건을 보는 사용자",
+    "what": "동일 정의 snapshot series와 채용 동향 지표·coverage gate",
+    "where": "trend CLI/API, warehouse history, timeline/screen/event adapters",
+    "when": "동향 분석 모드를 실행할 때",
+    "why": "단일 표본이나 provider coverage 변화가 실제 채용 변화처럼 보이는 오류를 막기 위해",
+    "how": "공고 identity·snapshot 주기·분류 version·coverage를 고정하고 충족된 cohort 안에서만 변화량을 계산한다."
+  },
+  "evidence_refs": [
+    {
+      "evidence_id": "E-D16-trend-boundary",
+      "source_type": "local-document",
+      "locator": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/live-category-tree-scope-amendment-2026-09-13.md:44-53;66-77",
+      "observed_fact": "동향 분석은 snapshot 이력, 기간, 국가·기관 cohort, 직종·산업, 지표, 비교 기준, coverage gate를 필요로 하며 현재 단일 snapshot은 부적격이다.",
+      "content_hash": "sha256:babe85bec25ea7f1effad8f924071b5977a0359f0377b6b759ed874dea6c17bd",
+      "line_range": "44-53;66-77",
+      "question": "현재 데이터만으로 추세 수치를 제공할 수 있는가?",
+      "observation_summary": "현재는 트리와 수집 계약만 결정할 수 있고 실제 동향 수치는 반복 snapshot 후에 가능하다."
+    }
+  ],
+  "facts": [
+    "공고 신규·종료 판정에는 안정적인 provider+posting_id와 연속 snapshot이 필요하다.",
+    "provider 페이지 크기·실패·분류 crosswalk 변경은 관측량을 바꿔 추세를 왜곡할 수 있다.",
+    "공개 공고 수요 변화는 실제 고용 인원 변화나 인과효과와 같지 않다."
+  ],
+  "conflicts": [
+    "짧은 이력으로 빠르게 지표를 보이면 유용하지만 계절성과 coverage 변화에 취약하다.",
+    "엄격한 최소 이력은 신뢰도를 높이지만 초기에는 분석불가가 많다."
+  ],
+  "unimplemented": [
+    "채용 snapshot history와 공고 등장·유지·종료 상태 저장이 없다.",
+    "분류 version·provider coverage가 고정된 비교 cohort 계약이 없다.",
+    "요건 빈도 변화와 경제·AI 사건 분석 사이의 association/causal gate가 없다."
+  ],
+  "options": [
+    {
+      "option_id": "A-compare-any-two-counts",
+      "description": "두 실행 결과의 총 공고 수 차이를 바로 동향으로 표시한다.",
+      "impact": {
+        "data": "coverage와 정의 변화가 지표에 섞인다.",
+        "schema_api": "단순 count delta만 필요하다.",
+        "ux": "즉시 숫자를 볼 수 있다.",
+        "performance": "가볍다.",
+        "cost": "낮다.",
+        "security": "변화 없음.",
+        "migration": "작다.",
+        "tests": "두 count 차이만 검사한다."
+      },
+      "opportunity_costs": [
+        "페이지 크기나 원천 실패를 채용 감소로 오인할 수 있다."
+      ]
+    },
+    {
+      "option_id": "B-versioned-snapshot-cohort-analysis",
+      "description": "versioned snapshot·공고 identity·coverage가 비교 가능한 cohort에서만 신규·활성·종료·급여·요건 분포를 계산한다.",
+      "impact": {
+        "data": "posting lifecycle, taxonomy version, coverage series가 추가된다.",
+        "schema_api": "trend eligibility, metrics, denominator series를 반환한다.",
+        "ux": "분석 가능 지표와 불가능 사유를 먼저 본다.",
+        "performance": "증분 snapshot diff와 사전 집계가 필요하다.",
+        "cost": "반복 수집·보존·backfill 비용이 든다.",
+        "security": "연락처와 지원자 정보는 시계열에 저장하지 않는다.",
+        "migration": "기존 timeline/screen은 비교 가능한 집계의 후속 consumer로 연결한다.",
+        "tests": "등장·유지·종료, coverage break, taxonomy version break를 검사한다."
+      },
+      "opportunity_costs": [
+        "충분한 이력이 쌓이기 전에는 동향 결과가 unavailable로 남는다."
+      ]
+    }
+  ],
+  "recommended_option_id": "B-versioned-snapshot-cohort-analysis",
+  "recommendation_reason": "동향이라는 시간적 주장에는 동일한 관측 정의와 coverage 분모가 필요하며 현재 단일 표본을 억지로 추세화하지 않는다.",
+  "impact": {
+    "data": "채용 snapshot series와 lifecycle fact를 저장한다.",
+    "schema_api": "trend profile, eligibility, metric series를 추가한다.",
+    "ux": "기간·주기·cohort·지표·비교기준을 단계 선택한다.",
+    "performance": "snapshot diff와 materialized aggregate가 필요하다.",
+    "cost": "저장 용량과 주기 수집 운영비가 생긴다.",
+    "security": "공개 채용 통계만 집계하고 PII를 제거한다.",
+    "migration": "기존 분석 함수를 적격한 series에만 연결한다.",
+    "tests": "단일 snapshot 거부, coverage 변화, 동일 cohort 추세를 검증한다."
+  },
+  "opportunity_costs": [
+    "즉시 과거 동향을 제공하려면 신뢰할 수 있는 과거 archive를 별도로 확보해야 한다."
+  ],
+  "dependencies": [
+    "D-07-company-timeline-macro-comparison",
+    "D-11-live-source-refresh-snapshot-contract",
+    "D-13-public-sector-identity-linkage",
+    "D-14-progressive-facet-tree-navigation"
+  ],
+  "dependency_waivers": {},
+  "accepted_decision": {
+    "disposition": "ACCEPT",
+    "option_id": "B-versioned-snapshot-cohort-analysis",
+    "rule": "사용자가 2026-09-14 요청에서 D-11~D-17의 권장안 B 승인을 명시했다.",
+    "rationale": "동향은 versioned snapshot과 동일 coverage cohort가 있을 때만 산출한다.",
+    "decided_by": "user",
+    "decided_at": "2026-09-14T12:33:36.975023+00:00"
+  },
+  "implementation_targets": [
+    "src/company_intel/warehouse.py",
+    "src/company_intel/analytics.py",
+    "src/company_intel/analysis_service.py",
+    "src/company_intel/interactive.py",
+    "src/company_intel/cli.py",
+    "src/company_intel/api.py",
+    "tests/test_analytics.py",
+    "새 job trend 통합 테스트"
+  ],
+  "validation_requirements": [
+    "단일 snapshot 또는 coverage break가 trend unavailable을 반환하는지 확인한다.",
+    "동일 posting_id의 등장·유지·종료가 중복 없이 계산되는지 확인한다.",
+    "공고 변화가 실제 채용 완료나 인과 효과로 표기되지 않는지 확인한다."
+  ],
+  "diagram_impacts": [
+    "versioned snapshots → lifecycle diff → eligibility → trend metrics → optional analysis 흐름을 추가한다."
+  ],
+  "context_topic_ids": [
+    "job-trend-series"
+  ],
+  "implementation_change_ids": [
+    "file-change-086cfded9687",
+    "file-change-3a37488d99a0",
+    "file-change-42c469cea05e",
+    "file-change-4abcc47e1c00",
+    "file-change-884e869a1a0f",
+    "file-change-8fd4c111121f",
+    "file-change-9274cd7e97f7",
+    "file-change-ba9762e5fbcb",
+    "file-change-e633c98e50e6"
+  ]
+}

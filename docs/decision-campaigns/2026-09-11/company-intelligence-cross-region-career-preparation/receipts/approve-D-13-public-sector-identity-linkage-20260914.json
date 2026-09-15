@@ -1,0 +1,45 @@
+{
+  "contract_version": "atomic-json-patch-receipt-v1",
+  "target": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/13-d-13-public-sector-identity-linkage.json",
+  "outcome": "pass",
+  "before_sha256": "cac4d64d47c47631dea4e77f1df8be3dc288817ca09f6b125c534bab62b90e1e",
+  "after_sha256": "69580320dda4aa964370c05142d924e06df87db81eab16e3ad2601f271dc5bab",
+  "proposed_after_sha256": "69580320dda4aa964370c05142d924e06df87db81eab16e3ad2601f271dc5bab",
+  "operations": [
+    {
+      "op": "test",
+      "path": "/status"
+    },
+    {
+      "op": "test",
+      "path": "/accepted_decision"
+    },
+    {
+      "op": "replace",
+      "path": "/status"
+    },
+    {
+      "op": "replace",
+      "path": "/accepted_decision"
+    }
+  ],
+  "backup": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/receipts/mutation-journal/preimages/sha256-cac4d64d47c47631dea4e77f1df8be3dc288817ca09f6b125c534bab62b90e1e.json",
+  "journal": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/receipts/mutation-journal/mutations/55d00252629bb15ecb5133f819a3d1f4bdf2c65a73ff3b2e60b2f9734b2ded9f.json",
+  "mutation_id": "approve-D-13-public-sector-identity-linkage-20260914",
+  "validators": [
+    {
+      "command": [
+        "python3",
+        "-m",
+        "jsonschema",
+        "--instance",
+        "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/13-d-13-public-sector-identity-linkage.json",
+        "/home/ubuntu/.codex/skills/decision-campaign-workbook/references/decision-item.schema.json"
+      ],
+      "returncode": 0,
+      "stdout_tail": "",
+      "stderr_tail": ""
+    }
+  ],
+  "completed_at": "2026-09-14T12:33:41.275601+00:00"
+}

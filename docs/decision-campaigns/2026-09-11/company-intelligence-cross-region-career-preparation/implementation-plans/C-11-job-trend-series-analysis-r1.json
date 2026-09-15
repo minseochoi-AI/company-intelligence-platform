@@ -1,0 +1,482 @@
+{
+  "contract_version": "1.2.0",
+  "plan_id": "company-intelligence-cross-region-career-preparation--C-11-job-trend-series-analysis--r1",
+  "owner": {
+    "kind": "campaign-cohort",
+    "id": "C-11-job-trend-series-analysis"
+  },
+  "source_refs": [
+    {
+      "id": "D-16-job-trend-series-analysis-contract",
+      "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/16-d-16-job-trend-series-analysis-contract.json",
+      "sha256": "sha256:92399a933fac8db44e14979f3fdd3c79ee715cdcaa174aba6b364f60eb6d88fe"
+    }
+  ],
+  "status": "contract-ready",
+  "change_slices": [
+    {
+      "slice_id": "versioned-job-trend-analysis",
+      "behavior": "동일 provider·분류 version·coverage cohort의 반복 snapshot에서 공고 등장·유지·종료와 신규·활성·종료·모집인원·급여·요건 지표를 계산하고 부적격 시 이유를 반환한다.",
+      "dependencies": [
+        "C-04-peer-screener-ranking",
+        "C-05-timeline-valuation-event-analysis",
+        "C-07-live-source-snapshot-foundation",
+        "C-08-public-sector-identity-linkage",
+        "C-09-mode-and-tree-query-contract"
+      ],
+      "operations": [
+        {
+          "change_id": "file-change-3a37488d99a0",
+          "operation": "CREATE",
+          "path": "src/company_intel/job_trends.py",
+          "symbols": [
+            "TrendEligibility",
+            "PostingLifecycle",
+            "build_posting_lifecycle",
+            "evaluate_trend_eligibility",
+            "aggregate_job_trends"
+          ],
+          "current_state": "채용 snapshot series와 공고 lifecycle 전용 분석 서비스가 없다.",
+          "source_hash": null,
+          "result_hash": null,
+          "expected_result": "안정적 posting identity와 versioned coverage를 검사한 뒤 적격 cohort만 시계열 지표로 집계한다.",
+          "after_state": "안정적 posting identity와 versioned coverage를 검사한 뒤 적격 cohort만 시계열 지표로 집계한다.",
+          "rationale": "단일 표본과 coverage 변화를 채용 동향으로 오인하지 않기 위해서다.",
+          "dependencies": [],
+          "public_contract_impacts": [
+            "job trend service v1"
+          ],
+          "compatibility": "기존 company timeline과 독립 namespace를 사용한다.",
+          "migration": "history length 1은 unavailable로 반환한다.",
+          "rollback": "trend 기능을 숨기고 snapshot 보존만 유지한다.",
+          "authorization_boundary": "공고 수요 변화만 설명하고 실제 채용 인원·인과효과로 표현하지 않는다.",
+          "consumer_search": null,
+          "contributes_to": [
+            "D-16-job-trend-series-analysis-contract"
+          ],
+          "contribution_refs": [
+            {
+              "decision_id": "D-16-job-trend-series-analysis-contract",
+              "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/16-d-16-job-trend-series-analysis-contract.json",
+              "sha256": "sha256:92399a933fac8db44e14979f3fdd3c79ee715cdcaa174aba6b364f60eb6d88fe",
+              "symbols": [
+                "TrendEligibility",
+                "PostingLifecycle",
+                "build_posting_lifecycle",
+                "evaluate_trend_eligibility",
+                "aggregate_job_trends"
+              ],
+              "intent_change_ids": [
+                "D-16-job-trend-series-analysis-contract-service"
+              ]
+            }
+          ],
+          "intent_change_ids": [
+            "D-16-job-trend-series-analysis-contract-service"
+          ],
+          "symbol_changes": [
+            {
+              "symbol": "TrendEligibility",
+              "intent": "안정적 posting identity와 versioned coverage를 검사한 뒤 적격 cohort만 시계열 지표로 집계한다.",
+              "decision_id": "D-16-job-trend-series-analysis-contract"
+            },
+            {
+              "symbol": "PostingLifecycle",
+              "intent": "안정적 posting identity와 versioned coverage를 검사한 뒤 적격 cohort만 시계열 지표로 집계한다.",
+              "decision_id": "D-16-job-trend-series-analysis-contract"
+            },
+            {
+              "symbol": "build_posting_lifecycle",
+              "intent": "안정적 posting identity와 versioned coverage를 검사한 뒤 적격 cohort만 시계열 지표로 집계한다.",
+              "decision_id": "D-16-job-trend-series-analysis-contract"
+            },
+            {
+              "symbol": "evaluate_trend_eligibility",
+              "intent": "안정적 posting identity와 versioned coverage를 검사한 뒤 적격 cohort만 시계열 지표로 집계한다.",
+              "decision_id": "D-16-job-trend-series-analysis-contract"
+            },
+            {
+              "symbol": "aggregate_job_trends",
+              "intent": "안정적 posting identity와 versioned coverage를 검사한 뒤 적격 cohort만 시계열 지표로 집계한다.",
+              "decision_id": "D-16-job-trend-series-analysis-contract"
+            }
+          ]
+        },
+        {
+          "change_id": "file-change-9274cd7e97f7",
+          "operation": "MODIFY",
+          "path": "src/company_intel/analytics.py",
+          "symbols": [
+            "series_signature",
+            "coverage_break",
+            "trend_comparison_groups"
+          ],
+          "current_state": "기업·시장 분석의 series gate는 있으나 채용 공고 lifecycle·coverage signature를 다루지 않는다.",
+          "source_hash": "sha256:2600f9606bf74be060b0af2878cda3769f4c65f0ad0db463fc4f57556b6e19ac",
+          "result_hash": null,
+          "expected_result": "snapshot frequency, provider coverage, taxonomy version, identity quality를 비교 signature에 포함한다.",
+          "after_state": "snapshot frequency, provider coverage, taxonomy version, identity quality를 비교 signature에 포함한다.",
+          "rationale": "국가·기관·직종 동향 비교의 동질성을 보장하기 위해서다.",
+          "dependencies": [
+            "file-change-3a37488d99a0"
+          ],
+          "public_contract_impacts": [
+            "job trend comparability signature"
+          ],
+          "compatibility": "기존 financial/macro signature를 변경하지 않는다.",
+          "migration": "job series axis를 additive하게 등록한다.",
+          "rollback": "job trend eligibility를 항상 unavailable로 둔다.",
+          "authorization_boundary": "통화·기간·basis가 다른 급여 series를 합치지 않는다.",
+          "consumer_search": null,
+          "contributes_to": [
+            "D-16-job-trend-series-analysis-contract"
+          ],
+          "contribution_refs": [
+            {
+              "decision_id": "D-16-job-trend-series-analysis-contract",
+              "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/16-d-16-job-trend-series-analysis-contract.json",
+              "sha256": "sha256:92399a933fac8db44e14979f3fdd3c79ee715cdcaa174aba6b364f60eb6d88fe",
+              "symbols": [
+                "series_signature",
+                "coverage_break",
+                "trend_comparison_groups"
+              ],
+              "intent_change_ids": [
+                "D-16-job-trend-series-analysis-contract-analytics"
+              ]
+            }
+          ],
+          "intent_change_ids": [
+            "D-16-job-trend-series-analysis-contract-analytics"
+          ],
+          "symbol_changes": [
+            {
+              "symbol": "series_signature",
+              "intent": "snapshot frequency, provider coverage, taxonomy version, identity quality를 비교 signature에 포함한다.",
+              "decision_id": "D-16-job-trend-series-analysis-contract"
+            },
+            {
+              "symbol": "coverage_break",
+              "intent": "snapshot frequency, provider coverage, taxonomy version, identity quality를 비교 signature에 포함한다.",
+              "decision_id": "D-16-job-trend-series-analysis-contract"
+            },
+            {
+              "symbol": "trend_comparison_groups",
+              "intent": "snapshot frequency, provider coverage, taxonomy version, identity quality를 비교 signature에 포함한다.",
+              "decision_id": "D-16-job-trend-series-analysis-contract"
+            }
+          ]
+        },
+        {
+          "change_id": "file-change-086cfded9687",
+          "operation": "MODIFY",
+          "path": "src/company_intel/analysis_service.py",
+          "symbols": [
+            "evaluate_job_trends",
+            "job_trend_timeline",
+            "job_event_boundary"
+          ],
+          "current_state": "채용 동향 query를 실행하거나 timeline/screen/event에 적격 집계를 전달하지 않는다.",
+          "source_hash": "sha256:cdbb79e1222ce4a7a1e5d90ca846659378363a251288a08d10f1e33a6d4eb4ad",
+          "result_hash": null,
+          "expected_result": "동향 eligibility와 지표 series를 반환하고 control이 없으면 event 결과를 association-only로 제한한다.",
+          "after_state": "동향 eligibility와 지표 series를 반환하고 control이 없으면 event 결과를 association-only로 제한한다.",
+          "rationale": "기존 분석 기능과 채용 동향의 경계를 명시적으로 연결하기 위해서다.",
+          "dependencies": [
+            "file-change-9274cd7e97f7"
+          ],
+          "public_contract_impacts": [
+            "job trend analysis response"
+          ],
+          "compatibility": "기존 company timeline/valuation/event endpoint를 유지한다.",
+          "migration": "job trend 전용 service function을 추가한다.",
+          "rollback": "신규 function만 비활성화한다.",
+          "authorization_boundary": "충분한 benchmark/control 없이 causal label을 반환하지 않는다.",
+          "consumer_search": null,
+          "contributes_to": [
+            "D-16-job-trend-series-analysis-contract"
+          ],
+          "contribution_refs": [
+            {
+              "decision_id": "D-16-job-trend-series-analysis-contract",
+              "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/16-d-16-job-trend-series-analysis-contract.json",
+              "sha256": "sha256:92399a933fac8db44e14979f3fdd3c79ee715cdcaa174aba6b364f60eb6d88fe",
+              "symbols": [
+                "evaluate_job_trends",
+                "job_trend_timeline",
+                "job_event_boundary"
+              ],
+              "intent_change_ids": [
+                "D-16-job-trend-series-analysis-contract-analysis-service"
+              ]
+            }
+          ],
+          "intent_change_ids": [
+            "D-16-job-trend-series-analysis-contract-analysis-service"
+          ],
+          "symbol_changes": [
+            {
+              "symbol": "evaluate_job_trends",
+              "intent": "동향 eligibility와 지표 series를 반환하고 control이 없으면 event 결과를 association-only로 제한한다.",
+              "decision_id": "D-16-job-trend-series-analysis-contract"
+            },
+            {
+              "symbol": "job_trend_timeline",
+              "intent": "동향 eligibility와 지표 series를 반환하고 control이 없으면 event 결과를 association-only로 제한한다.",
+              "decision_id": "D-16-job-trend-series-analysis-contract"
+            },
+            {
+              "symbol": "job_event_boundary",
+              "intent": "동향 eligibility와 지표 series를 반환하고 control이 없으면 event 결과를 association-only로 제한한다.",
+              "decision_id": "D-16-job-trend-series-analysis-contract"
+            }
+          ]
+        },
+        {
+          "change_id": "file-change-4abcc47e1c00",
+          "operation": "CREATE",
+          "path": "tests/test_job_trends.py",
+          "symbols": [
+            "test_single_snapshot_is_ineligible",
+            "test_posting_lifecycle",
+            "test_coverage_break",
+            "test_trend_metrics"
+          ],
+          "current_state": "채용 snapshot 동향 전용 테스트가 없다.",
+          "source_hash": null,
+          "result_hash": null,
+          "expected_result": "단일 snapshot 거부, 등장·유지·종료, coverage/version break와 동질 cohort 지표를 검증한다.",
+          "after_state": "단일 snapshot 거부, 등장·유지·종료, coverage/version break와 동질 cohort 지표를 검증한다.",
+          "rationale": "거짓 추세 산출을 회귀 방지하기 위해서다.",
+          "dependencies": [
+            "file-change-3a37488d99a0",
+            "file-change-086cfded9687"
+          ],
+          "public_contract_impacts": [
+            "job trend tests"
+          ],
+          "compatibility": "합성 반복 snapshot을 사용한다.",
+          "migration": "없음.",
+          "rollback": "서비스와 함께 제거한다.",
+          "authorization_boundary": "외부 provider를 호출하지 않는다.",
+          "consumer_search": null,
+          "contributes_to": [
+            "D-16-job-trend-series-analysis-contract"
+          ],
+          "contribution_refs": [
+            {
+              "decision_id": "D-16-job-trend-series-analysis-contract",
+              "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/16-d-16-job-trend-series-analysis-contract.json",
+              "sha256": "sha256:92399a933fac8db44e14979f3fdd3c79ee715cdcaa174aba6b364f60eb6d88fe",
+              "symbols": [
+                "test_single_snapshot_is_ineligible",
+                "test_posting_lifecycle",
+                "test_coverage_break",
+                "test_trend_metrics"
+              ],
+              "intent_change_ids": [
+                "D-16-job-trend-series-analysis-contract-tests"
+              ]
+            }
+          ],
+          "intent_change_ids": [
+            "D-16-job-trend-series-analysis-contract-tests"
+          ],
+          "symbol_changes": [
+            {
+              "symbol": "test_single_snapshot_is_ineligible",
+              "intent": "단일 snapshot 거부, 등장·유지·종료, coverage/version break와 동질 cohort 지표를 검증한다.",
+              "decision_id": "D-16-job-trend-series-analysis-contract"
+            },
+            {
+              "symbol": "test_posting_lifecycle",
+              "intent": "단일 snapshot 거부, 등장·유지·종료, coverage/version break와 동질 cohort 지표를 검증한다.",
+              "decision_id": "D-16-job-trend-series-analysis-contract"
+            },
+            {
+              "symbol": "test_coverage_break",
+              "intent": "단일 snapshot 거부, 등장·유지·종료, coverage/version break와 동질 cohort 지표를 검증한다.",
+              "decision_id": "D-16-job-trend-series-analysis-contract"
+            },
+            {
+              "symbol": "test_trend_metrics",
+              "intent": "단일 snapshot 거부, 등장·유지·종료, coverage/version break와 동질 cohort 지표를 검증한다.",
+              "decision_id": "D-16-job-trend-series-analysis-contract"
+            }
+          ]
+        },
+        {
+          "change_id": "file-change-8fd4c111121f",
+          "operation": "MODIFY",
+          "path": "tests/test_analytics.py",
+          "symbols": [
+            "test_job_series_signature",
+            "test_coverage_break_is_ineligible"
+          ],
+          "current_state": "채용 provider coverage와 taxonomy version 비교를 검사하지 않는다.",
+          "source_hash": "sha256:eaa89ab061fc164c0ea839bfb695201e8023cee7539b3b30b3ad9a5c62dd99dc",
+          "result_hash": null,
+          "expected_result": "채용 series signature와 coverage break가 분석 적격성을 차단하는지 검증한다.",
+          "after_state": "채용 series signature와 coverage break가 분석 적격성을 차단하는지 검증한다.",
+          "rationale": "공통 analytics gate의 job axis 회귀를 막기 위해서다.",
+          "dependencies": [
+            "file-change-9274cd7e97f7"
+          ],
+          "public_contract_impacts": [
+            "job trend analytics tests"
+          ],
+          "compatibility": "기존 valuation/event tests를 유지한다.",
+          "migration": "없음.",
+          "rollback": "신규 cases만 제거한다.",
+          "authorization_boundary": "offline data만 사용한다.",
+          "consumer_search": null,
+          "contributes_to": [
+            "D-16-job-trend-series-analysis-contract"
+          ],
+          "contribution_refs": [
+            {
+              "decision_id": "D-16-job-trend-series-analysis-contract",
+              "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/16-d-16-job-trend-series-analysis-contract.json",
+              "sha256": "sha256:92399a933fac8db44e14979f3fdd3c79ee715cdcaa174aba6b364f60eb6d88fe",
+              "symbols": [
+                "test_job_series_signature",
+                "test_coverage_break_is_ineligible"
+              ],
+              "intent_change_ids": [
+                "D-16-job-trend-series-analysis-contract-analytics-tests"
+              ]
+            }
+          ],
+          "intent_change_ids": [
+            "D-16-job-trend-series-analysis-contract-analytics-tests"
+          ],
+          "symbol_changes": [
+            {
+              "symbol": "test_job_series_signature",
+              "intent": "채용 series signature와 coverage break가 분석 적격성을 차단하는지 검증한다.",
+              "decision_id": "D-16-job-trend-series-analysis-contract"
+            },
+            {
+              "symbol": "test_coverage_break_is_ineligible",
+              "intent": "채용 series signature와 coverage break가 분석 적격성을 차단하는지 검증한다.",
+              "decision_id": "D-16-job-trend-series-analysis-contract"
+            }
+          ]
+        },
+        {
+          "change_id": "file-change-ba9762e5fbcb",
+          "operation": "MODIFY",
+          "path": "tests/test_analysis_service.py",
+          "symbols": [
+            "test_job_trend_unavailable_reason",
+            "test_job_event_association_only"
+          ],
+          "current_state": "채용 동향과 event causal boundary를 service 수준에서 검사하지 않는다.",
+          "source_hash": "sha256:59c7893c0c7163ea2b39f088f1f57030b06c5008e1cfd9e77d01a05ef63187da",
+          "result_hash": null,
+          "expected_result": "insufficient history·coverage break와 control 없는 association-only 응답을 검증한다.",
+          "after_state": "insufficient history·coverage break와 control 없는 association-only 응답을 검증한다.",
+          "rationale": "사용자-facing 분석 상태를 고정하기 위해서다.",
+          "dependencies": [
+            "file-change-086cfded9687"
+          ],
+          "public_contract_impacts": [
+            "job trend service tests"
+          ],
+          "compatibility": "기존 analysis service tests를 유지한다.",
+          "migration": "없음.",
+          "rollback": "신규 cases만 제거한다.",
+          "authorization_boundary": "인과 확정 문자열을 기대하지 않는다.",
+          "consumer_search": null,
+          "contributes_to": [
+            "D-16-job-trend-series-analysis-contract"
+          ],
+          "contribution_refs": [
+            {
+              "decision_id": "D-16-job-trend-series-analysis-contract",
+              "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/16-d-16-job-trend-series-analysis-contract.json",
+              "sha256": "sha256:92399a933fac8db44e14979f3fdd3c79ee715cdcaa174aba6b364f60eb6d88fe",
+              "symbols": [
+                "test_job_trend_unavailable_reason",
+                "test_job_event_association_only"
+              ],
+              "intent_change_ids": [
+                "D-16-job-trend-series-analysis-contract-service-tests"
+              ]
+            }
+          ],
+          "intent_change_ids": [
+            "D-16-job-trend-series-analysis-contract-service-tests"
+          ],
+          "symbol_changes": [
+            {
+              "symbol": "test_job_trend_unavailable_reason",
+              "intent": "insufficient history·coverage break와 control 없는 association-only 응답을 검증한다.",
+              "decision_id": "D-16-job-trend-series-analysis-contract"
+            },
+            {
+              "symbol": "test_job_event_association_only",
+              "intent": "insufficient history·coverage break와 control 없는 association-only 응답을 검증한다.",
+              "decision_id": "D-16-job-trend-series-analysis-contract"
+            }
+          ]
+        }
+      ],
+      "routes": [
+        {
+          "route_id": "c11-trend-semantics",
+          "skill": "company-intelligence-career-research",
+          "requirement": "required",
+          "phase": "IMPLEMENT",
+          "purpose": "공개 공고 수요 변화와 실제 고용·인과 주장의 경계를 유지한다.",
+          "expected_artifact": "C-11 job trend implementation"
+        },
+        {
+          "route_id": "c11-verification",
+          "skill": "verification-before-completion",
+          "requirement": "required",
+          "phase": "VALIDATE",
+          "purpose": "snapshot lifecycle과 trend eligibility를 독립 검증한다.",
+          "expected_artifact": "C-11 validation receipt"
+        }
+      ],
+      "completion_contract": [
+        {
+          "criterion_id": "C-11-job-trend-tests",
+          "behavior": "반복 snapshot만 동향으로 집계되고 단일 이력·coverage break·비동질 급여 series는 분석불가로 남는다.",
+          "blocking": true,
+          "owner_skill": "verification-before-completion",
+          "phase": "VALIDATE",
+          "depends_on_criteria": [],
+          "test": {
+            "type": "pytest",
+            "value": "uv run --frozen pytest tests/test_job_trends.py tests/test_analytics.py tests/test_analysis_service.py -q",
+            "runner": "pytest",
+            "paths": [
+              "tests/test_job_trends.py",
+              "tests/test_analytics.py",
+              "tests/test_analysis_service.py"
+            ],
+            "provider_backed": false,
+            "timeout_seconds": 300
+          },
+          "expected_result": "all tests pass",
+          "failure_marker": "single-snapshot trend, lifecycle duplication, coverage-blind delta, or causal overclaim",
+          "receipt": {
+            "status": "planned",
+            "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/receipts/criteria/C-11-job-trend-tests.json",
+            "sha256": "planned"
+          },
+          "status": "planned"
+        }
+      ]
+    }
+  ],
+  "metadata": {
+    "compiled_from_decision_intents": true,
+    "planned_commit_message": "feat(analytics): add evidence-gated job trends",
+    "git_finalization_authorized": false,
+    "test_execution_deferred": true,
+    "preparation_contract": "campaign-global-ownership-v1"
+  }
+}

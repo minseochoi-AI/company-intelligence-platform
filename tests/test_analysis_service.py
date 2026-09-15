@@ -2,6 +2,7 @@ from company_intel.analysis_service import (
     build_company_timeline,
     evaluate_ai_event,
     evaluate_valuation_scenarios,
+    evaluate_job_trends,
 )
 
 
@@ -84,3 +85,9 @@ def test_multi_axis_timeline_groups_keep_incompatible_signatures_independent() -
     assert len(result["metadata"]["series_groups"]) == 4
     assert result["metadata"]["alignment"]["key"] == "observation_date"
     assert "incompatible_series_signature" not in set(result["exclusions"].get("exclusion_reason", []))
+
+
+def test_job_trend_unavailable_reason_is_exposed():
+    result = evaluate_job_trends([{"snapshot_id": "one", "collected_at": "2026-09-01", "provider": "mpsv", "jobs": []}])
+    assert result["status"] == "ineligible"
+    assert result["eligibility"]["reason"] == "insufficient_history"

@@ -10,6 +10,8 @@ from company_intel.analytics import (
     hiring_change,
     rank_companies,
     valuation_prerequisites,
+    coverage_break,
+    series_signature,
 )
 
 
@@ -118,3 +120,10 @@ def test_analysis_prerequisites_return_deterministic_readiness_reasons():
     )
     assert raw_price_event["status"] == "ineligible"
     assert raw_price_event["reasons"] == ["raw_price_series_not_accepted"]
+
+
+def test_job_series_signature_detects_coverage_break():
+    first = {"provider": "mpsv", "country_code": "CZ", "taxonomy_version": "1", "normalizer_version": "1", "coverage_cohort": "all", "metric": "active_postings", "unit": "postings"}
+    second = {**first, "coverage_cohort": "partial"}
+    assert series_signature(first) != series_signature(second)
+    assert coverage_break([first, second]) == "coverage_or_version_break"

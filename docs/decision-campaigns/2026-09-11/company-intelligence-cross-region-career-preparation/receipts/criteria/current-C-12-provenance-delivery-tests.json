@@ -1,0 +1,11 @@
+{
+  "contract_version": "campaign-attempt-manifest-v1",
+  "campaign_id": "company-intelligence-cross-region-career-preparation",
+  "active": {
+    "C-12-selection-provenance-delivery": {
+      "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/receipts/criteria/attempts/sha256-5f9cf96677fb368e53ecbae2fa117d6a47d52319e5af85a1cea831eac9ea8d55.json",
+      "sha256": "5f9cf96677fb368e53ecbae2fa117d6a47d52319e5af85a1cea831eac9ea8d55"
+    }
+  },
+  "updated_at": "2026-09-14T14:34:22.438506+00:00"
+}

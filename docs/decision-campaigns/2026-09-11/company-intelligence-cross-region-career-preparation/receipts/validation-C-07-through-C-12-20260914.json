@@ -1,0 +1,263 @@
+{
+  "contract_version": "decision-campaign-validation-v1",
+  "campaign_id": "company-intelligence-cross-region-career-preparation",
+  "status": "pass",
+  "passed": true,
+  "outcome": "pass",
+  "updated_at": "2026-09-14T14:36:42.984150+00:00",
+  "cohorts": [
+    {
+      "cohort_id": "C-07-live-source-snapshot-foundation",
+      "status": "completed",
+      "changed_paths": [],
+      "commands": [
+        "uv run --cache-dir /tmp/company-intel-uv-cache-20260914 --frozen pytest tests/test_live_snapshots.py tests/test_public_connectors.py -q"
+      ],
+      "outcome": "pass",
+      "raw_log_path": ".runtime/campaign-validation-20260914/C-07-retry1.log",
+      "raw_log_sha256": "3b699c09a131f6fce9f8c5f77719de7f8be6f3d226bd0fbfbe7c408b1742ff02",
+      "first_failure": null,
+      "stdout_tail": "....... [100%] 7 passed in 0.27s",
+      "stderr_tail": null,
+      "telemetry": {
+        "provider": {
+          "measurement": "not-applicable",
+          "invocations": null,
+          "input_tokens": null,
+          "output_tokens": null
+        },
+        "agent_session": {
+          "measurement": "unavailable-platform",
+          "token_count": null,
+          "tool_output_chars": null
+        }
+      },
+      "provider_guard": null,
+      "updated_at": "2026-09-14T14:36:42.652132+00:00",
+      "context_packet_id": "company-intelligence-cross-region-career-preparation--C-07-live-source-snapshot-foundation--r1",
+      "context_packet_sha256": "3e6dd4ea746839c82843c8d564e0a4a5f61c97ab76c1c71e6e6b605f26665f01",
+      "implementation_plan_id": "company-intelligence-cross-region-career-preparation--C-07-live-source-snapshot-foundation--r1",
+      "implementation_plan_sha256": "7abde58da2f3fab3b0926c1d7cf98dea64b5840bf61a66b68a2fff62c778fb05",
+      "passed_criterion_ids": [
+        "C-07-live-snapshot-tests"
+      ],
+      "attempt_ref": {
+        "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/receipts/attempts/sha256-a93031fefb26b01a177986cc7cbcf90357f3baa59287990d29d3dcbbcbb4b265.json",
+        "sha256": "a93031fefb26b01a177986cc7cbcf90357f3baa59287990d29d3dcbbcbb4b265"
+      }
+    },
+    {
+      "cohort_id": "C-08-public-sector-identity-linkage",
+      "status": "completed",
+      "changed_paths": [],
+      "commands": [
+        "uv run --cache-dir /tmp/company-intel-uv-cache-20260914 --frozen pytest tests/test_public_identity.py tests/test_taxonomy.py -q"
+      ],
+      "outcome": "pass",
+      "raw_log_path": ".runtime/campaign-validation-20260914/C-08-retry1.log",
+      "raw_log_sha256": "a4ce3c4d2d126cf54794b588fe0568dcf174b80e68913316f73e0da7b9f1c64b",
+      "first_failure": null,
+      "stdout_tail": "...... [100%] 6 passed in 0.03s",
+      "stderr_tail": null,
+      "telemetry": {
+        "provider": {
+          "measurement": "not-applicable",
+          "invocations": null,
+          "input_tokens": null,
+          "output_tokens": null
+        },
+        "agent_session": {
+          "measurement": "unavailable-platform",
+          "token_count": null,
+          "tool_output_chars": null
+        }
+      },
+      "provider_guard": null,
+      "updated_at": "2026-09-14T14:36:42.721193+00:00",
+      "context_packet_id": "company-intelligence-cross-region-career-preparation--C-08-public-sector-identity-linkage--r1",
+      "context_packet_sha256": "1a52943f9971aeccf2be32d9892f4332c5f97429284597e730c9952ce52837a2",
+      "implementation_plan_id": "company-intelligence-cross-region-career-preparation--C-08-public-sector-identity-linkage--r1",
+      "implementation_plan_sha256": "2b2e1a84a2848c95a637fcefe1599b7393927da415fe74eecc04fc778885126d",
+      "passed_criterion_ids": [
+        "C-08-public-identity-tests"
+      ],
+      "attempt_ref": {
+        "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/receipts/attempts/sha256-77c8e010a8706a3883ef59130a8c9f468d02b767179da8fd6d4dd4501fc695a1.json",
+        "sha256": "77c8e010a8706a3883ef59130a8c9f468d02b767179da8fd6d4dd4501fc695a1"
+      }
+    },
+    {
+      "cohort_id": "C-09-mode-and-tree-query-contract",
+      "status": "completed",
+      "changed_paths": [],
+      "commands": [
+        "uv run --cache-dir /tmp/company-intel-uv-cache-20260914 --frozen pytest tests/test_category_tree.py tests/test_interactive.py tests/test_facets.py tests/test_query_contract.py -q"
+      ],
+      "outcome": "pass",
+      "raw_log_path": ".runtime/campaign-validation-20260914/C-09-retry1.log",
+      "raw_log_sha256": "2bc7372380b65182e2f54be680982317a686f191dfab361b14d213575e365fb5",
+      "first_failure": null,
+      "stdout_tail": "............... [100%] 15 passed in 0.47s",
+      "stderr_tail": null,
+      "telemetry": {
+        "provider": {
+          "measurement": "not-applicable",
+          "invocations": null,
+          "input_tokens": null,
+          "output_tokens": null
+        },
+        "agent_session": {
+          "measurement": "unavailable-platform",
+          "token_count": null,
+          "tool_output_chars": null
+        }
+      },
+      "provider_guard": null,
+      "updated_at": "2026-09-14T14:36:42.789901+00:00",
+      "context_packet_id": "company-intelligence-cross-region-career-preparation--C-09-mode-and-tree-query-contract--r1",
+      "context_packet_sha256": "52925e82abebca0919990cf586acf659a97cdf5293d0a602091246019ffc84e4",
+      "implementation_plan_id": "company-intelligence-cross-region-career-preparation--C-09-mode-and-tree-query-contract--r1",
+      "implementation_plan_sha256": "c6cb23a8d352e66eaee6283d2f664b4095b5502d501539ca5848043c7fb83f18",
+      "passed_criterion_ids": [
+        "C-09-mode-tree-tests"
+      ],
+      "attempt_ref": {
+        "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/receipts/attempts/sha256-49e8f39bf7d7aae867af67dc127bb5e811e281fba9534b57b5c224791c929efb.json",
+        "sha256": "49e8f39bf7d7aae867af67dc127bb5e811e281fba9534b57b5c224791c929efb"
+      }
+    },
+    {
+      "cohort_id": "C-10-current-job-search-execution",
+      "status": "completed",
+      "changed_paths": [],
+      "commands": [
+        "uv run --cache-dir /tmp/company-intel-uv-cache-20260914 --frozen pytest tests/test_current_jobs.py tests/test_job_search.py -q"
+      ],
+      "outcome": "pass",
+      "raw_log_path": ".runtime/campaign-validation-20260914/C-10-retry1.log",
+      "raw_log_sha256": "b362ef056d6f4223a2968706879dcd3857ee23f6a5d16e2ebd8cf34153686b97",
+      "first_failure": null,
+      "stdout_tail": "......... [100%] 9 passed in 0.44s",
+      "stderr_tail": null,
+      "telemetry": {
+        "provider": {
+          "measurement": "not-applicable",
+          "invocations": null,
+          "input_tokens": null,
+          "output_tokens": null
+        },
+        "agent_session": {
+          "measurement": "unavailable-platform",
+          "token_count": null,
+          "tool_output_chars": null
+        }
+      },
+      "provider_guard": null,
+      "updated_at": "2026-09-14T14:36:42.853889+00:00",
+      "context_packet_id": "company-intelligence-cross-region-career-preparation--C-10-current-job-search-execution--r1",
+      "context_packet_sha256": "6bb4b00ed0b5cf9c00db6d149a2caf24c1eb5171a6821ecd756820badf74cc49",
+      "implementation_plan_id": "company-intelligence-cross-region-career-preparation--C-10-current-job-search-execution--r1",
+      "implementation_plan_sha256": "137eceba5f6d71fd6d3a3cc1bf085a02a46eeac49d9947e05bfe2638916f7258",
+      "passed_criterion_ids": [
+        "C-10-current-job-tests"
+      ],
+      "attempt_ref": {
+        "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/receipts/attempts/sha256-d014dffe596b82a8912b11a186071236121e1faed9d2e9c363a84c5b0aa6aa3c.json",
+        "sha256": "d014dffe596b82a8912b11a186071236121e1faed9d2e9c363a84c5b0aa6aa3c"
+      }
+    },
+    {
+      "cohort_id": "C-11-job-trend-series-analysis",
+      "status": "completed",
+      "changed_paths": [],
+      "commands": [
+        "uv run --cache-dir /tmp/company-intel-uv-cache-20260914 --frozen pytest tests/test_job_trends.py tests/test_analytics.py tests/test_analysis_service.py -q"
+      ],
+      "outcome": "pass",
+      "raw_log_path": ".runtime/campaign-validation-20260914/C-11-retry1.log",
+      "raw_log_sha256": "ab9421c66ce409ee2c687555bc43dc067ed70ac97c6e37bed5f7079a98672925",
+      "first_failure": null,
+      "stdout_tail": "............ [100%] 12 passed in 0.37s",
+      "stderr_tail": null,
+      "telemetry": {
+        "provider": {
+          "measurement": "not-applicable",
+          "invocations": null,
+          "input_tokens": null,
+          "output_tokens": null
+        },
+        "agent_session": {
+          "measurement": "unavailable-platform",
+          "token_count": null,
+          "tool_output_chars": null
+        }
+      },
+      "provider_guard": null,
+      "updated_at": "2026-09-14T14:36:42.916019+00:00",
+      "context_packet_id": "company-intelligence-cross-region-career-preparation--C-11-job-trend-series-analysis--r1",
+      "context_packet_sha256": "9603bb9319f4e71d28dcff10148e2771882cffd46ac8f13e3a2c2dbab6d9214f",
+      "implementation_plan_id": "company-intelligence-cross-region-career-preparation--C-11-job-trend-series-analysis--r1",
+      "implementation_plan_sha256": "92fdca605dd8438c86be16ee31e171e74e675d7e60e975adcb68b1dfd5974417",
+      "passed_criterion_ids": [
+        "C-11-job-trend-tests"
+      ],
+      "attempt_ref": {
+        "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/receipts/attempts/sha256-61d092198c98e2be134b93dcb0585f114948f0c9c60ff4f9bed7681b9c46b5d9.json",
+        "sha256": "61d092198c98e2be134b93dcb0585f114948f0c9c60ff4f9bed7681b9c46b5d9"
+      }
+    },
+    {
+      "cohort_id": "C-12-selection-provenance-delivery",
+      "status": "completed",
+      "changed_paths": [],
+      "commands": [
+        "uv run --cache-dir /tmp/company-intel-uv-cache-20260914 --frozen pytest tests/test_selection_provenance.py tests/test_run_manifest.py tests/test_exporting.py tests/test_cli_workflows.py -q"
+      ],
+      "outcome": "pass",
+      "raw_log_path": ".runtime/campaign-validation-20260914/C-12-retry1.log",
+      "raw_log_sha256": "5042bd427c94eee8c6529c6f5223294ee274e1f8b59f036bde080b22e6c02de0",
+      "first_failure": null,
+      "stdout_tail": "............. [100%] 13 passed in 0.94s",
+      "stderr_tail": null,
+      "telemetry": {
+        "provider": {
+          "measurement": "not-applicable",
+          "invocations": null,
+          "input_tokens": null,
+          "output_tokens": null
+        },
+        "agent_session": {
+          "measurement": "unavailable-platform",
+          "token_count": null,
+          "tool_output_chars": null
+        }
+      },
+      "provider_guard": null,
+      "updated_at": "2026-09-14T14:36:42.984150+00:00",
+      "context_packet_id": "company-intelligence-cross-region-career-preparation--C-12-selection-provenance-delivery--r1",
+      "context_packet_sha256": "cfa924c7c112014813ecbb944c529f92ab58286ac883d9f4b88260fb200035b5",
+      "implementation_plan_id": "company-intelligence-cross-region-career-preparation--C-12-selection-provenance-delivery--r1",
+      "implementation_plan_sha256": "de4ce2fd771295fb7a85d2720cd7b4f3b460f51807642c504ca31b968b529f1a",
+      "passed_criterion_ids": [
+        "C-12-provenance-delivery-tests"
+      ],
+      "attempt_ref": {
+        "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/receipts/attempts/sha256-7fc1bcdf9c26bf191b2462e84db07fba136a21ddcf60686a2dd3ee5f7c33d488.json",
+        "sha256": "7fc1bcdf9c26bf191b2462e84db07fba136a21ddcf60686a2dd3ee5f7c33d488"
+      }
+    }
+  ],
+  "telemetry": {
+    "provider": {
+      "measurement": "not-applicable",
+      "invocations": null,
+      "input_tokens": null,
+      "output_tokens": null
+    },
+    "agent_session": {
+      "measurement": "unavailable-platform",
+      "token_count": null,
+      "tool_output_chars": null
+    }
+  }
+}

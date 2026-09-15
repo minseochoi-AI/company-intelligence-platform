@@ -1,0 +1,61 @@
+{
+  "contract_version": "campaign-cohort-result-v1",
+  "campaign_id": "company-intelligence-cross-region-career-preparation",
+  "outcome": "pass",
+  "updated_at": "2026-09-14T14:34:22.161417+00:00",
+  "cohorts": [
+    {
+      "cohort_id": "C-08-public-sector-identity-linkage",
+      "status": "completed",
+      "changed_paths": [],
+      "commands": [
+        "uv run --cache-dir /tmp/company-intel-uv-cache-20260914 --frozen pytest tests/test_public_identity.py tests/test_taxonomy.py -q"
+      ],
+      "outcome": "pass",
+      "raw_log_path": ".runtime/campaign-validation-20260914/C-08-retry1.log",
+      "raw_log_sha256": "a4ce3c4d2d126cf54794b588fe0568dcf174b80e68913316f73e0da7b9f1c64b",
+      "first_failure": null,
+      "stdout_tail": "...... [100%] 6 passed in 0.03s",
+      "stderr_tail": null,
+      "telemetry": {
+        "provider": {
+          "measurement": "not-applicable",
+          "invocations": null,
+          "input_tokens": null,
+          "output_tokens": null
+        },
+        "agent_session": {
+          "measurement": "unavailable-platform",
+          "token_count": null,
+          "tool_output_chars": null
+        }
+      },
+      "provider_guard": null,
+      "updated_at": "2026-09-14T14:34:22.161417+00:00",
+      "context_packet_id": "C-08-public-sector-identity-linkage-r1",
+      "context_packet_sha256": "1a52943f9971aeccf2be32d9892f4332c5f97429284597e730c9952ce52837a2",
+      "implementation_plan_id": "company-intelligence-cross-region-career-preparation--C-08-public-sector-identity-linkage--r1",
+      "implementation_plan_sha256": "2b2e1a84a2848c95a637fcefe1599b7393927da415fe74eecc04fc778885126d",
+      "passed_criterion_ids": [
+        "C-08-public-identity-tests"
+      ],
+      "attempt_ref": {
+        "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/receipts/criteria/attempts/sha256-9d137be675a10d8f762b5109251060543ec3e8e93ee5efe342b943c3d3e13e3e.json",
+        "sha256": "9d137be675a10d8f762b5109251060543ec3e8e93ee5efe342b943c3d3e13e3e"
+      }
+    }
+  ],
+  "telemetry": {
+    "provider": {
+      "measurement": "not-applicable",
+      "invocations": null,
+      "input_tokens": null,
+      "output_tokens": null
+    },
+    "agent_session": {
+      "measurement": "unavailable-platform",
+      "token_count": null,
+      "tool_output_chars": null
+    }
+  }
+}

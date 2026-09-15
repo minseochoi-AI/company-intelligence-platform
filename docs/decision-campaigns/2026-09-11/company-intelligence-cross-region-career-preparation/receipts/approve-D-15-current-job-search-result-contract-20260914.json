@@ -1,0 +1,45 @@
+{
+  "contract_version": "atomic-json-patch-receipt-v1",
+  "target": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/15-d-15-current-job-search-result-contract.json",
+  "outcome": "pass",
+  "before_sha256": "c3f5e0cef33dd34e24069a1ac39079a85341b5f502720b83da1d76c068f48b8a",
+  "after_sha256": "dc12834a31775a6df95d370b56b5a20d1a2633258f0fab57d5fd6324c2e7cf54",
+  "proposed_after_sha256": "dc12834a31775a6df95d370b56b5a20d1a2633258f0fab57d5fd6324c2e7cf54",
+  "operations": [
+    {
+      "op": "test",
+      "path": "/status"
+    },
+    {
+      "op": "test",
+      "path": "/accepted_decision"
+    },
+    {
+      "op": "replace",
+      "path": "/status"
+    },
+    {
+      "op": "replace",
+      "path": "/accepted_decision"
+    }
+  ],
+  "backup": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/receipts/mutation-journal/preimages/sha256-c3f5e0cef33dd34e24069a1ac39079a85341b5f502720b83da1d76c068f48b8a.json",
+  "journal": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/receipts/mutation-journal/mutations/f13d1e60aa951fa02b19b1d2795f6a4c426912f34a0402f4ea24ff3c2ec60985.json",
+  "mutation_id": "approve-D-15-current-job-search-result-contract-20260914",
+  "validators": [
+    {
+      "command": [
+        "python3",
+        "-m",
+        "jsonschema",
+        "--instance",
+        "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/15-d-15-current-job-search-result-contract.json",
+        "/home/ubuntu/.codex/skills/decision-campaign-workbook/references/decision-item.schema.json"
+      ],
+      "returncode": 0,
+      "stdout_tail": "",
+      "stderr_tail": ""
+    }
+  ],
+  "completed_at": "2026-09-14T12:33:43.303052+00:00"
+}

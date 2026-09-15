@@ -584,3 +584,22 @@ def candidate_verdict(match: CandidateMatch) -> FilterVerdict:
     if match.status == "conflict":
         return FilterVerdict.CONFLICT
     return FilterVerdict.NO_MATCH
+
+
+def identity_link_status(row: Mapping[str, Any]) -> str:
+    value = str(row.get("identity_link_status") or row.get("identity_status") or "unresolved")
+    return value if value in {"linked", "candidate", "unresolved", "conflict"} else "unresolved"
+
+
+def public_sector_filter(row: Mapping[str, Any], requested: tuple[str, ...] = ()) -> FieldVerdict:
+    """Use legal/ownership filters only where an entity link is verified."""
+
+    if not requested:
+        return FieldVerdict("public_sector", FilterVerdict.NOT_APPLICABLE)
+    status = identity_link_status(row)
+    if status == "conflict":
+        return FieldVerdict("public_sector", FilterVerdict.CONFLICT, expected=requested, reason="identity_conflict")
+    if status != "linked":
+        return FieldVerdict("public_sector", FilterVerdict.UNKNOWN, expected=requested, reason="identity_unresolved")
+    values = tuple(str(item) for item in (row.get("ownership_sector"), row.get("public_institution_type"), row.get("legal_form")) if item)
+    return _semantic_field_verdict(FieldFilter("ownership_sector", requested), tuple(SemanticValue(item) for item in values))

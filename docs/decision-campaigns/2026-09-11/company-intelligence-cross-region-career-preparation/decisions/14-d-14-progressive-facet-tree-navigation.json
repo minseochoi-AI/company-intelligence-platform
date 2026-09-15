@@ -1,0 +1,147 @@
+{
+  "decision_id": "D-14-progressive-facet-tree-navigation",
+  "sequence": 14,
+  "unit_id": "progressive-facet-tree-navigation",
+  "title": "실제 값 기반 단계형 facet 트리 탐색",
+  "status": "accepted",
+  "question": "사용자가 화살표로 목적과 카테고리를 분기 선택할 때 유효한 값·개수·사용불가 이유를 어떻게 점진적으로 계산할 것인가?",
+  "five_w_one_h": {
+    "who": "CLI에서 검색 조건을 탐색하는 비기술 사용자",
+    "what": "목적→snapshot→국가→기관영역→직종→위치→고용→급여→요건의 점진 facet 트리",
+    "where": "company-intel interactive와 동일 query compiler",
+    "when": "각 상위 조건을 선택·취소·되돌릴 때",
+    "why": "존재하지 않거나 의미가 다른 값을 입력해 0건·오분류가 생기는 문제를 줄이기 위해",
+    "how": "선택으로 남은 행에서 facet count와 capability를 재계산하고 선택불가 사유를 표시한다."
+  },
+  "evidence_refs": [
+    {
+      "evidence_id": "E-D14-tree-design",
+      "source_type": "local-document",
+      "locator": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/live-category-tree-scope-amendment-2026-09-13.md:20-64;79-87",
+      "observed_fact": "요구 트리는 데이터 상태, 현재 채용, 동향, 기업·기관 분석, 결과 전달의 5개 루트와 단계별 실제 값 활성화 규칙으로 정리된다.",
+      "content_hash": "sha256:babe85bec25ea7f1effad8f924071b5977a0359f0377b6b759ed874dea6c17bd",
+      "line_range": "20-64;79-87",
+      "question": "현재 API 속성을 사용자가 직접 유효한 가지로 탐색할 수 있는가?",
+      "observation_summary": "정적 질문이 아니라 선택 후 남은 snapshot 행을 기준으로 하위 가지와 개수를 다시 계산해야 한다."
+    },
+    {
+      "evidence_id": "E-D14-current-static-interactive",
+      "source_type": "code",
+      "locator": "src/company_intel/interactive.py:182-208;499-519",
+      "observed_fact": "현재 interactive는 source-supported facet을 표시하고 command를 compile하지만 목적별 live/trend 트리와 상위 선택 후 동적 재계산 계약은 없다.",
+      "content_hash": "sha256:1195b3136a5e06d2376cacfbfe0657ea9bd3beabc8ce631f59515ff857f5e585",
+      "line_range": "182-208;499-519",
+      "question": "기존 interactive가 새 트리 기반을 제공하는가?",
+      "observation_summary": "선택 가능성 모델은 재사용할 수 있으나 다단계 query state와 재계산이 필요하다."
+    }
+  ],
+  "facts": [
+    "현재 FacetOption은 selectable과 disabled reason을 표현할 수 있다.",
+    "현재 facet count는 supplied snapshot 범위만 의미한다.",
+    "국가와 provider에 따라 실제 선택 가능한 세부 축이 다르다."
+  ],
+  "conflicts": [
+    "모든 필드를 한 화면에 노출하면 빠르지만 무효 조합과 의미 혼동이 늘어난다.",
+    "강한 계층 고정은 탐색을 쉽게 하지만 사용자가 조건 순서를 자유롭게 바꾸기 어렵다."
+  ],
+  "unimplemented": [
+    "상위 선택 후 하위 facet count를 재계산하는 session state가 없다.",
+    "backtracking 시 종속 선택을 무효화하고 설명하는 계약이 없다.",
+    "0건·display-only·unavailable·forbidden 분기를 실행 전에 일관되게 보여주지 않는다."
+  ],
+  "options": [
+    {
+      "option_id": "A-flat-all-fields-form",
+      "description": "모든 가능한 필드를 한 번에 나열하고 사용자가 임의 입력한다.",
+      "impact": {
+        "data": "무효 값과 provider namespace 충돌이 profile에 들어갈 수 있다.",
+        "schema_api": "기존 flat profile을 유지한다.",
+        "ux": "전문가에게 빠르지만 발견성과 오류 예방이 낮다.",
+        "performance": "facet 재계산이 적다.",
+        "cost": "낮다.",
+        "security": "변화 없음.",
+        "migration": "없다.",
+        "tests": "필드 파싱만 검사한다."
+      },
+      "opportunity_costs": [
+        "0건이 실제 부재인지 지원하지 않는 조합인지 사용자가 구분하기 어렵다."
+      ]
+    },
+    {
+      "option_id": "B-progressive-evidence-facet-tree",
+      "description": "목적별 트리에서 현재 선택으로 남은 행의 고유값·count·coverage를 계산하고 사용 가능한 다음 가지만 활성화한다.",
+      "impact": {
+        "data": "query session과 facet snapshot이 필요하다.",
+        "schema_api": "facet query, selection state, invalidation reason이 추가된다.",
+        "ux": "화살표·뒤로가기·미리보기로 유효한 조합을 탐색한다.",
+        "performance": "인덱스된 로컬 snapshot에서 단계별 집계를 수행한다.",
+        "cost": "state machine과 키보드 UI 테스트 비용이 든다.",
+        "security": "선택 manifest에서 비밀값을 배제한다.",
+        "migration": "기존 scripted selector와 flat flags를 compiler 하위 계층으로 재사용한다.",
+        "tests": "동적 count, disabled reason, backtracking, compiled profile parity를 검사한다."
+      },
+      "opportunity_costs": [
+        "대규모 고유값 필드는 검색형 picker와 pagination이 추가로 필요하다."
+      ]
+    }
+  ],
+  "recommended_option_id": "B-progressive-evidence-facet-tree",
+  "recommendation_reason": "provider마다 다른 필드 coverage를 숨기지 않으면서 사용자가 실제 가능한 조합만 단계적으로 선택할 수 있다.",
+  "impact": {
+    "data": "선택 단계별 후보 집합과 facet summary를 만든다.",
+    "schema_api": "purpose tree와 query session 계약을 추가한다.",
+    "ux": "5개 목적 루트와 동적 하위 가지를 제공한다.",
+    "performance": "고유값 상한·검색형 picker·캐시가 필요하다.",
+    "cost": "interactive state 구현 비용이 발생한다.",
+    "security": "profile과 manifest에 secret/raw contact를 넣지 않는다.",
+    "migration": "기존 9개 command는 최종 leaf로 유지한다.",
+    "tests": "키보드 탐색과 비대화형 script가 같은 profile을 만드는지 검증한다."
+  },
+  "opportunity_costs": [
+    "원천에 없는 조건은 사용자가 자유 텍스트로 강제 적용하지 못하고 명시적 고급 모드가 필요하다."
+  ],
+  "dependencies": [
+    "D-03-search-profile-and-discovery",
+    "D-12-current-search-trend-mode-separation",
+    "D-13-public-sector-identity-linkage"
+  ],
+  "dependency_waivers": {},
+  "accepted_decision": {
+    "disposition": "ACCEPT",
+    "option_id": "B-progressive-evidence-facet-tree",
+    "rule": "사용자가 2026-09-14 요청에서 D-11~D-17의 권장안 B 승인을 명시했다.",
+    "rationale": "상위 선택으로 남은 실제 행에서 하위 값·개수·coverage를 다시 계산해 무효 조합을 차단한다.",
+    "decided_by": "user",
+    "decided_at": "2026-09-14T12:33:36.975023+00:00"
+  },
+  "implementation_targets": [
+    "src/company_intel/interactive.py",
+    "src/company_intel/facets.py",
+    "src/company_intel/query_contract.py",
+    "src/company_intel/cli.py",
+    "tests/test_interactive.py",
+    "tests/test_facets.py",
+    "tests/test_cli_workflows.py"
+  ],
+  "validation_requirements": [
+    "상위 선택 후 모든 하위 option count가 남은 행 기준으로 바뀌는지 확인한다.",
+    "선택불가 값이 disabled reason과 source coverage를 표시하며 profile에 포함되지 않는지 확인한다.",
+    "뒤로가기와 scripted run이 동일한 최종 profile을 재현하는지 확인한다."
+  ],
+  "diagram_impacts": [
+    "5개 목적 root와 current/trend의 단계형 facet state machine을 추가한다."
+  ],
+  "context_topic_ids": [
+    "progressive-cli-tree"
+  ],
+  "implementation_change_ids": [
+    "file-change-3db064398654",
+    "file-change-4b8a5b1304c0",
+    "file-change-79c10e85533c",
+    "file-change-884e869a1a0f",
+    "file-change-98b9acce66be",
+    "file-change-a2dce4728cf0",
+    "file-change-d3aed88ac6ff",
+    "file-change-e633c98e50e6"
+  ]
+}

@@ -21,6 +21,43 @@ SENSITIVE_EXPORT_KEYS = SENSITIVE_QUERY_KEYS | {
     "email", "telephone", "phone", "contact", "contact_name", "personal_email", "raw_body", "raw_detail",
 }
 
+SELECTION_MANIFEST_ALLOWLIST = {
+    "run_id", "purpose", "mode", "selections", "profile", "snapshot_id", "collected_at", "status",
+    "sources", "provider", "record_count", "payload_sha256", "result_refs", "export_refs", "eligibility",
+}
+
+
+def redact_contact_fields(value: Any) -> Any:
+    """Remove personal contact fields recursively from user-visible lineage."""
+
+    if isinstance(value, dict):
+        return {
+            str(key): "<redacted>" if str(key).casefold() in SENSITIVE_EXPORT_KEYS else redact_contact_fields(item)
+            for key, item in value.items()
+        }
+    if isinstance(value, list):
+        return [redact_contact_fields(item) for item in value]
+    return value
+
+
+def sanitize_manifest(value: Any, *, allowlist: set[str] | None = None) -> Any:
+    """Project provenance to a contact-free, credential-free stable shape."""
+
+    allowed = allowlist or SELECTION_MANIFEST_ALLOWLIST
+
+    def project(item: Any, *, restrict: bool) -> Any:
+        if isinstance(item, dict):
+            return {
+                str(key): project(child, restrict=False)
+                for key, child in item.items()
+                if (not restrict or str(key) in allowed) and str(key).casefold() not in SENSITIVE_EXPORT_KEYS
+            }
+        if isinstance(item, list):
+            return [project(child, restrict=False) for child in item]
+        return redact_contact_fields(item)
+
+    return project(value, restrict=True)
+
 
 def redact_url(url: str, secrets: list[str] | tuple[str, ...] = ()) -> str:
     parts = urlsplit(url)

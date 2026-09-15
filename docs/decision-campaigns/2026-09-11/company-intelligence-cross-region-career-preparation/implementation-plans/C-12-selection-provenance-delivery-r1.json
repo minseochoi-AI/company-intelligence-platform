@@ -1,0 +1,1302 @@
+{
+  "contract_version": "1.2.0",
+  "plan_id": "company-intelligence-cross-region-career-preparation--C-12-selection-provenance-delivery--r1",
+  "owner": {
+    "kind": "campaign-cohort",
+    "id": "C-12-selection-provenance-delivery"
+  },
+  "source_refs": [
+    {
+      "id": "D-17-selection-session-result-provenance",
+      "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/17-d-17-selection-session-result-provenance.json",
+      "sha256": "sha256:126a27841700a49537a2540e86060ceacf893acbf9cfc20dccb148c7938c9f86"
+    }
+  ],
+  "status": "contract-ready",
+  "change_slices": [
+    {
+      "slice_id": "selection-query-result-export-provenance",
+      "behavior": "5개 목적 트리의 최종 선택을 CLI/API leaf에 연결하고 normalized profile·snapshot·eligibility·결과군·export를 redacted hash-linked manifest로 재현한다.",
+      "dependencies": [
+        "C-03-evidence-export-delivery",
+        "C-10-current-job-search-execution",
+        "C-11-job-trend-series-analysis"
+      ],
+      "operations": [
+        {
+          "change_id": "file-change-952daa25d2bf",
+          "operation": "CREATE",
+          "path": "src/company_intel/selection_provenance.py",
+          "symbols": [
+            "SelectionManifest",
+            "bind_selection_run",
+            "verify_run_chain",
+            "replay_selection"
+          ],
+          "current_state": "선택 세션과 query·snapshot·result·export를 연결하는 전용 provenance 서비스가 없다.",
+          "source_hash": null,
+          "result_hash": null,
+          "expected_result": "allowlist 기반 redacted manifest와 artifact hash chain, tamper 검증, 동일 snapshot replay를 제공한다.",
+          "after_state": "allowlist 기반 redacted manifest와 artifact hash chain, tamper 검증, 동일 snapshot replay를 제공한다.",
+          "rationale": "화면 선택과 실제 결과의 동일성을 감사·재현하기 위해서다.",
+          "dependencies": [],
+          "public_contract_impacts": [
+            "selection run manifest v1"
+          ],
+          "compatibility": "기존 run/export manifest를 하위 artifact로 포함한다.",
+          "migration": "기존 interactive script는 selection list로 import한다.",
+          "rollback": "신규 replay/explain을 숨기고 기존 export를 유지한다.",
+          "authorization_boundary": "API key·개인 연락처·전체 원문은 manifest allowlist 밖이다.",
+          "consumer_search": null,
+          "contributes_to": [
+            "D-17-selection-session-result-provenance"
+          ],
+          "contribution_refs": [
+            {
+              "decision_id": "D-17-selection-session-result-provenance",
+              "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/17-d-17-selection-session-result-provenance.json",
+              "sha256": "sha256:126a27841700a49537a2540e86060ceacf893acbf9cfc20dccb148c7938c9f86",
+              "symbols": [
+                "SelectionManifest",
+                "bind_selection_run",
+                "verify_run_chain",
+                "replay_selection"
+              ],
+              "intent_change_ids": [
+                "D-17-selection-session-result-provenance-service"
+              ]
+            }
+          ],
+          "intent_change_ids": [
+            "D-17-selection-session-result-provenance-service"
+          ],
+          "symbol_changes": [
+            {
+              "symbol": "SelectionManifest",
+              "intent": "allowlist 기반 redacted manifest와 artifact hash chain, tamper 검증, 동일 snapshot replay를 제공한다.",
+              "decision_id": "D-17-selection-session-result-provenance"
+            },
+            {
+              "symbol": "bind_selection_run",
+              "intent": "allowlist 기반 redacted manifest와 artifact hash chain, tamper 검증, 동일 snapshot replay를 제공한다.",
+              "decision_id": "D-17-selection-session-result-provenance"
+            },
+            {
+              "symbol": "verify_run_chain",
+              "intent": "allowlist 기반 redacted manifest와 artifact hash chain, tamper 검증, 동일 snapshot replay를 제공한다.",
+              "decision_id": "D-17-selection-session-result-provenance"
+            },
+            {
+              "symbol": "replay_selection",
+              "intent": "allowlist 기반 redacted manifest와 artifact hash chain, tamper 검증, 동일 snapshot replay를 제공한다.",
+              "decision_id": "D-17-selection-session-result-provenance"
+            }
+          ]
+        },
+        {
+          "change_id": "file-change-ef7ba7f0a5f0",
+          "operation": "MODIFY",
+          "path": "src/company_intel/run_manifest.py",
+          "symbols": [
+            "build_run_manifest",
+            "verify_manifest",
+            "snapshot_ref",
+            "selection_ref",
+            "result_refs"
+          ],
+          "current_state": "기존 run manifest는 CLI 실행을 기록하지만 단계 선택과 live snapshot/result partition의 전체 hash chain이 없다.",
+          "source_hash": "sha256:473b7746813bdf725f21b6f65f2a6a63599d56ed9fc8e44e8d59e30e68f4dd87",
+          "result_hash": null,
+          "expected_result": "selection, normalized query, snapshot, eligibility, result partitions와 export refs를 versioned manifest로 결속한다.",
+          "after_state": "selection, normalized query, snapshot, eligibility, result partitions와 export refs를 versioned manifest로 결속한다.",
+          "rationale": "기존 provenance 기반을 새 목적 트리에 확장하기 위해서다.",
+          "dependencies": [
+            "file-change-952daa25d2bf"
+          ],
+          "public_contract_impacts": [
+            "run manifest v2"
+          ],
+          "compatibility": "v1 reader를 유지한다.",
+          "migration": "v1은 selection_ref 없는 legacy run으로 읽는다.",
+          "rollback": "v2 writer를 비활성화한다.",
+          "authorization_boundary": "redaction 후 값만 hash·저장한다.",
+          "consumer_search": null,
+          "contributes_to": [
+            "D-17-selection-session-result-provenance"
+          ],
+          "contribution_refs": [
+            {
+              "decision_id": "D-17-selection-session-result-provenance",
+              "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/17-d-17-selection-session-result-provenance.json",
+              "sha256": "sha256:126a27841700a49537a2540e86060ceacf893acbf9cfc20dccb148c7938c9f86",
+              "symbols": [
+                "build_run_manifest",
+                "verify_manifest",
+                "snapshot_ref",
+                "selection_ref",
+                "result_refs"
+              ],
+              "intent_change_ids": [
+                "D-17-selection-session-result-provenance-run-manifest"
+              ]
+            }
+          ],
+          "intent_change_ids": [
+            "D-17-selection-session-result-provenance-run-manifest"
+          ],
+          "symbol_changes": [
+            {
+              "symbol": "build_run_manifest",
+              "intent": "selection, normalized query, snapshot, eligibility, result partitions와 export refs를 versioned manifest로 결속한다.",
+              "decision_id": "D-17-selection-session-result-provenance"
+            },
+            {
+              "symbol": "verify_manifest",
+              "intent": "selection, normalized query, snapshot, eligibility, result partitions와 export refs를 versioned manifest로 결속한다.",
+              "decision_id": "D-17-selection-session-result-provenance"
+            },
+            {
+              "symbol": "snapshot_ref",
+              "intent": "selection, normalized query, snapshot, eligibility, result partitions와 export refs를 versioned manifest로 결속한다.",
+              "decision_id": "D-17-selection-session-result-provenance"
+            },
+            {
+              "symbol": "selection_ref",
+              "intent": "selection, normalized query, snapshot, eligibility, result partitions와 export refs를 versioned manifest로 결속한다.",
+              "decision_id": "D-17-selection-session-result-provenance"
+            },
+            {
+              "symbol": "result_refs",
+              "intent": "selection, normalized query, snapshot, eligibility, result partitions와 export refs를 versioned manifest로 결속한다.",
+              "decision_id": "D-17-selection-session-result-provenance"
+            }
+          ]
+        },
+        {
+          "change_id": "file-change-82feda91e73b",
+          "operation": "MODIFY",
+          "path": "src/company_intel/exporting.py",
+          "symbols": [
+            "build_export_manifest",
+            "render_csv_bundle",
+            "render_xlsx_workbook",
+            "selection_run_ref"
+          ],
+          "current_state": "결과 표는 내보내지만 selection/snapshot/eligibility hash가 workbook과 결속되지 않는다.",
+          "source_hash": "sha256:cb3cd5c8921995d911e66385839ffea17267818ae9964abd6443bc0d9a4fa6cb",
+          "result_hash": null,
+          "expected_result": "current/trend 결과 표와 분모·coverage·선택 manifest ref를 CSV/XLSX에 동일 row key로 포함한다.",
+          "after_state": "current/trend 결과 표와 분모·coverage·선택 manifest ref를 CSV/XLSX에 동일 row key로 포함한다.",
+          "rationale": "내보낸 결과만으로도 검색 기준과 제한을 추적하기 위해서다.",
+          "dependencies": [
+            "file-change-ef7ba7f0a5f0"
+          ],
+          "public_contract_impacts": [
+            "evidence export v4"
+          ],
+          "compatibility": "기존 sheet와 CSV names를 유지하고 신규 summary를 추가한다.",
+          "migration": "manifest version을 상승한다.",
+          "rollback": "신규 sheets/refs를 제외한다.",
+          "authorization_boundary": "원문 연락처와 secret은 export하지 않는다.",
+          "consumer_search": null,
+          "contributes_to": [
+            "D-17-selection-session-result-provenance"
+          ],
+          "contribution_refs": [
+            {
+              "decision_id": "D-17-selection-session-result-provenance",
+              "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/17-d-17-selection-session-result-provenance.json",
+              "sha256": "sha256:126a27841700a49537a2540e86060ceacf893acbf9cfc20dccb148c7938c9f86",
+              "symbols": [
+                "build_export_manifest",
+                "render_csv_bundle",
+                "render_xlsx_workbook",
+                "selection_run_ref"
+              ],
+              "intent_change_ids": [
+                "D-17-selection-session-result-provenance-export"
+              ]
+            }
+          ],
+          "intent_change_ids": [
+            "D-17-selection-session-result-provenance-export"
+          ],
+          "symbol_changes": [
+            {
+              "symbol": "build_export_manifest",
+              "intent": "current/trend 결과 표와 분모·coverage·선택 manifest ref를 CSV/XLSX에 동일 row key로 포함한다.",
+              "decision_id": "D-17-selection-session-result-provenance"
+            },
+            {
+              "symbol": "render_csv_bundle",
+              "intent": "current/trend 결과 표와 분모·coverage·선택 manifest ref를 CSV/XLSX에 동일 row key로 포함한다.",
+              "decision_id": "D-17-selection-session-result-provenance"
+            },
+            {
+              "symbol": "render_xlsx_workbook",
+              "intent": "current/trend 결과 표와 분모·coverage·선택 manifest ref를 CSV/XLSX에 동일 row key로 포함한다.",
+              "decision_id": "D-17-selection-session-result-provenance"
+            },
+            {
+              "symbol": "selection_run_ref",
+              "intent": "current/trend 결과 표와 분모·coverage·선택 manifest ref를 CSV/XLSX에 동일 row key로 포함한다.",
+              "decision_id": "D-17-selection-session-result-provenance"
+            }
+          ]
+        },
+        {
+          "change_id": "file-change-c46a3c2c1704",
+          "operation": "MODIFY",
+          "path": "src/company_intel/reporting.py",
+          "symbols": [
+            "render_selection_summary",
+            "render_denominators",
+            "render_trend_eligibility",
+            "render_replay_guidance"
+          ],
+          "current_state": "선택 트리·snapshot 분모·동향 부적격을 하나의 한국어 설명으로 렌더링하지 않는다.",
+          "source_hash": "sha256:5038b61a812e6676da5f93fd617e9c901ccead12b2c0fe86cc7a77f36bf0ad8b",
+          "result_hash": null,
+          "expected_result": "목적·조건·시점·coverage·4상태 결과·동향 적격성과 재실행 방법을 근거와 함께 설명한다.",
+          "after_state": "목적·조건·시점·coverage·4상태 결과·동향 적격성과 재실행 방법을 근거와 함께 설명한다.",
+          "rationale": "사용자가 0건과 검사 불가 및 추세 부적격을 이해하게 한다.",
+          "dependencies": [
+            "file-change-ef7ba7f0a5f0"
+          ],
+          "public_contract_impacts": [
+            "Korean selection/trend report"
+          ],
+          "compatibility": "기존 export summary를 유지한다.",
+          "migration": "신규 section을 additive하게 렌더링한다.",
+          "rollback": "신규 section을 숨긴다.",
+          "authorization_boundary": "민감 raw 값을 보고서에 복사하지 않는다.",
+          "consumer_search": null,
+          "contributes_to": [
+            "D-17-selection-session-result-provenance"
+          ],
+          "contribution_refs": [
+            {
+              "decision_id": "D-17-selection-session-result-provenance",
+              "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/17-d-17-selection-session-result-provenance.json",
+              "sha256": "sha256:126a27841700a49537a2540e86060ceacf893acbf9cfc20dccb148c7938c9f86",
+              "symbols": [
+                "render_selection_summary",
+                "render_denominators",
+                "render_trend_eligibility",
+                "render_replay_guidance"
+              ],
+              "intent_change_ids": [
+                "D-17-selection-session-result-provenance-reporting"
+              ]
+            }
+          ],
+          "intent_change_ids": [
+            "D-17-selection-session-result-provenance-reporting"
+          ],
+          "symbol_changes": [
+            {
+              "symbol": "render_selection_summary",
+              "intent": "목적·조건·시점·coverage·4상태 결과·동향 적격성과 재실행 방법을 근거와 함께 설명한다.",
+              "decision_id": "D-17-selection-session-result-provenance"
+            },
+            {
+              "symbol": "render_denominators",
+              "intent": "목적·조건·시점·coverage·4상태 결과·동향 적격성과 재실행 방법을 근거와 함께 설명한다.",
+              "decision_id": "D-17-selection-session-result-provenance"
+            },
+            {
+              "symbol": "render_trend_eligibility",
+              "intent": "목적·조건·시점·coverage·4상태 결과·동향 적격성과 재실행 방법을 근거와 함께 설명한다.",
+              "decision_id": "D-17-selection-session-result-provenance"
+            },
+            {
+              "symbol": "render_replay_guidance",
+              "intent": "목적·조건·시점·coverage·4상태 결과·동향 적격성과 재실행 방법을 근거와 함께 설명한다.",
+              "decision_id": "D-17-selection-session-result-provenance"
+            }
+          ]
+        },
+        {
+          "change_id": "file-change-36b865e1eb42",
+          "operation": "MODIFY",
+          "path": "src/company_intel/security.py",
+          "symbols": [
+            "sanitize_manifest",
+            "SELECTION_MANIFEST_ALLOWLIST",
+            "redact_contact_fields"
+          ],
+          "current_state": "export sanitizer는 있으나 selection/live snapshot manifest 전용 allowlist와 nested contact 제거가 없다.",
+          "source_hash": "sha256:3f8ed92cbc6ed28525f78e289348024c9e6d4bcf1639a66816b649b3c48a8c5e",
+          "result_hash": null,
+          "expected_result": "query/snapshot/result manifest에서 secret·email·전화·원문 연락처를 재귀적으로 제거한다.",
+          "after_state": "query/snapshot/result manifest에서 secret·email·전화·원문 연락처를 재귀적으로 제거한다.",
+          "rationale": "재현성 metadata가 정보 유출 경로가 되지 않게 한다.",
+          "dependencies": [],
+          "public_contract_impacts": [
+            "selection manifest redaction policy"
+          ],
+          "compatibility": "기존 export sanitizer를 내부 primitive로 재사용한다.",
+          "migration": "신규 manifest writer만 allowlist를 요구한다.",
+          "rollback": "manifest 생성을 중단하고 기존 export만 허용한다.",
+          "authorization_boundary": "credential presence만 기록하고 값은 저장하지 않는다.",
+          "consumer_search": null,
+          "contributes_to": [
+            "D-17-selection-session-result-provenance"
+          ],
+          "contribution_refs": [
+            {
+              "decision_id": "D-17-selection-session-result-provenance",
+              "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/17-d-17-selection-session-result-provenance.json",
+              "sha256": "sha256:126a27841700a49537a2540e86060ceacf893acbf9cfc20dccb148c7938c9f86",
+              "symbols": [
+                "sanitize_manifest",
+                "SELECTION_MANIFEST_ALLOWLIST",
+                "redact_contact_fields"
+              ],
+              "intent_change_ids": [
+                "D-17-selection-session-result-provenance-security"
+              ]
+            }
+          ],
+          "intent_change_ids": [
+            "D-17-selection-session-result-provenance-security"
+          ],
+          "symbol_changes": [
+            {
+              "symbol": "sanitize_manifest",
+              "intent": "query/snapshot/result manifest에서 secret·email·전화·원문 연락처를 재귀적으로 제거한다.",
+              "decision_id": "D-17-selection-session-result-provenance"
+            },
+            {
+              "symbol": "SELECTION_MANIFEST_ALLOWLIST",
+              "intent": "query/snapshot/result manifest에서 secret·email·전화·원문 연락처를 재귀적으로 제거한다.",
+              "decision_id": "D-17-selection-session-result-provenance"
+            },
+            {
+              "symbol": "redact_contact_fields",
+              "intent": "query/snapshot/result manifest에서 secret·email·전화·원문 연락처를 재귀적으로 제거한다.",
+              "decision_id": "D-17-selection-session-result-provenance"
+            }
+          ]
+        },
+        {
+          "change_id": "file-change-e633c98e50e6",
+          "operation": "MODIFY",
+          "path": "src/company_intel/cli.py",
+          "symbols": [
+            "provider_refresh_command",
+            "snapshot_select_command",
+            "current_jobs_command",
+            "job_trends_command",
+            "interactive_command",
+            "render_purpose_tree",
+            "run_compiled_leaf",
+            "render_current_results",
+            "render_denominator_preview",
+            "render_trend_results",
+            "render_trend_unavailable",
+            "write_selection_manifest",
+            "explain_command",
+            "export_command",
+            "replay_command"
+          ],
+          "current_state": "provider-status와 interactive는 있지만 refresh/reuse·snapshot 선택 command가 없다. | job-search와 timeline은 있으나 current jobs와 job trends 목적 명령이 분리되지 않는다. | interactive는 명령 선택을 제공하지만 5개 목적의 동적 category tree를 실행하지 않는다. | 현재 검색 결과에 live snapshot 분모와 네 결과군 summary가 결속되지 않는다. | 채용 trend metric과 eligibility reason을 표시하는 leaf가 없다. | compiled command는 출력하지만 selection부터 export까지 hash-linked run을 생성·검증하지 않는다.",
+          "source_hash": "sha256:7ddae6fad260be564ef5b3264a962d2a763c1dcc7f32e89dd7dcec39b53c15ac",
+          "result_hash": null,
+          "expected_result": "데이터 상태 root에서 provider refresh, reuse, snapshot freshness와 partial failure를 선택·표시한다. | current-jobs와 job-trends leaf를 분리하고 legacy job-search를 current alias로 유지한다. | 화살표/뒤로가기/미리보기로 목적별 tree를 탐색하고 기존 command leaf를 실행한다. | 실행 전 예상 분모와 실행 후 strict/unverifiable/no-match/conflict를 표시한다. | 기간·주기·cohort·metric 선택과 series/coverage eligibility 결과를 표시한다. | 실행 전 preview 승인 후 redacted run manifest를 쓰고 explain/export/replay가 같은 run_id를 사용한다.",
+          "after_state": "데이터 상태 root에서 provider refresh, reuse, snapshot freshness와 partial failure를 선택·표시한다. | current-jobs와 job-trends leaf를 분리하고 legacy job-search를 current alias로 유지한다. | 화살표/뒤로가기/미리보기로 목적별 tree를 탐색하고 기존 command leaf를 실행한다. | 실행 전 예상 분모와 실행 후 strict/unverifiable/no-match/conflict를 표시한다. | 기간·주기·cohort·metric 선택과 series/coverage eligibility 결과를 표시한다. | 실행 전 preview 승인 후 redacted run manifest를 쓰고 explain/export/replay가 같은 run_id를 사용한다.",
+          "rationale": "실시간 기준시점을 사용자가 명시하게 한다. | 단일 snapshot과 trend series의 의미를 분리한다. | 사용자가 API 필드명을 외우지 않고 실제 가능한 조건을 고르게 한다. | 0건의 의미와 검사 한계를 즉시 보이기 위해서다. | 동향 가능한 조건과 현재 불가능 사유를 분리한다. | 사용자 선택과 결과 전달을 재현 가능하게 한다.",
+          "dependencies": [
+            "file-change-952daa25d2bf",
+            "file-change-ef7ba7f0a5f0"
+          ],
+          "public_contract_impacts": [
+            "provider refresh CLI",
+            "current-jobs and job-trends CLI",
+            "interactive category tree",
+            "current job CLI result envelope",
+            "job trend CLI output",
+            "selection run CLI"
+          ],
+          "compatibility": "기존 provider-status를 유지한다. | job-search alias를 유지한다. | 비대화형 JSON profile을 유지한다. | 기존 JSON output을 additive 확장한다. | 기존 timeline 명령을 유지한다. | 기존 explain/export 입력을 유지한다.",
+          "migration": "interactive에서 reuse가 기본값이다. | 기존 profile은 current mode로 읽는다. | 기존 scripted answers를 selection manifest로 변환한다. | 없음. | run_id를 optional input으로 추가한다.",
+          "rollback": "refresh branch를 숨긴다. | 신규 aliases를 제거한다. | legacy menu로 전환한다. | summary fields를 숨긴다. | job-trends leaf를 숨긴다. | run_id 기능만 비활성화한다.",
+          "authorization_boundary": "실제 refresh는 명시 flag와 provider authority가 필요하다. | trend eligibility 미충족 시 실행을 unavailable로 종료한다. | disabled branch를 강제 실행하지 않는다. | unverifiable을 추천으로 표시하지 않는다. | association과 causality label을 구분한다. | manifest에 credential 값과 개인 연락처를 넣지 않는다.",
+          "consumer_search": null,
+          "contributes_to": [
+            "D-11-live-source-refresh-snapshot-contract",
+            "D-12-current-search-trend-mode-separation",
+            "D-14-progressive-facet-tree-navigation",
+            "D-15-current-job-search-result-contract",
+            "D-16-job-trend-series-analysis-contract",
+            "D-17-selection-session-result-provenance"
+          ],
+          "contribution_refs": [
+            {
+              "decision_id": "D-11-live-source-refresh-snapshot-contract",
+              "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/11-d-11-live-source-refresh-snapshot-contract.json",
+              "sha256": "sha256:47c83ab9840e689e9e3d896ecf8598570b3de83b6b74aaf884202842ade89f22",
+              "symbols": [
+                "provider_refresh_command",
+                "snapshot_select_command",
+                "current_jobs_command",
+                "job_trends_command",
+                "interactive_command",
+                "render_purpose_tree",
+                "run_compiled_leaf",
+                "render_current_results",
+                "render_denominator_preview",
+                "render_trend_results",
+                "render_trend_unavailable",
+                "write_selection_manifest",
+                "explain_command",
+                "export_command",
+                "replay_command"
+              ],
+              "intent_change_ids": [
+                "D-11-live-source-refresh-snapshot-contract-cli"
+              ]
+            },
+            {
+              "decision_id": "D-12-current-search-trend-mode-separation",
+              "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/12-d-12-current-search-trend-mode-separation.json",
+              "sha256": "sha256:c92e467f14084e27cbf279d282453503c54cdc633c71c5e72dd1b3facff28587",
+              "symbols": [
+                "provider_refresh_command",
+                "snapshot_select_command",
+                "current_jobs_command",
+                "job_trends_command",
+                "interactive_command",
+                "render_purpose_tree",
+                "run_compiled_leaf",
+                "render_current_results",
+                "render_denominator_preview",
+                "render_trend_results",
+                "render_trend_unavailable",
+                "write_selection_manifest",
+                "explain_command",
+                "export_command",
+                "replay_command"
+              ],
+              "intent_change_ids": [
+                "D-12-current-search-trend-mode-separation-cli"
+              ]
+            },
+            {
+              "decision_id": "D-14-progressive-facet-tree-navigation",
+              "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/14-d-14-progressive-facet-tree-navigation.json",
+              "sha256": "sha256:e5a44f138e8f309f87da79449441bb140eb0941c04d79050876b0b12c85df7c8",
+              "symbols": [
+                "provider_refresh_command",
+                "snapshot_select_command",
+                "current_jobs_command",
+                "job_trends_command",
+                "interactive_command",
+                "render_purpose_tree",
+                "run_compiled_leaf",
+                "render_current_results",
+                "render_denominator_preview",
+                "render_trend_results",
+                "render_trend_unavailable",
+                "write_selection_manifest",
+                "explain_command",
+                "export_command",
+                "replay_command"
+              ],
+              "intent_change_ids": [
+                "D-14-progressive-facet-tree-navigation-cli"
+              ]
+            },
+            {
+              "decision_id": "D-15-current-job-search-result-contract",
+              "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/15-d-15-current-job-search-result-contract.json",
+              "sha256": "sha256:ede5de78f444d74deec246291faf3b4377f4a3dc3256b0872c973c73d0d17527",
+              "symbols": [
+                "provider_refresh_command",
+                "snapshot_select_command",
+                "current_jobs_command",
+                "job_trends_command",
+                "interactive_command",
+                "render_purpose_tree",
+                "run_compiled_leaf",
+                "render_current_results",
+                "render_denominator_preview",
+                "render_trend_results",
+                "render_trend_unavailable",
+                "write_selection_manifest",
+                "explain_command",
+                "export_command",
+                "replay_command"
+              ],
+              "intent_change_ids": [
+                "D-15-current-job-search-result-contract-cli"
+              ]
+            },
+            {
+              "decision_id": "D-16-job-trend-series-analysis-contract",
+              "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/16-d-16-job-trend-series-analysis-contract.json",
+              "sha256": "sha256:92399a933fac8db44e14979f3fdd3c79ee715cdcaa174aba6b364f60eb6d88fe",
+              "symbols": [
+                "provider_refresh_command",
+                "snapshot_select_command",
+                "current_jobs_command",
+                "job_trends_command",
+                "interactive_command",
+                "render_purpose_tree",
+                "run_compiled_leaf",
+                "render_current_results",
+                "render_denominator_preview",
+                "render_trend_results",
+                "render_trend_unavailable",
+                "write_selection_manifest",
+                "explain_command",
+                "export_command",
+                "replay_command"
+              ],
+              "intent_change_ids": [
+                "D-16-job-trend-series-analysis-contract-cli"
+              ]
+            },
+            {
+              "decision_id": "D-17-selection-session-result-provenance",
+              "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/17-d-17-selection-session-result-provenance.json",
+              "sha256": "sha256:126a27841700a49537a2540e86060ceacf893acbf9cfc20dccb148c7938c9f86",
+              "symbols": [
+                "provider_refresh_command",
+                "snapshot_select_command",
+                "current_jobs_command",
+                "job_trends_command",
+                "interactive_command",
+                "render_purpose_tree",
+                "run_compiled_leaf",
+                "render_current_results",
+                "render_denominator_preview",
+                "render_trend_results",
+                "render_trend_unavailable",
+                "write_selection_manifest",
+                "explain_command",
+                "export_command",
+                "replay_command"
+              ],
+              "intent_change_ids": [
+                "D-17-selection-session-result-provenance-cli"
+              ]
+            }
+          ],
+          "intent_change_ids": [
+            "D-11-live-source-refresh-snapshot-contract-cli",
+            "D-12-current-search-trend-mode-separation-cli",
+            "D-14-progressive-facet-tree-navigation-cli",
+            "D-15-current-job-search-result-contract-cli",
+            "D-16-job-trend-series-analysis-contract-cli",
+            "D-17-selection-session-result-provenance-cli"
+          ],
+          "symbol_changes": [
+            {
+              "symbol": "provider_refresh_command",
+              "intent": "데이터 상태 root에서 provider refresh, reuse, snapshot freshness와 partial failure를 선택·표시한다.",
+              "decision_id": "D-11-live-source-refresh-snapshot-contract"
+            },
+            {
+              "symbol": "snapshot_select_command",
+              "intent": "데이터 상태 root에서 provider refresh, reuse, snapshot freshness와 partial failure를 선택·표시한다.",
+              "decision_id": "D-11-live-source-refresh-snapshot-contract"
+            },
+            {
+              "symbol": "current_jobs_command",
+              "intent": "current-jobs와 job-trends leaf를 분리하고 legacy job-search를 current alias로 유지한다.",
+              "decision_id": "D-12-current-search-trend-mode-separation"
+            },
+            {
+              "symbol": "job_trends_command",
+              "intent": "current-jobs와 job-trends leaf를 분리하고 legacy job-search를 current alias로 유지한다.",
+              "decision_id": "D-12-current-search-trend-mode-separation"
+            },
+            {
+              "symbol": "interactive_command",
+              "intent": "화살표/뒤로가기/미리보기로 목적별 tree를 탐색하고 기존 command leaf를 실행한다.",
+              "decision_id": "D-14-progressive-facet-tree-navigation"
+            },
+            {
+              "symbol": "render_purpose_tree",
+              "intent": "화살표/뒤로가기/미리보기로 목적별 tree를 탐색하고 기존 command leaf를 실행한다.",
+              "decision_id": "D-14-progressive-facet-tree-navigation"
+            },
+            {
+              "symbol": "run_compiled_leaf",
+              "intent": "화살표/뒤로가기/미리보기로 목적별 tree를 탐색하고 기존 command leaf를 실행한다.",
+              "decision_id": "D-14-progressive-facet-tree-navigation"
+            },
+            {
+              "symbol": "render_current_results",
+              "intent": "실행 전 예상 분모와 실행 후 strict/unverifiable/no-match/conflict를 표시한다.",
+              "decision_id": "D-15-current-job-search-result-contract"
+            },
+            {
+              "symbol": "render_denominator_preview",
+              "intent": "실행 전 예상 분모와 실행 후 strict/unverifiable/no-match/conflict를 표시한다.",
+              "decision_id": "D-15-current-job-search-result-contract"
+            },
+            {
+              "symbol": "render_trend_results",
+              "intent": "기간·주기·cohort·metric 선택과 series/coverage eligibility 결과를 표시한다.",
+              "decision_id": "D-16-job-trend-series-analysis-contract"
+            },
+            {
+              "symbol": "render_trend_unavailable",
+              "intent": "기간·주기·cohort·metric 선택과 series/coverage eligibility 결과를 표시한다.",
+              "decision_id": "D-16-job-trend-series-analysis-contract"
+            },
+            {
+              "symbol": "write_selection_manifest",
+              "intent": "실행 전 preview 승인 후 redacted run manifest를 쓰고 explain/export/replay가 같은 run_id를 사용한다.",
+              "decision_id": "D-17-selection-session-result-provenance"
+            },
+            {
+              "symbol": "explain_command",
+              "intent": "실행 전 preview 승인 후 redacted run manifest를 쓰고 explain/export/replay가 같은 run_id를 사용한다.",
+              "decision_id": "D-17-selection-session-result-provenance"
+            },
+            {
+              "symbol": "export_command",
+              "intent": "실행 전 preview 승인 후 redacted run manifest를 쓰고 explain/export/replay가 같은 run_id를 사용한다.",
+              "decision_id": "D-17-selection-session-result-provenance"
+            },
+            {
+              "symbol": "replay_command",
+              "intent": "실행 전 preview 승인 후 redacted run manifest를 쓰고 explain/export/replay가 같은 run_id를 사용한다.",
+              "decision_id": "D-17-selection-session-result-provenance"
+            }
+          ]
+        },
+        {
+          "change_id": "file-change-71ee7f968ed8",
+          "operation": "MODIFY",
+          "path": "src/company_intel/api.py",
+          "symbols": [
+            "SnapshotRefreshRequest",
+            "snapshot_status",
+            "refresh_snapshot",
+            "CurrentJobRequest",
+            "JobTrendRequest",
+            "current_jobs",
+            "job_trends",
+            "SelectionRunRequest",
+            "SelectionRunResponse",
+            "replay_run",
+            "explain_run"
+          ],
+          "current_state": "API route는 저장 payload 분석만 제공하고 snapshot refresh/status 계약이 없다. | current/trend request가 분리되지 않는다. | API 요청과 CLI selection manifest 사이의 run_id parity가 없다.",
+          "source_hash": "sha256:62a5c8f5716eb0c0e5bb566ddfebc01e2043c67b748fe5f6ab71167f0259a0bf",
+          "result_hash": null,
+          "expected_result": "snapshot refresh/status/select request와 freshness·coverage 응답을 추가한다. | current jobs와 job trends typed endpoints를 독립 제공한다. | API도 normalized selection과 snapshot refs를 받아 같은 run manifest·result hash를 반환한다.",
+          "after_state": "snapshot refresh/status/select request와 freshness·coverage 응답을 추가한다. | current jobs와 job trends typed endpoints를 독립 제공한다. | API도 normalized selection과 snapshot refs를 받아 같은 run manifest·result hash를 반환한다.",
+          "rationale": "CLI와 API 소비자가 같은 snapshot 경계를 사용하게 한다. | 모드별 필수 입력과 error envelope를 고정한다. | CLI/API 결과의 의미를 동일하게 유지하기 위해서다.",
+          "dependencies": [
+            "file-change-952daa25d2bf"
+          ],
+          "public_contract_impacts": [
+            "snapshot API v1",
+            "current/trend API v1",
+            "selection provenance API"
+          ],
+          "compatibility": "기존 route를 유지한다. | 기존 /v1/job-search를 current adapter로 유지한다. | 기존 request fields를 유지한다.",
+          "migration": "신규 route를 additive하게 등록한다. | 신규 endpoint는 additive다. | run metadata는 additive다.",
+          "rollback": "신규 route를 제거한다. | 신규 endpoint를 제거한다. | run metadata를 생략한다.",
+          "authorization_boundary": "refresh route는 provider 호출 권한을 별도 검사한다. | trend 부적격은 200 status envelope의 unavailable로 반환한다. | request secret을 manifest에서 제거한다.",
+          "consumer_search": null,
+          "contributes_to": [
+            "D-11-live-source-refresh-snapshot-contract",
+            "D-12-current-search-trend-mode-separation",
+            "D-17-selection-session-result-provenance"
+          ],
+          "contribution_refs": [
+            {
+              "decision_id": "D-11-live-source-refresh-snapshot-contract",
+              "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/11-d-11-live-source-refresh-snapshot-contract.json",
+              "sha256": "sha256:47c83ab9840e689e9e3d896ecf8598570b3de83b6b74aaf884202842ade89f22",
+              "symbols": [
+                "SnapshotRefreshRequest",
+                "snapshot_status",
+                "refresh_snapshot",
+                "CurrentJobRequest",
+                "JobTrendRequest",
+                "current_jobs",
+                "job_trends",
+                "SelectionRunRequest",
+                "SelectionRunResponse",
+                "replay_run",
+                "explain_run"
+              ],
+              "intent_change_ids": [
+                "D-11-live-source-refresh-snapshot-contract-api"
+              ]
+            },
+            {
+              "decision_id": "D-12-current-search-trend-mode-separation",
+              "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/12-d-12-current-search-trend-mode-separation.json",
+              "sha256": "sha256:c92e467f14084e27cbf279d282453503c54cdc633c71c5e72dd1b3facff28587",
+              "symbols": [
+                "SnapshotRefreshRequest",
+                "snapshot_status",
+                "refresh_snapshot",
+                "CurrentJobRequest",
+                "JobTrendRequest",
+                "current_jobs",
+                "job_trends",
+                "SelectionRunRequest",
+                "SelectionRunResponse",
+                "replay_run",
+                "explain_run"
+              ],
+              "intent_change_ids": [
+                "D-12-current-search-trend-mode-separation-api"
+              ]
+            },
+            {
+              "decision_id": "D-17-selection-session-result-provenance",
+              "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/17-d-17-selection-session-result-provenance.json",
+              "sha256": "sha256:126a27841700a49537a2540e86060ceacf893acbf9cfc20dccb148c7938c9f86",
+              "symbols": [
+                "SnapshotRefreshRequest",
+                "snapshot_status",
+                "refresh_snapshot",
+                "CurrentJobRequest",
+                "JobTrendRequest",
+                "current_jobs",
+                "job_trends",
+                "SelectionRunRequest",
+                "SelectionRunResponse",
+                "replay_run",
+                "explain_run"
+              ],
+              "intent_change_ids": [
+                "D-17-selection-session-result-provenance-api"
+              ]
+            }
+          ],
+          "intent_change_ids": [
+            "D-11-live-source-refresh-snapshot-contract-api",
+            "D-12-current-search-trend-mode-separation-api",
+            "D-17-selection-session-result-provenance-api"
+          ],
+          "symbol_changes": [
+            {
+              "symbol": "SnapshotRefreshRequest",
+              "intent": "snapshot refresh/status/select request와 freshness·coverage 응답을 추가한다.",
+              "decision_id": "D-11-live-source-refresh-snapshot-contract"
+            },
+            {
+              "symbol": "snapshot_status",
+              "intent": "snapshot refresh/status/select request와 freshness·coverage 응답을 추가한다.",
+              "decision_id": "D-11-live-source-refresh-snapshot-contract"
+            },
+            {
+              "symbol": "refresh_snapshot",
+              "intent": "snapshot refresh/status/select request와 freshness·coverage 응답을 추가한다.",
+              "decision_id": "D-11-live-source-refresh-snapshot-contract"
+            },
+            {
+              "symbol": "CurrentJobRequest",
+              "intent": "current jobs와 job trends typed endpoints를 독립 제공한다.",
+              "decision_id": "D-12-current-search-trend-mode-separation"
+            },
+            {
+              "symbol": "JobTrendRequest",
+              "intent": "current jobs와 job trends typed endpoints를 독립 제공한다.",
+              "decision_id": "D-12-current-search-trend-mode-separation"
+            },
+            {
+              "symbol": "current_jobs",
+              "intent": "current jobs와 job trends typed endpoints를 독립 제공한다.",
+              "decision_id": "D-12-current-search-trend-mode-separation"
+            },
+            {
+              "symbol": "job_trends",
+              "intent": "current jobs와 job trends typed endpoints를 독립 제공한다.",
+              "decision_id": "D-12-current-search-trend-mode-separation"
+            },
+            {
+              "symbol": "SelectionRunRequest",
+              "intent": "API도 normalized selection과 snapshot refs를 받아 같은 run manifest·result hash를 반환한다.",
+              "decision_id": "D-17-selection-session-result-provenance"
+            },
+            {
+              "symbol": "SelectionRunResponse",
+              "intent": "API도 normalized selection과 snapshot refs를 받아 같은 run manifest·result hash를 반환한다.",
+              "decision_id": "D-17-selection-session-result-provenance"
+            },
+            {
+              "symbol": "replay_run",
+              "intent": "API도 normalized selection과 snapshot refs를 받아 같은 run manifest·result hash를 반환한다.",
+              "decision_id": "D-17-selection-session-result-provenance"
+            },
+            {
+              "symbol": "explain_run",
+              "intent": "API도 normalized selection과 snapshot refs를 받아 같은 run manifest·result hash를 반환한다.",
+              "decision_id": "D-17-selection-session-result-provenance"
+            }
+          ]
+        },
+        {
+          "change_id": "file-change-8aba2c25f5c6",
+          "operation": "CREATE",
+          "path": "tests/test_selection_provenance.py",
+          "symbols": [
+            "test_hash_chain",
+            "test_manifest_redaction",
+            "test_snapshot_replay",
+            "test_tamper_detection"
+          ],
+          "current_state": "selection run provenance 전용 테스트가 없다.",
+          "source_hash": null,
+          "result_hash": null,
+          "expected_result": "선택→query→snapshot→result→export hash chain, redaction, replay, tamper failure를 검증한다.",
+          "after_state": "선택→query→snapshot→result→export hash chain, redaction, replay, tamper failure를 검증한다.",
+          "rationale": "재현성과 보안을 동시에 회귀 검증하기 위해서다.",
+          "dependencies": [
+            "file-change-952daa25d2bf",
+            "file-change-ef7ba7f0a5f0",
+            "file-change-36b865e1eb42"
+          ],
+          "public_contract_impacts": [
+            "selection provenance tests"
+          ],
+          "compatibility": "합성 artifact만 사용한다.",
+          "migration": "없음.",
+          "rollback": "service와 함께 제거한다.",
+          "authorization_boundary": "실제 credential이나 연락처를 쓰지 않는다.",
+          "consumer_search": null,
+          "contributes_to": [
+            "D-17-selection-session-result-provenance"
+          ],
+          "contribution_refs": [
+            {
+              "decision_id": "D-17-selection-session-result-provenance",
+              "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/17-d-17-selection-session-result-provenance.json",
+              "sha256": "sha256:126a27841700a49537a2540e86060ceacf893acbf9cfc20dccb148c7938c9f86",
+              "symbols": [
+                "test_hash_chain",
+                "test_manifest_redaction",
+                "test_snapshot_replay",
+                "test_tamper_detection"
+              ],
+              "intent_change_ids": [
+                "D-17-selection-session-result-provenance-tests"
+              ]
+            }
+          ],
+          "intent_change_ids": [
+            "D-17-selection-session-result-provenance-tests"
+          ],
+          "symbol_changes": [
+            {
+              "symbol": "test_hash_chain",
+              "intent": "선택→query→snapshot→result→export hash chain, redaction, replay, tamper failure를 검증한다.",
+              "decision_id": "D-17-selection-session-result-provenance"
+            },
+            {
+              "symbol": "test_manifest_redaction",
+              "intent": "선택→query→snapshot→result→export hash chain, redaction, replay, tamper failure를 검증한다.",
+              "decision_id": "D-17-selection-session-result-provenance"
+            },
+            {
+              "symbol": "test_snapshot_replay",
+              "intent": "선택→query→snapshot→result→export hash chain, redaction, replay, tamper failure를 검증한다.",
+              "decision_id": "D-17-selection-session-result-provenance"
+            },
+            {
+              "symbol": "test_tamper_detection",
+              "intent": "선택→query→snapshot→result→export hash chain, redaction, replay, tamper failure를 검증한다.",
+              "decision_id": "D-17-selection-session-result-provenance"
+            }
+          ]
+        },
+        {
+          "change_id": "file-change-b9452dd0ae77",
+          "operation": "MODIFY",
+          "path": "tests/test_run_manifest.py",
+          "symbols": [
+            "test_v2_selection_refs",
+            "test_v1_compatibility",
+            "test_tamper_detection"
+          ],
+          "current_state": "run manifest v1만 검증한다.",
+          "source_hash": "sha256:257dffcacf94255b7a8c6d320dfacbda088aab66fcdbb60fe8060ae6b14bcf9e",
+          "result_hash": null,
+          "expected_result": "v2 hash refs, v1 reader 호환, redaction과 tamper detection을 검증한다.",
+          "after_state": "v2 hash refs, v1 reader 호환, redaction과 tamper detection을 검증한다.",
+          "rationale": "manifest version migration을 안전하게 한다.",
+          "dependencies": [
+            "file-change-ef7ba7f0a5f0"
+          ],
+          "public_contract_impacts": [
+            "run manifest v2 tests"
+          ],
+          "compatibility": "v1 fixture를 유지한다.",
+          "migration": "없음.",
+          "rollback": "v2 cases만 제거한다.",
+          "authorization_boundary": "secret-like fixture가 출력에서 제거되는지 검사한다.",
+          "consumer_search": null,
+          "contributes_to": [
+            "D-17-selection-session-result-provenance"
+          ],
+          "contribution_refs": [
+            {
+              "decision_id": "D-17-selection-session-result-provenance",
+              "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/17-d-17-selection-session-result-provenance.json",
+              "sha256": "sha256:126a27841700a49537a2540e86060ceacf893acbf9cfc20dccb148c7938c9f86",
+              "symbols": [
+                "test_v2_selection_refs",
+                "test_v1_compatibility",
+                "test_tamper_detection"
+              ],
+              "intent_change_ids": [
+                "D-17-selection-session-result-provenance-run-tests"
+              ]
+            }
+          ],
+          "intent_change_ids": [
+            "D-17-selection-session-result-provenance-run-tests"
+          ],
+          "symbol_changes": [
+            {
+              "symbol": "test_v2_selection_refs",
+              "intent": "v2 hash refs, v1 reader 호환, redaction과 tamper detection을 검증한다.",
+              "decision_id": "D-17-selection-session-result-provenance"
+            },
+            {
+              "symbol": "test_v1_compatibility",
+              "intent": "v2 hash refs, v1 reader 호환, redaction과 tamper detection을 검증한다.",
+              "decision_id": "D-17-selection-session-result-provenance"
+            },
+            {
+              "symbol": "test_tamper_detection",
+              "intent": "v2 hash refs, v1 reader 호환, redaction과 tamper detection을 검증한다.",
+              "decision_id": "D-17-selection-session-result-provenance"
+            }
+          ]
+        },
+        {
+          "change_id": "file-change-c1f9750959a4",
+          "operation": "MODIFY",
+          "path": "tests/test_exporting.py",
+          "symbols": [
+            "test_selection_ref_parity",
+            "test_denominator_sheets",
+            "test_trend_eligibility_export"
+          ],
+          "current_state": "selection/snapshot/eligibility refs의 CSV/XLSX parity를 검사하지 않는다.",
+          "source_hash": "sha256:7c43e347af8550894b713854e742ca84a9834f2a5a477c429fca32cb9cfe6cad",
+          "result_hash": null,
+          "expected_result": "current/trend summary와 selection run ref가 CSV/XLSX에서 동일한지 검증한다.",
+          "after_state": "current/trend summary와 selection run ref가 CSV/XLSX에서 동일한지 검증한다.",
+          "rationale": "export가 실행 의미를 잃지 않게 한다.",
+          "dependencies": [
+            "file-change-82feda91e73b"
+          ],
+          "public_contract_impacts": [
+            "evidence export v4 tests"
+          ],
+          "compatibility": "기존 export tests를 유지한다.",
+          "migration": "없음.",
+          "rollback": "신규 cases만 제거한다.",
+          "authorization_boundary": "PII/secret fixture가 내보내지지 않는지 검사한다.",
+          "consumer_search": null,
+          "contributes_to": [
+            "D-17-selection-session-result-provenance"
+          ],
+          "contribution_refs": [
+            {
+              "decision_id": "D-17-selection-session-result-provenance",
+              "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/17-d-17-selection-session-result-provenance.json",
+              "sha256": "sha256:126a27841700a49537a2540e86060ceacf893acbf9cfc20dccb148c7938c9f86",
+              "symbols": [
+                "test_selection_ref_parity",
+                "test_denominator_sheets",
+                "test_trend_eligibility_export"
+              ],
+              "intent_change_ids": [
+                "D-17-selection-session-result-provenance-export-tests"
+              ]
+            }
+          ],
+          "intent_change_ids": [
+            "D-17-selection-session-result-provenance-export-tests"
+          ],
+          "symbol_changes": [
+            {
+              "symbol": "test_selection_ref_parity",
+              "intent": "current/trend summary와 selection run ref가 CSV/XLSX에서 동일한지 검증한다.",
+              "decision_id": "D-17-selection-session-result-provenance"
+            },
+            {
+              "symbol": "test_denominator_sheets",
+              "intent": "current/trend summary와 selection run ref가 CSV/XLSX에서 동일한지 검증한다.",
+              "decision_id": "D-17-selection-session-result-provenance"
+            },
+            {
+              "symbol": "test_trend_eligibility_export",
+              "intent": "current/trend summary와 selection run ref가 CSV/XLSX에서 동일한지 검증한다.",
+              "decision_id": "D-17-selection-session-result-provenance"
+            }
+          ]
+        },
+        {
+          "change_id": "file-change-4b44bff78139",
+          "operation": "MODIFY",
+          "path": "tests/test_cli_workflows.py",
+          "symbols": [
+            "test_purpose_tree_to_leaf",
+            "test_current_and_trend_modes",
+            "test_cli_api_profile_parity",
+            "test_replay_run"
+          ],
+          "current_state": "기존 9개 command와 saved interactive smoke만 검증한다.",
+          "source_hash": "sha256:3ee390b6662e45ac9b298fb990ac679f9003b75484b3bba56b3f70f9a5b843b8",
+          "result_hash": null,
+          "expected_result": "5개 목적 tree, current/trend leaf, snapshot preview, CLI/API parity와 replay를 offline으로 검증한다.",
+          "after_state": "5개 목적 tree, current/trend leaf, snapshot preview, CLI/API parity와 replay를 offline으로 검증한다.",
+          "rationale": "전체 사용자 흐름의 조립을 증명하기 위해서다.",
+          "dependencies": [
+            "file-change-e633c98e50e6"
+          ],
+          "public_contract_impacts": [
+            "end-to-end CLI workflow tests"
+          ],
+          "compatibility": "기존 smoke cases를 유지한다.",
+          "migration": "없음.",
+          "rollback": "신규 cases만 제거한다.",
+          "authorization_boundary": "provider 호출과 실제 TTY 자동화를 사용하지 않는다.",
+          "consumer_search": null,
+          "contributes_to": [
+            "D-17-selection-session-result-provenance"
+          ],
+          "contribution_refs": [
+            {
+              "decision_id": "D-17-selection-session-result-provenance",
+              "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/17-d-17-selection-session-result-provenance.json",
+              "sha256": "sha256:126a27841700a49537a2540e86060ceacf893acbf9cfc20dccb148c7938c9f86",
+              "symbols": [
+                "test_purpose_tree_to_leaf",
+                "test_current_and_trend_modes",
+                "test_cli_api_profile_parity",
+                "test_replay_run"
+              ],
+              "intent_change_ids": [
+                "D-17-selection-session-result-provenance-cli-tests"
+              ]
+            }
+          ],
+          "intent_change_ids": [
+            "D-17-selection-session-result-provenance-cli-tests"
+          ],
+          "symbol_changes": [
+            {
+              "symbol": "test_purpose_tree_to_leaf",
+              "intent": "5개 목적 tree, current/trend leaf, snapshot preview, CLI/API parity와 replay를 offline으로 검증한다.",
+              "decision_id": "D-17-selection-session-result-provenance"
+            },
+            {
+              "symbol": "test_current_and_trend_modes",
+              "intent": "5개 목적 tree, current/trend leaf, snapshot preview, CLI/API parity와 replay를 offline으로 검증한다.",
+              "decision_id": "D-17-selection-session-result-provenance"
+            },
+            {
+              "symbol": "test_cli_api_profile_parity",
+              "intent": "5개 목적 tree, current/trend leaf, snapshot preview, CLI/API parity와 replay를 offline으로 검증한다.",
+              "decision_id": "D-17-selection-session-result-provenance"
+            },
+            {
+              "symbol": "test_replay_run",
+              "intent": "5개 목적 tree, current/trend leaf, snapshot preview, CLI/API parity와 replay를 offline으로 검증한다.",
+              "decision_id": "D-17-selection-session-result-provenance"
+            }
+          ]
+        },
+        {
+          "change_id": "file-change-b33563055168",
+          "operation": "MODIFY",
+          "path": "README.md",
+          "symbols": [
+            "interactive purpose tree",
+            "current jobs",
+            "job trends",
+            "snapshot provenance"
+          ],
+          "current_state": "현재/동향 분리와 live snapshot 선택·재현 사용법이 없다.",
+          "source_hash": "sha256:d12a849edf151d1cdd2e3e8673ac574cb780b2c8bafba0250034ffe92ae19733",
+          "result_hash": null,
+          "expected_result": "5개 목적 tree의 사용 순서, 현재 가능한 필드와 동향 최소조건, 결과군·export 예시를 설명한다.",
+          "after_state": "5개 목적 tree의 사용 순서, 현재 가능한 필드와 동향 최소조건, 결과군·export 예시를 설명한다.",
+          "rationale": "사용자가 메뉴 의미와 제한을 실행 전에 이해하게 한다.",
+          "dependencies": [],
+          "public_contract_impacts": [
+            "user documentation"
+          ],
+          "compatibility": "기존 command 문서를 유지한다.",
+          "migration": "신규 section을 추가한다.",
+          "rollback": "신규 section을 제거한다.",
+          "authorization_boundary": "실제 key 값과 개인정보 예시를 넣지 않는다.",
+          "consumer_search": null,
+          "contributes_to": [
+            "D-17-selection-session-result-provenance"
+          ],
+          "contribution_refs": [
+            {
+              "decision_id": "D-17-selection-session-result-provenance",
+              "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/17-d-17-selection-session-result-provenance.json",
+              "sha256": "sha256:126a27841700a49537a2540e86060ceacf893acbf9cfc20dccb148c7938c9f86",
+              "symbols": [
+                "interactive purpose tree",
+                "current jobs",
+                "job trends",
+                "snapshot provenance"
+              ],
+              "intent_change_ids": [
+                "D-17-selection-session-result-provenance-readme"
+              ]
+            }
+          ],
+          "intent_change_ids": [
+            "D-17-selection-session-result-provenance-readme"
+          ],
+          "symbol_changes": [
+            {
+              "symbol": "interactive purpose tree",
+              "intent": "5개 목적 tree의 사용 순서, 현재 가능한 필드와 동향 최소조건, 결과군·export 예시를 설명한다.",
+              "decision_id": "D-17-selection-session-result-provenance"
+            },
+            {
+              "symbol": "current jobs",
+              "intent": "5개 목적 tree의 사용 순서, 현재 가능한 필드와 동향 최소조건, 결과군·export 예시를 설명한다.",
+              "decision_id": "D-17-selection-session-result-provenance"
+            },
+            {
+              "symbol": "job trends",
+              "intent": "5개 목적 tree의 사용 순서, 현재 가능한 필드와 동향 최소조건, 결과군·export 예시를 설명한다.",
+              "decision_id": "D-17-selection-session-result-provenance"
+            },
+            {
+              "symbol": "snapshot provenance",
+              "intent": "5개 목적 tree의 사용 순서, 현재 가능한 필드와 동향 최소조건, 결과군·export 예시를 설명한다.",
+              "decision_id": "D-17-selection-session-result-provenance"
+            }
+          ]
+        },
+        {
+          "change_id": "file-change-fc01cd5b489d",
+          "operation": "MODIFY",
+          "path": "IMPLEMENTATION_REPORT_KO.md",
+          "symbols": [
+            "C-07 through C-12 status",
+            "live category limitations"
+          ],
+          "current_state": "C-01~C-06 구현·검증 상태까지만 설명한다.",
+          "source_hash": "sha256:5df9138933bed42bb0497405953da24555cddfa2650cc34cf512572704e51342",
+          "result_hash": null,
+          "expected_result": "C-07~C-12 구현 범위와 current/trend 경계, provider별 제한과 검증 방법을 추가한다.",
+          "after_state": "C-07~C-12 구현 범위와 current/trend 경계, provider별 제한과 검증 방법을 추가한다.",
+          "rationale": "기술 상태와 사용자 기능 상태를 구분해 인계하기 위해서다.",
+          "dependencies": [],
+          "public_contract_impacts": [
+            "Korean implementation report"
+          ],
+          "compatibility": "기존 검증 이력을 보존한다.",
+          "migration": "신규 cohort section을 추가한다.",
+          "rollback": "신규 section을 제거한다.",
+          "authorization_boundary": "실제 secret이나 raw PII를 기록하지 않는다.",
+          "consumer_search": null,
+          "contributes_to": [
+            "D-17-selection-session-result-provenance"
+          ],
+          "contribution_refs": [
+            {
+              "decision_id": "D-17-selection-session-result-provenance",
+              "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/17-d-17-selection-session-result-provenance.json",
+              "sha256": "sha256:126a27841700a49537a2540e86060ceacf893acbf9cfc20dccb148c7938c9f86",
+              "symbols": [
+                "C-07 through C-12 status",
+                "live category limitations"
+              ],
+              "intent_change_ids": [
+                "D-17-selection-session-result-provenance-implementation-report"
+              ]
+            }
+          ],
+          "intent_change_ids": [
+            "D-17-selection-session-result-provenance-implementation-report"
+          ],
+          "symbol_changes": [
+            {
+              "symbol": "C-07 through C-12 status",
+              "intent": "C-07~C-12 구현 범위와 current/trend 경계, provider별 제한과 검증 방법을 추가한다.",
+              "decision_id": "D-17-selection-session-result-provenance"
+            },
+            {
+              "symbol": "live category limitations",
+              "intent": "C-07~C-12 구현 범위와 current/trend 경계, provider별 제한과 검증 방법을 추가한다.",
+              "decision_id": "D-17-selection-session-result-provenance"
+            }
+          ]
+        }
+      ],
+      "routes": [
+        {
+          "route_id": "c12-cli-delivery",
+          "skill": "cli-creator",
+          "requirement": "required",
+          "phase": "IMPLEMENT",
+          "purpose": "목적 tree와 기존 CLI/API leaf를 composable하게 연결한다.",
+          "expected_artifact": "C-12 CLI/API delivery"
+        },
+        {
+          "route_id": "c12-verification",
+          "skill": "verification-before-completion",
+          "requirement": "required",
+          "phase": "VALIDATE",
+          "purpose": "manifest·export·CLI/API parity와 redaction을 독립 검증한다.",
+          "expected_artifact": "C-12 validation receipt"
+        }
+      ],
+      "completion_contract": [
+        {
+          "criterion_id": "C-12-provenance-delivery-tests",
+          "behavior": "최종 tree 선택이 CLI/API query, snapshot, 결과군과 CSV/XLSX에 동일 hash chain으로 결속되고 비밀·연락처가 제거된다.",
+          "blocking": true,
+          "owner_skill": "verification-before-completion",
+          "phase": "VALIDATE",
+          "depends_on_criteria": [],
+          "test": {
+            "type": "pytest",
+            "value": "uv run --frozen pytest tests/test_selection_provenance.py tests/test_run_manifest.py tests/test_exporting.py tests/test_cli_workflows.py -q",
+            "runner": "pytest",
+            "paths": [
+              "tests/test_selection_provenance.py",
+              "tests/test_run_manifest.py",
+              "tests/test_exporting.py",
+              "tests/test_cli_workflows.py"
+            ],
+            "provider_backed": false,
+            "timeout_seconds": 300
+          },
+          "expected_result": "all tests pass",
+          "failure_marker": "hash mismatch, secret/PII leakage, CLI/API drift, or non-reproducible snapshot replay",
+          "receipt": {
+            "status": "planned",
+            "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/receipts/criteria/C-12-provenance-delivery-tests.json",
+            "sha256": "planned"
+          },
+          "status": "planned"
+        }
+      ]
+    }
+  ],
+  "metadata": {
+    "compiled_from_decision_intents": true,
+    "planned_commit_message": "feat(cli): deliver live category tree with provenance",
+    "git_finalization_authorized": false,
+    "test_execution_deferred": true,
+    "preparation_contract": "campaign-global-ownership-v1"
+  }
+}

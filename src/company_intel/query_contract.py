@@ -429,3 +429,95 @@ def text_verdict(value: object, terms: tuple[str, ...]) -> FilterVerdict:
         if any(term.casefold() in lowered for term in terms)
         else FilterVerdict.NO_MATCH
     )
+
+
+class QueryMode(StrEnum):
+    CURRENT_JOB = "current_job"
+    JOB_TREND = "job_trend"
+
+
+@dataclass(frozen=True)
+class CurrentJobQuery:
+    profile: Mapping[str, Any]
+    snapshot_id: str | None = None
+    active_as_of: str | None = None
+
+
+@dataclass(frozen=True)
+class JobTrendQuery:
+    profile: Mapping[str, Any]
+    metric: str
+    period_start: str | None = None
+    period_end: str | None = None
+    comparison_signature: tuple[str, ...] = ()
+
+
+@dataclass(frozen=True)
+class SelectionProfile:
+    mode: QueryMode
+    purpose: str
+    selections: tuple[tuple[str, str], ...]
+    snapshot_id: str | None = None
+
+
+@dataclass(frozen=True)
+class DenominatorContract:
+    provider_returned: int
+    normalized: int
+    active: int
+    strict_match: int
+    unverifiable: int
+    no_match: int
+    conflict: int
+
+
+@dataclass(frozen=True)
+class CurrentResultContract:
+    active_as_of: str
+    denominators: DenominatorContract
+
+
+@dataclass(frozen=True)
+class TrendMetric:
+    name: str
+    unit: str = "postings"
+
+
+@dataclass(frozen=True)
+class TrendComparison:
+    signature: tuple[str, ...]
+    eligible: bool
+    reason: str | None = None
+
+
+def normalize_tree_selection(value: Mapping[str, Any]) -> SelectionProfile:
+    selections = value.get("selections", {})
+    if not isinstance(selections, Mapping):
+        raise ValueError("tree selections must be an object")
+    mode_value = value.get("mode") or ("job_trend" if value.get("purpose") == "job_trends" else "current_job")
+    try:
+        mode = QueryMode(str(mode_value))
+    except ValueError as error:
+        raise ValueError("mode must be current_job or job_trend") from error
+    return SelectionProfile(
+        mode=mode,
+        purpose=str(value.get("purpose") or mode.value),
+        selections=tuple(sorted((str(key), str(item)) for key, item in selections.items() if item not in (None, ""))),
+        snapshot_id=str(value["snapshot_id"]) if value.get("snapshot_id") else None,
+    )
+
+
+def validate_facet_selection(selection: SelectionProfile, available: Mapping[str, Iterable[str]]) -> None:
+    for field, value in selection.selections:
+        candidates = {str(item) for item in available.get(field, ())}
+        if candidates and value not in candidates:
+            raise ValueError(f"invalid_selection:{field}")
+
+
+def parse_query_profile(value: Mapping[str, Any]) -> CurrentJobQuery | JobTrendQuery:
+    selection = normalize_tree_selection(value)
+    profile = dict(value.get("profile") or {})
+    if selection.mode == QueryMode.CURRENT_JOB:
+        return CurrentJobQuery(profile, selection.snapshot_id, value.get("active_as_of"))
+    metric = str(value.get("metric") or "active_postings")
+    return JobTrendQuery(profile, metric, value.get("period_start"), value.get("period_end"), tuple(value.get("comparison_signature") or ()))

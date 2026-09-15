@@ -1,0 +1,144 @@
+{
+  "decision_id": "D-15-current-job-search-result-contract",
+  "sequence": 15,
+  "unit_id": "current-job-search-result-contract",
+  "title": "현재 채용 검색의 분모·판정·coverage 계약",
+  "status": "accepted",
+  "question": "현재 채용 트리의 최종 선택을 어떤 활성 기준과 결과군·분모·요건 근거로 반환할 것인가?",
+  "five_w_one_h": {
+    "who": "현재 지원 가능한 공고와 준비 요건을 찾는 사용자",
+    "what": "active_as_of 기준 현재 공고 검색과 strict/unverifiable/no-match/conflict 결과",
+    "where": "job-search CLI/API/DataFrame/export",
+    "when": "현재 채용 트리 선택을 실행할 때",
+    "why": "0건과 검증불가를 구분하고 표본 개수를 전체 시장으로 오인하지 않기 위해",
+    "how": "snapshot 분모와 각 필터 verdict를 보존해 공고·기관·요건·제외 결과를 함께 반환한다."
+  },
+  "evidence_refs": [
+    {
+      "evidence_id": "E-D15-current-result-need",
+      "source_type": "local-document",
+      "locator": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/live-category-tree-scope-amendment-2026-09-13.md:30-43;66-75",
+      "observed_fact": "현재 채용 트리는 기준 snapshot, 국가, 고용주 영역, 직종, 위치, 고용, 급여, 요건을 거쳐 네 결과군과 export를 반환해야 한다.",
+      "content_hash": "sha256:babe85bec25ea7f1effad8f924071b5977a0359f0377b6b759ed874dea6c17bd",
+      "line_range": "30-43;66-75",
+      "question": "검색 결과 0건과 원천 필드 부재를 구분할 수 있는가?",
+      "observation_summary": "분모·coverage와 4상태 판정을 함께 반환해야 한다."
+    },
+    {
+      "evidence_id": "E-D15-mpm-field-limit",
+      "source_type": "code",
+      "locator": "src/company_intel/job_search.py:420-432",
+      "observed_fact": "MPM normalizer는 목록 메타데이터만 있어 requirements, location, salary를 unavailable로 명시한다.",
+      "content_hash": "sha256:dc859e7af8de87c462772b38b8230b076e4e322d3579592ea02fb8955368f808",
+      "line_range": "420-432",
+      "question": "MPM 공고가 급여·위치·요건 필터에서 불일치인가 검증불가인가?",
+      "observation_summary": "필드 부재는 false가 아니라 unverifiable로 남아야 한다."
+    }
+  ],
+  "facts": [
+    "MPM 최신 100건 중 활성 94건은 current snapshot 표본이다.",
+    "MPM 목록의 위치·급여·요건 부재는 조건 불일치 증거가 아니다.",
+    "체코 MPSV 공공행정 110건 중 109건은 월급, 1건은 시급이므로 단일 급여 정렬군이 아니다."
+  ],
+  "conflicts": [
+    "unknown을 필터 불일치로 처리하면 엄격 결과는 명확하지만 가능한 공고를 숨긴다.",
+    "unknown을 일치로 처리하면 결과는 많지만 요건 충족을 과장한다."
+  ],
+  "unimplemented": [
+    "live snapshot의 provider 반환량→정규화→활성→결과군 분모 chain이 한 응답에 없다.",
+    "필터별 unverifiable 사유와 선택 트리 count가 최종 결과에 결속되지 않는다."
+  ],
+  "options": [
+    {
+      "option_id": "A-binary-match-only",
+      "description": "모든 조건을 true/false로 바꿔 일치와 제외 두 결과만 반환한다.",
+      "impact": {
+        "data": "unknown과 conflict 정보가 손실된다.",
+        "schema_api": "응답은 단순하다.",
+        "ux": "결과는 읽기 쉽지만 누락 원인을 오해한다.",
+        "performance": "빠르다.",
+        "cost": "낮다.",
+        "security": "변화 없음.",
+        "migration": "기존 필터와 유사하다.",
+        "tests": "일치/불일치만 검사한다."
+      },
+      "opportunity_costs": [
+        "MPM 필드 부재가 실제 자격 미달처럼 처리된다."
+      ]
+    },
+    {
+      "option_id": "B-four-state-with-denominators",
+      "description": "strict match, unverifiable candidate, no match, conflict를 나누고 provider 반환량·정규화·활성 분모와 필터별 사유를 함께 반환한다.",
+      "impact": {
+        "data": "각 행과 집계에 verdict lineage가 남는다.",
+        "schema_api": "result partitions와 denominator/coverage summary가 추가된다.",
+        "ux": "사용자가 결과와 검사 불가능을 구분한다.",
+        "performance": "판정 집계가 추가되지만 로컬 벡터화가 가능하다.",
+        "cost": "설명·export 계약을 확장한다.",
+        "security": "공개 공고 근거만 노출한다.",
+        "migration": "기존 strict_matches 등을 확장한다.",
+        "tests": "필드별 true/false/unknown/conflict와 합계 보존을 검사한다."
+      },
+      "opportunity_costs": [
+        "하나의 단순 결과 목록보다 화면이 복잡해진다."
+      ]
+    }
+  ],
+  "recommended_option_id": "B-four-state-with-denominators",
+  "recommendation_reason": "국가별 API coverage 차이를 정직하게 보여 주면서 실제 일치와 검사 불가능을 분리한다.",
+  "impact": {
+    "data": "필터 verdict와 분모 chain을 결과에 보존한다.",
+    "schema_api": "current search summary와 4개 result frame을 정의한다.",
+    "ux": "활성 기준시각과 제외·미확인 이유를 확인한다.",
+    "performance": "facet 인덱스와 판정 캐시를 재사용한다.",
+    "cost": "응답·spreadsheet sheet가 늘어난다.",
+    "security": "공고의 공개 source URL만 유지하고 개인 연락처는 제외한다.",
+    "migration": "기존 job-search DataFrame 4상태를 live manifest와 결속한다.",
+    "tests": "KR/CZ 필드 차이, active cutoff, 급여 signature, 요건 상태를 검증한다."
+  },
+  "opportunity_costs": [
+    "검증불가 후보는 별도 검토 없이는 strict 결과로 승격되지 않는다."
+  ],
+  "dependencies": [
+    "D-04-career-requirement-verification",
+    "D-10-job-availability-filtered-discovery",
+    "D-14-progressive-facet-tree-navigation"
+  ],
+  "dependency_waivers": {},
+  "accepted_decision": {
+    "disposition": "ACCEPT",
+    "option_id": "B-four-state-with-denominators",
+    "rule": "사용자가 2026-09-14 요청에서 D-11~D-17의 권장안 B 승인을 명시했다.",
+    "rationale": "실제 불일치와 API 필드 부재를 네 판정군과 분모로 구분한다.",
+    "decided_by": "user",
+    "decided_at": "2026-09-14T12:33:36.975023+00:00"
+  },
+  "implementation_targets": [
+    "src/company_intel/job_search.py",
+    "src/company_intel/search.py",
+    "src/company_intel/cli.py",
+    "src/company_intel/api.py",
+    "src/company_intel/exporting.py",
+    "tests/test_job_search.py",
+    "tests/test_cli_workflows.py"
+  ],
+  "validation_requirements": [
+    "provider 반환량, 정규화 행, 활성 행, 네 결과군 합계가 보존되는지 확인한다.",
+    "MPM 급여·위치·요건 조건이 no_match가 아닌 unverifiable인지 확인한다.",
+    "CZK/month와 CZK/hour가 같은 정렬군에 섞이지 않는지 확인한다."
+  ],
+  "diagram_impacts": [
+    "current tree leaf → four-state verdict → denominator summary → explain/export 흐름을 추가한다."
+  ],
+  "context_topic_ids": [
+    "current-job-results"
+  ],
+  "implementation_change_ids": [
+    "file-change-46da3fcbd9b9",
+    "file-change-61fffd113df6",
+    "file-change-884e869a1a0f",
+    "file-change-cdc940596fb4",
+    "file-change-da6bf1177b56",
+    "file-change-e633c98e50e6"
+  ]
+}

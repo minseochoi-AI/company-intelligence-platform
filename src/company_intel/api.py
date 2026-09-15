@@ -9,7 +9,7 @@ from uuid import uuid4
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel, Field
 
-from .analysis_service import build_company_timeline, evaluate_ai_event, evaluate_valuation_scenarios
+from .analysis_service import build_company_timeline, evaluate_ai_event, evaluate_job_trends, evaluate_valuation_scenarios
 from .analytics import (
     dcf_scenarios,
     difference_in_differences,
@@ -23,8 +23,10 @@ from .config import Settings
 from .exporting import build_export_bundle
 from .facets import build_job_facets
 from .job_search import JobSearchProfile, normalize_provider_payloads, search_job_dataframes
+from .current_jobs import execute_current_job_search
 from .query_contract import company_search_profile_from_mapping
-from .run_manifest import build_run_manifest
+from .run_manifest import build_run_manifest, result_refs
+from .selection_provenance import bind_selection_run, verify_run_chain
 from .screening import ScreenerProfile, screen_companies
 from .search import explain_company_evaluation, rank_candidate_evaluations, rank_candidates, validate_search_profile
 from .warehouse import Warehouse
@@ -119,6 +121,11 @@ class JobSearchRequest(BaseModel):
     required_requirement_terms: list[str] = Field(default_factory=list)
     preferred_requirement_terms: list[str] = Field(default_factory=list)
     required_languages: list[str] = Field(default_factory=list)
+    identity_link_statuses: list[str] = Field(default_factory=list)
+    public_contexts: list[str] = Field(default_factory=list)
+    public_institution_types: list[str] = Field(default_factory=list)
+    legal_forms: list[str] = Field(default_factory=list)
+    ownership_sectors: list[str] = Field(default_factory=list)
     active_only: bool = True
     country_allocation: dict[str, int] = Field(default_factory=dict)
     unknown_policy: str = "exclude"
@@ -130,9 +137,32 @@ class JobSearchRequest(BaseModel):
             "countries", "job_keywords", "occupations", "locations", "workplace_types",
             "employment_types", "languages", "posting_languages", "business_units", "industries", "company_types",
             "required_requirement_terms", "preferred_requirement_terms", "required_languages",
+            "identity_link_statuses", "public_contexts", "public_institution_types", "legal_forms", "ownership_sectors",
         ):
             values[key] = tuple(values[key])
         return JobSearchProfile(**values)
+
+
+class CurrentJobRequest(JobSearchRequest):
+    snapshot_id: str | None = None
+    active_as_of: str | None = None
+
+
+class JobTrendRequest(BaseModel):
+    snapshots: list[dict[str, Any]]
+    metric: str = "active_postings"
+    has_control: bool = False
+
+
+class SelectionRunRequest(BaseModel):
+    selection: dict[str, Any]
+    snapshot: dict[str, Any]
+    results: dict[str, Any]
+
+
+class SelectionRunResponse(BaseModel):
+    run_id: str
+    manifest: dict[str, Any]
 
 
 class ScreenerRequest(BaseModel):
@@ -297,6 +327,49 @@ def job_search(request: JobSearchRequest) -> dict[str, Any]:
         }
     except ValueError as error:
         raise HTTPException(422, str(error)) from error
+
+
+@app.post("/v1/current-jobs")
+def current_jobs(request: CurrentJobRequest) -> dict[str, Any]:
+    try:
+        result = execute_current_job_search(
+            request.payloads, request.to_domain(), snapshot_id=request.snapshot_id, active_as_of=request.active_as_of,
+        )
+        payload = result.as_dict()
+        payload["run_manifest"] = build_run_manifest(
+            "v1/current-jobs", request.model_dump(exclude={"payloads"}), [], payload["tables"].get("sources", []),
+            {key: value for key, value in payload["denominators"].items() if isinstance(value, int)},
+            selection={"purpose": "current_jobs", "mode": "current_job", "snapshot_id": request.snapshot_id},
+            snapshot_ref={"snapshot_id": request.snapshot_id, "collected_at": request.active_as_of, "status": "selected"},
+            result_refs=result_refs(payload["tables"]),
+        )
+        return payload
+    except ValueError as error:
+        raise HTTPException(422, str(error)) from error
+
+
+@app.post("/v1/job-trends")
+def job_trends(request: JobTrendRequest) -> dict[str, Any]:
+    result = evaluate_job_trends(request.snapshots)
+    result["metric"] = request.metric
+    result["event_boundary"] = {"status": "association-only" if result.get("status") == "eligible" else "unavailable", "has_control": request.has_control}
+    return result
+
+
+@app.post("/v1/selection-runs", response_model=SelectionRunResponse)
+def selection_run(request: SelectionRunRequest) -> SelectionRunResponse:
+    manifest = bind_selection_run(request.selection, request.snapshot, request.results)
+    return SelectionRunResponse(run_id=manifest.run_id, manifest=manifest.as_dict())
+
+
+@app.post("/v1/selection-runs/replay")
+def replay_run(request: SelectionRunRequest) -> dict[str, Any]:
+    manifest = bind_selection_run(request.selection, request.snapshot, request.results).as_dict()
+    if not verify_run_chain(manifest):
+        raise HTTPException(422, "selection_manifest_tampered")
+    # The endpoint verifies the immutable request chain only.  A caller must
+    # separately submit a saved snapshot to execute a search again.
+    return {"status": "replay_ready", "run_id": manifest["run_id"], "snapshot_ref": manifest["snapshot_ref"]}
 
 
 @app.post("/v1/company-screener")

@@ -1,0 +1,11 @@
+{
+  "contract_version": "campaign-attempt-manifest-v1",
+  "campaign_id": "company-intelligence-cross-region-career-preparation",
+  "active": {
+    "C-10-current-job-search-execution": {
+      "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/receipts/criteria/attempts/sha256-3e429e09251c244d096a4d31ef77c797de44aa73d31544f6c57c94aee51887bd.json",
+      "sha256": "3e429e09251c244d096a4d31ef77c797de44aa73d31544f6c57c94aee51887bd"
+    }
+  },
+  "updated_at": "2026-09-14T14:34:22.308884+00:00"
+}

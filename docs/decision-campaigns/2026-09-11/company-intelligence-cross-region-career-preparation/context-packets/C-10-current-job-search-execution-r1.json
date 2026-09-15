@@ -1,0 +1,65 @@
+{
+  "contract_version": "implementation-context-packet-v2",
+  "packet_id": "C-10-current-job-search-execution-packet-ae04d5097f52",
+  "topics": [
+    "current-job-results"
+  ],
+  "capability_ids": [
+    "active-as-of",
+    "four-state-results",
+    "search-denominators",
+    "salary-signature"
+  ],
+  "required_refs": [
+    {
+      "ref_id": "live-tree-report-d15",
+      "role": "must-read",
+      "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/live-category-tree-scope-amendment-2026-09-13.md",
+      "content_hash": "sha256:babe85bec25ea7f1effad8f924071b5977a0359f0377b6b759ed874dea6c17bd",
+      "line_range": "9-18,30-43,66-75",
+      "question": "현재 검색의 0건과 검사 불가능을 어떻게 구분하는가?",
+      "observation_summary": "원천 반환량부터 활성·결과군까지 분모 chain과 필터별 판정을 보존한다."
+    }
+  ],
+  "current_entry_points": [
+    {
+      "kind": "code",
+      "path": "src/company_intel/job_search.py",
+      "symbol": "normalize_mpm_jobs",
+      "source_hash": "sha256:dc859e7af8de87c462772b38b8230b076e4e322d3579592ea02fb8955368f808"
+    },
+    {
+      "kind": "code",
+      "path": "src/company_intel/search.py",
+      "symbol": "evaluate_semantic_filter",
+      "source_hash": "sha256:6864c22a25119686b6f8908f5f9c4ce50534099e2dd99336c9b0c5c0ebce7a09"
+    },
+    {
+      "kind": "test",
+      "path": "tests/test_job_search.py",
+      "symbol": "test_live_snapshot_denominators",
+      "source_hash": "sha256:7e577ff99fe591caf5773c4aeede07286364faa4a3cf0d6c2a675e1a9d2a0050"
+    }
+  ],
+  "planned_entry_points": [
+    {
+      "kind": "code",
+      "path": "src/company_intel/current_jobs.py",
+      "symbol": "CurrentJobResult",
+      "change_id": "file-change-cdc940596fb4"
+    },
+    {
+      "kind": "test",
+      "path": "tests/test_current_jobs.py",
+      "symbol": "test_denominator_chain",
+      "change_id": "file-change-da6bf1177b56"
+    }
+  ],
+  "external_entry_points": [],
+  "invariants": [
+    "UNKNOWN을 NO_MATCH로 축약하지 않는다.",
+    "급여는 동일 signature 안에서만 비교한다."
+  ],
+  "unresolved_conflicts": [],
+  "resume_digest": "Prepared C-10-current-job-search-execution from current decision hashes and one global file-ownership graph."
+}

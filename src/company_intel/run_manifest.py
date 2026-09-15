@@ -17,7 +17,7 @@ from pathlib import Path
 from typing import Any
 from urllib.parse import parse_qsl, urlencode, urlsplit, urlunsplit
 
-from .security import SENSITIVE_EXPORT_KEYS, SENSITIVE_QUERY_KEYS
+from .security import SENSITIVE_EXPORT_KEYS, SENSITIVE_QUERY_KEYS, sanitize_manifest
 
 SCHEMA_VERSION = "1.0"
 
@@ -166,6 +166,10 @@ def build_run_manifest(
     output_manifest: Mapping[str, Any] | None = None,
     run_id: str | None = None,
     generated_at: str | None = None,
+    selection: Mapping[str, Any] | None = None,
+    snapshot_ref: Mapping[str, Any] | None = None,
+    eligibility: Mapping[str, Any] | None = None,
+    result_refs: Mapping[str, Any] | None = None,
 ) -> dict[str, Any]:
     """Build a redacted, JSON-safe record linking inputs to output hashes.
 
@@ -191,8 +195,8 @@ def build_run_manifest(
         "output_manifest": safe_output_manifest,
     }
     resolved_run_id = run_id or f"run-{_sha256(content)[:16]}"
-    return {
-        "schema_version": SCHEMA_VERSION,
+    output = {
+        "schema_version": "2.0" if any(item is not None for item in (selection, snapshot_ref, eligibility, result_refs)) else SCHEMA_VERSION,
         "run_id": str(resolved_run_id),
         "generated_at": generated_at or datetime.now(UTC).isoformat(),
         **content,
@@ -203,11 +207,41 @@ def build_run_manifest(
             "output_manifest_sha256": _sha256(safe_output_manifest),
         },
     }
+    if selection is not None:
+        output["selection_ref"] = sanitize_manifest({"selection": dict(selection)}, allowlist={"selection"})["selection"]
+    if snapshot_ref is not None:
+        output["snapshot_ref"] = sanitize_manifest(dict(snapshot_ref))
+    if eligibility is not None:
+        output["eligibility"] = sanitize_manifest({"eligibility": dict(eligibility)}, allowlist={"eligibility"})["eligibility"]
+    if result_refs is not None:
+        output["result_refs"] = sanitize_manifest({"result_refs": dict(result_refs)}, allowlist={"result_refs"})["result_refs"]
+    return output
 
 
 def sanitize_manifest_value(value: Any) -> Any:
     """Expose the manifest-safe projection for export and reporting boundaries."""
     return _json_safe(value)
+
+
+def snapshot_ref(snapshot: Mapping[str, Any]) -> dict[str, Any]:
+    return sanitize_manifest({key: snapshot.get(key) for key in ("snapshot_id", "collected_at", "status", "sources")})
+
+
+def selection_ref(selection: Mapping[str, Any]) -> dict[str, Any]:
+    return sanitize_manifest({"selection": dict(selection)}, allowlist={"selection"})["selection"]
+
+
+def result_refs(results: Mapping[str, Any]) -> dict[str, str]:
+    return {str(key): _sha256(value) for key, value in sorted(results.items())}
+
+
+def verify_manifest(manifest: Mapping[str, Any]) -> bool:
+    """Validate only the deterministic lineage hashes that this module owns."""
+
+    lineage = manifest.get("lineage")
+    if not isinstance(lineage, Mapping):
+        return False
+    return lineage.get("profile_sha256") == _sha256(manifest.get("profile", {})) and lineage.get("source_snapshot_sha256") == _sha256(manifest.get("sources", []))
 
 
 def write_run_manifest(path: Path, manifest: Mapping[str, Any]) -> Path:

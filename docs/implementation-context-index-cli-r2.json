@@ -255,6 +255,250 @@
         "GitHub/OpenAlex 활동은 AI 도입 사건의 직접 증거가 아니다.",
         "control이 없으면 association-only다."
       ]
+    },
+    {
+      "topic_id": "live-snapshot-foundation",
+      "description": "provider별 갱신·페이지네이션·최신성과 불변 snapshot 재사용을 분리하는 수집 기반",
+      "capability_ids": [
+        "provider-refresh",
+        "pagination",
+        "immutable-snapshot",
+        "freshness-coverage"
+      ],
+      "refs": [
+        {
+          "ref_id": "live-tree-report-d11",
+          "role": "must-read",
+          "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/live-category-tree-scope-amendment-2026-09-13.md",
+          "content_hash": "sha256:babe85bec25ea7f1effad8f924071b5977a0359f0377b6b759ed874dea6c17bd",
+          "line_range": "3-18,20-29,66-77",
+          "question": "실시간 검색의 시점과 분모를 어떻게 고정하는가?",
+          "observation_summary": "provider 수집 후 hash와 수집시각이 고정된 snapshot만 검색한다."
+        }
+      ],
+      "code_entry_points": [
+        "src/company_intel/connectors/keyed.py",
+        "src/company_intel/warehouse.py",
+        "src/company_intel/cli.py"
+      ],
+      "test_entry_points": [
+        "tests/test_public_connectors.py",
+        "tests/test_cli_workflows.py"
+      ],
+      "invariants": [
+        "한 검색 세션은 하나의 불변 snapshot만 사용한다.",
+        "누적 total을 현재 활성 공고 수로 표시하지 않는다.",
+        "provider key는 manifest에 저장하지 않는다."
+      ]
+    },
+    {
+      "topic_id": "search-mode-boundary",
+      "description": "현재 채용 단면 검색과 반복 snapshot 동향 분석의 입력·분모·추론 경계",
+      "capability_ids": [
+        "current-job-mode",
+        "job-trend-mode",
+        "mode-eligibility"
+      ],
+      "refs": [
+        {
+          "ref_id": "live-tree-report-d12",
+          "role": "must-read",
+          "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/live-category-tree-scope-amendment-2026-09-13.md",
+          "content_hash": "sha256:babe85bec25ea7f1effad8f924071b5977a0359f0377b6b759ed874dea6c17bd",
+          "line_range": "44-53,66-77",
+          "question": "단일 snapshot으로 어떤 주장까지 허용되는가?",
+          "observation_summary": "현재 채용은 가능하지만 반복 이력 없이는 동향 수치가 부적격이다."
+        }
+      ],
+      "code_entry_points": [
+        "src/company_intel/interactive.py",
+        "src/company_intel/query_contract.py",
+        "src/company_intel/analytics.py"
+      ],
+      "test_entry_points": [
+        "tests/test_interactive.py",
+        "tests/test_query_contract.py",
+        "tests/test_analytics.py"
+      ],
+      "invariants": [
+        "단일 snapshot을 trend로 승격하지 않는다.",
+        "현재 공고 수요를 실제 채용 완료로 표현하지 않는다."
+      ]
+    },
+    {
+      "topic_id": "public-sector-identity",
+      "description": "한국 MPM↔ALIO와 체코 MPSV IČO↔ARES의 근거 기반 공공기관 identity 연결",
+      "capability_ids": [
+        "public-identity-link",
+        "separate-taxonomy-axes",
+        "unresolved-identity"
+      ],
+      "refs": [
+        {
+          "ref_id": "live-tree-report-d13",
+          "role": "must-read",
+          "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/live-category-tree-scope-amendment-2026-09-13.md",
+          "content_hash": "sha256:babe85bec25ea7f1effad8f924071b5977a0359f0377b6b759ed874dea6c17bd",
+          "line_range": "9-18,30-36,79-85",
+          "question": "공공 원천 맥락과 법적 기관 유형을 어떻게 분리하는가?",
+          "observation_summary": "공고 맥락·공공기관유형·법적형태·소유부문은 공식 ID 또는 검증 link로만 결합한다."
+        }
+      ],
+      "code_entry_points": [
+        "src/company_intel/taxonomy.py",
+        "src/company_intel/classification.py",
+        "src/company_intel/warehouse.py"
+      ],
+      "test_entry_points": [
+        "tests/test_taxonomy.py",
+        "tests/test_classification.py"
+      ],
+      "invariants": [
+        "MPSV 공공행정 flag를 국영기업으로 해석하지 않는다.",
+        "ARES legal form을 ownership으로 승격하지 않는다."
+      ]
+    },
+    {
+      "topic_id": "progressive-cli-tree",
+      "description": "상위 선택으로 남은 실제 행에서 하위 facet 값·개수·coverage를 재계산하는 화살표 트리",
+      "capability_ids": [
+        "progressive-facets",
+        "arrow-tree",
+        "selection-backtracking",
+        "disabled-reasons"
+      ],
+      "refs": [
+        {
+          "ref_id": "live-tree-report-d14",
+          "role": "must-read",
+          "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/live-category-tree-scope-amendment-2026-09-13.md",
+          "content_hash": "sha256:babe85bec25ea7f1effad8f924071b5977a0359f0377b6b759ed874dea6c17bd",
+          "line_range": "20-64,79-87",
+          "question": "다음 선택지는 어떤 후보 집합에서 계산되는가?",
+          "observation_summary": "각 단계의 남은 snapshot 행에서 값·count·coverage를 다시 계산한다."
+        }
+      ],
+      "code_entry_points": [
+        "src/company_intel/interactive.py",
+        "src/company_intel/facets.py",
+        "src/company_intel/query_contract.py",
+        "src/company_intel/cli.py"
+      ],
+      "test_entry_points": [
+        "tests/test_interactive.py",
+        "tests/test_facets.py",
+        "tests/test_cli_workflows.py"
+      ],
+      "invariants": [
+        "disabled option은 profile에 들어가지 않는다.",
+        "뒤로가기는 종속 선택을 재계산한다.",
+        "TTY와 scripted 입력은 같은 profile을 생성한다."
+      ]
+    },
+    {
+      "topic_id": "current-job-results",
+      "description": "현재 채용 검색의 활성 기준시각·분모와 strict/unverifiable/no-match/conflict 결과 계약",
+      "capability_ids": [
+        "active-as-of",
+        "four-state-results",
+        "search-denominators",
+        "salary-signature"
+      ],
+      "refs": [
+        {
+          "ref_id": "live-tree-report-d15",
+          "role": "must-read",
+          "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/live-category-tree-scope-amendment-2026-09-13.md",
+          "content_hash": "sha256:babe85bec25ea7f1effad8f924071b5977a0359f0377b6b759ed874dea6c17bd",
+          "line_range": "9-18,30-43,66-75",
+          "question": "현재 검색의 0건과 검사 불가능을 어떻게 구분하는가?",
+          "observation_summary": "원천 반환량부터 활성·결과군까지 분모 chain과 필터별 판정을 보존한다."
+        }
+      ],
+      "code_entry_points": [
+        "src/company_intel/job_search.py",
+        "src/company_intel/search.py",
+        "src/company_intel/query_contract.py"
+      ],
+      "test_entry_points": [
+        "tests/test_job_search.py",
+        "tests/test_search_profile.py"
+      ],
+      "invariants": [
+        "UNKNOWN을 NO_MATCH로 축약하지 않는다.",
+        "급여는 동일 signature 안에서만 비교한다."
+      ]
+    },
+    {
+      "topic_id": "job-trend-series",
+      "description": "versioned 채용 snapshot의 등장·유지·종료와 coverage 적격성 기반 동향 분석",
+      "capability_ids": [
+        "posting-lifecycle",
+        "snapshot-series",
+        "trend-eligibility",
+        "coverage-break"
+      ],
+      "refs": [
+        {
+          "ref_id": "live-tree-report-d16",
+          "role": "must-read",
+          "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/live-category-tree-scope-amendment-2026-09-13.md",
+          "content_hash": "sha256:babe85bec25ea7f1effad8f924071b5977a0359f0377b6b759ed874dea6c17bd",
+          "line_range": "44-53,66-77,103-110",
+          "question": "채용 변화 지표를 언제 계산할 수 있는가?",
+          "observation_summary": "동일 정의·identity·coverage를 가진 반복 snapshot cohort에서만 계산한다."
+        }
+      ],
+      "code_entry_points": [
+        "src/company_intel/warehouse.py",
+        "src/company_intel/analytics.py",
+        "src/company_intel/analysis_service.py"
+      ],
+      "test_entry_points": [
+        "tests/test_analytics.py",
+        "tests/test_analysis_service.py"
+      ],
+      "invariants": [
+        "단일 snapshot은 insufficient_snapshot_history다.",
+        "coverage break를 수요 변화로 계산하지 않는다."
+      ]
+    },
+    {
+      "topic_id": "selection-provenance",
+      "description": "트리 선택부터 query·snapshot·결과·export까지 비밀 제거 hash chain으로 연결하는 실행 근거",
+      "capability_ids": [
+        "selection-manifest",
+        "query-replay",
+        "artifact-hash-chain",
+        "manifest-redaction"
+      ],
+      "refs": [
+        {
+          "ref_id": "live-tree-report-d17",
+          "role": "must-read",
+          "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/live-category-tree-scope-amendment-2026-09-13.md",
+          "content_hash": "sha256:babe85bec25ea7f1effad8f924071b5977a0359f0377b6b759ed874dea6c17bd",
+          "line_range": "54-63,79-87,103-110",
+          "question": "사용자 선택과 결과 파일을 어떻게 같은 실행으로 증명하는가?",
+          "observation_summary": "manifest가 normalized profile, snapshot hash, 결과군과 export hash를 연결한다."
+        }
+      ],
+      "code_entry_points": [
+        "src/company_intel/run_manifest.py",
+        "src/company_intel/exporting.py",
+        "src/company_intel/reporting.py",
+        "src/company_intel/cli.py",
+        "src/company_intel/api.py"
+      ],
+      "test_entry_points": [
+        "tests/test_run_manifest.py",
+        "tests/test_exporting.py",
+        "tests/test_cli_workflows.py"
+      ],
+      "invariants": [
+        "API key와 개인 연락처를 manifest에 저장하지 않는다.",
+        "동일 snapshot replay만 결정론적으로 보장한다."
+      ]
     }
   ]
 }

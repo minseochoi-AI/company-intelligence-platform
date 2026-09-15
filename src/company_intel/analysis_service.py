@@ -11,6 +11,7 @@ from .analytics import (
     difference_in_differences,
     event_study,
 )
+from .job_trends import aggregate_job_trends
 
 SERIES_SIGNATURE_FIELDS = ("series_id", "unit", "currency", "frequency", "adjustment")
 
@@ -181,3 +182,20 @@ def evaluate_ai_event(
     else:
         output["causal_limitations"] = ["control_group_or_pre_post_outcomes_missing"]
     return output
+
+
+def evaluate_job_trends(snapshots: list[dict[str, Any]]) -> dict[str, Any]:
+    """Return a job-posting trend only when repeated snapshots are comparable."""
+
+    return aggregate_job_trends(snapshots)
+
+
+def job_trend_timeline(snapshots: list[dict[str, Any]]) -> dict[str, Any]:
+    result = evaluate_job_trends(snapshots)
+    return {"status": result["status"], "series": result.get("series", []), "eligibility": result.get("eligibility", {})}
+
+
+def job_event_boundary(trend_result: dict[str, Any], *, has_control: bool) -> dict[str, Any]:
+    if trend_result.get("status") != "eligible":
+        return {"status": "unavailable", "reason": trend_result.get("eligibility", {}).get("reason", "trend_ineligible")}
+    return {"status": "association-only", "causal_ready": False, "reason": None if has_control else "control_group_missing"}

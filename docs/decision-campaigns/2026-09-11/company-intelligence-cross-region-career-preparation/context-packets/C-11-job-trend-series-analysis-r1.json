@@ -1,0 +1,71 @@
+{
+  "contract_version": "implementation-context-packet-v2",
+  "packet_id": "C-11-job-trend-series-analysis-packet-ee365ac6b296",
+  "topics": [
+    "job-trend-series"
+  ],
+  "capability_ids": [
+    "posting-lifecycle",
+    "snapshot-series",
+    "trend-eligibility",
+    "coverage-break"
+  ],
+  "required_refs": [
+    {
+      "ref_id": "live-tree-report-d16",
+      "role": "must-read",
+      "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/live-category-tree-scope-amendment-2026-09-13.md",
+      "content_hash": "sha256:babe85bec25ea7f1effad8f924071b5977a0359f0377b6b759ed874dea6c17bd",
+      "line_range": "44-53,66-77,103-110",
+      "question": "채용 변화 지표를 언제 계산할 수 있는가?",
+      "observation_summary": "동일 정의·identity·coverage를 가진 반복 snapshot cohort에서만 계산한다."
+    }
+  ],
+  "current_entry_points": [
+    {
+      "kind": "code",
+      "path": "src/company_intel/analytics.py",
+      "symbol": "series_signature",
+      "source_hash": "sha256:2600f9606bf74be060b0af2878cda3769f4c65f0ad0db463fc4f57556b6e19ac"
+    },
+    {
+      "kind": "code",
+      "path": "src/company_intel/analysis_service.py",
+      "symbol": "evaluate_job_trends",
+      "source_hash": "sha256:cdbb79e1222ce4a7a1e5d90ca846659378363a251288a08d10f1e33a6d4eb4ad"
+    },
+    {
+      "kind": "test",
+      "path": "tests/test_analytics.py",
+      "symbol": "test_job_series_signature",
+      "source_hash": "sha256:eaa89ab061fc164c0ea839bfb695201e8023cee7539b3b30b3ad9a5c62dd99dc"
+    },
+    {
+      "kind": "test",
+      "path": "tests/test_analysis_service.py",
+      "symbol": "test_job_trend_unavailable_reason",
+      "source_hash": "sha256:59c7893c0c7163ea2b39f088f1f57030b06c5008e1cfd9e77d01a05ef63187da"
+    }
+  ],
+  "planned_entry_points": [
+    {
+      "kind": "code",
+      "path": "src/company_intel/job_trends.py",
+      "symbol": "TrendEligibility",
+      "change_id": "file-change-3a37488d99a0"
+    },
+    {
+      "kind": "test",
+      "path": "tests/test_job_trends.py",
+      "symbol": "test_single_snapshot_is_ineligible",
+      "change_id": "file-change-4abcc47e1c00"
+    }
+  ],
+  "external_entry_points": [],
+  "invariants": [
+    "단일 snapshot은 insufficient_snapshot_history다.",
+    "coverage break를 수요 변화로 계산하지 않는다."
+  ],
+  "unresolved_conflicts": [],
+  "resume_digest": "Prepared C-11-job-trend-series-analysis from current decision hashes and one global file-ownership graph."
+}

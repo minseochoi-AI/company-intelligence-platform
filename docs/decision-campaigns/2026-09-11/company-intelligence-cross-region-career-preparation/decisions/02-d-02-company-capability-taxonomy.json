@@ -138,17 +138,7 @@
     "src/company_intel/api.py — 분류·필드 가용성·제외 사유 조회 endpoint",
     "tests/test_classification.py (new) — 재무 전용·공고 전용·공공기관 맥락·문서형·상관 불가 fixture 검증"
   ],
-  "implementation_change_ids": [
-    "D-01-field-capability-catalog-r3",
-    "D-01-nested-field-resolution-r3",
-    "D-02-classification-tests-r3",
-    "D-02-facet-catalog-r3",
-    "D-02-facet-tests-r3",
-    "D-02-taxonomy-classification-r3",
-    "D-02-taxonomy-model-r3",
-    "D-02-taxonomy-module-r3",
-    "D-02-taxonomy-tests-r3"
-  ],
+  "implementation_change_ids": [],
   "validation_requirements": [
     "동일 원천 레코드 재수집이 source_name·source_record_id·observation_date 기준으로 중복되지 않고 revision/collected 시각만 올바르게 보존되는지 검증한다.",
     "재무만 있는 기업은 company_financial_disclosure과 correlation_ineligible을 동시에 가질 수 있는지 fixture로 검증한다.",

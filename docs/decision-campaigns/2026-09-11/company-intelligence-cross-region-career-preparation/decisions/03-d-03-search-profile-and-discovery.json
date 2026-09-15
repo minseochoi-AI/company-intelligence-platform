@@ -137,12 +137,7 @@
     "src/company_intel/api.py — profile 기반 후보 조회, missing profile, provenance 응답",
     "tests/test_search_profile.py (new) — 필수 프로필·국가별 부족분·익명 공고·제외 사유·결정론적 순위 검증"
   ],
-  "implementation_change_ids": [
-    "D-03-company-search-contract-r3",
-    "D-03-company-search-engine-r3",
-    "D-03-query-contract-tests-r3",
-    "D-03-search-profile-tests-r3"
-  ],
+  "implementation_change_ids": [],
   "validation_requirements": [
     "국가·직무·산업·경력·언어·취업 자격·지역·원격 여부·후보 수·기준일 중 계약상 필수 항목이 빠지면 후보 생성 대신 구조화된 missing_profile을 반환하는지 검증한다.",
     "고정 sample probe의 회사가 사용자 조건 없이 실제 추천 후보로 자동 승격되지 않는지 검증한다.",

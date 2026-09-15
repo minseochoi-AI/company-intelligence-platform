@@ -1,0 +1,54 @@
+{
+  "contract_version": "atomic-json-patch-receipt-v1",
+  "target": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/scope-lock.json",
+  "outcome": "pass",
+  "before_sha256": "56439c3eb2c3d630cc34b2165c149845a04f3a3677c03d39543978b8b9375059",
+  "after_sha256": "b01342d1d6756805b15812b1b9a5197be6c122cf2f1a2716b974470aa7d12f28",
+  "proposed_after_sha256": "b01342d1d6756805b15812b1b9a5197be6c122cf2f1a2716b974470aa7d12f28",
+  "operations": [
+    {
+      "op": "test",
+      "path": "/scope"
+    },
+    {
+      "op": "test",
+      "path": "/scope_sha256"
+    },
+    {
+      "op": "test",
+      "path": "/amendment"
+    },
+    {
+      "op": "replace",
+      "path": "/scope"
+    },
+    {
+      "op": "replace",
+      "path": "/scope_sha256"
+    },
+    {
+      "op": "replace",
+      "path": "/amendment"
+    }
+  ],
+  "backup": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/receipts/mutation-journal/preimages/sha256-56439c3eb2c3d630cc34b2165c149845a04f3a3677c03d39543978b8b9375059.json",
+  "journal": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/receipts/mutation-journal/mutations/239dc9582d98f63ac48e25205f297628db29dc965d26f31606f0a03170718d66.json",
+  "mutation_id": "amend-scope-lock-live-category-tree-20260913",
+  "validators": [
+    {
+      "command": [
+        "python3",
+        "/home/ubuntu/.codex/skills/evidence-decision-chainup/scripts/decisionctl.py",
+        "check-scope",
+        "--campaign",
+        "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/campaign.json",
+        "--lock",
+        "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/scope-lock.json"
+      ],
+      "returncode": 0,
+      "stdout_tail": "{\"status\": \"current\", \"campaign\": \"/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/campaign.json\", \"lock\": \"/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/scope-lock.json\"}\n",
+      "stderr_tail": ""
+    }
+  ],
+  "completed_at": "2026-09-13T13:55:09.743711+00:00"
+}

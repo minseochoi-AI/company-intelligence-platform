@@ -1,0 +1,45 @@
+{
+  "contract_version": "atomic-json-patch-receipt-v1",
+  "target": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/17-d-17-selection-session-result-provenance.json",
+  "outcome": "pass",
+  "before_sha256": "56bcee56d9ce6342c52b34f6921a9fd7ead12ff2d8ff3d58430b8ebd8d80c5a5",
+  "after_sha256": "59cdd06965c0a7d6ed74bdb0fdfbc19945e737d580b4cad1514a351d6cfed860",
+  "proposed_after_sha256": "59cdd06965c0a7d6ed74bdb0fdfbc19945e737d580b4cad1514a351d6cfed860",
+  "operations": [
+    {
+      "op": "test",
+      "path": "/status"
+    },
+    {
+      "op": "test",
+      "path": "/accepted_decision"
+    },
+    {
+      "op": "replace",
+      "path": "/status"
+    },
+    {
+      "op": "replace",
+      "path": "/accepted_decision"
+    }
+  ],
+  "backup": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/receipts/mutation-journal/preimages/sha256-56bcee56d9ce6342c52b34f6921a9fd7ead12ff2d8ff3d58430b8ebd8d80c5a5.json",
+  "journal": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/receipts/mutation-journal/mutations/3bac272ea57c4a1060d4770bd015a273b6674ffe38d782fb46cd61d2e0c00c04.json",
+  "mutation_id": "approve-D-17-selection-session-result-provenance-20260914",
+  "validators": [
+    {
+      "command": [
+        "python3",
+        "-m",
+        "jsonschema",
+        "--instance",
+        "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/17-d-17-selection-session-result-provenance.json",
+        "/home/ubuntu/.codex/skills/decision-campaign-workbook/references/decision-item.schema.json"
+      ],
+      "returncode": 0,
+      "stdout_tail": "",
+      "stderr_tail": ""
+    }
+  ],
+  "completed_at": "2026-09-14T12:33:45.037467+00:00"
+}

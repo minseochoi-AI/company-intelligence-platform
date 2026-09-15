@@ -1,0 +1,45 @@
+{
+  "contract_version": "atomic-json-patch-receipt-v1",
+  "target": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/14-d-14-progressive-facet-tree-navigation.json",
+  "outcome": "pass",
+  "before_sha256": "1e5613a81dddc3498f1c802a11eb8b7d8daed7322454ff3a37215aebf68a9fba",
+  "after_sha256": "9559c76f8089f456535c5176a0c5684132d6faab7726e1b3a01691535fbad55d",
+  "proposed_after_sha256": "9559c76f8089f456535c5176a0c5684132d6faab7726e1b3a01691535fbad55d",
+  "operations": [
+    {
+      "op": "test",
+      "path": "/status"
+    },
+    {
+      "op": "test",
+      "path": "/accepted_decision"
+    },
+    {
+      "op": "replace",
+      "path": "/status"
+    },
+    {
+      "op": "replace",
+      "path": "/accepted_decision"
+    }
+  ],
+  "backup": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/receipts/mutation-journal/preimages/sha256-1e5613a81dddc3498f1c802a11eb8b7d8daed7322454ff3a37215aebf68a9fba.json",
+  "journal": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/receipts/mutation-journal/mutations/65397cc9ff6783bac95f608544057d64da3c4f0704bcfe40ff77dfebc30c13ee.json",
+  "mutation_id": "approve-D-14-progressive-facet-tree-navigation-20260914",
+  "validators": [
+    {
+      "command": [
+        "python3",
+        "-m",
+        "jsonschema",
+        "--instance",
+        "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/14-d-14-progressive-facet-tree-navigation.json",
+        "/home/ubuntu/.codex/skills/decision-campaign-workbook/references/decision-item.schema.json"
+      ],
+      "returncode": 0,
+      "stdout_tail": "",
+      "stderr_tail": ""
+    }
+  ],
+  "completed_at": "2026-09-14T12:33:42.142548+00:00"
+}

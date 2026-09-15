@@ -120,10 +120,7 @@
     "tests/test_analytics.py",
     "새 screener 통합 테스트"
   ],
-  "implementation_change_ids": [
-    "D-06-screener-group-tests-r3",
-    "D-06-screener-signature-groups-r3"
-  ],
+  "implementation_change_ids": [],
   "validation_requirements": [
     "동일 산업·국가·규모가 아닌 행이 같은 peer_group에 섞이지 않는지 확인한다.",
     "결측 지표·불충분한 동료군이 점수로 위장되지 않고 coverage 또는 exclusion으로 반환되는지 확인한다.",

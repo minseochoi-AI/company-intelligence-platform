@@ -1,0 +1,36 @@
+{
+  "cohort_id": "C-11-job-trend-series-analysis",
+  "status": "completed",
+  "changed_paths": [],
+  "commands": [
+    "uv run --cache-dir /tmp/company-intel-uv-cache-20260914 --frozen pytest tests/test_job_trends.py tests/test_analytics.py tests/test_analysis_service.py -q"
+  ],
+  "outcome": "pass",
+  "raw_log_path": ".runtime/campaign-validation-20260914/C-11.log",
+  "raw_log_sha256": "db510cbb77bb02599d00e961dc8f4c57d973fbc2b5a5b05c6e13701e5388bd2a",
+  "first_failure": null,
+  "stdout_tail": "............ [100%] 12 passed in 0.39s",
+  "stderr_tail": null,
+  "telemetry": {
+    "provider": {
+      "measurement": "not-applicable",
+      "invocations": null,
+      "input_tokens": null,
+      "output_tokens": null
+    },
+    "agent_session": {
+      "measurement": "unavailable-platform",
+      "token_count": null,
+      "tool_output_chars": null
+    }
+  },
+  "provider_guard": null,
+  "updated_at": "2026-09-14T14:29:51.889396+00:00",
+  "context_packet_id": "C-11-job-trend-series-analysis-r1",
+  "context_packet_sha256": "9603bb9319f4e71d28dcff10148e2771882cffd46ac8f13e3a2c2dbab6d9214f",
+  "implementation_plan_id": "company-intelligence-cross-region-career-preparation--C-11-job-trend-series-analysis--r1",
+  "implementation_plan_sha256": "92fdca605dd8438c86be16ee31e171e74e675d7e60e975adcb68b1dfd5974417",
+  "passed_criterion_ids": [
+    "C-11-job-trend-tests"
+  ]
+}

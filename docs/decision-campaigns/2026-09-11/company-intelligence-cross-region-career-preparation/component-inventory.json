@@ -26,9 +26,12 @@
       "module": "src.company_intel.analysis_service",
       "path": "src/company_intel/analysis_service.py",
       "symbols": [
+        "_series_group_id",
+        "_series_signature",
         "build_company_timeline",
         "evaluate_ai_event",
         "evaluate_valuation_scenarios",
+        "timeline_series_groups",
         "validate_series_signature"
       ],
       "imports": [],
@@ -40,11 +43,13 @@
       "path": "src/company_intel/analytics.py",
       "symbols": [
         "DCFScenario",
+        "_finite_number",
         "_percentile",
         "_robust_z",
         "dcf_scenarios",
         "difference_in_differences",
         "event_study",
+        "event_study_prerequisites",
         "financial_metrics",
         "future_value_score",
         "guarded_dcf_scenarios",
@@ -52,7 +57,8 @@
         "macro_sensitivity",
         "pct_change",
         "rank_companies",
-        "safe_div"
+        "safe_div",
+        "valuation_prerequisites"
       ],
       "imports": [],
       "test_nodes": []
@@ -122,7 +128,9 @@
       "path": "src/company_intel/classification.py",
       "symbols": [
         "classify_company",
-        "evaluate_analysis_eligibility"
+        "classify_taxonomy_axes",
+        "evaluate_analysis_eligibility",
+        "legacy_company_type"
       ],
       "imports": [],
       "test_nodes": []
@@ -133,6 +141,9 @@
       "path": "src/company_intel/cli.py",
       "symbols": [
         "_demo",
+        "_job_verdict_counts",
+        "_records",
+        "_supplied_table_rows",
         "main"
       ],
       "imports": [],
@@ -244,11 +255,37 @@
         "ExportBundle",
         "_csv_bytes",
         "_json_export_default",
+        "_run_manifest_table_rows",
+        "_safe_export_row",
         "build_export_bundle",
         "build_export_manifest",
         "item_or_empty",
         "render_csv_bundle",
         "render_xlsx_workbook"
+      ],
+      "imports": [],
+      "test_nodes": []
+    },
+    {
+      "component_id": "src.company_intel.facets",
+      "module": "src.company_intel.facets",
+      "path": "src/company_intel/facets.py",
+      "symbols": [
+        "FacetDefinition",
+        "FacetOption",
+        "FacetOption.as_dict",
+        "FacetOption.selectable",
+        "_evidence_status",
+        "_fact_token",
+        "_job_options",
+        "_present",
+        "_records",
+        "_taxonomy_facts",
+        "_text_value",
+        "build_job_facets",
+        "build_taxonomy_facets",
+        "facet_definitions",
+        "field_availability"
       ],
       "imports": [],
       "test_nodes": []
@@ -285,6 +322,45 @@
       "test_nodes": []
     },
     {
+      "component_id": "src.company_intel.interactive",
+      "module": "src.company_intel.interactive",
+      "path": "src/company_intel/interactive.py",
+      "symbols": [
+        "ArrowMenu",
+        "ArrowMenu.select",
+        "ArrowMenu.text",
+        "InteractiveRequest",
+        "InteractiveRequest.as_dict",
+        "MenuOption",
+        "ScriptedSelector",
+        "ScriptedSelector.__init__",
+        "ScriptedSelector.select",
+        "ScriptedSelector.text",
+        "Selector",
+        "Selector.select",
+        "Selector.text",
+        "_country_allocation",
+        "_facet_options",
+        "_file_options",
+        "_file_request",
+        "_load_payloads",
+        "_mapping",
+        "_optional_number",
+        "_payload_paths",
+        "_requirement_options",
+        "_select_facets",
+        "_select_requirements",
+        "_split_terms",
+        "_taxonomy_records",
+        "build_interactive_request",
+        "build_job_search_request",
+        "load_scripted_selector",
+        "write_interactive_profile"
+      ],
+      "imports": [],
+      "test_nodes": []
+    },
+    {
       "component_id": "src.company_intel.job_search",
       "module": "src.company_intel.job_search",
       "path": "src/company_intel/job_search.py",
@@ -301,16 +377,21 @@
         "_active_at",
         "_atomic_requirements",
         "_contains",
+        "_contains_verdict",
         "_country_from_location",
         "_employment",
         "_html_parts",
+        "_language_verdict",
+        "_membership_verdict",
         "_mpsv_location",
         "_mpsv_salary_period",
         "_necessity",
+        "_reason_for",
         "_record_verdict",
         "_records",
         "_requirement_matches",
         "_requirement_verdict",
+        "_salary_signature_verdict",
         "_snapshot",
         "_validate_profile",
         "_value",
@@ -337,6 +418,9 @@
         "CompanyClassification",
         "ComparabilitySignature",
         "ComparabilitySignature.key",
+        "FacetAvailability",
+        "FacetAvailability.as_dict",
+        "FacetAvailability.selectable",
         "HttpResult",
         "Probe",
         "ProviderHealth",
@@ -344,7 +428,8 @@
         "RequirementVerification",
         "SearchProfile",
         "SourceDisposition",
-        "SourcePolicy"
+        "SourcePolicy",
+        "TaxonomyFact"
       ],
       "imports": [],
       "test_nodes": []
@@ -359,7 +444,8 @@
         "NormalizedObservation",
         "comparability_signature",
         "deduplication_key",
-        "normalize_unit"
+        "normalize_unit",
+        "resolve_field_path"
       ],
       "imports": [],
       "test_nodes": []
@@ -396,10 +482,26 @@
       "path": "src/company_intel/query_contract.py",
       "symbols": [
         "AtomicSearchProfile",
+        "CompanySearchProfile",
+        "CompanySearchProfile.allocation",
+        "CompanySearchProfile.filters",
+        "CompanySearchProfile.semantic_filters",
         "ComparabilityPolicy",
+        "FieldFilter",
+        "FieldVerdict",
+        "FilterMode",
         "FilterVerdict",
+        "SemanticValue",
+        "SemanticValue.selector",
         "UnknownPolicy",
+        "_field_filter_from_mapping",
+        "_job_only_filters_from_mapping",
+        "_merge_filter_values",
+        "_parse_field_filters",
+        "_string_tuple",
         "combine_verdicts",
+        "company_search_profile_from_legacy",
+        "company_search_profile_from_mapping",
         "text_verdict"
       ],
       "imports": [],
@@ -412,10 +514,29 @@
       "symbols": [
         "render_export_summary",
         "render_provider_limitations",
+        "render_run_lineage_summary",
         "render_verdict_counts",
         "validation_report_ko",
         "write_export_summary",
         "write_validation_report"
+      ],
+      "imports": [],
+      "test_nodes": []
+    },
+    {
+      "component_id": "src.company_intel.run_manifest",
+      "module": "src.company_intel.run_manifest",
+      "path": "src/company_intel/run_manifest.py",
+      "symbols": [
+        "_canonical_json",
+        "_is_sensitive_key",
+        "_json_safe",
+        "_normalise_output_files",
+        "_redact_manifest_url",
+        "_sha256",
+        "build_run_manifest",
+        "sanitize_manifest_value",
+        "write_run_manifest"
       ],
       "imports": [],
       "test_nodes": []
@@ -427,6 +548,14 @@
       "symbols": [
         "ScreenerProfile",
         "ScreenerResult",
+        "_ComparableGroup",
+        "_comparability_groups",
+        "_group_id",
+        "_group_metadata",
+        "_select_comparability_groups",
+        "_signature_label",
+        "_signature_missing_fields",
+        "_text",
         "screen_companies"
       ],
       "imports": [],
@@ -437,10 +566,32 @@
       "module": "src.company_intel.search",
       "path": "src/company_intel/search.py",
       "symbols": [
+        "CompanyCandidateEvaluation",
+        "CompanyCandidateEvaluation.status",
+        "_apply_country_allocation",
+        "_as_text",
+        "_capability_field_verdict",
+        "_company_profile",
+        "_evaluation_reason",
+        "_identity_field_verdict",
+        "_included",
+        "_is_identity_conflict",
+        "_keyword_field_verdict",
+        "_legacy_match",
+        "_selector_matches",
+        "_semantic_field_verdict",
+        "_semantic_values",
+        "_semantic_values_from_value",
+        "_sort_evaluations",
+        "apply_country_allocation",
         "build_company_universe",
         "candidate_verdict",
+        "evaluate_company_candidate",
         "explain_candidate",
+        "explain_company_evaluation",
+        "rank_candidate_evaluations",
         "rank_candidates",
+        "validate_company_search_profile",
         "validate_search_profile"
       ],
       "imports": [],
@@ -470,10 +621,35 @@
       "symbols": [
         "SourceCatalog",
         "SourceCatalog.by_id",
+        "SourceCatalog.field_capabilities",
         "_policy",
         "evaluate_activation",
+        "field_capabilities",
         "load_source_catalog",
         "validate_atomic_contract"
+      ],
+      "imports": [],
+      "test_nodes": []
+    },
+    {
+      "component_id": "src.company_intel.taxonomy",
+      "module": "src.company_intel.taxonomy",
+      "path": "src/company_intel/taxonomy.py",
+      "symbols": [
+        "_add",
+        "_add_many",
+        "_alio_facts",
+        "_ares_facts",
+        "_ats_facts",
+        "_entity_id",
+        "_first",
+        "_gleif_facts",
+        "_mpm_facts",
+        "_native_value",
+        "_sec_facts",
+        "_values",
+        "taxonomy_facts_from_record",
+        "taxonomy_facts_from_records"
       ],
       "imports": [],
       "test_nodes": []
@@ -528,11 +704,13 @@
       "module": "tests.test_analysis_service",
       "path": "tests/test_analysis_service.py",
       "symbols": [
+        "test_multi_axis_timeline_groups_keep_incompatible_signatures_independent",
         "test_point_in_time_and_analysis_limits",
         "test_raw_market_prices_and_projections_are_rejected_for_evidence_analysis"
       ],
       "imports": [],
       "test_nodes": [
+        "tests/test_analysis_service.py::test_multi_axis_timeline_groups_keep_incompatible_signatures_independent",
         "tests/test_analysis_service.py::test_point_in_time_and_analysis_limits",
         "tests/test_analysis_service.py::test_raw_market_prices_and_projections_are_rejected_for_evidence_analysis"
       ]
@@ -542,6 +720,7 @@
       "module": "tests.test_analytics",
       "path": "tests/test_analytics.py",
       "symbols": [
+        "test_analysis_prerequisites_return_deterministic_readiness_reasons",
         "test_event_did_dcf_future_score",
         "test_financial_metrics_cashflow_and_margins",
         "test_hiring_snapshots_do_not_claim_hires",
@@ -549,6 +728,7 @@
       ],
       "imports": [],
       "test_nodes": [
+        "tests/test_analytics.py::test_analysis_prerequisites_return_deterministic_readiness_reasons",
         "tests/test_analytics.py::test_event_did_dcf_future_score",
         "tests/test_analytics.py::test_financial_metrics_cashflow_and_margins",
         "tests/test_analytics.py::test_hiring_snapshots_do_not_claim_hires",
@@ -580,6 +760,7 @@
         "test_analysis_needs_identity_period_unit_and_availability",
         "test_context_and_proxy_capabilities_are_not_promoted",
         "test_finance_only_company_is_not_promoted_to_correlation_ready",
+        "test_taxonomy_axes_keep_legal_form_public_context_and_posting_unit_separate",
         "test_warehouse_identity_persistence_uses_the_identity_module_contract"
       ],
       "imports": [],
@@ -588,6 +769,7 @@
         "tests/test_classification.py::test_analysis_needs_identity_period_unit_and_availability",
         "tests/test_classification.py::test_context_and_proxy_capabilities_are_not_promoted",
         "tests/test_classification.py::test_finance_only_company_is_not_promoted_to_correlation_ready",
+        "tests/test_classification.py::test_taxonomy_axes_keep_legal_form_public_context_and_posting_unit_separate",
         "tests/test_classification.py::test_warehouse_identity_persistence_uses_the_identity_module_contract"
       ]
     },
@@ -598,12 +780,14 @@
       "symbols": [
         "_write",
         "test_cli_and_api_job_profile_use_the_same_domain_fields",
+        "test_interactive_scripted_preview_and_non_tty_guidance",
         "test_job_search_workflow_and_unverifiable_result",
         "test_screen_and_export_workflow"
       ],
       "imports": [],
       "test_nodes": [
         "tests/test_cli_workflows.py::test_cli_and_api_job_profile_use_the_same_domain_fields",
+        "tests/test_cli_workflows.py::test_interactive_scripted_preview_and_non_tty_guidance",
         "tests/test_cli_workflows.py::test_job_search_workflow_and_unverifiable_result",
         "tests/test_cli_workflows.py::test_screen_and_export_workflow"
       ]
@@ -615,13 +799,48 @@
       "symbols": [
         "test_export_keeps_evidence_and_exclusion_rows_and_sanitizes_cells",
         "test_export_separates_unverifiable_and_conflicting_evidence",
-        "test_export_serializes_duckdb_style_datetime_values_to_iso8601"
+        "test_export_serializes_duckdb_style_datetime_values_to_iso8601",
+        "test_verdict_and_lineage_export_keeps_tables_and_redacts_sensitive_values"
       ],
       "imports": [],
       "test_nodes": [
         "tests/test_exporting.py::test_export_keeps_evidence_and_exclusion_rows_and_sanitizes_cells",
         "tests/test_exporting.py::test_export_separates_unverifiable_and_conflicting_evidence",
-        "tests/test_exporting.py::test_export_serializes_duckdb_style_datetime_values_to_iso8601"
+        "tests/test_exporting.py::test_export_serializes_duckdb_style_datetime_values_to_iso8601",
+        "tests/test_exporting.py::test_verdict_and_lineage_export_keeps_tables_and_redacts_sensitive_values"
+      ]
+    },
+    {
+      "component_id": "tests.test_facets",
+      "module": "tests.test_facets",
+      "path": "tests/test_facets.py",
+      "symbols": [
+        "_facet",
+        "test_dynamic_job_facet_availability_disables_unknown_company_type_and_unstructured_salary",
+        "test_salary_and_taxonomy_facets_keep_their_required_semantics",
+        "test_source_catalog_declares_provider_native_field_boundaries"
+      ],
+      "imports": [],
+      "test_nodes": [
+        "tests/test_facets.py::test_dynamic_job_facet_availability_disables_unknown_company_type_and_unstructured_salary",
+        "tests/test_facets.py::test_salary_and_taxonomy_facets_keep_their_required_semantics",
+        "tests/test_facets.py::test_source_catalog_declares_provider_native_field_boundaries"
+      ]
+    },
+    {
+      "component_id": "tests.test_interactive",
+      "module": "tests.test_interactive",
+      "path": "tests/test_interactive.py",
+      "symbols": [
+        "test_arrow_menu_scripted_selection_rejects_disabled_values",
+        "test_interactive_job_search_compiles_saved_snapshot_profile",
+        "test_interactive_non_file_company_search_compiles_a_profile"
+      ],
+      "imports": [],
+      "test_nodes": [
+        "tests/test_interactive.py::test_arrow_menu_scripted_selection_rejects_disabled_values",
+        "tests/test_interactive.py::test_interactive_job_search_compiles_saved_snapshot_profile",
+        "tests/test_interactive.py::test_interactive_non_file_company_search_compiles_a_profile"
       ]
     },
     {
@@ -630,16 +849,22 @@
       "path": "tests/test_job_search.py",
       "symbols": [
         "test_career_overlap_and_mpsv_structured_requirements",
+        "test_lever_all_locations_and_mpm_institution_type_are_preserved",
         "test_provider_semantics_and_hard_filters",
         "test_required_language_uses_requirement_evidence_not_posting_language",
-        "test_title_language_and_unknown_requirement_semantics_are_separate"
+        "test_salary_ceiling_uses_the_same_signature_gate_as_salary_floor",
+        "test_title_language_and_unknown_requirement_semantics_are_separate",
+        "test_unknown_policy_reports_unverifiable_separately_and_can_explicitly_include"
       ],
       "imports": [],
       "test_nodes": [
         "tests/test_job_search.py::test_career_overlap_and_mpsv_structured_requirements",
+        "tests/test_job_search.py::test_lever_all_locations_and_mpm_institution_type_are_preserved",
         "tests/test_job_search.py::test_provider_semantics_and_hard_filters",
         "tests/test_job_search.py::test_required_language_uses_requirement_evidence_not_posting_language",
-        "tests/test_job_search.py::test_title_language_and_unknown_requirement_semantics_are_separate"
+        "tests/test_job_search.py::test_salary_ceiling_uses_the_same_signature_gate_as_salary_floor",
+        "tests/test_job_search.py::test_title_language_and_unknown_requirement_semantics_are_separate",
+        "tests/test_job_search.py::test_unknown_policy_reports_unverifiable_separately_and_can_explicitly_include"
       ]
     },
     {
@@ -661,16 +886,51 @@
       ]
     },
     {
+      "component_id": "tests.test_query_contract",
+      "module": "tests.test_query_contract",
+      "path": "tests/test_query_contract.py",
+      "symbols": [
+        "test_field_filter_keeps_all_mode_and_provider_namespace_selector_intact",
+        "test_field_filter_verdicts_preserve_explicit_semantic_axes_and_allocations",
+        "test_mapping_adapter_rejects_ambiguous_boolean_and_invalid_policy",
+        "test_semantic_value_selector_retains_its_namespace"
+      ],
+      "imports": [],
+      "test_nodes": [
+        "tests/test_query_contract.py::test_field_filter_keeps_all_mode_and_provider_namespace_selector_intact",
+        "tests/test_query_contract.py::test_field_filter_verdicts_preserve_explicit_semantic_axes_and_allocations",
+        "tests/test_query_contract.py::test_mapping_adapter_rejects_ambiguous_boolean_and_invalid_policy",
+        "tests/test_query_contract.py::test_semantic_value_selector_retains_its_namespace"
+      ]
+    },
+    {
+      "component_id": "tests.test_run_manifest",
+      "module": "tests.test_run_manifest",
+      "path": "tests/test_run_manifest.py",
+      "symbols": [
+        "test_run_manifest_redacts_sensitive_values_and_keeps_lineage_hashes"
+      ],
+      "imports": [],
+      "test_nodes": [
+        "tests/test_run_manifest.py::test_run_manifest_redacts_sensitive_values_and_keeps_lineage_hashes"
+      ]
+    },
+    {
       "component_id": "tests.test_screening",
       "module": "tests.test_screening",
       "path": "tests/test_screening.py",
       "symbols": [
-        "test_incompatible_units_and_proxy_metrics_are_not_ranked",
+        "_comparable_row",
+        "test_explicit_comparability_group_ranks_only_selected_signature",
+        "test_missing_semantic_signature_is_unverifiable_not_ranked",
+        "test_multiple_comparability_groups_are_exposed_with_a_legacy_default_group",
         "test_peer_boundaries_and_coverage"
       ],
       "imports": [],
       "test_nodes": [
-        "tests/test_screening.py::test_incompatible_units_and_proxy_metrics_are_not_ranked",
+        "tests/test_screening.py::test_explicit_comparability_group_ranks_only_selected_signature",
+        "tests/test_screening.py::test_missing_semantic_signature_is_unverifiable_not_ranked",
+        "tests/test_screening.py::test_multiple_comparability_groups_are_exposed_with_a_legacy_default_group",
         "tests/test_screening.py::test_peer_boundaries_and_coverage"
       ]
     },
@@ -679,15 +939,27 @@
       "module": "tests.test_search_profile",
       "path": "tests/test_search_profile.py",
       "symbols": [
+        "test_all_mode_requires_every_selected_value_in_the_same_semantic_field",
+        "test_company_taxonomy_filters_keep_provider_namespaces_distinct",
+        "test_country_allocation",
         "test_five_state_filter_combination_preserves_unknown",
+        "test_legacy_job_only_filter_is_explained_as_not_applicable_to_company_search",
+        "test_namespace_with_colons_matches_against_the_observed_namespace_prefix",
         "test_profile_requires_explicit_country_and_goal",
-        "test_ranking_preserves_unresolved_identity_as_an_exclusion"
+        "test_ranking_preserves_unresolved_identity_as_an_exclusion",
+        "test_unqualified_namespaced_taxonomy_value_is_a_conflict_not_a_match"
       ],
       "imports": [],
       "test_nodes": [
+        "tests/test_search_profile.py::test_all_mode_requires_every_selected_value_in_the_same_semantic_field",
+        "tests/test_search_profile.py::test_company_taxonomy_filters_keep_provider_namespaces_distinct",
+        "tests/test_search_profile.py::test_country_allocation",
         "tests/test_search_profile.py::test_five_state_filter_combination_preserves_unknown",
+        "tests/test_search_profile.py::test_legacy_job_only_filter_is_explained_as_not_applicable_to_company_search",
+        "tests/test_search_profile.py::test_namespace_with_colons_matches_against_the_observed_namespace_prefix",
         "tests/test_search_profile.py::test_profile_requires_explicit_country_and_goal",
-        "tests/test_search_profile.py::test_ranking_preserves_unresolved_identity_as_an_exclusion"
+        "tests/test_search_profile.py::test_ranking_preserves_unresolved_identity_as_an_exclusion",
+        "tests/test_search_profile.py::test_unqualified_namespaced_taxonomy_value_is_a_conflict_not_a_match"
       ]
     },
     {
@@ -726,6 +998,21 @@
         "tests/test_source_catalog.py::test_provider_status_keeps_catalog_activation_and_live_probe_result_distinct",
         "tests/test_source_catalog.py::test_sec_placeholder_and_context_sources_are_not_false_green",
         "tests/test_source_catalog.py::test_semantic_field_check_rejects_empty_values"
+      ]
+    },
+    {
+      "component_id": "tests.test_taxonomy",
+      "module": "tests.test_taxonomy",
+      "path": "tests/test_taxonomy.py",
+      "symbols": [
+        "_by_axis",
+        "test_provider_native_taxonomy_preserves_codes_and_namespaces_without_identity_merge",
+        "test_sec_alio_mpm_and_ats_stay_on_their_own_axes"
+      ],
+      "imports": [],
+      "test_nodes": [
+        "tests/test_taxonomy.py::test_provider_native_taxonomy_preserves_codes_and_namespaces_without_identity_merge",
+        "tests/test_taxonomy.py::test_sec_alio_mpm_and_ats_stay_on_their_own_axes"
       ]
     },
     {

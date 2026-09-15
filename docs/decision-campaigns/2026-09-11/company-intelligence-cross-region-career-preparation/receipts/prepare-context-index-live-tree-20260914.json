@@ -1,0 +1,59 @@
+{
+  "contract_version": "atomic-json-patch-receipt-v1",
+  "target": "/home/ubuntu/root/company-intelligence-platform/docs/implementation-context-index-cli-r2.json",
+  "outcome": "pass",
+  "before_sha256": "90489eaf23231b0224d18bd90c3e5158dad4443c5adddaa1ae44b65cdddecfab",
+  "after_sha256": "4ded123ff623be756a721c6a0654a6a0b681369db4bdaddccbe9179254643718",
+  "proposed_after_sha256": "4ded123ff623be756a721c6a0654a6a0b681369db4bdaddccbe9179254643718",
+  "operations": [
+    {
+      "op": "test",
+      "path": "/schema_version"
+    },
+    {
+      "op": "add",
+      "path": "/topics/-"
+    },
+    {
+      "op": "add",
+      "path": "/topics/-"
+    },
+    {
+      "op": "add",
+      "path": "/topics/-"
+    },
+    {
+      "op": "add",
+      "path": "/topics/-"
+    },
+    {
+      "op": "add",
+      "path": "/topics/-"
+    },
+    {
+      "op": "add",
+      "path": "/topics/-"
+    },
+    {
+      "op": "add",
+      "path": "/topics/-"
+    }
+  ],
+  "backup": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/receipts/mutation-journal/preimages/sha256-90489eaf23231b0224d18bd90c3e5158dad4443c5adddaa1ae44b65cdddecfab.json",
+  "journal": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/receipts/mutation-journal/mutations/393797f5d77600053fed88891f75abfb675efd142b8172199f607a5fd1e1db9a.json",
+  "mutation_id": "prepare-context-index-live-tree-20260914-retry2",
+  "validators": [
+    {
+      "command": [
+        "python3",
+        "/tmp/validate_local_schema.py",
+        "/home/ubuntu/root/company-intelligence-platform/docs/implementation-context-index-cli-r2.json",
+        "/home/ubuntu/.codex/skills/evidence-decision-chainup/references/implementation-context-index.schema.json"
+      ],
+      "returncode": 0,
+      "stdout_tail": "",
+      "stderr_tail": ""
+    }
+  ],
+  "completed_at": "2026-09-14T12:44:48.139916+00:00"
+}

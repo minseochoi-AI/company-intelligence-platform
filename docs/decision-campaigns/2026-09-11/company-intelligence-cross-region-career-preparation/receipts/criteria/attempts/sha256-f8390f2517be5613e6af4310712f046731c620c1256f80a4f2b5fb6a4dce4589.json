@@ -1,0 +1,36 @@
+{
+  "cohort_id": "C-09-mode-and-tree-query-contract",
+  "status": "completed",
+  "changed_paths": [],
+  "commands": [
+    "uv run --cache-dir /tmp/company-intel-uv-cache-20260914 --frozen pytest tests/test_category_tree.py tests/test_interactive.py tests/test_facets.py tests/test_query_contract.py -q"
+  ],
+  "outcome": "pass",
+  "raw_log_path": ".runtime/campaign-validation-20260914/C-09.log",
+  "raw_log_sha256": "1f7cbfa50e4ba064a098d2faf3efc0301d809c5a81db98270027cd5c121c2140",
+  "first_failure": null,
+  "stdout_tail": "............... [100%] 15 passed in 0.55s",
+  "stderr_tail": null,
+  "telemetry": {
+    "provider": {
+      "measurement": "not-applicable",
+      "invocations": null,
+      "input_tokens": null,
+      "output_tokens": null
+    },
+    "agent_session": {
+      "measurement": "unavailable-platform",
+      "token_count": null,
+      "tool_output_chars": null
+    }
+  },
+  "provider_guard": null,
+  "updated_at": "2026-09-14T14:29:15.134515+00:00",
+  "context_packet_id": "C-09-mode-and-tree-query-contract-r1",
+  "context_packet_sha256": "52925e82abebca0919990cf586acf659a97cdf5293d0a602091246019ffc84e4",
+  "implementation_plan_id": "company-intelligence-cross-region-career-preparation--C-09-mode-and-tree-query-contract--r1",
+  "implementation_plan_sha256": "c6cb23a8d352e66eaee6283d2f664b4095b5502d501539ca5848043c7fb83f18",
+  "passed_criterion_ids": [
+    "C-09-mode-tree-tests"
+  ]
+}

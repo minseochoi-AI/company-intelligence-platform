@@ -1,0 +1,629 @@
+{
+  "contract_version": "1.2.0",
+  "plan_id": "company-intelligence-cross-region-career-preparation--C-07-live-source-snapshot-foundation--r1",
+  "owner": {
+    "kind": "campaign-cohort",
+    "id": "C-07-live-source-snapshot-foundation"
+  },
+  "source_refs": [
+    {
+      "id": "D-11-live-source-refresh-snapshot-contract",
+      "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/11-d-11-live-source-refresh-snapshot-contract.json",
+      "sha256": "sha256:47c83ab9840e689e9e3d896ecf8598570b3de83b6b74aaf884202842ade89f22"
+    }
+  ],
+  "status": "contract-ready",
+  "change_slices": [
+    {
+      "slice_id": "live-refresh-and-snapshot-foundation",
+      "behavior": "MPM pagination과 MPSV 전체 파일 갱신을 provider operation으로 실행하고 한 검색 세션이 사용하는 불변 snapshot·분모·coverage·identity link history를 저장한다.",
+      "dependencies": [
+        "C-01-source-identity-foundation"
+      ],
+      "operations": [
+        {
+          "change_id": "file-change-e1e3c60c9a87",
+          "operation": "MODIFY",
+          "path": "config/providers.json",
+          "symbols": [
+            "operations",
+            "mpm_public_employment",
+            "mpsv_job_vacancies"
+          ],
+          "current_state": "MPM 고정 probe와 MPSV 검색용 live operation 계약이 분리되어 있지 않다.",
+          "source_hash": "sha256:3d4196fab89a6438ddc6752fbd741e1d2321168bd2619af8eaa2728a1b8f82a2",
+          "result_hash": null,
+          "expected_result": "MPM 최신순 pagination과 MPSV snapshot download operation 및 freshness 정책을 선언한다.",
+          "after_state": "MPM 최신순 pagination과 MPSV snapshot download operation 및 freshness 정책을 선언한다.",
+          "rationale": "provider별 수집 방식을 registry에서 명시하기 위해서다.",
+          "dependencies": [],
+          "public_contract_impacts": [
+            "provider operation catalog v4"
+          ],
+          "compatibility": "기존 validation probe operation을 유지한다.",
+          "migration": "신규 search operation을 additive하게 등록한다.",
+          "rollback": "신규 operation을 disabled로 전환한다.",
+          "authorization_boundary": "무료 공식 endpoint만 등록하며 실제 호출은 별도 provider 권한이 필요하다.",
+          "consumer_search": null,
+          "contributes_to": [
+            "D-11-live-source-refresh-snapshot-contract"
+          ],
+          "contribution_refs": [
+            {
+              "decision_id": "D-11-live-source-refresh-snapshot-contract",
+              "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/11-d-11-live-source-refresh-snapshot-contract.json",
+              "sha256": "sha256:47c83ab9840e689e9e3d896ecf8598570b3de83b6b74aaf884202842ade89f22",
+              "symbols": [
+                "operations",
+                "mpm_public_employment",
+                "mpsv_job_vacancies"
+              ],
+              "intent_change_ids": [
+                "D-11-live-source-refresh-snapshot-contract-provider-config"
+              ]
+            }
+          ],
+          "intent_change_ids": [
+            "D-11-live-source-refresh-snapshot-contract-provider-config"
+          ],
+          "symbol_changes": [
+            {
+              "symbol": "operations",
+              "intent": "MPM 최신순 pagination과 MPSV snapshot download operation 및 freshness 정책을 선언한다.",
+              "decision_id": "D-11-live-source-refresh-snapshot-contract"
+            },
+            {
+              "symbol": "mpm_public_employment",
+              "intent": "MPM 최신순 pagination과 MPSV snapshot download operation 및 freshness 정책을 선언한다.",
+              "decision_id": "D-11-live-source-refresh-snapshot-contract"
+            },
+            {
+              "symbol": "mpsv_job_vacancies",
+              "intent": "MPM 최신순 pagination과 MPSV snapshot download operation 및 freshness 정책을 선언한다.",
+              "decision_id": "D-11-live-source-refresh-snapshot-contract"
+            }
+          ]
+        },
+        {
+          "change_id": "file-change-927a21cab8b8",
+          "operation": "MODIFY",
+          "path": "src/company_intel/connectors/keyed.py",
+          "symbols": [
+            "MPMPublicEmploymentConnector",
+            "iter_pages",
+            "collect_snapshot"
+          ],
+          "current_state": "MPM은 pageNo=1, numOfRows=1, Sort_order=1을 고정한다.",
+          "source_hash": "sha256:f6f02fb66d1160091a8fbce8b0dcdf01131e43122944c06b43fdb7abe89af7e2",
+          "result_hash": null,
+          "expected_result": "최신순·page size·종료 조건을 입력받아 중복 posting_id 없이 페이지를 수집한다.",
+          "after_state": "최신순·page size·종료 조건을 입력받아 중복 posting_id 없이 페이지를 수집한다.",
+          "rationale": "수동 최신 페이지 호출을 CIL 수집으로 재현하기 위해서다.",
+          "dependencies": [
+            "file-change-e1e3c60c9a87"
+          ],
+          "public_contract_impacts": [
+            "MPM paginated collection"
+          ],
+          "compatibility": "기존 probe 기본값은 validation operation에서 유지한다.",
+          "migration": "검색 수집만 새 profile을 사용한다.",
+          "rollback": "단일 페이지 probe로 되돌린다.",
+          "authorization_boundary": "service key 값은 snapshot이나 로그에 저장하지 않는다.",
+          "consumer_search": null,
+          "contributes_to": [
+            "D-11-live-source-refresh-snapshot-contract"
+          ],
+          "contribution_refs": [
+            {
+              "decision_id": "D-11-live-source-refresh-snapshot-contract",
+              "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/11-d-11-live-source-refresh-snapshot-contract.json",
+              "sha256": "sha256:47c83ab9840e689e9e3d896ecf8598570b3de83b6b74aaf884202842ade89f22",
+              "symbols": [
+                "MPMPublicEmploymentConnector",
+                "iter_pages",
+                "collect_snapshot"
+              ],
+              "intent_change_ids": [
+                "D-11-live-source-refresh-snapshot-contract-mpm-pagination"
+              ]
+            }
+          ],
+          "intent_change_ids": [
+            "D-11-live-source-refresh-snapshot-contract-mpm-pagination"
+          ],
+          "symbol_changes": [
+            {
+              "symbol": "MPMPublicEmploymentConnector",
+              "intent": "최신순·page size·종료 조건을 입력받아 중복 posting_id 없이 페이지를 수집한다.",
+              "decision_id": "D-11-live-source-refresh-snapshot-contract"
+            },
+            {
+              "symbol": "iter_pages",
+              "intent": "최신순·page size·종료 조건을 입력받아 중복 posting_id 없이 페이지를 수집한다.",
+              "decision_id": "D-11-live-source-refresh-snapshot-contract"
+            },
+            {
+              "symbol": "collect_snapshot",
+              "intent": "최신순·page size·종료 조건을 입력받아 중복 posting_id 없이 페이지를 수집한다.",
+              "decision_id": "D-11-live-source-refresh-snapshot-contract"
+            }
+          ]
+        },
+        {
+          "change_id": "file-change-8925cfef251f",
+          "operation": "MODIFY",
+          "path": "src/company_intel/connectors/keyless.py",
+          "symbols": [
+            "MPSVVacancyConnector",
+            "download_snapshot",
+            "stream_records"
+          ],
+          "current_state": "MPSV 공고는 외부에서 저장한 payload를 job normalizer에 전달해야 한다.",
+          "source_hash": "sha256:ee76965cb19b96ba7583338aa312c0ce74e3255801ca5afa19cf23b84831c57c",
+          "result_hash": null,
+          "expected_result": "공식 전체 파일을 bounded download하고 hash·수집시각·행 수와 함께 streaming parse한다.",
+          "after_state": "공식 전체 파일을 bounded download하고 hash·수집시각·행 수와 함께 streaming parse한다.",
+          "rationale": "190MB급 파일을 memory-safe한 CIL operation으로 수집하기 위해서다.",
+          "dependencies": [
+            "file-change-e1e3c60c9a87"
+          ],
+          "public_contract_impacts": [
+            "MPSV snapshot collection"
+          ],
+          "compatibility": "저장 payload normalizer 입력도 유지한다.",
+          "migration": "신규 connector 결과를 같은 raw snapshot 형식으로 저장한다.",
+          "rollback": "live operation을 끄고 저장 payload만 사용한다.",
+          "authorization_boundary": "익명 무료 다운로드만 허용하고 연락처 필드는 기본 snapshot에서 제거한다.",
+          "consumer_search": null,
+          "contributes_to": [
+            "D-11-live-source-refresh-snapshot-contract"
+          ],
+          "contribution_refs": [
+            {
+              "decision_id": "D-11-live-source-refresh-snapshot-contract",
+              "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/11-d-11-live-source-refresh-snapshot-contract.json",
+              "sha256": "sha256:47c83ab9840e689e9e3d896ecf8598570b3de83b6b74aaf884202842ade89f22",
+              "symbols": [
+                "MPSVVacancyConnector",
+                "download_snapshot",
+                "stream_records"
+              ],
+              "intent_change_ids": [
+                "D-11-live-source-refresh-snapshot-contract-mpsv-download"
+              ]
+            }
+          ],
+          "intent_change_ids": [
+            "D-11-live-source-refresh-snapshot-contract-mpsv-download"
+          ],
+          "symbol_changes": [
+            {
+              "symbol": "MPSVVacancyConnector",
+              "intent": "공식 전체 파일을 bounded download하고 hash·수집시각·행 수와 함께 streaming parse한다.",
+              "decision_id": "D-11-live-source-refresh-snapshot-contract"
+            },
+            {
+              "symbol": "download_snapshot",
+              "intent": "공식 전체 파일을 bounded download하고 hash·수집시각·행 수와 함께 streaming parse한다.",
+              "decision_id": "D-11-live-source-refresh-snapshot-contract"
+            },
+            {
+              "symbol": "stream_records",
+              "intent": "공식 전체 파일을 bounded download하고 hash·수집시각·행 수와 함께 streaming parse한다.",
+              "decision_id": "D-11-live-source-refresh-snapshot-contract"
+            }
+          ]
+        },
+        {
+          "change_id": "file-change-42c469cea05e",
+          "operation": "MODIFY",
+          "path": "src/company_intel/warehouse.py",
+          "symbols": [
+            "snapshot_run",
+            "snapshot_source",
+            "store_snapshot",
+            "load_snapshot",
+            "entity_link",
+            "store_entity_link",
+            "posting_snapshot_membership",
+            "posting_lifecycle",
+            "load_snapshot_series"
+          ],
+          "current_state": "provider fact 저장은 있으나 검색 세션 단위 immutable snapshot manifest가 없다. | 공고 고용주와 registry entity 사이의 검증·후보·미연결·충돌 link 이력이 없다. | 동일 공고의 snapshot별 등장·유지·종료와 coverage version 이력이 없다.",
+          "source_hash": "sha256:d36c1a2114ffc69987c2f109446639a5c1eba4911d6e807d67f7843eb9288545",
+          "result_hash": null,
+          "expected_result": "snapshot_id, collected_at, query parameters, raw hash, provider denominator, normalized/active counts와 partial failure를 저장한다. | provider entity와 canonical entity의 link status·method·evidence·validity를 snapshot별로 저장한다. | provider+posting_id membership와 taxonomy/normalizer/coverage version을 반복 snapshot별 보존한다.",
+          "after_state": "snapshot_id, collected_at, query parameters, raw hash, provider denominator, normalized/active counts와 partial failure를 저장한다. | provider entity와 canonical entity의 link status·method·evidence·validity를 snapshot별로 저장한다. | provider+posting_id membership와 taxonomy/normalizer/coverage version을 반복 snapshot별 보존한다.",
+          "rationale": "검색 분모와 시점을 재현하기 위해서다. | 공공기관 분류를 identity 근거와 결속하기 위해서다. | 신규·활성·종료 동향의 비교 적격성을 만들기 위해서다.",
+          "dependencies": [
+            "file-change-927a21cab8b8",
+            "file-change-8925cfef251f"
+          ],
+          "public_contract_impacts": [
+            "snapshot manifest schema v1",
+            "entity link persistence v1",
+            "job snapshot series persistence v1"
+          ],
+          "compatibility": "기존 warehouse 테이블을 additive migration으로 유지한다. | 기존 entity_id를 변경하지 않는다. | 단일 snapshot 조회를 유지한다.",
+          "migration": "idempotent schema migration과 기존 payload import를 제공한다. | 연결되지 않은 기존 entity는 unresolved로 남긴다. | 기존 한 시점 자료는 history length 1로 import한다.",
+          "rollback": "신규 테이블을 읽지 않고 기존 fact path를 사용한다. | link enrichment를 비활성화한다. | trend query를 unavailable로 유지한다.",
+          "authorization_boundary": "secret·개인 연락처·전체 credential payload를 저장하지 않는다. | 공개 법인·기관 식별자만 저장한다. | 공개 공고 identity와 집계 가능한 필드만 이력화한다.",
+          "consumer_search": null,
+          "contributes_to": [
+            "D-11-live-source-refresh-snapshot-contract",
+            "D-13-public-sector-identity-linkage",
+            "D-16-job-trend-series-analysis-contract"
+          ],
+          "contribution_refs": [
+            {
+              "decision_id": "D-11-live-source-refresh-snapshot-contract",
+              "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/11-d-11-live-source-refresh-snapshot-contract.json",
+              "sha256": "sha256:47c83ab9840e689e9e3d896ecf8598570b3de83b6b74aaf884202842ade89f22",
+              "symbols": [
+                "snapshot_run",
+                "snapshot_source",
+                "store_snapshot",
+                "load_snapshot",
+                "entity_link",
+                "store_entity_link",
+                "posting_snapshot_membership",
+                "posting_lifecycle",
+                "load_snapshot_series"
+              ],
+              "intent_change_ids": [
+                "D-11-live-source-refresh-snapshot-contract-warehouse"
+              ]
+            },
+            {
+              "decision_id": "D-13-public-sector-identity-linkage",
+              "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/13-d-13-public-sector-identity-linkage.json",
+              "sha256": "sha256:4536a5e8f9030cd6b840861f9ea1c0641b86f72ac4d4906d11f2594166741498",
+              "symbols": [
+                "snapshot_run",
+                "snapshot_source",
+                "store_snapshot",
+                "load_snapshot",
+                "entity_link",
+                "store_entity_link",
+                "posting_snapshot_membership",
+                "posting_lifecycle",
+                "load_snapshot_series"
+              ],
+              "intent_change_ids": [
+                "D-13-public-sector-identity-linkage-warehouse-link"
+              ]
+            },
+            {
+              "decision_id": "D-16-job-trend-series-analysis-contract",
+              "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/16-d-16-job-trend-series-analysis-contract.json",
+              "sha256": "sha256:92399a933fac8db44e14979f3fdd3c79ee715cdcaa174aba6b364f60eb6d88fe",
+              "symbols": [
+                "snapshot_run",
+                "snapshot_source",
+                "store_snapshot",
+                "load_snapshot",
+                "entity_link",
+                "store_entity_link",
+                "posting_snapshot_membership",
+                "posting_lifecycle",
+                "load_snapshot_series"
+              ],
+              "intent_change_ids": [
+                "D-16-job-trend-series-analysis-contract-warehouse-history"
+              ]
+            }
+          ],
+          "intent_change_ids": [
+            "D-11-live-source-refresh-snapshot-contract-warehouse",
+            "D-13-public-sector-identity-linkage-warehouse-link",
+            "D-16-job-trend-series-analysis-contract-warehouse-history"
+          ],
+          "symbol_changes": [
+            {
+              "symbol": "snapshot_run",
+              "intent": "snapshot_id, collected_at, query parameters, raw hash, provider denominator, normalized/active counts와 partial failure를 저장한다.",
+              "decision_id": "D-11-live-source-refresh-snapshot-contract"
+            },
+            {
+              "symbol": "snapshot_source",
+              "intent": "snapshot_id, collected_at, query parameters, raw hash, provider denominator, normalized/active counts와 partial failure를 저장한다.",
+              "decision_id": "D-11-live-source-refresh-snapshot-contract"
+            },
+            {
+              "symbol": "store_snapshot",
+              "intent": "snapshot_id, collected_at, query parameters, raw hash, provider denominator, normalized/active counts와 partial failure를 저장한다.",
+              "decision_id": "D-11-live-source-refresh-snapshot-contract"
+            },
+            {
+              "symbol": "load_snapshot",
+              "intent": "snapshot_id, collected_at, query parameters, raw hash, provider denominator, normalized/active counts와 partial failure를 저장한다.",
+              "decision_id": "D-11-live-source-refresh-snapshot-contract"
+            },
+            {
+              "symbol": "entity_link",
+              "intent": "provider entity와 canonical entity의 link status·method·evidence·validity를 snapshot별로 저장한다.",
+              "decision_id": "D-13-public-sector-identity-linkage"
+            },
+            {
+              "symbol": "store_entity_link",
+              "intent": "provider entity와 canonical entity의 link status·method·evidence·validity를 snapshot별로 저장한다.",
+              "decision_id": "D-13-public-sector-identity-linkage"
+            },
+            {
+              "symbol": "posting_snapshot_membership",
+              "intent": "provider+posting_id membership와 taxonomy/normalizer/coverage version을 반복 snapshot별 보존한다.",
+              "decision_id": "D-16-job-trend-series-analysis-contract"
+            },
+            {
+              "symbol": "posting_lifecycle",
+              "intent": "provider+posting_id membership와 taxonomy/normalizer/coverage version을 반복 snapshot별 보존한다.",
+              "decision_id": "D-16-job-trend-series-analysis-contract"
+            },
+            {
+              "symbol": "load_snapshot_series",
+              "intent": "provider+posting_id membership와 taxonomy/normalizer/coverage version을 반복 snapshot별 보존한다.",
+              "decision_id": "D-16-job-trend-series-analysis-contract"
+            }
+          ]
+        },
+        {
+          "change_id": "file-change-6094b4c9c865",
+          "operation": "CREATE",
+          "path": "src/company_intel/live_snapshots.py",
+          "symbols": [
+            "SnapshotRequest",
+            "SnapshotManifest",
+            "refresh_sources",
+            "select_snapshot",
+            "snapshot_freshness"
+          ],
+          "current_state": "통합 live refresh와 불변 snapshot 선택 서비스가 없다.",
+          "source_hash": null,
+          "result_hash": null,
+          "expected_result": "provider operation을 실행·격리하고 성공/부분실패를 하나의 redacted snapshot manifest로 결속한다.",
+          "after_state": "provider operation을 실행·격리하고 성공/부분실패를 하나의 redacted snapshot manifest로 결속한다.",
+          "rationale": "수집과 검색을 분리한 안정적 서비스 경계를 제공하기 위해서다.",
+          "dependencies": [
+            "file-change-42c469cea05e"
+          ],
+          "public_contract_impacts": [
+            "live snapshot service v1"
+          ],
+          "compatibility": "저장 snapshot을 직접 지정하는 기존 흐름을 유지한다.",
+          "migration": "기존 payload는 import snapshot으로 등록한다.",
+          "rollback": "refresh를 숨기고 reuse-only 모드로 동작한다.",
+          "authorization_boundary": "provider 호출은 명시적 refresh에서만 수행한다.",
+          "consumer_search": null,
+          "contributes_to": [
+            "D-11-live-source-refresh-snapshot-contract"
+          ],
+          "contribution_refs": [
+            {
+              "decision_id": "D-11-live-source-refresh-snapshot-contract",
+              "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/11-d-11-live-source-refresh-snapshot-contract.json",
+              "sha256": "sha256:47c83ab9840e689e9e3d896ecf8598570b3de83b6b74aaf884202842ade89f22",
+              "symbols": [
+                "SnapshotRequest",
+                "SnapshotManifest",
+                "refresh_sources",
+                "select_snapshot",
+                "snapshot_freshness"
+              ],
+              "intent_change_ids": [
+                "D-11-live-source-refresh-snapshot-contract-service"
+              ]
+            }
+          ],
+          "intent_change_ids": [
+            "D-11-live-source-refresh-snapshot-contract-service"
+          ],
+          "symbol_changes": [
+            {
+              "symbol": "SnapshotRequest",
+              "intent": "provider operation을 실행·격리하고 성공/부분실패를 하나의 redacted snapshot manifest로 결속한다.",
+              "decision_id": "D-11-live-source-refresh-snapshot-contract"
+            },
+            {
+              "symbol": "SnapshotManifest",
+              "intent": "provider operation을 실행·격리하고 성공/부분실패를 하나의 redacted snapshot manifest로 결속한다.",
+              "decision_id": "D-11-live-source-refresh-snapshot-contract"
+            },
+            {
+              "symbol": "refresh_sources",
+              "intent": "provider operation을 실행·격리하고 성공/부분실패를 하나의 redacted snapshot manifest로 결속한다.",
+              "decision_id": "D-11-live-source-refresh-snapshot-contract"
+            },
+            {
+              "symbol": "select_snapshot",
+              "intent": "provider operation을 실행·격리하고 성공/부분실패를 하나의 redacted snapshot manifest로 결속한다.",
+              "decision_id": "D-11-live-source-refresh-snapshot-contract"
+            },
+            {
+              "symbol": "snapshot_freshness",
+              "intent": "provider operation을 실행·격리하고 성공/부분실패를 하나의 redacted snapshot manifest로 결속한다.",
+              "decision_id": "D-11-live-source-refresh-snapshot-contract"
+            }
+          ]
+        },
+        {
+          "change_id": "file-change-edb669d59fb3",
+          "operation": "CREATE",
+          "path": "tests/test_live_snapshots.py",
+          "symbols": [
+            "test_mpm_pagination_is_deduplicated",
+            "test_partial_failure_manifest",
+            "test_snapshot_replay"
+          ],
+          "current_state": "live refresh와 snapshot 재현성 전용 테스트가 없다.",
+          "source_hash": null,
+          "result_hash": null,
+          "expected_result": "offline fixtures로 pagination, 중복 제거, partial failure, stale/reuse, manifest redaction을 검증한다.",
+          "after_state": "offline fixtures로 pagination, 중복 제거, partial failure, stale/reuse, manifest redaction을 검증한다.",
+          "rationale": "외부 호출 없이 수집 계약의 결정성을 증명하기 위해서다.",
+          "dependencies": [
+            "file-change-6094b4c9c865"
+          ],
+          "public_contract_impacts": [
+            "offline snapshot contract tests"
+          ],
+          "compatibility": "기존 connector tests를 유지한다.",
+          "migration": "없음.",
+          "rollback": "서비스와 함께 제거한다.",
+          "authorization_boundary": "network와 실제 credential을 사용하지 않는다.",
+          "consumer_search": null,
+          "contributes_to": [
+            "D-11-live-source-refresh-snapshot-contract"
+          ],
+          "contribution_refs": [
+            {
+              "decision_id": "D-11-live-source-refresh-snapshot-contract",
+              "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/11-d-11-live-source-refresh-snapshot-contract.json",
+              "sha256": "sha256:47c83ab9840e689e9e3d896ecf8598570b3de83b6b74aaf884202842ade89f22",
+              "symbols": [
+                "test_mpm_pagination_is_deduplicated",
+                "test_partial_failure_manifest",
+                "test_snapshot_replay"
+              ],
+              "intent_change_ids": [
+                "D-11-live-source-refresh-snapshot-contract-tests"
+              ]
+            }
+          ],
+          "intent_change_ids": [
+            "D-11-live-source-refresh-snapshot-contract-tests"
+          ],
+          "symbol_changes": [
+            {
+              "symbol": "test_mpm_pagination_is_deduplicated",
+              "intent": "offline fixtures로 pagination, 중복 제거, partial failure, stale/reuse, manifest redaction을 검증한다.",
+              "decision_id": "D-11-live-source-refresh-snapshot-contract"
+            },
+            {
+              "symbol": "test_partial_failure_manifest",
+              "intent": "offline fixtures로 pagination, 중복 제거, partial failure, stale/reuse, manifest redaction을 검증한다.",
+              "decision_id": "D-11-live-source-refresh-snapshot-contract"
+            },
+            {
+              "symbol": "test_snapshot_replay",
+              "intent": "offline fixtures로 pagination, 중복 제거, partial failure, stale/reuse, manifest redaction을 검증한다.",
+              "decision_id": "D-11-live-source-refresh-snapshot-contract"
+            }
+          ]
+        },
+        {
+          "change_id": "file-change-f93b01f715ba",
+          "operation": "MODIFY",
+          "path": "tests/test_public_connectors.py",
+          "symbols": [
+            "test_mpm_paginated_query",
+            "test_mpsv_streaming_snapshot"
+          ],
+          "current_state": "고정 provider payload normalization만 검증한다.",
+          "source_hash": "sha256:be9a9fd6dd16c918e8e60a8beef666c96dea2fea71fd0109d558ba599a0ea1ee",
+          "result_hash": null,
+          "expected_result": "MPM page 종료·중복과 MPSV bounded streaming을 offline transport fixture로 검증한다.",
+          "after_state": "MPM page 종료·중복과 MPSV bounded streaming을 offline transport fixture로 검증한다.",
+          "rationale": "provider별 수집 차이를 회귀 방지하기 위해서다.",
+          "dependencies": [
+            "file-change-927a21cab8b8",
+            "file-change-8925cfef251f"
+          ],
+          "public_contract_impacts": [
+            "connector collection tests"
+          ],
+          "compatibility": "기존 tests를 유지한다.",
+          "migration": "없음.",
+          "rollback": "신규 fixture cases만 제거한다.",
+          "authorization_boundary": "실제 provider를 호출하지 않는다.",
+          "consumer_search": null,
+          "contributes_to": [
+            "D-11-live-source-refresh-snapshot-contract"
+          ],
+          "contribution_refs": [
+            {
+              "decision_id": "D-11-live-source-refresh-snapshot-contract",
+              "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/11-d-11-live-source-refresh-snapshot-contract.json",
+              "sha256": "sha256:47c83ab9840e689e9e3d896ecf8598570b3de83b6b74aaf884202842ade89f22",
+              "symbols": [
+                "test_mpm_paginated_query",
+                "test_mpsv_streaming_snapshot"
+              ],
+              "intent_change_ids": [
+                "D-11-live-source-refresh-snapshot-contract-connector-tests"
+              ]
+            }
+          ],
+          "intent_change_ids": [
+            "D-11-live-source-refresh-snapshot-contract-connector-tests"
+          ],
+          "symbol_changes": [
+            {
+              "symbol": "test_mpm_paginated_query",
+              "intent": "MPM page 종료·중복과 MPSV bounded streaming을 offline transport fixture로 검증한다.",
+              "decision_id": "D-11-live-source-refresh-snapshot-contract"
+            },
+            {
+              "symbol": "test_mpsv_streaming_snapshot",
+              "intent": "MPM page 종료·중복과 MPSV bounded streaming을 offline transport fixture로 검증한다.",
+              "decision_id": "D-11-live-source-refresh-snapshot-contract"
+            }
+          ]
+        }
+      ],
+      "routes": [
+        {
+          "route_id": "c07-data-contract",
+          "skill": "company-intelligence-career-research",
+          "requirement": "required",
+          "phase": "IMPLEMENT",
+          "purpose": "MPM·MPSV 수집 의미와 현재/누적 분모 경계를 유지한다.",
+          "expected_artifact": "C-07 source and snapshot implementation"
+        },
+        {
+          "route_id": "c07-verification",
+          "skill": "verification-before-completion",
+          "requirement": "required",
+          "phase": "VALIDATE",
+          "purpose": "snapshot·connector offline criteria를 독립 검증한다.",
+          "expected_artifact": "C-07 validation receipt"
+        }
+      ],
+      "completion_contract": [
+        {
+          "criterion_id": "C-07-live-snapshot-tests",
+          "behavior": "MPM/MPSV 수집이 중복 없는 불변 snapshot과 정확한 분모·partial failure를 생성한다.",
+          "blocking": true,
+          "owner_skill": "verification-before-completion",
+          "phase": "VALIDATE",
+          "depends_on_criteria": [],
+          "test": {
+            "type": "pytest",
+            "value": "uv run --frozen pytest tests/test_live_snapshots.py tests/test_public_connectors.py -q",
+            "runner": "pytest",
+            "paths": [
+              "tests/test_live_snapshots.py",
+              "tests/test_public_connectors.py"
+            ],
+            "provider_backed": false,
+            "timeout_seconds": 300
+          },
+          "expected_result": "all tests pass",
+          "failure_marker": "pagination duplication, manifest drift, secret leakage, or non-deterministic replay",
+          "receipt": {
+            "status": "planned",
+            "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/receipts/criteria/C-07-live-snapshot-tests.json",
+            "sha256": "planned"
+          },
+          "status": "planned"
+        }
+      ]
+    }
+  ],
+  "metadata": {
+    "compiled_from_decision_intents": true,
+    "planned_commit_message": "feat(data): add immutable live source snapshots",
+    "git_finalization_authorized": false,
+    "test_execution_deferred": true,
+    "preparation_contract": "campaign-global-ownership-v1"
+  }
+}

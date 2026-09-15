@@ -62,6 +62,9 @@ TABLE_HEADERS = {
         "run_id", "schema_version", "command", "generated_at", "profile_sha256", "facet_snapshot_sha256",
         "source_snapshot_sha256", "facet_count", "source_count", "verdict_counts", "output_manifest_sha256",
     ),
+    "denominators": ("provider_returned", "normalized", "active", "strict_match", "unverifiable", "no_match", "conflict", "active_as_of"),
+    "trend_eligibility": ("eligible", "reason", "snapshot_count", "series_signature"),
+    "selection_run": ("run_id", "snapshot_id", "manifest_sha256"),
     "career_overlap": (
         "requirement_kind", "normalized_key", "label", "required_count", "preferred_count",
         "posting_count", "company_count", "country_count", "prevalence",
@@ -162,6 +165,16 @@ def build_export_manifest(
     return manifest
 
 
+def selection_run_ref(run_manifest: dict[str, Any] | None) -> dict[str, Any] | None:
+    if not isinstance(run_manifest, dict):
+        return None
+    return {
+        "run_id": run_manifest.get("run_id"),
+        "snapshot_id": (run_manifest.get("snapshot_ref") or {}).get("snapshot_id") if isinstance(run_manifest.get("snapshot_ref"), dict) else None,
+        "manifest_sha256": hashlib.sha256(json.dumps(sanitize_manifest_value(run_manifest), ensure_ascii=False, sort_keys=True, default=str).encode()).hexdigest(),
+    }
+
+
 def _run_manifest_table_rows(run_manifest: Any) -> list[dict[str, Any]]:
     """Project a full manifest to one spreadsheet-safe lineage summary row."""
     if isinstance(run_manifest, list):
@@ -207,6 +220,8 @@ def build_export_bundle(
     unverifiable_candidates: list[dict[str, Any]] | None = None,
     conflicts: list[dict[str, Any]] | None = None,
     facets: list[dict[str, Any]] | None = None,
+    denominators: list[dict[str, Any]] | None = None,
+    trend_eligibility: list[dict[str, Any]] | None = None,
     run_manifest: dict[str, Any] | list[dict[str, Any]] | None = None,
     metadata: dict[str, Any] | None = None,
     include_xlsx: bool = True,
@@ -232,6 +247,9 @@ def build_export_bundle(
         "conflicts": conflicts or [],
         "facets": facets or [],
         "run_manifest": _run_manifest_table_rows(safe_run_manifest),
+        "denominators": denominators or [],
+        "trend_eligibility": trend_eligibility or [],
+        "selection_run": [selection_run_ref(safe_run_manifest)] if isinstance(safe_run_manifest, dict) else [],
     }
     files = render_csv_bundle(tables)
     xlsx = render_xlsx_workbook(tables) if include_xlsx else None

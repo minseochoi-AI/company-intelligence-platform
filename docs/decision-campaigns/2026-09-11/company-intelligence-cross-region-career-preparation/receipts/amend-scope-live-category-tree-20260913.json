@@ -1,0 +1,85 @@
+{
+  "contract_version": "atomic-json-patch-receipt-v1",
+  "target": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/campaign.json",
+  "outcome": "pass",
+  "before_sha256": "742d6072b98d29434269fa0030d60842500a3a95770e33f98270c7c4dc5378cf",
+  "after_sha256": "c0e84dd579f7e2b261ddb0bf47e0a15db29cd300a30fab5c6b87eb39fb498a03",
+  "proposed_after_sha256": "c0e84dd579f7e2b261ddb0bf47e0a15db29cd300a30fab5c6b87eb39fb498a03",
+  "operations": [
+    {
+      "op": "test",
+      "path": "/objective"
+    },
+    {
+      "op": "test",
+      "path": "/status"
+    },
+    {
+      "op": "test",
+      "path": "/decision_order"
+    },
+    {
+      "op": "test",
+      "path": "/dependencies"
+    },
+    {
+      "op": "test",
+      "path": "/implementation_authorization"
+    },
+    {
+      "op": "test",
+      "path": "/implementation_cohorts"
+    },
+    {
+      "op": "test",
+      "path": "/decision_files"
+    },
+    {
+      "op": "replace",
+      "path": "/objective"
+    },
+    {
+      "op": "replace",
+      "path": "/status"
+    },
+    {
+      "op": "replace",
+      "path": "/decision_order"
+    },
+    {
+      "op": "replace",
+      "path": "/dependencies"
+    },
+    {
+      "op": "replace",
+      "path": "/implementation_authorization"
+    },
+    {
+      "op": "replace",
+      "path": "/implementation_cohorts"
+    },
+    {
+      "op": "replace",
+      "path": "/decision_files"
+    }
+  ],
+  "backup": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/receipts/mutation-journal/preimages/sha256-742d6072b98d29434269fa0030d60842500a3a95770e33f98270c7c4dc5378cf.json",
+  "journal": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/receipts/mutation-journal/mutations/02f9f1ee1f64be01074f64344c3fa289db8c9f93be585fbfff0f497326cdc924.json",
+  "mutation_id": "amend-scope-live-category-tree-20260913-retry3",
+  "validators": [
+    {
+      "command": [
+        "python3",
+        "-m",
+        "jsonschema",
+        "--instance",
+        "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/campaign.json",
+        "/home/ubuntu/.codex/skills/decision-campaign-workbook/references/decision-campaign.schema.json"
+      ],
+      "returncode": 0,
+      "stdout_tail": "",
+      "stderr_tail": ""
+    }
+  ],
+  "completed_at": "2026-09-13T13:54:11.924392+00:00"
+}

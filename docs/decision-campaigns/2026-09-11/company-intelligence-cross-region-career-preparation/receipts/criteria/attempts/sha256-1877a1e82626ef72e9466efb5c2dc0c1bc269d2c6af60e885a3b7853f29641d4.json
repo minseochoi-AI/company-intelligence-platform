@@ -1,0 +1,36 @@
+{
+  "cohort_id": "C-12-selection-provenance-delivery",
+  "status": "completed",
+  "changed_paths": [],
+  "commands": [
+    "uv run --cache-dir /tmp/company-intel-uv-cache-20260914 --frozen pytest tests/test_selection_provenance.py tests/test_run_manifest.py tests/test_exporting.py tests/test_cli_workflows.py -q"
+  ],
+  "outcome": "pass",
+  "raw_log_path": ".runtime/campaign-validation-20260914/C-12.log",
+  "raw_log_sha256": "79688f2367778b3f3242f87d2e1fca215ae6a64ed023651dbd689726772d59d6",
+  "first_failure": null,
+  "stdout_tail": "............. [100%] 13 passed in 1.03s",
+  "stderr_tail": null,
+  "telemetry": {
+    "provider": {
+      "measurement": "not-applicable",
+      "invocations": null,
+      "input_tokens": null,
+      "output_tokens": null
+    },
+    "agent_session": {
+      "measurement": "unavailable-platform",
+      "token_count": null,
+      "tool_output_chars": null
+    }
+  },
+  "provider_guard": null,
+  "updated_at": "2026-09-14T14:30:16.414497+00:00",
+  "context_packet_id": "C-12-selection-provenance-delivery-r1",
+  "context_packet_sha256": "cfa924c7c112014813ecbb944c529f92ab58286ac883d9f4b88260fb200035b5",
+  "implementation_plan_id": "company-intelligence-cross-region-career-preparation--C-12-selection-provenance-delivery--r1",
+  "implementation_plan_sha256": "de4ce2fd771295fb7a85d2720cd7b4f3b460f51807642c504ca31b968b529f1a",
+  "passed_criterion_ids": [
+    "C-12-provenance-delivery-tests"
+  ]
+}

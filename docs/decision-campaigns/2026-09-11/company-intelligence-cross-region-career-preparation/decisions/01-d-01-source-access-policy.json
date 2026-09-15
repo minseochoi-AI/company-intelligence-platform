@@ -134,10 +134,7 @@
     "src/company_intel/validation.py — 접근성·필드 계약·provider error를 분리한 상태와 redacted receipt 생성",
     "tests/test_source_catalog.py (new) — 28개 작업 완전성, activation gate, HTTP-only 경계, 비밀 마스킹 검증"
   ],
-  "implementation_change_ids": [
-    "D-01-field-capability-catalog-r3",
-    "D-01-nested-field-resolution-r3"
-  ],
+  "implementation_change_ids": [],
   "validation_requirements": [
     "코드의 28개 Probe ID와 source catalog record가 누락·중복 없이 일대일 대응하는지 검증한다.",
     "KEYLESS_PUBLIC 18개와 FREE_REGISTERED 10개가 서로 다른 인증·쿼터 정책으로 실행되는지 검증한다.",

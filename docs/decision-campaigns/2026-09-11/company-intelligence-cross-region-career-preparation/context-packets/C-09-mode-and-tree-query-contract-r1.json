@@ -1,0 +1,99 @@
+{
+  "contract_version": "implementation-context-packet-v2",
+  "packet_id": "C-09-mode-and-tree-query-contract-packet-37f03d7bd80f",
+  "topics": [
+    "search-mode-boundary",
+    "progressive-cli-tree"
+  ],
+  "capability_ids": [
+    "current-job-mode",
+    "job-trend-mode",
+    "mode-eligibility",
+    "progressive-facets",
+    "arrow-tree",
+    "selection-backtracking",
+    "disabled-reasons"
+  ],
+  "required_refs": [
+    {
+      "ref_id": "live-tree-report-d12",
+      "role": "must-read",
+      "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/live-category-tree-scope-amendment-2026-09-13.md",
+      "content_hash": "sha256:babe85bec25ea7f1effad8f924071b5977a0359f0377b6b759ed874dea6c17bd",
+      "line_range": "44-53,66-77",
+      "question": "단일 snapshot으로 어떤 주장까지 허용되는가?",
+      "observation_summary": "현재 채용은 가능하지만 반복 이력 없이는 동향 수치가 부적격이다."
+    },
+    {
+      "ref_id": "live-tree-report-d14",
+      "role": "must-read",
+      "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/live-category-tree-scope-amendment-2026-09-13.md",
+      "content_hash": "sha256:babe85bec25ea7f1effad8f924071b5977a0359f0377b6b759ed874dea6c17bd",
+      "line_range": "20-64,79-87",
+      "question": "다음 선택지는 어떤 후보 집합에서 계산되는가?",
+      "observation_summary": "각 단계의 남은 snapshot 행에서 값·count·coverage를 다시 계산한다."
+    }
+  ],
+  "current_entry_points": [
+    {
+      "kind": "code",
+      "path": "src/company_intel/interactive.py",
+      "symbol": "build_interactive_request",
+      "source_hash": "sha256:1195b3136a5e06d2376cacfbfe0657ea9bd3beabc8ce631f59515ff857f5e585"
+    },
+    {
+      "kind": "code",
+      "path": "src/company_intel/facets.py",
+      "symbol": "taxonomy_facet_options",
+      "source_hash": "sha256:72fd3f3707d831672b9a08eeef0e2cbaf6f99b6b7b500d6ba6c102f5bbe8a611"
+    },
+    {
+      "kind": "code",
+      "path": "src/company_intel/query_contract.py",
+      "symbol": "QueryMode",
+      "source_hash": "sha256:0efef6245a0de8e7fa33c75a1ea561946159a9cd6e85fe99ec15a22c37470d1a"
+    },
+    {
+      "kind": "test",
+      "path": "tests/test_interactive.py",
+      "symbol": "test_purpose_tree_scripted_parity",
+      "source_hash": "sha256:e585cfefb6a7ebe3335c751d27e824877236b461603cfc05ba53d36395ecbe42"
+    },
+    {
+      "kind": "test",
+      "path": "tests/test_facets.py",
+      "symbol": "test_progressive_counts",
+      "source_hash": "sha256:ca066bc3e245b05dc9db3657e3996a83ea9cea22328c3d61c449017f14e097c1"
+    },
+    {
+      "kind": "test",
+      "path": "tests/test_query_contract.py",
+      "symbol": "test_current_mode_defaults",
+      "source_hash": "sha256:67d25951197061989341f7b692a809fea4c2bbf0c55fce460a2041781a5890db"
+    }
+  ],
+  "planned_entry_points": [
+    {
+      "kind": "code",
+      "path": "src/company_intel/category_tree.py",
+      "symbol": "PurposeNode",
+      "change_id": "file-change-a2dce4728cf0"
+    },
+    {
+      "kind": "test",
+      "path": "tests/test_category_tree.py",
+      "symbol": "test_counts_recompute_after_selection",
+      "change_id": "file-change-d3aed88ac6ff"
+    }
+  ],
+  "external_entry_points": [],
+  "invariants": [
+    "단일 snapshot을 trend로 승격하지 않는다.",
+    "현재 공고 수요를 실제 채용 완료로 표현하지 않는다.",
+    "disabled option은 profile에 들어가지 않는다.",
+    "뒤로가기는 종속 선택을 재계산한다.",
+    "TTY와 scripted 입력은 같은 profile을 생성한다."
+  ],
+  "unresolved_conflicts": [],
+  "resume_digest": "Prepared C-09-mode-and-tree-query-contract from current decision hashes and one global file-ownership graph."
+}

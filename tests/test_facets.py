@@ -1,6 +1,6 @@
 from pathlib import Path
 
-from company_intel.facets import build_job_facets, build_taxonomy_facets, field_availability
+from company_intel.facets import build_job_facets, build_taxonomy_facets, facet_options_for_selection, field_availability, identity_link_status
 from company_intel.source_catalog import field_capabilities, load_source_catalog
 from company_intel.taxonomy import taxonomy_facts_from_record
 
@@ -107,3 +107,10 @@ def test_source_catalog_declares_provider_native_field_boundaries():
     assert lever["salary"].filterability == "filterable"
     assert ares["legal_form"].selectable is True
     assert ares["ownership_sector"].filterability == "forbidden"
+
+
+def test_progressive_identity_facet_marks_unresolved_as_display_only():
+    rows = [{"country_code": "KR", "identity_link_status": "unresolved"}, {"country_code": "CZ", "identity_link_status": "linked"}]
+    statuses = {item["normalized_value"]: item for item in identity_link_status(rows)}
+    assert statuses["unresolved"]["filterability"] == "display_only"
+    assert facet_options_for_selection(rows, {"country_code": "KR"}, "country_code")[0]["record_count"] == 1

@@ -1,0 +1,145 @@
+{
+  "decision_id": "D-11-live-source-refresh-snapshot-contract",
+  "sequence": 11,
+  "unit_id": "live-source-refresh-snapshot-contract",
+  "title": "실시간 원천 갱신과 불변 snapshot 계약",
+  "status": "accepted",
+  "question": "사용자가 현재 시점 데이터를 검색할 때 provider 갱신·페이지네이션·최신성·저장 snapshot 재사용을 어떤 계약으로 분리할 것인가?",
+  "five_w_one_h": {
+    "who": "한국·체코·미국의 현재 기업·채용 데이터를 조회하는 사용자",
+    "what": "provider operation별 live refresh와 불변 snapshot 생성·선택·실패 기록",
+    "where": "provider-status, connector registry, warehouse snapshot, interactive CLI",
+    "when": "검색 시작 전 새 데이터 수집 또는 저장 snapshot 재사용을 선택할 때",
+    "why": "저장 표본을 실시간 전체 데이터로 오인하거나 수동 호출만 최신 데이터를 얻는 불일치를 없애기 위해",
+    "how": "정렬·페이지·수집시각·행 수·원천 coverage를 operation manifest에 기록하고 검색은 선택된 snapshot만 읽는다."
+  },
+  "evidence_refs": [
+    {
+      "evidence_id": "E-D11-live-observation",
+      "source_type": "local-document",
+      "locator": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/live-category-tree-scope-amendment-2026-09-13.md:3-18",
+      "observed_fact": "현재 MPM 최신 100건과 MPSV 전체 snapshot은 수집시각과 서로 다른 coverage를 가지며 MPM 누적 total은 현재 활성 수가 아니다.",
+      "content_hash": "sha256:babe85bec25ea7f1effad8f924071b5977a0359f0377b6b759ed874dea6c17bd",
+      "line_range": "3-18",
+      "question": "실시간 검색이 어떤 데이터 시점과 범위를 사용했는지 재현할 수 있는가?",
+      "observation_summary": "현재 수집은 유효하지만 provider별 pagination·분모·수집시각을 snapshot 단위로 고정해야 한다."
+    },
+    {
+      "evidence_id": "E-D11-current-connector-gap",
+      "source_type": "code",
+      "locator": "src/company_intel/connectors/keyed.py:350-354",
+      "observed_fact": "MPM connector는 pageNo 1, numOfRows 1, Sort_order 1을 고정한다.",
+      "content_hash": "sha256:f6f02fb66d1160091a8fbce8b0dcdf01131e43122944c06b43fdb7abe89af7e2",
+      "line_range": "350-354",
+      "question": "현재 connector가 최신순 다건 조회를 자체 실행하는가?",
+      "observation_summary": "최신순 pagination을 재현하는 수집 계약이 없다."
+    }
+  ],
+  "facts": [
+    "2026-09-13 MPM 최신순 직접 조회 100건 중 활성 94건이었지만 현재 connector 기본 호출은 최신 다건 수집을 재현하지 못한다.",
+    "MPSV는 대용량 전체 파일이고 MPM은 페이지 API이므로 같은 pagination 전략을 강제할 수 없다.",
+    "현재 interactive facet count는 공급자 시장 전체가 아니라 전달된 저장 snapshot만 설명한다."
+  ],
+  "conflicts": [
+    "매 실행마다 전체 원천을 갱신하면 최신성은 높지만 느리고 실패 영향이 크다.",
+    "저장 snapshot만 재사용하면 재현성은 높지만 사용자가 이를 현재 데이터로 오인할 수 있다."
+  ],
+  "unimplemented": [
+    "interactive 시작 단계에 refresh/reuse 선택과 freshness 표시가 없다.",
+    "MPM 최신순 pagination과 MPSV 다운로드 snapshot을 동일한 operation manifest로 기록하지 않는다.",
+    "부분 실패 원천을 제외한 분모와 coverage를 검색 결과까지 전달하지 않는다."
+  ],
+  "options": [
+    {
+      "option_id": "A-query-providers-during-filtering",
+      "description": "트리의 각 필터 단계에서 provider를 다시 호출해 값을 즉시 갱신한다.",
+      "impact": {
+        "data": "단계마다 시점이 다른 응답이 섞일 수 있다.",
+        "schema_api": "각 facet이 provider transport를 직접 호출한다.",
+        "ux": "최신처럼 보이지만 단계별 count가 흔들린다.",
+        "performance": "네트워크 호출이 반복되어 느리다.",
+        "cost": "rate limit과 장애 대응 비용이 커진다.",
+        "security": "키 사용 범위가 UI 단계 전체로 넓어진다.",
+        "migration": "기존 snapshot 기반 검색을 대체해야 한다.",
+        "tests": "비결정적 provider 테스트가 필요하다."
+      },
+      "opportunity_costs": [
+        "한 검색 세션의 분모와 결과를 동일 시점으로 재현하기 어렵다."
+      ]
+    },
+    {
+      "option_id": "B-refresh-then-query-immutable-snapshot",
+      "description": "검색 전에 provider operation을 갱신해 불변 snapshot과 manifest를 만든 뒤 모든 트리 단계가 그 snapshot만 조회한다.",
+      "impact": {
+        "data": "수집시각·정렬·페이지·행 수·hash가 한 snapshot에 결속된다.",
+        "schema_api": "refresh, snapshot 선택, freshness와 partial failure 계약이 추가된다.",
+        "ux": "새로 수집과 재사용을 선택하고 기준시각을 계속 확인한다.",
+        "performance": "수집은 한 번, facet 계산은 로컬에서 반복한다.",
+        "cost": "snapshot 저장과 보존 정책이 필요하다.",
+        "security": "provider 키는 수집 경계에서만 사용하고 manifest에는 기록하지 않는다.",
+        "migration": "기존 저장 snapshot 검색을 보존하면서 수집 선행 단계를 추가한다.",
+        "tests": "pagination, freshness, partial failure, 동일 snapshot 재현성을 검사한다."
+      },
+      "opportunity_costs": [
+        "수집이 끝난 직후 원천 변경은 다음 refresh 전까지 반영되지 않는다."
+      ]
+    }
+  ],
+  "recommended_option_id": "B-refresh-then-query-immutable-snapshot",
+  "recommendation_reason": "실시간성의 기준시각과 검색 재현성을 동시에 지키며 provider별 수집 방식을 operation으로 격리한다.",
+  "impact": {
+    "data": "모든 검색 행에 snapshot_id와 collected_at lineage가 생긴다.",
+    "schema_api": "provider refresh와 snapshot catalog가 추가된다.",
+    "ux": "최신성·coverage·실패 원천을 검색 전에 확인한다.",
+    "performance": "대용량 수집과 반복 필터를 분리한다.",
+    "cost": "snapshot lifecycle 구현 비용이 든다.",
+    "security": "키와 비밀은 snapshot manifest에서 제거한다.",
+    "migration": "기존 provider-status와 로컬 artifact를 확장한다.",
+    "tests": "MPM pagination, MPSV snapshot, stale/reuse, 원천 부분 실패를 검증한다."
+  },
+  "opportunity_costs": [
+    "진짜 스트리밍 데이터가 아니라 명시된 기준시각의 최신 snapshot을 제공한다."
+  ],
+  "dependencies": [
+    "D-01-source-access-policy"
+  ],
+  "dependency_waivers": {},
+  "accepted_decision": {
+    "disposition": "ACCEPT",
+    "option_id": "B-refresh-then-query-immutable-snapshot",
+    "rule": "사용자가 2026-09-14 요청에서 D-11~D-17의 권장안 B 승인을 명시했다.",
+    "rationale": "provider별 수집 방식은 분리하되 한 검색 세션은 수집시각과 hash가 고정된 snapshot으로 재현한다.",
+    "decided_by": "user",
+    "decided_at": "2026-09-14T12:33:36.975023+00:00"
+  },
+  "implementation_targets": [
+    "src/company_intel/connectors/keyed.py",
+    "src/company_intel/provider_validation.py",
+    "src/company_intel/warehouse.py",
+    "src/company_intel/cli.py",
+    "tests/test_provider_validation.py",
+    "tests/test_cli_workflows.py"
+  ],
+  "validation_requirements": [
+    "MPM 최신순 pagination이 중복 없이 snapshot을 생성하는지 검사한다.",
+    "MPSV 전체 파일 수집과 부분 실패 원천이 manifest에 분리되는지 검사한다.",
+    "같은 snapshot_id로 facet과 최종 결과가 동일하게 재현되는지 검사한다."
+  ],
+  "diagram_impacts": [
+    "provider refresh → immutable snapshot → facet/query의 시점 고정 흐름을 추가한다."
+  ],
+  "context_topic_ids": [
+    "live-snapshot-foundation"
+  ],
+  "implementation_change_ids": [
+    "file-change-42c469cea05e",
+    "file-change-6094b4c9c865",
+    "file-change-71ee7f968ed8",
+    "file-change-8925cfef251f",
+    "file-change-927a21cab8b8",
+    "file-change-e1e3c60c9a87",
+    "file-change-e633c98e50e6",
+    "file-change-edb669d59fb3",
+    "file-change-f93b01f715ba"
+  ]
+}

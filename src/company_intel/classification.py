@@ -100,3 +100,29 @@ def classify_company(
         )
     facts = tuple(taxonomy_facts)
     return CompanyClassification(entity_id, normalized, eligibility, tuple(reasons), facts)
+
+
+def identity_eligibility(status: str | None) -> dict[str, object]:
+    """Describe which public-sector axes can be used as hard filters."""
+
+    normalized = str(status or "unresolved")
+    if normalized == "linked":
+        return {"identity_status": normalized, "filterable": True, "reason": None}
+    if normalized == "conflict":
+        return {"identity_status": normalized, "filterable": False, "reason": "identity_conflict"}
+    return {"identity_status": normalized if normalized == "candidate" else "unresolved", "filterable": False, "reason": "identity_unresolved"}
+
+
+def public_sector_axes(
+    *, public_context: str | None = None, public_institution_type: str | None = None,
+    legal_form: str | None = None, ownership_sector: str | None = None, identity_status: str | None = None,
+) -> dict[str, dict[str, object]]:
+    """Keep source context, institution type, legal form, and ownership independent."""
+
+    link = identity_eligibility(identity_status)
+    return {
+        "public_context": {"value": public_context, "filterable": public_context is not None, "source_scoped": True},
+        "public_institution_type": {"value": public_institution_type, "filterable": bool(link["filterable"] and public_institution_type), "identity": link},
+        "legal_form": {"value": legal_form, "filterable": bool(link["filterable"] and legal_form), "identity": link},
+        "ownership_sector": {"value": ownership_sector, "filterable": bool(link["filterable"] and ownership_sector), "identity": link},
+    }

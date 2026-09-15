@@ -1,7 +1,7 @@
 {
   "schema_version": "1.7.0",
   "campaign_id": "company-intelligence-cross-region-career-preparation",
-  "objective": "미국·한국·EU/체코의 공개·무료 접근 가능 데이터로 국가별 기업·공고·요건을 근거 기반으로 분리·검색·내보내고, 동료군 순위·시간축 거시 비교·미래가치·AI 사건 검증까지 10개 사용자 기능으로 제공하는 설계를 고정한다.",
+  "objective": "미국·한국·EU/체코의 공개·무료 접근 가능 데이터로 국가별 기업·공고·요건을 근거 기반으로 분리·검색·내보내고, 현재 채용 검색과 반복 snapshot 기반 채용 동향 분석을 분리한 단계형 실시간 카테고리 트리 및 기업 분석까지 17개 사용자 결정을 통해 제공하는 설계를 고정한다.",
   "repository_root": "/home/ubuntu/root/company-intelligence-platform",
   "created_date": "2026-09-11",
   "status": "decision-approved",
@@ -15,7 +15,14 @@
     "D-07-company-timeline-macro-comparison",
     "D-08-future-value-scenarios",
     "D-09-ai-event-effect-validation",
-    "D-10-job-availability-filtered-discovery"
+    "D-10-job-availability-filtered-discovery",
+    "D-11-live-source-refresh-snapshot-contract",
+    "D-12-current-search-trend-mode-separation",
+    "D-13-public-sector-identity-linkage",
+    "D-14-progressive-facet-tree-navigation",
+    "D-15-current-job-search-result-contract",
+    "D-16-job-trend-series-analysis-contract",
+    "D-17-selection-session-result-provenance"
   ],
   "dependencies": [
     {
@@ -61,60 +68,125 @@
     {
       "before": "D-04-career-requirement-verification",
       "after": "D-10-job-availability-filtered-discovery"
+    },
+    {
+      "before": "D-01-source-access-policy",
+      "after": "D-11-live-source-refresh-snapshot-contract"
+    },
+    {
+      "before": "D-11-live-source-refresh-snapshot-contract",
+      "after": "D-12-current-search-trend-mode-separation"
+    },
+    {
+      "before": "D-02-company-capability-taxonomy",
+      "after": "D-13-public-sector-identity-linkage"
+    },
+    {
+      "before": "D-11-live-source-refresh-snapshot-contract",
+      "after": "D-13-public-sector-identity-linkage"
+    },
+    {
+      "before": "D-03-search-profile-and-discovery",
+      "after": "D-14-progressive-facet-tree-navigation"
+    },
+    {
+      "before": "D-12-current-search-trend-mode-separation",
+      "after": "D-14-progressive-facet-tree-navigation"
+    },
+    {
+      "before": "D-13-public-sector-identity-linkage",
+      "after": "D-14-progressive-facet-tree-navigation"
+    },
+    {
+      "before": "D-04-career-requirement-verification",
+      "after": "D-15-current-job-search-result-contract"
+    },
+    {
+      "before": "D-10-job-availability-filtered-discovery",
+      "after": "D-15-current-job-search-result-contract"
+    },
+    {
+      "before": "D-14-progressive-facet-tree-navigation",
+      "after": "D-15-current-job-search-result-contract"
+    },
+    {
+      "before": "D-07-company-timeline-macro-comparison",
+      "after": "D-16-job-trend-series-analysis-contract"
+    },
+    {
+      "before": "D-11-live-source-refresh-snapshot-contract",
+      "after": "D-16-job-trend-series-analysis-contract"
+    },
+    {
+      "before": "D-13-public-sector-identity-linkage",
+      "after": "D-16-job-trend-series-analysis-contract"
+    },
+    {
+      "before": "D-14-progressive-facet-tree-navigation",
+      "after": "D-16-job-trend-series-analysis-contract"
+    },
+    {
+      "before": "D-05-spreadsheet-output-contract",
+      "after": "D-17-selection-session-result-provenance"
+    },
+    {
+      "before": "D-15-current-job-search-result-contract",
+      "after": "D-17-selection-session-result-provenance"
+    },
+    {
+      "before": "D-16-job-trend-series-analysis-contract",
+      "after": "D-17-selection-session-result-provenance"
     }
   ],
   "implementation_authorization": {
     "authorized": true,
     "authorized_by": "user",
-    "authorized_at": "2026-09-13T08:19:05.623666+00:00",
+    "authorized_at": "2026-09-14T13:04:35.429013+00:00",
     "scope": [
-      "D-01-source-access-policy",
-      "D-02-company-capability-taxonomy",
-      "D-03-search-profile-and-discovery",
-      "D-04-career-requirement-verification",
-      "D-05-spreadsheet-output-contract",
-      "D-06-peer-screener-ranking",
-      "D-07-company-timeline-macro-comparison",
-      "D-08-future-value-scenarios",
-      "D-09-ai-event-effect-validation",
-      "D-10-job-availability-filtered-discovery"
+      "D-11-live-source-refresh-snapshot-contract",
+      "D-13-public-sector-identity-linkage",
+      "D-12-current-search-trend-mode-separation",
+      "D-14-progressive-facet-tree-navigation",
+      "D-15-current-job-search-result-contract",
+      "D-16-job-trend-series-analysis-contract",
+      "D-17-selection-session-result-provenance"
     ],
     "authorized_plan_refs": [
       {
-        "cohort_id": "C-01-source-identity-foundation",
-        "plan_id": "company-intelligence-cross-region-career-preparation--C-01-source-identity-foundation--r3",
-        "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/implementation-plans/C-01-source-identity-foundation-r3.json",
-        "sha256": "29b89c280e2598784e20d9ef213f83212b4cc62787e85e93fa0be336777cfd88"
+        "cohort_id": "C-07-live-source-snapshot-foundation",
+        "plan_id": "company-intelligence-cross-region-career-preparation--C-07-live-source-snapshot-foundation--r1",
+        "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/implementation-plans/C-07-live-source-snapshot-foundation-r1.json",
+        "sha256": "7abde58da2f3fab3b0926c1d7cf98dea64b5840bf61a66b68a2fff62c778fb05"
       },
       {
-        "cohort_id": "C-02-search-requirement-evidence",
-        "plan_id": "company-intelligence-cross-region-career-preparation--C-02-search-requirement-evidence--r3",
-        "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/implementation-plans/C-02-search-requirement-evidence-r3.json",
-        "sha256": "c988fec11105b80a25a48e8bc881c8f98b26f9b2f14580d61c95637faf47d59c"
+        "cohort_id": "C-08-public-sector-identity-linkage",
+        "plan_id": "company-intelligence-cross-region-career-preparation--C-08-public-sector-identity-linkage--r1",
+        "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/implementation-plans/C-08-public-sector-identity-linkage-r1.json",
+        "sha256": "2b2e1a84a2848c95a637fcefe1599b7393927da415fe74eecc04fc778885126d"
       },
       {
-        "cohort_id": "C-03-evidence-export-delivery",
-        "plan_id": "company-intelligence-cross-region-career-preparation--C-03-evidence-export-delivery--r3",
-        "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/implementation-plans/C-03-evidence-export-delivery-r3.json",
-        "sha256": "fa2933fb85bbcd306c70dfab4f10acc70968bcdcb9adc3bbbaa861a7022b4a8d"
+        "cohort_id": "C-09-mode-and-tree-query-contract",
+        "plan_id": "company-intelligence-cross-region-career-preparation--C-09-mode-and-tree-query-contract--r1",
+        "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/implementation-plans/C-09-mode-and-tree-query-contract-r1.json",
+        "sha256": "c6cb23a8d352e66eaee6283d2f664b4095b5502d501539ca5848043c7fb83f18"
       },
       {
-        "cohort_id": "C-04-peer-screener-ranking",
-        "plan_id": "company-intelligence-cross-region-career-preparation--C-04-peer-screener-ranking--r3",
-        "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/implementation-plans/C-04-peer-screener-ranking-r3.json",
-        "sha256": "a70a138b32038c0570d6c96466fdef0343448aadc583d4fb32b6bf68f733564c"
+        "cohort_id": "C-10-current-job-search-execution",
+        "plan_id": "company-intelligence-cross-region-career-preparation--C-10-current-job-search-execution--r1",
+        "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/implementation-plans/C-10-current-job-search-execution-r1.json",
+        "sha256": "137eceba5f6d71fd6d3a3cc1bf085a02a46eeac49d9947e05bfe2638916f7258"
       },
       {
-        "cohort_id": "C-05-timeline-valuation-event-analysis",
-        "plan_id": "company-intelligence-cross-region-career-preparation--C-05-timeline-valuation-event-analysis--r3",
-        "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/implementation-plans/C-05-timeline-valuation-event-analysis-r3.json",
-        "sha256": "0628be1faaa8c4b7cff99ad5e4a818848dd85d24d9e045a2d5bdb322cc1f88da"
+        "cohort_id": "C-11-job-trend-series-analysis",
+        "plan_id": "company-intelligence-cross-region-career-preparation--C-11-job-trend-series-analysis--r1",
+        "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/implementation-plans/C-11-job-trend-series-analysis-r1.json",
+        "sha256": "92fdca605dd8438c86be16ee31e171e74e675d7e60e975adcb68b1dfd5974417"
       },
       {
-        "cohort_id": "C-06-job-availability-filtered-discovery",
-        "plan_id": "company-intelligence-cross-region-career-preparation--C-06-job-availability-filtered-discovery--r3",
-        "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/implementation-plans/C-06-job-availability-filtered-discovery-r3.json",
-        "sha256": "aa1c4aa49fbcd3fe2e05a233c789b6b3588d3cc5d9588476aaec26c301ea8606"
+        "cohort_id": "C-12-selection-provenance-delivery",
+        "plan_id": "company-intelligence-cross-region-career-preparation--C-12-selection-provenance-delivery--r1",
+        "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/implementation-plans/C-12-selection-provenance-delivery-r1.json",
+        "sha256": "de4ce2fd771295fb7a85d2720cd7b4f3b460f51807642c504ca31b968b529f1a"
       }
     ]
   },
@@ -125,13 +197,13 @@
         "D-01-source-access-policy",
         "D-02-company-capability-taxonomy"
       ],
-      "status": "contract-ready",
+      "status": "planned",
       "execution_dependencies": [],
-      "implementation_plan_path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/implementation-plans/C-01-source-identity-foundation-r3.json",
-      "implementation_plan_status": "contract-ready",
-      "implementation_plan_sha256": "29b89c280e2598784e20d9ef213f83212b4cc62787e85e93fa0be336777cfd88",
-      "context_packet_path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/context-packets/C-01-source-identity-foundation-r3.json",
-      "context_packet_sha256": "7f3fe344358072abf2ba0fc3fca6764dc79955f17a37c742cf1fb6405e67ad56"
+      "implementation_plan_path": null,
+      "implementation_plan_status": "superseded",
+      "implementation_plan_sha256": null,
+      "context_packet_path": null,
+      "context_packet_sha256": null
     },
     {
       "cohort_id": "C-02-search-requirement-evidence",
@@ -139,45 +211,45 @@
         "D-03-search-profile-and-discovery",
         "D-04-career-requirement-verification"
       ],
-      "status": "contract-ready",
+      "status": "planned",
       "execution_dependencies": [
         "C-01-source-identity-foundation"
       ],
-      "implementation_plan_path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/implementation-plans/C-02-search-requirement-evidence-r3.json",
-      "implementation_plan_status": "contract-ready",
-      "implementation_plan_sha256": "c988fec11105b80a25a48e8bc881c8f98b26f9b2f14580d61c95637faf47d59c",
-      "context_packet_path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/context-packets/C-02-search-requirement-evidence-r3.json",
-      "context_packet_sha256": "c544a2291eebc94c1112486b8119f9c7d39ef0c45f665659f540a2b35f713cb3"
+      "implementation_plan_path": null,
+      "implementation_plan_status": "superseded",
+      "implementation_plan_sha256": null,
+      "context_packet_path": null,
+      "context_packet_sha256": null
     },
     {
       "cohort_id": "C-03-evidence-export-delivery",
       "decision_ids": [
         "D-05-spreadsheet-output-contract"
       ],
-      "status": "contract-ready",
+      "status": "planned",
       "execution_dependencies": [
         "C-02-search-requirement-evidence"
       ],
-      "implementation_plan_path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/implementation-plans/C-03-evidence-export-delivery-r3.json",
-      "implementation_plan_status": "contract-ready",
-      "implementation_plan_sha256": "fa2933fb85bbcd306c70dfab4f10acc70968bcdcb9adc3bbbaa861a7022b4a8d",
-      "context_packet_path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/context-packets/C-03-evidence-export-delivery-r3.json",
-      "context_packet_sha256": "088b91f553349f61fe505d79cec02781d4451c2a92bf8c5ce331812b3e7ca5df"
+      "implementation_plan_path": null,
+      "implementation_plan_status": "superseded",
+      "implementation_plan_sha256": null,
+      "context_packet_path": null,
+      "context_packet_sha256": null
     },
     {
       "cohort_id": "C-04-peer-screener-ranking",
       "decision_ids": [
         "D-06-peer-screener-ranking"
       ],
-      "status": "contract-ready",
+      "status": "planned",
       "execution_dependencies": [
         "C-01-source-identity-foundation"
       ],
-      "implementation_plan_path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/implementation-plans/C-04-peer-screener-ranking-r3.json",
-      "implementation_plan_status": "contract-ready",
-      "implementation_plan_sha256": "a70a138b32038c0570d6c96466fdef0343448aadc583d4fb32b6bf68f733564c",
-      "context_packet_path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/context-packets/C-04-peer-screener-ranking-r3.json",
-      "context_packet_sha256": "9a22f5e68ac3d652a014c33925016c2d3cf00165bc2e6bd3f6f73ae0924c04ef"
+      "implementation_plan_path": null,
+      "implementation_plan_status": "superseded",
+      "implementation_plan_sha256": null,
+      "context_packet_path": null,
+      "context_packet_sha256": null
     },
     {
       "cohort_id": "C-05-timeline-valuation-event-analysis",
@@ -186,38 +258,140 @@
         "D-08-future-value-scenarios",
         "D-09-ai-event-effect-validation"
       ],
-      "status": "contract-ready",
+      "status": "planned",
       "execution_dependencies": [
         "C-04-peer-screener-ranking"
       ],
-      "implementation_plan_path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/implementation-plans/C-05-timeline-valuation-event-analysis-r3.json",
-      "implementation_plan_status": "contract-ready",
-      "implementation_plan_sha256": "0628be1faaa8c4b7cff99ad5e4a818848dd85d24d9e045a2d5bdb322cc1f88da",
-      "context_packet_path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/context-packets/C-05-timeline-valuation-event-analysis-r3.json",
-      "context_packet_sha256": "d7dc311e718c3e2c11dde3c208026e531d009997601adc7d0aad409833d369f8"
+      "implementation_plan_path": null,
+      "implementation_plan_status": "superseded",
+      "implementation_plan_sha256": null,
+      "context_packet_path": null,
+      "context_packet_sha256": null
     },
     {
       "cohort_id": "C-06-job-availability-filtered-discovery",
       "decision_ids": [
         "D-10-job-availability-filtered-discovery"
       ],
-      "status": "contract-ready",
+      "status": "planned",
       "execution_dependencies": [
         "C-02-search-requirement-evidence",
         "C-03-evidence-export-delivery",
         "C-04-peer-screener-ranking",
         "C-05-timeline-valuation-event-analysis"
       ],
-      "implementation_plan_path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/implementation-plans/C-06-job-availability-filtered-discovery-r3.json",
+      "implementation_plan_path": null,
+      "implementation_plan_status": "superseded",
+      "implementation_plan_sha256": null,
+      "context_packet_path": null,
+      "context_packet_sha256": null
+    },
+    {
+      "cohort_id": "C-07-live-source-snapshot-foundation",
+      "decision_ids": [
+        "D-11-live-source-refresh-snapshot-contract"
+      ],
+      "status": "contract-ready",
+      "execution_dependencies": [
+        "C-01-source-identity-foundation"
+      ],
+      "implementation_plan_path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/implementation-plans/C-07-live-source-snapshot-foundation-r1.json",
       "implementation_plan_status": "contract-ready",
-      "implementation_plan_sha256": "aa1c4aa49fbcd3fe2e05a233c789b6b3588d3cc5d9588476aaec26c301ea8606",
-      "context_packet_path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/context-packets/C-06-job-availability-filtered-discovery-r3.json",
-      "context_packet_sha256": "cb1f78d6900b7d6e31d4b1070a8927de394b64aae78b7df0c14ae27590a42c4f"
+      "implementation_plan_sha256": "7abde58da2f3fab3b0926c1d7cf98dea64b5840bf61a66b68a2fff62c778fb05",
+      "context_packet_path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/context-packets/C-07-live-source-snapshot-foundation-r1.json",
+      "context_packet_sha256": "3e6dd4ea746839c82843c8d564e0a4a5f61c97ab76c1c71e6e6b605f26665f01"
+    },
+    {
+      "cohort_id": "C-08-public-sector-identity-linkage",
+      "decision_ids": [
+        "D-13-public-sector-identity-linkage"
+      ],
+      "status": "contract-ready",
+      "execution_dependencies": [
+        "C-01-source-identity-foundation",
+        "C-07-live-source-snapshot-foundation"
+      ],
+      "implementation_plan_path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/implementation-plans/C-08-public-sector-identity-linkage-r1.json",
+      "implementation_plan_status": "contract-ready",
+      "implementation_plan_sha256": "2b2e1a84a2848c95a637fcefe1599b7393927da415fe74eecc04fc778885126d",
+      "context_packet_path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/context-packets/C-08-public-sector-identity-linkage-r1.json",
+      "context_packet_sha256": "1a52943f9971aeccf2be32d9892f4332c5f97429284597e730c9952ce52837a2"
+    },
+    {
+      "cohort_id": "C-09-mode-and-tree-query-contract",
+      "decision_ids": [
+        "D-12-current-search-trend-mode-separation",
+        "D-14-progressive-facet-tree-navigation"
+      ],
+      "status": "contract-ready",
+      "execution_dependencies": [
+        "C-02-search-requirement-evidence",
+        "C-07-live-source-snapshot-foundation",
+        "C-08-public-sector-identity-linkage"
+      ],
+      "implementation_plan_path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/implementation-plans/C-09-mode-and-tree-query-contract-r1.json",
+      "implementation_plan_status": "contract-ready",
+      "implementation_plan_sha256": "c6cb23a8d352e66eaee6283d2f664b4095b5502d501539ca5848043c7fb83f18",
+      "context_packet_path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/context-packets/C-09-mode-and-tree-query-contract-r1.json",
+      "context_packet_sha256": "52925e82abebca0919990cf586acf659a97cdf5293d0a602091246019ffc84e4"
+    },
+    {
+      "cohort_id": "C-10-current-job-search-execution",
+      "decision_ids": [
+        "D-15-current-job-search-result-contract"
+      ],
+      "status": "contract-ready",
+      "execution_dependencies": [
+        "C-02-search-requirement-evidence",
+        "C-06-job-availability-filtered-discovery",
+        "C-09-mode-and-tree-query-contract"
+      ],
+      "implementation_plan_path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/implementation-plans/C-10-current-job-search-execution-r1.json",
+      "implementation_plan_status": "contract-ready",
+      "implementation_plan_sha256": "137eceba5f6d71fd6d3a3cc1bf085a02a46eeac49d9947e05bfe2638916f7258",
+      "context_packet_path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/context-packets/C-10-current-job-search-execution-r1.json",
+      "context_packet_sha256": "6bb4b00ed0b5cf9c00db6d149a2caf24c1eb5171a6821ecd756820badf74cc49"
+    },
+    {
+      "cohort_id": "C-11-job-trend-series-analysis",
+      "decision_ids": [
+        "D-16-job-trend-series-analysis-contract"
+      ],
+      "status": "contract-ready",
+      "execution_dependencies": [
+        "C-04-peer-screener-ranking",
+        "C-05-timeline-valuation-event-analysis",
+        "C-07-live-source-snapshot-foundation",
+        "C-08-public-sector-identity-linkage",
+        "C-09-mode-and-tree-query-contract"
+      ],
+      "implementation_plan_path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/implementation-plans/C-11-job-trend-series-analysis-r1.json",
+      "implementation_plan_status": "contract-ready",
+      "implementation_plan_sha256": "92fdca605dd8438c86be16ee31e171e74e675d7e60e975adcb68b1dfd5974417",
+      "context_packet_path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/context-packets/C-11-job-trend-series-analysis-r1.json",
+      "context_packet_sha256": "9603bb9319f4e71d28dcff10148e2771882cffd46ac8f13e3a2c2dbab6d9214f"
+    },
+    {
+      "cohort_id": "C-12-selection-provenance-delivery",
+      "decision_ids": [
+        "D-17-selection-session-result-provenance"
+      ],
+      "status": "contract-ready",
+      "execution_dependencies": [
+        "C-03-evidence-export-delivery",
+        "C-10-current-job-search-execution",
+        "C-11-job-trend-series-analysis"
+      ],
+      "implementation_plan_path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/implementation-plans/C-12-selection-provenance-delivery-r1.json",
+      "implementation_plan_status": "contract-ready",
+      "implementation_plan_sha256": "de4ce2fd771295fb7a85d2720cd7b4f3b460f51807642c504ca31b968b529f1a",
+      "context_packet_path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/context-packets/C-12-selection-provenance-delivery-r1.json",
+      "context_packet_sha256": "cfa924c7c112014813ecbb944c529f92ab58286ac883d9f4b88260fb200035b5"
     }
   ],
   "context_index_path": "docs/implementation-context-index-cli-r2.json",
   "component_inventory_path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/component-inventory.json",
-  "component_inventory_sha256": "c8b9e39c6adcab70ce01a7a6b0049436837092929e430db6dc57a3d49c365184",
+  "component_inventory_sha256": "62bdcb9402b883459b6bdc1aef25b985812bcd2dc3d05afe25f22131614781e3",
   "workbook_path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decision-workbook.md",
   "decision_files": {
     "D-01-source-access-policy": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/01-d-01-source-access-policy.json",
@@ -229,7 +403,14 @@
     "D-07-company-timeline-macro-comparison": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/07-d-07-company-timeline-macro-comparison.json",
     "D-08-future-value-scenarios": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/08-d-08-future-value-scenarios.json",
     "D-09-ai-event-effect-validation": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/09-d-09-ai-event-effect-validation.json",
-    "D-10-job-availability-filtered-discovery": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/10-d-10-job-availability-filtered-discovery.json"
+    "D-10-job-availability-filtered-discovery": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/10-d-10-job-availability-filtered-discovery.json",
+    "D-11-live-source-refresh-snapshot-contract": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/11-d-11-live-source-refresh-snapshot-contract.json",
+    "D-12-current-search-trend-mode-separation": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/12-d-12-current-search-trend-mode-separation.json",
+    "D-13-public-sector-identity-linkage": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/13-d-13-public-sector-identity-linkage.json",
+    "D-14-progressive-facet-tree-navigation": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/14-d-14-progressive-facet-tree-navigation.json",
+    "D-15-current-job-search-result-contract": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/15-d-15-current-job-search-result-contract.json",
+    "D-16-job-trend-series-analysis-contract": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/16-d-16-job-trend-series-analysis-contract.json",
+    "D-17-selection-session-result-provenance": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/17-d-17-selection-session-result-provenance.json"
   },
   "receipt_paths": {
     "implementation": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/receipts/implementation.json",
@@ -242,5 +423,5 @@
     "diagrams": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/receipts/current-diagrams.json"
   },
   "campaign_change_graph_path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/campaign-change-graph.json",
-  "campaign_change_graph_sha256": "6160a955af95a53d07bf5e791bf5af3055008cf6c7c623c547affdcb20a4041d"
+  "campaign_change_graph_sha256": "05b18de79f7f7c8f4f5b3dd8b75ad858fa3170c1cb7fdcfce50904564554eb80"
 }

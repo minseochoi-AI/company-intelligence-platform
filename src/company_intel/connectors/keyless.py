@@ -1,7 +1,10 @@
 from __future__ import annotations
 
+import hashlib
+import json
+from dataclasses import dataclass
 from datetime import UTC, date, datetime
-from typing import Any
+from typing import Any, Iterable, Iterator, Mapping
 
 from ..models import Probe
 from .base import get_path, json_payload, preserve_payload
@@ -405,3 +408,35 @@ def keyless_probes(sec_user_agent: str) -> list[Probe]:
             quota_note="Keyless access is a small demo budget; production volume needs provider-compliant access.",
         ),
     ]
+
+
+@dataclass(frozen=True)
+class MPSVVacancyConnector:
+    """Streaming parser boundary for the Czech official vacancy snapshot."""
+
+    max_bytes: int = 64 * 1024 * 1024
+
+    def download_snapshot(self, chunks: Iterable[bytes], *, collected_at: str) -> dict[str, Any]:
+        body = bytearray()
+        for chunk in chunks:
+            if not isinstance(chunk, bytes):
+                raise ValueError("mpsv_download_chunk_invalid")
+            body.extend(chunk)
+            if len(body) > self.max_bytes:
+                raise ValueError("mpsv_download_exceeds_bound")
+        payload = json.loads(bytes(body).decode("utf-8-sig"))
+        records = list(self.stream_records(payload))
+        return {
+            "collected_at": collected_at,
+            "raw_sha256": hashlib.sha256(bytes(body)).hexdigest(),
+            "record_count": len(records),
+            "polozky": records,
+        }
+
+    def stream_records(self, payload: Mapping[str, Any] | list[Any]) -> Iterator[dict[str, Any]]:
+        values: Any = payload.get("polozky", []) if isinstance(payload, Mapping) else payload
+        if not isinstance(values, list):
+            raise ValueError("mpsv_records_invalid")
+        for value in values:
+            if isinstance(value, dict):
+                yield value

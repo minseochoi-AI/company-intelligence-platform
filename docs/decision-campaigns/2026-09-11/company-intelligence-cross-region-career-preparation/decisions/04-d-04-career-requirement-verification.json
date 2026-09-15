@@ -139,9 +139,7 @@
     "src/company_intel/api.py — 기업·공고별 검증된 준비사항과 제한 사유 조회",
     "tests/test_career_requirements.py (new) — required/preferred·상세 필드 부재·국가 기준·원천 제한·stale 공고 검증"
   ],
-  "implementation_change_ids": [
-    "D-03-company-search-engine-r3"
-  ],
+  "implementation_change_ids": [],
   "validation_requirements": [
     "모든 반환 requirement에 source_url, source_record_id, retrieved_at, country_code, evidence_scope, verification_status가 있는지 검증한다.",
     "MPM 목록이나 ATS 메타데이터만 있고 상세 근거가 없으면 자격증을 생성하지 않고 requirement_unavailable을 반환하는지 검증한다.",

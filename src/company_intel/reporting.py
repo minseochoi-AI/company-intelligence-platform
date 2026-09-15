@@ -122,6 +122,25 @@ def render_provider_limitations(sources: list[dict[str, object]]) -> list[str]:
     return [f"{row.get('provider', 'unknown')}: {row.get('limitations', '제한 정보 없음')}" for row in sources]
 
 
+def render_selection_summary(selection: dict[str, Any]) -> str:
+    return "선택 목적: `{}` · mode: `{}` · snapshot: `{}`".format(selection.get("purpose", "unknown"), selection.get("mode", "unknown"), selection.get("snapshot_id", "not_selected"))
+
+
+def render_denominators(denominators: dict[str, Any]) -> str:
+    labels = ("provider_returned", "normalized", "active", "strict_match", "unverifiable", "no_match", "conflict")
+    return " · ".join(f"{label}={denominators.get(label, 0)}" for label in labels)
+
+
+def render_trend_eligibility(eligibility: dict[str, Any]) -> str:
+    if eligibility.get("eligible"):
+        return "동향 분석 가능: 동일 provider·분류·coverage signature의 반복 snapshot입니다."
+    return f"동향 분석 불가: `{eligibility.get('reason', 'insufficient_history')}`"
+
+
+def render_replay_guidance(run_id: str | None) -> str:
+    return f"재현은 저장된 `run_id={run_id or 'unknown'}`의 selection·snapshot ref만 사용하며 provider를 자동 갱신하지 않습니다."
+
+
 def write_export_summary(
     path: Path,
     manifest: dict[str, Any],

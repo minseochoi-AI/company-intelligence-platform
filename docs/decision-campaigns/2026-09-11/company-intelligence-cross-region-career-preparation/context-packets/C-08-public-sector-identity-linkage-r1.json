@@ -1,0 +1,64 @@
+{
+  "contract_version": "implementation-context-packet-v2",
+  "packet_id": "C-08-public-sector-identity-linkage-packet-da193cec5b4c",
+  "topics": [
+    "public-sector-identity"
+  ],
+  "capability_ids": [
+    "public-identity-link",
+    "separate-taxonomy-axes",
+    "unresolved-identity"
+  ],
+  "required_refs": [
+    {
+      "ref_id": "live-tree-report-d13",
+      "role": "must-read",
+      "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/live-category-tree-scope-amendment-2026-09-13.md",
+      "content_hash": "sha256:babe85bec25ea7f1effad8f924071b5977a0359f0377b6b759ed874dea6c17bd",
+      "line_range": "9-18,30-36,79-85",
+      "question": "공공 원천 맥락과 법적 기관 유형을 어떻게 분리하는가?",
+      "observation_summary": "공고 맥락·공공기관유형·법적형태·소유부문은 공식 ID 또는 검증 link로만 결합한다."
+    }
+  ],
+  "current_entry_points": [
+    {
+      "kind": "code",
+      "path": "src/company_intel/taxonomy.py",
+      "symbol": "TaxonomyFact",
+      "source_hash": "sha256:6e3631645577f727e6cc158c2e5a3858a1e6050c24ec705670654edce940b401"
+    },
+    {
+      "kind": "code",
+      "path": "src/company_intel/classification.py",
+      "symbol": "classify_company",
+      "source_hash": "sha256:0c145eed1c441a62369b28ef8a8fd81423ea8358e2d8e2a2ab56dc919e4fb428"
+    },
+    {
+      "kind": "test",
+      "path": "tests/test_taxonomy.py",
+      "symbol": "test_public_axes_remain_separate",
+      "source_hash": "sha256:9399e350d9bf1494f84f25183eac4c18c924dc6e6e0f15c11bc5c54b592d5870"
+    }
+  ],
+  "planned_entry_points": [
+    {
+      "kind": "code",
+      "path": "src/company_intel/public_identity.py",
+      "symbol": "IdentityLink",
+      "change_id": "file-change-068da823a7c2"
+    },
+    {
+      "kind": "test",
+      "path": "tests/test_public_identity.py",
+      "symbol": "test_mpsv_ico_exact_ares_join",
+      "change_id": "file-change-ec13a6928783"
+    }
+  ],
+  "external_entry_points": [],
+  "invariants": [
+    "MPSV 공공행정 flag를 국영기업으로 해석하지 않는다.",
+    "ARES legal form을 ownership으로 승격하지 않는다."
+  ],
+  "unresolved_conflicts": [],
+  "resume_digest": "Prepared C-08-public-sector-identity-linkage from current decision hashes and one global file-ownership graph."
+}

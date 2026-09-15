@@ -121,10 +121,7 @@
     "tests/test_analytics.py",
     "새 event evidence 통합 테스트"
   ],
-  "implementation_change_ids": [
-    "D-08-D09-analysis-prerequisite-r3",
-    "D-08-D09-analytics-tests-r3"
-  ],
+  "implementation_change_ids": [],
   "validation_requirements": [
     "사건 분석이 source URL·event_date·entity identity·available_at·대조군 근거 없이 실행되지 않는지 확인한다.",
     "공고 수를 실제 고용 완료 수로 표기하지 않는지 확인한다.",

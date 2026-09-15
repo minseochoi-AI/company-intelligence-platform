@@ -1,0 +1,78 @@
+{
+  "contract_version": "implementation-context-packet-v2",
+  "packet_id": "C-07-live-source-snapshot-foundation-packet-6e6408730fdb",
+  "topics": [
+    "live-snapshot-foundation"
+  ],
+  "capability_ids": [
+    "provider-refresh",
+    "pagination",
+    "immutable-snapshot",
+    "freshness-coverage"
+  ],
+  "required_refs": [
+    {
+      "ref_id": "live-tree-report-d11",
+      "role": "must-read",
+      "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/live-category-tree-scope-amendment-2026-09-13.md",
+      "content_hash": "sha256:babe85bec25ea7f1effad8f924071b5977a0359f0377b6b759ed874dea6c17bd",
+      "line_range": "3-18,20-29,66-77",
+      "question": "실시간 검색의 시점과 분모를 어떻게 고정하는가?",
+      "observation_summary": "provider 수집 후 hash와 수집시각이 고정된 snapshot만 검색한다."
+    }
+  ],
+  "current_entry_points": [
+    {
+      "kind": "code",
+      "path": "config/providers.json",
+      "symbol": "operations",
+      "source_hash": "sha256:3d4196fab89a6438ddc6752fbd741e1d2321168bd2619af8eaa2728a1b8f82a2"
+    },
+    {
+      "kind": "code",
+      "path": "src/company_intel/connectors/keyed.py",
+      "symbol": "MPMPublicEmploymentConnector",
+      "source_hash": "sha256:f6f02fb66d1160091a8fbce8b0dcdf01131e43122944c06b43fdb7abe89af7e2"
+    },
+    {
+      "kind": "code",
+      "path": "src/company_intel/connectors/keyless.py",
+      "symbol": "MPSVVacancyConnector",
+      "source_hash": "sha256:ee76965cb19b96ba7583338aa312c0ce74e3255801ca5afa19cf23b84831c57c"
+    },
+    {
+      "kind": "code",
+      "path": "src/company_intel/warehouse.py",
+      "symbol": "snapshot_run",
+      "source_hash": "sha256:d36c1a2114ffc69987c2f109446639a5c1eba4911d6e807d67f7843eb9288545"
+    },
+    {
+      "kind": "test",
+      "path": "tests/test_public_connectors.py",
+      "symbol": "test_mpm_paginated_query",
+      "source_hash": "sha256:be9a9fd6dd16c918e8e60a8beef666c96dea2fea71fd0109d558ba599a0ea1ee"
+    }
+  ],
+  "planned_entry_points": [
+    {
+      "kind": "code",
+      "path": "src/company_intel/live_snapshots.py",
+      "symbol": "SnapshotRequest",
+      "change_id": "file-change-6094b4c9c865"
+    },
+    {
+      "kind": "test",
+      "path": "tests/test_live_snapshots.py",
+      "symbol": "test_mpm_pagination_is_deduplicated",
+      "change_id": "file-change-edb669d59fb3"
+    }
+  ],
+  "external_entry_points": [],
+  "invariants": [
+    "한 검색 세션은 하나의 불변 snapshot만 사용한다.",
+    "누적 total을 현재 활성 공고 수로 표시하지 않는다.",
+    "provider key는 manifest에 저장하지 않는다."
+  ],
+  "unresolved_conflicts": [],
+  "resume_digest": "Prepared C-07-live-source-snapshot-foundation from current decision hashes and one global file-ownership graph."
+}

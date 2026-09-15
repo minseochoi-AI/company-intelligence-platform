@@ -1,0 +1,130 @@
+{
+  "decision_id": "D-12-current-search-trend-mode-separation",
+  "sequence": 12,
+  "unit_id": "current-search-trend-mode-separation",
+  "title": "현재 채용 검색과 채용 동향 분석의 모드 분리",
+  "status": "accepted",
+  "question": "단일 snapshot의 현재 공고 검색과 반복 snapshot의 변화 분석을 CLI에서 어떻게 분리할 것인가?",
+  "five_w_one_h": {
+    "who": "현재 일자리와 시장 변화를 각각 확인하려는 사용자",
+    "what": "현재 채용과 동향 분석의 입력·분모·지표·추론 경계",
+    "where": "interactive 최상위 메뉴, query profile, timeline 응답",
+    "when": "검색 목적을 선택하는 첫 단계",
+    "why": "단일 최신 표본을 추세나 전체 시장 변화로 오인하지 않기 위해",
+    "how": "두 모드를 독립 command contract로 만들고 시계열 요건 미충족 시 동향 지표를 비활성화한다."
+  },
+  "evidence_refs": [
+    {
+      "evidence_id": "E-D12-mode-contract",
+      "source_type": "local-document",
+      "locator": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/live-category-tree-scope-amendment-2026-09-13.md:66-77",
+      "observed_fact": "현재 채용은 한 기준시각의 활성 공고이고 동향은 동일 정의로 반복 수집된 snapshot 시계열이며 서로 다른 분모와 금지 추론을 가진다.",
+      "content_hash": "sha256:babe85bec25ea7f1effad8f924071b5977a0359f0377b6b759ed874dea6c17bd",
+      "line_range": "66-77",
+      "question": "현재 snapshot 하나로 동향을 계산할 수 있는가?",
+      "observation_summary": "현재 검색은 가능하지만 반복 이력이 없으므로 동향 수치 산출은 부적격이다."
+    }
+  ],
+  "facts": [
+    "현재 snapshot은 2026-09-13 한 시점의 검색 근거다.",
+    "공고 stock, 신규, 종료는 최소 두 개 이상의 일관된 snapshot 정의가 필요하다.",
+    "현재 timeline 기능은 기업·시장 시계열 분석이며 채용 snapshot 생명주기 지표와 동일하지 않다."
+  ],
+  "conflicts": [
+    "하나의 검색 메뉴에 현재와 동향을 섞으면 사용은 단순하지만 지표 의미가 모호해진다.",
+    "분리된 모드는 메뉴가 늘지만 필요한 evidence gate가 명확해진다."
+  ],
+  "unimplemented": [
+    "interactive 최상위에 현재 채용과 채용 동향의 독립 분기가 없다.",
+    "동향 분석을 막는 snapshot history·coverage eligibility 계약이 없다."
+  ],
+  "options": [
+    {
+      "option_id": "A-single-search-with-time-options",
+      "description": "하나의 job-search에서 선택적 기간 필터만 추가한다.",
+      "impact": {
+        "data": "현재와 시계열 행이 같은 의미로 섞인다.",
+        "schema_api": "기존 profile에 기간만 추가한다.",
+        "ux": "메뉴는 짧지만 지표 의미가 불분명하다.",
+        "performance": "단일 경로라 단순하다.",
+        "cost": "초기 구현 비용이 낮다.",
+        "security": "변화 없음.",
+        "migration": "작다.",
+        "tests": "기간 필터 위주로 검사한다."
+      },
+      "opportunity_costs": [
+        "단일 snapshot을 동향으로 오인하는 제품 위험을 남긴다."
+      ]
+    },
+    {
+      "option_id": "B-separate-current-and-trend-modes",
+      "description": "현재 채용과 동향 분석을 독립 모드로 두고 서로 다른 필수 입력·지표·부적격 사유를 적용한다.",
+      "impact": {
+        "data": "현재 행과 snapshot series를 별도 계약으로 관리한다.",
+        "schema_api": "current_job_query와 job_trend_query를 분리한다.",
+        "ux": "목적을 먼저 선택해 잘못된 지표를 차단한다.",
+        "performance": "현재 검색은 가볍고 동향만 series 집계를 수행한다.",
+        "cost": "두 profile과 도움말을 유지한다.",
+        "security": "변화 없음.",
+        "migration": "기존 job-search는 현재 모드로 호환한다.",
+        "tests": "모드별 eligibility와 금지 추론을 검사한다."
+      },
+      "opportunity_costs": [
+        "사용자가 목적을 한 단계 더 선택해야 한다."
+      ]
+    }
+  ],
+  "recommended_option_id": "B-separate-current-and-trend-modes",
+  "recommendation_reason": "현재 공고 확인과 변화 분석은 데이터 단위·분모·검증 조건이 달라 독립 모드가 의미 오류를 가장 잘 막는다.",
+  "impact": {
+    "data": "snapshot과 snapshot_series의 의미를 분리한다.",
+    "schema_api": "두 query type과 eligibility reason을 추가한다.",
+    "ux": "최상위 목적 선택이 선행된다.",
+    "performance": "불필요한 시계열 집계를 피한다.",
+    "cost": "모드별 문서·테스트가 필요하다.",
+    "security": "민감정보 처리 변화가 없다.",
+    "migration": "job-search는 current alias로 유지한다.",
+    "tests": "단일 snapshot trend 거부와 current 정상 실행을 검증한다."
+  },
+  "opportunity_costs": [
+    "현재 검색 결과 화면에서 즉석 추세 그래프를 자동 생성하지 않는다."
+  ],
+  "dependencies": [
+    "D-11-live-source-refresh-snapshot-contract"
+  ],
+  "dependency_waivers": {},
+  "accepted_decision": {
+    "disposition": "ACCEPT",
+    "option_id": "B-separate-current-and-trend-modes",
+    "rule": "사용자가 2026-09-14 요청에서 D-11~D-17의 권장안 B 승인을 명시했다.",
+    "rationale": "단일 snapshot의 현재 채용과 반복 snapshot의 동향 주장을 서로 다른 모드와 적격성으로 제한한다.",
+    "decided_by": "user",
+    "decided_at": "2026-09-14T12:33:36.975023+00:00"
+  },
+  "implementation_targets": [
+    "src/company_intel/interactive.py",
+    "src/company_intel/query_contract.py",
+    "src/company_intel/cli.py",
+    "src/company_intel/api.py",
+    "tests/test_interactive.py",
+    "tests/test_query_contract.py"
+  ],
+  "validation_requirements": [
+    "현재 모드가 하나의 snapshot과 active_as_of를 요구하는지 확인한다.",
+    "동향 모드가 반복 snapshot 미충족 시 insufficient_snapshot_history를 반환하는지 확인한다.",
+    "각 모드가 분모와 허용 추론을 다르게 설명하는지 확인한다."
+  ],
+  "diagram_impacts": [
+    "interactive root에서 current jobs와 trends를 독립 분기로 나눈다."
+  ],
+  "context_topic_ids": [
+    "search-mode-boundary"
+  ],
+  "implementation_change_ids": [
+    "file-change-3db064398654",
+    "file-change-71ee7f968ed8",
+    "file-change-884e869a1a0f",
+    "file-change-d840e60bc9b6",
+    "file-change-e633c98e50e6"
+  ]
+}

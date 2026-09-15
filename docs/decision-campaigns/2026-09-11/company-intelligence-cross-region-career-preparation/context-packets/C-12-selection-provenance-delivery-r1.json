@@ -1,0 +1,113 @@
+{
+  "contract_version": "implementation-context-packet-v2",
+  "packet_id": "C-12-selection-provenance-delivery-packet-f984616ba9cb",
+  "topics": [
+    "selection-provenance"
+  ],
+  "capability_ids": [
+    "selection-manifest",
+    "query-replay",
+    "artifact-hash-chain",
+    "manifest-redaction"
+  ],
+  "required_refs": [
+    {
+      "ref_id": "live-tree-report-d17",
+      "role": "must-read",
+      "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/live-category-tree-scope-amendment-2026-09-13.md",
+      "content_hash": "sha256:babe85bec25ea7f1effad8f924071b5977a0359f0377b6b759ed874dea6c17bd",
+      "line_range": "54-63,79-87,103-110",
+      "question": "사용자 선택과 결과 파일을 어떻게 같은 실행으로 증명하는가?",
+      "observation_summary": "manifest가 normalized profile, snapshot hash, 결과군과 export hash를 연결한다."
+    }
+  ],
+  "current_entry_points": [
+    {
+      "kind": "code",
+      "path": "src/company_intel/run_manifest.py",
+      "symbol": "build_run_manifest",
+      "source_hash": "sha256:473b7746813bdf725f21b6f65f2a6a63599d56ed9fc8e44e8d59e30e68f4dd87"
+    },
+    {
+      "kind": "code",
+      "path": "src/company_intel/exporting.py",
+      "symbol": "build_export_manifest",
+      "source_hash": "sha256:cb3cd5c8921995d911e66385839ffea17267818ae9964abd6443bc0d9a4fa6cb"
+    },
+    {
+      "kind": "code",
+      "path": "src/company_intel/reporting.py",
+      "symbol": "render_selection_summary",
+      "source_hash": "sha256:5038b61a812e6676da5f93fd617e9c901ccead12b2c0fe86cc7a77f36bf0ad8b"
+    },
+    {
+      "kind": "code",
+      "path": "src/company_intel/security.py",
+      "symbol": "sanitize_manifest",
+      "source_hash": "sha256:3f8ed92cbc6ed28525f78e289348024c9e6d4bcf1639a66816b649b3c48a8c5e"
+    },
+    {
+      "kind": "code",
+      "path": "src/company_intel/cli.py",
+      "symbol": "provider_refresh_command",
+      "source_hash": "sha256:7ddae6fad260be564ef5b3264a962d2a763c1dcc7f32e89dd7dcec39b53c15ac"
+    },
+    {
+      "kind": "code",
+      "path": "src/company_intel/api.py",
+      "symbol": "SnapshotRefreshRequest",
+      "source_hash": "sha256:62a5c8f5716eb0c0e5bb566ddfebc01e2043c67b748fe5f6ab71167f0259a0bf"
+    },
+    {
+      "kind": "test",
+      "path": "tests/test_run_manifest.py",
+      "symbol": "test_v2_selection_refs",
+      "source_hash": "sha256:257dffcacf94255b7a8c6d320dfacbda088aab66fcdbb60fe8060ae6b14bcf9e"
+    },
+    {
+      "kind": "test",
+      "path": "tests/test_exporting.py",
+      "symbol": "test_selection_ref_parity",
+      "source_hash": "sha256:7c43e347af8550894b713854e742ca84a9834f2a5a477c429fca32cb9cfe6cad"
+    },
+    {
+      "kind": "test",
+      "path": "tests/test_cli_workflows.py",
+      "symbol": "test_purpose_tree_to_leaf",
+      "source_hash": "sha256:3ee390b6662e45ac9b298fb990ac679f9003b75484b3bba56b3f70f9a5b843b8"
+    },
+    {
+      "kind": "code",
+      "path": "README.md",
+      "symbol": "interactive purpose tree",
+      "source_hash": "sha256:d12a849edf151d1cdd2e3e8673ac574cb780b2c8bafba0250034ffe92ae19733"
+    },
+    {
+      "kind": "code",
+      "path": "IMPLEMENTATION_REPORT_KO.md",
+      "symbol": "C-07 through C-12 status",
+      "source_hash": "sha256:5df9138933bed42bb0497405953da24555cddfa2650cc34cf512572704e51342"
+    }
+  ],
+  "planned_entry_points": [
+    {
+      "kind": "code",
+      "path": "src/company_intel/selection_provenance.py",
+      "symbol": "SelectionManifest",
+      "change_id": "file-change-952daa25d2bf"
+    },
+    {
+      "kind": "test",
+      "path": "tests/test_selection_provenance.py",
+      "symbol": "test_hash_chain",
+      "change_id": "file-change-8aba2c25f5c6"
+    }
+  ],
+  "external_entry_points": [],
+  "invariants": [
+    "API key와 개인 연락처를 manifest에 저장하지 않는다.",
+    "동일 snapshot replay만 결정론적으로 보장한다."
+  ],
+  "unresolved_conflicts": [],
+  "resume_digest": "Prepared C-12-selection-provenance-delivery from current decision hashes and one global file-ownership graph."
+}

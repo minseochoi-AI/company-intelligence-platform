@@ -172,3 +172,16 @@ K3s에서는 `secret.example.yaml`을 복사해 실제 Secret을 별도 생성�
 이번 r3 구현은 local `job-search`와 `/v1/job-search`에 동일한 facet·verdict·redacted run manifest 형식을 추가했다. `company-search`/`/v1/company-search`는 legacy candidate 목록을 유지하면서 `evaluations`에 field별 `match/no_match/unknown/conflict/not_applicable` 근거를 추가한다. 회사 taxonomy selector는 namespace 전체를 보존하므로 `ARES:pravniForma:…`처럼 namespace 안에 `:`가 있어도 첫 `:` 기준으로 잘라 비교하지 않는다.
 
 `screen`은 선택 가능한 comparability signature group을 metadata로 모두 표시하고, 명시한 `comparability_group`만 순위화할 수 있다. `timeline`은 회사·시장·거시 사실을 하나의 수열로 섞지 않고 axis × signature group별로 정렬한다. `valuation`과 `ai-event`는 계산 전에 evidence/input prerequisite를 반환하며, 준비되지 않은 입력을 점수나 인과 효과로 승격하지 않는다.
+
+## C-07~C-12 live category tree — 구현 후 테스트 전
+
+이 구현은 **implemented-not-verified**다. pytest, CLI/API smoke, provider 재호출은 이 단계에서 실행하지 않았다.
+
+- C-07: MPM pagination과 MPSV bounded download를 connector adapter로 분리하고, redacted snapshot manifest·provider 분모·partial failure를 저장할 DuckDB lineage table을 추가했다.
+- C-08: MPSV IČO↔ARES는 exact join만 `linked`로 만들고, MPM 기관명↔ALIO는 official ID 또는 검증 alias가 아니면 `candidate`/`unresolved`로 보존했다.
+- C-09: 목적 root를 데이터 상태, 현재 채용, 채용 동향, 기업·기관 분석, 결과 전달로 나누고 상위 선택 후의 count·coverage·disabled reason을 pure selection state로 계산한다.
+- C-10: `current-jobs`는 strict/unverifiable/no-match/conflict 네 결과군과 provider-returned→normalized→active 분모 사슬을 출력한다.
+- C-11: `job-trends`는 compatible repeated snapshot만 집계하고 단일 snapshot·coverage/version break는 `ineligible`로 반환한다.
+- C-12: CLI/API result와 CSV/XLSX export에 selection·snapshot·result hash ref를 포함하며, contact/secret field는 manifest에서 제거한다.
+
+구현이 수집·검색·선택 경계를 만들었다고 해서 한국·체코의 실시간 전수 coverage, 기관 법적 형태, 공고별 요건, 실제 채용 인원 또는 인과 효과가 확인된 것은 아니다. 그 주장은 각 cohort의 offline 검증과 별도 허가된 provider 실행 receipt가 있어야 한다.

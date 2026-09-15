@@ -370,3 +370,57 @@ def field_availability(
         providers=provider_names,
         unavailable_reason=reason,
     )
+
+
+def identity_link_status(records: Iterable[Any] | Any) -> list[dict[str, Any]]:
+    """Expose linkage state without promoting name candidates to entity links."""
+
+    values = _records(records)
+    counts: dict[str, int] = {}
+    for row in values:
+        status = str(row.get("identity_link_status") or row.get("identity_status") or "unresolved")
+        counts[status] = counts.get(status, 0) + 1
+    total = len(values)
+    return [
+        {"semantic_field": "identity_link_status", "scope": "identity", "normalized_value": status,
+         "display_label": status, "record_count": count, "coverage_ratio": count / total if total else 0.0,
+         "filterability": "filterable" if status == "linked" else "display_only", "sortability": "not_sortable",
+         "disabled_reason": None if status == "linked" else f"identity_{status}"}
+        for status, count in sorted(counts.items())
+    ]
+
+
+def public_context(records: Iterable[Any] | Any) -> list[dict[str, Any]]:
+    values = _records(records)
+    fields = ("public_context", "institution_type_code", "legal_form", "ownership_sector")
+    return [
+        {"semantic_field": field, "scope": "public_identity", "record_count": sum(1 for row in values if row.get(field) not in (None, "", "unknown")),
+         "coverage_ratio": facet_coverage(values, field), "filterability": "filterable" if field == "public_context" else "linked-identity-required",
+         "disabled_reason": None if field == "public_context" else "identity_link_required"}
+        for field in fields
+    ]
+
+
+def facet_count(records: Iterable[Any] | Any, field: str, value: str) -> int:
+    return sum(1 for row in _records(records) if str(row.get(field) or "") == value)
+
+
+def facet_coverage(records: Iterable[Any] | Any, field: str) -> float:
+    values = _records(records)
+    return sum(1 for row in values if row.get(field) not in (None, "", "unknown")) / len(values) if values else 0.0
+
+
+def invalid_selection(records: Iterable[Any] | Any, selection: dict[str, str]) -> bool:
+    return not any(all(str(row.get(field) or "") == value for field, value in selection.items()) for row in _records(records))
+
+
+def facet_options_for_selection(records: Iterable[Any] | Any, selection: dict[str, str], field: str) -> list[dict[str, Any]]:
+    selected = [row for row in _records(records) if all(str(row.get(key) or "") == value for key, value in selection.items())]
+    counts: dict[str, int] = {}
+    for row in selected:
+        value = row.get(field)
+        if value not in (None, "", "unknown"):
+            counts[str(value)] = counts.get(str(value), 0) + 1
+    if not counts:
+        return [{"semantic_field": field, "normalized_value": "__unavailable__", "record_count": 0, "coverage_ratio": 0.0, "filterability": "unavailable", "disabled_reason": f"{field}_unavailable"}]
+    return [{"semantic_field": field, "normalized_value": value, "record_count": count, "coverage_ratio": count / len(selected), "filterability": "filterable"} for value, count in sorted(counts.items())]

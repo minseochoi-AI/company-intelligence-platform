@@ -10,3 +10,10 @@ __pycache__/
 artifacts/
 dist/
 build/
+
+# Local execution logs and campaign mutation locks are not source evidence.
+.runtime/
+docs/decision-campaigns/.mutation-journal/
+docs/decision-campaigns/**/.mutation-journal/
+docs/decision-campaigns/**/receipts/mutation-journal/
+docs/decision-campaigns/**/receipts/**/*.lock

@@ -8,7 +8,7 @@ separate, explicitly versioned mapping with its own evidence.
 
 from __future__ import annotations
 
-from collections.abc import Iterable
+from collections.abc import Iterable, Mapping
 from typing import Any
 
 from .models import TaxonomyFact
@@ -255,6 +255,44 @@ def _mpm_facts(record: dict[str, Any], facts: list[TaxonomyFact], entity_id: str
         )
 
 
+def _mpsv_facts(record: dict[str, Any], facts: list[TaxonomyFact], entity_id: str | None, source_record_id: str | None) -> None:
+    """Keep public-administration context separate from ARES legal form."""
+
+    if record.get("statniSpravaSamosprava") is True:
+        _add(
+            facts, semantic_field="ownership_sector", value="public_administration_context",
+            namespace="MPSV:statniSpravaSamosprava", provider="mpsv_cz", raw_field="statniSpravaSamosprava",
+            raw_value=True, entity_id=entity_id, source_record_id=source_record_id,
+            evidence_status="posting_context", filterability="display_only",
+        )
+    employer = record.get("zamestnavatel") if isinstance(record.get("zamestnavatel"), dict) else {}
+    ico = employer.get("ico")
+    _add_many(
+        facts, semantic_field="posting_organization_unit", field_path="zamestnavatel.nazev", value=employer.get("nazev"),
+        namespace="MPSV:zamestnavatel", provider="mpsv_cz", entity_id=entity_id, source_record_id=source_record_id,
+        evidence_status="posting_scope", filterability="display_only",
+    )
+    if ico:
+        _add_many(
+            facts, semantic_field="entity_category", field_path="zamestnavatel.ico", value=ico,
+            namespace="MPSV:ICO", provider="mpsv_cz", entity_id=entity_id, source_record_id=source_record_id,
+            evidence_status="identifier_observed", filterability="display_only",
+        )
+
+
+def normalize_alio_taxonomy(record: Mapping[str, Any]) -> tuple[TaxonomyFact, ...]:
+    return taxonomy_facts_from_record("alioplus", dict(record))
+
+
+def normalize_ares_taxonomy(record: Mapping[str, Any]) -> tuple[TaxonomyFact, ...]:
+    return taxonomy_facts_from_record("ares", dict(record))
+
+
+def link_status(record: Mapping[str, Any]) -> str:
+    value = str(record.get("identity_link_status") or record.get("identity_status") or "unresolved")
+    return value if value in {"linked", "candidate", "unresolved", "conflict"} else "unresolved"
+
+
 def _ats_facts(provider: str, record: dict[str, Any], facts: list[TaxonomyFact], entity_id: str | None, source_record_id: str | None) -> None:
     if provider == "greenhouse":
         departments = resolve_field_path(record, "departments")
@@ -329,6 +367,8 @@ def taxonomy_facts_from_record(
         _alio_facts(record, facts, resolved_entity, resolved_record_id)
     elif normalized_provider == "mpm_public_employment":
         _mpm_facts(record, facts, resolved_entity, resolved_record_id)
+    elif normalized_provider in {"mpsv", "mpsv_cz"}:
+        _mpsv_facts(record, facts, resolved_entity, resolved_record_id)
     elif normalized_provider in {"greenhouse", "lever"}:
         _ats_facts(normalized_provider, record, facts, resolved_entity, resolved_record_id)
     return tuple(facts)

@@ -419,3 +419,96 @@ class Warehouse:
 
     def materialize_export_snapshot(self, entity_ids: list[str] | None = None) -> dict[str, list[dict[str, Any]]]:
         return self.query_export_bundle(entity_ids)
+
+    def _ensure_live_snapshot_schema(self, connection: Any) -> None:
+        """Install additive snapshot lineage tables for existing DuckDB files."""
+
+        connection.execute(
+            """
+            CREATE TABLE IF NOT EXISTS snapshot_run (
+                snapshot_id VARCHAR PRIMARY KEY, collected_at TIMESTAMP WITH TIME ZONE NOT NULL,
+                parameters_json JSON, status VARCHAR NOT NULL, partial_failure BOOLEAN NOT NULL
+            );
+            CREATE TABLE IF NOT EXISTS snapshot_source (
+                snapshot_id VARCHAR NOT NULL, provider VARCHAR NOT NULL, operation_id VARCHAR,
+                raw_sha256 VARCHAR, provider_denominator BIGINT, normalized_count BIGINT,
+                active_count BIGINT, coverage_json JSON, status VARCHAR NOT NULL, reason VARCHAR,
+                PRIMARY KEY(snapshot_id, provider)
+            );
+            CREATE TABLE IF NOT EXISTS entity_link (
+                provider_entity_id VARCHAR, canonical_entity_id VARCHAR, snapshot_id VARCHAR NOT NULL,
+                link_status VARCHAR NOT NULL, link_method VARCHAR NOT NULL, evidence_json JSON,
+                PRIMARY KEY(provider_entity_id, snapshot_id, link_method)
+            );
+            CREATE TABLE IF NOT EXISTS posting_snapshot_membership (
+                snapshot_id VARCHAR NOT NULL, provider VARCHAR NOT NULL, job_id VARCHAR NOT NULL,
+                taxonomy_version VARCHAR, normalizer_version VARCHAR, coverage_cohort VARCHAR,
+                PRIMARY KEY(snapshot_id, provider, job_id)
+            );
+            CREATE TABLE IF NOT EXISTS posting_lifecycle (
+                provider VARCHAR NOT NULL, job_id VARCHAR NOT NULL, first_snapshot_id VARCHAR NOT NULL,
+                last_snapshot_id VARCHAR NOT NULL, appearances BIGINT NOT NULL, lifecycle VARCHAR NOT NULL,
+                PRIMARY KEY(provider, job_id, last_snapshot_id)
+            );
+            """
+        )
+
+    def store_snapshot(self, manifest: dict[str, Any]) -> str:
+        """Persist the redacted snapshot manifest and per-provider denominators."""
+
+        snapshot_id = str(manifest["snapshot_id"])
+        with self.connect() as connection:
+            self._ensure_live_snapshot_schema(connection)
+            connection.execute(
+                "INSERT OR REPLACE INTO snapshot_run VALUES (?,?,?,?,?)",
+                [snapshot_id, manifest.get("collected_at"), json.dumps(manifest.get("request", {}), ensure_ascii=False), manifest.get("status", "unknown"), bool(manifest.get("partial_failure"))],
+            )
+            for source in manifest.get("sources", []):
+                if not isinstance(source, dict):
+                    continue
+                connection.execute(
+                    "INSERT OR REPLACE INTO snapshot_source VALUES (?,?,?,?,?,?,?,?,?,?)",
+                    [snapshot_id, source.get("provider"), source.get("operation_id"), source.get("payload_sha256"), source.get("record_count"), source.get("normalized_count"), source.get("active_count"), json.dumps(source.get("coverage", {}), ensure_ascii=False), source.get("status", "unknown"), source.get("reason")],
+                )
+        return snapshot_id
+
+    def load_snapshot(self, snapshot_id: str) -> dict[str, Any] | None:
+        with self.connect() as connection:
+            self._ensure_live_snapshot_schema(connection)
+            row = connection.execute("SELECT * FROM snapshot_run WHERE snapshot_id=?", [snapshot_id]).fetchone()
+            if row is None:
+                return None
+            columns = [item[0] for item in connection.description]
+            result = dict(zip(columns, row))
+            sources = connection.execute("SELECT * FROM snapshot_source WHERE snapshot_id=? ORDER BY provider", [snapshot_id]).fetchall()
+            source_columns = [item[0] for item in connection.description]
+            result["sources"] = [dict(zip(source_columns, item)) for item in sources]
+            return result
+
+    def store_entity_link(self, link: dict[str, Any], *, snapshot_id: str) -> None:
+        with self.connect() as connection:
+            self._ensure_live_snapshot_schema(connection)
+            connection.execute(
+                "INSERT OR REPLACE INTO entity_link VALUES (?,?,?,?,?,?)",
+                [link.get("provider_entity_id"), link.get("canonical_entity_id"), snapshot_id, link.get("status", "unresolved"), link.get("method", "unknown"), json.dumps(link.get("evidence", {}), ensure_ascii=False)],
+            )
+
+    def store_posting_membership(self, snapshot_id: str, rows: list[dict[str, Any]], *, taxonomy_version: str, normalizer_version: str, coverage_cohort: str) -> None:
+        with self.connect() as connection:
+            self._ensure_live_snapshot_schema(connection)
+            connection.executemany(
+                "INSERT OR REPLACE INTO posting_snapshot_membership VALUES (?,?,?,?,?,?)",
+                [(snapshot_id, row.get("provider"), row.get("job_id"), taxonomy_version, normalizer_version, coverage_cohort) for row in rows if row.get("provider") and row.get("job_id")],
+            )
+
+    def load_snapshot_series(self, *, provider: str | None = None) -> list[dict[str, Any]]:
+        with self.connect() as connection:
+            self._ensure_live_snapshot_schema(connection)
+            sql = "SELECT m.*, r.collected_at FROM posting_snapshot_membership m JOIN snapshot_run r USING(snapshot_id)"
+            params: list[Any] = []
+            if provider:
+                sql += " WHERE m.provider=?"
+                params.append(provider)
+            sql += " ORDER BY r.collected_at, m.provider, m.job_id"
+            cursor = connection.execute(sql, params)
+            return [dict(zip([item[0] for item in cursor.description], row)) for row in cursor.fetchall()]

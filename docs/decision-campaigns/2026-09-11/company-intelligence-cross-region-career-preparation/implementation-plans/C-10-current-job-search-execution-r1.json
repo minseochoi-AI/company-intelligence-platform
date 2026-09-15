@@ -1,0 +1,473 @@
+{
+  "contract_version": "1.2.0",
+  "plan_id": "company-intelligence-cross-region-career-preparation--C-10-current-job-search-execution--r1",
+  "owner": {
+    "kind": "campaign-cohort",
+    "id": "C-10-current-job-search-execution"
+  },
+  "source_refs": [
+    {
+      "id": "D-15-current-job-search-result-contract",
+      "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/15-d-15-current-job-search-result-contract.json",
+      "sha256": "sha256:ede5de78f444d74deec246291faf3b4377f4a3dc3256b0872c973c73d0d17527"
+    }
+  ],
+  "status": "contract-ready",
+  "change_slices": [
+    {
+      "slice_id": "current-job-four-state-execution",
+      "behavior": "선택된 불변 snapshot과 active_as_of에서 국가·공공기관 identity·직종·위치·고용·급여·요건을 검사하고 네 결과군과 분모 chain을 반환한다.",
+      "dependencies": [
+        "C-02-search-requirement-evidence",
+        "C-06-job-availability-filtered-discovery",
+        "C-09-mode-and-tree-query-contract"
+      ],
+      "operations": [
+        {
+          "change_id": "file-change-cdc940596fb4",
+          "operation": "CREATE",
+          "path": "src/company_intel/current_jobs.py",
+          "symbols": [
+            "CurrentJobResult",
+            "SearchDenominators",
+            "execute_current_job_search",
+            "summarize_coverage"
+          ],
+          "current_state": "live snapshot과 4상태 DataFrame을 결속하는 current-job application service가 없다.",
+          "source_hash": null,
+          "result_hash": null,
+          "expected_result": "snapshot manifest, active cutoff, normalized profile, result partitions와 provider coverage를 하나의 응답으로 만든다.",
+          "after_state": "snapshot manifest, active cutoff, normalized profile, result partitions와 provider coverage를 하나의 응답으로 만든다.",
+          "rationale": "현재 채용의 결과 수와 검사 한계를 같은 실행에서 설명하기 위해서다.",
+          "dependencies": [],
+          "public_contract_impacts": [
+            "current job search service v1"
+          ],
+          "compatibility": "기존 search_job_dataframes 결과를 내부 계산기로 재사용한다.",
+          "migration": "기존 job-search는 저장 payload adapter로 유지한다.",
+          "rollback": "신규 service route를 숨긴다.",
+          "authorization_boundary": "공개 공고만 처리하고 unavailable을 false로 만들지 않는다.",
+          "consumer_search": null,
+          "contributes_to": [
+            "D-15-current-job-search-result-contract"
+          ],
+          "contribution_refs": [
+            {
+              "decision_id": "D-15-current-job-search-result-contract",
+              "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/15-d-15-current-job-search-result-contract.json",
+              "sha256": "sha256:ede5de78f444d74deec246291faf3b4377f4a3dc3256b0872c973c73d0d17527",
+              "symbols": [
+                "CurrentJobResult",
+                "SearchDenominators",
+                "execute_current_job_search",
+                "summarize_coverage"
+              ],
+              "intent_change_ids": [
+                "D-15-current-job-search-result-contract-service"
+              ]
+            }
+          ],
+          "intent_change_ids": [
+            "D-15-current-job-search-result-contract-service"
+          ],
+          "symbol_changes": [
+            {
+              "symbol": "CurrentJobResult",
+              "intent": "snapshot manifest, active cutoff, normalized profile, result partitions와 provider coverage를 하나의 응답으로 만든다.",
+              "decision_id": "D-15-current-job-search-result-contract"
+            },
+            {
+              "symbol": "SearchDenominators",
+              "intent": "snapshot manifest, active cutoff, normalized profile, result partitions와 provider coverage를 하나의 응답으로 만든다.",
+              "decision_id": "D-15-current-job-search-result-contract"
+            },
+            {
+              "symbol": "execute_current_job_search",
+              "intent": "snapshot manifest, active cutoff, normalized profile, result partitions와 provider coverage를 하나의 응답으로 만든다.",
+              "decision_id": "D-15-current-job-search-result-contract"
+            },
+            {
+              "symbol": "summarize_coverage",
+              "intent": "snapshot manifest, active cutoff, normalized profile, result partitions와 provider coverage를 하나의 응답으로 만든다.",
+              "decision_id": "D-15-current-job-search-result-contract"
+            }
+          ]
+        },
+        {
+          "change_id": "file-change-46da3fcbd9b9",
+          "operation": "MODIFY",
+          "path": "src/company_intel/job_search.py",
+          "symbols": [
+            "normalize_mpm_jobs",
+            "normalize_mpsv_jobs",
+            "identity_link_status",
+            "public_context",
+            "search_job_dataframes",
+            "evaluate_filter",
+            "active_as_of",
+            "build_denominators"
+          ],
+          "current_state": "MPM/MPSV 공공 맥락은 표시하지만 ALIO/ARES entity link와 독립 taxonomy 축을 결과 행에 결속하지 않는다. | 4상태 결과는 있으나 live snapshot 분모·active 기준·identity verdict가 한 계약으로 묶이지 않는다.",
+          "source_hash": "sha256:dc859e7af8de87c462772b38b8230b076e4e322d3579592ea02fb8955368f808",
+          "result_hash": null,
+          "expected_result": "공고 raw employer와 canonical entity/link status, public context, legal form, institution type을 분리해 보존한다. | provider returned→normalized→active→strict/unverifiable/no-match/conflict 합계를 보존하고 필터별 reason을 반환한다.",
+          "after_state": "공고 raw employer와 canonical entity/link status, public context, legal form, institution type을 분리해 보존한다. | provider returned→normalized→active→strict/unverifiable/no-match/conflict 합계를 보존하고 필터별 reason을 반환한다.",
+          "rationale": "공공 필터가 provider flag만으로 공기업을 확정하지 않도록 한다. | 0건과 필드 부재를 정확히 분리하기 위해서다.",
+          "dependencies": [],
+          "public_contract_impacts": [
+            "public job identity columns",
+            "job result contract v4"
+          ],
+          "compatibility": "기존 company_name/company_type display를 유지한다. | 기존 DataFrame names를 유지하고 summary를 추가한다.",
+          "migration": "신규 identity columns를 additive하게 추가한다. | legacy unknown policy를 명시 verdict로 변환한다.",
+          "rollback": "identity columns를 unavailable로 반환한다. | 기존 v3 tables만 반환한다.",
+          "authorization_boundary": "미연결은 unresolved로 남긴다. | 요건·급여 미확인을 일치로 승격하지 않는다.",
+          "consumer_search": null,
+          "contributes_to": [
+            "D-13-public-sector-identity-linkage",
+            "D-15-current-job-search-result-contract"
+          ],
+          "contribution_refs": [
+            {
+              "decision_id": "D-13-public-sector-identity-linkage",
+              "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/13-d-13-public-sector-identity-linkage.json",
+              "sha256": "sha256:4536a5e8f9030cd6b840861f9ea1c0641b86f72ac4d4906d11f2594166741498",
+              "symbols": [
+                "normalize_mpm_jobs",
+                "normalize_mpsv_jobs",
+                "identity_link_status",
+                "public_context",
+                "search_job_dataframes",
+                "evaluate_filter",
+                "active_as_of",
+                "build_denominators"
+              ],
+              "intent_change_ids": [
+                "D-13-public-sector-identity-linkage-job-normalization"
+              ]
+            },
+            {
+              "decision_id": "D-15-current-job-search-result-contract",
+              "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/15-d-15-current-job-search-result-contract.json",
+              "sha256": "sha256:ede5de78f444d74deec246291faf3b4377f4a3dc3256b0872c973c73d0d17527",
+              "symbols": [
+                "normalize_mpm_jobs",
+                "normalize_mpsv_jobs",
+                "identity_link_status",
+                "public_context",
+                "search_job_dataframes",
+                "evaluate_filter",
+                "active_as_of",
+                "build_denominators"
+              ],
+              "intent_change_ids": [
+                "D-15-current-job-search-result-contract-engine"
+              ]
+            }
+          ],
+          "intent_change_ids": [
+            "D-13-public-sector-identity-linkage-job-normalization",
+            "D-15-current-job-search-result-contract-engine"
+          ],
+          "symbol_changes": [
+            {
+              "symbol": "normalize_mpm_jobs",
+              "intent": "공고 raw employer와 canonical entity/link status, public context, legal form, institution type을 분리해 보존한다.",
+              "decision_id": "D-13-public-sector-identity-linkage"
+            },
+            {
+              "symbol": "normalize_mpsv_jobs",
+              "intent": "공고 raw employer와 canonical entity/link status, public context, legal form, institution type을 분리해 보존한다.",
+              "decision_id": "D-13-public-sector-identity-linkage"
+            },
+            {
+              "symbol": "identity_link_status",
+              "intent": "공고 raw employer와 canonical entity/link status, public context, legal form, institution type을 분리해 보존한다.",
+              "decision_id": "D-13-public-sector-identity-linkage"
+            },
+            {
+              "symbol": "public_context",
+              "intent": "공고 raw employer와 canonical entity/link status, public context, legal form, institution type을 분리해 보존한다.",
+              "decision_id": "D-13-public-sector-identity-linkage"
+            },
+            {
+              "symbol": "search_job_dataframes",
+              "intent": "provider returned→normalized→active→strict/unverifiable/no-match/conflict 합계를 보존하고 필터별 reason을 반환한다.",
+              "decision_id": "D-15-current-job-search-result-contract"
+            },
+            {
+              "symbol": "evaluate_filter",
+              "intent": "provider returned→normalized→active→strict/unverifiable/no-match/conflict 합계를 보존하고 필터별 reason을 반환한다.",
+              "decision_id": "D-15-current-job-search-result-contract"
+            },
+            {
+              "symbol": "active_as_of",
+              "intent": "provider returned→normalized→active→strict/unverifiable/no-match/conflict 합계를 보존하고 필터별 reason을 반환한다.",
+              "decision_id": "D-15-current-job-search-result-contract"
+            },
+            {
+              "symbol": "build_denominators",
+              "intent": "provider returned→normalized→active→strict/unverifiable/no-match/conflict 합계를 보존하고 필터별 reason을 반환한다.",
+              "decision_id": "D-15-current-job-search-result-contract"
+            }
+          ]
+        },
+        {
+          "change_id": "file-change-019d6886b2c8",
+          "operation": "MODIFY",
+          "path": "src/company_intel/search.py",
+          "symbols": [
+            "evaluate_semantic_filter",
+            "identity_link_status",
+            "public_sector_filter"
+          ],
+          "current_state": "회사 검색은 taxonomy fact를 사용하지만 공고-entity link 품질을 조건으로 삼지 않는다.",
+          "source_hash": "sha256:6864c22a25119686b6f8908f5f9c4ce50534099e2dd99336c9b0c5c0ebce7a09",
+          "result_hash": null,
+          "expected_result": "public institution/ownership/legal-form 필터가 linked evidence와 unresolved/conflict 상태를 구분한다.",
+          "after_state": "public institution/ownership/legal-form 필터가 linked evidence와 unresolved/conflict 상태를 구분한다.",
+          "rationale": "기업 검색과 채용 검색의 공공 identity 판정을 일치시키기 위해서다.",
+          "dependencies": [],
+          "public_contract_impacts": [
+            "public identity search verdicts"
+          ],
+          "compatibility": "기존 semantic filters를 유지한다.",
+          "migration": "identity 없는 entity는 UNKNOWN으로 처리한다.",
+          "rollback": "신규 filter fields를 disabled로 표시한다.",
+          "authorization_boundary": "이름·source scope로 ownership을 추정하지 않는다.",
+          "consumer_search": null,
+          "contributes_to": [
+            "D-13-public-sector-identity-linkage"
+          ],
+          "contribution_refs": [
+            {
+              "decision_id": "D-13-public-sector-identity-linkage",
+              "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/13-d-13-public-sector-identity-linkage.json",
+              "sha256": "sha256:4536a5e8f9030cd6b840861f9ea1c0641b86f72ac4d4906d11f2594166741498",
+              "symbols": [
+                "evaluate_semantic_filter",
+                "identity_link_status",
+                "public_sector_filter"
+              ],
+              "intent_change_ids": [
+                "D-13-public-sector-identity-linkage-company-search"
+              ]
+            }
+          ],
+          "intent_change_ids": [
+            "D-13-public-sector-identity-linkage-company-search"
+          ],
+          "symbol_changes": [
+            {
+              "symbol": "evaluate_semantic_filter",
+              "intent": "public institution/ownership/legal-form 필터가 linked evidence와 unresolved/conflict 상태를 구분한다.",
+              "decision_id": "D-13-public-sector-identity-linkage"
+            },
+            {
+              "symbol": "identity_link_status",
+              "intent": "public institution/ownership/legal-form 필터가 linked evidence와 unresolved/conflict 상태를 구분한다.",
+              "decision_id": "D-13-public-sector-identity-linkage"
+            },
+            {
+              "symbol": "public_sector_filter",
+              "intent": "public institution/ownership/legal-form 필터가 linked evidence와 unresolved/conflict 상태를 구분한다.",
+              "decision_id": "D-13-public-sector-identity-linkage"
+            }
+          ]
+        },
+        {
+          "change_id": "file-change-da6bf1177b56",
+          "operation": "CREATE",
+          "path": "tests/test_current_jobs.py",
+          "symbols": [
+            "test_denominator_chain",
+            "test_active_as_of",
+            "test_mpm_missing_fields_are_unverifiable",
+            "test_salary_signature_groups"
+          ],
+          "current_state": "current job application service 전용 테스트가 없다.",
+          "source_hash": null,
+          "result_hash": null,
+          "expected_result": "KR/CZ fixture로 분모 보존, active cutoff, field unavailable, 월/시급 분리를 검증한다.",
+          "after_state": "KR/CZ fixture로 분모 보존, active cutoff, field unavailable, 월/시급 분리를 검증한다.",
+          "rationale": "실제 국가별 field 차이를 결과군으로 보존하기 위해서다.",
+          "dependencies": [
+            "file-change-cdc940596fb4",
+            "file-change-46da3fcbd9b9"
+          ],
+          "public_contract_impacts": [
+            "current job integration tests"
+          ],
+          "compatibility": "외부 호출 없이 저장 fixture를 사용한다.",
+          "migration": "없음.",
+          "rollback": "service와 함께 제거한다.",
+          "authorization_boundary": "실제 API key와 연락처를 사용하지 않는다.",
+          "consumer_search": null,
+          "contributes_to": [
+            "D-15-current-job-search-result-contract"
+          ],
+          "contribution_refs": [
+            {
+              "decision_id": "D-15-current-job-search-result-contract",
+              "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/15-d-15-current-job-search-result-contract.json",
+              "sha256": "sha256:ede5de78f444d74deec246291faf3b4377f4a3dc3256b0872c973c73d0d17527",
+              "symbols": [
+                "test_denominator_chain",
+                "test_active_as_of",
+                "test_mpm_missing_fields_are_unverifiable",
+                "test_salary_signature_groups"
+              ],
+              "intent_change_ids": [
+                "D-15-current-job-search-result-contract-tests"
+              ]
+            }
+          ],
+          "intent_change_ids": [
+            "D-15-current-job-search-result-contract-tests"
+          ],
+          "symbol_changes": [
+            {
+              "symbol": "test_denominator_chain",
+              "intent": "KR/CZ fixture로 분모 보존, active cutoff, field unavailable, 월/시급 분리를 검증한다.",
+              "decision_id": "D-15-current-job-search-result-contract"
+            },
+            {
+              "symbol": "test_active_as_of",
+              "intent": "KR/CZ fixture로 분모 보존, active cutoff, field unavailable, 월/시급 분리를 검증한다.",
+              "decision_id": "D-15-current-job-search-result-contract"
+            },
+            {
+              "symbol": "test_mpm_missing_fields_are_unverifiable",
+              "intent": "KR/CZ fixture로 분모 보존, active cutoff, field unavailable, 월/시급 분리를 검증한다.",
+              "decision_id": "D-15-current-job-search-result-contract"
+            },
+            {
+              "symbol": "test_salary_signature_groups",
+              "intent": "KR/CZ fixture로 분모 보존, active cutoff, field unavailable, 월/시급 분리를 검증한다.",
+              "decision_id": "D-15-current-job-search-result-contract"
+            }
+          ]
+        },
+        {
+          "change_id": "file-change-61fffd113df6",
+          "operation": "MODIFY",
+          "path": "tests/test_job_search.py",
+          "symbols": [
+            "test_live_snapshot_denominators",
+            "test_public_identity_verdict",
+            "test_unknown_is_not_no_match"
+          ],
+          "current_state": "저장 payload의 4상태는 검사하지만 live manifest·identity·분모 chain을 검사하지 않는다.",
+          "source_hash": "sha256:7e577ff99fe591caf5773c4aeede07286364faa4a3cf0d6c2a675e1a9d2a0050",
+          "result_hash": null,
+          "expected_result": "snapshot lineage와 identity/급여/요건 UNKNOWN이 네 결과군과 합계에 반영되는지 검증한다.",
+          "after_state": "snapshot lineage와 identity/급여/요건 UNKNOWN이 네 결과군과 합계에 반영되는지 검증한다.",
+          "rationale": "기존 검색 엔진 회귀 범위를 확장하기 위해서다.",
+          "dependencies": [
+            "file-change-46da3fcbd9b9"
+          ],
+          "public_contract_impacts": [
+            "job search v4 tests"
+          ],
+          "compatibility": "기존 cases를 유지한다.",
+          "migration": "없음.",
+          "rollback": "신규 cases만 제거한다.",
+          "authorization_boundary": "offline fixture만 사용한다.",
+          "consumer_search": null,
+          "contributes_to": [
+            "D-15-current-job-search-result-contract"
+          ],
+          "contribution_refs": [
+            {
+              "decision_id": "D-15-current-job-search-result-contract",
+              "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/15-d-15-current-job-search-result-contract.json",
+              "sha256": "sha256:ede5de78f444d74deec246291faf3b4377f4a3dc3256b0872c973c73d0d17527",
+              "symbols": [
+                "test_live_snapshot_denominators",
+                "test_public_identity_verdict",
+                "test_unknown_is_not_no_match"
+              ],
+              "intent_change_ids": [
+                "D-15-current-job-search-result-contract-job-tests"
+              ]
+            }
+          ],
+          "intent_change_ids": [
+            "D-15-current-job-search-result-contract-job-tests"
+          ],
+          "symbol_changes": [
+            {
+              "symbol": "test_live_snapshot_denominators",
+              "intent": "snapshot lineage와 identity/급여/요건 UNKNOWN이 네 결과군과 합계에 반영되는지 검증한다.",
+              "decision_id": "D-15-current-job-search-result-contract"
+            },
+            {
+              "symbol": "test_public_identity_verdict",
+              "intent": "snapshot lineage와 identity/급여/요건 UNKNOWN이 네 결과군과 합계에 반영되는지 검증한다.",
+              "decision_id": "D-15-current-job-search-result-contract"
+            },
+            {
+              "symbol": "test_unknown_is_not_no_match",
+              "intent": "snapshot lineage와 identity/급여/요건 UNKNOWN이 네 결과군과 합계에 반영되는지 검증한다.",
+              "decision_id": "D-15-current-job-search-result-contract"
+            }
+          ]
+        }
+      ],
+      "routes": [
+        {
+          "route_id": "c10-job-semantics",
+          "skill": "company-intelligence-career-research",
+          "requirement": "required",
+          "phase": "IMPLEMENT",
+          "purpose": "국가별 채용·급여·요건·공공기관 field 의미를 보존한다.",
+          "expected_artifact": "C-10 current job implementation"
+        },
+        {
+          "route_id": "c10-verification",
+          "skill": "verification-before-completion",
+          "requirement": "required",
+          "phase": "VALIDATE",
+          "purpose": "현재 채용 분모와 판정군을 독립 검증한다.",
+          "expected_artifact": "C-10 validation receipt"
+        }
+      ],
+      "completion_contract": [
+        {
+          "criterion_id": "C-10-current-job-tests",
+          "behavior": "현재 채용 검색이 snapshot 기준시각·분모와 네 결과군을 국가별 필드 차이 없이 보존한다.",
+          "blocking": true,
+          "owner_skill": "verification-before-completion",
+          "phase": "VALIDATE",
+          "depends_on_criteria": [],
+          "test": {
+            "type": "pytest",
+            "value": "uv run --frozen pytest tests/test_current_jobs.py tests/test_job_search.py -q",
+            "runner": "pytest",
+            "paths": [
+              "tests/test_current_jobs.py",
+              "tests/test_job_search.py"
+            ],
+            "provider_backed": false,
+            "timeout_seconds": 300
+          },
+          "expected_result": "all tests pass",
+          "failure_marker": "denominator mismatch, expired inclusion, unknown collapse, or salary signature mixing",
+          "receipt": {
+            "status": "planned",
+            "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/receipts/criteria/C-10-current-job-tests.json",
+            "sha256": "planned"
+          },
+          "status": "planned"
+        }
+      ]
+    }
+  ],
+  "metadata": {
+    "compiled_from_decision_intents": true,
+    "planned_commit_message": "feat(search): add current-job snapshot results",
+    "git_finalization_authorized": false,
+    "test_execution_deferred": true,
+    "preparation_contract": "campaign-global-ownership-v1"
+  }
+}

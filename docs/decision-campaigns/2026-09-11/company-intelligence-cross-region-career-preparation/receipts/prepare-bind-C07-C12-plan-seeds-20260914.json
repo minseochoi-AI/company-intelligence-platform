@@ -1,0 +1,75 @@
+{
+  "contract_version": "atomic-json-patch-receipt-v1",
+  "target": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/campaign.json",
+  "outcome": "pass",
+  "before_sha256": "353e35ccebe0d55948712e283735d9921e858f3d3c2e92cbaccae53a748b3530",
+  "after_sha256": "b5128e835a3aad4688be837f0eedb0cda220ca4092caf7e3f233a3628517ebeb",
+  "proposed_after_sha256": "b5128e835a3aad4688be837f0eedb0cda220ca4092caf7e3f233a3628517ebeb",
+  "operations": [
+    {
+      "op": "test",
+      "path": "/implementation_cohorts/6/cohort_id"
+    },
+    {
+      "op": "test",
+      "path": "/implementation_cohorts/7/cohort_id"
+    },
+    {
+      "op": "test",
+      "path": "/implementation_cohorts/8/cohort_id"
+    },
+    {
+      "op": "test",
+      "path": "/implementation_cohorts/9/cohort_id"
+    },
+    {
+      "op": "test",
+      "path": "/implementation_cohorts/10/cohort_id"
+    },
+    {
+      "op": "test",
+      "path": "/implementation_cohorts/11/cohort_id"
+    },
+    {
+      "op": "add",
+      "path": "/implementation_cohorts/6/implementation_plan_path"
+    },
+    {
+      "op": "add",
+      "path": "/implementation_cohorts/7/implementation_plan_path"
+    },
+    {
+      "op": "add",
+      "path": "/implementation_cohorts/8/implementation_plan_path"
+    },
+    {
+      "op": "add",
+      "path": "/implementation_cohorts/9/implementation_plan_path"
+    },
+    {
+      "op": "add",
+      "path": "/implementation_cohorts/10/implementation_plan_path"
+    },
+    {
+      "op": "add",
+      "path": "/implementation_cohorts/11/implementation_plan_path"
+    }
+  ],
+  "backup": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/receipts/mutation-journal/preimages/sha256-353e35ccebe0d55948712e283735d9921e858f3d3c2e92cbaccae53a748b3530.json",
+  "journal": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/receipts/mutation-journal/mutations/f9798976f4d15eb33cd04a3b37307567ef2941dffee68fc9fa84e7f852f00600.json",
+  "mutation_id": "prepare-bind-C07-C12-plan-seeds-20260914-retry2",
+  "validators": [
+    {
+      "command": [
+        "python3",
+        "/tmp/validate_local_schema.py",
+        "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/campaign.json",
+        "/home/ubuntu/.codex/skills/decision-campaign-workbook/references/decision-campaign.schema.json"
+      ],
+      "returncode": 0,
+      "stdout_tail": "",
+      "stderr_tail": ""
+    }
+  ],
+  "completed_at": "2026-09-14T12:56:12.360322+00:00"
+}

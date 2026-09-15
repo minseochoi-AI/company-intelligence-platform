@@ -1,0 +1,51 @@
+{
+  "contract_version": "campaign-combined-authorization-v1",
+  "campaign_id": "company-intelligence-cross-region-career-preparation",
+  "campaign_path": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/campaign.json",
+  "scope_lock_path": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/scope-lock.json",
+  "scope_lock_sha256": "b01342d1d6756805b15812b1b9a5197be6c122cf2f1a2716b974470aa7d12f28",
+  "authorized_by": "user",
+  "authorized_at": "2026-09-14T13:04:35.429013+00:00",
+  "authorization_text": "전부 구현하여 decision-campaign-workbook으로 테스트 전 턴오버 해",
+  "authorization_text_sha256": "dd7bd31779420004d373ba8bca0a0fca08a2f9def2e5f414aa54c06d855fde08",
+  "authorized_plan_refs": [
+    {
+      "cohort_id": "C-07-live-source-snapshot-foundation",
+      "plan_id": "company-intelligence-cross-region-career-preparation--C-07-live-source-snapshot-foundation--r1",
+      "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/implementation-plans/C-07-live-source-snapshot-foundation-r1.json",
+      "sha256": "7abde58da2f3fab3b0926c1d7cf98dea64b5840bf61a66b68a2fff62c778fb05"
+    },
+    {
+      "cohort_id": "C-08-public-sector-identity-linkage",
+      "plan_id": "company-intelligence-cross-region-career-preparation--C-08-public-sector-identity-linkage--r1",
+      "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/implementation-plans/C-08-public-sector-identity-linkage-r1.json",
+      "sha256": "2b2e1a84a2848c95a637fcefe1599b7393927da415fe74eecc04fc778885126d"
+    },
+    {
+      "cohort_id": "C-09-mode-and-tree-query-contract",
+      "plan_id": "company-intelligence-cross-region-career-preparation--C-09-mode-and-tree-query-contract--r1",
+      "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/implementation-plans/C-09-mode-and-tree-query-contract-r1.json",
+      "sha256": "c6cb23a8d352e66eaee6283d2f664b4095b5502d501539ca5848043c7fb83f18"
+    },
+    {
+      "cohort_id": "C-10-current-job-search-execution",
+      "plan_id": "company-intelligence-cross-region-career-preparation--C-10-current-job-search-execution--r1",
+      "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/implementation-plans/C-10-current-job-search-execution-r1.json",
+      "sha256": "137eceba5f6d71fd6d3a3cc1bf085a02a46eeac49d9947e05bfe2638916f7258"
+    },
+    {
+      "cohort_id": "C-11-job-trend-series-analysis",
+      "plan_id": "company-intelligence-cross-region-career-preparation--C-11-job-trend-series-analysis--r1",
+      "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/implementation-plans/C-11-job-trend-series-analysis-r1.json",
+      "sha256": "92fdca605dd8438c86be16ee31e171e74e675d7e60e975adcb68b1dfd5974417"
+    },
+    {
+      "cohort_id": "C-12-selection-provenance-delivery",
+      "plan_id": "company-intelligence-cross-region-career-preparation--C-12-selection-provenance-delivery--r1",
+      "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/implementation-plans/C-12-selection-provenance-delivery-r1.json",
+      "sha256": "de4ce2fd771295fb7a85d2720cd7b4f3b460f51807642c504ca31b968b529f1a"
+    }
+  ],
+  "stop_before_validation": true,
+  "external_actions_authorized": false
+}

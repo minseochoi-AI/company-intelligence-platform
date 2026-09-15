@@ -7,6 +7,7 @@ from company_intel.query_contract import (
     UnknownPolicy,
     combine_verdicts,
     company_search_profile_from_mapping,
+    normalize_tree_selection,
 )
 
 
@@ -69,3 +70,8 @@ def test_mapping_adapter_rejects_ambiguous_boolean_and_invalid_policy():
 def test_semantic_value_selector_retains_its_namespace():
     assert SemanticValue(value="H1UM", namespace="GLEIF").selector == "GLEIF:H1UM"
     assert combine_verdicts((FilterVerdict.MATCH, FilterVerdict.CONFLICT)) == FilterVerdict.CONFLICT
+
+
+def test_current_and_trend_mode_contracts_are_distinct():
+    assert normalize_tree_selection({"purpose": "current_jobs", "selections": {"country": "KR"}}).mode.value == "current_job"
+    assert normalize_tree_selection({"purpose": "job_trends", "selections": {}}).mode.value == "job_trend"

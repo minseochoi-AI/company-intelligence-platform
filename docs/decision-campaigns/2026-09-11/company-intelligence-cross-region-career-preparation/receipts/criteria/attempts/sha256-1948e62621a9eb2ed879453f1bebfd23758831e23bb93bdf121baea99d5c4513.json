@@ -1,0 +1,36 @@
+{
+  "cohort_id": "C-07-live-source-snapshot-foundation",
+  "status": "completed",
+  "changed_paths": [],
+  "commands": [
+    "uv run --cache-dir /tmp/company-intel-uv-cache-20260914 --frozen pytest tests/test_live_snapshots.py tests/test_public_connectors.py -q"
+  ],
+  "outcome": "pass",
+  "raw_log_path": ".runtime/campaign-validation-20260914/C-07-retry1.log",
+  "raw_log_sha256": "3b699c09a131f6fce9f8c5f77719de7f8be6f3d226bd0fbfbe7c408b1742ff02",
+  "first_failure": null,
+  "stdout_tail": "....... [100%] 7 passed in 0.27s",
+  "stderr_tail": null,
+  "telemetry": {
+    "provider": {
+      "measurement": "not-applicable",
+      "invocations": null,
+      "input_tokens": null,
+      "output_tokens": null
+    },
+    "agent_session": {
+      "measurement": "unavailable-platform",
+      "token_count": null,
+      "tool_output_chars": null
+    }
+  },
+  "provider_guard": null,
+  "updated_at": "2026-09-14T14:34:22.099582+00:00",
+  "context_packet_id": "C-07-live-source-snapshot-foundation-r1",
+  "context_packet_sha256": "3e6dd4ea746839c82843c8d564e0a4a5f61c97ab76c1c71e6e6b605f26665f01",
+  "implementation_plan_id": "company-intelligence-cross-region-career-preparation--C-07-live-source-snapshot-foundation--r1",
+  "implementation_plan_sha256": "7abde58da2f3fab3b0926c1d7cf98dea64b5840bf61a66b68a2fff62c778fb05",
+  "passed_criterion_ids": [
+    "C-07-live-snapshot-tests"
+  ]
+}

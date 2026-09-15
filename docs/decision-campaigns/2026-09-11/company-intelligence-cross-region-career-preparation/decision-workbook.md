@@ -7,12 +7,12 @@
 
 | 항목 | 값 |
 |---|---|
-| 목표 | 미국·한국·EU/체코의 공개·무료 접근 가능 데이터로 국가별 기업·공고·요건을 근거 기반으로 분리·검색·내보내고, 동료군 순위·시간축 거시 비교·미래가치·AI 사건 검증까지 10개 사용자 기능으로 제공하는 설계를 고정한다. |
+| 목표 | 미국·한국·EU/체코의 공개·무료 접근 가능 데이터로 국가별 기업·공고·요건을 근거 기반으로 분리·검색·내보내고, 현재 채용 검색과 반복 snapshot 기반 채용 동향 분석을 분리한 단계형 실시간 카테고리 트리 및 기업 분석까지 17개 사용자 결정을 통해 제공하는 설계를 고정한다. |
 | 상태 | decision-approved |
 | 생성일 | 2026-09-11 |
-| 구현 승인 | 승인됨: True<br>승인자: user<br>승인 시각: 2026-09-13T08:19:05.623666+00:00<br>범위: ['D-01-source-access-policy', 'D-02-company-capability-taxonomy', 'D-03-search-profile-and-discovery', 'D-04-career-requirement-verification', 'D-05-spreadsheet-output-contract', 'D-06-peer-screener-ranking', 'D-07-company-timeline-macro-comparison', 'D-08-future-value-scenarios', 'D-09-ai-event-effect-validation', 'D-10-job-availability-filtered-discovery']<br>승인된 계획 참조: [{'cohort_id': 'C-01-source-identity-foundation', 'plan_id': 'company-intelligence-cross-region-career-preparation--C-01-source-identity-foundation--r3', 'path': 'docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/implementation-plans/C-01-source-identity-foundation-r3.json', 'sha256': '29b89c280e2598784e20d9ef213f83212b4cc62787e85e93fa0be336777cfd88'}, {'cohort_id': 'C-02-search-requirement-evidence', 'plan_id': 'company-intelligence-cross-region-career-preparation--C-02-search-requirement-evidence--r3', 'path': 'docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/implementation-plans/C-02-search-requirement-evidence-r3.json', 'sha256': 'c988fec11105b80a25a48e8bc881c8f98b26f9b2f14580d61c95637faf47d59c'}, {'cohort_id': 'C-03-evidence-export-delivery', 'plan_id': 'company-intelligence-cross-region-career-preparation--C-03-evidence-export-delivery--r3', 'path': 'docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/implementation-plans/C-03-evidence-export-delivery-r3.json', 'sha256': 'fa2933fb85bbcd306c70dfab4f10acc70968bcdcb9adc3bbbaa861a7022b4a8d'}, {'cohort_id': 'C-04-peer-screener-ranking', 'plan_id': 'company-intelligence-cross-region-career-preparation--C-04-peer-screener-ranking--r3', 'path': 'docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/implementation-plans/C-04-peer-screener-ranking-r3.json', 'sha256': 'a70a138b32038c0570d6c96466fdef0343448aadc583d4fb32b6bf68f733564c'}, {'cohort_id': 'C-05-timeline-valuation-event-analysis', 'plan_id': 'company-intelligence-cross-region-career-preparation--C-05-timeline-valuation-event-analysis--r3', 'path': 'docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/implementation-plans/C-05-timeline-valuation-event-analysis-r3.json', 'sha256': '0628be1faaa8c4b7cff99ad5e4a818848dd85d24d9e045a2d5bdb322cc1f88da'}, {'cohort_id': 'C-06-job-availability-filtered-discovery', 'plan_id': 'company-intelligence-cross-region-career-preparation--C-06-job-availability-filtered-discovery--r3', 'path': 'docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/implementation-plans/C-06-job-availability-filtered-discovery-r3.json', 'sha256': 'aa1c4aa49fbcd3fe2e05a233c789b6b3588d3cc5d9588476aaec26c301ea8606'}] |
+| 구현 승인 | 승인됨: True<br>승인자: user<br>승인 시각: 2026-09-14T13:04:35.429013+00:00<br>범위: ['D-11-live-source-refresh-snapshot-contract', 'D-13-public-sector-identity-linkage', 'D-12-current-search-trend-mode-separation', 'D-14-progressive-facet-tree-navigation', 'D-15-current-job-search-result-contract', 'D-16-job-trend-series-analysis-contract', 'D-17-selection-session-result-provenance']<br>승인된 계획 참조: [{'cohort_id': 'C-07-live-source-snapshot-foundation', 'plan_id': 'company-intelligence-cross-region-career-preparation--C-07-live-source-snapshot-foundation--r1', 'path': 'docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/implementation-plans/C-07-live-source-snapshot-foundation-r1.json', 'sha256': '7abde58da2f3fab3b0926c1d7cf98dea64b5840bf61a66b68a2fff62c778fb05'}, {'cohort_id': 'C-08-public-sector-identity-linkage', 'plan_id': 'company-intelligence-cross-region-career-preparation--C-08-public-sector-identity-linkage--r1', 'path': 'docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/implementation-plans/C-08-public-sector-identity-linkage-r1.json', 'sha256': '2b2e1a84a2848c95a637fcefe1599b7393927da415fe74eecc04fc778885126d'}, {'cohort_id': 'C-09-mode-and-tree-query-contract', 'plan_id': 'company-intelligence-cross-region-career-preparation--C-09-mode-and-tree-query-contract--r1', 'path': 'docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/implementation-plans/C-09-mode-and-tree-query-contract-r1.json', 'sha256': 'c6cb23a8d352e66eaee6283d2f664b4095b5502d501539ca5848043c7fb83f18'}, {'cohort_id': 'C-10-current-job-search-execution', 'plan_id': 'company-intelligence-cross-region-career-preparation--C-10-current-job-search-execution--r1', 'path': 'docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/implementation-plans/C-10-current-job-search-execution-r1.json', 'sha256': '137eceba5f6d71fd6d3a3cc1bf085a02a46eeac49d9947e05bfe2638916f7258'}, {'cohort_id': 'C-11-job-trend-series-analysis', 'plan_id': 'company-intelligence-cross-region-career-preparation--C-11-job-trend-series-analysis--r1', 'path': 'docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/implementation-plans/C-11-job-trend-series-analysis-r1.json', 'sha256': '92fdca605dd8438c86be16ee31e171e74e675d7e60e975adcb68b1dfd5974417'}, {'cohort_id': 'C-12-selection-provenance-delivery', 'plan_id': 'company-intelligence-cross-region-career-preparation--C-12-selection-provenance-delivery--r1', 'path': 'docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/implementation-plans/C-12-selection-provenance-delivery-r1.json', 'sha256': 'de4ce2fd771295fb7a85d2720cd7b4f3b460f51807642c504ca31b968b529f1a'}] |
 | Context Index | docs/implementation-context-index-cli-r2.json |
-| 구현 cohort context | {'cohort_id': 'C-01-source-identity-foundation', 'decision_ids': ['D-01-source-access-policy', 'D-02-company-capability-taxonomy'], 'status': 'contract-ready', 'execution_dependencies': [], 'implementation_plan_path': 'docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/implementation-plans/C-01-source-identity-foundation-r3.json', 'implementation_plan_status': 'contract-ready', 'implementation_plan_sha256': '29b89c280e2598784e20d9ef213f83212b4cc62787e85e93fa0be336777cfd88', 'context_packet_path': 'docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/context-packets/C-01-source-identity-foundation-r3.json', 'context_packet_sha256': '7f3fe344358072abf2ba0fc3fca6764dc79955f17a37c742cf1fb6405e67ad56'}<br>{'cohort_id': 'C-02-search-requirement-evidence', 'decision_ids': ['D-03-search-profile-and-discovery', 'D-04-career-requirement-verification'], 'status': 'contract-ready', 'execution_dependencies': ['C-01-source-identity-foundation'], 'implementation_plan_path': 'docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/implementation-plans/C-02-search-requirement-evidence-r3.json', 'implementation_plan_status': 'contract-ready', 'implementation_plan_sha256': 'c988fec11105b80a25a48e8bc881c8f98b26f9b2f14580d61c95637faf47d59c', 'context_packet_path': 'docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/context-packets/C-02-search-requirement-evidence-r3.json', 'context_packet_sha256': 'c544a2291eebc94c1112486b8119f9c7d39ef0c45f665659f540a2b35f713cb3'}<br>{'cohort_id': 'C-03-evidence-export-delivery', 'decision_ids': ['D-05-spreadsheet-output-contract'], 'status': 'contract-ready', 'execution_dependencies': ['C-02-search-requirement-evidence'], 'implementation_plan_path': 'docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/implementation-plans/C-03-evidence-export-delivery-r3.json', 'implementation_plan_status': 'contract-ready', 'implementation_plan_sha256': 'fa2933fb85bbcd306c70dfab4f10acc70968bcdcb9adc3bbbaa861a7022b4a8d', 'context_packet_path': 'docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/context-packets/C-03-evidence-export-delivery-r3.json', 'context_packet_sha256': '088b91f553349f61fe505d79cec02781d4451c2a92bf8c5ce331812b3e7ca5df'}<br>{'cohort_id': 'C-04-peer-screener-ranking', 'decision_ids': ['D-06-peer-screener-ranking'], 'status': 'contract-ready', 'execution_dependencies': ['C-01-source-identity-foundation'], 'implementation_plan_path': 'docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/implementation-plans/C-04-peer-screener-ranking-r3.json', 'implementation_plan_status': 'contract-ready', 'implementation_plan_sha256': 'a70a138b32038c0570d6c96466fdef0343448aadc583d4fb32b6bf68f733564c', 'context_packet_path': 'docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/context-packets/C-04-peer-screener-ranking-r3.json', 'context_packet_sha256': '9a22f5e68ac3d652a014c33925016c2d3cf00165bc2e6bd3f6f73ae0924c04ef'}<br>{'cohort_id': 'C-05-timeline-valuation-event-analysis', 'decision_ids': ['D-07-company-timeline-macro-comparison', 'D-08-future-value-scenarios', 'D-09-ai-event-effect-validation'], 'status': 'contract-ready', 'execution_dependencies': ['C-04-peer-screener-ranking'], 'implementation_plan_path': 'docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/implementation-plans/C-05-timeline-valuation-event-analysis-r3.json', 'implementation_plan_status': 'contract-ready', 'implementation_plan_sha256': '0628be1faaa8c4b7cff99ad5e4a818848dd85d24d9e045a2d5bdb322cc1f88da', 'context_packet_path': 'docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/context-packets/C-05-timeline-valuation-event-analysis-r3.json', 'context_packet_sha256': 'd7dc311e718c3e2c11dde3c208026e531d009997601adc7d0aad409833d369f8'}<br>{'cohort_id': 'C-06-job-availability-filtered-discovery', 'decision_ids': ['D-10-job-availability-filtered-discovery'], 'status': 'contract-ready', 'execution_dependencies': ['C-02-search-requirement-evidence', 'C-03-evidence-export-delivery', 'C-04-peer-screener-ranking', 'C-05-timeline-valuation-event-analysis'], 'implementation_plan_path': 'docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/implementation-plans/C-06-job-availability-filtered-discovery-r3.json', 'implementation_plan_status': 'contract-ready', 'implementation_plan_sha256': 'aa1c4aa49fbcd3fe2e05a233c789b6b3588d3cc5d9588476aaec26c301ea8606', 'context_packet_path': 'docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/context-packets/C-06-job-availability-filtered-discovery-r3.json', 'context_packet_sha256': 'cb1f78d6900b7d6e31d4b1070a8927de394b64aae78b7df0c14ae27590a42c4f'} |
+| 구현 cohort context | {'cohort_id': 'C-01-source-identity-foundation', 'decision_ids': ['D-01-source-access-policy', 'D-02-company-capability-taxonomy'], 'status': 'planned', 'execution_dependencies': [], 'implementation_plan_path': None, 'implementation_plan_status': 'superseded', 'implementation_plan_sha256': None, 'context_packet_path': None, 'context_packet_sha256': None}<br>{'cohort_id': 'C-02-search-requirement-evidence', 'decision_ids': ['D-03-search-profile-and-discovery', 'D-04-career-requirement-verification'], 'status': 'planned', 'execution_dependencies': ['C-01-source-identity-foundation'], 'implementation_plan_path': None, 'implementation_plan_status': 'superseded', 'implementation_plan_sha256': None, 'context_packet_path': None, 'context_packet_sha256': None}<br>{'cohort_id': 'C-03-evidence-export-delivery', 'decision_ids': ['D-05-spreadsheet-output-contract'], 'status': 'planned', 'execution_dependencies': ['C-02-search-requirement-evidence'], 'implementation_plan_path': None, 'implementation_plan_status': 'superseded', 'implementation_plan_sha256': None, 'context_packet_path': None, 'context_packet_sha256': None}<br>{'cohort_id': 'C-04-peer-screener-ranking', 'decision_ids': ['D-06-peer-screener-ranking'], 'status': 'planned', 'execution_dependencies': ['C-01-source-identity-foundation'], 'implementation_plan_path': None, 'implementation_plan_status': 'superseded', 'implementation_plan_sha256': None, 'context_packet_path': None, 'context_packet_sha256': None}<br>{'cohort_id': 'C-05-timeline-valuation-event-analysis', 'decision_ids': ['D-07-company-timeline-macro-comparison', 'D-08-future-value-scenarios', 'D-09-ai-event-effect-validation'], 'status': 'planned', 'execution_dependencies': ['C-04-peer-screener-ranking'], 'implementation_plan_path': None, 'implementation_plan_status': 'superseded', 'implementation_plan_sha256': None, 'context_packet_path': None, 'context_packet_sha256': None}<br>{'cohort_id': 'C-06-job-availability-filtered-discovery', 'decision_ids': ['D-10-job-availability-filtered-discovery'], 'status': 'planned', 'execution_dependencies': ['C-02-search-requirement-evidence', 'C-03-evidence-export-delivery', 'C-04-peer-screener-ranking', 'C-05-timeline-valuation-event-analysis'], 'implementation_plan_path': None, 'implementation_plan_status': 'superseded', 'implementation_plan_sha256': None, 'context_packet_path': None, 'context_packet_sha256': None}<br>{'cohort_id': 'C-07-live-source-snapshot-foundation', 'decision_ids': ['D-11-live-source-refresh-snapshot-contract'], 'status': 'contract-ready', 'execution_dependencies': ['C-01-source-identity-foundation'], 'implementation_plan_path': 'docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/implementation-plans/C-07-live-source-snapshot-foundation-r1.json', 'implementation_plan_status': 'contract-ready', 'implementation_plan_sha256': '7abde58da2f3fab3b0926c1d7cf98dea64b5840bf61a66b68a2fff62c778fb05', 'context_packet_path': 'docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/context-packets/C-07-live-source-snapshot-foundation-r1.json', 'context_packet_sha256': '3e6dd4ea746839c82843c8d564e0a4a5f61c97ab76c1c71e6e6b605f26665f01'}<br>{'cohort_id': 'C-08-public-sector-identity-linkage', 'decision_ids': ['D-13-public-sector-identity-linkage'], 'status': 'contract-ready', 'execution_dependencies': ['C-01-source-identity-foundation', 'C-07-live-source-snapshot-foundation'], 'implementation_plan_path': 'docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/implementation-plans/C-08-public-sector-identity-linkage-r1.json', 'implementation_plan_status': 'contract-ready', 'implementation_plan_sha256': '2b2e1a84a2848c95a637fcefe1599b7393927da415fe74eecc04fc778885126d', 'context_packet_path': 'docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/context-packets/C-08-public-sector-identity-linkage-r1.json', 'context_packet_sha256': '1a52943f9971aeccf2be32d9892f4332c5f97429284597e730c9952ce52837a2'}<br>{'cohort_id': 'C-09-mode-and-tree-query-contract', 'decision_ids': ['D-12-current-search-trend-mode-separation', 'D-14-progressive-facet-tree-navigation'], 'status': 'contract-ready', 'execution_dependencies': ['C-02-search-requirement-evidence', 'C-07-live-source-snapshot-foundation', 'C-08-public-sector-identity-linkage'], 'implementation_plan_path': 'docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/implementation-plans/C-09-mode-and-tree-query-contract-r1.json', 'implementation_plan_status': 'contract-ready', 'implementation_plan_sha256': 'c6cb23a8d352e66eaee6283d2f664b4095b5502d501539ca5848043c7fb83f18', 'context_packet_path': 'docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/context-packets/C-09-mode-and-tree-query-contract-r1.json', 'context_packet_sha256': '52925e82abebca0919990cf586acf659a97cdf5293d0a602091246019ffc84e4'}<br>{'cohort_id': 'C-10-current-job-search-execution', 'decision_ids': ['D-15-current-job-search-result-contract'], 'status': 'contract-ready', 'execution_dependencies': ['C-02-search-requirement-evidence', 'C-06-job-availability-filtered-discovery', 'C-09-mode-and-tree-query-contract'], 'implementation_plan_path': 'docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/implementation-plans/C-10-current-job-search-execution-r1.json', 'implementation_plan_status': 'contract-ready', 'implementation_plan_sha256': '137eceba5f6d71fd6d3a3cc1bf085a02a46eeac49d9947e05bfe2638916f7258', 'context_packet_path': 'docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/context-packets/C-10-current-job-search-execution-r1.json', 'context_packet_sha256': '6bb4b00ed0b5cf9c00db6d149a2caf24c1eb5171a6821ecd756820badf74cc49'}<br>{'cohort_id': 'C-11-job-trend-series-analysis', 'decision_ids': ['D-16-job-trend-series-analysis-contract'], 'status': 'contract-ready', 'execution_dependencies': ['C-04-peer-screener-ranking', 'C-05-timeline-valuation-event-analysis', 'C-07-live-source-snapshot-foundation', 'C-08-public-sector-identity-linkage', 'C-09-mode-and-tree-query-contract'], 'implementation_plan_path': 'docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/implementation-plans/C-11-job-trend-series-analysis-r1.json', 'implementation_plan_status': 'contract-ready', 'implementation_plan_sha256': '92fdca605dd8438c86be16ee31e171e74e675d7e60e975adcb68b1dfd5974417', 'context_packet_path': 'docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/context-packets/C-11-job-trend-series-analysis-r1.json', 'context_packet_sha256': '9603bb9319f4e71d28dcff10148e2771882cffd46ac8f13e3a2c2dbab6d9214f'}<br>{'cohort_id': 'C-12-selection-provenance-delivery', 'decision_ids': ['D-17-selection-session-result-provenance'], 'status': 'contract-ready', 'execution_dependencies': ['C-03-evidence-export-delivery', 'C-10-current-job-search-execution', 'C-11-job-trend-series-analysis'], 'implementation_plan_path': 'docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/implementation-plans/C-12-selection-provenance-delivery-r1.json', 'implementation_plan_status': 'contract-ready', 'implementation_plan_sha256': 'de4ce2fd771295fb7a85d2720cd7b4f3b460f51807642c504ca31b968b529f1a', 'context_packet_path': 'docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/context-packets/C-12-selection-provenance-delivery-r1.json', 'context_packet_sha256': 'cfa924c7c112014813ecbb944c529f92ab58286ac883d9f4b88260fb200035b5'} |
 | 구현 영수증 | docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/receipts/implementation.json |
 | 검증 영수증 | docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/receipts/validation-r3-offline-20260913.json |
 
@@ -30,6 +30,13 @@
 | 8 | future-value-scenarios | accepted | 사용자가 선택한 기업의 미래가치를 단일 예측값이 아닌 어떤 재무 근거·가정·낙관/기준/침체 시나리오·데이터 신뢰도와 함께 반환할 것인가? | B-evidence-bound-scenarios | D-06-peer-screener-ranking<br>D-07-company-timeline-macro-comparison | ACCEPT |
 | 9 | ai-event-effect-validation | accepted | 특정 AI 모델의 보급·기업 도입 이후 채용공고·직원 수·수익성·시장 반응 변화를 어떤 사건 근거·대조군·거시 통제로 검증하되 인과로 과장하지 않을 것인가? | B-evidence-bound-candidate-analysis | D-07-company-timeline-macro-comparison | ACCEPT |
 | 10 | job-availability-filtered-discovery | accepted | 사용자가 실제 공개 채용공고를 국가·산업·직무·근무형태·언어·검증된 required/preferred 요건으로 필터링해 기업과 공고를 함께 확인하려면 어떤 검색 계약을 완성할 것인가? | B-evidence-filtered-job-discovery | D-03-search-profile-and-discovery<br>D-04-career-requirement-verification | ACCEPT |
+| 11 | live-source-refresh-snapshot-contract | accepted | 사용자가 현재 시점 데이터를 검색할 때 provider 갱신·페이지네이션·최신성·저장 snapshot 재사용을 어떤 계약으로 분리할 것인가? | B-refresh-then-query-immutable-snapshot | D-01-source-access-policy | ACCEPT |
+| 12 | current-search-trend-mode-separation | accepted | 단일 snapshot의 현재 공고 검색과 반복 snapshot의 변화 분석을 CLI에서 어떻게 분리할 것인가? | B-separate-current-and-trend-modes | D-11-live-source-refresh-snapshot-contract | ACCEPT |
+| 13 | public-sector-identity-linkage | accepted | 공고 원천의 공공 맥락과 기관·법인 원천의 법적 분류를 어떤 identity 근거로 결합하고 미연결을 어떻게 보존할 것인가? | B-evidence-linked-separate-axes | D-02-company-capability-taxonomy<br>D-11-live-source-refresh-snapshot-contract | ACCEPT |
+| 14 | progressive-facet-tree-navigation | accepted | 사용자가 화살표로 목적과 카테고리를 분기 선택할 때 유효한 값·개수·사용불가 이유를 어떻게 점진적으로 계산할 것인가? | B-progressive-evidence-facet-tree | D-03-search-profile-and-discovery<br>D-12-current-search-trend-mode-separation<br>D-13-public-sector-identity-linkage | ACCEPT |
+| 15 | current-job-search-result-contract | accepted | 현재 채용 트리의 최종 선택을 어떤 활성 기준과 결과군·분모·요건 근거로 반환할 것인가? | B-four-state-with-denominators | D-04-career-requirement-verification<br>D-10-job-availability-filtered-discovery<br>D-14-progressive-facet-tree-navigation | ACCEPT |
+| 16 | job-trend-series-analysis-contract | accepted | 반복 수집된 채용 snapshot에서 신규·활성·종료·급여·요건 변화를 어떤 비교 적격성으로 계산할 것인가? | B-versioned-snapshot-cohort-analysis | D-07-company-timeline-macro-comparison<br>D-11-live-source-refresh-snapshot-contract<br>D-13-public-sector-identity-linkage<br>D-14-progressive-facet-tree-navigation | ACCEPT |
+| 17 | selection-session-result-provenance | accepted | 화살표 트리의 최종 선택을 실제 command/profile, snapshot, 결과·설명·spreadsheet와 어떻게 결속할 것인가? | B-redacted-hash-linked-run-manifest | D-05-spreadsheet-output-contract<br>D-15-current-job-search-result-contract<br>D-16-job-trend-series-analysis-contract | ACCEPT |
 
 ## 의사결정 상세
 
@@ -58,7 +65,7 @@
 | 의존 예외 | — |
 | 사용자 결정 | 처분: ACCEPT<br>선택지 ID: B-versioned-source-catalog<br>규칙: 사용자가 2026-09-11 요청에서 APPROVE로 5개 권장안 B를 결속하라고 명시했다.<br>근거: 무료·공개 API도 접근 상태·데이터 역할·필드 의미·쿼터·제한을 versioned source catalog로 관리한다.<br>결정자: user<br>결정 시각: 2026-09-11T06:25:49.898Z |
 | 구현 대상 | config/providers.json — 28개 원자 작업별 access_mode·data_role·required_paths·field_semantics·quota·license·last_verified·activation_policy 계약 추가<br>src/company_intel/models.py — source policy, atomic field contract, provider health 모델 추가<br>src/company_intel/source_catalog.py (new) — catalog 로드·검증·실행 가능 상태·staleness 판정<br>src/company_intel/connectors/registry.py — catalog 승인 상태와 probe/production 용도에 따라 adapter 선택<br>src/company_intel/validation.py — 접근성·필드 계약·provider error를 분리한 상태와 redacted receipt 생성<br>tests/test_source_catalog.py (new) — 28개 작업 완전성, activation gate, HTTP-only 경계, 비밀 마스킹 검증 |
-| 구현 변경 ID | D-01-field-capability-catalog-r3<br>D-01-nested-field-resolution-r3 |
+| 구현 변경 ID | — |
 | 검증 기준 | 코드의 28개 Probe ID와 source catalog record가 누락·중복 없이 일대일 대응하는지 검증한다.<br>KEYLESS_PUBLIC 18개와 FREE_REGISTERED 10개가 서로 다른 인증·쿼터 정책으로 실행되는지 검증한다.<br>APPROVAL_REQUIRED·EXTRACTION_RESTRICTED·DOCUMENT_ONLY 또는 stale 원천이 명시적 허용 없이 production discovery에 들어가지 않는지 검증한다.<br>ALIO Plus 평문 HTTP 작업이 신뢰 실행 경계 밖에서 차단되고 비밀·개인정보가 URL·로그·보고서에 남지 않는지 검증한다.<br>Work24와 sec-api.io가 실행 코드·설정에 없고 SEC_USER_AGENT와 로컬 DuckDB 의미가 잘못 변환되지 않았는지 검증한다. |
 | 다이어그램 영향 | 원천 문서 검증 → source catalog → connector policy gate → 수집/분류/스프레드시트 흐름을 후속 다이어그램에 반영한다. |
 | 구현 맥락 topic | source-identity-capability |
@@ -88,7 +95,7 @@
 | 의존 예외 | — |
 | 사용자 결정 | 처분: ACCEPT<br>선택지 ID: B-multiaxis-capability-and-gates<br>규칙: 사용자가 2026-09-11 요청에서 APPROVE로 5개 권장안 B를 결속하라고 명시했다.<br>근거: 기업별 재무·공고·고용·시장·거시 capability를 분리하고 근거가 부족한 상관·인과 분석을 gate로 차단한다.<br>결정자: user<br>결정 시각: 2026-09-11T06:25:49.898Z |
 | 구현 대상 | sql/duckdb_schema.sql — company_source_capability, identifier_mapping, field_availability, classification_history 및 evidence 연결을 additive하게 추가<br>src/company_intel/models.py — capability·classification·eligibility·provenance value object 정의<br>src/company_intel/identity.py (new) — CIK·DART·IČO·LEI·ISIN·ALIO·ATS 식별자 해소와 confidence 기록<br>src/company_intel/normalization.py (new) — 원자 필드 의미·단위·시간·중복 제거 키를 보존하는 mapper<br>src/company_intel/classification.py (new) — 기업 분류와 correlation·causal eligibility 규칙<br>src/company_intel/warehouse.py — 범용 entity·capability 적재와 예시 하드코딩 분리<br>src/company_intel/api.py — 분류·필드 가용성·제외 사유 조회 endpoint<br>tests/test_classification.py (new) — 재무 전용·공고 전용·공공기관 맥락·문서형·상관 불가 fixture 검증 |
-| 구현 변경 ID | D-01-field-capability-catalog-r3<br>D-01-nested-field-resolution-r3<br>D-02-classification-tests-r3<br>D-02-facet-catalog-r3<br>D-02-facet-tests-r3<br>D-02-taxonomy-classification-r3<br>D-02-taxonomy-model-r3<br>D-02-taxonomy-module-r3<br>D-02-taxonomy-tests-r3 |
+| 구현 변경 ID | — |
 | 검증 기준 | 동일 원천 레코드 재수집이 source_name·source_record_id·observation_date 기준으로 중복되지 않고 revision/collected 시각만 올바르게 보존되는지 검증한다.<br>재무만 있는 기업은 company_financial_disclosure과 correlation_ineligible을 동시에 가질 수 있는지 fixture로 검증한다.<br>공고만 있고 법인 ID가 없는 레코드는 identity_unresolved 또는 employer_redacted이며 회사 분석 후보에서 제외되는지 검증한다.<br>공공기관 시설·행사·사업·기관 데이터가 job_available이나 workforce_available로 승격되지 않는지 검증한다.<br>기간·단위·산업/지역·point-in-time 중 하나라도 없으면 correlation_candidate가 false인지 검증한다.<br>causal analysis가 correlation candidate보다 더 엄격한 대조군·pre-trend·표본 기준을 요구하는지 검증한다. |
 | 다이어그램 영향 | 법인 식별 해소 → source capability history → classification → correlation/causal gate → 분석·스프레드시트 흐름을 후속 다이어그램에 반영한다. |
 | 구현 맥락 topic | source-identity-capability |
@@ -118,7 +125,7 @@
 | 의존 예외 | — |
 | 사용자 결정 | 처분: ACCEPT<br>선택지 ID: B-explicit-profile-and-evidence-matching<br>규칙: 사용자가 2026-09-11 요청에서 APPROVE로 5개 권장안 B를 결속하라고 명시했다.<br>근거: 명시적 SearchProfile과 source evidence를 사용하고 고정 Probe 표본이나 미해소 기업을 자동 추천하지 않는다.<br>결정자: user<br>결정 시각: 2026-09-11T06:25:49.898Z |
 | 구현 대상 | src/company_intel/models.py — SearchProfile, CountryAllocation, CandidateMatch, ExclusionReason 모델 추가<br>src/company_intel/search.py (new) — profile validation, source-aware company universe, capability filter, 설명 가능한 후보 순위<br>src/company_intel/identity.py (new) — 후보 entity와 source identifier 연결<br>src/company_intel/connectors/ — 검증용 sample probe와 허용된 company/job discovery adapter 분리<br>src/company_intel/cli.py — 검색 profile 입력·검증·실행 명령<br>src/company_intel/api.py — profile 기반 후보 조회, missing profile, provenance 응답<br>tests/test_search_profile.py (new) — 필수 프로필·국가별 부족분·익명 공고·제외 사유·결정론적 순위 검증 |
-| 구현 변경 ID | D-03-company-search-contract-r3<br>D-03-company-search-engine-r3<br>D-03-query-contract-tests-r3<br>D-03-search-profile-tests-r3 |
+| 구현 변경 ID | — |
 | 검증 기준 | 국가·직무·산업·경력·언어·취업 자격·지역·원격 여부·후보 수·기준일 중 계약상 필수 항목이 빠지면 후보 생성 대신 구조화된 missing_profile을 반환하는지 검증한다.<br>고정 sample probe의 회사가 사용자 조건 없이 실제 추천 후보로 자동 승격되지 않는지 검증한다.<br>허용되지 않은 source, 만료 공고 또는 identity_unresolved 레코드가 회사 후보에 들어가지 않는지 검증한다.<br>각 후보에 matching rule version·source evidence·company_match_confidence·capability summary 또는 제외 사유가 있는지 검증한다.<br>국가별 데이터 부족으로 요청 개수를 채우지 못할 때 다른 국가나 임의 기업으로 보충하지 않고 shortage를 반환하는지 검증한다. |
 | 다이어그램 영향 | SearchProfile 입력 → source-aware candidate discovery → identity resolution → capability filter → 설명 가능한 후보·제외 결과 흐름을 후속 다이어그램에 반영한다. |
 | 구현 맥락 topic | search-career-evidence |
@@ -148,7 +155,7 @@
 | 의존 예외 | — |
 | 사용자 결정 | 처분: ACCEPT<br>선택지 ID: B-evidence-level-requirements<br>규칙: 사용자가 2026-09-11 요청에서 APPROVE로 5개 권장안 B를 결속하라고 명시했다.<br>근거: 공고별·국가 기준별 requirement evidence를 분리하고 상세 근거가 없으면 requirement_unavailable로 남긴다.<br>결정자: user<br>결정 시각: 2026-09-11T06:25:49.898Z |
 | 구현 대상 | sql/duckdb_schema.sql — job_requirement, credential_evidence, requirement_verification, source excerpt/provenance 테이블을 additive하게 추가<br>src/company_intel/models.py — RequirementStatus, EvidenceScope, VerificationStatus, RequirementAvailability 모델 추가<br>src/company_intel/career_requirements.py (new) — 공고·국가 baseline·crosswalk 정규화와 unresolved 처리<br>src/company_intel/connectors/ — MPM 상세·허용된 ATS 원문·체코 MPSV/NSP/NSK adapter를 source policy와 연결<br>src/company_intel/warehouse.py — 공고 snapshot과 requirement evidence 적재·증분 갱신<br>src/company_intel/api.py — 기업·공고별 검증된 준비사항과 제한 사유 조회<br>tests/test_career_requirements.py (new) — required/preferred·상세 필드 부재·국가 기준·원천 제한·stale 공고 검증 |
-| 구현 변경 ID | D-03-company-search-engine-r3 |
+| 구현 변경 ID | — |
 | 검증 기준 | 모든 반환 requirement에 source_url, source_record_id, retrieved_at, country_code, evidence_scope, verification_status가 있는지 검증한다.<br>MPM 목록이나 ATS 메타데이터만 있고 상세 근거가 없으면 자격증을 생성하지 않고 requirement_unavailable을 반환하는지 검증한다.<br>공고 우대사항이 required 또는 법정 자격으로 승격되지 않는지 검증한다.<br>ESCO/ISCO crosswalk만 있는 항목이 credential equivalence나 vacancy_specific으로 표시되지 않는지 검증한다.<br>허가된 회사별 요건 원천이 없으면 no_primary_requirement_source 제한을 반환하는지 검증한다.<br>마감·삭제·익명 공고가 회사별 자격요건 결과에 잘못 남지 않는지 검증한다. |
 | 다이어그램 영향 | 공고 또는 국가 기준 원천 → requirement extraction → verification status → 자격·준비사항 스프레드시트 행 흐름을 후속 다이어그램에 반영한다. |
 | 구현 맥락 topic | search-career-evidence |
@@ -178,7 +185,7 @@
 | 의존 예외 | — |
 | 사용자 결정 | 처분: ACCEPT<br>선택지 ID: B-evidence-first-workbook-bundle<br>규칙: 사용자가 2026-09-11 요청에서 APPROVE로 5개 권장안 B를 결속하라고 명시했다.<br>근거: 정규화 CSV bundle을 기준 계약으로 두고 동일 관계키를 가진 XLSX와 근거·제외·run manifest를 제공한다.<br>결정자: user<br>결정 시각: 2026-09-11T06:25:49.898Z |
 | 구현 대상 | src/company_intel/exporting.py (new) — versioned CSV bundle과 optional XLSX workbook renderer<br>src/company_intel/reporting.py — export run manifest, provider status, 한국어 사용자 안내 연결<br>src/company_intel/warehouse.py — export query와 foreign key·provenance materialization<br>src/company_intel/security.py — 비밀·개인정보·재배포 제한 원문 export sanitizer<br>src/company_intel/cli.py — profile 결과 export 명령과 output path 안전 검사<br>src/company_intel/api.py — export job 생성·상태·download metadata endpoint<br>pyproject.toml — 선택된 XLSX renderer 의존성 및 보안 검토<br>tests/test_exporting.py (new) — headers, ordering, links, mandatory evidence, redaction, empty/limited output 검증 |
-| 구현 변경 ID | D-05-export-reporting-r3<br>D-05-export-tests-r3<br>D-05-export-verdict-tables-r3<br>D-05-run-manifest-r3<br>D-05-run-manifest-tests-r3 |
+| 구현 변경 ID | — |
 | 검증 기준 | 모든 user-facing 회사·공고·요건 행이 source 또는 exclusion record로 추적되는지 검증한다.<br>CSV bundle과 XLSX의 sheet/header·row key가 versioned contract와 일치하는지 검증한다.<br>companies·capabilities·job_postings·requirements·sources·exclusions·run_manifest의 외래키와 orphan 부재를 검증한다.<br>API key, 비밀 환경변수, 개인 구직자 데이터, 평문 URL의 키, 약관상 재배포 금지 원문이 export에 없는지 검증한다.<br>빈 후보·source 제한·identity_unresolved·requirement_unavailable이 성공한 추천처럼 보이지 않고 명시적 exclusion 또는 limitation으로 표시되는지 검증한다.<br>동일 profile·source snapshot·as_of 기준에서는 정렬·run manifest·파일 해시가 결정론적인지 검증한다. |
 | 다이어그램 영향 | 분류·검색·요건 검증 결과 → export materialization → CSV bundle/XLSX → 사용자 검토·재현 흐름을 후속 다이어그램에 반영한다. |
 | 구현 맥락 topic | evidence-export |
@@ -208,7 +215,7 @@
 | 의존 예외 | — |
 | 사용자 결정 | 처분: ACCEPT<br>선택지 ID: B-peer-scoped-evidence-screener<br>규칙: 사용자가 2026-09-11 요청에서 D-06~D-10 권장안 B APPROVE와 로컬 구현을 명시했다.<br>근거: 산업·국가·규모 동료군 안에서 변수별 근거와 결측·제외 사유를 보존하는 스크리너를 사용한다.<br>결정자: user<br>결정 시각: 2026-09-11T09:44:52Z |
 | 구현 대상 | src/company_intel/analytics.py<br>src/company_intel/warehouse.py<br>src/company_intel/api.py<br>src/company_intel/cli.py<br>tests/test_analytics.py<br>새 screener 통합 테스트 |
-| 구현 변경 ID | D-06-screener-group-tests-r3<br>D-06-screener-signature-groups-r3 |
+| 구현 변경 ID | — |
 | 검증 기준 | 동일 산업·국가·규모가 아닌 행이 같은 peer_group에 섞이지 않는지 확인한다.<br>결측 지표·불충분한 동료군이 점수로 위장되지 않고 coverage 또는 exclusion으로 반환되는지 확인한다.<br>사용자가 선택한 변수 방향과 기준일이 결과 메타데이터에 보존되는지 확인한다. |
 | 다이어그램 영향 | ScreenerProfile → eligibility filter → peer group → variable ranking → evidence response 흐름을 추가한다. |
 | 구현 맥락 topic | company-screening |
@@ -238,7 +245,7 @@
 | 의존 예외 | — |
 | 사용자 결정 | 처분: ACCEPT<br>선택지 ID: B-point-in-time-multiaxis-comparison<br>규칙: 사용자가 2026-09-11 요청에서 D-06~D-10 권장안 B APPROVE와 로컬 구현을 명시했다.<br>근거: 기업·시장·거시 series의 시점·단위·원천을 분리하고 공통 기간 적격성만 비교한다.<br>결정자: user<br>결정 시각: 2026-09-11T09:44:52Z |
 | 구현 대상 | src/company_intel/api.py<br>src/company_intel/warehouse.py<br>src/company_intel/normalization.py<br>sql/duckdb_schema.sql<br>새 timeline 통합 테스트 |
-| 구현 변경 ID | D-07-axis-series-timeline-r3<br>D-07-timeline-tests-r3 |
+| 구현 변경 ID | — |
 | 검증 기준 | 기업·시장·거시 series가 각 원천·단위·관측일·available_at을 보존하는지 확인한다.<br>기업 국가와 거시 국가, security, 기간이 맞지 않으면 비교 가능으로 표시하지 않는지 확인한다.<br>timeline response가 market·macro와 현재 제공되는 fact를 모두 역할별로 반환하는지 확인한다. |
 | 다이어그램 영향 | 기업 fact·market·macro·event의 다축 point-in-time 정렬 흐름을 추가한다. |
 | 구현 맥락 topic | time-value-events |
@@ -268,7 +275,7 @@
 | 의존 예외 | — |
 | 사용자 결정 | 처분: ACCEPT<br>선택지 ID: B-evidence-bound-scenarios<br>규칙: 사용자가 2026-09-11 요청에서 D-06~D-10 권장안 B APPROVE와 로컬 구현을 명시했다.<br>근거: 기업별 적격 입력·출처·가정과 침체·기준·낙관 시나리오를 함께 반환한다.<br>결정자: user<br>결정 시각: 2026-09-11T09:44:52Z |
 | 구현 대상 | src/company_intel/analytics.py<br>src/company_intel/pipeline.py<br>src/company_intel/api.py<br>src/company_intel/cli.py<br>tests/test_analytics.py<br>새 valuation 통합 테스트 |
-| 구현 변경 ID | D-08-D09-analysis-prerequisite-r3<br>D-08-D09-analytics-tests-r3 |
+| 구현 변경 ID | — |
 | 검증 기준 | 모든 기업별 가치 결과에 scenario assumptions, currency, as_of, source coverage가 있는지 확인한다.<br>시장·재무 적격성이 없는 기업에 단일 가치 숫자가 반환되지 않는지 확인한다.<br>기존 DCF 수학 테스트와 기업 기반 입력 검증을 독립적으로 통과하는지 확인한다. |
 | 다이어그램 영향 | evidence eligibility → valuation input mapping → scenario calculation → limitation-aware result 흐름을 추가한다. |
 | 구현 맥락 topic | time-value-events |
@@ -298,7 +305,7 @@
 | 의존 예외 | — |
 | 사용자 결정 | 처분: ACCEPT<br>선택지 ID: B-evidence-bound-candidate-analysis<br>규칙: 사용자가 2026-09-11 요청에서 D-06~D-10 권장안 B APPROVE와 로컬 구현을 명시했다.<br>근거: 확인된 사건·식별·시점·대조군·거시 조건이 있는 분석만 후보 결과로 반환한다.<br>결정자: user<br>결정 시각: 2026-09-11T09:44:52Z |
 | 구현 대상 | sql/duckdb_schema.sql<br>src/company_intel/warehouse.py<br>src/company_intel/analytics.py<br>src/company_intel/api.py<br>src/company_intel/pipeline.py<br>tests/test_analytics.py<br>새 event evidence 통합 테스트 |
-| 구현 변경 ID | D-08-D09-analysis-prerequisite-r3<br>D-08-D09-analytics-tests-r3 |
+| 구현 변경 ID | — |
 | 검증 기준 | 사건 분석이 source URL·event_date·entity identity·available_at·대조군 근거 없이 실행되지 않는지 확인한다.<br>공고 수를 실제 고용 완료 수로 표기하지 않는지 확인한다.<br>통과 결과가 인과 확정이 아닌 correlation candidate와 전제·경고를 함께 반환하는지 확인한다. |
 | 다이어그램 영향 | event evidence → eligibility gate → aligned outcomes/control → event study/DiD → qualified result 흐름을 추가한다. |
 | 구현 맥락 topic | time-value-events |
@@ -328,7 +335,217 @@
 | 의존 예외 | — |
 | 사용자 결정 | 처분: ACCEPT<br>선택지 ID: B-evidence-filtered-job-discovery<br>규칙: 사용자가 2026-09-11 요청에서 D-06~D-10 권장안 B APPROVE와 로컬 구현을 명시했다.<br>근거: 국가·직종·연봉·위치·근무형태·언어·산업·요건을 실제 공고와 근거 행에 적용한다.<br>결정자: user<br>결정 시각: 2026-09-11T09:44:52Z |
 | 구현 대상 | src/company_intel/models.py<br>src/company_intel/search.py<br>src/company_intel/warehouse.py<br>src/company_intel/api.py<br>src/company_intel/cli.py<br>src/company_intel/exporting.py<br>tests/test_search_profile.py<br>tests/test_career_requirements.py<br>새 job discovery 통합 테스트 |
-| 구현 변경 ID | D-10-api-compatibility-report-r3<br>D-10-api-profile-parity-r3<br>D-10-cli-docs-r3<br>D-10-cli-interactive-routing-r3<br>D-10-cli-workflow-tests-r3<br>D-10-interactive-module-r3<br>D-10-interactive-tests-r3<br>D-10-job-search-tests-r3<br>D-10-job-search-verdicts-r3<br>D-10-korean-status-docs-r3 |
+| 구현 변경 ID | — |
 | 검증 기준 | industries·languages·employment_types와 국가 필터 각각이 실제 결과 집합을 줄이는지 확인한다.<br>검증된 required 요건만 필수 매칭에 쓰고 preferred와 requirement_unavailable을 구분하는지 확인한다.<br>응답이 기업만이 아니라 활성 공고·source URL·snapshot date·제외·shortage를 반환하는지 확인한다.<br>공고 수요를 실제 채용 완료 인원으로 표기하지 않는지 확인한다. |
 | 다이어그램 영향 | JobSearchProfile → active job filter → requirement evidence filter → company/job match·shortage·export 흐름을 추가한다. |
 | 구현 맥락 topic | search-career-evidence |
+
+## 11. 실시간 원천 갱신과 불변 snapshot 계약 (`D-11-live-source-refresh-snapshot-contract`)
+
+| 구분 | 내용 |
+|---|---|
+| 상태 | accepted |
+| 결정 질문 | 사용자가 현재 시점 데이터를 검색할 때 provider 갱신·페이지네이션·최신성·저장 snapshot 재사용을 어떤 계약으로 분리할 것인가? |
+| 누가 | 한국·체코·미국의 현재 기업·채용 데이터를 조회하는 사용자 |
+| 무엇을 | provider operation별 live refresh와 불변 snapshot 생성·선택·실패 기록 |
+| 어디서 | provider-status, connector registry, warehouse snapshot, interactive CLI |
+| 언제 | 검색 시작 전 새 데이터 수집 또는 저장 snapshot 재사용을 선택할 때 |
+| 왜 | 저장 표본을 실시간 전체 데이터로 오인하거나 수동 호출만 최신 데이터를 얻는 불일치를 없애기 위해 |
+| 어떻게 | 정렬·페이지·수집시각·행 수·원천 coverage를 operation manifest에 기록하고 검색은 선택된 snapshot만 읽는다. |
+| 근거 | E-D11-live-observation — docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/live-category-tree-scope-amendment-2026-09-13.md:3-18 — 현재 MPM 최신 100건과 MPSV 전체 snapshot은 수집시각과 서로 다른 coverage를 가지며 MPM 누적 total은 현재 활성 수가 아니다.<br>E-D11-current-connector-gap — src/company_intel/connectors/keyed.py:350-354 — MPM connector는 pageNo 1, numOfRows 1, Sort_order 1을 고정한다. |
+| 관찰 사실 | 2026-09-13 MPM 최신순 직접 조회 100건 중 활성 94건이었지만 현재 connector 기본 호출은 최신 다건 수집을 재현하지 못한다.<br>MPSV는 대용량 전체 파일이고 MPM은 페이지 API이므로 같은 pagination 전략을 강제할 수 없다.<br>현재 interactive facet count는 공급자 시장 전체가 아니라 전달된 저장 snapshot만 설명한다. |
+| 충돌 | 매 실행마다 전체 원천을 갱신하면 최신성은 높지만 느리고 실패 영향이 크다.<br>저장 snapshot만 재사용하면 재현성은 높지만 사용자가 이를 현재 데이터로 오인할 수 있다. |
+| 미구현 | interactive 시작 단계에 refresh/reuse 선택과 freshness 표시가 없다.<br>MPM 최신순 pagination과 MPSV 다운로드 snapshot을 동일한 operation manifest로 기록하지 않는다.<br>부분 실패 원천을 제외한 분모와 coverage를 검색 결과까지 전달하지 않는다. |
+| 선택지 | A-query-providers-during-filtering: 트리의 각 필터 단계에서 provider를 다시 호출해 값을 즉시 갱신한다.; B-refresh-then-query-immutable-snapshot: 검색 전에 provider operation을 갱신해 불변 snapshot과 manifest를 만든 뒤 모든 트리 단계가 그 snapshot만 조회한다. |
+| 권장안 | B-refresh-then-query-immutable-snapshot |
+| 권장 근거 | 실시간성의 기준시각과 검색 재현성을 동시에 지키며 provider별 수집 방식을 operation으로 격리한다. |
+| 파급효과 | 데이터: 모든 검색 행에 snapshot_id와 collected_at lineage가 생긴다.<br>스키마/API: provider refresh와 snapshot catalog가 추가된다.<br>사용자 경험: 최신성·coverage·실패 원천을 검색 전에 확인한다.<br>성능: 대용량 수집과 반복 필터를 분리한다.<br>비용: snapshot lifecycle 구현 비용이 든다.<br>보안: 키와 비밀은 snapshot manifest에서 제거한다.<br>마이그레이션: 기존 provider-status와 로컬 artifact를 확장한다.<br>테스트: MPM pagination, MPSV snapshot, stale/reuse, 원천 부분 실패를 검증한다. |
+| 기회비용 | 진짜 스트리밍 데이터가 아니라 명시된 기준시각의 최신 snapshot을 제공한다. |
+| 선행 결정 | D-01-source-access-policy |
+| 의존 예외 | — |
+| 사용자 결정 | 처분: ACCEPT<br>선택지 ID: B-refresh-then-query-immutable-snapshot<br>규칙: 사용자가 2026-09-14 요청에서 D-11~D-17의 권장안 B 승인을 명시했다.<br>근거: provider별 수집 방식은 분리하되 한 검색 세션은 수집시각과 hash가 고정된 snapshot으로 재현한다.<br>결정자: user<br>결정 시각: 2026-09-14T12:33:36.975023+00:00 |
+| 구현 대상 | src/company_intel/connectors/keyed.py<br>src/company_intel/provider_validation.py<br>src/company_intel/warehouse.py<br>src/company_intel/cli.py<br>tests/test_provider_validation.py<br>tests/test_cli_workflows.py |
+| 구현 변경 ID | file-change-42c469cea05e<br>file-change-6094b4c9c865<br>file-change-71ee7f968ed8<br>file-change-8925cfef251f<br>file-change-927a21cab8b8<br>file-change-e1e3c60c9a87<br>file-change-e633c98e50e6<br>file-change-edb669d59fb3<br>file-change-f93b01f715ba |
+| 검증 기준 | MPM 최신순 pagination이 중복 없이 snapshot을 생성하는지 검사한다.<br>MPSV 전체 파일 수집과 부분 실패 원천이 manifest에 분리되는지 검사한다.<br>같은 snapshot_id로 facet과 최종 결과가 동일하게 재현되는지 검사한다. |
+| 다이어그램 영향 | provider refresh → immutable snapshot → facet/query의 시점 고정 흐름을 추가한다. |
+| 구현 맥락 topic | live-snapshot-foundation |
+
+## 12. 현재 채용 검색과 채용 동향 분석의 모드 분리 (`D-12-current-search-trend-mode-separation`)
+
+| 구분 | 내용 |
+|---|---|
+| 상태 | accepted |
+| 결정 질문 | 단일 snapshot의 현재 공고 검색과 반복 snapshot의 변화 분석을 CLI에서 어떻게 분리할 것인가? |
+| 누가 | 현재 일자리와 시장 변화를 각각 확인하려는 사용자 |
+| 무엇을 | 현재 채용과 동향 분석의 입력·분모·지표·추론 경계 |
+| 어디서 | interactive 최상위 메뉴, query profile, timeline 응답 |
+| 언제 | 검색 목적을 선택하는 첫 단계 |
+| 왜 | 단일 최신 표본을 추세나 전체 시장 변화로 오인하지 않기 위해 |
+| 어떻게 | 두 모드를 독립 command contract로 만들고 시계열 요건 미충족 시 동향 지표를 비활성화한다. |
+| 근거 | E-D12-mode-contract — docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/live-category-tree-scope-amendment-2026-09-13.md:66-77 — 현재 채용은 한 기준시각의 활성 공고이고 동향은 동일 정의로 반복 수집된 snapshot 시계열이며 서로 다른 분모와 금지 추론을 가진다. |
+| 관찰 사실 | 현재 snapshot은 2026-09-13 한 시점의 검색 근거다.<br>공고 stock, 신규, 종료는 최소 두 개 이상의 일관된 snapshot 정의가 필요하다.<br>현재 timeline 기능은 기업·시장 시계열 분석이며 채용 snapshot 생명주기 지표와 동일하지 않다. |
+| 충돌 | 하나의 검색 메뉴에 현재와 동향을 섞으면 사용은 단순하지만 지표 의미가 모호해진다.<br>분리된 모드는 메뉴가 늘지만 필요한 evidence gate가 명확해진다. |
+| 미구현 | interactive 최상위에 현재 채용과 채용 동향의 독립 분기가 없다.<br>동향 분석을 막는 snapshot history·coverage eligibility 계약이 없다. |
+| 선택지 | A-single-search-with-time-options: 하나의 job-search에서 선택적 기간 필터만 추가한다.; B-separate-current-and-trend-modes: 현재 채용과 동향 분석을 독립 모드로 두고 서로 다른 필수 입력·지표·부적격 사유를 적용한다. |
+| 권장안 | B-separate-current-and-trend-modes |
+| 권장 근거 | 현재 공고 확인과 변화 분석은 데이터 단위·분모·검증 조건이 달라 독립 모드가 의미 오류를 가장 잘 막는다. |
+| 파급효과 | 데이터: snapshot과 snapshot_series의 의미를 분리한다.<br>스키마/API: 두 query type과 eligibility reason을 추가한다.<br>사용자 경험: 최상위 목적 선택이 선행된다.<br>성능: 불필요한 시계열 집계를 피한다.<br>비용: 모드별 문서·테스트가 필요하다.<br>보안: 민감정보 처리 변화가 없다.<br>마이그레이션: job-search는 current alias로 유지한다.<br>테스트: 단일 snapshot trend 거부와 current 정상 실행을 검증한다. |
+| 기회비용 | 현재 검색 결과 화면에서 즉석 추세 그래프를 자동 생성하지 않는다. |
+| 선행 결정 | D-11-live-source-refresh-snapshot-contract |
+| 의존 예외 | — |
+| 사용자 결정 | 처분: ACCEPT<br>선택지 ID: B-separate-current-and-trend-modes<br>규칙: 사용자가 2026-09-14 요청에서 D-11~D-17의 권장안 B 승인을 명시했다.<br>근거: 단일 snapshot의 현재 채용과 반복 snapshot의 동향 주장을 서로 다른 모드와 적격성으로 제한한다.<br>결정자: user<br>결정 시각: 2026-09-14T12:33:36.975023+00:00 |
+| 구현 대상 | src/company_intel/interactive.py<br>src/company_intel/query_contract.py<br>src/company_intel/cli.py<br>src/company_intel/api.py<br>tests/test_interactive.py<br>tests/test_query_contract.py |
+| 구현 변경 ID | file-change-3db064398654<br>file-change-71ee7f968ed8<br>file-change-884e869a1a0f<br>file-change-d840e60bc9b6<br>file-change-e633c98e50e6 |
+| 검증 기준 | 현재 모드가 하나의 snapshot과 active_as_of를 요구하는지 확인한다.<br>동향 모드가 반복 snapshot 미충족 시 insufficient_snapshot_history를 반환하는지 확인한다.<br>각 모드가 분모와 허용 추론을 다르게 설명하는지 확인한다. |
+| 다이어그램 영향 | interactive root에서 current jobs와 trends를 독립 분기로 나눈다. |
+| 구현 맥락 topic | search-mode-boundary |
+
+## 13. 한국·체코 공공부문 기관 identity 결합 (`D-13-public-sector-identity-linkage`)
+
+| 구분 | 내용 |
+|---|---|
+| 상태 | accepted |
+| 결정 질문 | 공고 원천의 공공 맥락과 기관·법인 원천의 법적 분류를 어떤 identity 근거로 결합하고 미연결을 어떻게 보존할 것인가? |
+| 누가 | 공무·공기업·공공기관 채용을 구분해 찾는 사용자 |
+| 무엇을 | MPM↔ALIO와 MPSV IČO↔ARES의 근거 기반 기관 identity link |
+| 어디서 | taxonomy, warehouse entity/link tables, company/job search facets |
+| 언제 | 공공 영역과 기관 유형·법적 형태를 선택할 때 |
+| 왜 | 공고 source나 기관명만으로 공기업·소유부문을 잘못 확정하지 않기 위해 |
+| 어떻게 | 공식 식별자를 우선하고 정규화 이름 매칭은 후보로만 두며 축별 evidence status를 유지한다. |
+| 근거 | E-D13-provider-meaning — docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/live-category-tree-scope-amendment-2026-09-13.md:9-18 — MPM은 공공취업 맥락이지만 목록만으로 공기업 법적 형태를 확정할 수 없고 MPSV 공공행정 flag도 국영기업을 뜻하지 않는다. ALIO와 ARES가 각각 보강 원천이다.<br>E-D13-taxonomy-axes — src/company_intel/taxonomy.py:19-25 — 현재 taxonomy는 ownership_sector, public_institution_type, legal_form, industry, market_status를 독립 축으로 정의한다. |
+| 관찰 사실 | MPM 목록에는 기관명이 있으나 검증된 ALIO 기관 식별자 연결이 없다.<br>MPSV는 고용주 IČO를 제공하므로 ARES exact identity join이 가능하다.<br>ARES legal form은 ownership_sector와 동의어가 아니다. |
+| 충돌 | 이름 fuzzy match는 coverage를 높이지만 잘못된 기관 결합을 만들 수 있다.<br>exact ID만 허용하면 한국 MPM처럼 공통 식별자가 부족한 원천의 미연결 비율이 높다. |
+| 미구현 | MPM 기관명과 ALIO 기관의 검증·후보·충돌 link 상태가 없다.<br>MPSV IČO를 ARES entity와 결합한 검색 facet이 없다.<br>공공행정 직무와 공기업/공공기관 법적 유형을 UI에서 분리하지 않는다. |
+| 선택지 | A-collapse-public-signals: 공공 원천 또는 공공행정 flag가 있으면 하나의 public company 유형으로 합친다.; B-evidence-linked-separate-axes: 공고 맥락과 기관 identity를 공식 ID·검증된 link로 결합하고 ownership·institution type·legal form을 독립 축으로 유지한다. |
+| 권장안 | B-evidence-linked-separate-axes |
+| 권장 근거 | 사용자가 원하는 공무·공공기관·공기업 구분은 공고 맥락 하나가 아니라 기관 identity와 서로 다른 법적 축을 필요로 한다. |
+| 파급효과 | 데이터: provider entity와 canonical entity 간 link evidence를 저장한다.<br>스키마/API: 공공분류 facet에 namespace와 link_status를 노출한다.<br>사용자 경험: 확정·후보·미연결을 구분한다.<br>성능: registry enrichment를 snapshot 단계에서 수행한다.<br>비용: 한국 이름 후보 검토와 체코 ARES join 유지비가 든다.<br>보안: 개인 연락처는 identity 데이터에서 제외한다.<br>마이그레이션: 기존 taxonomy fact를 확장한다.<br>테스트: MPM↔ALIO 및 MPSV↔ARES 경계를 fixture로 검증한다. |
+| 기회비용 | 법적 소유 근거가 없는 체코 고용주는 공공행정 flag만 표시되고 국영기업으로 검색되지 않는다. |
+| 선행 결정 | D-02-company-capability-taxonomy<br>D-11-live-source-refresh-snapshot-contract |
+| 의존 예외 | — |
+| 사용자 결정 | 처분: ACCEPT<br>선택지 ID: B-evidence-linked-separate-axes<br>규칙: 사용자가 2026-09-14 요청에서 D-11~D-17의 권장안 B 승인을 명시했다.<br>근거: 공공 원천 맥락과 법적 기관 identity·소유부문을 혼동하지 않고 근거가 있는 축만 결합한다.<br>결정자: user<br>결정 시각: 2026-09-14T12:33:36.975023+00:00 |
+| 구현 대상 | src/company_intel/taxonomy.py<br>src/company_intel/identity.py<br>src/company_intel/warehouse.py<br>src/company_intel/job_search.py<br>tests/test_taxonomy.py<br>tests/test_identity.py |
+| 구현 변경 ID | file-change-019d6886b2c8<br>file-change-068da823a7c2<br>file-change-42c469cea05e<br>file-change-46da3fcbd9b9<br>file-change-4e2a56e63819<br>file-change-79c10e85533c<br>file-change-c2dd27200b1c<br>file-change-d8bc97a982b6<br>file-change-ec13a6928783 |
+| 검증 기준 | MPSV IČO exact join이 ARES legal_form과 CZ-NACE만 보강하고 ownership을 추정하지 않는지 확인한다.<br>MPM 이름 후보가 자동 확정되지 않고 link_status로 남는지 확인한다.<br>공공행정·공공기관·소유부문 facet이 독립적으로 필터되는지 확인한다. |
+| 다이어그램 영향 | job employer → identity link → ALIO/ARES taxonomy enrichment 흐름을 추가한다. |
+| 구현 맥락 topic | public-sector-identity |
+
+## 14. 실제 값 기반 단계형 facet 트리 탐색 (`D-14-progressive-facet-tree-navigation`)
+
+| 구분 | 내용 |
+|---|---|
+| 상태 | accepted |
+| 결정 질문 | 사용자가 화살표로 목적과 카테고리를 분기 선택할 때 유효한 값·개수·사용불가 이유를 어떻게 점진적으로 계산할 것인가? |
+| 누가 | CLI에서 검색 조건을 탐색하는 비기술 사용자 |
+| 무엇을 | 목적→snapshot→국가→기관영역→직종→위치→고용→급여→요건의 점진 facet 트리 |
+| 어디서 | company-intel interactive와 동일 query compiler |
+| 언제 | 각 상위 조건을 선택·취소·되돌릴 때 |
+| 왜 | 존재하지 않거나 의미가 다른 값을 입력해 0건·오분류가 생기는 문제를 줄이기 위해 |
+| 어떻게 | 선택으로 남은 행에서 facet count와 capability를 재계산하고 선택불가 사유를 표시한다. |
+| 근거 | E-D14-tree-design — docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/live-category-tree-scope-amendment-2026-09-13.md:20-64;79-87 — 요구 트리는 데이터 상태, 현재 채용, 동향, 기업·기관 분석, 결과 전달의 5개 루트와 단계별 실제 값 활성화 규칙으로 정리된다.<br>E-D14-current-static-interactive — src/company_intel/interactive.py:182-208;499-519 — 현재 interactive는 source-supported facet을 표시하고 command를 compile하지만 목적별 live/trend 트리와 상위 선택 후 동적 재계산 계약은 없다. |
+| 관찰 사실 | 현재 FacetOption은 selectable과 disabled reason을 표현할 수 있다.<br>현재 facet count는 supplied snapshot 범위만 의미한다.<br>국가와 provider에 따라 실제 선택 가능한 세부 축이 다르다. |
+| 충돌 | 모든 필드를 한 화면에 노출하면 빠르지만 무효 조합과 의미 혼동이 늘어난다.<br>강한 계층 고정은 탐색을 쉽게 하지만 사용자가 조건 순서를 자유롭게 바꾸기 어렵다. |
+| 미구현 | 상위 선택 후 하위 facet count를 재계산하는 session state가 없다.<br>backtracking 시 종속 선택을 무효화하고 설명하는 계약이 없다.<br>0건·display-only·unavailable·forbidden 분기를 실행 전에 일관되게 보여주지 않는다. |
+| 선택지 | A-flat-all-fields-form: 모든 가능한 필드를 한 번에 나열하고 사용자가 임의 입력한다.; B-progressive-evidence-facet-tree: 목적별 트리에서 현재 선택으로 남은 행의 고유값·count·coverage를 계산하고 사용 가능한 다음 가지만 활성화한다. |
+| 권장안 | B-progressive-evidence-facet-tree |
+| 권장 근거 | provider마다 다른 필드 coverage를 숨기지 않으면서 사용자가 실제 가능한 조합만 단계적으로 선택할 수 있다. |
+| 파급효과 | 데이터: 선택 단계별 후보 집합과 facet summary를 만든다.<br>스키마/API: purpose tree와 query session 계약을 추가한다.<br>사용자 경험: 5개 목적 루트와 동적 하위 가지를 제공한다.<br>성능: 고유값 상한·검색형 picker·캐시가 필요하다.<br>비용: interactive state 구현 비용이 발생한다.<br>보안: profile과 manifest에 secret/raw contact를 넣지 않는다.<br>마이그레이션: 기존 9개 command는 최종 leaf로 유지한다.<br>테스트: 키보드 탐색과 비대화형 script가 같은 profile을 만드는지 검증한다. |
+| 기회비용 | 원천에 없는 조건은 사용자가 자유 텍스트로 강제 적용하지 못하고 명시적 고급 모드가 필요하다. |
+| 선행 결정 | D-03-search-profile-and-discovery<br>D-12-current-search-trend-mode-separation<br>D-13-public-sector-identity-linkage |
+| 의존 예외 | — |
+| 사용자 결정 | 처분: ACCEPT<br>선택지 ID: B-progressive-evidence-facet-tree<br>규칙: 사용자가 2026-09-14 요청에서 D-11~D-17의 권장안 B 승인을 명시했다.<br>근거: 상위 선택으로 남은 실제 행에서 하위 값·개수·coverage를 다시 계산해 무효 조합을 차단한다.<br>결정자: user<br>결정 시각: 2026-09-14T12:33:36.975023+00:00 |
+| 구현 대상 | src/company_intel/interactive.py<br>src/company_intel/facets.py<br>src/company_intel/query_contract.py<br>src/company_intel/cli.py<br>tests/test_interactive.py<br>tests/test_facets.py<br>tests/test_cli_workflows.py |
+| 구현 변경 ID | file-change-3db064398654<br>file-change-4b8a5b1304c0<br>file-change-79c10e85533c<br>file-change-884e869a1a0f<br>file-change-98b9acce66be<br>file-change-a2dce4728cf0<br>file-change-d3aed88ac6ff<br>file-change-e633c98e50e6 |
+| 검증 기준 | 상위 선택 후 모든 하위 option count가 남은 행 기준으로 바뀌는지 확인한다.<br>선택불가 값이 disabled reason과 source coverage를 표시하며 profile에 포함되지 않는지 확인한다.<br>뒤로가기와 scripted run이 동일한 최종 profile을 재현하는지 확인한다. |
+| 다이어그램 영향 | 5개 목적 root와 current/trend의 단계형 facet state machine을 추가한다. |
+| 구현 맥락 topic | progressive-cli-tree |
+
+## 15. 현재 채용 검색의 분모·판정·coverage 계약 (`D-15-current-job-search-result-contract`)
+
+| 구분 | 내용 |
+|---|---|
+| 상태 | accepted |
+| 결정 질문 | 현재 채용 트리의 최종 선택을 어떤 활성 기준과 결과군·분모·요건 근거로 반환할 것인가? |
+| 누가 | 현재 지원 가능한 공고와 준비 요건을 찾는 사용자 |
+| 무엇을 | active_as_of 기준 현재 공고 검색과 strict/unverifiable/no-match/conflict 결과 |
+| 어디서 | job-search CLI/API/DataFrame/export |
+| 언제 | 현재 채용 트리 선택을 실행할 때 |
+| 왜 | 0건과 검증불가를 구분하고 표본 개수를 전체 시장으로 오인하지 않기 위해 |
+| 어떻게 | snapshot 분모와 각 필터 verdict를 보존해 공고·기관·요건·제외 결과를 함께 반환한다. |
+| 근거 | E-D15-current-result-need — docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/live-category-tree-scope-amendment-2026-09-13.md:30-43;66-75 — 현재 채용 트리는 기준 snapshot, 국가, 고용주 영역, 직종, 위치, 고용, 급여, 요건을 거쳐 네 결과군과 export를 반환해야 한다.<br>E-D15-mpm-field-limit — src/company_intel/job_search.py:420-432 — MPM normalizer는 목록 메타데이터만 있어 requirements, location, salary를 unavailable로 명시한다. |
+| 관찰 사실 | MPM 최신 100건 중 활성 94건은 current snapshot 표본이다.<br>MPM 목록의 위치·급여·요건 부재는 조건 불일치 증거가 아니다.<br>체코 MPSV 공공행정 110건 중 109건은 월급, 1건은 시급이므로 단일 급여 정렬군이 아니다. |
+| 충돌 | unknown을 필터 불일치로 처리하면 엄격 결과는 명확하지만 가능한 공고를 숨긴다.<br>unknown을 일치로 처리하면 결과는 많지만 요건 충족을 과장한다. |
+| 미구현 | live snapshot의 provider 반환량→정규화→활성→결과군 분모 chain이 한 응답에 없다.<br>필터별 unverifiable 사유와 선택 트리 count가 최종 결과에 결속되지 않는다. |
+| 선택지 | A-binary-match-only: 모든 조건을 true/false로 바꿔 일치와 제외 두 결과만 반환한다.; B-four-state-with-denominators: strict match, unverifiable candidate, no match, conflict를 나누고 provider 반환량·정규화·활성 분모와 필터별 사유를 함께 반환한다. |
+| 권장안 | B-four-state-with-denominators |
+| 권장 근거 | 국가별 API coverage 차이를 정직하게 보여 주면서 실제 일치와 검사 불가능을 분리한다. |
+| 파급효과 | 데이터: 필터 verdict와 분모 chain을 결과에 보존한다.<br>스키마/API: current search summary와 4개 result frame을 정의한다.<br>사용자 경험: 활성 기준시각과 제외·미확인 이유를 확인한다.<br>성능: facet 인덱스와 판정 캐시를 재사용한다.<br>비용: 응답·spreadsheet sheet가 늘어난다.<br>보안: 공고의 공개 source URL만 유지하고 개인 연락처는 제외한다.<br>마이그레이션: 기존 job-search DataFrame 4상태를 live manifest와 결속한다.<br>테스트: KR/CZ 필드 차이, active cutoff, 급여 signature, 요건 상태를 검증한다. |
+| 기회비용 | 검증불가 후보는 별도 검토 없이는 strict 결과로 승격되지 않는다. |
+| 선행 결정 | D-04-career-requirement-verification<br>D-10-job-availability-filtered-discovery<br>D-14-progressive-facet-tree-navigation |
+| 의존 예외 | — |
+| 사용자 결정 | 처분: ACCEPT<br>선택지 ID: B-four-state-with-denominators<br>규칙: 사용자가 2026-09-14 요청에서 D-11~D-17의 권장안 B 승인을 명시했다.<br>근거: 실제 불일치와 API 필드 부재를 네 판정군과 분모로 구분한다.<br>결정자: user<br>결정 시각: 2026-09-14T12:33:36.975023+00:00 |
+| 구현 대상 | src/company_intel/job_search.py<br>src/company_intel/search.py<br>src/company_intel/cli.py<br>src/company_intel/api.py<br>src/company_intel/exporting.py<br>tests/test_job_search.py<br>tests/test_cli_workflows.py |
+| 구현 변경 ID | file-change-46da3fcbd9b9<br>file-change-61fffd113df6<br>file-change-884e869a1a0f<br>file-change-cdc940596fb4<br>file-change-da6bf1177b56<br>file-change-e633c98e50e6 |
+| 검증 기준 | provider 반환량, 정규화 행, 활성 행, 네 결과군 합계가 보존되는지 확인한다.<br>MPM 급여·위치·요건 조건이 no_match가 아닌 unverifiable인지 확인한다.<br>CZK/month와 CZK/hour가 같은 정렬군에 섞이지 않는지 확인한다. |
+| 다이어그램 영향 | current tree leaf → four-state verdict → denominator summary → explain/export 흐름을 추가한다. |
+| 구현 맥락 topic | current-job-results |
+
+## 16. 채용 동향 snapshot 시계열과 비교 적격성 (`D-16-job-trend-series-analysis-contract`)
+
+| 구분 | 내용 |
+|---|---|
+| 상태 | accepted |
+| 결정 질문 | 반복 수집된 채용 snapshot에서 신규·활성·종료·급여·요건 변화를 어떤 비교 적격성으로 계산할 것인가? |
+| 누가 | 국가·기관군·직종별 채용 변화와 커리어 공통요건을 보는 사용자 |
+| 무엇을 | 동일 정의 snapshot series와 채용 동향 지표·coverage gate |
+| 어디서 | trend CLI/API, warehouse history, timeline/screen/event adapters |
+| 언제 | 동향 분석 모드를 실행할 때 |
+| 왜 | 단일 표본이나 provider coverage 변화가 실제 채용 변화처럼 보이는 오류를 막기 위해 |
+| 어떻게 | 공고 identity·snapshot 주기·분류 version·coverage를 고정하고 충족된 cohort 안에서만 변화량을 계산한다. |
+| 근거 | E-D16-trend-boundary — docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/live-category-tree-scope-amendment-2026-09-13.md:44-53;66-77 — 동향 분석은 snapshot 이력, 기간, 국가·기관 cohort, 직종·산업, 지표, 비교 기준, coverage gate를 필요로 하며 현재 단일 snapshot은 부적격이다. |
+| 관찰 사실 | 공고 신규·종료 판정에는 안정적인 provider+posting_id와 연속 snapshot이 필요하다.<br>provider 페이지 크기·실패·분류 crosswalk 변경은 관측량을 바꿔 추세를 왜곡할 수 있다.<br>공개 공고 수요 변화는 실제 고용 인원 변화나 인과효과와 같지 않다. |
+| 충돌 | 짧은 이력으로 빠르게 지표를 보이면 유용하지만 계절성과 coverage 변화에 취약하다.<br>엄격한 최소 이력은 신뢰도를 높이지만 초기에는 분석불가가 많다. |
+| 미구현 | 채용 snapshot history와 공고 등장·유지·종료 상태 저장이 없다.<br>분류 version·provider coverage가 고정된 비교 cohort 계약이 없다.<br>요건 빈도 변화와 경제·AI 사건 분석 사이의 association/causal gate가 없다. |
+| 선택지 | A-compare-any-two-counts: 두 실행 결과의 총 공고 수 차이를 바로 동향으로 표시한다.; B-versioned-snapshot-cohort-analysis: versioned snapshot·공고 identity·coverage가 비교 가능한 cohort에서만 신규·활성·종료·급여·요건 분포를 계산한다. |
+| 권장안 | B-versioned-snapshot-cohort-analysis |
+| 권장 근거 | 동향이라는 시간적 주장에는 동일한 관측 정의와 coverage 분모가 필요하며 현재 단일 표본을 억지로 추세화하지 않는다. |
+| 파급효과 | 데이터: 채용 snapshot series와 lifecycle fact를 저장한다.<br>스키마/API: trend profile, eligibility, metric series를 추가한다.<br>사용자 경험: 기간·주기·cohort·지표·비교기준을 단계 선택한다.<br>성능: snapshot diff와 materialized aggregate가 필요하다.<br>비용: 저장 용량과 주기 수집 운영비가 생긴다.<br>보안: 공개 채용 통계만 집계하고 PII를 제거한다.<br>마이그레이션: 기존 분석 함수를 적격한 series에만 연결한다.<br>테스트: 단일 snapshot 거부, coverage 변화, 동일 cohort 추세를 검증한다. |
+| 기회비용 | 즉시 과거 동향을 제공하려면 신뢰할 수 있는 과거 archive를 별도로 확보해야 한다. |
+| 선행 결정 | D-07-company-timeline-macro-comparison<br>D-11-live-source-refresh-snapshot-contract<br>D-13-public-sector-identity-linkage<br>D-14-progressive-facet-tree-navigation |
+| 의존 예외 | — |
+| 사용자 결정 | 처분: ACCEPT<br>선택지 ID: B-versioned-snapshot-cohort-analysis<br>규칙: 사용자가 2026-09-14 요청에서 D-11~D-17의 권장안 B 승인을 명시했다.<br>근거: 동향은 versioned snapshot과 동일 coverage cohort가 있을 때만 산출한다.<br>결정자: user<br>결정 시각: 2026-09-14T12:33:36.975023+00:00 |
+| 구현 대상 | src/company_intel/warehouse.py<br>src/company_intel/analytics.py<br>src/company_intel/analysis_service.py<br>src/company_intel/interactive.py<br>src/company_intel/cli.py<br>src/company_intel/api.py<br>tests/test_analytics.py<br>새 job trend 통합 테스트 |
+| 구현 변경 ID | file-change-086cfded9687<br>file-change-3a37488d99a0<br>file-change-42c469cea05e<br>file-change-4abcc47e1c00<br>file-change-884e869a1a0f<br>file-change-8fd4c111121f<br>file-change-9274cd7e97f7<br>file-change-ba9762e5fbcb<br>file-change-e633c98e50e6 |
+| 검증 기준 | 단일 snapshot 또는 coverage break가 trend unavailable을 반환하는지 확인한다.<br>동일 posting_id의 등장·유지·종료가 중복 없이 계산되는지 확인한다.<br>공고 변화가 실제 채용 완료나 인과 효과로 표기되지 않는지 확인한다. |
+| 다이어그램 영향 | versioned snapshots → lifecycle diff → eligibility → trend metrics → optional analysis 흐름을 추가한다. |
+| 구현 맥락 topic | job-trend-series |
+
+## 17. 트리 선택 세션과 결과 provenance·재현성 (`D-17-selection-session-result-provenance`)
+
+| 구분 | 내용 |
+|---|---|
+| 상태 | accepted |
+| 결정 질문 | 화살표 트리의 최종 선택을 실제 command/profile, snapshot, 결과·설명·spreadsheet와 어떻게 결속할 것인가? |
+| 누가 | 검색 결과를 반복·검토·내보내는 사용자 |
+| 무엇을 | selection manifest와 compiled query 및 result provenance |
+| 어디서 | interactive session, explain, export, run manifest |
+| 언제 | 최종 실행 전 미리보기부터 결과 저장·재실행까지 |
+| 왜 | 화면 선택과 실제 실행 조건이 달라지거나 결과 개수의 근거가 사라지는 것을 막기 위해 |
+| 어떻게 | 정규화 선택값·비활성 사유·compiled profile·snapshot hash·result partition hash를 하나의 redacted manifest로 연결한다. |
+| 근거 | E-D17-delivery-contract — docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/live-category-tree-scope-amendment-2026-09-13.md:54-63;79-87;103-110 — 트리 최종 leaf는 실행 이력, 포함·제외·미확인·충돌, 원천·수집시각·snapshot hash, CSV/XLSX와 재실행 profile을 제공해야 한다. |
+| 관찰 사실 | 기존 interactive는 compiled command와 profile을 만들고 export는 manifest hash를 지원한다.<br>새 current/trend 모드는 snapshot 및 eligibility 근거가 추가되어 기존 profile만으로 충분하지 않다.<br>provider 비밀값과 원문 연락처는 재현 manifest에 포함할 필요가 없다. |
+| 충돌 | 모든 원시 응답을 manifest에 넣으면 재현 정보는 많지만 비밀·PII·용량 위험이 커진다.<br>결과 파일만 저장하면 가볍지만 어떤 선택과 snapshot으로 생성됐는지 증명하기 어렵다. |
+| 미구현 | 트리의 단계별 선택과 무효화 이력이 최종 run manifest에 없다.<br>current/trend eligibility 및 분모가 explain·export와 동일 hash chain에 결속되지 않는다. |
+| 선택지 | A-save-results-only: 최종 CSV/XLSX와 사람이 읽는 조건 설명만 저장한다.; B-redacted-hash-linked-run-manifest: 선택값, compiled profile/command, snapshot·taxonomy version, eligibility, 결과 partition과 export를 비밀 제거 hash chain으로 결속한다. |
+| 권장안 | B-redacted-hash-linked-run-manifest |
+| 권장 근거 | 단계형 UI의 편의성과 CLI/API의 정확한 재현성·근거 추적을 하나의 실행 계약으로 연결한다. |
+| 파급효과 | 데이터: selection, query, snapshot, result, export hash chain을 저장한다.<br>스키마/API: run manifest와 replay/explain 입력을 정의한다.<br>사용자 경험: 최종 실행 전 조건·예상 분모를 확인하고 이후 동일 snapshot으로 재생한다.<br>성능: 작은 manifest hash 비용만 추가된다.<br>비용: 버전 호환과 보존 정책이 필요하다.<br>보안: allowlist redaction과 secret scanning을 적용한다.<br>마이그레이션: 기존 export manifest·interactive script를 포함한다.<br>테스트: 화살표/script/API parity와 redaction·tamper 검증을 수행한다. |
+| 기회비용 | manifest schema가 바뀔 때 backward-compatible reader를 유지해야 한다. |
+| 선행 결정 | D-05-spreadsheet-output-contract<br>D-15-current-job-search-result-contract<br>D-16-job-trend-series-analysis-contract |
+| 의존 예외 | — |
+| 사용자 결정 | 처분: ACCEPT<br>선택지 ID: B-redacted-hash-linked-run-manifest<br>규칙: 사용자가 2026-09-14 요청에서 D-11~D-17의 권장안 B 승인을 명시했다.<br>근거: 사용자 선택부터 profile·snapshot·결과·export를 비밀 제거 hash chain으로 재현한다.<br>결정자: user<br>결정 시각: 2026-09-14T12:33:36.975023+00:00 |
+| 구현 대상 | src/company_intel/interactive.py<br>src/company_intel/reporting.py<br>src/company_intel/exporting.py<br>src/company_intel/cli.py<br>src/company_intel/api.py<br>tests/test_interactive.py<br>tests/test_exporting.py<br>tests/test_cli_workflows.py |
+| 구현 변경 ID | file-change-36b865e1eb42<br>file-change-4b44bff78139<br>file-change-71ee7f968ed8<br>file-change-82feda91e73b<br>file-change-8aba2c25f5c6<br>file-change-952daa25d2bf<br>file-change-b33563055168<br>file-change-b9452dd0ae77<br>file-change-c1f9750959a4<br>file-change-c46a3c2c1704<br>file-change-e633c98e50e6<br>file-change-ef7ba7f0a5f0<br>file-change-fc01cd5b489d |
+| 검증 기준 | 화살표 선택과 scripted/API 입력이 같은 normalized profile을 생성하는지 확인한다.<br>manifest가 secret과 개인 연락처를 포함하지 않는지 확인한다.<br>snapshot·결과·export 변조 시 hash 검증이 실패하고 동일 snapshot replay가 같은 결과를 내는지 확인한다. |
+| 다이어그램 영향 | selection session → compiled query → result partitions → explain/export/replay provenance 흐름을 추가한다. |
+| 구현 맥락 topic | selection-provenance |

@@ -1,6 +1,6 @@
 import json
 
-from company_intel.run_manifest import build_run_manifest, write_run_manifest
+from company_intel.run_manifest import build_run_manifest, verify_manifest, write_run_manifest
 
 
 def test_run_manifest_redacts_sensitive_values_and_keeps_lineage_hashes(tmp_path):
@@ -43,3 +43,10 @@ def test_run_manifest_redacts_sensitive_values_and_keeps_lineage_hashes(tmp_path
 
     path = write_run_manifest(tmp_path / "run-manifest.json", manifest)
     assert json.loads(path.read_text(encoding="utf-8"))["run_id"] == manifest["run_id"]
+
+
+def test_v2_manifest_binds_selection_and_snapshot_refs():
+    manifest = build_run_manifest("current-jobs", {"countries": ["KR"]}, selection={"purpose": "current_jobs"}, snapshot_ref={"snapshot_id": "s1"}, result_refs={"jobs": "hash"})
+    assert manifest["schema_version"] == "2.0"
+    assert manifest["snapshot_ref"]["snapshot_id"] == "s1"
+    assert verify_manifest(manifest)

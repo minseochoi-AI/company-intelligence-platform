@@ -1,0 +1,11 @@
+{
+  "contract_version": "campaign-attempt-manifest-v1",
+  "campaign_id": "company-intelligence-cross-region-career-preparation",
+  "active": {
+    "C-08-public-sector-identity-linkage": {
+      "path": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/receipts/criteria/attempts/sha256-9d137be675a10d8f762b5109251060543ec3e8e93ee5efe342b943c3d3e13e3e.json",
+      "sha256": "9d137be675a10d8f762b5109251060543ec3e8e93ee5efe342b943c3d3e13e3e"
+    }
+  },
+  "updated_at": "2026-09-14T14:34:22.161417+00:00"
+}

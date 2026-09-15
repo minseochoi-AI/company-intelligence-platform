@@ -1,0 +1,45 @@
+{
+  "contract_version": "atomic-json-patch-receipt-v1",
+  "target": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/11-d-11-live-source-refresh-snapshot-contract.json",
+  "outcome": "pass",
+  "before_sha256": "37d5074426c5a4344d936bb0c1361102b0f19d0faef3157000be5716e3ec0594",
+  "after_sha256": "fb817308ead974a3b92900c3f3c6ea1a9a18b6cfdc7cd924d8f248aa6e4d9f05",
+  "proposed_after_sha256": "fb817308ead974a3b92900c3f3c6ea1a9a18b6cfdc7cd924d8f248aa6e4d9f05",
+  "operations": [
+    {
+      "op": "test",
+      "path": "/status"
+    },
+    {
+      "op": "test",
+      "path": "/accepted_decision"
+    },
+    {
+      "op": "replace",
+      "path": "/status"
+    },
+    {
+      "op": "replace",
+      "path": "/accepted_decision"
+    }
+  ],
+  "backup": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/receipts/mutation-journal/preimages/sha256-37d5074426c5a4344d936bb0c1361102b0f19d0faef3157000be5716e3ec0594.json",
+  "journal": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/receipts/mutation-journal/mutations/e699a85b806416a02f8986a7e4991dd554084fcda570632d49681e3cff850b11.json",
+  "mutation_id": "approve-D-11-live-source-refresh-snapshot-contract-20260914",
+  "validators": [
+    {
+      "command": [
+        "python3",
+        "-m",
+        "jsonschema",
+        "--instance",
+        "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/decisions/11-d-11-live-source-refresh-snapshot-contract.json",
+        "/home/ubuntu/.codex/skills/decision-campaign-workbook/references/decision-item.schema.json"
+      ],
+      "returncode": 0,
+      "stdout_tail": "",
+      "stderr_tail": ""
+    }
+  ],
+  "completed_at": "2026-09-14T12:33:38.454453+00:00"
+}

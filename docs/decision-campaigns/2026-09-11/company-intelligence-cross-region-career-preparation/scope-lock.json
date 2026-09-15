@@ -17,7 +17,14 @@
       "D-07-company-timeline-macro-comparison",
       "D-08-future-value-scenarios",
       "D-09-ai-event-effect-validation",
-      "D-10-job-availability-filtered-discovery"
+      "D-10-job-availability-filtered-discovery",
+      "D-11-live-source-refresh-snapshot-contract",
+      "D-12-current-search-trend-mode-separation",
+      "D-13-public-sector-identity-linkage",
+      "D-14-progressive-facet-tree-navigation",
+      "D-15-current-job-search-result-contract",
+      "D-16-job-trend-series-analysis-contract",
+      "D-17-selection-session-result-provenance"
     ],
     "dependencies": [
       {
@@ -63,6 +70,74 @@
       {
         "before": "D-04-career-requirement-verification",
         "after": "D-10-job-availability-filtered-discovery"
+      },
+      {
+        "before": "D-01-source-access-policy",
+        "after": "D-11-live-source-refresh-snapshot-contract"
+      },
+      {
+        "before": "D-11-live-source-refresh-snapshot-contract",
+        "after": "D-12-current-search-trend-mode-separation"
+      },
+      {
+        "before": "D-02-company-capability-taxonomy",
+        "after": "D-13-public-sector-identity-linkage"
+      },
+      {
+        "before": "D-11-live-source-refresh-snapshot-contract",
+        "after": "D-13-public-sector-identity-linkage"
+      },
+      {
+        "before": "D-03-search-profile-and-discovery",
+        "after": "D-14-progressive-facet-tree-navigation"
+      },
+      {
+        "before": "D-12-current-search-trend-mode-separation",
+        "after": "D-14-progressive-facet-tree-navigation"
+      },
+      {
+        "before": "D-13-public-sector-identity-linkage",
+        "after": "D-14-progressive-facet-tree-navigation"
+      },
+      {
+        "before": "D-04-career-requirement-verification",
+        "after": "D-15-current-job-search-result-contract"
+      },
+      {
+        "before": "D-10-job-availability-filtered-discovery",
+        "after": "D-15-current-job-search-result-contract"
+      },
+      {
+        "before": "D-14-progressive-facet-tree-navigation",
+        "after": "D-15-current-job-search-result-contract"
+      },
+      {
+        "before": "D-07-company-timeline-macro-comparison",
+        "after": "D-16-job-trend-series-analysis-contract"
+      },
+      {
+        "before": "D-11-live-source-refresh-snapshot-contract",
+        "after": "D-16-job-trend-series-analysis-contract"
+      },
+      {
+        "before": "D-13-public-sector-identity-linkage",
+        "after": "D-16-job-trend-series-analysis-contract"
+      },
+      {
+        "before": "D-14-progressive-facet-tree-navigation",
+        "after": "D-16-job-trend-series-analysis-contract"
+      },
+      {
+        "before": "D-05-spreadsheet-output-contract",
+        "after": "D-17-selection-session-result-provenance"
+      },
+      {
+        "before": "D-15-current-job-search-result-contract",
+        "after": "D-17-selection-session-result-provenance"
+      },
+      {
+        "before": "D-16-job-trend-series-analysis-contract",
+        "after": "D-17-selection-session-result-provenance"
       }
     ],
     "cohorts": [
@@ -105,17 +180,54 @@
         "decision_ids": [
           "D-10-job-availability-filtered-discovery"
         ]
+      },
+      {
+        "cohort_id": "C-07-live-source-snapshot-foundation",
+        "decision_ids": [
+          "D-11-live-source-refresh-snapshot-contract"
+        ]
+      },
+      {
+        "cohort_id": "C-08-public-sector-identity-linkage",
+        "decision_ids": [
+          "D-13-public-sector-identity-linkage"
+        ]
+      },
+      {
+        "cohort_id": "C-09-mode-and-tree-query-contract",
+        "decision_ids": [
+          "D-12-current-search-trend-mode-separation",
+          "D-14-progressive-facet-tree-navigation"
+        ]
+      },
+      {
+        "cohort_id": "C-10-current-job-search-execution",
+        "decision_ids": [
+          "D-15-current-job-search-result-contract"
+        ]
+      },
+      {
+        "cohort_id": "C-11-job-trend-series-analysis",
+        "decision_ids": [
+          "D-16-job-trend-series-analysis-contract"
+        ]
+      },
+      {
+        "cohort_id": "C-12-selection-provenance-delivery",
+        "decision_ids": [
+          "D-17-selection-session-result-provenance"
+        ]
       }
     ]
   },
-  "scope_sha256": "a9b21df1af2059742e4603c1c935feaf5b62d5539f31318e0c93c495987c1de3",
+  "scope_sha256": "6b52d5489ca61df577bd719e06f0795f02b652a55cdafdb001a20f4b90e026e9",
   "amendment": {
     "action": "AMEND_SCOPE",
     "requested_by": "user",
-    "requested_at": "2026-09-11T07:58:35Z",
-    "authority_text": "개소리 말고정확하게 검색으로 목적의 개수를 확인한 뒤에 진행해. 내가 말한 5개만 하지 말고 정확한 기능으로 하라는 것이야",
-    "previous_scope_sha256": "7999304264b29201eaa9cf2f3966bf6ee7c33d00343e9c4613eeacfbe6f4676a",
-    "new_scope_sha256": "a9b21df1af2059742e4603c1c935feaf5b62d5539f31318e0c93c495987c1de3",
-    "reason": "원문과 사용자 기능 요구를 분리 집계한 결과, 5개 캠페인 결정이 아닌 10개 독립 사용자 기능을 포괄하도록 D-06부터 D-10까지를 추가하고 이전 계획·권한을 superseded 처리했다."
+    "requested_at": "2026-09-13T13:55:00Z",
+    "authority_text": "현재 정보로 실시간 카테고리를 구성하고, 동향 분석과 현재 채용검색을 분리하며, 세부 카테고리 트리를 분기 선택해 최종 검색하도록 목적별 decision-campaign-workbook을 만들라.",
+    "previous_scope_sha256": "a9b21df1af2059742e4603c1c935feaf5b62d5539f31318e0c93c495987c1de3",
+    "new_scope_sha256": "6b52d5489ca61df577bd719e06f0795f02b652a55cdafdb001a20f4b90e026e9",
+    "reason": "기존 저장 snapshot 기반 대화형 CLI 위에 provider 갱신, 현재/동향 모드 분리, 공공기관 identity 연결, 점진 facet 트리, 결과 provenance 결정을 추가한다."
   }
 }

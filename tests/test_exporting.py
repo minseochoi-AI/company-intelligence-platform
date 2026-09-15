@@ -121,3 +121,10 @@ def test_verdict_and_lineage_export_keeps_tables_and_redacts_sensitive_values(tm
     assert secret.encode() not in bundle.files["run_manifest.json"]
     assert secret.encode() not in bundle.files["manifest.json"]
     assert secret.encode() not in bundle.files["strict_matches.csv"]
+
+
+def test_selection_ref_and_denominators_export_with_same_run(tmp_path):
+    run = build_run_manifest("current-jobs", {"countries": ["CZ"]}, selection={"purpose": "current_jobs"}, snapshot_ref={"snapshot_id": "s1"})
+    bundle = build_export_bundle(tmp_path, companies=[], capabilities=[], jobs=[], requirements=[], sources=[], exclusions=[], run_manifest=run, denominators=[{"provider_returned": 1, "normalized": 1, "active": 1, "strict_match": 1, "unverifiable": 0, "no_match": 0, "conflict": 0, "active_as_of": "2026-09-14"}])
+    assert "denominators.csv" in bundle.files
+    assert "selection_run.csv" in bundle.files
