@@ -1,0 +1,35 @@
+{
+  "contract_version": "atomic-json-patch-receipt-v1",
+  "target": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/scope-lock.json",
+  "outcome": "pass",
+  "before_sha256": "14c4e32ef30b197182f0ee4dc228bf170c25e6659183b83f2736101d6babd707",
+  "after_sha256": "e3c95d06cc390016fa86641593d5d12922f7490d9850c32a16b0cf548f4113b4",
+  "proposed_after_sha256": "e3c95d06cc390016fa86641593d5d12922f7490d9850c32a16b0cf548f4113b4",
+  "operations": [
+    {
+      "op": "test",
+      "path": "/amendment"
+    },
+    {
+      "op": "replace",
+      "path": "/amendment"
+    }
+  ],
+  "backup": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/.mutation-journal/preimages/sha256-14c4e32ef30b197182f0ee4dc228bf170c25e6659183b83f2736101d6babd707.json",
+  "journal": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/.mutation-journal/mutations/47699ea40886cbfd441d105f62e880515d00dee2143531b91a07f0f2de2da781.json",
+  "mutation_id": "scope-lock-r3-annotation",
+  "validators": [
+    {
+      "command": [
+        "python3",
+        "-m",
+        "json.tool",
+        "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/scope-lock.json"
+      ],
+      "returncode": 0,
+      "stdout_tail": "    {\n                \"cohort_id\": \"C-02-cil-runtime\",\n                \"decision_ids\": [\n                    \"D-09\"\n                ]\n            },\n            {\n                \"cohort_id\": \"C-03-company-analysis-skill\",\n                \"decision_ids\": [\n                    \"D-04\"\n                ]\n            },\n            {\n                \"cohort_id\": \"C-04-venture-analysis-skill\",\n                \"decision_ids\": [\n                    \"D-05\"\n                ]\n            },\n            {\n                \"cohort_id\": \"C-05-packaging-validation\",\n                \"decision_ids\": [\n                    \"D-08\"\n                ]\n            }\n        ]\n    },\n    \"scope_sha256\": \"718e29f2a7c2c7c8a648433d1725f9f53a662267c05880b3cfaad435ee022d28\",\n    \"amendment\": {\n        \"action\": \"AMEND_SCOPE\",\n        \"authorized_by\": \"user\",\n        \"authorized_at\": \"2026-09-15\",\n        \"authority_text\": \"D-01~D-10\\uc758 \\uc120\\uc5b8\\ub41c diagram_impacts\\ub97c \\uc2e4\\uc81c diagram \\ud30c\\uc77c \\uacbd\\ub85c\\ub85c AMEND_SCOPE \\ud574\\uc11c \\uc9c4\\ud589\\ud574\",\n        \"previous_lock\": \"docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/scope-lock-r2.json\"\n    }\n}\n",
+      "stderr_tail": ""
+    }
+  ],
+  "completed_at": "2026-09-15T06:39:08.821545+00:00"
+}

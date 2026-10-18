@@ -1,0 +1,129 @@
+{
+  "contract_version": "implementation-context-packet-v2",
+  "packet_id": "C-01-interop-control-packet-514156e4e714",
+  "topics": [
+    "interop-control"
+  ],
+  "capability_ids": [
+    "interop-control"
+  ],
+  "required_refs": [
+    {
+      "ref_id": "interop-control-d-01",
+      "role": "must-read",
+      "path": "docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/decisions/01-d-01.json",
+      "content_hash": "sha256:59d08d3c13ed024afc2561f65df51ec87fff57b39069b27472cbb0c77e51c41e",
+      "line_range": "1-EOF",
+      "question": "D-01의 승인된 구현 의미는 무엇인가?",
+      "observation_summary": "D-01의 B 권장안이 사용자에 의해 승인되었다."
+    },
+    {
+      "ref_id": "interop-control-d-02",
+      "role": "must-read",
+      "path": "docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/decisions/02-d-02.json",
+      "content_hash": "sha256:2374807855137b7f344fa501e522dddedc1917483f7a2d98f0829722564e6871",
+      "line_range": "1-EOF",
+      "question": "D-02의 승인된 구현 의미는 무엇인가?",
+      "observation_summary": "D-02의 B 권장안이 사용자에 의해 승인되었다."
+    },
+    {
+      "ref_id": "interop-control-d-03",
+      "role": "must-read",
+      "path": "docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/decisions/03-d-03.json",
+      "content_hash": "sha256:e13ebac8edb7c9e437aee041247f29634632b8617c015fbf6ce947d6383096f4",
+      "line_range": "1-EOF",
+      "question": "D-03의 승인된 구현 의미는 무엇인가?",
+      "observation_summary": "D-03의 B 권장안이 사용자에 의해 승인되었다."
+    },
+    {
+      "ref_id": "interop-control-d-06",
+      "role": "must-read",
+      "path": "docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/decisions/06-d-06.json",
+      "content_hash": "sha256:9fb0ea6b53c88813c5d381084e3cc018e8cfb9bc94e5528f789159c395cda68c",
+      "line_range": "1-EOF",
+      "question": "D-06의 승인된 구현 의미는 무엇인가?",
+      "observation_summary": "D-06의 B 권장안이 사용자에 의해 승인되었다."
+    },
+    {
+      "ref_id": "interop-control-d-07",
+      "role": "must-read",
+      "path": "docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/decisions/07-d-07.json",
+      "content_hash": "sha256:7bc036c1f678228efc35a6bc1e0e7ba8da826a89693df0a76c28a2e159089ac9",
+      "line_range": "1-EOF",
+      "question": "D-07의 승인된 구현 의미는 무엇인가?",
+      "observation_summary": "D-07의 B 권장안이 사용자에 의해 승인되었다."
+    },
+    {
+      "ref_id": "interop-control-d-10",
+      "role": "must-read",
+      "path": "docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/decisions/10-d-10.json",
+      "content_hash": "sha256:68528f71512ab689044fb5e4230ce5fda8645f4fff896a65ba7f635111550fb4",
+      "line_range": "1-EOF",
+      "question": "D-10의 승인된 구현 의미는 무엇인가?",
+      "observation_summary": "D-10의 B 권장안이 사용자에 의해 승인되었다."
+    }
+  ],
+  "current_entry_points": [],
+  "planned_entry_points": [
+    {
+      "kind": "code",
+      "path": ".codex/shared/company-intelligence-interop/domain-plan.schema.json",
+      "symbol": "domain-plan.schema.json",
+      "change_id": "C01-001"
+    },
+    {
+      "kind": "code",
+      "path": ".codex/shared/company-intelligence-interop/domain-plan-ref.schema.json",
+      "symbol": "domain-plan-ref.schema.json",
+      "change_id": "C01-002"
+    },
+    {
+      "kind": "code",
+      "path": ".codex/shared/company-intelligence-interop/evidence-bundle.schema.json",
+      "symbol": "evidence-bundle.schema.json",
+      "change_id": "C01-003"
+    },
+    {
+      "kind": "code",
+      "path": ".codex/shared/company-intelligence-interop/evidence-bundle-ref.schema.json",
+      "symbol": "evidence-bundle-ref.schema.json",
+      "change_id": "C01-004"
+    },
+    {
+      "kind": "code",
+      "path": ".codex/shared/company-intelligence-interop/dual-path-comparison.schema.json",
+      "symbol": "dual-path-comparison.schema.json",
+      "change_id": "C01-005"
+    },
+    {
+      "kind": "code",
+      "path": ".codex/shared/company-intelligence-interop/campaign-link.schema.json",
+      "symbol": "campaign-link.schema.json",
+      "change_id": "C01-006"
+    },
+    {
+      "kind": "code",
+      "path": ".codex/shared/company-intelligence-interop/connector-candidates.json",
+      "symbol": "connector-candidates.json",
+      "change_id": "C01-007"
+    },
+    {
+      "kind": "code",
+      "path": ".codex/shared/company-intelligence-interop/BOUNDARIES.md",
+      "symbol": "BOUNDARIES.md",
+      "change_id": "C01-008"
+    },
+    {
+      "kind": "code",
+      "path": ".codex/shared/company-intelligence-interop/interop.py",
+      "symbol": "interop.py",
+      "change_id": "C01-009"
+    }
+  ],
+  "external_entry_points": [],
+  "invariants": [
+    "승인된 결정·scope·근거 hash를 변경하지 않고 파일 단위 계획으로 구현한다."
+  ],
+  "unresolved_conflicts": [],
+  "resume_digest": "Prepared C-01-interop-control from current decision hashes and one global file-ownership graph."
+}

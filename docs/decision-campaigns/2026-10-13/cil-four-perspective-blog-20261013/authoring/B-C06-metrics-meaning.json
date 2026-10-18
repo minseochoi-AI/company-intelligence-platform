@@ -1,0 +1,30 @@
+{
+  "prose": {
+    "reason": "Search Console/AdSense 4 operation의 읽기 전용 접근으로 확인 가능한 성과만 집계하며 콘텐츠 품질·사용자 평가를 수익으로 대체하지 않는다.",
+    "assertion": "미연동은 unknown, site/account/기간/통화별 집계, URL 매핑/부분 coverage 표시, 임의 페이지 매출 배분 금지와 readonly scope"
+  },
+  "changes": {
+    "T1": {
+      "problem": "이 목적의 컴포넌트 없음",
+      "reason": {
+        "$prose": "reason"
+      },
+      "change": "적용 경계: apps/company-report-blog/src/report_blog/metrics.py; 계정·권한·시점·통화 및 실제 dimension coverage를 유지한 readonly 조회; unavailable/unknown와0을 구분",
+      "evidence": "docs/decision-campaigns/2026-10-13/cil-four-perspective-blog-20261013/evidence/product-contract-ko.md",
+      "assertion": {
+        "$prose": "assertion"
+      }
+    },
+    "T2": {
+      "problem": "이 목적의 컴포넌트 없음",
+      "reason": {
+        "$prose": "reason"
+      },
+      "change": "적용 경계: apps/company-report-blog/tests/test_metrics.py; 새 테스트 파일: 미연동은 unknown, site/account/기간/통화별 집계, URL 매핑/부분 coverage 표시, 임의 페이지 매출 배분 금지와 readonly scope; 해당 그룹 변경점과 fixtures/반례를 모두 실행한다.",
+      "evidence": "docs/decision-campaigns/2026-10-13/cil-four-perspective-blog-20261013/evidence/product-contract-ko.md",
+      "assertion": {
+        "$prose": "assertion"
+      }
+    }
+  }
+}

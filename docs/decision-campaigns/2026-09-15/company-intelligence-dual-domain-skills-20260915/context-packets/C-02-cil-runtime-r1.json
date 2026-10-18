@@ -1,0 +1,55 @@
+{
+  "contract_version": "implementation-context-packet-v2",
+  "packet_id": "C-02-cil-runtime-packet-0064d7f0dd52",
+  "topics": [
+    "cil-runtime-readiness"
+  ],
+  "capability_ids": [
+    "cil-runtime-readiness"
+  ],
+  "required_refs": [
+    {
+      "ref_id": "cil-runtime-readiness-d-09",
+      "role": "must-read",
+      "path": "docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/decisions/09-d-09.json",
+      "content_hash": "sha256:2616fc10440840827701046cf2a82801b36b3c8c6c386772039d694d6259b726",
+      "line_range": "1-EOF",
+      "question": "D-09의 승인된 구현 의미는 무엇인가?",
+      "observation_summary": "D-09의 B 권장안이 사용자에 의해 승인되었다."
+    }
+  ],
+  "current_entry_points": [
+    {
+      "kind": "code",
+      "path": "src/company_intel/config.py",
+      "symbol": "config.py",
+      "source_hash": "44879c8438ccf7169c2b4ab8c4c975f61a9a9bf87eccaec7b8df93f7674db393"
+    },
+    {
+      "kind": "code",
+      "path": "src/company_intel/cli.py",
+      "symbol": "cli.py",
+      "source_hash": "79d5f528d8a7990030f8a04aad948074ca38b475834b070a227d15827233fcc7"
+    },
+    {
+      "kind": "code",
+      "path": ".codex/skills/company-intel-cli/SKILL.md",
+      "symbol": "SKILL.md",
+      "source_hash": "9d018a09dabb7d5a275a102345b6c69379893cb14823c6162c9cf9062c171d46"
+    }
+  ],
+  "planned_entry_points": [
+    {
+      "kind": "test",
+      "path": "tests/test_cli_project_root.py",
+      "symbol": "test_cli_project_root.py",
+      "change_id": "C02-004"
+    }
+  ],
+  "external_entry_points": [],
+  "invariants": [
+    "승인된 결정·scope·근거 hash를 변경하지 않고 파일 단위 계획으로 구현한다."
+  ],
+  "unresolved_conflicts": [],
+  "resume_digest": "Prepared C-02-cil-runtime from current decision hashes and one global file-ownership graph."
+}

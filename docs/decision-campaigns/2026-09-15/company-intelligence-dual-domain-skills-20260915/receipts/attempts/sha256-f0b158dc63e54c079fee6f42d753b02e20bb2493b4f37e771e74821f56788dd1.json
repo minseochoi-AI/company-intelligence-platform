@@ -1,0 +1,14 @@
+{
+  "scenario_id": "C-02-cil-runtime:cil-root-tests",
+  "cohort_id": "C-02-cil-runtime",
+  "criterion_id": "cil-root-tests",
+  "plan_sha256": "4bffa4b6ab878493b390485d392141e393a61bde571af39e647da43677a2092b",
+  "command": "tests/test_cli_project_root.py",
+  "outcome": "pass",
+  "returncode": 0,
+  "first_failure": null,
+  "raw_log_path": "docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/receipts/logs/C-02-cil-runtime__cil-root-tests.log",
+  "raw_log_sha256": "4a6e9c36d8f59b5f37fea72c93e4df9fc194a7d55658ccade2f5975a987ec522",
+  "tail": "...                                                                      [100%]\n3 passed in 0.47s\n",
+  "completed_at": "2026-09-15T06:24:29.070788+00:00"
+}

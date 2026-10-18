@@ -1,0 +1,14 @@
+{
+  "contract_version": "campaign-prepare-attempt-v1",
+  "status": "pass",
+  "campaign": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-10-13/cil-four-perspective-blog-20261013/campaign.json",
+  "cohorts": [
+    "B-C03-cil-coverage"
+  ],
+  "files": 7,
+  "operations": 40,
+  "unique_paths": 40,
+  "repository_intelligence_required": false,
+  "transaction_sha256": "8f2acdf9d54ea7a720b93468369b4ec708d4a445a42561d97079c8c3682066bf",
+  "graph_sha256": "3c84ce661e78608cbfdde9d41419fb14e8e4f71d45bbfecfe7a5fa457a815f76"
+}

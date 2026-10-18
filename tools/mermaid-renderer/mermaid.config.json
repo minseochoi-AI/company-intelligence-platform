@@ -1,0 +1,13 @@
+{
+  "theme": "base",
+  "look": "classic",
+  "handDrawnSeed": 1,
+  "deterministicIds": true,
+  "deterministicIDSeed": "company-intelligence-diagram-renderer-v1",
+  "securityLevel": "strict",
+  "startOnLoad": false,
+  "flowchart": {
+    "htmlLabels": false,
+    "useMaxWidth": false
+  }
+}

@@ -1,0 +1,112 @@
+{
+  "schema_version": "1.0.0",
+  "audit_id": "free-company-trend-connector-audit-20260915",
+  "observed_at": "2026-09-15T00:00:00+09:00",
+  "purpose": "무료 기업분석·동향 데이터 연결구를 스킬 방법론이 아니라 실제 데이터 전송 계층 관점에서 판별한다.",
+  "search_queries": [
+    "company research mcp",
+    "market trends mcp",
+    "sec filings company analysis",
+    "fred mcp",
+    "Korea DART company MCP",
+    "Czech ARES company MCP"
+  ],
+  "acceptance_criteria": [
+    "상업적 사용을 포함한 무료 사용 범위가 확인될 것",
+    "실제 MCP 또는 재현 가능한 로컬 연결구를 제공할 것",
+    "원천·관측시각·기업 식별자를 CIL 증거 계약에 보존할 수 있을 것",
+    "기존 CIL 원천과 중복이면 새로운 종속성을 정당화할 추가 정보 또는 운영상 이점이 있을 것",
+    "무료 계정·API 키·호출량·이용약관·비공식 스크래핑 여부를 숨기지 않을 것"
+  ],
+  "current_environment": {
+    "connected_free_company_analysis_mcp": [],
+    "finding": "현재 세션의 연결 도구 목록에는 기업분석·시장동향 전용 무료 MCP가 없다. 발견 후보는 설치되지 않았으며 이번 작업에서는 설치하지 않는다."
+  },
+  "candidates": [
+    {
+      "candidate_id": "milos106-ares-mcp",
+      "locator": "https://github.com/milos106/ares-mcp",
+      "connector_kind": "self-hosted-mcp",
+      "data_source": "체코 재무부 ARES 공개 API",
+      "cost_and_auth": "코드는 MIT, ARES API는 키 없이 무료이며 데이터는 CC BY 4.0 귀속 조건",
+      "observed_capabilities": [
+        "IČO 검증과 기업 검색",
+        "법적 형태·주소·CZ-NACE·통계 분류",
+        "선택적 provenance 서명"
+      ],
+      "overlap_with_cil": "CIL이 이미 ARES를 직접 사용하므로 핵심 데이터는 중복된다.",
+      "risk": "제3자 MCP 유지보수·공급망·개인정보 처리 검토가 필요하고 대량 크롤링은 ARES 운영조건에 맞지 않는다.",
+      "disposition": "candidate-not-adopted",
+      "reason": "무료 연결구로는 유효하지만 지금은 새 정보가 없고 직접 API보다 종속성이 늘어난다."
+    },
+    {
+      "candidate_id": "hypn4-opendart-fss-mcp",
+      "locator": "https://github.com/hypn4/opendart-fss-mcp",
+      "connector_kind": "self-hosted-mcp",
+      "data_source": "금융감독원 OpenDART",
+      "cost_and_auth": "코드는 MIT이며 무료 OpenDART API 키가 필요하다.",
+      "observed_capabilities": [
+        "공시·재무제표·주주·주요사항 검색",
+        "stdio와 HTTP transport",
+        "한국 회사명 검색"
+      ],
+      "overlap_with_cil": "CIL의 DART 원천과 데이터가 중복되며 별도 키 관리와 85개 도구 표면을 추가한다.",
+      "risk": "공식 기관 제품이 아닌 커뮤니티 래퍼이고 저장소 성숙도·도구별 필드 계약을 별도 검증해야 한다.",
+      "disposition": "candidate-not-adopted",
+      "reason": "무료지만 직접 OpenDART adapter보다 우위가 입증되지 않았다."
+    },
+    {
+      "candidate_id": "octagonai-skills-and-mcp",
+      "locator": "https://github.com/OctagonAI/skills",
+      "connector_kind": "hosted-service-mcp-dependent-skills",
+      "data_source": "Octagon 서비스가 통합하는 공시·재무·시장 데이터",
+      "cost_and_auth": "무료 계정과 OCTAGON_API_KEY가 필요하나 장기 무료 한도·재배포·국가별 coverage를 이번 조사에서 확정하지 못했다.",
+      "observed_capabilities": [
+        "재무제표·성장·시장가격·SEC 분석",
+        "Octagon MCP를 전제로 한 다수 분석 스킬"
+      ],
+      "overlap_with_cil": "미국 상장기업 분석은 CIL SEC·시장 원천과 크게 겹치며 한국·체코 공공기관 coverage는 확인되지 않았다.",
+      "risk": "무료 tier가 무료·무제한 공공 연결구와 같지 않고 외부 서비스 종속·데이터 권리 확인이 필요하다.",
+      "disposition": "deferred-terms-and-coverage",
+      "reason": "기능은 넓지만 무료성과 세 국가 coverage가 현재 계약에 충분히 입증되지 않았다."
+    },
+    {
+      "candidate_id": "gauss314-financial-data-skills",
+      "locator": "https://github.com/gauss314/skills",
+      "connector_kind": "direct-http-skills-not-one-mcp",
+      "data_source": "FRED·SEC·Yahoo Finance 등",
+      "cost_and_auth": "FRED는 무료 키, SEC는 무료 공개 API, Yahoo는 키 없는 비공식 endpoint를 사용한다.",
+      "observed_capabilities": [
+        "FRED 거시 시계열",
+        "SEC XBRL facts",
+        "Yahoo 가격·재무·뉴스"
+      ],
+      "overlap_with_cil": "FRED·SEC 역할은 CIL의 공식 원천군과 중복되고 Yahoo만 보완 가능하나 비공식이다.",
+      "risk": "Yahoo 비공식 endpoint의 안정성·약관·필드 변경 위험이 있고 개별 스킬은 MCP 연결구가 아니다.",
+      "disposition": "method-reference-only",
+      "reason": "무료 데이터 접근 예시는 참고할 수 있으나 production 연결 의존성으로 채택하지 않는다."
+    },
+    {
+      "candidate_id": "tako-mcp",
+      "locator": "https://github.com/TakoData/tako-mcp",
+      "connector_kind": "hosted-mcp",
+      "data_source": "라이선스 데이터·공개 웹·거시·기업 재무",
+      "cost_and_auth": "무료 tier와 무키 시작을 표방하지만 지속 한도·재배포 권리·국가별 coverage가 확정되지 않았다.",
+      "observed_capabilities": [
+        "기업 재무·거시·웹 검색",
+        "MCP 연결"
+      ],
+      "overlap_with_cil": "CIL의 여러 원천을 한 연결구로 대체할 가능성은 있으나 원자 필드 provenance 보존을 검증하지 않았다.",
+      "risk": "호스팅 서비스의 무료 tier 변경과 라이선스 데이터의 2차 저장·배포 제한 가능성",
+      "disposition": "deferred-terms-and-provenance",
+      "reason": "실제 무료 범위와 증거 계약을 검증하기 전에는 채택할 수 없다."
+    }
+  ],
+  "conclusion": {
+    "direct_adoption_count": 0,
+    "free_connector_candidate_count": 2,
+    "deferred_hosted_candidate_count": 2,
+    "method_reference_count": 1,
+    "decision": "현재 즉시 설치할 외부 연결구는 없다. ARES MCP와 OpenDART MCP는 무료 후보 레지스트리에 남기되, CIL 직접 adapter와 비교해 새로운 필드·운영상 이점·권리·보안이 입증될 때만 별도 결정으로 채택한다."
+  }
+}

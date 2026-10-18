@@ -1,0 +1,308 @@
+{
+  "contract_version": "decision-campaign-implementation-v1",
+  "campaign_id": "company-intelligence-dual-domain-skills-20260915",
+  "outcome": "pass",
+  "updated_at": "2026-09-15T07:10:57.522036+00:00",
+  "cohorts": [
+    {
+      "cohort_id": "C-01-interop-control",
+      "status": "completed",
+      "changed_paths": [
+        ".codex/shared/company-intelligence-interop/domain-plan.schema.json",
+        ".codex/shared/company-intelligence-interop/domain-plan-ref.schema.json",
+        ".codex/shared/company-intelligence-interop/evidence-bundle.schema.json",
+        ".codex/shared/company-intelligence-interop/evidence-bundle-ref.schema.json",
+        ".codex/shared/company-intelligence-interop/dual-path-comparison.schema.json",
+        ".codex/shared/company-intelligence-interop/campaign-link.schema.json",
+        ".codex/shared/company-intelligence-interop/connector-candidates.json",
+        ".codex/shared/company-intelligence-interop/BOUNDARIES.md",
+        ".codex/shared/company-intelligence-interop/interop.py"
+      ],
+      "commands": [
+        "authorized exact-plan application and postimage hash capture"
+      ],
+      "outcome": "pass",
+      "raw_log_path": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/receipts/logs/implementation-hash-capture.log",
+      "raw_log_sha256": "0df5ed7fd914c2352529456077f188a1629f2325963435a7f9e647ec6042b163",
+      "first_failure": null,
+      "stdout_tail": "29 exact postimages captured; git diff --check exit 0",
+      "stderr_tail": null,
+      "telemetry": {
+        "provider": {
+          "measurement": "not-applicable",
+          "invocations": null,
+          "input_tokens": null,
+          "output_tokens": null
+        },
+        "agent_session": {
+          "measurement": "unavailable-platform",
+          "token_count": null,
+          "tool_output_chars": null
+        }
+      },
+      "provider_guard": null,
+      "updated_at": "2026-09-15T06:26:09.595100+00:00",
+      "context_packet_id": "C-01-interop-control-packet-514156e4e714",
+      "context_packet_sha256": "001fee947dc0cffbabeb13caa98c4331e341b774833e0cbb8744068f829fa477",
+      "implementation_plan_id": "C-01-interop-control-plan-r1",
+      "implementation_plan_sha256": "6a0e924fbeab435f271962cd428ea77744a08d2de36b68a5c75ac2341b43c8f0",
+      "passed_criterion_ids": [
+        "interop-self-test"
+      ],
+      "attempt_ref": {
+        "path": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/receipts/attempts/sha256-71f9ce499dcae1b188014409990123567b5201d0e848662151a0acaf28959c92.json",
+        "sha256": "71f9ce499dcae1b188014409990123567b5201d0e848662151a0acaf28959c92"
+      }
+    },
+    {
+      "cohort_id": "C-02-cil-runtime",
+      "status": "completed",
+      "changed_paths": [
+        "src/company_intel/config.py",
+        "src/company_intel/cli.py",
+        ".codex/skills/company-intel-cli/SKILL.md",
+        "tests/test_cli_project_root.py"
+      ],
+      "commands": [
+        "authorized exact-plan application and postimage hash capture"
+      ],
+      "outcome": "pass",
+      "raw_log_path": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/receipts/logs/implementation-hash-capture.log",
+      "raw_log_sha256": "0df5ed7fd914c2352529456077f188a1629f2325963435a7f9e647ec6042b163",
+      "first_failure": null,
+      "stdout_tail": "29 exact postimages captured; git diff --check exit 0",
+      "stderr_tail": null,
+      "telemetry": {
+        "provider": {
+          "measurement": "not-applicable",
+          "invocations": null,
+          "input_tokens": null,
+          "output_tokens": null
+        },
+        "agent_session": {
+          "measurement": "unavailable-platform",
+          "token_count": null,
+          "tool_output_chars": null
+        }
+      },
+      "provider_guard": null,
+      "updated_at": "2026-09-15T06:26:09.726340+00:00",
+      "context_packet_id": "C-02-cil-runtime-packet-0064d7f0dd52",
+      "context_packet_sha256": "97cf85862ca511afde7a2b6fa3d7696916d8092f74858f4343dd8c91564f4399",
+      "implementation_plan_id": "C-02-cil-runtime-plan-r1",
+      "implementation_plan_sha256": "4bffa4b6ab878493b390485d392141e393a61bde571af39e647da43677a2092b",
+      "passed_criterion_ids": [
+        "cil-root-tests"
+      ],
+      "attempt_ref": {
+        "path": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/receipts/attempts/sha256-59a61a3c09b2c6c828e31fc109d7a4d764fd339159bf44d4f21be1207419ec0d.json",
+        "sha256": "59a61a3c09b2c6c828e31fc109d7a4d764fd339159bf44d4f21be1207419ec0d"
+      }
+    },
+    {
+      "cohort_id": "C-03-company-analysis-skill",
+      "status": "completed",
+      "changed_paths": [
+        ".codex/skills/company-intelligence-analysis/SKILL.md",
+        ".codex/skills/company-intelligence-analysis/agents/openai.yaml",
+        ".codex/skills/company-intelligence-analysis/references/analysis-routing.md",
+        ".codex/skills/company-intelligence-analysis/references/output-contract.md",
+        ".codex/skills/company-intelligence-analysis/scripts/verify_cil_artifact.py"
+      ],
+      "commands": [
+        "authorized exact-plan application and postimage hash capture"
+      ],
+      "outcome": "pass",
+      "raw_log_path": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/receipts/logs/implementation-hash-capture.log",
+      "raw_log_sha256": "0df5ed7fd914c2352529456077f188a1629f2325963435a7f9e647ec6042b163",
+      "first_failure": null,
+      "stdout_tail": "29 exact postimages captured; git diff --check exit 0",
+      "stderr_tail": null,
+      "telemetry": {
+        "provider": {
+          "measurement": "not-applicable",
+          "invocations": null,
+          "input_tokens": null,
+          "output_tokens": null
+        },
+        "agent_session": {
+          "measurement": "unavailable-platform",
+          "token_count": null,
+          "tool_output_chars": null
+        }
+      },
+      "provider_guard": null,
+      "updated_at": "2026-09-15T06:26:09.853081+00:00",
+      "context_packet_id": "C-03-company-analysis-skill-packet-4ec69c0eb3d5",
+      "context_packet_sha256": "69100febac65802f960d9e03dc0e772cc438661af12b442a7856aba42d7e0168",
+      "implementation_plan_id": "C-03-company-analysis-skill-plan-r1",
+      "implementation_plan_sha256": "930d3d7a9f7b73b789d356fc8a84024975f2c5b098edbb3de67d16ec44a3b116",
+      "passed_criterion_ids": [
+        "company-skill-quick-validate"
+      ],
+      "attempt_ref": {
+        "path": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/receipts/attempts/sha256-b3652c351b2057f11df2584f8bca68f40de32f0300fbe8c326578e6f02ad5ce6.json",
+        "sha256": "b3652c351b2057f11df2584f8bca68f40de32f0300fbe8c326578e6f02ad5ce6"
+      }
+    },
+    {
+      "cohort_id": "C-04-venture-analysis-skill",
+      "status": "completed",
+      "changed_paths": [
+        ".codex/skills/kr-defensible-venture-discovery/SKILL.md",
+        ".codex/skills/kr-defensible-venture-discovery/agents/openai.yaml",
+        ".codex/skills/kr-defensible-venture-discovery/references/market-archetypes.md",
+        ".codex/skills/kr-defensible-venture-discovery/references/research-workflow.md",
+        ".codex/skills/kr-defensible-venture-discovery/references/evidence-and-barriers.md",
+        ".codex/skills/kr-defensible-venture-discovery/references/venture-session.schema.json",
+        ".codex/skills/kr-defensible-venture-discovery/references/opportunity-hypothesis.schema.json",
+        ".codex/skills/kr-defensible-venture-discovery/scripts/venture_artifacts.py"
+      ],
+      "commands": [
+        "authorized exact-plan application and postimage hash capture"
+      ],
+      "outcome": "pass",
+      "raw_log_path": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/receipts/logs/implementation-hash-capture.log",
+      "raw_log_sha256": "0df5ed7fd914c2352529456077f188a1629f2325963435a7f9e647ec6042b163",
+      "first_failure": null,
+      "stdout_tail": "29 exact postimages captured; git diff --check exit 0",
+      "stderr_tail": null,
+      "telemetry": {
+        "provider": {
+          "measurement": "not-applicable",
+          "invocations": null,
+          "input_tokens": null,
+          "output_tokens": null
+        },
+        "agent_session": {
+          "measurement": "unavailable-platform",
+          "token_count": null,
+          "tool_output_chars": null
+        }
+      },
+      "provider_guard": null,
+      "updated_at": "2026-09-15T06:26:09.984656+00:00",
+      "context_packet_id": "C-04-venture-analysis-skill-packet-76389a7c4188",
+      "context_packet_sha256": "354d4b2d40a81df1e80a9823b4ac85b1ffb0d9a3372baf1aa343c0b3cfff7ff2",
+      "implementation_plan_id": "C-04-venture-analysis-skill-plan-r1",
+      "implementation_plan_sha256": "82ce2475b651c6f1ba32fdcfe7978561f5a646a6332ad9d0c49812f0b88d67ee",
+      "passed_criterion_ids": [
+        "venture-skill-quick-validate"
+      ],
+      "attempt_ref": {
+        "path": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/receipts/attempts/sha256-6dab3ce28c55e8109142e360d491801ed7774df4ba8e772999264115833474d1.json",
+        "sha256": "6dab3ce28c55e8109142e360d491801ed7774df4ba8e772999264115833474d1"
+      }
+    },
+    {
+      "cohort_id": "C-05-packaging-validation",
+      "status": "completed",
+      "changed_paths": [
+        "tests/skills/test_company_intelligence_analysis_skill.py",
+        "tests/skills/test_venture_discovery_skill.py",
+        "tests/skills/test_skill_artifact_interop.py"
+      ],
+      "commands": [
+        "authorized exact-plan application and postimage hash capture"
+      ],
+      "outcome": "pass",
+      "raw_log_path": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/receipts/logs/implementation-hash-capture.log",
+      "raw_log_sha256": "0df5ed7fd914c2352529456077f188a1629f2325963435a7f9e647ec6042b163",
+      "first_failure": null,
+      "stdout_tail": "29 exact postimages captured; git diff --check exit 0",
+      "stderr_tail": null,
+      "telemetry": {
+        "provider": {
+          "measurement": "not-applicable",
+          "invocations": null,
+          "input_tokens": null,
+          "output_tokens": null
+        },
+        "agent_session": {
+          "measurement": "unavailable-platform",
+          "token_count": null,
+          "tool_output_chars": null
+        }
+      },
+      "provider_guard": null,
+      "updated_at": "2026-09-15T06:26:10.121285+00:00",
+      "context_packet_id": "C-05-packaging-validation-packet-9b2ac7c1f93a",
+      "context_packet_sha256": "33ffe897b239af4084745ea523e7cbe09b4cd2ea43f124be203675f82f6d619d",
+      "implementation_plan_id": "C-05-packaging-validation-plan-r1",
+      "implementation_plan_sha256": "732149ab95552b32019265e90382cba00383edf4e7754173224958c49168dbcc",
+      "passed_criterion_ids": [
+        "skill-behavior-pytest"
+      ],
+      "attempt_ref": {
+        "path": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/receipts/attempts/sha256-9da1d56dbfba2e9d312c28b37f044180df8ddc0001da931e0a8132c2c31cc6e8.json",
+        "sha256": "9da1d56dbfba2e9d312c28b37f044180df8ddc0001da931e0a8132c2c31cc6e8"
+      }
+    },
+    {
+      "cohort_id": "C-06-diagram-toolchain",
+      "status": "completed",
+      "changed_paths": [
+        ".gitignore",
+        "tools/flowchart_matrix.py",
+        "tools/mermaid-renderer/package.json",
+        "tools/mermaid-renderer/package-lock.json",
+        "tools/mermaid-renderer/mermaid.config.json",
+        "tools/mermaid-renderer/puppeteer.local.json",
+        "tests/tools/test_flowchart_matrix.py",
+        "tests/tools/test_mermaid_renderer.py"
+      ],
+      "commands": [
+        "PUPPETEER_SKIP_DOWNLOAD=1 npm install --package-lock-only --ignore-scripts",
+        "PUPPETEER_SKIP_DOWNLOAD=1 npm ci --ignore-scripts",
+        "sha256sum approved C-06 targets"
+      ],
+      "outcome": "pass",
+      "raw_log_path": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/receipts/logs/C-06-diagram-toolchain__implementation-postimages.log",
+      "raw_log_sha256": "3b2e90552ae40940e1938946fd2a5d6faf1e02bdf211228b12f8400317d5e4df",
+      "first_failure": null,
+      "stdout_tail": null,
+      "stderr_tail": null,
+      "telemetry": {
+        "provider": {
+          "measurement": "not-applicable",
+          "invocations": null,
+          "input_tokens": null,
+          "output_tokens": null
+        },
+        "agent_session": {
+          "measurement": "unavailable-platform",
+          "token_count": null,
+          "tool_output_chars": null
+        }
+      },
+      "provider_guard": null,
+      "updated_at": "2026-09-15T07:10:57.522036+00:00",
+      "context_packet_id": "C-06-diagram-toolchain-packet-38c57c58b775",
+      "context_packet_sha256": "28519f24a546ae9cde72ad9560991fdcef66de6ef69f2406c1aa9580454cac47",
+      "implementation_plan_id": "C-06-diagram-toolchain-plan-r1",
+      "implementation_plan_sha256": "55f0309057185184b44a159fcf77f9dadc40d901a2f7b06a52e9e2f6b36e19e3",
+      "passed_criterion_ids": [
+        "flowchart-matrix-pytest",
+        "mermaid-renderer-pytest",
+        "repository-regression-pytest"
+      ],
+      "attempt_ref": {
+        "path": "docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/receipts/attempts/sha256-0ce970688e11782539dc356f740a2f5cc983b442caaf842bb84f145bbe527b4f.json",
+        "sha256": "0ce970688e11782539dc356f740a2f5cc983b442caaf842bb84f145bbe527b4f"
+      }
+    }
+  ],
+  "telemetry": {
+    "provider": {
+      "measurement": "not-applicable",
+      "invocations": null,
+      "input_tokens": null,
+      "output_tokens": null
+    },
+    "agent_session": {
+      "measurement": "unavailable-platform",
+      "token_count": null,
+      "tool_output_chars": null
+    }
+  }
+}

@@ -1,0 +1,45 @@
+{
+  "decision_id": "CL-D04",
+  "sequence": 4,
+  "unit_id": "CIL-C11-cli-cluster-routing",
+  "title": "CLI 및 노션 승인 큐 라우팅 클러스터 파라미터 연동",
+  "status": "inventory",
+  "question": "TBD",
+  "five_w_one_h": {
+    "who": "TBD",
+    "what": "TBD",
+    "where": "TBD",
+    "when": "TBD",
+    "why": "TBD",
+    "how": "TBD"
+  },
+  "evidence_refs": [],
+  "facts": [],
+  "conflicts": [],
+  "unimplemented": [],
+  "options": [],
+  "recommended_option_id": null,
+  "recommendation_reason": null,
+  "impact": {
+    "data": "TBD",
+    "schema_api": "TBD",
+    "ux": "TBD",
+    "performance": "TBD",
+    "cost": "TBD",
+    "security": "TBD",
+    "migration": "TBD",
+    "tests": "TBD"
+  },
+  "opportunity_costs": [],
+  "dependencies": [
+    "CL-D03"
+  ],
+  "dependency_waivers": {},
+  "accepted_decision": null,
+  "implementation_targets": [],
+  "implementation_obligations": [],
+  "implementation_change_ids": [],
+  "validation_requirements": [],
+  "diagram_impacts": [],
+  "context_topic_ids": []
+}

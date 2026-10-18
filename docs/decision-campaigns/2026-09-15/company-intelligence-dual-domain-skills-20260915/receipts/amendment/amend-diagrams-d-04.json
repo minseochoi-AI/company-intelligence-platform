@@ -1,0 +1,35 @@
+{
+  "contract_version": "atomic-json-patch-receipt-v1",
+  "target": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/decisions/04-d-04.json",
+  "outcome": "pass",
+  "before_sha256": "ba13cb9fca969e327442a26ab790c895b3d457682fe0076be8508931032ef523",
+  "after_sha256": "91e75da58cade4be4c17b83f6fa9b92732088beae7f6a80992637ece9d40dd35",
+  "proposed_after_sha256": "91e75da58cade4be4c17b83f6fa9b92732088beae7f6a80992637ece9d40dd35",
+  "operations": [
+    {
+      "op": "test",
+      "path": "/diagram_impacts"
+    },
+    {
+      "op": "replace",
+      "path": "/diagram_impacts"
+    }
+  ],
+  "backup": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/.mutation-journal/preimages/sha256-ba13cb9fca969e327442a26ab790c895b3d457682fe0076be8508931032ef523.json",
+  "journal": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/.mutation-journal/mutations/c3460a8c609fc7c5240021e5f38dba4f0b9239c0e7ae6df8328919f8531ea539.json",
+  "mutation_id": "amend-diagrams-d-04",
+  "validators": [
+    {
+      "command": [
+        "python3",
+        "-m",
+        "json.tool",
+        "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/decisions/04-d-04.json"
+      ],
+      "returncode": 0,
+      "stdout_tail": "\\ud558\\uc9c0 \\uc54a\\uc74c\",\n        \"\\ud68c\\uc0ac \\ubbf8\\uc2dd\\ubcc4\\uacfc \\ud544\\ub4dc \\ubbf8\\uc81c\\uacf5\\uc744 0\\uc73c\\ub85c \\ud574\\uc11d\\ud558\\uc9c0 \\uc54a\\uc74c\",\n        \"provider \\ud638\\ucd9c\\uc740 \\uba85\\uc2dc \\uc2b9\\uc778 \\uc5c6\\uc774\\ub294 \\uc218\\ud589\\ud558\\uc9c0 \\uc54a\\uc74c\",\n        \"\\uba85\\uc2dc project root\\ub85c repo \\ubc16 cwd\\uc5d0\\uc11c\\ub3c4 CIL\\uc744 \\uc2e4\\ud589\\ud568\",\n        \"\\uace0\\uc815 probe\\ub97c production discovery\\ub85c \\ud45c\\ud604\\ud558\\uc9c0 \\uc54a\\uc74c\"\n    ],\n    \"diagram_impacts\": [\n        \"docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/diagrams/matrices/company-analysis-cil-runtime.flowchart-matrix.json\",\n        \"docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/diagrams/mermaid/company-analysis-cil-runtime.mmd\",\n        \"docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/diagrams/mermaid/company-analysis-cil-runtime.svg\",\n        \"docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/diagrams/mermaid/company-analysis-cil-runtime.png\"\n    ],\n    \"context_topic_ids\": [\n        \"company-analysis-skill\"\n    ]\n}\n",
+      "stderr_tail": ""
+    }
+  ],
+  "completed_at": "2026-09-15T06:38:41.283369+00:00"
+}

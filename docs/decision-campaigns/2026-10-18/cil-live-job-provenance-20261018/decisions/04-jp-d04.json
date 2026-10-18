@@ -1,0 +1,108 @@
+{
+  "decision_id": "JP-D04",
+  "sequence": 4,
+  "unit_id": "CIL-C12-cli-cluster-jobs",
+  "title": "CLI 기반 동적 API 반환 속성 점검 및 클러스터 조합 검색·추출 파이프라인",
+  "status": "decision-required",
+  "question": "사용자가 터미널에서 원천 API의 실제 반환 속성을 직접 점검하고, 5계층 ClusterSignature를 조건별로 조합하여 워크북을 추출하는 CLI를 어떻게 구현할 것인가?",
+  "five_w_one_h": {
+    "who": "CIL 터미널 사용자 및 자동화 파이프라인",
+    "what": "list-api-attributes 및 export-cluster-jobs CLI 서브커맨드",
+    "where": "src/company_intel/cli.py 및 tests/test_cli_cluster_jobs.py",
+    "when": "2026-10-18 인터페이스 개통 단계",
+    "why": "특정 도메인 하드코딩 없이 사용자가 임의의 API 반환 속성과 클러스터 조건을 조합하여 원하는 엑셀을 즉시 추출할 수 있도록 하기 위함",
+    "how": "argparse 기반 서브커맨드 등록, classification.py 팩토리 및 JobSchemaContract 호출, 워크북 자동 출력"
+  },
+  "evidence_refs": [
+    {
+      "evidence_id": "E-CLI-REGISTRY",
+      "source_type": "code",
+      "locator": "src/company_intel/cli.py",
+      "content_hash": "sha256:e4370073621a9f9c0a2e22154c9b6afeb26ddfe0d9d935b6681aca3ee1fa3b07",
+      "line_range": "1-150",
+      "question": "기존 CLI 엔트리포인트 및 서브파서 등록 구조는 어떻게 되어 있는가?",
+      "observation_summary": "기존 CLI는 job-search 및 export 등 23개 커맨드가 있으나 클러스터 시그니처 기반 채용 추출은 미통합 상태였음",
+      "observed_fact": "기존 CLI는 job-search 및 export 등 23개 커맨드가 있으나 클러스터 시그니처 기반 채용 추출은 미통합 상태였음"
+    }
+  ],
+  "facts": [
+    "src/company_intel/cli.py에 main() 엔트리포인트와 서브파서 등록 구조가 이미 완비되어 있음"
+  ],
+  "conflicts": [],
+  "unimplemented": ["CLI 서브커맨드 구현 및 테스트 대기"],
+  "options": [
+    {
+      "option_id": "A",
+      "description": "파이썬 스크립트를 매번 직접 수정하여 실행",
+      "impact": {
+        "data": "수작업 스크립트 실행",
+        "schema_api": "기존 유지",
+        "ux": "터미널 명령 불가",
+        "performance": "변동 없음",
+        "cost": "0원",
+        "security": "변동 없음",
+        "migration": "불필요",
+        "tests": "기존 통과"
+      },
+      "opportunity_costs": ["비개발자 및 자동화 도구와의 상호운용성 저하"]
+    },
+    {
+      "option_id": "B",
+      "description": "CLI 정식 서브커맨드로 표준 인터페이스 개통 (권장)",
+      "impact": {
+        "data": "조건별 엑셀 워크북 즉시 생성",
+        "schema_api": "list-api-attributes, export-cluster-jobs 서브커맨드 추가",
+        "ux": "원클릭 터미널 명령어로 속성 확인 및 파일 추출",
+        "performance": "1초 내 터미널 테이블 출력",
+        "cost": "0원",
+        "security": "인자 검증을 통한 주입 방어",
+        "migration": "기존 CLI 서브커맨드 100% 호환",
+        "tests": "tests/test_cli_cluster_jobs.py 전수 Green"
+      },
+      "opportunity_costs": ["CLI 인자 파싱 및 도움말 문서화 작업 필요"]
+    }
+  ],
+  "recommended_option_id": "B",
+  "recommendation_reason": "사용자 편의성 및 외부 스킬/에이전트와의 결합성 확보를 위해 필수적임",
+  "impact": {
+    "data": "조건별 엑셀 워크북 즉시 생성",
+    "schema_api": "list-api-attributes, export-cluster-jobs 서브커맨드 추가",
+    "ux": "원클릭 터미널 명령어로 속성 확인 및 파일 추출",
+    "performance": "1초 내 터미널 테이블 출력",
+    "cost": "0원",
+    "security": "인자 검증을 통한 주입 방어",
+    "migration": "기존 CLI 서브커맨드 100% 호환",
+    "tests": "tests/test_cli_cluster_jobs.py 전수 Green"
+  },
+  "opportunity_costs": ["서브커맨드 등록 코드 관리"],
+  "dependencies": ["JP-D01", "JP-D03"],
+  "dependency_waivers": {},
+  "accepted_decision": null,
+  "implementation_targets": [
+    "src/company_intel/cli.py",
+    "tests/test_cli_cluster_jobs.py"
+  ],
+  "implementation_obligations": [
+    {
+      "obligation_id": "JP-D04-O01",
+      "kind": "implementation",
+      "statement": "list-api-attributes는 지정한 원천 API의 실제 반환 키와 샘플값을 터미널에 명확히 출력한다.",
+      "required": true
+    },
+    {
+      "obligation_id": "JP-D04-O02",
+      "kind": "implementation",
+      "statement": "export-cluster-jobs는 ClusterSignature와 학위 옵션을 받아 필터링된 24열 워크북을 지정 경로에 저장한다.",
+      "required": true
+    }
+  ],
+  "implementation_change_ids": [
+    "file-change-jp-d04-01",
+    "file-change-jp-d04-02"
+  ],
+  "validation_requirements": [
+    "tests/test_cli_cluster_jobs.py 실행하여 CLI 인자 처리 및 파일 생성 테스트 통과"
+  ],
+  "diagram_impacts": ["CLI 인터페이스 아키텍처 반영"],
+  "context_topic_ids": ["CIL-C12-cli-cluster-jobs"]
+}

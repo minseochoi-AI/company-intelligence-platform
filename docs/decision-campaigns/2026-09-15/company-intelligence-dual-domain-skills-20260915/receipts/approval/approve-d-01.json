@@ -1,0 +1,51 @@
+{
+  "contract_version": "atomic-json-patch-receipt-v1",
+  "target": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/decisions/01-d-01.json",
+  "outcome": "pass",
+  "before_sha256": "5afc22cfd761c3dccc63d0cd8f3e2c228381d63ae96acd10bf5651baa27718ed",
+  "after_sha256": "ab7c5d172eb8af95799d93755ec50cd13fad51b33049949a4a55471c95b3a532",
+  "proposed_after_sha256": "ab7c5d172eb8af95799d93755ec50cd13fad51b33049949a4a55471c95b3a532",
+  "operations": [
+    {
+      "op": "test",
+      "path": "/status"
+    },
+    {
+      "op": "test",
+      "path": "/accepted_decision"
+    },
+    {
+      "op": "test",
+      "path": "/context_topic_ids"
+    },
+    {
+      "op": "replace",
+      "path": "/status"
+    },
+    {
+      "op": "replace",
+      "path": "/accepted_decision"
+    },
+    {
+      "op": "replace",
+      "path": "/context_topic_ids"
+    }
+  ],
+  "backup": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/.mutation-journal/preimages/sha256-5afc22cfd761c3dccc63d0cd8f3e2c228381d63ae96acd10bf5651baa27718ed.json",
+  "journal": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/.mutation-journal/mutations/271c22a56b7c3c166fde40fad4fe1adc02a4cabe1f06eca2ca9c5e777142671b.json",
+  "mutation_id": "approve-d-01",
+  "validators": [
+    {
+      "command": [
+        "python3",
+        "-m",
+        "json.tool",
+        "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/decisions/01-d-01.json"
+      ],
+      "returncode": 0,
+      "stdout_tail": "ntation_targets\": [\n        \".codex/skills/company-intelligence-analysis/SKILL.md\",\n        \".codex/skills/kr-defensible-venture-discovery/SKILL.md\",\n        \".codex/shared/company-intelligence-interop/BOUNDARIES.md\"\n    ],\n    \"implementation_change_ids\": [],\n    \"validation_requirements\": [\n        \"\\uae30\\uc5c5\\u00b7\\uae30\\uc874 \\ucee4\\ub9ac\\uc5b4\\u00b7\\ucc3d\\uc5c5 \\ucc45\\uc784\\uc774 \\uc11c\\ub85c \\ubc30\\ud0c0\\uc801\\uc778 trigger\\ub97c \\uac00\\uc9d0\",\n        \"\\uae30\\uc874 \\uae00\\ub85c\\ubc8c \\ucee4\\ub9ac\\uc5b4 \\uc2a4\\ud0ac\\uc744 \\uc800\\uc7a5\\uc18c \\uc548\\uc5d0 \\ubcf5\\uc81c\\ud558\\uc9c0 \\uc54a\\uc74c\",\n        \"\\ub450 \\uc2e0\\uaddc \\uc2a4\\ud0ac\\uc740 \\ud30c\\uc77c \\uacc4\\uc57d \\uc5c6\\uc774 \\uc11c\\ub85c\\ub97c \\uc9c1\\uc811 import\\ud558\\uc9c0 \\uc54a\\uc74c\",\n        \"\\uacf5\\ud1b5 \\uacc4\\uc57d\\uc740 \\uc0ac\\uc6a9\\uc790 \\ub300\\uba74 \\uc2a4\\ud0ac\\ub85c \\ub4f1\\ub85d\\ub418\\uc9c0 \\uc54a\\uc74c\"\n    ],\n    \"diagram_impacts\": [\n        \"\\uc0ac\\uc6a9\\uc790 \\ubaa9\\uc801\\uc5d0\\uc11c \\uae30\\uc5c5\\ubd84\\uc11d\\u00b7\\ucde8\\uc5c5\\uc870\\uc0ac\\u00b7\\ucc3d\\uc5c5\\ubd84\\uc11d\\uc73c\\ub85c \\ubd84\\uae30\\ud558\\ub294 \\ub77c\\uc6b0\\ud305 \\uacbd\\uacc4\"\n    ],\n    \"context_topic_ids\": [\n        \"interop-control\"\n    ]\n}\n",
+      "stderr_tail": ""
+    }
+  ],
+  "completed_at": "2026-09-15T05:28:26.100782+00:00"
+}

@@ -1,0 +1,31 @@
+{
+  "contract_version": "atomic-json-patch-receipt-v1",
+  "target": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/index.json",
+  "outcome": "pass",
+  "before_sha256": "7fea29f97b561d4823f5f7bd0c796b256c3c257d31119617f7cb5ab808a3b566",
+  "after_sha256": "e53aee89eb6da52e7a7b9fa37c960394916785683af3e0239e81962c36219e27",
+  "proposed_after_sha256": "e53aee89eb6da52e7a7b9fa37c960394916785683af3e0239e81962c36219e27",
+  "operations": [
+    {
+      "op": "test",
+      "path": "/active_campaign_id"
+    },
+    {
+      "op": "test",
+      "path": "/schema_version"
+    },
+    {
+      "op": "replace",
+      "path": "/active_campaign_id"
+    },
+    {
+      "op": "add",
+      "path": "/campaigns/-"
+    }
+  ],
+  "backup": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/.mutation-journal/preimages/sha256-7fea29f97b561d4823f5f7bd0c796b256c3c257d31119617f7cb5ab808a3b566.json",
+  "journal": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/.mutation-journal/mutations/c28b982fea6523ccd36f4fb553bab7a0c591dbd21adca73291d0a4492c499cb9.json",
+  "mutation_id": "register:cil-four-perspective-blog-20261013",
+  "validators": [],
+  "completed_at": "2026-10-13T14:27:37.262889+00:00"
+}

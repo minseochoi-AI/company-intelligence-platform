@@ -1,0 +1,6 @@
+interface:
+  display_name: "KR Defensible Venture Discovery"
+  short_description: "한국형 방어 가능한 창업시장 발굴·검증 워크플로우"
+  default_prompt: "Use $kr-defensible-venture-discovery to configure, research, and compare defensible Korean venture opportunities."
+policy:
+  allow_implicit_invocation: true

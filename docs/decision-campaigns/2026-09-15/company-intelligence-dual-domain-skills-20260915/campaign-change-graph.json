@@ -1,0 +1,167 @@
+{
+  "contract_version": "campaign-change-graph-v1",
+  "campaign_id": "company-intelligence-dual-domain-skills-20260915",
+  "operations": [
+    {
+      "path": ".gitignore",
+      "owner_cohort_id": "C-06-diagram-toolchain",
+      "change_id": "file-change-bc37d034bad5",
+      "operation": "MODIFY",
+      "contribution_refs": [
+        {
+          "decision_id": "D-11",
+          "path": "docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/decisions/11-d-11.json",
+          "sha256": "sha256:20281eef0ebacc3a0c5427b3aa66378a962ff4ff7eb2bf0e18fbc2fb5200d526",
+          "symbols": [
+            "tools/mermaid-renderer/node_modules/"
+          ],
+          "intent_change_ids": [
+            "D-11-ignore-node-modules"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "tests/tools/test_flowchart_matrix.py",
+      "owner_cohort_id": "C-06-diagram-toolchain",
+      "change_id": "file-change-46574042dc93",
+      "operation": "CREATE",
+      "contribution_refs": [
+        {
+          "decision_id": "D-11",
+          "path": "docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/decisions/11-d-11.json",
+          "sha256": "sha256:20281eef0ebacc3a0c5427b3aa66378a962ff4ff7eb2bf0e18fbc2fb5200d526",
+          "symbols": [
+            "test_validates_and_compiles",
+            "test_rejects_invalid_matrix"
+          ],
+          "intent_change_ids": [
+            "D-11-flowchart-tests"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "tests/tools/test_mermaid_renderer.py",
+      "owner_cohort_id": "C-06-diagram-toolchain",
+      "change_id": "file-change-368e35f4988c",
+      "operation": "CREATE",
+      "contribution_refs": [
+        {
+          "decision_id": "D-11",
+          "path": "docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/decisions/11-d-11.json",
+          "sha256": "sha256:20281eef0ebacc3a0c5427b3aa66378a962ff4ff7eb2bf0e18fbc2fb5200d526",
+          "symbols": [
+            "test_renders_svg_and_png",
+            "test_rejects_invalid_mermaid"
+          ],
+          "intent_change_ids": [
+            "D-11-renderer-tests"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "tools/flowchart_matrix.py",
+      "owner_cohort_id": "C-06-diagram-toolchain",
+      "change_id": "file-change-cadd50729db0",
+      "operation": "CREATE",
+      "contribution_refs": [
+        {
+          "decision_id": "D-11",
+          "path": "docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/decisions/11-d-11.json",
+          "sha256": "sha256:20281eef0ebacc3a0c5427b3aa66378a962ff4ff7eb2bf0e18fbc2fb5200d526",
+          "symbols": [
+            "validate_evidence",
+            "validate_design",
+            "validate",
+            "build"
+          ],
+          "intent_change_ids": [
+            "D-11-flowchart-cli"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "tools/mermaid-renderer/mermaid.config.json",
+      "owner_cohort_id": "C-06-diagram-toolchain",
+      "change_id": "file-change-970fbb67544b",
+      "operation": "CREATE",
+      "contribution_refs": [
+        {
+          "decision_id": "D-11",
+          "path": "docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/decisions/11-d-11.json",
+          "sha256": "sha256:20281eef0ebacc3a0c5427b3aa66378a962ff4ff7eb2bf0e18fbc2fb5200d526",
+          "symbols": [
+            "securityLevel",
+            "theme"
+          ],
+          "intent_change_ids": [
+            "D-11-mermaid-config"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "tools/mermaid-renderer/package-lock.json",
+      "owner_cohort_id": "C-06-diagram-toolchain",
+      "change_id": "file-change-11fe041e9525",
+      "operation": "CREATE",
+      "contribution_refs": [
+        {
+          "decision_id": "D-11",
+          "path": "docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/decisions/11-d-11.json",
+          "sha256": "sha256:20281eef0ebacc3a0c5427b3aa66378a962ff4ff7eb2bf0e18fbc2fb5200d526",
+          "symbols": [
+            "lockfileVersion",
+            "packages"
+          ],
+          "intent_change_ids": [
+            "D-11-mermaid-lock"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "tools/mermaid-renderer/package.json",
+      "owner_cohort_id": "C-06-diagram-toolchain",
+      "change_id": "file-change-2cb2323e87c8",
+      "operation": "CREATE",
+      "contribution_refs": [
+        {
+          "decision_id": "D-11",
+          "path": "docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/decisions/11-d-11.json",
+          "sha256": "sha256:20281eef0ebacc3a0c5427b3aa66378a962ff4ff7eb2bf0e18fbc2fb5200d526",
+          "symbols": [
+            "devDependencies.@mermaid-js/mermaid-cli",
+            "devDependencies.puppeteer"
+          ],
+          "intent_change_ids": [
+            "D-11-mermaid-package"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "tools/mermaid-renderer/puppeteer.local.json",
+      "owner_cohort_id": "C-06-diagram-toolchain",
+      "change_id": "file-change-b9c763c03407",
+      "operation": "CREATE",
+      "contribution_refs": [
+        {
+          "decision_id": "D-11",
+          "path": "docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/decisions/11-d-11.json",
+          "sha256": "sha256:20281eef0ebacc3a0c5427b3aa66378a962ff4ff7eb2bf0e18fbc2fb5200d526",
+          "symbols": [
+            "executablePath",
+            "args"
+          ],
+          "intent_change_ids": [
+            "D-11-puppeteer-config"
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,60 @@
+{
+  "contract_version": "implementation-context-packet-v2",
+  "packet_id": "B-C05-ledger-links-packet-ff1fe6e37348",
+  "topics": [
+    "B-C05-ledger-links"
+  ],
+  "capability_ids": [
+    "B-D05"
+  ],
+  "required_refs": [
+    {
+      "content_hash": "ae5f994a0474c592944b5846e584aea3f413cbe706966082ea1e6a2b7a3cbb07",
+      "line_range": "1-103",
+      "observation_summary": "SQLite 트랜잭션과 단일 writer를 사용해 보고서·AI revision·사용자 revision·원격 ID·outbox 상태를 연결하며 불확실한 게시 결과를 원격과 대조한다.",
+      "path": "docs/decision-campaigns/2026-10-13/cil-four-perspective-blog-20261013/evidence/product-contract-ko.md",
+      "question": "게시 장부·분석 교차링크·실행 실패 복구",
+      "ref_id": "product-contract",
+      "role": "must-read"
+    }
+  ],
+  "current_entry_points": [],
+  "planned_entry_points": [
+    {
+      "kind": "code",
+      "path": "apps/company-report-blog/src/report_blog/ledger.py",
+      "symbol": "PublicationLedger",
+      "change_id": "file-change-9efdb1632b49"
+    },
+    {
+      "kind": "code",
+      "path": "apps/company-report-blog/src/report_blog/links.py",
+      "symbol": "register_relation",
+      "change_id": "file-change-a47c5eb0c4ed"
+    },
+    {
+      "kind": "code",
+      "path": "apps/company-report-blog/migrations/001.sql",
+      "symbol": "ledger_schema_v1",
+      "change_id": "file-change-618b7cf82e49"
+    },
+    {
+      "kind": "code",
+      "path": "apps/company-report-blog/tests/test_ledger.py",
+      "symbol": "test_ledger_contract",
+      "change_id": "file-change-7e7c210fc33d"
+    },
+    {
+      "kind": "code",
+      "path": "apps/company-report-blog/tests/test_relations.py",
+      "symbol": "test_relations_contract",
+      "change_id": "file-change-b630dece86b2"
+    }
+  ],
+  "external_entry_points": [],
+  "invariants": [
+    "AI와 작성자 평가 소유권 분리; 비밀·캠페인 비공개; 기존 CLI 보존; 원격 실행은 별도 승인"
+  ],
+  "unresolved_conflicts": [],
+  "resume_digest": "Prepared B-C05-ledger-links from current decision hashes and one global file-ownership graph."
+}

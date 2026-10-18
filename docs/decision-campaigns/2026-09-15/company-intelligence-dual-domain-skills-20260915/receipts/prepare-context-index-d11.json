@@ -1,0 +1,35 @@
+{
+  "contract_version": "atomic-json-patch-receipt-v1",
+  "target": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/context-index.json",
+  "outcome": "pass",
+  "before_sha256": "1f39b07a0cd950ee4d46bf083b370f379e662bdaa9c4a7919db6f3f2e41a7ee3",
+  "after_sha256": "f10f33d8714e464bd75629863e2700dd6e64cd20d6f3387c2ec394cbea7af135",
+  "proposed_after_sha256": "f10f33d8714e464bd75629863e2700dd6e64cd20d6f3387c2ec394cbea7af135",
+  "operations": [
+    {
+      "op": "test",
+      "path": "/topics"
+    },
+    {
+      "op": "replace",
+      "path": "/topics"
+    }
+  ],
+  "backup": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/.mutation-journal/preimages/sha256-1f39b07a0cd950ee4d46bf083b370f379e662bdaa9c4a7919db6f3f2e41a7ee3.json",
+  "journal": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/.mutation-journal/mutations/8c1e6c2664618655514fef34ac9a6e956202b2e1db5f1155641eec5fa3ab8254.json",
+  "mutation_id": "prepare-context-index-d11",
+  "validators": [
+    {
+      "command": [
+        "python3",
+        "-m",
+        "json.tool",
+        "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/context-index.json"
+      ],
+      "returncode": 0,
+      "stdout_tail": "\"topic_id\": \"mermaid-renderer\",\n            \"description\": \"D-11 pinned Mermaid CLI\\uc640 \\uba85\\uc2dc Chrome renderer \\uacbd\\uacc4\",\n            \"capability_ids\": [\n                \"mermaid-renderer\"\n            ],\n            \"refs\": [\n                {\n                    \"ref_id\": \"mermaid-renderer-d-11\",\n                    \"role\": \"must-read\",\n                    \"path\": \"docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/decisions/11-d-11.json\",\n                    \"content_hash\": \"sha256:361aaa376869cacc5b7b12b49432eabda729ac07097d3dc64d13f84866935249\",\n                    \"line_range\": \"1-EOF\",\n                    \"question\": \"renderer version, browser path, output proof\\ub294 \\ubb34\\uc5c7\\uc778\\uac00?\",\n                    \"observation_summary\": \"mmdc 11.17.0, /usr/bin/google-chrome, SVG/PNG signature\\uc640 repeated bytes\\ub97c \\uac80\\uc99d\\ud55c\\ub2e4.\"\n                }\n            ],\n            \"code_entry_points\": [],\n            \"test_entry_points\": [],\n            \"invariants\": [\n                \"node_modules\\ub294 cache\\uc774\\uba70 package-lock integrity\\uac00 \\uc124\\uce58 \\uc815\\ubcf8\\uc774\\ub2e4.\"\n            ]\n        }\n    ]\n}\n",
+      "stderr_tail": ""
+    }
+  ],
+  "completed_at": "2026-09-15T06:52:52.657654+00:00"
+}

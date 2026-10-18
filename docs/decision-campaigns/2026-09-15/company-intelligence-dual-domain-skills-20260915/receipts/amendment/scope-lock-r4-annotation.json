@@ -1,0 +1,35 @@
+{
+  "contract_version": "atomic-json-patch-receipt-v1",
+  "target": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/scope-lock.json",
+  "outcome": "pass",
+  "before_sha256": "adfebd1a4c98ce8518fb7e5125f28e22dc7c71479a001d62039552c316c07827",
+  "after_sha256": "5667b1920eac81e3193781d4c7a2ad29b1b39248f8df9bb0262fc49ed04ea995",
+  "proposed_after_sha256": "5667b1920eac81e3193781d4c7a2ad29b1b39248f8df9bb0262fc49ed04ea995",
+  "operations": [
+    {
+      "op": "test",
+      "path": "/amendment"
+    },
+    {
+      "op": "replace",
+      "path": "/amendment"
+    }
+  ],
+  "backup": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/.mutation-journal/preimages/sha256-adfebd1a4c98ce8518fb7e5125f28e22dc7c71479a001d62039552c316c07827.json",
+  "journal": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/.mutation-journal/mutations/69b1fcf9a69e0675150e85e79a859fb0889fefe24d09b941989253a5d52acaf2.json",
+  "mutation_id": "scope-lock-r4-annotation",
+  "validators": [
+    {
+      "command": [
+        "python3",
+        "-m",
+        "json.tool",
+        "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/scope-lock.json"
+      ],
+      "returncode": 0,
+      "stdout_tail": "       \"D-04\"\n                ]\n            },\n            {\n                \"cohort_id\": \"C-04-venture-analysis-skill\",\n                \"decision_ids\": [\n                    \"D-05\"\n                ]\n            },\n            {\n                \"cohort_id\": \"C-05-packaging-validation\",\n                \"decision_ids\": [\n                    \"D-08\"\n                ]\n            },\n            {\n                \"cohort_id\": \"C-06-diagram-toolchain\",\n                \"decision_ids\": [\n                    \"D-11\"\n                ]\n            }\n        ]\n    },\n    \"scope_sha256\": \"7f540ebb6d1049f1980430a67409b31ceb68d99fce853f66d1efcf42d170cfb7\",\n    \"amendment\": {\n        \"action\": \"AMEND_SCOPE\",\n        \"authorized_by\": \"user\",\n        \"authorized_at\": \"2026-09-15\",\n        \"authority_text\": \"\\ub3c4\\uad6c\\uac00 \\ud558\\ub098\\ub3c4 \\uc5c6\\ub2e4\\ub294 \\uac8c decision-campaign-workbook\\ucc98\\ub7fc \\uacb0\\uc815\\ub860\\uc801 \\ud1b5\\uc81c\\uac00 \\ubd88\\uac00\\ud558\\ub2e4\\ub294 \\uac70\\uc57c? \\uac80\\uc99d\\ud558\\uace0 \\ud544\\uc694\\ub3c4\\uad6c \\ucd94\\uac00\\ud574\",\n        \"previous_lock\": \"docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/scope-lock-r3.json\"\n    }\n}\n",
+      "stderr_tail": ""
+    }
+  ],
+  "completed_at": "2026-09-15T06:46:39.925797+00:00"
+}

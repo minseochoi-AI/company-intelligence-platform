@@ -1,0 +1,51 @@
+{
+  "contract_version": "campaign-attempt-manifest-v1",
+  "campaign_id": "company-intelligence-dual-domain-skills-20260915",
+  "active": {
+    "C-01-interop-control": {
+      "path": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/receipts/attempts/sha256-b27954db998cd6d6ee64d28aafd0091c068fad5b37d53b391de8187da0c97cea.json",
+      "sha256": "b27954db998cd6d6ee64d28aafd0091c068fad5b37d53b391de8187da0c97cea"
+    },
+    "C-02-cil-runtime": {
+      "path": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/receipts/attempts/sha256-5878e2dd801eaeda666c215ee0dc1c525f15c39728e619c879726f39892570ad.json",
+      "sha256": "5878e2dd801eaeda666c215ee0dc1c525f15c39728e619c879726f39892570ad"
+    },
+    "C-03-company-analysis-skill": {
+      "path": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/receipts/attempts/sha256-017bb34db1828faa801a296bab52ddc340518229aebb7bce69af9fdeab01dde6.json",
+      "sha256": "017bb34db1828faa801a296bab52ddc340518229aebb7bce69af9fdeab01dde6"
+    },
+    "C-04-venture-analysis-skill": {
+      "path": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/receipts/attempts/sha256-6e2a12df879736578115ad5c401fab961965425106ae93eaf86fff8fe264997c.json",
+      "sha256": "6e2a12df879736578115ad5c401fab961965425106ae93eaf86fff8fe264997c"
+    },
+    "C-05-packaging-validation": {
+      "path": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/receipts/attempts/sha256-9e9043512d99abd06aea41dd8dfb651f367b1f027d383e38feb79b12439b0c92.json",
+      "sha256": "9e9043512d99abd06aea41dd8dfb651f367b1f027d383e38feb79b12439b0c92"
+    },
+    "C-01-interop-control:interop-self-test": {
+      "path": "docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/receipts/attempts/sha256-298894337c2e2b512f3beac640beb484682c3748207c4a5c3d99dda8b4dbffc6.json",
+      "sha256": "298894337c2e2b512f3beac640beb484682c3748207c4a5c3d99dda8b4dbffc6"
+    },
+    "C-02-cil-runtime:cil-root-tests": {
+      "path": "docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/receipts/attempts/sha256-f0b158dc63e54c079fee6f42d753b02e20bb2493b4f37e771e74821f56788dd1.json",
+      "sha256": "f0b158dc63e54c079fee6f42d753b02e20bb2493b4f37e771e74821f56788dd1"
+    },
+    "C-04-venture-analysis-skill:venture-skill-quick-validate": {
+      "path": "docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/receipts/attempts/sha256-46fc6a0c98b5c90306175124ad70ba70ea0251c0a35fd76e81bbfcc7c2af2f55.json",
+      "sha256": "46fc6a0c98b5c90306175124ad70ba70ea0251c0a35fd76e81bbfcc7c2af2f55"
+    },
+    "C-03-company-analysis-skill:company-skill-quick-validate": {
+      "path": "docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/receipts/attempts/sha256-277be90a69c97656c2677acacb640ab00f1a7dcb25ba7b1e85f32cb792222d5e.json",
+      "sha256": "277be90a69c97656c2677acacb640ab00f1a7dcb25ba7b1e85f32cb792222d5e"
+    },
+    "C-05-packaging-validation:skill-behavior-pytest": {
+      "path": "docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/receipts/attempts/sha256-9e3a27a80d9b98b467a4df6a33db1e42ad35eebca0eba378ed7094388a9dd277.json",
+      "sha256": "9e3a27a80d9b98b467a4df6a33db1e42ad35eebca0eba378ed7094388a9dd277"
+    },
+    "C-06-diagram-toolchain": {
+      "path": "docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/receipts/attempts/sha256-bed1bd4cf493998b484287c0dc2b735a3cd0d8fdb70f831a9f051d658d9beb29.json",
+      "sha256": "bed1bd4cf493998b484287c0dc2b735a3cd0d8fdb70f831a9f051d658d9beb29"
+    }
+  },
+  "updated_at": "2026-09-15T07:11:14.947850+00:00"
+}

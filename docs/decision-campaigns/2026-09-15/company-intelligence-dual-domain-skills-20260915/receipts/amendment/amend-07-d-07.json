@@ -1,0 +1,43 @@
+{
+  "contract_version": "atomic-json-patch-receipt-v1",
+  "target": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/decisions/07-d-07.json",
+  "outcome": "pass",
+  "before_sha256": "dcf495dd4059b420bdf68d991ad03afc41b89e52a555f09f7bc33feac0f0b84d",
+  "after_sha256": "74952f3b060c7aab2babe410eea7484ff120a9134584bc47c7b53607b4b395ab",
+  "proposed_after_sha256": "74952f3b060c7aab2babe410eea7484ff120a9134584bc47c7b53607b4b395ab",
+  "operations": [
+    {
+      "op": "test",
+      "path": "/evidence_refs/0/content_hash"
+    },
+    {
+      "op": "test",
+      "path": "/implementation_targets"
+    },
+    {
+      "op": "replace",
+      "path": "/evidence_refs/0/content_hash"
+    },
+    {
+      "op": "replace",
+      "path": "/implementation_targets"
+    }
+  ],
+  "backup": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/.mutation-journal/preimages/sha256-dcf495dd4059b420bdf68d991ad03afc41b89e52a555f09f7bc33feac0f0b84d.json",
+  "journal": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/.mutation-journal/mutations/1150983a8299a4d7e65d58bf44ad5bf58b0c002b5e13fef4da05ff3a84ccd074.json",
+  "mutation_id": "amend-07-d-07",
+  "validators": [
+    {
+      "command": [
+        "python3",
+        "-m",
+        "json.tool",
+        "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/decisions/07-d-07.json"
+      ],
+      "returncode": 0,
+      "stdout_tail": "ea0\\ud398\\uc778 \\uc2b9\\uc778\\uc744 \\uc790\\ub3d9 \\uc644\\ub8cc\\ud558\\uc9c0 \\uc54a\\ub294\\ub2e4.\"\n    ],\n    \"dependencies\": [\n        \"D-02\",\n        \"D-03\"\n    ],\n    \"dependency_waivers\": {},\n    \"accepted_decision\": null,\n    \"implementation_targets\": [\n        \".codex/shared/company-intelligence-interop/campaign-link.schema.json\",\n        \".codex/shared/company-intelligence-interop/BOUNDARIES.md\"\n    ],\n    \"implementation_change_ids\": [],\n    \"validation_requirements\": [\n        \"\\ub3c4\\uba54\\uc778 \\uc2a4\\ud0ac\\uc774 decision disposition\\uc744 \\uc790\\ub3d9 \\uae30\\ub85d\\ud558\\uc9c0 \\uc54a\\uc74c\",\n        \"CampaignLink scope SHA \\ubd88\\uc77c\\uce58 \\uc2dc stale\",\n        \"\\ucea0\\ud398\\uc778 \\ubbf8\\uc0ac\\uc6a9 \\ub2e8\\uc21c \\ubd84\\uc11d\\uc774 \\uc815\\uc0c1 \\ub3d9\\uc791\",\n        \"decision-campaign-workbook \\uc9c0\\uce68\\uc744 \\ubcf5\\uc0ac\\ud55c \\ud30c\\uc77c\\uc774 \\uc5c6\\uc74c\"\n    ],\n    \"diagram_impacts\": [\n        \"\\ub3c5\\ub9bd \\ub3c4\\uba54\\uc778 \\uc2e4\\ud589\\uc5d0\\uc11c \\uc870\\uac74\\ubd80 campaign proposal\\u00b7\\uc678\\ubd80 control plane\\uc73c\\ub85c \\uac00\\ub294 \\ub77c\\uc6b0\\ud305\"\n    ],\n    \"context_topic_ids\": [\n        \"campaign-routing\",\n        \"authorization-boundary\"\n    ]\n}\n",
+      "stderr_tail": ""
+    }
+  ],
+  "completed_at": "2026-09-15T05:24:08.992804+00:00"
+}

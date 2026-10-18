@@ -1,0 +1,559 @@
+{
+  "contract_version": "campaign-trace-v1",
+  "campaign_id": "cil-four-perspective-blog-20261013",
+  "campaign_sha256": "04f3a412cfa4814dfaa899ce54e5dcdb0c80757a38b7ca79a356abe65f8683fa",
+  "status": "pass",
+  "counts": {
+    "decisions": 10,
+    "obligations": 8,
+    "edges": 106
+  },
+  "edges": [
+    {
+      "from": "B-D01",
+      "to": "B-D01-O01",
+      "kind": "requires"
+    },
+    {
+      "from": "B-D01-O01",
+      "to": "operation:B-C01-taxonomy:file-change-0a8210721a0f",
+      "kind": "satisfied-by"
+    },
+    {
+      "from": "B-D01-O01",
+      "to": "operation:B-C01-taxonomy:file-change-760b6123d467",
+      "kind": "satisfied-by"
+    },
+    {
+      "from": "B-D01-O01",
+      "to": "operation:B-C01-taxonomy:file-change-8a2889c1dc62",
+      "kind": "satisfied-by"
+    },
+    {
+      "from": "B-D01-O01",
+      "to": "operation:B-C01-taxonomy:file-change-aeda4c03fbdf",
+      "kind": "satisfied-by"
+    },
+    {
+      "from": "B-D01-O01",
+      "to": "criterion:B-C01-taxonomy:B-C01-taxonomy-K01",
+      "kind": "verified-by"
+    },
+    {
+      "from": "B-D02",
+      "to": "B-D02-O01",
+      "kind": "requires"
+    },
+    {
+      "from": "B-D02-O01",
+      "to": "operation:B-C02-report-opinions:file-change-3290aadb47d1",
+      "kind": "satisfied-by"
+    },
+    {
+      "from": "B-D02-O01",
+      "to": "operation:B-C02-report-opinions:file-change-3524bc461a72",
+      "kind": "satisfied-by"
+    },
+    {
+      "from": "B-D02-O01",
+      "to": "operation:B-C02-report-opinions:file-change-3d0882685c44",
+      "kind": "satisfied-by"
+    },
+    {
+      "from": "B-D02-O01",
+      "to": "operation:B-C02-report-opinions:file-change-3f276d628902",
+      "kind": "satisfied-by"
+    },
+    {
+      "from": "B-D02-O01",
+      "to": "operation:B-C02-report-opinions:file-change-4f661150db5f",
+      "kind": "satisfied-by"
+    },
+    {
+      "from": "B-D02-O01",
+      "to": "operation:B-C02-report-opinions:file-change-a633d3050cf5",
+      "kind": "satisfied-by"
+    },
+    {
+      "from": "B-D02-O01",
+      "to": "operation:B-C02-report-opinions:file-change-b1b432dea9a9",
+      "kind": "satisfied-by"
+    },
+    {
+      "from": "B-D02-O01",
+      "to": "operation:B-C02-report-opinions:file-change-c03ccdb32605",
+      "kind": "satisfied-by"
+    },
+    {
+      "from": "B-D02-O01",
+      "to": "operation:B-C02-report-opinions:file-change-e6a672c902bc",
+      "kind": "satisfied-by"
+    },
+    {
+      "from": "B-D02-O01",
+      "to": "operation:B-C02-report-opinions:file-change-f176652da040",
+      "kind": "satisfied-by"
+    },
+    {
+      "from": "B-D02-O01",
+      "to": "criterion:B-C02-report-opinions:B-C02-report-opinions-K01",
+      "kind": "verified-by"
+    },
+    {
+      "from": "B-D03",
+      "to": "B-D03-O01",
+      "kind": "requires"
+    },
+    {
+      "from": "B-D03",
+      "to": "B-D03-O02",
+      "kind": "requires"
+    },
+    {
+      "from": "B-D03-O01",
+      "to": "operation:B-C03-cil-coverage:file-change-18064dda30b3",
+      "kind": "satisfied-by"
+    },
+    {
+      "from": "B-D03-O01",
+      "to": "operation:B-C03-cil-coverage:file-change-2199b175807c",
+      "kind": "satisfied-by"
+    },
+    {
+      "from": "B-D03-O01",
+      "to": "operation:B-C03-cil-coverage:file-change-58fda9542e8a",
+      "kind": "satisfied-by"
+    },
+    {
+      "from": "B-D03-O01",
+      "to": "operation:B-C03-cil-coverage:file-change-705f2199a5ae",
+      "kind": "satisfied-by"
+    },
+    {
+      "from": "B-D03-O01",
+      "to": "operation:B-C03-cil-coverage:file-change-8925cfef251f",
+      "kind": "satisfied-by"
+    },
+    {
+      "from": "B-D03-O01",
+      "to": "operation:B-C03-cil-coverage:file-change-927a21cab8b8",
+      "kind": "satisfied-by"
+    },
+    {
+      "from": "B-D03-O01",
+      "to": "operation:B-C03-cil-coverage:file-change-e1e3c60c9a87",
+      "kind": "satisfied-by"
+    },
+    {
+      "from": "B-D03-O01",
+      "to": "operation:B-C03-cil-coverage:file-change-e633c98e50e6",
+      "kind": "satisfied-by"
+    },
+    {
+      "from": "B-D03-O01",
+      "to": "criterion:B-C03-cil-coverage:B-C03-cil-coverage-K01",
+      "kind": "verified-by"
+    },
+    {
+      "from": "B-D03-O02",
+      "to": "operation:B-C03-cil-coverage:file-change-18064dda30b3",
+      "kind": "satisfied-by"
+    },
+    {
+      "from": "B-D03-O02",
+      "to": "operation:B-C03-cil-coverage:file-change-2199b175807c",
+      "kind": "satisfied-by"
+    },
+    {
+      "from": "B-D03-O02",
+      "to": "operation:B-C03-cil-coverage:file-change-58fda9542e8a",
+      "kind": "satisfied-by"
+    },
+    {
+      "from": "B-D03-O02",
+      "to": "operation:B-C03-cil-coverage:file-change-705f2199a5ae",
+      "kind": "satisfied-by"
+    },
+    {
+      "from": "B-D03-O02",
+      "to": "operation:B-C03-cil-coverage:file-change-8925cfef251f",
+      "kind": "satisfied-by"
+    },
+    {
+      "from": "B-D03-O02",
+      "to": "operation:B-C03-cil-coverage:file-change-927a21cab8b8",
+      "kind": "satisfied-by"
+    },
+    {
+      "from": "B-D03-O02",
+      "to": "operation:B-C03-cil-coverage:file-change-e1e3c60c9a87",
+      "kind": "satisfied-by"
+    },
+    {
+      "from": "B-D03-O02",
+      "to": "operation:B-C03-cil-coverage:file-change-e633c98e50e6",
+      "kind": "satisfied-by"
+    },
+    {
+      "from": "B-D03-O02",
+      "to": "criterion:B-C03-cil-coverage:B-C03-cil-coverage-K01",
+      "kind": "verified-by"
+    },
+    {
+      "from": "B-D04",
+      "to": "B-D04-O01",
+      "kind": "requires"
+    },
+    {
+      "from": "B-D04-O01",
+      "to": "operation:B-C04-blogger:file-change-76f93b28cdc1",
+      "kind": "satisfied-by"
+    },
+    {
+      "from": "B-D04-O01",
+      "to": "operation:B-C04-blogger:file-change-7d2de96119d5",
+      "kind": "satisfied-by"
+    },
+    {
+      "from": "B-D04-O01",
+      "to": "operation:B-C04-blogger:file-change-871e48ad3a4d",
+      "kind": "satisfied-by"
+    },
+    {
+      "from": "B-D04-O01",
+      "to": "operation:B-C04-blogger:file-change-9bd037dc0311",
+      "kind": "satisfied-by"
+    },
+    {
+      "from": "B-D04-O01",
+      "to": "criterion:B-C04-blogger:B-C04-blogger-K01",
+      "kind": "verified-by"
+    },
+    {
+      "from": "B-D05",
+      "to": "B-D05-O01",
+      "kind": "requires"
+    },
+    {
+      "from": "B-D05-O01",
+      "to": "operation:B-C05-ledger-links:file-change-618b7cf82e49",
+      "kind": "satisfied-by"
+    },
+    {
+      "from": "B-D05-O01",
+      "to": "operation:B-C05-ledger-links:file-change-7e7c210fc33d",
+      "kind": "satisfied-by"
+    },
+    {
+      "from": "B-D05-O01",
+      "to": "operation:B-C05-ledger-links:file-change-9efdb1632b49",
+      "kind": "satisfied-by"
+    },
+    {
+      "from": "B-D05-O01",
+      "to": "operation:B-C05-ledger-links:file-change-a47c5eb0c4ed",
+      "kind": "satisfied-by"
+    },
+    {
+      "from": "B-D05-O01",
+      "to": "operation:B-C05-ledger-links:file-change-b630dece86b2",
+      "kind": "satisfied-by"
+    },
+    {
+      "from": "B-D05-O01",
+      "to": "criterion:B-C05-ledger-links:B-C05-ledger-links-K01",
+      "kind": "verified-by"
+    },
+    {
+      "from": "B-D06",
+      "to": "B-D06-O01",
+      "kind": "requires"
+    },
+    {
+      "from": "B-D06-O01",
+      "to": "operation:B-C06-metrics:file-change-475e37c19be1",
+      "kind": "satisfied-by"
+    },
+    {
+      "from": "B-D06-O01",
+      "to": "operation:B-C06-metrics:file-change-d88831450f77",
+      "kind": "satisfied-by"
+    },
+    {
+      "from": "B-D06-O01",
+      "to": "criterion:B-C06-metrics:B-C06-metrics-K01",
+      "kind": "verified-by"
+    },
+    {
+      "from": "B-D07",
+      "to": "B-D07-O01",
+      "kind": "requires"
+    },
+    {
+      "from": "B-D07-O01",
+      "to": "operation:B-C07-cli-skill:file-change-0fa8857c54f3",
+      "kind": "satisfied-by"
+    },
+    {
+      "from": "B-D07-O01",
+      "to": "operation:B-C07-cli-skill:file-change-269781ae6688",
+      "kind": "satisfied-by"
+    },
+    {
+      "from": "B-D07-O01",
+      "to": "operation:B-C07-cli-skill:file-change-335b547b9414",
+      "kind": "satisfied-by"
+    },
+    {
+      "from": "B-D07-O01",
+      "to": "operation:B-C07-cli-skill:file-change-3d21764f4086",
+      "kind": "satisfied-by"
+    },
+    {
+      "from": "B-D07-O01",
+      "to": "operation:B-C07-cli-skill:file-change-57c5036c11db",
+      "kind": "satisfied-by"
+    },
+    {
+      "from": "B-D07-O01",
+      "to": "operation:B-C07-cli-skill:file-change-6da0dec88ca8",
+      "kind": "satisfied-by"
+    },
+    {
+      "from": "B-D07-O01",
+      "to": "operation:B-C07-cli-skill:file-change-c8824f26de4b",
+      "kind": "satisfied-by"
+    },
+    {
+      "from": "B-D07-O01",
+      "to": "operation:B-C07-cli-skill:file-change-f292f33ffbc7",
+      "kind": "satisfied-by"
+    },
+    {
+      "from": "B-D07-O01",
+      "to": "criterion:B-C07-cli-skill:B-C07-cli-skill-K01",
+      "kind": "verified-by"
+    },
+    {
+      "from": "operation:B-C01-taxonomy:file-change-0a8210721a0f",
+      "to": "criterion:B-C01-taxonomy:B-C01-taxonomy-K01",
+      "kind": "verified-by"
+    },
+    {
+      "from": "operation:B-C01-taxonomy:file-change-760b6123d467",
+      "to": "criterion:B-C01-taxonomy:B-C01-taxonomy-K01",
+      "kind": "verified-by"
+    },
+    {
+      "from": "operation:B-C01-taxonomy:file-change-8a2889c1dc62",
+      "to": "criterion:B-C01-taxonomy:B-C01-taxonomy-K01",
+      "kind": "verified-by"
+    },
+    {
+      "from": "operation:B-C01-taxonomy:file-change-aeda4c03fbdf",
+      "to": "criterion:B-C01-taxonomy:B-C01-taxonomy-K01",
+      "kind": "verified-by"
+    },
+    {
+      "from": "operation:B-C02-report-opinions:file-change-3290aadb47d1",
+      "to": "criterion:B-C02-report-opinions:B-C02-report-opinions-K01",
+      "kind": "verified-by"
+    },
+    {
+      "from": "operation:B-C02-report-opinions:file-change-3524bc461a72",
+      "to": "criterion:B-C02-report-opinions:B-C02-report-opinions-K01",
+      "kind": "verified-by"
+    },
+    {
+      "from": "operation:B-C02-report-opinions:file-change-3d0882685c44",
+      "to": "criterion:B-C02-report-opinions:B-C02-report-opinions-K01",
+      "kind": "verified-by"
+    },
+    {
+      "from": "operation:B-C02-report-opinions:file-change-3f276d628902",
+      "to": "criterion:B-C02-report-opinions:B-C02-report-opinions-K01",
+      "kind": "verified-by"
+    },
+    {
+      "from": "operation:B-C02-report-opinions:file-change-4f661150db5f",
+      "to": "criterion:B-C02-report-opinions:B-C02-report-opinions-K01",
+      "kind": "verified-by"
+    },
+    {
+      "from": "operation:B-C02-report-opinions:file-change-a633d3050cf5",
+      "to": "criterion:B-C02-report-opinions:B-C02-report-opinions-K01",
+      "kind": "verified-by"
+    },
+    {
+      "from": "operation:B-C02-report-opinions:file-change-b1b432dea9a9",
+      "to": "criterion:B-C02-report-opinions:B-C02-report-opinions-K01",
+      "kind": "verified-by"
+    },
+    {
+      "from": "operation:B-C02-report-opinions:file-change-c03ccdb32605",
+      "to": "criterion:B-C02-report-opinions:B-C02-report-opinions-K01",
+      "kind": "verified-by"
+    },
+    {
+      "from": "operation:B-C02-report-opinions:file-change-e6a672c902bc",
+      "to": "criterion:B-C02-report-opinions:B-C02-report-opinions-K01",
+      "kind": "verified-by"
+    },
+    {
+      "from": "operation:B-C02-report-opinions:file-change-f176652da040",
+      "to": "criterion:B-C02-report-opinions:B-C02-report-opinions-K01",
+      "kind": "verified-by"
+    },
+    {
+      "from": "operation:B-C03-cil-coverage:file-change-18064dda30b3",
+      "to": "criterion:B-C03-cil-coverage:B-C03-cil-coverage-K01",
+      "kind": "verified-by"
+    },
+    {
+      "from": "operation:B-C03-cil-coverage:file-change-2199b175807c",
+      "to": "criterion:B-C03-cil-coverage:B-C03-cil-coverage-K01",
+      "kind": "verified-by"
+    },
+    {
+      "from": "operation:B-C03-cil-coverage:file-change-58fda9542e8a",
+      "to": "criterion:B-C03-cil-coverage:B-C03-cil-coverage-K01",
+      "kind": "verified-by"
+    },
+    {
+      "from": "operation:B-C03-cil-coverage:file-change-705f2199a5ae",
+      "to": "criterion:B-C03-cil-coverage:B-C03-cil-coverage-K01",
+      "kind": "verified-by"
+    },
+    {
+      "from": "operation:B-C03-cil-coverage:file-change-8925cfef251f",
+      "to": "criterion:B-C03-cil-coverage:B-C03-cil-coverage-K01",
+      "kind": "verified-by"
+    },
+    {
+      "from": "operation:B-C03-cil-coverage:file-change-927a21cab8b8",
+      "to": "criterion:B-C03-cil-coverage:B-C03-cil-coverage-K01",
+      "kind": "verified-by"
+    },
+    {
+      "from": "operation:B-C03-cil-coverage:file-change-e1e3c60c9a87",
+      "to": "criterion:B-C03-cil-coverage:B-C03-cil-coverage-K01",
+      "kind": "verified-by"
+    },
+    {
+      "from": "operation:B-C03-cil-coverage:file-change-e633c98e50e6",
+      "to": "criterion:B-C03-cil-coverage:B-C03-cil-coverage-K01",
+      "kind": "verified-by"
+    },
+    {
+      "from": "operation:B-C04-blogger:file-change-76f93b28cdc1",
+      "to": "criterion:B-C04-blogger:B-C04-blogger-K01",
+      "kind": "verified-by"
+    },
+    {
+      "from": "operation:B-C04-blogger:file-change-7d2de96119d5",
+      "to": "criterion:B-C04-blogger:B-C04-blogger-K01",
+      "kind": "verified-by"
+    },
+    {
+      "from": "operation:B-C04-blogger:file-change-871e48ad3a4d",
+      "to": "criterion:B-C04-blogger:B-C04-blogger-K01",
+      "kind": "verified-by"
+    },
+    {
+      "from": "operation:B-C04-blogger:file-change-9bd037dc0311",
+      "to": "criterion:B-C04-blogger:B-C04-blogger-K01",
+      "kind": "verified-by"
+    },
+    {
+      "from": "operation:B-C05-ledger-links:file-change-618b7cf82e49",
+      "to": "criterion:B-C05-ledger-links:B-C05-ledger-links-K01",
+      "kind": "verified-by"
+    },
+    {
+      "from": "operation:B-C05-ledger-links:file-change-7e7c210fc33d",
+      "to": "criterion:B-C05-ledger-links:B-C05-ledger-links-K01",
+      "kind": "verified-by"
+    },
+    {
+      "from": "operation:B-C05-ledger-links:file-change-9efdb1632b49",
+      "to": "criterion:B-C05-ledger-links:B-C05-ledger-links-K01",
+      "kind": "verified-by"
+    },
+    {
+      "from": "operation:B-C05-ledger-links:file-change-a47c5eb0c4ed",
+      "to": "criterion:B-C05-ledger-links:B-C05-ledger-links-K01",
+      "kind": "verified-by"
+    },
+    {
+      "from": "operation:B-C05-ledger-links:file-change-b630dece86b2",
+      "to": "criterion:B-C05-ledger-links:B-C05-ledger-links-K01",
+      "kind": "verified-by"
+    },
+    {
+      "from": "operation:B-C06-metrics:file-change-475e37c19be1",
+      "to": "criterion:B-C06-metrics:B-C06-metrics-K01",
+      "kind": "verified-by"
+    },
+    {
+      "from": "operation:B-C06-metrics:file-change-d88831450f77",
+      "to": "criterion:B-C06-metrics:B-C06-metrics-K01",
+      "kind": "verified-by"
+    },
+    {
+      "from": "operation:B-C07-cli-skill:file-change-0fa8857c54f3",
+      "to": "criterion:B-C07-cli-skill:B-C07-cli-skill-K01",
+      "kind": "verified-by"
+    },
+    {
+      "from": "operation:B-C07-cli-skill:file-change-269781ae6688",
+      "to": "criterion:B-C07-cli-skill:B-C07-cli-skill-K01",
+      "kind": "verified-by"
+    },
+    {
+      "from": "operation:B-C07-cli-skill:file-change-335b547b9414",
+      "to": "criterion:B-C07-cli-skill:B-C07-cli-skill-K01",
+      "kind": "verified-by"
+    },
+    {
+      "from": "operation:B-C07-cli-skill:file-change-3d21764f4086",
+      "to": "criterion:B-C07-cli-skill:B-C07-cli-skill-K01",
+      "kind": "verified-by"
+    },
+    {
+      "from": "operation:B-C07-cli-skill:file-change-57c5036c11db",
+      "to": "criterion:B-C07-cli-skill:B-C07-cli-skill-K01",
+      "kind": "verified-by"
+    },
+    {
+      "from": "operation:B-C07-cli-skill:file-change-6da0dec88ca8",
+      "to": "criterion:B-C07-cli-skill:B-C07-cli-skill-K01",
+      "kind": "verified-by"
+    },
+    {
+      "from": "operation:B-C07-cli-skill:file-change-c8824f26de4b",
+      "to": "criterion:B-C07-cli-skill:B-C07-cli-skill-K01",
+      "kind": "verified-by"
+    },
+    {
+      "from": "operation:B-C07-cli-skill:file-change-f292f33ffbc7",
+      "to": "criterion:B-C07-cli-skill:B-C07-cli-skill-K01",
+      "kind": "verified-by"
+    }
+  ],
+  "warnings": [
+    {
+      "kind": "legacy-decision-without-obligations",
+      "id": "B-D08"
+    },
+    {
+      "kind": "legacy-decision-without-obligations",
+      "id": "B-D09"
+    },
+    {
+      "kind": "legacy-decision-without-obligations",
+      "id": "B-D10"
+    }
+  ],
+  "errors": [],
+  "authority": "none"
+}

@@ -1,0 +1,111 @@
+{
+  "decision_refs": [
+    {
+      "id": "B-D07",
+      "path": "docs/decision-campaigns/2026-10-13/cil-four-perspective-blog-20261013/decisions/07-b-d07.json"
+    }
+  ],
+  "targets": {
+    "T1": {
+      "path": "apps/company-report-blog/pyproject.toml",
+      "symbols": [
+        "report_blog_package"
+      ],
+      "decision_id": "B-D07",
+      "obligation_ids": [
+        "B-D07-O01"
+      ]
+    },
+    "T2": {
+      "path": "apps/company-report-blog/uv.lock",
+      "symbols": [
+        "resolved_dependency_lock"
+      ],
+      "decision_id": "B-D07",
+      "obligation_ids": [
+        "B-D07-O01"
+      ]
+    },
+    "T3": {
+      "path": "apps/company-report-blog/src/report_blog/__init__.py",
+      "symbols": [
+        "__init__"
+      ],
+      "decision_id": "B-D07",
+      "obligation_ids": [
+        "B-D07-O01"
+      ]
+    },
+    "T4": {
+      "path": "apps/company-report-blog/src/report_blog/cli.py",
+      "symbols": [
+        "main"
+      ],
+      "decision_id": "B-D07",
+      "obligation_ids": [
+        "B-D07-O01"
+      ]
+    },
+    "T5": {
+      "path": "apps/company-report-blog/README.md",
+      "symbols": [
+        "README"
+      ],
+      "decision_id": "B-D07",
+      "obligation_ids": [
+        "B-D07-O01"
+      ]
+    },
+    "T6": {
+      "path": "apps/company-report-blog/skills/company-report-blog/SKILL.md",
+      "symbols": [
+        "company-report-blog"
+      ],
+      "decision_id": "B-D07",
+      "obligation_ids": [
+        "B-D07-O01"
+      ]
+    },
+    "T7": {
+      "path": "apps/company-report-blog/skills/company-report-blog/agents/openai.yaml",
+      "symbols": [
+        "skill_metadata"
+      ],
+      "decision_id": "B-D07",
+      "obligation_ids": [
+        "B-D07-O01"
+      ]
+    },
+    "T8": {
+      "path": "apps/company-report-blog/tests/test_cli.py",
+      "symbols": [
+        "test_cli_contract"
+      ],
+      "decision_id": "B-D07",
+      "obligation_ids": [
+        "B-D07-O01"
+      ]
+    }
+  },
+  "checks": [
+    {
+      "target_ids": [
+        "T1",
+        "T2",
+        "T3",
+        "T4",
+        "T5",
+        "T6",
+        "T7",
+        "T8"
+      ],
+      "test": {
+        "type": "command",
+        "value": "/home/ubuntu/root/company-intelligence-platform/.venv/bin/python -B -m pytest -q -p no:cacheprovider apps/company-report-blog/tests/test_cli.py",
+        "timeout_seconds": 300,
+        "provider_backed": false
+      },
+      "assertion": "기존 23개 CIL CLI 유지, 새 CLI 안정 JSON/preview, 네 관점 typed 입력, 명시 실행만 원격 쓰기, 예약/유료 AI/캠페인 권한 자동 확대 금지"
+    }
+  ]
+}

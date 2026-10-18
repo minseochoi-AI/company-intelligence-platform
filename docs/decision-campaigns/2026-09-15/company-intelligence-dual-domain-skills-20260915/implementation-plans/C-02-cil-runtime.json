@@ -1,0 +1,254 @@
+{
+  "contract_version": "1.2.0",
+  "plan_id": "C-02-cil-runtime-plan-r1",
+  "owner": {
+    "kind": "campaign-cohort",
+    "id": "C-02-cil-runtime"
+  },
+  "source_refs": [
+    {
+      "id": "D-09",
+      "path": "docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/decisions/09-d-09.json",
+      "sha256": "sha256:2616fc10440840827701046cf2a82801b36b3c8c6c386772039d694d6259b726"
+    }
+  ],
+  "status": "contract-ready",
+  "change_slices": [
+    {
+      "slice_id": "C-02-cil-runtime-slice",
+      "behavior": "승인된 결정을 파일 단위로 구현하고 독립 검증한다.",
+      "dependencies": [],
+      "operations": [
+        {
+          "change_id": "C02-001",
+          "operation": "MODIFY",
+          "path": "src/company_intel/config.py",
+          "symbols": [
+            "config.py"
+          ],
+          "current_state": "기존 구현이 있으나 승인된 계약이 누락됨",
+          "source_hash": "44879c8438ccf7169c2b4ab8c4c975f61a9a9bf87eccaec7b8df93f7674db393",
+          "result_hash": null,
+          "after_state": "명시 root와 환경변수 fallback을 지원한다.",
+          "rationale": "승인된 결정의 파일 단위 구현 대상이다.",
+          "dependencies": [],
+          "public_contract_impacts": [
+            "버전된 로컬 계약 또는 스킬 동작을 추가한다."
+          ],
+          "compatibility": "기존 CLI와 저장 artifact를 유지하며 새 필드는 additive로 처리한다.",
+          "migration": "기존 artifact는 변경하지 않고 새 schema version에서 선택적으로 사용한다.",
+          "rollback": "CREATE 파일은 제거하고 MODIFY 파일은 기록된 preimage로 복원한다.",
+          "authorization_boundary": "현재 저장소의 명시된 파일만 변경하며 외부 provider·설치·배포를 수행하지 않는다.",
+          "contributes_to": [
+            "D-09"
+          ],
+          "symbol_changes": [
+            {
+              "symbol": "config.py",
+              "intent": "명시 root와 환경변수 fallback을 지원한다.",
+              "decision_id": "D-09"
+            }
+          ],
+          "intent_change_ids": [
+            "D-09-intent"
+          ],
+          "contribution_refs": [
+            {
+              "decision_id": "D-09",
+              "path": "docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/decisions/09-d-09.json",
+              "sha256": "sha256:2616fc10440840827701046cf2a82801b36b3c8c6c386772039d694d6259b726",
+              "symbols": [
+                "config.py"
+              ],
+              "intent_change_ids": [
+                "D-09-intent"
+              ]
+            }
+          ]
+        },
+        {
+          "change_id": "C02-002",
+          "operation": "MODIFY",
+          "path": "src/company_intel/cli.py",
+          "symbols": [
+            "cli.py"
+          ],
+          "current_state": "기존 구현이 있으나 승인된 계약이 누락됨",
+          "source_hash": "79d5f528d8a7990030f8a04aad948074ca38b475834b070a227d15827233fcc7",
+          "result_hash": null,
+          "after_state": "전역 --project-root/--프로젝트-경로를 파싱한다.",
+          "rationale": "승인된 결정의 파일 단위 구현 대상이다.",
+          "dependencies": [],
+          "public_contract_impacts": [
+            "버전된 로컬 계약 또는 스킬 동작을 추가한다."
+          ],
+          "compatibility": "기존 CLI와 저장 artifact를 유지하며 새 필드는 additive로 처리한다.",
+          "migration": "기존 artifact는 변경하지 않고 새 schema version에서 선택적으로 사용한다.",
+          "rollback": "CREATE 파일은 제거하고 MODIFY 파일은 기록된 preimage로 복원한다.",
+          "authorization_boundary": "현재 저장소의 명시된 파일만 변경하며 외부 provider·설치·배포를 수행하지 않는다.",
+          "contributes_to": [
+            "D-09"
+          ],
+          "symbol_changes": [
+            {
+              "symbol": "cli.py",
+              "intent": "전역 --project-root/--프로젝트-경로를 파싱한다.",
+              "decision_id": "D-09"
+            }
+          ],
+          "intent_change_ids": [
+            "D-09-intent"
+          ],
+          "contribution_refs": [
+            {
+              "decision_id": "D-09",
+              "path": "docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/decisions/09-d-09.json",
+              "sha256": "sha256:2616fc10440840827701046cf2a82801b36b3c8c6c386772039d694d6259b726",
+              "symbols": [
+                "cli.py"
+              ],
+              "intent_change_ids": [
+                "D-09-intent"
+              ]
+            }
+          ]
+        },
+        {
+          "change_id": "C02-003",
+          "operation": "MODIFY",
+          "path": ".codex/skills/company-intel-cli/SKILL.md",
+          "symbols": [
+            "SKILL.md"
+          ],
+          "current_state": "기존 구현이 있으나 승인된 계약이 누락됨",
+          "source_hash": "9d018a09dabb7d5a275a102345b6c69379893cb14823c6162c9cf9062c171d46",
+          "result_hash": null,
+          "after_state": "명시 project root 사용법과 fixture 경계를 안내한다.",
+          "rationale": "승인된 결정의 파일 단위 구현 대상이다.",
+          "dependencies": [],
+          "public_contract_impacts": [
+            "버전된 로컬 계약 또는 스킬 동작을 추가한다."
+          ],
+          "compatibility": "기존 CLI와 저장 artifact를 유지하며 새 필드는 additive로 처리한다.",
+          "migration": "기존 artifact는 변경하지 않고 새 schema version에서 선택적으로 사용한다.",
+          "rollback": "CREATE 파일은 제거하고 MODIFY 파일은 기록된 preimage로 복원한다.",
+          "authorization_boundary": "현재 저장소의 명시된 파일만 변경하며 외부 provider·설치·배포를 수행하지 않는다.",
+          "contributes_to": [
+            "D-09"
+          ],
+          "symbol_changes": [
+            {
+              "symbol": "SKILL.md",
+              "intent": "명시 project root 사용법과 fixture 경계를 안내한다.",
+              "decision_id": "D-09"
+            }
+          ],
+          "intent_change_ids": [
+            "D-09-intent"
+          ],
+          "contribution_refs": [
+            {
+              "decision_id": "D-09",
+              "path": "docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/decisions/09-d-09.json",
+              "sha256": "sha256:2616fc10440840827701046cf2a82801b36b3c8c6c386772039d694d6259b726",
+              "symbols": [
+                "SKILL.md"
+              ],
+              "intent_change_ids": [
+                "D-09-intent"
+              ]
+            }
+          ]
+        },
+        {
+          "change_id": "C02-004",
+          "operation": "CREATE",
+          "path": "tests/test_cli_project_root.py",
+          "symbols": [
+            "test_cli_project_root.py"
+          ],
+          "current_state": "파일이 없음",
+          "source_hash": null,
+          "result_hash": null,
+          "after_state": "root 인자·환경변수·cwd 회귀를 검증한다.",
+          "rationale": "승인된 결정의 파일 단위 구현 대상이다.",
+          "dependencies": [],
+          "public_contract_impacts": [
+            "버전된 로컬 계약 또는 스킬 동작을 추가한다."
+          ],
+          "compatibility": "기존 CLI와 저장 artifact를 유지하며 새 필드는 additive로 처리한다.",
+          "migration": "기존 artifact는 변경하지 않고 새 schema version에서 선택적으로 사용한다.",
+          "rollback": "CREATE 파일은 제거하고 MODIFY 파일은 기록된 preimage로 복원한다.",
+          "authorization_boundary": "현재 저장소의 명시된 파일만 변경하며 외부 provider·설치·배포를 수행하지 않는다.",
+          "contributes_to": [
+            "D-09"
+          ],
+          "symbol_changes": [
+            {
+              "symbol": "test_cli_project_root.py",
+              "intent": "root 인자·환경변수·cwd 회귀를 검증한다.",
+              "decision_id": "D-09"
+            }
+          ],
+          "intent_change_ids": [
+            "D-09-intent"
+          ],
+          "contribution_refs": [
+            {
+              "decision_id": "D-09",
+              "path": "docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/decisions/09-d-09.json",
+              "sha256": "sha256:2616fc10440840827701046cf2a82801b36b3c8c6c386772039d694d6259b726",
+              "symbols": [
+                "test_cli_project_root.py"
+              ],
+              "intent_change_ids": [
+                "D-09-intent"
+              ]
+            }
+          ]
+        }
+      ],
+      "routes": [
+        {
+          "route_id": "runtime-verification",
+          "skill": "verification-before-completion",
+          "requirement": "required",
+          "phase": "VALIDATE",
+          "purpose": "CIL 실행 위치 계약을 검증한다.",
+          "expected_artifact": "tests/test_cli_project_root.py"
+        }
+      ],
+      "completion_contract": [
+        {
+          "criterion_id": "cil-root-tests",
+          "behavior": "tests/test_cli_project_root.py",
+          "blocking": true,
+          "owner_skill": "verification-before-completion",
+          "phase": "VALIDATE",
+          "depends_on_criteria": [],
+          "test": {
+            "type": "pytest",
+            "value": "tests/test_cli_project_root.py",
+            "runner": "pytest",
+            "timeout_seconds": 180,
+            "paths": [
+              "tests/test_cli_project_root.py"
+            ]
+          },
+          "expected_result": "exit 0",
+          "failure_marker": "non-zero exit or contract mismatch",
+          "receipt": {
+            "status": "planned",
+            "path": "docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/receipts/criteria/cil-root-tests.json",
+            "sha256": "planned"
+          },
+          "status": "planned"
+        }
+      ]
+    }
+  ],
+  "metadata": {
+    "authored_for_scope_sha256": "718e29f2a7c2c7c8a648433d1725f9f53a662267c05880b3cfaad435ee022d28",
+    "preparation_contract": "campaign-global-ownership-v1"
+  }
+}

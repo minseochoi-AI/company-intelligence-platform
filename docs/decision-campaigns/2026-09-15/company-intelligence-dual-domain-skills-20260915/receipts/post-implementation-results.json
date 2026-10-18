@@ -1,0 +1,203 @@
+{
+  "contract_version": "campaign-post-implementation-results-v1",
+  "campaign_id": "company-intelligence-dual-domain-skills-20260915",
+  "scope_lock_sha256": "sha256:5667b1920eac81e3193781d4c7a2ad29b1b39248f8df9bb0262fc49ed04ea995",
+  "generated_at": "2026-09-15T06:19:47.956187+00:00",
+  "cohorts": [
+    {
+      "cohort_id": "C-01-interop-control",
+      "plan_id": "C-01-interop-control-plan-r1",
+      "plan_sha256": "6a0e924fbeab435f271962cd428ea77744a08d2de36b68a5c75ac2341b43c8f0",
+      "operations": [
+        {
+          "change_id": "C01-001",
+          "path": ".codex/shared/company-intelligence-interop/domain-plan.schema.json",
+          "result_hash": "sha256:fbffdbda7c8fc87b7238bf25dd3f8cf4cb643b1b8e7e44a123bff1566a20dcb8"
+        },
+        {
+          "change_id": "C01-002",
+          "path": ".codex/shared/company-intelligence-interop/domain-plan-ref.schema.json",
+          "result_hash": "sha256:e5a561c27b0e64485778635378e50277f59bfd9bff578d8c1633c64d62660d85"
+        },
+        {
+          "change_id": "C01-003",
+          "path": ".codex/shared/company-intelligence-interop/evidence-bundle.schema.json",
+          "result_hash": "sha256:7049e8fdb239bee8186f90ef1fbdcdf152375f87371464963a0d71cf63d9f748"
+        },
+        {
+          "change_id": "C01-004",
+          "path": ".codex/shared/company-intelligence-interop/evidence-bundle-ref.schema.json",
+          "result_hash": "sha256:7ae463487227a2ba04ed84ae4739044b5cd88e40c85129002e0cef16876c77b4"
+        },
+        {
+          "change_id": "C01-005",
+          "path": ".codex/shared/company-intelligence-interop/dual-path-comparison.schema.json",
+          "result_hash": "sha256:8d9d5b831cce5614081282bf2ca233d580e17a4771f2ea0f5a33e3ab2b2b10d8"
+        },
+        {
+          "change_id": "C01-006",
+          "path": ".codex/shared/company-intelligence-interop/campaign-link.schema.json",
+          "result_hash": "sha256:96839012cab031971fdf9fc8ef926030ee5f9869ac8f2b83307c9fa0f139530a"
+        },
+        {
+          "change_id": "C01-007",
+          "path": ".codex/shared/company-intelligence-interop/connector-candidates.json",
+          "result_hash": "sha256:7dbd0d1c2bdede6f5d414a5a776d75e4ca699f043e234b90aeb5cafef5290cae"
+        },
+        {
+          "change_id": "C01-008",
+          "path": ".codex/shared/company-intelligence-interop/BOUNDARIES.md",
+          "result_hash": "sha256:0e45c1f5b579eff392e9c3e64e75c85422929aa75b9a6a764811cadb02d54242"
+        },
+        {
+          "change_id": "C01-009",
+          "path": ".codex/shared/company-intelligence-interop/interop.py",
+          "result_hash": "sha256:dfb946c6da783171bbd3708370172c2455305e644f1b8cdbaa6fc8718f4a0154"
+        }
+      ]
+    },
+    {
+      "cohort_id": "C-02-cil-runtime",
+      "plan_id": "C-02-cil-runtime-plan-r1",
+      "plan_sha256": "4bffa4b6ab878493b390485d392141e393a61bde571af39e647da43677a2092b",
+      "operations": [
+        {
+          "change_id": "C02-001",
+          "path": "src/company_intel/config.py",
+          "result_hash": "sha256:f3bf2adff426c6d4d84b1b98de35626aeb937dc089034418067c25610788a411"
+        },
+        {
+          "change_id": "C02-002",
+          "path": "src/company_intel/cli.py",
+          "result_hash": "sha256:92efaf5991ad2c27d677968f3dafc853f0ca17714c14b1b3c3674b7834235a1f"
+        },
+        {
+          "change_id": "C02-003",
+          "path": ".codex/skills/company-intel-cli/SKILL.md",
+          "result_hash": "sha256:8e8c91aad5079c4a290fc74eb8adb51f8b7504f97eef02168eaabfd675fa3932"
+        },
+        {
+          "change_id": "C02-004",
+          "path": "tests/test_cli_project_root.py",
+          "result_hash": "sha256:0295fd240b1e5d5dcd9eed5d55a662d6cd45faa0a375ddcef0cb2677fad0401f"
+        }
+      ]
+    },
+    {
+      "cohort_id": "C-03-company-analysis-skill",
+      "plan_id": "C-03-company-analysis-skill-plan-r1",
+      "plan_sha256": "930d3d7a9f7b73b789d356fc8a84024975f2c5b098edbb3de67d16ec44a3b116",
+      "operations": [
+        {
+          "change_id": "C03-001",
+          "path": ".codex/skills/company-intelligence-analysis/SKILL.md",
+          "result_hash": "sha256:7a6d6c9b6a328b7579c5a8d006bc2f8918549880f54d6e534dd668bdb96415e7"
+        },
+        {
+          "change_id": "C03-002",
+          "path": ".codex/skills/company-intelligence-analysis/agents/openai.yaml",
+          "result_hash": "sha256:8b8a4cc5bdaddb005482c80f9f9ff75817dc20d665809168e02aaf0725b00a72"
+        },
+        {
+          "change_id": "C03-003",
+          "path": ".codex/skills/company-intelligence-analysis/references/analysis-routing.md",
+          "result_hash": "sha256:b72c3cfbb6783789341e7d8d245231b43c6cdc549c53340a5c763f298e984847"
+        },
+        {
+          "change_id": "C03-004",
+          "path": ".codex/skills/company-intelligence-analysis/references/output-contract.md",
+          "result_hash": "sha256:31a2870fc87d9b2a462576562e1b6588c9f6b893d907983df4b2ca52b1f83f45"
+        },
+        {
+          "change_id": "C03-005",
+          "path": ".codex/skills/company-intelligence-analysis/scripts/verify_cil_artifact.py",
+          "result_hash": "sha256:830d85114349210a613479aec1e6dc2059d66538b763fcb6cc55ffff395bafa1"
+        }
+      ]
+    },
+    {
+      "cohort_id": "C-04-venture-analysis-skill",
+      "plan_id": "C-04-venture-analysis-skill-plan-r1",
+      "plan_sha256": "82ce2475b651c6f1ba32fdcfe7978561f5a646a6332ad9d0c49812f0b88d67ee",
+      "operations": [
+        {
+          "change_id": "C04-001",
+          "path": ".codex/skills/kr-defensible-venture-discovery/SKILL.md",
+          "result_hash": "sha256:7a362ebe7f2dfb01458219da7e4038725c5583ca1e667c6e1b8b74f7e0bdaa51"
+        },
+        {
+          "change_id": "C04-002",
+          "path": ".codex/skills/kr-defensible-venture-discovery/agents/openai.yaml",
+          "result_hash": "sha256:e305c13b34dc856a87be24dae1e0daf0bff65955480241c3598a5f21131e9e76"
+        },
+        {
+          "change_id": "C04-003",
+          "path": ".codex/skills/kr-defensible-venture-discovery/references/market-archetypes.md",
+          "result_hash": "sha256:1c8bdfc5742709c572fcc4efff731c84a82394333092cc9878add1b0c1a47e27"
+        },
+        {
+          "change_id": "C04-004",
+          "path": ".codex/skills/kr-defensible-venture-discovery/references/research-workflow.md",
+          "result_hash": "sha256:0e216868fa5dfeda77f2a2baed5e0548ced2fafaffe9ad9fba1c4a4a2fe123d1"
+        },
+        {
+          "change_id": "C04-005",
+          "path": ".codex/skills/kr-defensible-venture-discovery/references/evidence-and-barriers.md",
+          "result_hash": "sha256:798c55fbe1c4c6be9f8c5beff545a59ead790c1383def18f3dbdced51537bbb4"
+        },
+        {
+          "change_id": "C04-006",
+          "path": ".codex/skills/kr-defensible-venture-discovery/references/venture-session.schema.json",
+          "result_hash": "sha256:a5ef15583315a0e0a0b31402ace64ab85a07150527c300432eb4bfe0085aaf76"
+        },
+        {
+          "change_id": "C04-007",
+          "path": ".codex/skills/kr-defensible-venture-discovery/references/opportunity-hypothesis.schema.json",
+          "result_hash": "sha256:56ab541229ee39d34e11a0ccb8576bf7510e153325a4e90099f1c0a16910870d"
+        },
+        {
+          "change_id": "C04-008",
+          "path": ".codex/skills/kr-defensible-venture-discovery/scripts/venture_artifacts.py",
+          "result_hash": "sha256:6d229ea97993c6dea7f97dd7592b704af1c2819d79e7ab762ae650f87f9dd37a"
+        }
+      ]
+    },
+    {
+      "cohort_id": "C-05-packaging-validation",
+      "plan_id": "C-05-packaging-validation-plan-r1",
+      "plan_sha256": "732149ab95552b32019265e90382cba00383edf4e7754173224958c49168dbcc",
+      "operations": [
+        {
+          "change_id": "C05-001",
+          "path": "tests/skills/test_company_intelligence_analysis_skill.py",
+          "result_hash": "sha256:cb954775f901bf33b780aafac50bbaded17d86b15f7518b0f7923b25aaf9cde6"
+        },
+        {
+          "change_id": "C05-002",
+          "path": "tests/skills/test_venture_discovery_skill.py",
+          "result_hash": "sha256:3f68b9b2be0e880ccfdb9e54eadc876f4ccfd1e2576793b2d6fa28d81652b055"
+        },
+        {
+          "change_id": "C05-003",
+          "path": "tests/skills/test_skill_artifact_interop.py",
+          "result_hash": "sha256:b6dd2ac081072e16954ea0d438a6f7c5cf381bfbcc763a0de0066de8eb146e47"
+        }
+      ]
+    },
+    {
+      "cohort_id": "C-06-diagram-toolchain",
+      "plan_id": "C-06-diagram-toolchain-plan-r1",
+      "plan_sha256": "55f0309057185184b44a159fcf77f9dadc40d901a2f7b06a52e9e2f6b36e19e3",
+      "operations": [
+        {"change_id": "file-change-bc37d034bad5", "path": ".gitignore", "result_hash": "sha256:d2fc31105f09f6e7121970e7bf8f5db681c42e3e6a2fa3bcf222517b7b7d2766"},
+        {"change_id": "file-change-cadd50729db0", "path": "tools/flowchart_matrix.py", "result_hash": "sha256:76c8fcb8c30f2c4a9b03dc32517aee13f8eb2ee38d03ee26a2314c9172ca8c02"},
+        {"change_id": "file-change-2cb2323e87c8", "path": "tools/mermaid-renderer/package.json", "result_hash": "sha256:c09e80b6dd82350cc2e89b19725c246f93fdb5bee516faff6832d480c65e19ae"},
+        {"change_id": "file-change-11fe041e9525", "path": "tools/mermaid-renderer/package-lock.json", "result_hash": "sha256:43dc15d8ab39995a6f30aa62fb948b47a4120bb53da098724b0fa69ee144388d"},
+        {"change_id": "file-change-970fbb67544b", "path": "tools/mermaid-renderer/mermaid.config.json", "result_hash": "sha256:cb2920f647550358fa8bc85d7229dcb07bc3928cfee92e6d96dad3783a21b66a"},
+        {"change_id": "file-change-b9c763c03407", "path": "tools/mermaid-renderer/puppeteer.local.json", "result_hash": "sha256:10554626be32176d8cf4f886c84b462bdf4e228783e0744bdc699e6b4e66430d"},
+        {"change_id": "file-change-46574042dc93", "path": "tests/tools/test_flowchart_matrix.py", "result_hash": "sha256:8d44ff64764d9e71cb4967930ea17c62c8fff2c015eede781903146f37eded94"},
+        {"change_id": "file-change-368e35f4988c", "path": "tests/tools/test_mermaid_renderer.py", "result_hash": "sha256:3e23456bddfe8ca7188cad0b5ac09a4d1f17faf2bc8295aa18dc8d26ce30445b"}
+      ]
+    }
+  ]
+}

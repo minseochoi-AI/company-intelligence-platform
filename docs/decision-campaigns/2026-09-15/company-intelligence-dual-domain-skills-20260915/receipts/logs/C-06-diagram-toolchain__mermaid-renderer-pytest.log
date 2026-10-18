@@ -1,0 +1,10 @@
+============================= test session starts ==============================
+platform linux -- Python 3.13.12, pytest-8.4.2, pluggy-1.6.0
+rootdir: /home/ubuntu/root/company-intelligence-platform
+configfile: pyproject.toml
+plugins: anyio-4.15.1
+collected 2 items
+
+tests/tools/test_mermaid_renderer.py ..                                  [100%]
+
+============================== 2 passed in 16.79s ==============================

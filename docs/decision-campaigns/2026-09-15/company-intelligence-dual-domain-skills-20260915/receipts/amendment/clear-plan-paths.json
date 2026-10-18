@@ -1,0 +1,67 @@
+{
+  "contract_version": "atomic-json-patch-receipt-v1",
+  "target": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/campaign.json",
+  "outcome": "pass",
+  "before_sha256": "06df6194042ea389f9328183bbb68b7bfade1bb53948e63e57dbb2256f4623f8",
+  "after_sha256": "7cb69648e2c705eb48d6e1a7df4dfb53b2a339dd82ad3af530268cda24f3eedd",
+  "proposed_after_sha256": "7cb69648e2c705eb48d6e1a7df4dfb53b2a339dd82ad3af530268cda24f3eedd",
+  "operations": [
+    {
+      "op": "test",
+      "path": "/implementation_cohorts/0/implementation_plan_path"
+    },
+    {
+      "op": "test",
+      "path": "/implementation_cohorts/1/implementation_plan_path"
+    },
+    {
+      "op": "test",
+      "path": "/implementation_cohorts/2/implementation_plan_path"
+    },
+    {
+      "op": "test",
+      "path": "/implementation_cohorts/3/implementation_plan_path"
+    },
+    {
+      "op": "test",
+      "path": "/implementation_cohorts/4/implementation_plan_path"
+    },
+    {
+      "op": "replace",
+      "path": "/implementation_cohorts/0/implementation_plan_path"
+    },
+    {
+      "op": "replace",
+      "path": "/implementation_cohorts/1/implementation_plan_path"
+    },
+    {
+      "op": "replace",
+      "path": "/implementation_cohorts/2/implementation_plan_path"
+    },
+    {
+      "op": "replace",
+      "path": "/implementation_cohorts/3/implementation_plan_path"
+    },
+    {
+      "op": "replace",
+      "path": "/implementation_cohorts/4/implementation_plan_path"
+    }
+  ],
+  "backup": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/.mutation-journal/preimages/sha256-06df6194042ea389f9328183bbb68b7bfade1bb53948e63e57dbb2256f4623f8.json",
+  "journal": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/.mutation-journal/mutations/159bae1e3c612f1e659fbe1d9cda5230ef28b9baac5f8dad0923c43c294c14f1.json",
+  "mutation_id": "amend-clear-draft-plan-paths",
+  "validators": [
+    {
+      "command": [
+        "python3",
+        "-m",
+        "json.tool",
+        "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/campaign.json"
+      ],
+      "returncode": 0,
+      "stdout_tail": "lls-20260915/decisions/08-d-08.json\",\n        \"D-09\": \"docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/decisions/09-d-09.json\",\n        \"D-10\": \"docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/decisions/10-d-10.json\"\n    },\n    \"receipt_paths\": {\n        \"implementation\": \"docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/receipts/implementation.json\",\n        \"validation\": \"docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/receipts/validation.json\",\n        \"diagrams\": \"docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/receipts/diagrams.json\"\n    },\n    \"receipt_manifest_paths\": {\n        \"implementation\": \"docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/receipts/current-implementation.json\",\n        \"validation\": \"docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/receipts/current-validation.json\",\n        \"diagrams\": \"docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/receipts/current-diagrams.json\"\n    }\n}\n",
+      "stderr_tail": ""
+    }
+  ],
+  "completed_at": "2026-09-15T05:24:42.373581+00:00"
+}

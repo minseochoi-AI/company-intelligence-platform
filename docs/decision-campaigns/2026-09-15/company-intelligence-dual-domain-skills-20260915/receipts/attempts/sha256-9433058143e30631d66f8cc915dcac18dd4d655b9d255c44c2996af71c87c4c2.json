@@ -1,0 +1,13 @@
+{
+  "scenario_id": "C-05-packaging-validation:skill-behavior-pytest",
+  "cohort_id": "C-05-packaging-validation",
+  "criterion_id": "skill-behavior-pytest",
+  "plan_sha256": "732149ab95552b32019265e90382cba00383edf4e7754173224958c49168dbcc",
+  "command": null,
+  "outcome": "blocked",
+  "first_failure": "blocked by: C-03-company-analysis-skill, C-04-venture-analysis-skill",
+  "raw_log_path": "docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/receipts/logs/C-05-packaging-validation:skill-behavior-pytest.log",
+  "raw_log_sha256": "f2175a5424b878c6a7725b64b9ce0d9ab45e54574abe88a40d65a804248d621c",
+  "tail": "blocked by: C-03-company-analysis-skill, C-04-venture-analysis-skill",
+  "completed_at": "2026-09-15T06:06:59.919564+00:00"
+}

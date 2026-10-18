@@ -1,0 +1,4 @@
+interface:
+  display_name: "기업·커리어 근거 조사"
+  short_description: "미국·한국·체코 기업과 직무 요건을 증거로 정리"
+  default_prompt: "$company-intelligence-career-research로 기업·직무 요건을 근거 기반으로 조사해 줘."

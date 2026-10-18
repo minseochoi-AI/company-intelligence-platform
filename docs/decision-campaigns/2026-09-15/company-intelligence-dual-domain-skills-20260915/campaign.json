@@ -1,0 +1,254 @@
+{
+  "schema_version": "1.7.0",
+  "campaign_id": "company-intelligence-dual-domain-skills-20260915",
+  "objective": "Company Intelligence Platform을 실행 엔진으로 사용하는 기업분석 스킬과 한국형 방어가능 창업분석 스킬을 구현하고, 기존 커리어 스킬과 함께 세 사용자 책임을 유지하며, 버전된 비스킬 계약으로 EvidenceBundle·DomainPlan·DualPathComparison·CampaignLink를 검증한다.",
+  "repository_root": "/home/ubuntu/root/company-intelligence-platform",
+  "created_date": "2026-09-15",
+  "status": "decision-approved",
+  "decision_order": [
+    "D-01",
+    "D-02",
+    "D-03",
+    "D-04",
+    "D-05",
+    "D-06",
+    "D-07",
+    "D-08",
+    "D-09",
+    "D-10",
+    "D-11"
+  ],
+  "dependencies": [
+    {
+      "before": "D-01",
+      "after": "D-02"
+    },
+    {
+      "before": "D-02",
+      "after": "D-03"
+    },
+    {
+      "before": "D-03",
+      "after": "D-06"
+    },
+    {
+      "before": "D-02",
+      "after": "D-07"
+    },
+    {
+      "before": "D-03",
+      "after": "D-07"
+    },
+    {
+      "before": "D-01",
+      "after": "D-09"
+    },
+    {
+      "before": "D-01",
+      "after": "D-10"
+    },
+    {
+      "before": "D-02",
+      "after": "D-10"
+    },
+    {
+      "before": "D-03",
+      "after": "D-10"
+    },
+    {
+      "before": "D-01",
+      "after": "D-04"
+    },
+    {
+      "before": "D-03",
+      "after": "D-04"
+    },
+    {
+      "before": "D-09",
+      "after": "D-04"
+    },
+    {
+      "before": "D-01",
+      "after": "D-05"
+    },
+    {
+      "before": "D-03",
+      "after": "D-05"
+    },
+    {
+      "before": "D-10",
+      "after": "D-05"
+    },
+    {
+      "before": "D-04",
+      "after": "D-08"
+    },
+    {
+      "before": "D-05",
+      "after": "D-08"
+    },
+    {
+      "before": "D-06",
+      "after": "D-08"
+    },
+    {
+      "before": "D-07",
+      "after": "D-08"
+    },
+    {
+      "before": "D-09",
+      "after": "D-08"
+    },
+    {
+      "before": "D-10",
+      "after": "D-08"
+    },
+    {
+      "before": "D-08",
+      "after": "D-11"
+    }
+  ],
+  "implementation_authorization": {
+    "authorized": true,
+    "authorized_by": "user",
+    "authorized_at": "2026-09-15T06:55:00.420883+00:00",
+    "scope": [
+      "D-11"
+    ],
+    "authorized_plan_refs": [
+      {
+        "cohort_id": "C-06-diagram-toolchain",
+        "plan_id": "C-06-diagram-toolchain-plan-r1",
+        "path": "docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/implementation-plans/C-06-diagram-toolchain.json",
+        "sha256": "55f0309057185184b44a159fcf77f9dadc40d901a2f7b06a52e9e2f6b36e19e3"
+      }
+    ]
+  },
+  "implementation_cohorts": [
+    {
+      "cohort_id": "C-01-interop-control",
+      "decision_ids": [
+        "D-01",
+        "D-02",
+        "D-03",
+        "D-06",
+        "D-07",
+        "D-10"
+      ],
+      "status": "planned",
+      "context_packet_path": null,
+      "context_packet_sha256": null,
+      "implementation_plan_path": null,
+      "implementation_plan_sha256": null,
+      "implementation_plan_status": null,
+      "execution_dependencies": []
+    },
+    {
+      "cohort_id": "C-02-cil-runtime",
+      "decision_ids": [
+        "D-09"
+      ],
+      "status": "planned",
+      "context_packet_path": null,
+      "context_packet_sha256": null,
+      "implementation_plan_path": null,
+      "implementation_plan_sha256": null,
+      "implementation_plan_status": null,
+      "execution_dependencies": [
+        "C-01-interop-control"
+      ]
+    },
+    {
+      "cohort_id": "C-03-company-analysis-skill",
+      "decision_ids": [
+        "D-04"
+      ],
+      "status": "planned",
+      "context_packet_path": null,
+      "context_packet_sha256": null,
+      "implementation_plan_path": null,
+      "implementation_plan_sha256": null,
+      "implementation_plan_status": null,
+      "execution_dependencies": [
+        "C-01-interop-control",
+        "C-02-cil-runtime"
+      ]
+    },
+    {
+      "cohort_id": "C-04-venture-analysis-skill",
+      "decision_ids": [
+        "D-05"
+      ],
+      "status": "planned",
+      "context_packet_path": null,
+      "context_packet_sha256": null,
+      "implementation_plan_path": null,
+      "implementation_plan_sha256": null,
+      "implementation_plan_status": null,
+      "execution_dependencies": [
+        "C-01-interop-control"
+      ]
+    },
+    {
+      "cohort_id": "C-05-packaging-validation",
+      "decision_ids": [
+        "D-08"
+      ],
+      "status": "planned",
+      "context_packet_path": null,
+      "context_packet_sha256": null,
+      "implementation_plan_path": null,
+      "implementation_plan_sha256": null,
+      "implementation_plan_status": null,
+      "execution_dependencies": [
+        "C-02-cil-runtime",
+        "C-03-company-analysis-skill",
+        "C-04-venture-analysis-skill"
+      ]
+    },
+    {
+      "cohort_id": "C-06-diagram-toolchain",
+      "decision_ids": [
+        "D-11"
+      ],
+      "status": "contract-ready",
+      "context_packet_path": "docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/context-packets/C-06-diagram-toolchain-r1.json",
+      "context_packet_sha256": "28519f24a546ae9cde72ad9560991fdcef66de6ef69f2406c1aa9580454cac47",
+      "implementation_plan_path": "docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/implementation-plans/C-06-diagram-toolchain.json",
+      "implementation_plan_sha256": "55f0309057185184b44a159fcf77f9dadc40d901a2f7b06a52e9e2f6b36e19e3",
+      "implementation_plan_status": "contract-ready",
+      "execution_dependencies": [
+        "C-05-packaging-validation"
+      ]
+    }
+  ],
+  "context_index_path": "docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/context-index.json",
+  "component_inventory_path": "docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/component-inventory.json",
+  "component_inventory_sha256": "dd640db2a2e0f6c5c0de6dadb5df4b57d4e8ab8f1d842b59917f36b95a4dd9a4",
+  "workbook_path": "docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/decision-workbook.md",
+  "decision_files": {
+    "D-01": "docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/decisions/01-d-01.json",
+    "D-02": "docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/decisions/02-d-02.json",
+    "D-03": "docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/decisions/03-d-03.json",
+    "D-04": "docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/decisions/04-d-04.json",
+    "D-05": "docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/decisions/05-d-05.json",
+    "D-06": "docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/decisions/06-d-06.json",
+    "D-07": "docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/decisions/07-d-07.json",
+    "D-08": "docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/decisions/08-d-08.json",
+    "D-09": "docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/decisions/09-d-09.json",
+    "D-10": "docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/decisions/10-d-10.json",
+    "D-11": "docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/decisions/11-d-11.json"
+  },
+  "receipt_paths": {
+    "implementation": "docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/receipts/implementation.json",
+    "validation": "docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/receipts/validation.json",
+    "diagrams": "docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/receipts/diagrams.json"
+  },
+  "receipt_manifest_paths": {
+    "implementation": "docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/receipts/current-implementation.json",
+    "validation": "docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/receipts/current-validation.json",
+    "diagrams": "docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/receipts/current-diagrams.json"
+  },
+  "campaign_change_graph_path": "docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/campaign-change-graph.json",
+  "campaign_change_graph_sha256": "55df83e6364a45f721b2247e01675fcbb5d5e0e315487bb689513e46e91fc34e"
+}

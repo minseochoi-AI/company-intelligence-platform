@@ -11,17 +11,26 @@ from .identity import IdentifierLink
 from .models import AtomicFact, CompanyClassification, RequirementEvidence
 
 
-def duckdb_path(database_url: str) -> Path:
+def duckdb_path(database_url: str, project_root: Path | None = None) -> Path:
     prefix = "duckdb:///"
     if not database_url.startswith(prefix):
         raise ValueError("Local warehouse currently requires DATABASE_URL=duckdb:///absolute/path")
-    return Path("/" + database_url[len(prefix) :].lstrip("/"))
+    stripped = database_url[len(prefix) :].lstrip("/")
+    raw_path = Path("/" + stripped)
+    if not raw_path.exists() and project_root is not None:
+        candidate = project_root / stripped
+        if candidate.exists():
+            return candidate
+        candidate_data = project_root / "data" / Path(stripped).name
+        if candidate_data.exists():
+            return candidate_data
+    return raw_path
 
 
 class Warehouse:
     def __init__(self, settings: Settings) -> None:
         self.settings = settings
-        self.path = duckdb_path(settings.database_url)
+        self.path = duckdb_path(settings.database_url, settings.project_root)
 
     def connect(self):
         try:

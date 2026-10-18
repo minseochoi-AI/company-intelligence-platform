@@ -1,0 +1,35 @@
+{
+  "contract_version": "atomic-json-patch-receipt-v1",
+  "target": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/decisions/02-d-02.json",
+  "outcome": "pass",
+  "before_sha256": "97a53689ff8108cc6fe599e8c6b11a02fdc92c02e19d289a37651f4980030f0a",
+  "after_sha256": "b06626a7fed21d2877f2eb4055e2accabec7ad8ccbd4f84304975e6657f5a688",
+  "proposed_after_sha256": "b06626a7fed21d2877f2eb4055e2accabec7ad8ccbd4f84304975e6657f5a688",
+  "operations": [
+    {
+      "op": "test",
+      "path": "/implementation_targets"
+    },
+    {
+      "op": "replace",
+      "path": "/implementation_targets"
+    }
+  ],
+  "backup": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/.mutation-journal/preimages/sha256-97a53689ff8108cc6fe599e8c6b11a02fdc92c02e19d289a37651f4980030f0a.json",
+  "journal": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/.mutation-journal/mutations/50109cc0377d4bb4a1d5bff83c8d61584844fc7225c688a5b9eb81f78383b0a5.json",
+  "mutation_id": "amend-02-d-02",
+  "validators": [
+    {
+      "command": [
+        "python3",
+        "-m",
+        "json.tool",
+        "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/decisions/02-d-02.json"
+      ],
+      "returncode": 0,
+      "stdout_tail": "      \"\\ub2e8\\uc77c plan \\ud544\\ub4dc\\uc758 \\ud45c\\uba74\\uc801 \\ub2e8\\uc21c\\uc131\\uc740 \\ud3ec\\uae30\\ud55c\\ub2e4.\"\n    ],\n    \"dependencies\": [\n        \"D-01\"\n    ],\n    \"dependency_waivers\": {},\n    \"accepted_decision\": null,\n    \"implementation_targets\": [\n        \".codex/shared/company-intelligence-interop/domain-plan.schema.json\",\n        \".codex/shared/company-intelligence-interop/domain-plan-ref.schema.json\",\n        \".codex/shared/company-intelligence-interop/interop.py\"\n    ],\n    \"implementation_change_ids\": [],\n    \"validation_requirements\": [\n        \"implementation_plan_sha256\\uac00 DomainPlan hash\\ub85c \\uc7ac\\uc0ac\\uc6a9\\ub418\\uc9c0 \\uc54a\\uc74c\",\n        \"DomainPlanRef hash \\ubd88\\uc77c\\uce58 \\uc2dc \\uc18c\\ube44 \\uac70\\ubd80\",\n        \"career\\uc640 venture plan_kind \\ud63c\\uc785 \\uac70\\ubd80\",\n        \"\\ub3c4\\uba54\\uc778 \\uacc4\\ud68d \\uc2b9\\uc778\\ub9cc\\uc73c\\ub85c \\uad6c\\ud604 \\uad8c\\ud55c\\uc774 \\uc0dd\\uae30\\uc9c0 \\uc54a\\uc74c\"\n    ],\n    \"diagram_impacts\": [\n        \"Campaign ImplementationPlan\\uacfc Career/Venture DomainPlan\\uc758 \\ubd84\\ub9ac \\ubc0f hash-link \\ud750\\ub984\"\n    ],\n    \"context_topic_ids\": [\n        \"plan-semantics\",\n        \"hash-contract\"\n    ]\n}\n",
+      "stderr_tail": ""
+    }
+  ],
+  "completed_at": "2026-09-15T05:24:08.646932+00:00"
+}

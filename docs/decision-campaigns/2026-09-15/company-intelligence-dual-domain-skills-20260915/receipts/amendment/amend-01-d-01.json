@@ -1,0 +1,43 @@
+{
+  "contract_version": "atomic-json-patch-receipt-v1",
+  "target": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/decisions/01-d-01.json",
+  "outcome": "pass",
+  "before_sha256": "5a0f10924c211b3b60052e3e0d8748b4e8a3c797d666d9db20da28be22ff0efe",
+  "after_sha256": "5afc22cfd761c3dccc63d0cd8f3e2c228381d63ae96acd10bf5651baa27718ed",
+  "proposed_after_sha256": "5afc22cfd761c3dccc63d0cd8f3e2c228381d63ae96acd10bf5651baa27718ed",
+  "operations": [
+    {
+      "op": "test",
+      "path": "/implementation_targets"
+    },
+    {
+      "op": "test",
+      "path": "/validation_requirements"
+    },
+    {
+      "op": "replace",
+      "path": "/implementation_targets"
+    },
+    {
+      "op": "replace",
+      "path": "/validation_requirements"
+    }
+  ],
+  "backup": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/.mutation-journal/preimages/sha256-5a0f10924c211b3b60052e3e0d8748b4e8a3c797d666d9db20da28be22ff0efe.json",
+  "journal": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/.mutation-journal/mutations/e5d37094ca2e9fe16d76115f21d5464473c0571bb243e2a80e8460b5ad7316c0.json",
+  "mutation_id": "amend-01-d-01",
+  "validators": [
+    {
+      "command": [
+        "python3",
+        "-m",
+        "json.tool",
+        "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/decisions/01-d-01.json"
+      ],
+      "returncode": 0,
+      "stdout_tail": "  \".codex/skills/company-intelligence-analysis/SKILL.md\",\n        \".codex/skills/kr-defensible-venture-discovery/SKILL.md\",\n        \".codex/shared/company-intelligence-interop/BOUNDARIES.md\"\n    ],\n    \"implementation_change_ids\": [],\n    \"validation_requirements\": [\n        \"\\uae30\\uc5c5\\u00b7\\uae30\\uc874 \\ucee4\\ub9ac\\uc5b4\\u00b7\\ucc3d\\uc5c5 \\ucc45\\uc784\\uc774 \\uc11c\\ub85c \\ubc30\\ud0c0\\uc801\\uc778 trigger\\ub97c \\uac00\\uc9d0\",\n        \"\\uae30\\uc874 \\uae00\\ub85c\\ubc8c \\ucee4\\ub9ac\\uc5b4 \\uc2a4\\ud0ac\\uc744 \\uc800\\uc7a5\\uc18c \\uc548\\uc5d0 \\ubcf5\\uc81c\\ud558\\uc9c0 \\uc54a\\uc74c\",\n        \"\\ub450 \\uc2e0\\uaddc \\uc2a4\\ud0ac\\uc740 \\ud30c\\uc77c \\uacc4\\uc57d \\uc5c6\\uc774 \\uc11c\\ub85c\\ub97c \\uc9c1\\uc811 import\\ud558\\uc9c0 \\uc54a\\uc74c\",\n        \"\\uacf5\\ud1b5 \\uacc4\\uc57d\\uc740 \\uc0ac\\uc6a9\\uc790 \\ub300\\uba74 \\uc2a4\\ud0ac\\ub85c \\ub4f1\\ub85d\\ub418\\uc9c0 \\uc54a\\uc74c\"\n    ],\n    \"diagram_impacts\": [\n        \"\\uc0ac\\uc6a9\\uc790 \\ubaa9\\uc801\\uc5d0\\uc11c \\uae30\\uc5c5\\ubd84\\uc11d\\u00b7\\ucde8\\uc5c5\\uc870\\uc0ac\\u00b7\\ucc3d\\uc5c5\\ubd84\\uc11d\\uc73c\\ub85c \\ubd84\\uae30\\ud558\\ub294 \\ub77c\\uc6b0\\ud305 \\uacbd\\uacc4\"\n    ],\n    \"context_topic_ids\": [\n        \"skill-boundary\",\n        \"trigger-routing\"\n    ]\n}\n",
+      "stderr_tail": ""
+    }
+  ],
+  "completed_at": "2026-09-15T05:24:08.577519+00:00"
+}

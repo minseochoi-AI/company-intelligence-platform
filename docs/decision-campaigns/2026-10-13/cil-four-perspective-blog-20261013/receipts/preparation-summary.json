@@ -1,0 +1,62 @@
+{
+  "campaign_id": "cil-four-perspective-blog-20261013",
+  "campaign_path": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-10-13/cil-four-perspective-blog-20261013/campaign.json",
+  "status": "decision-required",
+  "implementation_authorized": false,
+  "prepared_cohorts": 7,
+  "planned_unique_paths": 40,
+  "open_decisions": [
+    "B-D08",
+    "B-D09",
+    "B-D10"
+  ],
+  "new_remote_operation_target_count": 15,
+  "existing_remote_operation_augmentation_count": 8,
+  "prior_minimal_field_passes": 24,
+  "prior_registered_operations": 28,
+  "unresolved_source_contracts": [
+    "mpm detail/attachment",
+    "mpsv live feed"
+  ],
+  "scope_sha256": "20630b5cadecd6364db07292d0151a7e52b8c3242c06e20fff30f1eec4cb7a58",
+  "plans": [
+    {
+      "cohort_id": "B-C01-taxonomy",
+      "plan_path": "docs/decision-campaigns/2026-10-13/cil-four-perspective-blog-20261013/implementation-plans/B-C01-taxonomy-r1.json",
+      "sha256": "bf1dd343bb2b31c6f6592bf443291d60b656f5ab6b6132743ae423baaf40e754"
+    },
+    {
+      "cohort_id": "B-C02-report-opinions",
+      "plan_path": "docs/decision-campaigns/2026-10-13/cil-four-perspective-blog-20261013/implementation-plans/B-C02-report-opinions-r1.json",
+      "sha256": "a14bb6e7a8bcc9f5fcce99e5add18dbf5097df79ccab4f465ef24caa8b6701a1"
+    },
+    {
+      "cohort_id": "B-C03-cil-coverage",
+      "plan_path": "docs/decision-campaigns/2026-10-13/cil-four-perspective-blog-20261013/implementation-plans/B-C03-cil-coverage-r2.json",
+      "sha256": "ee93bbff2da340e8f5f4599c3ff9a535adfb5c62622df693beac6ce81e022a15"
+    },
+    {
+      "cohort_id": "B-C04-blogger",
+      "plan_path": "docs/decision-campaigns/2026-10-13/cil-four-perspective-blog-20261013/implementation-plans/B-C04-blogger-r1.json",
+      "sha256": "a90bb56bf7aeb54d44781edfe239cf04f810b5cbcb959c5f245e809d6b49a827"
+    },
+    {
+      "cohort_id": "B-C05-ledger-links",
+      "plan_path": "docs/decision-campaigns/2026-10-13/cil-four-perspective-blog-20261013/implementation-plans/B-C05-ledger-links-r1.json",
+      "sha256": "3aeb4014369f0c36ecb19808412dd67d5789f405fd346099b3d36043b262cc1c"
+    },
+    {
+      "cohort_id": "B-C06-metrics",
+      "plan_path": "docs/decision-campaigns/2026-10-13/cil-four-perspective-blog-20261013/implementation-plans/B-C06-metrics-r1.json",
+      "sha256": "a3d09e95e92f039b7022bb03d0f37088fdb3e3f4c9955635f2f5e42f45578fb2"
+    },
+    {
+      "cohort_id": "B-C07-cli-skill",
+      "plan_path": "docs/decision-campaigns/2026-10-13/cil-four-perspective-blog-20261013/implementation-plans/B-C07-cli-skill-r2.json",
+      "sha256": "b20914148f2ba31654b9d4c7dd560703016217d06bf73607ef6223ce21fc3c92"
+    }
+  ],
+  "verification": "DCW schema/scope/plan/Packet/intelligence validation only; product tests not run",
+  "previous_authorities": "old campaign documents/approved plan bytes left unchanged",
+  "refinement": "기존 CIL CLI 변경 제외. B-C03/B-C07 r1 보존, r2 재준비; 나머지 5개 계획 SHA 유지."
+}

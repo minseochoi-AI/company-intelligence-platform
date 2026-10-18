@@ -1,0 +1,34 @@
+{
+  "cohort_id": "B-C03-cil-coverage",
+  "status": "completed",
+  "changed_paths": [],
+  "commands": [
+    "/home/ubuntu/root/company-intelligence-platform/.venv/bin/python -m pytest -v"
+  ],
+  "outcome": "pass",
+  "raw_log_path": ".runtime/campaign-orchestrator/cil-four-perspective-blog-20261013/validation/B-C03-cil-coverage-validation.log",
+  "raw_log_sha256": "5f367cb21ac9a614223113278df4ddcc81bb9fe15153fec866b33ccabce0b79e",
+  "first_failure": null,
+  "stdout_tail": null,
+  "stderr_tail": null,
+  "telemetry": {
+    "provider": {
+      "measurement": "not-applicable",
+      "invocations": null,
+      "input_tokens": null,
+      "output_tokens": null
+    },
+    "agent_session": {
+      "measurement": "unavailable-platform",
+      "token_count": null,
+      "tool_output_chars": null
+    }
+  },
+  "provider_guard": null,
+  "updated_at": "2026-10-15T11:37:59.723541+00:00",
+  "context_packet_id": "B-C03-cil-coverage-packet-00a4ebb4a3b3",
+  "context_packet_sha256": "1cbb478caaf9f1dc4ec7e2b5744a58b8bd857a9973290820373a09bc75540778",
+  "implementation_plan_id": "B-C03-cil-coverage-plan-r3",
+  "implementation_plan_sha256": "8b7b38c48a36e2488042300c56aac1744754ad811d8eb79816ea2340256504d6",
+  "passed_criterion_ids": []
+}

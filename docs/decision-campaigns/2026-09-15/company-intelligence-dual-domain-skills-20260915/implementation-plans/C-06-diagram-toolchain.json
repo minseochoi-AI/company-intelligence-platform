@@ -1,0 +1,602 @@
+{
+  "contract_version": "1.2.0",
+  "plan_id": "C-06-diagram-toolchain-plan-r1",
+  "owner": {
+    "kind": "campaign-cohort",
+    "id": "C-06-diagram-toolchain"
+  },
+  "source_refs": [
+    {
+      "id": "D-11",
+      "path": "docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/decisions/11-d-11.json",
+      "sha256": "sha256:20281eef0ebacc3a0c5427b3aa66378a962ff4ff7eb2bf0e18fbc2fb5200d526"
+    }
+  ],
+  "status": "contract-ready",
+  "change_slices": [
+    {
+      "slice_id": "diagram-toolchain",
+      "behavior": "저장소가 evidence·design·matrix를 검증하고 고정 Mermaid CLI로 SVG와 PNG를 생성·검사한다.",
+      "dependencies": [],
+      "routes": [
+        {
+          "route_id": "deepwiki-mermaid-cli-boundary",
+          "skill": "deepwiki-code-implementation",
+          "requirement": "required",
+          "phase": "IMPLEMENT",
+          "purpose": "CLI·Puppeteer 경계를 구현한다.",
+          "expected_artifact": "tools/mermaid-renderer/package-lock.json",
+          "trigger_evidence": [
+            "D-11 integration matrix rows are ready-for-implementation"
+          ]
+        },
+        {
+          "route_id": "flowchart-matrix-contract",
+          "skill": "flowchart-matrix-validation",
+          "requirement": "required",
+          "phase": "VALIDATE",
+          "purpose": "semantic flowchart contract를 저장소 CLI로 검증한다.",
+          "expected_artifact": "tools/flowchart_matrix.py",
+          "trigger_evidence": [
+            "D-11 requires evidence/design/matrix validation"
+          ]
+        },
+        {
+          "route_id": "campaign-regression-orchestration",
+          "skill": "decision-campaign-workbook",
+          "requirement": "required",
+          "phase": "VALIDATE",
+          "purpose": "repository-wide regression criterion을 소유한다.",
+          "expected_artifact": "docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/receipts/criteria/repository-regression-pytest.json",
+          "trigger_evidence": [
+            "D-11 requires full repository regression proof"
+          ]
+        }
+      ],
+      "operations": [
+        {
+          "change_id": "file-change-bc37d034bad5",
+          "operation": "MODIFY",
+          "path": ".gitignore",
+          "symbols": [
+            "tools/mermaid-renderer/node_modules/"
+          ],
+          "current_state": "renderer-local node_modules ignore rule is absent",
+          "source_hash": "sha256:c20e0dc819751315e627678e640e413aafce4abbbd594a18981c29afa27b799b",
+          "result_hash": null,
+          "expected_result": "renderer-local node_modules is ignored without ignoring package-lock.json",
+          "after_state": "renderer-local node_modules is ignored without ignoring package-lock.json",
+          "rationale": "lockfile is source evidence but installed modules are reproducible cache",
+          "dependencies": [],
+          "public_contract_impacts": [],
+          "compatibility": "existing ignore patterns are preserved",
+          "migration": "none",
+          "rollback": "remove the one ignore line",
+          "authorization_boundary": "repository-local text modification only",
+          "consumer_search": "rg -n 'node_modules' .gitignore",
+          "contributes_to": [
+            "D-11"
+          ],
+          "contribution_refs": [
+            {
+              "decision_id": "D-11",
+              "path": "docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/decisions/11-d-11.json",
+              "sha256": "sha256:20281eef0ebacc3a0c5427b3aa66378a962ff4ff7eb2bf0e18fbc2fb5200d526",
+              "symbols": [
+                "tools/mermaid-renderer/node_modules/"
+              ],
+              "intent_change_ids": [
+                "D-11-ignore-node-modules"
+              ]
+            }
+          ],
+          "intent_change_ids": [
+            "D-11-ignore-node-modules"
+          ],
+          "symbol_changes": [
+            {
+              "symbol": "tools/mermaid-renderer/node_modules/",
+              "intent": "renderer-local node_modules is ignored without ignoring package-lock.json",
+              "decision_id": "D-11"
+            }
+          ]
+        },
+        {
+          "change_id": "file-change-cadd50729db0",
+          "operation": "CREATE",
+          "path": "tools/flowchart_matrix.py",
+          "symbols": [
+            "validate_evidence",
+            "validate_design",
+            "validate",
+            "build"
+          ],
+          "current_state": "absent",
+          "source_hash": null,
+          "result_hash": null,
+          "expected_result": "standard-library CLI validates semantic inputs, compiles Mermaid, renders SVG/PNG, and rejects stale derivatives",
+          "after_state": "standard-library CLI validates semantic inputs, compiles Mermaid, renders SVG/PNG, and rejects stale derivatives",
+          "rationale": "repository owns deterministic diagram control",
+          "dependencies": [
+            "file-change-970fbb67544b",
+            "file-change-b9c763c03407",
+            "file-change-2cb2323e87c8"
+          ],
+          "public_contract_impacts": [
+            "repository-local diagram CLI"
+          ],
+          "compatibility": "new tool with explicit arguments",
+          "migration": "use this CLI instead of external skill path",
+          "rollback": "remove tool and its tests; semantic JSON remains",
+          "authorization_boundary": "repository-local executable source only",
+          "consumer_search": "rg -n 'flowchart_matrix' .",
+          "contributes_to": [
+            "D-11"
+          ],
+          "contribution_refs": [
+            {
+              "decision_id": "D-11",
+              "path": "docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/decisions/11-d-11.json",
+              "sha256": "sha256:20281eef0ebacc3a0c5427b3aa66378a962ff4ff7eb2bf0e18fbc2fb5200d526",
+              "symbols": [
+                "validate_evidence",
+                "validate_design",
+                "validate",
+                "build"
+              ],
+              "intent_change_ids": [
+                "D-11-flowchart-cli"
+              ]
+            }
+          ],
+          "intent_change_ids": [
+            "D-11-flowchart-cli"
+          ],
+          "symbol_changes": [
+            {
+              "symbol": "validate_evidence",
+              "intent": "standard-library CLI validates semantic inputs, compiles Mermaid, renders SVG/PNG, and rejects stale derivatives",
+              "decision_id": "D-11"
+            },
+            {
+              "symbol": "validate_design",
+              "intent": "standard-library CLI validates semantic inputs, compiles Mermaid, renders SVG/PNG, and rejects stale derivatives",
+              "decision_id": "D-11"
+            },
+            {
+              "symbol": "validate",
+              "intent": "standard-library CLI validates semantic inputs, compiles Mermaid, renders SVG/PNG, and rejects stale derivatives",
+              "decision_id": "D-11"
+            },
+            {
+              "symbol": "build",
+              "intent": "standard-library CLI validates semantic inputs, compiles Mermaid, renders SVG/PNG, and rejects stale derivatives",
+              "decision_id": "D-11"
+            }
+          ]
+        },
+        {
+          "change_id": "file-change-2cb2323e87c8",
+          "operation": "CREATE",
+          "path": "tools/mermaid-renderer/package.json",
+          "symbols": [
+            "devDependencies.@mermaid-js/mermaid-cli",
+            "devDependencies.puppeteer"
+          ],
+          "current_state": "absent",
+          "source_hash": null,
+          "result_hash": null,
+          "expected_result": "local renderer manifest pins Mermaid CLI 11.17.0 and compatible Puppeteer",
+          "after_state": "local renderer manifest pins Mermaid CLI 11.17.0 and compatible Puppeteer",
+          "rationale": "avoid global or npx runtime drift",
+          "dependencies": [],
+          "public_contract_impacts": [
+            "pinned local rendering dependency"
+          ],
+          "compatibility": "isolated from Python project dependencies",
+          "migration": "npm ci is run only in tools/mermaid-renderer",
+          "rollback": "remove isolated renderer directory",
+          "authorization_boundary": "repository-local manifest; npm download occurs only for this approved package",
+          "consumer_search": "rg -n '@mermaid-js/mermaid-cli|puppeteer' tools",
+          "contributes_to": [
+            "D-11"
+          ],
+          "contribution_refs": [
+            {
+              "decision_id": "D-11",
+              "path": "docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/decisions/11-d-11.json",
+              "sha256": "sha256:20281eef0ebacc3a0c5427b3aa66378a962ff4ff7eb2bf0e18fbc2fb5200d526",
+              "symbols": [
+                "devDependencies.@mermaid-js/mermaid-cli",
+                "devDependencies.puppeteer"
+              ],
+              "intent_change_ids": [
+                "D-11-mermaid-package"
+              ]
+            }
+          ],
+          "intent_change_ids": [
+            "D-11-mermaid-package"
+          ],
+          "symbol_changes": [
+            {
+              "symbol": "devDependencies.@mermaid-js/mermaid-cli",
+              "intent": "local renderer manifest pins Mermaid CLI 11.17.0 and compatible Puppeteer",
+              "decision_id": "D-11"
+            },
+            {
+              "symbol": "devDependencies.puppeteer",
+              "intent": "local renderer manifest pins Mermaid CLI 11.17.0 and compatible Puppeteer",
+              "decision_id": "D-11"
+            }
+          ]
+        },
+        {
+          "change_id": "file-change-11fe041e9525",
+          "operation": "CREATE",
+          "path": "tools/mermaid-renderer/package-lock.json",
+          "symbols": [
+            "lockfileVersion",
+            "packages"
+          ],
+          "current_state": "absent",
+          "source_hash": null,
+          "result_hash": null,
+          "expected_result": "npm lockfile records exact package integrity and transitive graph",
+          "after_state": "npm lockfile records exact package integrity and transitive graph",
+          "rationale": "package manifest alone cannot bind deterministic installed bytes",
+          "dependencies": [
+            "file-change-2cb2323e87c8"
+          ],
+          "public_contract_impacts": [
+            "renderer supply-chain lock"
+          ],
+          "compatibility": "npm 10 lockfile compatible",
+          "migration": "refresh only through reviewed dependency decision",
+          "rollback": "remove with package manifest",
+          "authorization_boundary": "repository-local lockfile generated from approved npm registry metadata",
+          "consumer_search": "rg -n 'mermaid-cli' tools/mermaid-renderer/package-lock.json",
+          "contributes_to": [
+            "D-11"
+          ],
+          "contribution_refs": [
+            {
+              "decision_id": "D-11",
+              "path": "docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/decisions/11-d-11.json",
+              "sha256": "sha256:20281eef0ebacc3a0c5427b3aa66378a962ff4ff7eb2bf0e18fbc2fb5200d526",
+              "symbols": [
+                "lockfileVersion",
+                "packages"
+              ],
+              "intent_change_ids": [
+                "D-11-mermaid-lock"
+              ]
+            }
+          ],
+          "intent_change_ids": [
+            "D-11-mermaid-lock"
+          ],
+          "symbol_changes": [
+            {
+              "symbol": "lockfileVersion",
+              "intent": "npm lockfile records exact package integrity and transitive graph",
+              "decision_id": "D-11"
+            },
+            {
+              "symbol": "packages",
+              "intent": "npm lockfile records exact package integrity and transitive graph",
+              "decision_id": "D-11"
+            }
+          ]
+        },
+        {
+          "change_id": "file-change-970fbb67544b",
+          "operation": "CREATE",
+          "path": "tools/mermaid-renderer/mermaid.config.json",
+          "symbols": [
+            "securityLevel",
+            "theme"
+          ],
+          "current_state": "absent",
+          "source_hash": null,
+          "result_hash": null,
+          "expected_result": "strict, fixed Mermaid rendering configuration",
+          "after_state": "strict, fixed Mermaid rendering configuration",
+          "rationale": "make renderer semantics explicit",
+          "dependencies": [],
+          "public_contract_impacts": [
+            "renderer configuration"
+          ],
+          "compatibility": "Mermaid CLI JSON config",
+          "migration": "config changes force freshness invalidation",
+          "rollback": "remove config with renderer",
+          "authorization_boundary": "repository-local configuration only",
+          "consumer_search": "rg -n 'securityLevel|theme' tools/mermaid-renderer",
+          "contributes_to": [
+            "D-11"
+          ],
+          "contribution_refs": [
+            {
+              "decision_id": "D-11",
+              "path": "docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/decisions/11-d-11.json",
+              "sha256": "sha256:20281eef0ebacc3a0c5427b3aa66378a962ff4ff7eb2bf0e18fbc2fb5200d526",
+              "symbols": [
+                "securityLevel",
+                "theme"
+              ],
+              "intent_change_ids": [
+                "D-11-mermaid-config"
+              ]
+            }
+          ],
+          "intent_change_ids": [
+            "D-11-mermaid-config"
+          ],
+          "symbol_changes": [
+            {
+              "symbol": "securityLevel",
+              "intent": "strict, fixed Mermaid rendering configuration",
+              "decision_id": "D-11"
+            },
+            {
+              "symbol": "theme",
+              "intent": "strict, fixed Mermaid rendering configuration",
+              "decision_id": "D-11"
+            }
+          ]
+        },
+        {
+          "change_id": "file-change-b9c763c03407",
+          "operation": "CREATE",
+          "path": "tools/mermaid-renderer/puppeteer.local.json",
+          "symbols": [
+            "executablePath",
+            "args"
+          ],
+          "current_state": "absent",
+          "source_hash": null,
+          "result_hash": null,
+          "expected_result": "renderer explicitly uses /usr/bin/google-chrome with local headless flags",
+          "after_state": "renderer explicitly uses /usr/bin/google-chrome with local headless flags",
+          "rationale": "avoid browser download and global environment discovery",
+          "dependencies": [],
+          "public_contract_impacts": [
+            "local browser execution boundary"
+          ],
+          "compatibility": "Puppeteer launch configuration",
+          "migration": "review config if environment browser path changes",
+          "rollback": "remove config with renderer",
+          "authorization_boundary": "local executable path only; no browser download",
+          "consumer_search": "rg -n 'google-chrome|puppeteer' tools/mermaid-renderer",
+          "contributes_to": [
+            "D-11"
+          ],
+          "contribution_refs": [
+            {
+              "decision_id": "D-11",
+              "path": "docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/decisions/11-d-11.json",
+              "sha256": "sha256:20281eef0ebacc3a0c5427b3aa66378a962ff4ff7eb2bf0e18fbc2fb5200d526",
+              "symbols": [
+                "executablePath",
+                "args"
+              ],
+              "intent_change_ids": [
+                "D-11-puppeteer-config"
+              ]
+            }
+          ],
+          "intent_change_ids": [
+            "D-11-puppeteer-config"
+          ],
+          "symbol_changes": [
+            {
+              "symbol": "executablePath",
+              "intent": "renderer explicitly uses /usr/bin/google-chrome with local headless flags",
+              "decision_id": "D-11"
+            },
+            {
+              "symbol": "args",
+              "intent": "renderer explicitly uses /usr/bin/google-chrome with local headless flags",
+              "decision_id": "D-11"
+            }
+          ]
+        },
+        {
+          "change_id": "file-change-46574042dc93",
+          "operation": "CREATE",
+          "path": "tests/tools/test_flowchart_matrix.py",
+          "symbols": [
+            "test_validates_and_compiles",
+            "test_rejects_invalid_matrix"
+          ],
+          "current_state": "absent",
+          "source_hash": null,
+          "result_hash": null,
+          "expected_result": "focused semantic validation and stale derivative tests",
+          "after_state": "focused semantic validation and stale derivative tests",
+          "rationale": "proof of deterministic Python behavior",
+          "dependencies": [
+            "file-change-cadd50729db0"
+          ],
+          "public_contract_impacts": [],
+          "compatibility": "pytest 8",
+          "migration": "extend with new diagram kinds",
+          "rollback": "remove with tool",
+          "authorization_boundary": "repository-local test only",
+          "consumer_search": "rg -n 'flowchart_matrix' tests",
+          "contributes_to": [
+            "D-11"
+          ],
+          "contribution_refs": [
+            {
+              "decision_id": "D-11",
+              "path": "docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/decisions/11-d-11.json",
+              "sha256": "sha256:20281eef0ebacc3a0c5427b3aa66378a962ff4ff7eb2bf0e18fbc2fb5200d526",
+              "symbols": [
+                "test_validates_and_compiles",
+                "test_rejects_invalid_matrix"
+              ],
+              "intent_change_ids": [
+                "D-11-flowchart-tests"
+              ]
+            }
+          ],
+          "intent_change_ids": [
+            "D-11-flowchart-tests"
+          ],
+          "symbol_changes": [
+            {
+              "symbol": "test_validates_and_compiles",
+              "intent": "focused semantic validation and stale derivative tests",
+              "decision_id": "D-11"
+            },
+            {
+              "symbol": "test_rejects_invalid_matrix",
+              "intent": "focused semantic validation and stale derivative tests",
+              "decision_id": "D-11"
+            }
+          ]
+        },
+        {
+          "change_id": "file-change-368e35f4988c",
+          "operation": "CREATE",
+          "path": "tests/tools/test_mermaid_renderer.py",
+          "symbols": [
+            "test_renders_svg_and_png",
+            "test_rejects_invalid_mermaid"
+          ],
+          "current_state": "absent",
+          "source_hash": null,
+          "result_hash": null,
+          "expected_result": "real local mmdc integration tests prove SVG/PNG, invalid source, and check behavior",
+          "after_state": "real local mmdc integration tests prove SVG/PNG, invalid source, and check behavior",
+          "rationale": "mocked renderer cannot prove browser boundary",
+          "dependencies": [
+            "file-change-cadd50729db0",
+            "file-change-11fe041e9525"
+          ],
+          "public_contract_impacts": [],
+          "compatibility": "pytest 8 and local Chrome",
+          "migration": "run under pinned npm lock after renderer updates",
+          "rollback": "remove with tool",
+          "authorization_boundary": "local process and repository fixture only; no provider call",
+          "consumer_search": "rg -n 'mermaid-renderer|mmdc' tests",
+          "contributes_to": [
+            "D-11"
+          ],
+          "contribution_refs": [
+            {
+              "decision_id": "D-11",
+              "path": "docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/decisions/11-d-11.json",
+              "sha256": "sha256:20281eef0ebacc3a0c5427b3aa66378a962ff4ff7eb2bf0e18fbc2fb5200d526",
+              "symbols": [
+                "test_renders_svg_and_png",
+                "test_rejects_invalid_mermaid"
+              ],
+              "intent_change_ids": [
+                "D-11-renderer-tests"
+              ]
+            }
+          ],
+          "intent_change_ids": [
+            "D-11-renderer-tests"
+          ],
+          "symbol_changes": [
+            {
+              "symbol": "test_renders_svg_and_png",
+              "intent": "real local mmdc integration tests prove SVG/PNG, invalid source, and check behavior",
+              "decision_id": "D-11"
+            },
+            {
+              "symbol": "test_rejects_invalid_mermaid",
+              "intent": "real local mmdc integration tests prove SVG/PNG, invalid source, and check behavior",
+              "decision_id": "D-11"
+            }
+          ]
+        }
+      ],
+      "completion_contract": [
+        {
+          "criterion_id": "flowchart-matrix-pytest",
+          "behavior": "semantic validation, Mermaid compilation, and stale-source rejection work without the external skill path",
+          "blocking": true,
+          "owner_skill": "flowchart-matrix-validation",
+          "test": {
+            "type": "pytest",
+            "value": "uv run --frozen pytest tests/tools/test_flowchart_matrix.py",
+            "runner": "pytest",
+            "paths": [
+              "tests/tools/test_flowchart_matrix.py"
+            ],
+            "timeout_seconds": 120
+          },
+          "expected_result": "all focused Python tool tests pass",
+          "failure_marker": "flowchart-matrix pytest failure",
+          "receipt": {
+            "status": "planned",
+            "path": "docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/receipts/criteria/flowchart-matrix-pytest.json",
+            "sha256": "planned"
+          },
+          "status": "planned",
+          "phase": "VALIDATE",
+          "depends_on_criteria": []
+        },
+        {
+          "criterion_id": "mermaid-renderer-pytest",
+          "behavior": "pinned local mmdc with explicit Chrome renders SVG/PNG and rejects invalid source or stale artifacts",
+          "blocking": true,
+          "owner_skill": "deepwiki-code-implementation",
+          "test": {
+            "type": "pytest",
+            "value": "uv run --frozen pytest tests/tools/test_mermaid_renderer.py",
+            "runner": "pytest",
+            "paths": [
+              "tests/tools/test_mermaid_renderer.py"
+            ],
+            "timeout_seconds": 180
+          },
+          "expected_result": "all focused renderer integration tests pass",
+          "failure_marker": "mermaid renderer pytest failure",
+          "receipt": {
+            "status": "planned",
+            "path": "docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/receipts/criteria/mermaid-renderer-pytest.json",
+            "sha256": "planned"
+          },
+          "status": "planned",
+          "phase": "VALIDATE",
+          "depends_on_criteria": []
+        },
+        {
+          "criterion_id": "repository-regression-pytest",
+          "behavior": "new diagram toolchain does not regress the repository test suite",
+          "blocking": true,
+          "owner_skill": "decision-campaign-workbook",
+          "test": {
+            "type": "pytest",
+            "value": "uv run --frozen pytest",
+            "runner": "pytest",
+            "paths": [
+              "tests"
+            ],
+            "timeout_seconds": 300
+          },
+          "expected_result": "full pytest suite passes",
+          "failure_marker": "repository regression pytest failure",
+          "receipt": {
+            "status": "planned",
+            "path": "docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/receipts/criteria/repository-regression-pytest.json",
+            "sha256": "planned"
+          },
+          "status": "planned",
+          "phase": "VALIDATE",
+          "depends_on_criteria": []
+        }
+      ]
+    }
+  ],
+  "metadata": {
+    "purpose": "D-11 deterministic diagram toolchain",
+    "compiled_from_decision_intents": true,
+    "preparation_contract": "campaign-global-ownership-v1"
+  }
+}

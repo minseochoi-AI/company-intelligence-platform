@@ -1,0 +1,48 @@
+{
+  "contract_version": "implementation-context-packet-v2",
+  "packet_id": "C-05-packaging-validation-packet-9b2ac7c1f93a",
+  "topics": [
+    "packaging-validation"
+  ],
+  "capability_ids": [
+    "packaging-validation"
+  ],
+  "required_refs": [
+    {
+      "ref_id": "packaging-validation-d-08",
+      "role": "must-read",
+      "path": "docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/decisions/08-d-08.json",
+      "content_hash": "sha256:441ee8007b81cec7e9fbaae360d263c1a640fe8dd1226fbb6b3a77e0f9057192",
+      "line_range": "1-EOF",
+      "question": "D-08의 승인된 구현 의미는 무엇인가?",
+      "observation_summary": "D-08의 B 권장안이 사용자에 의해 승인되었다."
+    }
+  ],
+  "current_entry_points": [],
+  "planned_entry_points": [
+    {
+      "kind": "test",
+      "path": "tests/skills/test_company_intelligence_analysis_skill.py",
+      "symbol": "test_company_intelligence_analysis_skill.py",
+      "change_id": "C05-001"
+    },
+    {
+      "kind": "test",
+      "path": "tests/skills/test_venture_discovery_skill.py",
+      "symbol": "test_venture_discovery_skill.py",
+      "change_id": "C05-002"
+    },
+    {
+      "kind": "test",
+      "path": "tests/skills/test_skill_artifact_interop.py",
+      "symbol": "test_skill_artifact_interop.py",
+      "change_id": "C05-003"
+    }
+  ],
+  "external_entry_points": [],
+  "invariants": [
+    "승인된 결정·scope·근거 hash를 변경하지 않고 파일 단위 계획으로 구현한다."
+  ],
+  "unresolved_conflicts": [],
+  "resume_digest": "Prepared C-05-packaging-validation from current decision hashes and one global file-ownership graph."
+}

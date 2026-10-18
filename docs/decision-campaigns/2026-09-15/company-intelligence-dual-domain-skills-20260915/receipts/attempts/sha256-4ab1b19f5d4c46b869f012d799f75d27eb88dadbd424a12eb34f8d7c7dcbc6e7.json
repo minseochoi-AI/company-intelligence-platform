@@ -1,0 +1,14 @@
+{
+  "scenario_id": "C-03-company-analysis-skill:company-skill-quick-validate",
+  "cohort_id": "C-03-company-analysis-skill",
+  "criterion_id": "company-skill-quick-validate",
+  "plan_sha256": "930d3d7a9f7b73b789d356fc8a84024975f2c5b098edbb3de67d16ec44a3b116",
+  "command": "python3 /home/ubuntu/.codex/skills/.system/skill-creator/scripts/quick_validate.py .codex/skills/company-intelligence-analysis",
+  "outcome": "pass",
+  "returncode": 0,
+  "first_failure": null,
+  "raw_log_path": "docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/receipts/logs/C-03-company-analysis-skill__company-skill-quick-validate.log",
+  "raw_log_sha256": "db349825903d66adffea3ecf1bd8e1803043e8a71cf1a051235dabc5371f5bb0",
+  "tail": "Skill is valid!\n",
+  "completed_at": "2026-09-15T06:07:29.701005+00:00"
+}

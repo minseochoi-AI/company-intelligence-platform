@@ -1,0 +1,54 @@
+{
+  "date": "2026-10-13",
+  "scope": "CIL contract audit, bounded repairs, blog-purpose research",
+  "live_registered_operations": 28,
+  "live_unique_attempted": 25,
+  "live_final_passed": 24,
+  "live_final_failed": [
+    {
+      "id": "bea_dataset_catalog",
+      "status": "provider_error",
+      "error": "BEA 4: This UserId is not active. Please activate it and try again."
+    }
+  ],
+  "live_skipped": [
+    {
+      "operation_id": "sec_submissions_apple",
+      "status": "real-sec-user-agent-missing"
+    },
+    {
+      "operation_id": "sec_companyfacts_apple",
+      "status": "real-sec-user-agent-missing"
+    },
+    {
+      "operation_id": "imf_czech_growth",
+      "status": "rejected-by-existing-catalog"
+    }
+  ],
+  "live_attempts_including_retry": 26,
+  "local_http_cases_after_repair": 23,
+  "local_http_statuses": {
+    "200": 20,
+    "404": 2,
+    "422": 1
+  },
+  "api_repair": {
+    "api_source_before_sha256": "60cbf8798567dcb8eafc58bca02f4f5966c79dc69eb3e5a9c0f4c8a896b19f0b",
+    "api_source_after_sha256": "b3976fd98bf6bc76893b4695a07f20f2a6a16aac1065a3bedb7da0ef18c490b0",
+    "targets": [
+      "src/company_intel/api.py",
+      "config/providers.json",
+      "tests/test_api_request_contract.py"
+    ],
+    "test_receipt": "pytest-repair-results.xml",
+    "assertion": "current-jobs request metadata excluded; invalid company selector returns 422; World Bank catalog matches registered probe"
+  },
+  "external_publication": "not performed",
+  "github_commit_or_push": "not performed",
+  "campaign_boundary": "existing multi-decision campaigns were not amended; no campaign-complete claim",
+  "limits": [
+    "minimal live field checks do not verify all data completeness or commercial rights",
+    "local calls use synthetic evidence and a temporary database, not real job suitability or revenue",
+    "blog platform, OAuth, AdSense approval and audience are not yet specified"
+  ]
+}

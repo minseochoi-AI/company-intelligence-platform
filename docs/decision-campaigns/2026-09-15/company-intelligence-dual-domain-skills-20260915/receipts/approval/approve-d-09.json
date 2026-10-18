@@ -1,0 +1,51 @@
+{
+  "contract_version": "atomic-json-patch-receipt-v1",
+  "target": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/decisions/09-d-09.json",
+  "outcome": "pass",
+  "before_sha256": "eeb2eea49adc59aed6bb961fc179dca1f54f23764e7b61a7c6809e90522f7b67",
+  "after_sha256": "eefab416c1d7cdaea387cbc816731ccd186ce51764096f77472dfcf6294770be",
+  "proposed_after_sha256": "eefab416c1d7cdaea387cbc816731ccd186ce51764096f77472dfcf6294770be",
+  "operations": [
+    {
+      "op": "test",
+      "path": "/status"
+    },
+    {
+      "op": "test",
+      "path": "/accepted_decision"
+    },
+    {
+      "op": "test",
+      "path": "/context_topic_ids"
+    },
+    {
+      "op": "replace",
+      "path": "/status"
+    },
+    {
+      "op": "replace",
+      "path": "/accepted_decision"
+    },
+    {
+      "op": "replace",
+      "path": "/context_topic_ids"
+    }
+  ],
+  "backup": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/.mutation-journal/preimages/sha256-eeb2eea49adc59aed6bb961fc179dca1f54f23764e7b61a7c6809e90522f7b67.json",
+  "journal": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/.mutation-journal/mutations/b1cd5cd2a467d394bd43f788c7e0212e5c1fbff49ca6bc3a0fc48aedba9a147d.json",
+  "mutation_id": "approve-d-09",
+  "validators": [
+    {
+      "command": [
+        "python3",
+        "-m",
+        "json.tool",
+        "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/decisions/09-d-09.json"
+      ],
+      "returncode": 0,
+      "stdout_tail": "d568\\ud55c \\uac1c\\uc815 \\ubc94\\uc704\\ub97c \\uad6c\\ud604\\ud55c\\ub2e4.\",\n        \"decided_by\": \"user\",\n        \"decided_at\": \"2026-09-15T05:28:25.724684+00:00\"\n    },\n    \"implementation_targets\": [\n        \"src/company_intel/config.py\",\n        \"src/company_intel/cli.py\",\n        \".codex/skills/company-intel-cli/SKILL.md\",\n        \"tests/test_cli_project_root.py\"\n    ],\n    \"implementation_change_ids\": [],\n    \"validation_requirements\": [\n        \"\\uba85\\uc2dc root\\ub85c \\uc800\\uc7a5\\uc18c \\ubc16 cwd\\uc5d0\\uc11c \\uc6d0\\ucc9c-\\uc0c1\\ud0dc\\uac00 \\uc2e4\\ud589\\ub428\",\n        \"\\ud658\\uacbd\\ubcc0\\uc218\\ubcf4\\ub2e4 CLI \\uc778\\uc790\\uac00 \\uc6b0\\uc120\\ud568\",\n        \"\\uc798\\ubabb\\ub41c root\\ub294 config \\uacbd\\ub85c\\ub97c \\ud3ec\\ud568\\ud55c \\uba85\\ud655\\ud55c \\uc624\\ub958\\ub97c \\ub0c4\",\n        \"\\uae30\\uc874 \\uc800\\uc7a5\\uc18c cwd \\ub3d9\\uc791\\uacfc 97\\uac1c \\ud68c\\uadc0\\uc2dc\\ud5d8\\uc774 \\uc720\\uc9c0\\ub428\"\n    ],\n    \"diagram_impacts\": [\n        \"\\uae30\\uc5c5\\ubd84\\uc11d \\uc2a4\\ud0ac\\uc5d0\\uc11c explicit project root\\ub97c \\uac70\\uccd0 CIL probe/production \\uacbd\\uacc4\\ub85c \\uc774\\uc5b4\\uc9c0\\ub294 \\ud750\\ub984\"\n    ],\n    \"context_topic_ids\": [\n        \"cil-runtime-readiness\"\n    ]\n}\n",
+      "stderr_tail": ""
+    }
+  ],
+  "completed_at": "2026-09-15T05:28:27.122716+00:00"
+}

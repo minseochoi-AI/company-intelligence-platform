@@ -1,0 +1,14 @@
+{
+  "scenario_id": "C-04-venture-analysis-skill:venture-skill-quick-validate",
+  "cohort_id": "C-04-venture-analysis-skill",
+  "criterion_id": "venture-skill-quick-validate",
+  "plan_sha256": "82ce2475b651c6f1ba32fdcfe7978561f5a646a6332ad9d0c49812f0b88d67ee",
+  "command": "python3 /home/ubuntu/.codex/skills/.system/skill-creator/scripts/quick_validate.py .codex/skills/kr-defensible-venture-discovery",
+  "outcome": "pass",
+  "returncode": 0,
+  "first_failure": null,
+  "raw_log_path": "docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/receipts/logs/C-04-venture-analysis-skill__venture-skill-quick-validate.log",
+  "raw_log_sha256": "db349825903d66adffea3ecf1bd8e1803043e8a71cf1a051235dabc5371f5bb0",
+  "tail": "Skill is valid!\n",
+  "completed_at": "2026-09-15T06:24:29.143949+00:00"
+}

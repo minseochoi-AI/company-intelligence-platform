@@ -1,0 +1,45 @@
+{
+  "decision_id": "CL-D02",
+  "sequence": 2,
+  "unit_id": "CIL-C09-cluster-analytics",
+  "title": "계층적 매크로 롤업 및 마이크로 코호트 고용탄력성 분해 엔진",
+  "status": "inventory",
+  "question": "TBD",
+  "five_w_one_h": {
+    "who": "TBD",
+    "what": "TBD",
+    "where": "TBD",
+    "when": "TBD",
+    "why": "TBD",
+    "how": "TBD"
+  },
+  "evidence_refs": [],
+  "facts": [],
+  "conflicts": [],
+  "unimplemented": [],
+  "options": [],
+  "recommended_option_id": null,
+  "recommendation_reason": null,
+  "impact": {
+    "data": "TBD",
+    "schema_api": "TBD",
+    "ux": "TBD",
+    "performance": "TBD",
+    "cost": "TBD",
+    "security": "TBD",
+    "migration": "TBD",
+    "tests": "TBD"
+  },
+  "opportunity_costs": [],
+  "dependencies": [
+    "CL-D01"
+  ],
+  "dependency_waivers": {},
+  "accepted_decision": null,
+  "implementation_targets": [],
+  "implementation_obligations": [],
+  "implementation_change_ids": [],
+  "validation_requirements": [],
+  "diagram_impacts": [],
+  "context_topic_ids": []
+}

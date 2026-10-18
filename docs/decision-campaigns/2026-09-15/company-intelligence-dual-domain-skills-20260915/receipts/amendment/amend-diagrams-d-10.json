@@ -1,0 +1,35 @@
+{
+  "contract_version": "atomic-json-patch-receipt-v1",
+  "target": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/decisions/10-d-10.json",
+  "outcome": "pass",
+  "before_sha256": "68528f71512ab689044fb5e4230ce5fda8645f4fff896a65ba7f635111550fb4",
+  "after_sha256": "200c388aaf62cba7b4528ca95ac2697b705c37d728ff2a10becebdababb501a1",
+  "proposed_after_sha256": "200c388aaf62cba7b4528ca95ac2697b705c37d728ff2a10becebdababb501a1",
+  "operations": [
+    {
+      "op": "test",
+      "path": "/diagram_impacts"
+    },
+    {
+      "op": "replace",
+      "path": "/diagram_impacts"
+    }
+  ],
+  "backup": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/.mutation-journal/preimages/sha256-68528f71512ab689044fb5e4230ce5fda8645f4fff896a65ba7f635111550fb4.json",
+  "journal": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/.mutation-journal/mutations/60393f00db1dc2bb2f6a26cd6b49f4cf80eb2dbab29d8ab9d84643e45bd1195b.json",
+  "mutation_id": "amend-diagrams-d-10",
+  "validators": [
+    {
+      "command": [
+        "python3",
+        "-m",
+        "json.tool",
+        "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/decisions/10-d-10.json"
+      ],
+      "returncode": 0,
+      "stdout_tail": "   \"docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/diagrams/matrices/skill-domain-routing.flowchart-matrix.json\",\n        \"docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/diagrams/mermaid/skill-domain-routing.mmd\",\n        \"docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/diagrams/mermaid/skill-domain-routing.svg\",\n        \"docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/diagrams/mermaid/skill-domain-routing.png\",\n        \"docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/diagrams/matrices/plan-evidence-interop.flowchart-matrix.json\",\n        \"docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/diagrams/mermaid/plan-evidence-interop.mmd\",\n        \"docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/diagrams/mermaid/plan-evidence-interop.svg\",\n        \"docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/diagrams/mermaid/plan-evidence-interop.png\"\n    ],\n    \"context_topic_ids\": [\n        \"interop-control\"\n    ]\n}\n",
+      "stderr_tail": ""
+    }
+  ],
+  "completed_at": "2026-09-15T06:38:42.136531+00:00"
+}

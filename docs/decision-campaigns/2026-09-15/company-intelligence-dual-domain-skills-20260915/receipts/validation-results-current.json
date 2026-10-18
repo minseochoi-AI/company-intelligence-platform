@@ -1,0 +1,79 @@
+{
+  "contract_version": "campaign-completion-orchestrator-v1",
+  "campaign_id": "company-intelligence-dual-domain-skills-20260915",
+  "phase": "validation",
+  "mode": "all",
+  "runs": [
+    {
+      "scenario_id": "C-01-interop-control:interop-self-test",
+      "cohort_id": "C-01-interop-control",
+      "criterion_id": "interop-self-test",
+      "plan_sha256": "6a0e924fbeab435f271962cd428ea77744a08d2de36b68a5c75ac2341b43c8f0",
+      "command": "python3 .codex/shared/company-intelligence-interop/interop.py self-test",
+      "outcome": "pass",
+      "returncode": 0,
+      "first_failure": null,
+      "raw_log_path": "docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/receipts/logs/C-01-interop-control__interop-self-test.log",
+      "raw_log_sha256": "672b731ff258c5c2cb6e96f7f8fa67b00dbf5a304c2f564c2b32c03e9b04f349",
+      "tail": "{\"status\": \"valid\", \"command\": \"self-test\"}\n",
+      "completed_at": "2026-09-15T06:24:27.654396+00:00"
+    },
+    {
+      "scenario_id": "C-02-cil-runtime:cil-root-tests",
+      "cohort_id": "C-02-cil-runtime",
+      "criterion_id": "cil-root-tests",
+      "plan_sha256": "4bffa4b6ab878493b390485d392141e393a61bde571af39e647da43677a2092b",
+      "command": "tests/test_cli_project_root.py",
+      "outcome": "pass",
+      "returncode": 0,
+      "first_failure": null,
+      "raw_log_path": "docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/receipts/logs/C-02-cil-runtime__cil-root-tests.log",
+      "raw_log_sha256": "4a6e9c36d8f59b5f37fea72c93e4df9fc194a7d55658ccade2f5975a987ec522",
+      "tail": "...                                                                      [100%]\n3 passed in 0.47s\n",
+      "completed_at": "2026-09-15T06:24:29.070788+00:00"
+    },
+    {
+      "scenario_id": "C-04-venture-analysis-skill:venture-skill-quick-validate",
+      "cohort_id": "C-04-venture-analysis-skill",
+      "criterion_id": "venture-skill-quick-validate",
+      "plan_sha256": "82ce2475b651c6f1ba32fdcfe7978561f5a646a6332ad9d0c49812f0b88d67ee",
+      "command": "python3 /home/ubuntu/.codex/skills/.system/skill-creator/scripts/quick_validate.py .codex/skills/kr-defensible-venture-discovery",
+      "outcome": "pass",
+      "returncode": 0,
+      "first_failure": null,
+      "raw_log_path": "docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/receipts/logs/C-04-venture-analysis-skill__venture-skill-quick-validate.log",
+      "raw_log_sha256": "db349825903d66adffea3ecf1bd8e1803043e8a71cf1a051235dabc5371f5bb0",
+      "tail": "Skill is valid!\n",
+      "completed_at": "2026-09-15T06:24:29.143949+00:00"
+    },
+    {
+      "scenario_id": "C-03-company-analysis-skill:company-skill-quick-validate",
+      "cohort_id": "C-03-company-analysis-skill",
+      "criterion_id": "company-skill-quick-validate",
+      "plan_sha256": "930d3d7a9f7b73b789d356fc8a84024975f2c5b098edbb3de67d16ec44a3b116",
+      "command": "python3 /home/ubuntu/.codex/skills/.system/skill-creator/scripts/quick_validate.py .codex/skills/company-intelligence-analysis",
+      "outcome": "pass",
+      "returncode": 0,
+      "first_failure": null,
+      "raw_log_path": "docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/receipts/logs/C-03-company-analysis-skill__company-skill-quick-validate.log",
+      "raw_log_sha256": "db349825903d66adffea3ecf1bd8e1803043e8a71cf1a051235dabc5371f5bb0",
+      "tail": "Skill is valid!\n",
+      "completed_at": "2026-09-15T06:24:29.213806+00:00"
+    },
+    {
+      "scenario_id": "C-05-packaging-validation:skill-behavior-pytest",
+      "cohort_id": "C-05-packaging-validation",
+      "criterion_id": "skill-behavior-pytest",
+      "plan_sha256": "732149ab95552b32019265e90382cba00383edf4e7754173224958c49168dbcc",
+      "command": "tests/skills",
+      "outcome": "pass",
+      "returncode": 0,
+      "first_failure": null,
+      "raw_log_path": "docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/receipts/logs/C-05-packaging-validation__skill-behavior-pytest.log",
+      "raw_log_sha256": "8fbf1ad2230478d7fa8f87bfde57991b802b3e5bac9b14f4ede1ad1820e4f583",
+      "tail": "...........                                                              [100%]\n11 passed in 0.09s\n",
+      "completed_at": "2026-09-15T06:24:29.644312+00:00"
+    }
+  ],
+  "updated_at": "2026-09-15T06:24:29.644312+00:00"
+}

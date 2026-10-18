@@ -1,0 +1,308 @@
+{
+  "contract_version": "decision-campaign-validation-v1",
+  "campaign_id": "company-intelligence-dual-domain-skills-20260915",
+  "outcome": "pass",
+  "updated_at": "2026-09-15T07:11:14.947850+00:00",
+  "cohorts": [
+    {
+      "cohort_id": "C-01-interop-control",
+      "status": "completed",
+      "changed_paths": [
+        ".codex/shared/company-intelligence-interop/domain-plan.schema.json",
+        ".codex/shared/company-intelligence-interop/domain-plan-ref.schema.json",
+        ".codex/shared/company-intelligence-interop/evidence-bundle.schema.json",
+        ".codex/shared/company-intelligence-interop/evidence-bundle-ref.schema.json",
+        ".codex/shared/company-intelligence-interop/dual-path-comparison.schema.json",
+        ".codex/shared/company-intelligence-interop/campaign-link.schema.json",
+        ".codex/shared/company-intelligence-interop/connector-candidates.json",
+        ".codex/shared/company-intelligence-interop/BOUNDARIES.md",
+        ".codex/shared/company-intelligence-interop/interop.py"
+      ],
+      "commands": [
+        "python3 .codex/shared/company-intelligence-interop/interop.py self-test"
+      ],
+      "outcome": "pass",
+      "raw_log_path": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/receipts/logs/C-01-interop-control__interop-self-test.log",
+      "raw_log_sha256": "672b731ff258c5c2cb6e96f7f8fa67b00dbf5a304c2f564c2b32c03e9b04f349",
+      "first_failure": null,
+      "stdout_tail": "{\"status\": \"valid\", \"command\": \"self-test\"}\n",
+      "stderr_tail": null,
+      "telemetry": {
+        "provider": {
+          "measurement": "not-applicable",
+          "invocations": null,
+          "input_tokens": null,
+          "output_tokens": null
+        },
+        "agent_session": {
+          "measurement": "unavailable-platform",
+          "token_count": null,
+          "tool_output_chars": null
+        }
+      },
+      "provider_guard": null,
+      "updated_at": "2026-09-15T06:26:09.664356+00:00",
+      "context_packet_id": "C-01-interop-control-packet-514156e4e714",
+      "context_packet_sha256": "001fee947dc0cffbabeb13caa98c4331e341b774833e0cbb8744068f829fa477",
+      "implementation_plan_id": "C-01-interop-control-plan-r1",
+      "implementation_plan_sha256": "6a0e924fbeab435f271962cd428ea77744a08d2de36b68a5c75ac2341b43c8f0",
+      "passed_criterion_ids": [
+        "interop-self-test"
+      ],
+      "attempt_ref": {
+        "path": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/receipts/attempts/sha256-b27954db998cd6d6ee64d28aafd0091c068fad5b37d53b391de8187da0c97cea.json",
+        "sha256": "b27954db998cd6d6ee64d28aafd0091c068fad5b37d53b391de8187da0c97cea"
+      }
+    },
+    {
+      "cohort_id": "C-02-cil-runtime",
+      "status": "completed",
+      "changed_paths": [
+        "src/company_intel/config.py",
+        "src/company_intel/cli.py",
+        ".codex/skills/company-intel-cli/SKILL.md",
+        "tests/test_cli_project_root.py"
+      ],
+      "commands": [
+        "tests/test_cli_project_root.py"
+      ],
+      "outcome": "pass",
+      "raw_log_path": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/receipts/logs/C-02-cil-runtime__cil-root-tests.log",
+      "raw_log_sha256": "4a6e9c36d8f59b5f37fea72c93e4df9fc194a7d55658ccade2f5975a987ec522",
+      "first_failure": null,
+      "stdout_tail": "...                                                                      [100%]\n3 passed in 0.47s\n",
+      "stderr_tail": null,
+      "telemetry": {
+        "provider": {
+          "measurement": "not-applicable",
+          "invocations": null,
+          "input_tokens": null,
+          "output_tokens": null
+        },
+        "agent_session": {
+          "measurement": "unavailable-platform",
+          "token_count": null,
+          "tool_output_chars": null
+        }
+      },
+      "provider_guard": null,
+      "updated_at": "2026-09-15T06:26:09.788055+00:00",
+      "context_packet_id": "C-02-cil-runtime-packet-0064d7f0dd52",
+      "context_packet_sha256": "97cf85862ca511afde7a2b6fa3d7696916d8092f74858f4343dd8c91564f4399",
+      "implementation_plan_id": "C-02-cil-runtime-plan-r1",
+      "implementation_plan_sha256": "4bffa4b6ab878493b390485d392141e393a61bde571af39e647da43677a2092b",
+      "passed_criterion_ids": [
+        "cil-root-tests"
+      ],
+      "attempt_ref": {
+        "path": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/receipts/attempts/sha256-5878e2dd801eaeda666c215ee0dc1c525f15c39728e619c879726f39892570ad.json",
+        "sha256": "5878e2dd801eaeda666c215ee0dc1c525f15c39728e619c879726f39892570ad"
+      }
+    },
+    {
+      "cohort_id": "C-03-company-analysis-skill",
+      "status": "completed",
+      "changed_paths": [
+        ".codex/skills/company-intelligence-analysis/SKILL.md",
+        ".codex/skills/company-intelligence-analysis/agents/openai.yaml",
+        ".codex/skills/company-intelligence-analysis/references/analysis-routing.md",
+        ".codex/skills/company-intelligence-analysis/references/output-contract.md",
+        ".codex/skills/company-intelligence-analysis/scripts/verify_cil_artifact.py"
+      ],
+      "commands": [
+        "python3 /home/ubuntu/.codex/skills/.system/skill-creator/scripts/quick_validate.py .codex/skills/company-intelligence-analysis"
+      ],
+      "outcome": "pass",
+      "raw_log_path": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/receipts/logs/C-03-company-analysis-skill__company-skill-quick-validate.log",
+      "raw_log_sha256": "db349825903d66adffea3ecf1bd8e1803043e8a71cf1a051235dabc5371f5bb0",
+      "first_failure": null,
+      "stdout_tail": "Skill is valid!\n",
+      "stderr_tail": null,
+      "telemetry": {
+        "provider": {
+          "measurement": "not-applicable",
+          "invocations": null,
+          "input_tokens": null,
+          "output_tokens": null
+        },
+        "agent_session": {
+          "measurement": "unavailable-platform",
+          "token_count": null,
+          "tool_output_chars": null
+        }
+      },
+      "provider_guard": null,
+      "updated_at": "2026-09-15T06:26:09.915131+00:00",
+      "context_packet_id": "C-03-company-analysis-skill-packet-4ec69c0eb3d5",
+      "context_packet_sha256": "69100febac65802f960d9e03dc0e772cc438661af12b442a7856aba42d7e0168",
+      "implementation_plan_id": "C-03-company-analysis-skill-plan-r1",
+      "implementation_plan_sha256": "930d3d7a9f7b73b789d356fc8a84024975f2c5b098edbb3de67d16ec44a3b116",
+      "passed_criterion_ids": [
+        "company-skill-quick-validate"
+      ],
+      "attempt_ref": {
+        "path": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/receipts/attempts/sha256-017bb34db1828faa801a296bab52ddc340518229aebb7bce69af9fdeab01dde6.json",
+        "sha256": "017bb34db1828faa801a296bab52ddc340518229aebb7bce69af9fdeab01dde6"
+      }
+    },
+    {
+      "cohort_id": "C-04-venture-analysis-skill",
+      "status": "completed",
+      "changed_paths": [
+        ".codex/skills/kr-defensible-venture-discovery/SKILL.md",
+        ".codex/skills/kr-defensible-venture-discovery/agents/openai.yaml",
+        ".codex/skills/kr-defensible-venture-discovery/references/market-archetypes.md",
+        ".codex/skills/kr-defensible-venture-discovery/references/research-workflow.md",
+        ".codex/skills/kr-defensible-venture-discovery/references/evidence-and-barriers.md",
+        ".codex/skills/kr-defensible-venture-discovery/references/venture-session.schema.json",
+        ".codex/skills/kr-defensible-venture-discovery/references/opportunity-hypothesis.schema.json",
+        ".codex/skills/kr-defensible-venture-discovery/scripts/venture_artifacts.py"
+      ],
+      "commands": [
+        "python3 /home/ubuntu/.codex/skills/.system/skill-creator/scripts/quick_validate.py .codex/skills/kr-defensible-venture-discovery"
+      ],
+      "outcome": "pass",
+      "raw_log_path": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/receipts/logs/C-04-venture-analysis-skill__venture-skill-quick-validate.log",
+      "raw_log_sha256": "db349825903d66adffea3ecf1bd8e1803043e8a71cf1a051235dabc5371f5bb0",
+      "first_failure": null,
+      "stdout_tail": "Skill is valid!\n",
+      "stderr_tail": null,
+      "telemetry": {
+        "provider": {
+          "measurement": "not-applicable",
+          "invocations": null,
+          "input_tokens": null,
+          "output_tokens": null
+        },
+        "agent_session": {
+          "measurement": "unavailable-platform",
+          "token_count": null,
+          "tool_output_chars": null
+        }
+      },
+      "provider_guard": null,
+      "updated_at": "2026-09-15T06:26:10.048307+00:00",
+      "context_packet_id": "C-04-venture-analysis-skill-packet-76389a7c4188",
+      "context_packet_sha256": "354d4b2d40a81df1e80a9823b4ac85b1ffb0d9a3372baf1aa343c0b3cfff7ff2",
+      "implementation_plan_id": "C-04-venture-analysis-skill-plan-r1",
+      "implementation_plan_sha256": "82ce2475b651c6f1ba32fdcfe7978561f5a646a6332ad9d0c49812f0b88d67ee",
+      "passed_criterion_ids": [
+        "venture-skill-quick-validate"
+      ],
+      "attempt_ref": {
+        "path": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/receipts/attempts/sha256-6e2a12df879736578115ad5c401fab961965425106ae93eaf86fff8fe264997c.json",
+        "sha256": "6e2a12df879736578115ad5c401fab961965425106ae93eaf86fff8fe264997c"
+      }
+    },
+    {
+      "cohort_id": "C-05-packaging-validation",
+      "status": "completed",
+      "changed_paths": [
+        "tests/skills/test_company_intelligence_analysis_skill.py",
+        "tests/skills/test_venture_discovery_skill.py",
+        "tests/skills/test_skill_artifact_interop.py"
+      ],
+      "commands": [
+        "tests/skills"
+      ],
+      "outcome": "pass",
+      "raw_log_path": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/receipts/logs/C-05-packaging-validation__skill-behavior-pytest.log",
+      "raw_log_sha256": "8fbf1ad2230478d7fa8f87bfde57991b802b3e5bac9b14f4ede1ad1820e4f583",
+      "first_failure": null,
+      "stdout_tail": "...........                                                              [100%]\n11 passed in 0.09s\n",
+      "stderr_tail": null,
+      "telemetry": {
+        "provider": {
+          "measurement": "not-applicable",
+          "invocations": null,
+          "input_tokens": null,
+          "output_tokens": null
+        },
+        "agent_session": {
+          "measurement": "unavailable-platform",
+          "token_count": null,
+          "tool_output_chars": null
+        }
+      },
+      "provider_guard": null,
+      "updated_at": "2026-09-15T06:26:10.202283+00:00",
+      "context_packet_id": "C-05-packaging-validation-packet-9b2ac7c1f93a",
+      "context_packet_sha256": "33ffe897b239af4084745ea523e7cbe09b4cd2ea43f124be203675f82f6d619d",
+      "implementation_plan_id": "C-05-packaging-validation-plan-r1",
+      "implementation_plan_sha256": "732149ab95552b32019265e90382cba00383edf4e7754173224958c49168dbcc",
+      "passed_criterion_ids": [
+        "skill-behavior-pytest"
+      ],
+      "attempt_ref": {
+        "path": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/receipts/attempts/sha256-9e9043512d99abd06aea41dd8dfb651f367b1f027d383e38feb79b12439b0c92.json",
+        "sha256": "9e9043512d99abd06aea41dd8dfb651f367b1f027d383e38feb79b12439b0c92"
+      }
+    },
+    {
+      "cohort_id": "C-06-diagram-toolchain",
+      "status": "completed",
+      "changed_paths": [
+        ".gitignore",
+        "tools/flowchart_matrix.py",
+        "tools/mermaid-renderer/package.json",
+        "tools/mermaid-renderer/package-lock.json",
+        "tools/mermaid-renderer/mermaid.config.json",
+        "tools/mermaid-renderer/puppeteer.local.json",
+        "tests/tools/test_flowchart_matrix.py",
+        "tests/tools/test_mermaid_renderer.py"
+      ],
+      "commands": [
+        "uv run --frozen pytest tests/tools/test_flowchart_matrix.py",
+        "uv run --frozen pytest tests/tools/test_mermaid_renderer.py",
+        "uv run --frozen pytest"
+      ],
+      "outcome": "pass",
+      "raw_log_path": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/receipts/logs/C-06-diagram-toolchain__repository-regression-pytest.log",
+      "raw_log_sha256": "cc6572d8598debb062bc8e572c298507cc3f8ab903e2f77fb58e07e20719e9a6",
+      "first_failure": null,
+      "stdout_tail": null,
+      "stderr_tail": null,
+      "telemetry": {
+        "provider": {
+          "measurement": "not-applicable",
+          "invocations": null,
+          "input_tokens": null,
+          "output_tokens": null
+        },
+        "agent_session": {
+          "measurement": "unavailable-platform",
+          "token_count": null,
+          "tool_output_chars": null
+        }
+      },
+      "provider_guard": null,
+      "updated_at": "2026-09-15T07:11:14.947850+00:00",
+      "context_packet_id": "C-06-diagram-toolchain-packet-38c57c58b775",
+      "context_packet_sha256": "28519f24a546ae9cde72ad9560991fdcef66de6ef69f2406c1aa9580454cac47",
+      "implementation_plan_id": "C-06-diagram-toolchain-plan-r1",
+      "implementation_plan_sha256": "55f0309057185184b44a159fcf77f9dadc40d901a2f7b06a52e9e2f6b36e19e3",
+      "passed_criterion_ids": [
+        "flowchart-matrix-pytest",
+        "mermaid-renderer-pytest",
+        "repository-regression-pytest"
+      ],
+      "attempt_ref": {
+        "path": "docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/receipts/attempts/sha256-bed1bd4cf493998b484287c0dc2b735a3cd0d8fdb70f831a9f051d658d9beb29.json",
+        "sha256": "bed1bd4cf493998b484287c0dc2b735a3cd0d8fdb70f831a9f051d658d9beb29"
+      }
+    }
+  ],
+  "telemetry": {
+    "provider": {
+      "measurement": "not-applicable",
+      "invocations": null,
+      "input_tokens": null,
+      "output_tokens": null
+    },
+    "agent_session": {
+      "measurement": "unavailable-platform",
+      "token_count": null,
+      "tool_output_chars": null
+    }
+  }
+}

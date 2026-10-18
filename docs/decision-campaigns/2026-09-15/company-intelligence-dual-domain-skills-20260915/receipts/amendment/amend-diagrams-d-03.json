@@ -1,0 +1,35 @@
+{
+  "contract_version": "atomic-json-patch-receipt-v1",
+  "target": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/decisions/03-d-03.json",
+  "outcome": "pass",
+  "before_sha256": "e13ebac8edb7c9e437aee041247f29634632b8617c015fbf6ce947d6383096f4",
+  "after_sha256": "4042ee5ff0ba89c811b56eea8c8c96a4e27c9dae89479e04a67fc5de0120d2a8",
+  "proposed_after_sha256": "4042ee5ff0ba89c811b56eea8c8c96a4e27c9dae89479e04a67fc5de0120d2a8",
+  "operations": [
+    {
+      "op": "test",
+      "path": "/diagram_impacts"
+    },
+    {
+      "op": "replace",
+      "path": "/diagram_impacts"
+    }
+  ],
+  "backup": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/.mutation-journal/preimages/sha256-e13ebac8edb7c9e437aee041247f29634632b8617c015fbf6ce947d6383096f4.json",
+  "journal": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/.mutation-journal/mutations/683da266e03bea6391718b131fde25e7600efb84649674e8b6d2a5ffc481636d.json",
+  "mutation_id": "amend-diagrams-d-03",
+  "validators": [
+    {
+      "command": [
+        "python3",
+        "-m",
+        "json.tool",
+        "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/decisions/03-d-03.json"
+      ],
+      "returncode": 0,
+      "stdout_tail": "OUNDARIES.md\"\n    ],\n    \"implementation_change_ids\": [\n        \"C01-003\",\n        \"C01-004\",\n        \"C01-008\",\n        \"C01-009\"\n    ],\n    \"validation_requirements\": [\n        \"\\ubaa8\\ub4e0 \\uc18c\\ube44 \\ud30c\\uc77c\\uc758 sha256 \\uc7ac\\uac80\\uc99d\",\n        \"\\ud5c8\\uc6a9 \\uacbd\\ub85c \\ubc16 reference \\uac70\\ubd80\",\n        \"\\ubbfc\\uac10 \\ud544\\ub4dc\\uac00 bundle\\uc5d0 \\uc788\\uc73c\\uba74 redaction \\uc2e4\\ud328\",\n        \"hash \\uc77c\\uce58\\ub9cc\\uc73c\\ub85c claim verified \\uc0c1\\ud0dc\\ub97c \\ub9cc\\ub4e4\\uc9c0 \\uc54a\\uc74c\"\n    ],\n    \"diagram_impacts\": [\n        \"docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/diagrams/matrices/plan-evidence-interop.flowchart-matrix.json\",\n        \"docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/diagrams/mermaid/plan-evidence-interop.mmd\",\n        \"docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/diagrams/mermaid/plan-evidence-interop.svg\",\n        \"docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/diagrams/mermaid/plan-evidence-interop.png\"\n    ],\n    \"context_topic_ids\": [\n        \"interop-control\"\n    ]\n}\n",
+      "stderr_tail": ""
+    }
+  ],
+  "completed_at": "2026-09-15T06:38:41.140996+00:00"
+}

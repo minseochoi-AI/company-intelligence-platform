@@ -1,0 +1,51 @@
+{
+  "contract_version": "atomic-json-patch-receipt-v1",
+  "target": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/decisions/04-d-04.json",
+  "outcome": "pass",
+  "before_sha256": "f0b37e8e709844745bab11d75b65c70bd1552cb2046ae9bcdaf14b28910d34c1",
+  "after_sha256": "1c9b12e99c3b3295438644eb1a60a486d3fe12f826055ff21254560c67bce212",
+  "proposed_after_sha256": "1c9b12e99c3b3295438644eb1a60a486d3fe12f826055ff21254560c67bce212",
+  "operations": [
+    {
+      "op": "test",
+      "path": "/dependencies"
+    },
+    {
+      "op": "test",
+      "path": "/implementation_targets"
+    },
+    {
+      "op": "test",
+      "path": "/validation_requirements"
+    },
+    {
+      "op": "replace",
+      "path": "/dependencies"
+    },
+    {
+      "op": "replace",
+      "path": "/implementation_targets"
+    },
+    {
+      "op": "replace",
+      "path": "/validation_requirements"
+    }
+  ],
+  "backup": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/.mutation-journal/preimages/sha256-f0b37e8e709844745bab11d75b65c70bd1552cb2046ae9bcdaf14b28910d34c1.json",
+  "journal": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/.mutation-journal/mutations/84cfbfd8575d23dc48f08c03b6c7d8e9f335c302fc970728abb0ca4cf4ce2f22.json",
+  "mutation_id": "amend-04-d-04",
+  "validators": [
+    {
+      "command": [
+        "python3",
+        "-m",
+        "json.tool",
+        "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/decisions/04-d-04.json"
+      ],
+      "returncode": 0,
+      "stdout_tail": "ml\",\n        \".codex/skills/company-intelligence-analysis/references/analysis-routing.md\",\n        \".codex/skills/company-intelligence-analysis/references/output-contract.md\",\n        \".codex/skills/company-intelligence-analysis/scripts/verify_cil_artifact.py\"\n    ],\n    \"implementation_change_ids\": [],\n    \"validation_requirements\": [\n        \"\\uc2a4\\ud0ac\\uc774 CIL \\uacc4\\uc0b0\\uc2dd\\uc744 \\ubcf5\\uc81c\\ud558\\uc9c0 \\uc54a\\uc74c\",\n        \"\\ud68c\\uc0ac \\ubbf8\\uc2dd\\ubcc4\\uacfc \\ud544\\ub4dc \\ubbf8\\uc81c\\uacf5\\uc744 0\\uc73c\\ub85c \\ud574\\uc11d\\ud558\\uc9c0 \\uc54a\\uc74c\",\n        \"provider \\ud638\\ucd9c\\uc740 \\uba85\\uc2dc \\uc2b9\\uc778 \\uc5c6\\uc774\\ub294 \\uc218\\ud589\\ud558\\uc9c0 \\uc54a\\uc74c\",\n        \"\\uba85\\uc2dc project root\\ub85c repo \\ubc16 cwd\\uc5d0\\uc11c\\ub3c4 CIL\\uc744 \\uc2e4\\ud589\\ud568\",\n        \"\\uace0\\uc815 probe\\ub97c production discovery\\ub85c \\ud45c\\ud604\\ud558\\uc9c0 \\uc54a\\uc74c\"\n    ],\n    \"diagram_impacts\": [\n        \"\\uae30\\uc5c5\\ubd84\\uc11d \\uc9c8\\ubb38\\uc5d0\\uc11c CIL capability route\\u00b7\\ubd84\\uc11d\\u00b7\\uc99d\\uac70 bundle\\ub85c \\uc774\\uc5b4\\uc9c0\\ub294 \\ud750\\ub984\"\n    ],\n    \"context_topic_ids\": [\n        \"company-analysis\",\n        \"cil-orchestration\"\n    ]\n}\n",
+      "stderr_tail": ""
+    }
+  ],
+  "completed_at": "2026-09-15T05:24:08.810953+00:00"
+}

@@ -1,0 +1,49 @@
+{
+  "cohort_id": "C-06-diagram-toolchain",
+  "status": "completed",
+  "changed_paths": [
+    ".gitignore",
+    "tools/flowchart_matrix.py",
+    "tools/mermaid-renderer/package.json",
+    "tools/mermaid-renderer/package-lock.json",
+    "tools/mermaid-renderer/mermaid.config.json",
+    "tools/mermaid-renderer/puppeteer.local.json",
+    "tests/tools/test_flowchart_matrix.py",
+    "tests/tools/test_mermaid_renderer.py"
+  ],
+  "commands": [
+    "uv run --frozen pytest tests/tools/test_flowchart_matrix.py",
+    "uv run --frozen pytest tests/tools/test_mermaid_renderer.py",
+    "uv run --frozen pytest"
+  ],
+  "outcome": "pass",
+  "raw_log_path": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/receipts/logs/C-06-diagram-toolchain__repository-regression-pytest.log",
+  "raw_log_sha256": "cc6572d8598debb062bc8e572c298507cc3f8ab903e2f77fb58e07e20719e9a6",
+  "first_failure": null,
+  "stdout_tail": null,
+  "stderr_tail": null,
+  "telemetry": {
+    "provider": {
+      "measurement": "not-applicable",
+      "invocations": null,
+      "input_tokens": null,
+      "output_tokens": null
+    },
+    "agent_session": {
+      "measurement": "unavailable-platform",
+      "token_count": null,
+      "tool_output_chars": null
+    }
+  },
+  "provider_guard": null,
+  "updated_at": "2026-09-15T07:11:14.947850+00:00",
+  "context_packet_id": "C-06-diagram-toolchain-packet-38c57c58b775",
+  "context_packet_sha256": "28519f24a546ae9cde72ad9560991fdcef66de6ef69f2406c1aa9580454cac47",
+  "implementation_plan_id": "C-06-diagram-toolchain-plan-r1",
+  "implementation_plan_sha256": "55f0309057185184b44a159fcf77f9dadc40d901a2f7b06a52e9e2f6b36e19e3",
+  "passed_criterion_ids": [
+    "flowchart-matrix-pytest",
+    "mermaid-renderer-pytest",
+    "repository-regression-pytest"
+  ]
+}

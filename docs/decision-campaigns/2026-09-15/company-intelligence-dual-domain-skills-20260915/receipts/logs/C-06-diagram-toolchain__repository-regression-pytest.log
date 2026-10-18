@@ -1,0 +1,40 @@
+============================= test session starts ==============================
+platform linux -- Python 3.13.12, pytest-8.4.2, pluggy-1.6.0
+rootdir: /home/ubuntu/root/company-intelligence-platform
+configfile: pyproject.toml
+testpaths: tests
+plugins: anyio-4.15.1
+collected 115 items
+
+tests/skills/test_company_intelligence_analysis_skill.py ..              [  1%]
+tests/skills/test_skill_artifact_interop.py .....                        [  6%]
+tests/skills/test_venture_discovery_skill.py ....                        [  9%]
+tests/test_analysis_service.py ....                                      [ 13%]
+tests/test_analytics.py ......                                           [ 18%]
+tests/test_career_requirements.py ...                                    [ 20%]
+tests/test_category_tree.py ..                                           [ 22%]
+tests/test_classification.py ......                                      [ 27%]
+tests/test_cli_project_root.py ...                                       [ 30%]
+tests/test_cli_workflows.py ........                                     [ 37%]
+tests/test_current_jobs.py .                                             [ 38%]
+tests/test_exporting.py .....                                            [ 42%]
+tests/test_facets.py ....                                                [ 46%]
+tests/test_interactive.py ....                                           [ 49%]
+tests/test_job_search.py ........                                        [ 56%]
+tests/test_job_trends.py ..                                              [ 58%]
+tests/test_live_snapshots.py ..                                          [ 60%]
+tests/test_public_connectors.py .....                                    [ 64%]
+tests/test_public_identity.py ...                                        [ 66%]
+tests/test_query_contract.py .....                                       [ 71%]
+tests/test_run_manifest.py ..                                            [ 73%]
+tests/test_screening.py ....                                             [ 76%]
+tests/test_search_profile.py .........                                   [ 84%]
+tests/test_security.py ...                                               [ 86%]
+tests/test_selection_provenance.py .                                     [ 87%]
+tests/test_source_catalog.py ......                                      [ 93%]
+tests/test_taxonomy.py ...                                               [ 95%]
+tests/test_warehouse.py .                                                [ 96%]
+tests/tools/test_flowchart_matrix.py ..                                  [ 98%]
+tests/tools/test_mermaid_renderer.py ..                                  [100%]
+
+============================= 115 passed in 20.25s =============================

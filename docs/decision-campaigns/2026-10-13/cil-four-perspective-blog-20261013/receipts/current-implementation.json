@@ -1,0 +1,11 @@
+{
+  "contract_version": "campaign-attempt-manifest-v1",
+  "campaign_id": "cil-four-perspective-blog-20261013",
+  "active": {
+    "B-C03-cil-coverage": {
+      "path": "docs/decision-campaigns/2026-10-13/cil-four-perspective-blog-20261013/receipts/attempts/sha256-7ceefb57f0f0f7ea19cb4a216f37be535634886716ae20b6e7277484706b8f91.json",
+      "sha256": "7ceefb57f0f0f7ea19cb4a216f37be535634886716ae20b6e7277484706b8f91"
+    }
+  },
+  "updated_at": "2026-10-15T11:37:59.723541+00:00"
+}

@@ -1,0 +1,46 @@
+{
+  "cohort_id": "C-01-interop-control",
+  "status": "completed",
+  "changed_paths": [
+    ".codex/shared/company-intelligence-interop/domain-plan.schema.json",
+    ".codex/shared/company-intelligence-interop/domain-plan-ref.schema.json",
+    ".codex/shared/company-intelligence-interop/evidence-bundle.schema.json",
+    ".codex/shared/company-intelligence-interop/evidence-bundle-ref.schema.json",
+    ".codex/shared/company-intelligence-interop/dual-path-comparison.schema.json",
+    ".codex/shared/company-intelligence-interop/campaign-link.schema.json",
+    ".codex/shared/company-intelligence-interop/connector-candidates.json",
+    ".codex/shared/company-intelligence-interop/BOUNDARIES.md",
+    ".codex/shared/company-intelligence-interop/interop.py"
+  ],
+  "commands": [
+    "python3 .codex/shared/company-intelligence-interop/interop.py self-test"
+  ],
+  "outcome": "pass",
+  "raw_log_path": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/receipts/logs/C-01-interop-control__interop-self-test.log",
+  "raw_log_sha256": "672b731ff258c5c2cb6e96f7f8fa67b00dbf5a304c2f564c2b32c03e9b04f349",
+  "first_failure": null,
+  "stdout_tail": "{\"status\": \"valid\", \"command\": \"self-test\"}\n",
+  "stderr_tail": null,
+  "telemetry": {
+    "provider": {
+      "measurement": "not-applicable",
+      "invocations": null,
+      "input_tokens": null,
+      "output_tokens": null
+    },
+    "agent_session": {
+      "measurement": "unavailable-platform",
+      "token_count": null,
+      "tool_output_chars": null
+    }
+  },
+  "provider_guard": null,
+  "updated_at": "2026-09-15T06:26:09.664356+00:00",
+  "context_packet_id": "C-01-interop-control-packet-514156e4e714",
+  "context_packet_sha256": "001fee947dc0cffbabeb13caa98c4331e341b774833e0cbb8744068f829fa477",
+  "implementation_plan_id": "C-01-interop-control-plan-r1",
+  "implementation_plan_sha256": "6a0e924fbeab435f271962cd428ea77744a08d2de36b68a5c75ac2341b43c8f0",
+  "passed_criterion_ids": [
+    "interop-self-test"
+  ]
+}

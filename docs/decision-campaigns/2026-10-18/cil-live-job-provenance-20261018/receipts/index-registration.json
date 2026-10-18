@@ -1,0 +1,31 @@
+{
+  "contract_version": "atomic-json-patch-receipt-v1",
+  "target": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/index.json",
+  "outcome": "pass",
+  "before_sha256": "9dc83370977a303a40b967c73f3a32c45e36adead02936774c9dfe0eb8ded0db",
+  "after_sha256": "f8f9d358ae50b0986990ac165c5cae9f3057c5cd601f5f336cc7036a73bedb4a",
+  "proposed_after_sha256": "f8f9d358ae50b0986990ac165c5cae9f3057c5cd601f5f336cc7036a73bedb4a",
+  "operations": [
+    {
+      "op": "test",
+      "path": "/active_campaign_id"
+    },
+    {
+      "op": "test",
+      "path": "/schema_version"
+    },
+    {
+      "op": "replace",
+      "path": "/active_campaign_id"
+    },
+    {
+      "op": "add",
+      "path": "/campaigns/-"
+    }
+  ],
+  "backup": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/.mutation-journal/preimages/sha256-9dc83370977a303a40b967c73f3a32c45e36adead02936774c9dfe0eb8ded0db.json",
+  "journal": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/.mutation-journal/mutations/a62ed951032a2049544890acab613e07bf3018bcba25b8b204b605a62afc8b46.json",
+  "mutation_id": "register:cil-live-job-provenance-20261018",
+  "validators": [],
+  "completed_at": "2026-10-18T05:00:49.803695+00:00"
+}

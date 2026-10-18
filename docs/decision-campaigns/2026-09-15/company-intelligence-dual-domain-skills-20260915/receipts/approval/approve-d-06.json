@@ -1,0 +1,51 @@
+{
+  "contract_version": "atomic-json-patch-receipt-v1",
+  "target": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/decisions/06-d-06.json",
+  "outcome": "pass",
+  "before_sha256": "3dd8bcbcdd34192d4581d1bcf264fc56ea7ad949421d54381b6ced47a5efed8f",
+  "after_sha256": "4e0a699948ce38b0f2193ab433140a4d90e64888c0bb356abf6d903781970251",
+  "proposed_after_sha256": "4e0a699948ce38b0f2193ab433140a4d90e64888c0bb356abf6d903781970251",
+  "operations": [
+    {
+      "op": "test",
+      "path": "/status"
+    },
+    {
+      "op": "test",
+      "path": "/accepted_decision"
+    },
+    {
+      "op": "test",
+      "path": "/context_topic_ids"
+    },
+    {
+      "op": "replace",
+      "path": "/status"
+    },
+    {
+      "op": "replace",
+      "path": "/accepted_decision"
+    },
+    {
+      "op": "replace",
+      "path": "/context_topic_ids"
+    }
+  ],
+  "backup": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/.mutation-journal/preimages/sha256-3dd8bcbcdd34192d4581d1bcf264fc56ea7ad949421d54381b6ced47a5efed8f.json",
+  "journal": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/.mutation-journal/mutations/31a6442b11d360476f2aea01122d2f3144558fe3a12674bc2c9cadb7200ffdde.json",
+  "mutation_id": "approve-d-06",
+  "validators": [
+    {
+      "command": [
+        "python3",
+        "-m",
+        "json.tool",
+        "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/decisions/06-d-06.json"
+      ],
+      "returncode": 0,
+      "stdout_tail": "0ac\\ud56d\\uacfc D-09\\u00b7D-10\\uc744 \\ud3ec\\ud568\\ud55c \\uac1c\\uc815 \\ubc94\\uc704\\ub97c \\uad6c\\ud604\\ud55c\\ub2e4.\",\n        \"decided_by\": \"user\",\n        \"decided_at\": \"2026-09-15T05:28:25.724684+00:00\"\n    },\n    \"implementation_targets\": [\n        \".codex/shared/company-intelligence-interop/connector-candidates.json\",\n        \".codex/shared/company-intelligence-interop/BOUNDARIES.md\"\n    ],\n    \"implementation_change_ids\": [],\n    \"validation_requirements\": [\n        \"\\ubb34\\ub8cc \\ud45c\\ubc29\\ub9cc\\uc73c\\ub85c production \\uc2b9\\uaca9\\ub418\\uc9c0 \\uc54a\\uc74c\",\n        \"\\uae30\\uc874 CIL\\uacfc \\uc911\\ubcf5 \\uc2dc \\ud544\\ub4dc \\ub610\\ub294 \\uc6b4\\uc601\\uc0c1 \\ucd94\\uac00\\uac00\\uce58\\ub97c \\uc694\\uad6c\",\n        \"\\ube44\\uacf5\\uc2dd endpoint\\ub294 authoritative fact \\ub2e8\\ub3c5 \\uadfc\\uac70\\uac00 \\uc544\\ub2d8\",\n        \"\\uc5f0\\uacb0 MCP 0\\uac1c \\ud658\\uacbd\\uc5d0\\uc11c\\ub3c4 \\ub450 \\uc2a4\\ud0ac core \\ub3d9\\uc791\"\n    ],\n    \"diagram_impacts\": [\n        \"\\ud6c4\\ubcf4 \\ubc1c\\uacac\\uc5d0\\uc11c duplicate\\u00b7license\\u00b7security\\u00b7provenance gate\\ub97c \\uac70\\uccd0 optional adapter\\ub85c \\uac00\\ub294 \\ud750\\ub984\"\n    ],\n    \"context_topic_ids\": [\n        \"interop-control\"\n    ]\n}\n",
+      "stderr_tail": ""
+    }
+  ],
+  "completed_at": "2026-09-15T05:28:26.858605+00:00"
+}

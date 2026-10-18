@@ -1,0 +1,45 @@
+{
+  "cohort_id": "C-04-venture-analysis-skill",
+  "status": "completed",
+  "changed_paths": [
+    ".codex/skills/kr-defensible-venture-discovery/SKILL.md",
+    ".codex/skills/kr-defensible-venture-discovery/agents/openai.yaml",
+    ".codex/skills/kr-defensible-venture-discovery/references/market-archetypes.md",
+    ".codex/skills/kr-defensible-venture-discovery/references/research-workflow.md",
+    ".codex/skills/kr-defensible-venture-discovery/references/evidence-and-barriers.md",
+    ".codex/skills/kr-defensible-venture-discovery/references/venture-session.schema.json",
+    ".codex/skills/kr-defensible-venture-discovery/references/opportunity-hypothesis.schema.json",
+    ".codex/skills/kr-defensible-venture-discovery/scripts/venture_artifacts.py"
+  ],
+  "commands": [
+    "python3 /home/ubuntu/.codex/skills/.system/skill-creator/scripts/quick_validate.py .codex/skills/kr-defensible-venture-discovery"
+  ],
+  "outcome": "pass",
+  "raw_log_path": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/receipts/logs/C-04-venture-analysis-skill__venture-skill-quick-validate.log",
+  "raw_log_sha256": "db349825903d66adffea3ecf1bd8e1803043e8a71cf1a051235dabc5371f5bb0",
+  "first_failure": null,
+  "stdout_tail": "Skill is valid!\n",
+  "stderr_tail": null,
+  "telemetry": {
+    "provider": {
+      "measurement": "not-applicable",
+      "invocations": null,
+      "input_tokens": null,
+      "output_tokens": null
+    },
+    "agent_session": {
+      "measurement": "unavailable-platform",
+      "token_count": null,
+      "tool_output_chars": null
+    }
+  },
+  "provider_guard": null,
+  "updated_at": "2026-09-15T06:20:44.231185+00:00",
+  "context_packet_id": "C-04-venture-analysis-skill-packet-76389a7c4188",
+  "context_packet_sha256": "354d4b2d40a81df1e80a9823b4ac85b1ffb0d9a3372baf1aa343c0b3cfff7ff2",
+  "implementation_plan_id": "C-04-venture-analysis-skill-plan-r1",
+  "implementation_plan_sha256": "82ce2475b651c6f1ba32fdcfe7978561f5a646a6332ad9d0c49812f0b88d67ee",
+  "passed_criterion_ids": [
+    "venture-skill-quick-validate"
+  ]
+}

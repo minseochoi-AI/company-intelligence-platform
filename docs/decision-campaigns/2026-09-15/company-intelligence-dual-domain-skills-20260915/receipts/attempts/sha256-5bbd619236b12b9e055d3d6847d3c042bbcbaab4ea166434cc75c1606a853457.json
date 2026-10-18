@@ -1,0 +1,40 @@
+{
+  "cohort_id": "C-05-packaging-validation",
+  "status": "completed",
+  "changed_paths": [
+    "tests/skills/test_company_intelligence_analysis_skill.py",
+    "tests/skills/test_venture_discovery_skill.py",
+    "tests/skills/test_skill_artifact_interop.py"
+  ],
+  "commands": [
+    "authorized exact-plan application and postimage hash capture"
+  ],
+  "outcome": "pass",
+  "raw_log_path": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/receipts/logs/implementation-hash-capture.log",
+  "raw_log_sha256": "0df5ed7fd914c2352529456077f188a1629f2325963435a7f9e647ec6042b163",
+  "first_failure": null,
+  "stdout_tail": "29 exact postimages captured; git diff --check exit 0",
+  "stderr_tail": null,
+  "telemetry": {
+    "provider": {
+      "measurement": "not-applicable",
+      "invocations": null,
+      "input_tokens": null,
+      "output_tokens": null
+    },
+    "agent_session": {
+      "measurement": "unavailable-platform",
+      "token_count": null,
+      "tool_output_chars": null
+    }
+  },
+  "provider_guard": null,
+  "updated_at": "2026-09-15T06:20:44.318283+00:00",
+  "context_packet_id": "C-05-packaging-validation-packet-9b2ac7c1f93a",
+  "context_packet_sha256": "33ffe897b239af4084745ea523e7cbe09b4cd2ea43f124be203675f82f6d619d",
+  "implementation_plan_id": "C-05-packaging-validation-plan-r1",
+  "implementation_plan_sha256": "732149ab95552b32019265e90382cba00383edf4e7754173224958c49168dbcc",
+  "passed_criterion_ids": [
+    "skill-behavior-pytest"
+  ]
+}

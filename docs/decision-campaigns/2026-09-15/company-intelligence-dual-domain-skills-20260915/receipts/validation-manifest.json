@@ -1,0 +1,27 @@
+{
+  "contract_version": "campaign-attempt-manifest-v1",
+  "campaign_id": "company-intelligence-dual-domain-skills-20260915",
+  "active": {
+    "C-01-interop-control:interop-self-test": {
+      "path": "docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/receipts/attempts/sha256-9098375250429223f61b688019ee2e2e6630d6c6ad18e7ac6fe0df2d63712a55.json",
+      "sha256": "9098375250429223f61b688019ee2e2e6630d6c6ad18e7ac6fe0df2d63712a55"
+    },
+    "C-02-cil-runtime:cil-root-tests": {
+      "path": "docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/receipts/attempts/sha256-79d5ea20694146035b7f5ad6bb25ac0ad5c3c687c0db6d5b473ffcddfcd16e29.json",
+      "sha256": "79d5ea20694146035b7f5ad6bb25ac0ad5c3c687c0db6d5b473ffcddfcd16e29"
+    },
+    "C-04-venture-analysis-skill:venture-skill-quick-validate": {
+      "path": "docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/receipts/attempts/sha256-fed5e7a982e5713cdcc4ae6fa1ea69d9f262f093f6150adb8659f00b565f8550.json",
+      "sha256": "fed5e7a982e5713cdcc4ae6fa1ea69d9f262f093f6150adb8659f00b565f8550"
+    },
+    "C-03-company-analysis-skill:company-skill-quick-validate": {
+      "path": "docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/receipts/attempts/sha256-53c1b644d7ba5298a8ade5fe602dfc2db406534ac81c9cb1cc91b569d730d46c.json",
+      "sha256": "53c1b644d7ba5298a8ade5fe602dfc2db406534ac81c9cb1cc91b569d730d46c"
+    },
+    "C-05-packaging-validation:skill-behavior-pytest": {
+      "path": "docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/receipts/attempts/sha256-97229d43dd60d391bc74f7641c2f1718e85b47f2129355f863f4605eaea2a463.json",
+      "sha256": "97229d43dd60d391bc74f7641c2f1718e85b47f2129355f863f4605eaea2a463"
+    }
+  },
+  "updated_at": "2026-09-15T06:19:39.047027+00:00"
+}

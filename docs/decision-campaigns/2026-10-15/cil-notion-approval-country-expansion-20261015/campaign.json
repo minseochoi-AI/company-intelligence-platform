@@ -1,0 +1,176 @@
+{
+  "schema_version": "1.7.0",
+  "campaign_id": "cil-notion-approval-country-expansion-20261015",
+  "objective": "노션 모바일 승인 기반 Blogger 자동 배포 및 한국·체코 전수 기업 채용·재무 API 확장을 통한 1·2단계 플랫폼 완성",
+  "repository_root": "/home/ubuntu/root/company-intelligence-platform",
+  "created_date": "2026-10-15",
+  "status": "decision-approved",
+  "decision_order": [
+    "CIL-D01",
+    "CIL-D02",
+    "CIL-D03",
+    "CIL-D04",
+    "CIL-D05",
+    "CIL-D06",
+    "CIL-D07"
+  ],
+  "dependencies": [
+    {
+      "before": "CIL-D05",
+      "after": "CIL-D06"
+    },
+    {
+      "before": "CIL-D01",
+      "after": "CIL-D07"
+    },
+    {
+      "before": "CIL-D02",
+      "after": "CIL-D07"
+    },
+    {
+      "before": "CIL-D03",
+      "after": "CIL-D07"
+    },
+    {
+      "before": "CIL-D04",
+      "after": "CIL-D07"
+    },
+    {
+      "before": "CIL-D06",
+      "after": "CIL-D07"
+    }
+  ],
+  "implementation_authorization": {
+    "authorized": false,
+    "authorized_by": null,
+    "authorized_at": null,
+    "scope": [],
+    "authorized_plan_refs": []
+  },
+  "implementation_cohorts": [
+    {
+      "cohort_id": "CIL-C01-opendart-master",
+      "decision_ids": [
+        "CIL-D01"
+      ],
+      "status": "contract-ready",
+      "context_packet_path": "docs/decision-campaigns/2026-10-15/cil-notion-approval-country-expansion-20261015/context-packets/CIL-C01-opendart-master-r2.json",
+      "context_packet_sha256": "b67b4694be683b55b2719959080a81a2f9e94c8ed770c6694885017473858f23",
+      "implementation_plan_path": "docs/decision-campaigns/2026-10-15/cil-notion-approval-country-expansion-20261015/implementation-plans/CIL-C01-opendart-master-r1.json",
+      "implementation_plan_sha256": "18e01680090b53524e9f831c2fd0d18aa1ff003905b964ea4499b061db7bc8e1",
+      "implementation_plan_status": "contract-ready",
+      "execution_dependencies": []
+    },
+    {
+      "cohort_id": "CIL-C02-czech-mpsv",
+      "decision_ids": [
+        "CIL-D02"
+      ],
+      "status": "contract-ready",
+      "context_packet_path": "docs/decision-campaigns/2026-10-15/cil-notion-approval-country-expansion-20261015/context-packets/CIL-C02-czech-mpsv-r2.json",
+      "context_packet_sha256": "83ac8d22613035a5f4d0255ea047627933abd455a53f795a569774c388067897",
+      "implementation_plan_path": "docs/decision-campaigns/2026-10-15/cil-notion-approval-country-expansion-20261015/implementation-plans/CIL-C02-czech-mpsv-r1.json",
+      "implementation_plan_sha256": "1e701fec8ed457b78c10d8bcad3441f91d2655fafaf8dd06b5f7261d0c078aa7",
+      "implementation_plan_status": "contract-ready",
+      "execution_dependencies": []
+    },
+    {
+      "cohort_id": "CIL-C03-czech-ares",
+      "decision_ids": [
+        "CIL-D03"
+      ],
+      "status": "contract-ready",
+      "context_packet_path": "docs/decision-campaigns/2026-10-15/cil-notion-approval-country-expansion-20261015/context-packets/CIL-C03-czech-ares-r2.json",
+      "context_packet_sha256": "305d45d5e365c0d28c315e72440f93c93e7dbbbe3a7d430b63c3380e2384dffe",
+      "implementation_plan_path": "docs/decision-campaigns/2026-10-15/cil-notion-approval-country-expansion-20261015/implementation-plans/CIL-C03-czech-ares-r1.json",
+      "implementation_plan_sha256": "35e4b60514e08bd44948cfcb70cb01f3a69851ac7f1cf38ac3512ca0dd9dc4cc",
+      "implementation_plan_status": "contract-ready",
+      "execution_dependencies": []
+    },
+    {
+      "cohort_id": "CIL-C04-worknet-public",
+      "decision_ids": [
+        "CIL-D04"
+      ],
+      "status": "contract-ready",
+      "context_packet_path": "docs/decision-campaigns/2026-10-15/cil-notion-approval-country-expansion-20261015/context-packets/CIL-C04-worknet-public-r2.json",
+      "context_packet_sha256": "ef7fef49a6cd9d42ba63ecc36c79d34e289672a3260bc10e8086e911ffc22b96",
+      "implementation_plan_path": "docs/decision-campaigns/2026-10-15/cil-notion-approval-country-expansion-20261015/implementation-plans/CIL-C04-worknet-public-r1.json",
+      "implementation_plan_sha256": "3bf1d3cbd44a08cc2fff5f7b0bc04839e0e01ee0bee982427974dcc906e2d2c8",
+      "implementation_plan_status": "contract-ready",
+      "execution_dependencies": []
+    },
+    {
+      "cohort_id": "CIL-C05-notion-approval",
+      "decision_ids": [
+        "CIL-D05"
+      ],
+      "status": "contract-ready",
+      "context_packet_path": "docs/decision-campaigns/2026-10-15/cil-notion-approval-country-expansion-20261015/context-packets/CIL-C05-notion-approval-r2.json",
+      "context_packet_sha256": "14d86a41bf168c928af4dfe88b9b6c16ded9ed5ae63cc17bcf73f0a6034562a8",
+      "implementation_plan_path": "docs/decision-campaigns/2026-10-15/cil-notion-approval-country-expansion-20261015/implementation-plans/CIL-C05-notion-approval-r1.json",
+      "implementation_plan_sha256": "7bf169268d19e8b19962b59aeaa4267cd60a091fce0813382cc801c260696f56",
+      "implementation_plan_status": "contract-ready",
+      "execution_dependencies": []
+    },
+    {
+      "cohort_id": "CIL-C06-blogger-headless",
+      "decision_ids": [
+        "CIL-D06"
+      ],
+      "status": "contract-ready",
+      "context_packet_path": "docs/decision-campaigns/2026-10-15/cil-notion-approval-country-expansion-20261015/context-packets/CIL-C06-blogger-headless-r2.json",
+      "context_packet_sha256": "83b7c736fed3a0161124a4af741f6e16c8c4ba20fcb5ce880c2604203ebecda7",
+      "implementation_plan_path": "docs/decision-campaigns/2026-10-15/cil-notion-approval-country-expansion-20261015/implementation-plans/CIL-C06-blogger-headless-r1.json",
+      "implementation_plan_sha256": "f5af586744a9b7abb458970c6fd402534230006056e8c02d8007a46f7636618f",
+      "implementation_plan_status": "contract-ready",
+      "execution_dependencies": [
+        "CIL-C05-notion-approval"
+      ]
+    },
+    {
+      "cohort_id": "CIL-C07-platform-integration",
+      "decision_ids": [
+        "CIL-D07"
+      ],
+      "status": "contract-ready",
+      "context_packet_path": "docs/decision-campaigns/2026-10-15/cil-notion-approval-country-expansion-20261015/context-packets/CIL-C07-platform-integration-r2.json",
+      "context_packet_sha256": "d2fee40085c4c4acf06f89f94d4deef6a775cda984cba45a1b0aae7c5d7ee298",
+      "implementation_plan_path": "docs/decision-campaigns/2026-10-15/cil-notion-approval-country-expansion-20261015/implementation-plans/CIL-C07-platform-integration-r1.json",
+      "implementation_plan_sha256": "41dc48ba0ea21346b03988d5b6189a7d5bbded9e0a1bcfb546122e3071f2d30b",
+      "implementation_plan_status": "contract-ready",
+      "execution_dependencies": [
+        "CIL-C01-opendart-master",
+        "CIL-C02-czech-mpsv",
+        "CIL-C03-czech-ares",
+        "CIL-C04-worknet-public",
+        "CIL-C06-blogger-headless"
+      ]
+    }
+  ],
+  "context_index_path": "docs/decision-campaigns/2026-10-15/cil-notion-approval-country-expansion-20261015/context-index.json",
+  "component_inventory_path": "docs/decision-campaigns/2026-10-15/cil-notion-approval-country-expansion-20261015/component-inventory.json",
+  "component_inventory_sha256": "3055b9b7b490465e314f33ddb731895adf7cbd4b6417521372018cecd051d4ec",
+  "workbook_path": "docs/decision-campaigns/2026-10-15/cil-notion-approval-country-expansion-20261015/decision-workbook.md",
+  "decision_files": {
+    "CIL-D01": "docs/decision-campaigns/2026-10-15/cil-notion-approval-country-expansion-20261015/decisions/01-cil-d01.json",
+    "CIL-D02": "docs/decision-campaigns/2026-10-15/cil-notion-approval-country-expansion-20261015/decisions/02-cil-d02.json",
+    "CIL-D03": "docs/decision-campaigns/2026-10-15/cil-notion-approval-country-expansion-20261015/decisions/03-cil-d03.json",
+    "CIL-D04": "docs/decision-campaigns/2026-10-15/cil-notion-approval-country-expansion-20261015/decisions/04-cil-d04.json",
+    "CIL-D05": "docs/decision-campaigns/2026-10-15/cil-notion-approval-country-expansion-20261015/decisions/05-cil-d05.json",
+    "CIL-D06": "docs/decision-campaigns/2026-10-15/cil-notion-approval-country-expansion-20261015/decisions/06-cil-d06.json",
+    "CIL-D07": "docs/decision-campaigns/2026-10-15/cil-notion-approval-country-expansion-20261015/decisions/07-cil-d07.json"
+  },
+  "receipt_paths": {
+    "implementation": "docs/decision-campaigns/2026-10-15/cil-notion-approval-country-expansion-20261015/receipts/implementation.json",
+    "validation": "docs/decision-campaigns/2026-10-15/cil-notion-approval-country-expansion-20261015/receipts/validation.json",
+    "diagrams": "docs/decision-campaigns/2026-10-15/cil-notion-approval-country-expansion-20261015/receipts/diagrams.json"
+  },
+  "receipt_manifest_paths": {
+    "implementation": "docs/decision-campaigns/2026-10-15/cil-notion-approval-country-expansion-20261015/receipts/current-implementation.json",
+    "validation": "docs/decision-campaigns/2026-10-15/cil-notion-approval-country-expansion-20261015/receipts/current-validation.json",
+    "diagrams": "docs/decision-campaigns/2026-10-15/cil-notion-approval-country-expansion-20261015/receipts/current-diagrams.json"
+  },
+  "campaign_change_graph_path": "docs/decision-campaigns/2026-10-15/cil-notion-approval-country-expansion-20261015/campaign-change-graph.json",
+  "campaign_change_graph_sha256": "9778517f0ba6e0c67c7dece179a738db4b9a3608b8515320c696ef49b961133b"
+}

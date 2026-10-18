@@ -1,0 +1,96 @@
+{
+  "prose": {
+    "reason": "등록 28개 검증 상태와 새 수집 operation 4개, 기존 operation 증강 8개, 미확인 계약 2개를 별도 집계하고 적격 조건을 만족하는 시계열만 연결한다.",
+    "assertion": "임의 회사/기간/페이지 allowlist 수집; SEC concept/기간/단위 및 DART 기존 모든 행 보존; BEA catalog와 관측 구분; 직원 공시/공고 수 구분; 1 snapshot 추이 금지"
+  },
+  "changes": {
+    "T1": {
+      "problem": "이 목적의 컴포넌트 없음",
+      "reason": {
+        "$prose": "reason"
+      },
+      "change": "적용 경계: src/company_intel/connectors/collectors.py; allowlist URL·entity/date/page·read-only collector와 원문 provenance; arbitrary URL/SSRF·키 노출·무한 pagination 금지",
+      "evidence": "docs/decision-campaigns/2026-10-13/cil-four-perspective-blog-20261013/evidence/product-contract-ko.md",
+      "assertion": {
+        "$prose": "assertion"
+      }
+    },
+    "T2": {
+      "problem": "기존 파일의 목적별 소비 경로 결손",
+      "reason": {
+        "$prose": "reason"
+      },
+      "change": "적용 경계: src/company_intel/connectors/keyed.py; 기존 probe 기본 의미 유지; 동적 FRED series id와 BEA 관측/catalog 분리; DART 직원 공시 typed 정규화",
+      "evidence": "docs/decision-campaigns/2026-10-13/cil-four-perspective-blog-20261013/evidence/product-contract-ko.md",
+      "assertion": {
+        "$prose": "assertion"
+      }
+    },
+    "T3": {
+      "problem": "기존 파일의 목적별 소비 경로 결손",
+      "reason": {
+        "$prose": "reason"
+      },
+      "change": "적용 경계: src/company_intel/connectors/keyless.py; SEC concept/기간/단위별 전체 필요한 행 및 filing history; Eurostat dimension/category mapping; 기존 표본 probe 유지",
+      "evidence": "docs/decision-campaigns/2026-10-13/cil-four-perspective-blog-20261013/evidence/product-contract-ko.md",
+      "assertion": {
+        "$prose": "assertion"
+      }
+    },
+    "T4": {
+      "problem": "기존 파일의 목적별 소비 경로 결손",
+      "reason": {
+        "$prose": "reason"
+      },
+      "change": "적용 경계: src/company_intel/normalization.py; financial concept/account/statement/currency와 직원 공시/공고/거시 observation class 분리; 같은 comparable signature에서만 계산",
+      "evidence": "docs/decision-campaigns/2026-10-13/cil-four-perspective-blog-20261013/evidence/product-contract-ko.md",
+      "assertion": {
+        "$prose": "assertion"
+      }
+    },
+    "T5": {
+      "problem": "기존 파일의 목적별 소비 경로 결손",
+      "reason": {
+        "$prose": "reason"
+      },
+      "change": "적용 경계: src/company_intel/cli.py; 새 앱 CLI는 보고서 inspect/collect/compose/render/evaluate/link/preview/sync/reconcile/metrics의 typed 입출력; 기존 CIL CLI에는 allowlisted collect만 추가",
+      "evidence": "docs/decision-campaigns/2026-10-13/cil-four-perspective-blog-20261013/evidence/product-contract-ko.md",
+      "assertion": {
+        "$prose": "assertion"
+      }
+    },
+    "T6": {
+      "problem": "기존 파일의 목적별 소비 경로 결손",
+      "reason": {
+        "$prose": "reason"
+      },
+      "change": "적용 경계: config/providers.json; 신규 수집 4 operation과 기존8증강의 source mapping·권리·키 전제를 별도 등록; IMF 재승격 금지",
+      "evidence": "docs/decision-campaigns/2026-10-13/cil-four-perspective-blog-20261013/evidence/product-contract-ko.md",
+      "assertion": {
+        "$prose": "assertion"
+      }
+    },
+    "T7": {
+      "problem": "이 목적의 컴포넌트 없음",
+      "reason": {
+        "$prose": "reason"
+      },
+      "change": "적용 경계: tests/test_parameterized_collection.py; 새 테스트 파일: 임의 회사/기간/페이지 allowlist 수집; SEC concept/기간/단위 및 DART 기존 모든 행 보존; BEA catalog와 관측 구분; 직원 공시/공고 수 구분; 1 snapshot 추이 금지; 해당 그룹 변경점과 fixtures/반례를 모두 실행한다.",
+      "evidence": "docs/decision-campaigns/2026-10-13/cil-four-perspective-blog-20261013/evidence/product-contract-ko.md",
+      "assertion": {
+        "$prose": "assertion"
+      }
+    },
+    "T8": {
+      "problem": "이 목적의 컴포넌트 없음",
+      "reason": {
+        "$prose": "reason"
+      },
+      "change": "적용 경계: tests/test_blog_source_mapping.py; 새 테스트 파일: 임의 회사/기간/페이지 allowlist 수집; SEC concept/기간/단위 및 DART 기존 모든 행 보존; BEA catalog와 관측 구분; 직원 공시/공고 수 구분; 1 snapshot 추이 금지; 해당 그룹 변경점과 fixtures/반례를 모두 실행한다.",
+      "evidence": "docs/decision-campaigns/2026-10-13/cil-four-perspective-blog-20261013/evidence/product-contract-ko.md",
+      "assertion": {
+        "$prose": "assertion"
+      }
+    }
+  }
+}

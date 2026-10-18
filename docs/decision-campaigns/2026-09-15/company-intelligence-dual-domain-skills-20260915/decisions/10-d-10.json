@@ -1,0 +1,150 @@
+{
+  "decision_id": "D-10",
+  "sequence": 10,
+  "unit_id": "three-skill-dual-path-ownership",
+  "title": "3개 사용자 스킬과 DualPathComparison 소유권",
+  "status": "accepted",
+  "question": "기업·취업·창업의 세 책임을 유지하면서 취업과 창업 계획을 비교하는 공통 산출물을 누가 소유할 것인가?",
+  "five_w_one_h": {
+    "who": "기업분석·기존 커리어 조사·창업분석 스킬과 두 경로를 비교하는 사용자",
+    "what": "세 사용자 스킬은 독립 유지하고 DualPathComparison은 호출 가능한 버전드 비스킬 interop 계약으로 둔다.",
+    "where": "저장소의 .codex/skills 두 신규 스킬과 .codex/shared/company-intelligence-interop에 적용한다.",
+    "when": "CareerDomainPlan과 VentureDomainPlan이 모두 존재할 때만 비교 산출물을 생성한다.",
+    "why": "네 번째 라우터 스킬은 트리거와 책임을 늘리고 campaign 상속은 승인 원장을 중복시킨다.",
+    "how": "공통 validator가 plan hash·기간·통화·근거를 확인하고 비교 가능한 축과 미해결 축만 DualPathComparison으로 만든다."
+  },
+  "evidence_refs": [
+    {
+      "evidence_id": "EV-D10-CAREER-SKILL",
+      "source_type": "local-document",
+      "locator": "/home/ubuntu/.codex/skills/company-intelligence-career-research/SKILL.md",
+      "observed_fact": "기존 커리어 스킬은 기업·직무 요건·자격증·준비사항 조사라는 독립 trigger를 가진다.",
+      "content_hash": "cedd2c20963e94912403b59500669fbd2297525fb3f80fb5ea07d80e58473725",
+      "line_range": "1-EOF",
+      "question": "기존 커리어 책임을 새 스킬에 합쳐야 하는가?",
+      "observation_summary": "기존 경계가 명확하므로 유지하고 산출물 계약으로 연결하는 편이 낫다."
+    },
+    {
+      "evidence_id": "EV-D10-CAMPAIGN-BOUNDARY",
+      "source_type": "local-document",
+      "locator": "/home/ubuntu/.codex/skills/decision-campaign-workbook/SKILL.md",
+      "observed_fact": "decision-campaign-workbook은 명시 호출 전용 control plane이며 도메인 런타임을 소유하지 않는다.",
+      "content_hash": "3384eeb3296efc19b821a5b2203995842cc657c4dce6b236010ab879ad0b7d64",
+      "line_range": "1-EOF",
+      "question": "캠페인 스킬을 도메인 비교 엔진으로 상속해도 되는가?",
+      "observation_summary": "승인·scope·receipt 소유권은 복제하지 않고 hash link만 사용해야 한다."
+    }
+  ],
+  "facts": [
+    "기업분석과 창업분석 두 신규 스킬, 기존 커리어 스킬을 합치면 사용자 대면 책임은 세 개다.",
+    "두 DomainPlan의 해시·기간·근거가 일치해야 비교가 재현 가능하다.",
+    "공통 계약과 validator는 사용자 요청을 직접 받는 스킬이 아니다."
+  ],
+  "conflicts": [
+    "네 번째 synthesis 스킬은 발견성을 높일 수 있지만 초기에는 trigger 중복과 유지비가 더 크다.",
+    "기존 글로벌 커리어 스킬은 현재 저장소의 구현 권한 밖이므로 이번 실행에서 복제하거나 수정하지 않는다."
+  ],
+  "unimplemented": [
+    "DualPathComparison schema",
+    "career/venture DomainPlan 검증과 비교 CLI",
+    "세 스킬 경계 및 비교 불가 상태 시험"
+  ],
+  "options": [
+    {
+      "option_id": "A-FOURTH-SYNTHESIS-SKILL",
+      "description": "취업·창업 통합 비교만 담당하는 네 번째 사용자 스킬을 추가한다.",
+      "impact": {
+        "data": "비교 산출물 소유자가 명확하다.",
+        "schema_api": "새 스킬 API가 늘어난다.",
+        "ux": "직접 호출은 쉽다.",
+        "performance": "로딩·라우팅이 늘어난다.",
+        "cost": "별도 문서·테스트·배포가 필요하다.",
+        "security": "도메인 입력이 한 곳에 모인다.",
+        "migration": "세 스킬 변경을 추적해야 한다.",
+        "tests": "교차 trigger가 복잡해진다."
+      },
+      "opportunity_costs": [
+        "초기 요구보다 사용자 대면 스킬과 trigger를 더 늘린다."
+      ]
+    },
+    {
+      "option_id": "B-THREE-SKILLS-SHARED-COMPARISON-CONTRACT",
+      "description": "세 사용자 스킬을 유지하고 DualPathComparison은 비스킬 공통 계약·CLI가 소유한다.",
+      "impact": {
+        "data": "두 계획 정본과 비교 결과를 분리한다.",
+        "schema_api": "공통 versioned schema만 추가한다.",
+        "ux": "두 계획이 있을 때만 비교를 제공한다.",
+        "performance": "파일 검증과 비교만 수행한다.",
+        "cost": "네 번째 스킬 유지비를 피한다.",
+        "security": "민감 원문 대신 최소 필드와 hash를 사용한다.",
+        "migration": "schema version으로 호환한다.",
+        "tests": "career-only·venture-only·dual-path를 분리 검증한다."
+      },
+      "opportunity_costs": [
+        "별도 통합 스킬 이름으로 직접 호출하는 UX는 제공하지 않는다."
+      ]
+    }
+  ],
+  "recommended_option_id": "B-THREE-SKILLS-SHARED-COMPARISON-CONTRACT",
+  "recommendation_reason": "현재는 세 책임이 이미 구분되며 비교는 두 산출물의 검증 가능한 조합이므로 네 번째 스킬보다 작은 공통 계약이 적합하다.",
+  "impact": {
+    "data": "CareerDomainPlan·VentureDomainPlan·DualPathComparison이 독립 hash를 가진다.",
+    "schema_api": "plan_kind와 comparison status를 제한한다.",
+    "ux": "비교 불가 이유를 unresolved로 반환한다.",
+    "performance": "중복 도메인 조사를 하지 않는다.",
+    "cost": "공통 표면을 최소화한다.",
+    "security": "개인 원문은 bundle에 복사하지 않는다.",
+    "migration": "향후 반복 수요가 입증되면 네 번째 스킬을 별도 결정한다.",
+    "tests": "세 스킬 경계와 비교 validator를 시험한다."
+  },
+  "opportunity_costs": [
+    "한 번의 암묵적 스킬 호출로 세 도메인을 모두 실행하지 않는다."
+  ],
+  "dependencies": [
+    "D-01",
+    "D-02",
+    "D-03"
+  ],
+  "dependency_waivers": {},
+  "accepted_decision": {
+    "disposition": "ACCEPT",
+    "option_id": "B-THREE-SKILLS-SHARED-COMPARISON-CONTRACT",
+    "rule": "사용자의 FULL_EXECUTION 요청에 따라 각 결정의 B 권장안을 승인한다.",
+    "rationale": "비판적 검증에서 확인된 수정사항과 D-09·D-10을 포함한 개정 범위를 구현한다.",
+    "decided_by": "user",
+    "decided_at": "2026-09-15T05:28:25.724684+00:00"
+  },
+  "implementation_targets": [
+    ".codex/shared/company-intelligence-interop/domain-plan.schema.json",
+    ".codex/shared/company-intelligence-interop/domain-plan-ref.schema.json",
+    ".codex/shared/company-intelligence-interop/dual-path-comparison.schema.json",
+    ".codex/shared/company-intelligence-interop/interop.py",
+    ".codex/shared/company-intelligence-interop/BOUNDARIES.md"
+  ],
+  "implementation_change_ids": [
+    "C01-002",
+    "C01-005",
+    "C01-008",
+    "C01-009",
+    "C05-003"
+  ],
+  "validation_requirements": [
+    "career와 venture 계획이 모두 없으면 비교 생성 거부",
+    "입력 plan hash 불일치 시 stale 반환",
+    "비교 불가능한 단위·기간을 점수로 강제 변환하지 않음",
+    "네 번째 사용자 스킬이나 campaign 지침 복제본을 만들지 않음"
+  ],
+  "diagram_impacts": [
+    "docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/diagrams/matrices/skill-domain-routing.flowchart-matrix.json",
+    "docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/diagrams/mermaid/skill-domain-routing.mmd",
+    "docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/diagrams/mermaid/skill-domain-routing.svg",
+    "docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/diagrams/mermaid/skill-domain-routing.png",
+    "docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/diagrams/matrices/plan-evidence-interop.flowchart-matrix.json",
+    "docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/diagrams/mermaid/plan-evidence-interop.mmd",
+    "docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/diagrams/mermaid/plan-evidence-interop.svg",
+    "docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/diagrams/mermaid/plan-evidence-interop.png"
+  ],
+  "context_topic_ids": [
+    "interop-control"
+  ]
+}

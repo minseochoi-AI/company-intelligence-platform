@@ -1,0 +1,14 @@
+{
+  "scenario_id": "C-03-company-analysis-skill:company-skill-quick-validate",
+  "cohort_id": "C-03-company-analysis-skill",
+  "criterion_id": "company-skill-quick-validate",
+  "plan_sha256": "930d3d7a9f7b73b789d356fc8a84024975f2c5b098edbb3de67d16ec44a3b116",
+  "command": "python3 /home/ubuntu/.codex/skills/.system/skill-creator/scripts/quick_validate.py .codex/skills/company-intelligence-analysis",
+  "outcome": "fail",
+  "returncode": 1,
+  "first_failure": "Traceback (most recent call last):",
+  "raw_log_path": "docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/receipts/logs/C-03-company-analysis-skill__company-skill-quick-validate.log",
+  "raw_log_sha256": "de6bfa9b05dc5e8b21db11fc4c6f3467280cc5ba5eb3aa1824b77cadc3bbc1e5",
+  "tail": "Traceback (most recent call last):\n  File \"/home/ubuntu/.codex/skills/.system/skill-creator/scripts/quick_validate.py\", line 10, in <module>\n    import yaml\nModuleNotFoundError: No module named 'yaml'\n",
+  "completed_at": "2026-09-15T06:06:59.911106+00:00"
+}

@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://local.company-intel/schemas/domain-plan-ref.schema.json",
+  "title": "Hash-bound DomainPlan reference",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "plan_kind", "plan_id", "revision", "path", "sha256", "generated_at", "evidence_bundle_refs"],
+  "properties": {
+    "schema_version": {"const": "1.0.0"},
+    "plan_kind": {"enum": ["career", "venture"]},
+    "plan_id": {"type": "string", "minLength": 1},
+    "revision": {"type": "integer", "minimum": 1},
+    "path": {"type": "string", "minLength": 1},
+    "sha256": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"},
+    "generated_at": {"type": "string", "format": "date-time"},
+    "evidence_bundle_refs": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+    "campaign_link": {"type": ["string", "null"]}
+  }
+}

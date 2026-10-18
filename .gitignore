@@ -1,4 +1,3 @@
-.env
 .venv/
 __pycache__/
 *.py[cod]
@@ -10,6 +9,7 @@ __pycache__/
 artifacts/
 dist/
 build/
+tools/mermaid-renderer/node_modules/
 
 # Local execution logs and campaign mutation locks are not source evidence.
 .runtime/

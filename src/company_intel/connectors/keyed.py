@@ -131,6 +131,54 @@ def _public_employment(body: bytes, _: str) -> dict[str, Any]:
     }
 
 
+def _ncs_duty_normalizer(body: bytes, _: str) -> dict[str, Any]:
+    root = ET.fromstring(body)
+    items = []
+    for item in root.findall(".//item"):
+        items.append(
+            {
+                "ncs_lcls_cd": item.findtext("ncsLclsCd"),
+                "ncs_lcls_nm": item.findtext("ncsLclsNm"),
+                "ncs_mcls_cd": item.findtext("ncsMclsCd"),
+                "ncs_mcls_nm": item.findtext("ncsMclsNm"),
+                "ncs_scls_cd": item.findtext("ncsSclsCd"),
+                "ncs_scls_nm": item.findtext("ncsSclsNm"),
+                "ncs_sub_cd": item.findtext("ncsSubCd"),
+                "ncs_sub_nm": item.findtext("ncsSubNm"),
+                "duty_cd": item.findtext("dutyCd"),
+                "comp_unit_cd": item.findtext("compUnitCd"),
+                "ncsSubCd": item.findtext("ncsSubCd"),
+                "dutyCd": item.findtext("dutyCd"),
+                "compUnitCd": item.findtext("compUnitCd"),
+            }
+        )
+    return {
+        "result_code": root.findtext(".//resultCode"),
+        "total": to_number(root.findtext(".//totalCount")) or len(items),
+        "items": items,
+    }
+
+
+def _worknet_duty_normalizer(body: bytes, _: str) -> dict[str, Any]:
+    root = ET.fromstring(body)
+    duties = []
+    for item in root.findall(".//jobDuty"):
+        duties.append(
+            {
+                "duty_cd": item.findtext("dutyCd"),
+                "duty_nm": item.findtext("dutyNm"),
+                "ncs_cl_cd": item.findtext("ncsClCd"),
+                "dutyCd": item.findtext("dutyCd"),
+                "dutyNm": item.findtext("dutyNm"),
+                "ncsClCd": item.findtext("ncsClCd"),
+            }
+        )
+    return {
+        "total": to_number(root.findtext(".//total")) or len(duties),
+        "duties": duties,
+    }
+
+
 def mpm_detail_evidence(record: dict[str, Any]) -> dict[str, Any]:
     """Return only explicit detail fields supplied by a separately authorized MPM detail response.
 
@@ -382,6 +430,44 @@ def keyed_probes() -> list[Probe]:
                 capabilities=["daily_ohlcv", "returns", "event_study"],
                 quota_note="Official support: generally 25 requests/day for the ordinary free stock API tier.",
                 limitation="Free compact daily output is suitable for validation/MVP, not global full-history collection.",
+            ),
+            Probe(
+                id="hrdkorea_ncs_duty",
+                provider="hrdkorea",
+                category="job_taxonomy",
+                regions=["KR"],
+                method="GET",
+                url="http://apis.data.go.kr/B490001/ncs/getNcsJobInfo",
+                params={
+                    "serviceKey": os.getenv("HRDKOREA_NCS_API_KEY", ""),
+                    "numOfRows": 100,
+                    "pageNo": 1,
+                },
+                secret_env="HRDKOREA_NCS_API_KEY",
+                expected_format="xml",
+                required_paths=["items.0.ncs_sub_cd"],
+                normalizer=_ncs_duty_normalizer,
+                capabilities=["ncs_competency", "job_standard", "korean_occupational_taxonomy"],
+                quota_note="Public Data Portal (data.go.kr) daily quota: 10,000 calls/day.",
+            ),
+            Probe(
+                id="worknet_job_duty_bridge",
+                provider="worknet",
+                category="job_taxonomy_bridge",
+                regions=["KR"],
+                method="GET",
+                url="http://openapi.work.go.kr/opi/opi/opia/jobDutySrch.do",
+                params={
+                    "authKey": os.getenv("WORKNET_JOB_DUTY_API_KEY", ""),
+                    "returnType": "XML",
+                    "target": "jobDuty",
+                },
+                secret_env="WORKNET_JOB_DUTY_API_KEY",
+                expected_format="xml",
+                required_paths=["duties.0.ncs_cl_cd"],
+                normalizer=_worknet_duty_normalizer,
+                capabilities=["keco_to_ncs_bridge", "worknet_competency_mapping"],
+                quota_note="Worknet Open API: 10,000 calls/day.",
             ),
         ]
     )

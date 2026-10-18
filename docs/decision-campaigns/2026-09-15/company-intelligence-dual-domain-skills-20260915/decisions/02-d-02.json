@@ -1,0 +1,141 @@
+{
+  "decision_id": "D-02",
+  "sequence": 2,
+  "unit_id": "domain-plan-contract",
+  "title": "구현 plan과 취업·창업 domain plan의 해시 계약 분리",
+  "status": "accepted",
+  "question": "캠페인의 구현 plan SHA를 훼손하지 않으면서 취업·창업 계획을 해시 결속된 도메인 산출물로 어떻게 관리할 것인가?",
+  "five_w_one_h": {
+    "who": "캠페인 승인자, 스킬 구현자, 취업·창업 계획을 실행·재현하는 사용자",
+    "what": "implementation_plan_sha256는 코드 변경 권한에 유지하고 career 또는 venture DomainPlan과 DomainPlanRef를 별도 계약으로 만든다.",
+    "where": "캠페인의 implementation-plans와 스킬 실행 결과의 domain-plans를 서로 다른 경로와 스키마로 저장한다.",
+    "when": "PREPARE에서 구현 plan을 생성하고 실제 스킬 실행 시 domain plan을 생성할 때 각각 해시한다.",
+    "why": "한 SHA 필드가 코드 변경 계획과 사용자의 행동 계획을 동시에 뜻하면 권한·재현·stale 판정이 모호해진다.",
+    "how": "DomainPlanRef에 plan_kind, plan_id, revision, path, sha256, schema_version, generated_at, evidence_bundle_refs를 두고 캠페인은 별도 link manifest만 참조한다."
+  },
+  "evidence_refs": [
+    {
+      "evidence_id": "EV-CAMPAIGN-SCHEMA",
+      "source_type": "local-document",
+      "locator": "/home/ubuntu/.codex/skills/decision-campaign-workbook/references/decision-campaign.schema.json",
+      "observed_fact": "implementation_plan_sha256는 cohort 구현 계획과 exact-plan authorization을 묶으며 campaign.json은 추가 속성을 허용하지 않는다.",
+      "content_hash": "495d74f41540c6fe86ced7d197b4ec07f98374373eba8e4d2edbbf83f581c58f",
+      "line_range": "1-EOF",
+      "question": "캠페인의 구현 plan SHA를 훼손하지 않으면서 취업·창업 계획을 해시 결속된 도메인 산출물로 어떻게 관리할 것인가?",
+      "observation_summary": "implementation_plan_sha256는 cohort 구현 계획과 exact-plan authorization을 묶으며 campaign.json은 추가 속성을 허용하지 않는다."
+    },
+    {
+      "evidence_id": "EV-CAMPAIGN-EVIDENCE-ROUTING",
+      "source_type": "local-document",
+      "locator": "/home/ubuntu/.codex/skills/decision-campaign-workbook/references/evidence-routing.md",
+      "observed_fact": "plan hash는 정확한 바이트를 결속하고 결과 성공을 뜻하지 않으며 scope·plan·execution result를 구분해야 한다.",
+      "content_hash": "69f5d4c3ee7d3d044dcc0899a8b011a4b604f5ba4e8dcdc029520f2eb42945ce",
+      "line_range": "1-EOF",
+      "question": "캠페인의 구현 plan SHA를 훼손하지 않으면서 취업·창업 계획을 해시 결속된 도메인 산출물로 어떻게 관리할 것인가?",
+      "observation_summary": "plan hash는 정확한 바이트를 결속하고 결과 성공을 뜻하지 않으며 scope·plan·execution result를 구분해야 한다."
+    }
+  ],
+  "facts": [
+    "implementation_plan_sha256는 저장소 구현 권한과 검증 receipt를 연결한다.",
+    "campaign.json schema는 additionalProperties=false라 임의의 career_plan_sha를 추가할 수 없다.",
+    "취업·창업 계획은 소스 코드 계획과 수명주기·소비자가 다르다."
+  ],
+  "conflicts": [
+    "사용자는 plan SHA를 도메인 계획 중심으로 바꾸고 싶지만 기존 캠페인 도구는 구현 계획 의미를 전제로 한다.",
+    "DomainPlan 내부에 자기 파일 해시를 넣으면 self-hash 문제가 생기므로 별도 Ref가 필요하다."
+  ],
+  "unimplemented": [
+    "domain-plan.schema.json",
+    "domain-plan-ref.schema.json",
+    "domain-plan-link.schema.json",
+    "해시 생성·검증기와 stale 판정"
+  ],
+  "options": [
+    {
+      "option_id": "A-REPURPOSE-IMPLEMENTATION-PLAN-SHA",
+      "description": "campaign.json의 implementation_plan_sha256를 취업·창업 계획 해시로 재해석한다.",
+      "impact": {
+        "data": "서로 다른 artifact가 섞인다.",
+        "schema_api": "validator와 authorization 의미가 깨진다.",
+        "ux": "무엇을 승인했는지 불명확하다.",
+        "performance": "차이는 미미하다.",
+        "cost": "기존 도구 전체를 수정한다.",
+        "security": "행동계획 승인이 코드 권한으로 오해될 수 있다.",
+        "migration": "과거 receipt와 호환되지 않는다.",
+        "tests": "광범위한 회귀가 필요하다."
+      },
+      "opportunity_costs": [
+        "캠페인 실행 원장의 신뢰성을 잃는다."
+      ]
+    },
+    {
+      "option_id": "B-SEPARATE-DOMAIN-PLAN-REF",
+      "description": "구현 plan SHA를 유지하고 career|venture DomainPlan과 외부 DomainPlanRef/Link manifest를 별도 생성한다.",
+      "impact": {
+        "data": "코드 계획과 행동 계획이 독립 revision·hash를 가진다.",
+        "schema_api": "campaign schema 변경 없이 확장한다.",
+        "ux": "두 준비 상태를 구분한다.",
+        "performance": "작은 manifest 검증만 추가된다.",
+        "cost": "별도 스키마와 validator가 필요하다.",
+        "security": "권한 혼동을 막는다.",
+        "migration": "기존 artifact를 보존한다.",
+        "tests": "종류 혼입·변조·stale을 검증한다."
+      },
+      "opportunity_costs": [
+        "사용자가 두 종류의 plan ID를 구분해야 한다."
+      ]
+    }
+  ],
+  "recommended_option_id": "B-SEPARATE-DOMAIN-PLAN-REF",
+  "recommendation_reason": "구현 권한 의미를 보존하면서 취업·창업 계획도 독립적이고 검증 가능한 정본으로 만들 수 있다.",
+  "impact": {
+    "data": "DomainPlan은 목표·단계·의존성·근거를 보존하고 Ref가 외부 hash를 보존한다.",
+    "schema_api": "plan_kind는 career 또는 venture이며 implementation은 캠페인에 남는다.",
+    "ux": "코딩 계획과 행동계획을 분리 표시한다.",
+    "performance": "파일 해시 검증만 추가된다.",
+    "cost": "공유 계약 구현비가 든다.",
+    "security": "민감 입력을 redaction한다.",
+    "migration": "기존 plan을 수정하지 않는다.",
+    "tests": "self-hash·path traversal·hash mismatch·wrong kind를 검증한다."
+  },
+  "opportunity_costs": [
+    "단일 plan 필드의 표면적 단순성은 포기한다."
+  ],
+  "dependencies": [
+    "D-01"
+  ],
+  "dependency_waivers": {},
+  "accepted_decision": {
+    "disposition": "ACCEPT",
+    "option_id": "B-SEPARATE-DOMAIN-PLAN-REF",
+    "rule": "사용자의 FULL_EXECUTION 요청에 따라 각 결정의 B 권장안을 승인한다.",
+    "rationale": "비판적 검증에서 확인된 수정사항과 D-09·D-10을 포함한 개정 범위를 구현한다.",
+    "decided_by": "user",
+    "decided_at": "2026-09-15T05:28:25.724684+00:00"
+  },
+  "implementation_targets": [
+    ".codex/shared/company-intelligence-interop/domain-plan.schema.json",
+    ".codex/shared/company-intelligence-interop/domain-plan-ref.schema.json",
+    ".codex/shared/company-intelligence-interop/interop.py"
+  ],
+  "implementation_change_ids": [
+    "C01-001",
+    "C01-002",
+    "C01-009"
+  ],
+  "validation_requirements": [
+    "implementation_plan_sha256가 DomainPlan hash로 재사용되지 않음",
+    "DomainPlanRef hash 불일치 시 소비 거부",
+    "career와 venture plan_kind 혼입 거부",
+    "도메인 계획 승인만으로 구현 권한이 생기지 않음"
+  ],
+  "diagram_impacts": [
+    "docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/diagrams/matrices/plan-evidence-interop.flowchart-matrix.json",
+    "docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/diagrams/mermaid/plan-evidence-interop.mmd",
+    "docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/diagrams/mermaid/plan-evidence-interop.svg",
+    "docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/diagrams/mermaid/plan-evidence-interop.png"
+  ],
+  "context_topic_ids": [
+    "interop-control"
+  ]
+}

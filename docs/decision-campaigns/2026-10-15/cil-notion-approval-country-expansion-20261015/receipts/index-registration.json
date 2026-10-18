@@ -1,0 +1,31 @@
+{
+  "contract_version": "atomic-json-patch-receipt-v1",
+  "target": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/index.json",
+  "outcome": "pass",
+  "before_sha256": "e53aee89eb6da52e7a7b9fa37c960394916785683af3e0239e81962c36219e27",
+  "after_sha256": "72327d5d083fdb754ebe6cdfa9518bbdd97bc8524e8b1099f9186c6511a5fe0f",
+  "proposed_after_sha256": "72327d5d083fdb754ebe6cdfa9518bbdd97bc8524e8b1099f9186c6511a5fe0f",
+  "operations": [
+    {
+      "op": "test",
+      "path": "/active_campaign_id"
+    },
+    {
+      "op": "test",
+      "path": "/schema_version"
+    },
+    {
+      "op": "replace",
+      "path": "/active_campaign_id"
+    },
+    {
+      "op": "add",
+      "path": "/campaigns/-"
+    }
+  ],
+  "backup": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/.mutation-journal/preimages/sha256-e53aee89eb6da52e7a7b9fa37c960394916785683af3e0239e81962c36219e27.json",
+  "journal": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/.mutation-journal/mutations/cbfdec8d7fefab4ec7924d207552052e378e9ab057dc3fc863be01c3dcbd7477.json",
+  "mutation_id": "register:cil-notion-approval-country-expansion-20261015",
+  "validators": [],
+  "completed_at": "2026-10-15T14:59:50.112412+00:00"
+}

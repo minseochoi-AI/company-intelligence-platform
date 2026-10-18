@@ -218,3 +218,66 @@ def test_every_cli_command_has_a_runnable_korean_help_surface(capsys):
             main([guide.korean_name, "--도움말"])
         assert result.value.code == 0
         assert guide.korean_name in capsys.readouterr().out
+
+
+def test_track_diagram_cli_workflows(tmp_path, capsys):
+    # Test Korean command name and summary format
+    assert main(["직무-트랙-다이어그램", "--형식", "summary", "--출력", str(tmp_path)]) == 0
+    out = capsys.readouterr().out
+    assert "[CIL 4-Audience Multi-Perspective Occupational Track Lattice Summary]" in out
+    assert "2511-data-analyst" in out
+    assert "다이어그램 산출물 안내" in out
+
+    # Test English command alias and JSON format
+    assert main(["track-diagram", "--domain", "ict", "--perspective", "career", "--format", "json", "--output", str(tmp_path)]) == 0
+    json_out = capsys.readouterr().out
+    data = json.loads(json_out)
+    assert "career" in data
+    assert data["career"]["perspective"] == "career"
+    assert len(data["career"]["roles"]) == 8
+
+    # Test Korean domain option for semiconductor
+    assert main(["직무-트랙-다이어그램", "--분야", "semiconductor", "--형식", "summary", "--출력", str(tmp_path)]) == 0
+    semi_out = capsys.readouterr().out
+    assert "Semiconductor & Hardware Electronics" in semi_out
+    assert "2152-circuit-designer" in semi_out
+    assert "1321-fab-director" in semi_out
+
+    # Test Grand Unified all domains in JSON
+    assert main(["track-diagram", "--domain", "all", "--perspective", "career", "--format", "json", "--output", str(tmp_path)]) == 0
+    all_json = json.loads(capsys.readouterr().out)
+    assert len(all_json["career"]["roles"]) >= 40
+
+
+def test_temporal_analytics_cli_workflow(tmp_path, capsys):
+    out_xlsx = tmp_path / "cli_temporal_test.xlsx"
+
+    # Test summary format with export-excel and publish-notion
+    ret = main([
+        "시간적-비교-분석",
+        "--기관-ID", "00258801",
+        "--직업분류-코드", "2512",
+        "--형식", "summary",
+        "--엑셀-저장", str(out_xlsx),
+        "--노션-발행",
+    ])
+    assert ret == 0
+    out = capsys.readouterr().out
+    assert "시간적 누적 및 비교 분석 엔진" in out
+    assert "피어슨 상관분석" in out
+    assert "고용탄력성" in out
+    assert "노션 라우팅 완료" in out
+    assert out_xlsx.exists()
+
+    # Test json format
+    ret = main([
+        "temporal-analytics",
+        "--format", "json",
+    ])
+    assert ret == 0
+    json_out = json.loads(capsys.readouterr().out)
+    assert json_out["status"] == "success"
+    assert "1_correlation" in json_out["methodologies"]
+    assert "job_seeker" in json_out["audience_alignment"]
+
+

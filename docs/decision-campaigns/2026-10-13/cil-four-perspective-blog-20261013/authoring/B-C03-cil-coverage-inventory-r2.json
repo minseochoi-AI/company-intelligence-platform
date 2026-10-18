@@ -1,0 +1,114 @@
+{
+  "decision_refs": [
+    {
+      "id": "B-D03",
+      "path": "docs/decision-campaigns/2026-10-13/cil-four-perspective-blog-20261013/decisions/03-b-d03.json"
+    }
+  ],
+  "targets": {
+    "T1": {
+      "path": "src/company_intel/connectors/collectors.py",
+      "symbols": [
+        "CollectionSpec",
+        "collect_evidence"
+      ],
+      "decision_id": "B-D03",
+      "obligation_ids": [
+        "B-D03-O01",
+        "B-D03-O02"
+      ]
+    },
+    "T2": {
+      "path": "src/company_intel/connectors/keyed.py",
+      "symbols": [
+        "_fred",
+        "_bea",
+        "keyed_probes",
+        "normalize_employee_disclosure"
+      ],
+      "decision_id": "B-D03",
+      "obligation_ids": [
+        "B-D03-O01",
+        "B-D03-O02"
+      ]
+    },
+    "T3": {
+      "path": "src/company_intel/connectors/keyless.py",
+      "symbols": [
+        "keyless_probes",
+        "normalize_sec_companyfacts",
+        "normalize_sdmx_observations"
+      ],
+      "decision_id": "B-D03",
+      "obligation_ids": [
+        "B-D03-O01",
+        "B-D03-O02"
+      ]
+    },
+    "T4": {
+      "path": "src/company_intel/normalization.py",
+      "symbols": [
+        "AtomicObservationMapper",
+        "comparability_signature"
+      ],
+      "decision_id": "B-D03",
+      "obligation_ids": [
+        "B-D03-O01",
+        "B-D03-O02"
+      ]
+    },
+    "T6": {
+      "path": "config/providers.json",
+      "symbols": [
+        "atomic_operations"
+      ],
+      "decision_id": "B-D03",
+      "obligation_ids": [
+        "B-D03-O01",
+        "B-D03-O02"
+      ]
+    },
+    "T7": {
+      "path": "tests/test_parameterized_collection.py",
+      "symbols": [
+        "test_parameterized_collection_contract"
+      ],
+      "decision_id": "B-D03",
+      "obligation_ids": [
+        "B-D03-O01",
+        "B-D03-O02"
+      ]
+    },
+    "T8": {
+      "path": "tests/test_blog_source_mapping.py",
+      "symbols": [
+        "test_blog_source_mapping_contract"
+      ],
+      "decision_id": "B-D03",
+      "obligation_ids": [
+        "B-D03-O01",
+        "B-D03-O02"
+      ]
+    }
+  },
+  "checks": [
+    {
+      "target_ids": [
+        "T1",
+        "T2",
+        "T3",
+        "T4",
+        "T6",
+        "T7",
+        "T8"
+      ],
+      "test": {
+        "type": "command",
+        "value": "/home/ubuntu/root/company-intelligence-platform/.venv/bin/python -B -m pytest -q -p no:cacheprovider tests/test_parameterized_collection.py tests/test_blog_source_mapping.py tests/test_cli_workflows.py tests/test_current_jobs.py tests/test_query_contract.py tests/test_job_search.py tests/test_source_catalog.py tests/test_api_request_contract.py",
+        "timeout_seconds": 300,
+        "provider_backed": false
+      },
+      "assertion": "임의 회사/기간/페이지 allowlist 수집; SEC concept/기간/단위 및 DART 기존 모든 행 보존; BEA catalog와 관측 구분; 직원 공시/공고 수 구분; 1 snapshot 추이 금지"
+    }
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "contract_version": "atomic-json-patch-receipt-v1",
+  "target": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/decisions/11-d-11.json",
+  "outcome": "pass",
+  "before_sha256": "361aaa376869cacc5b7b12b49432eabda729ac07097d3dc64d13f84866935249",
+  "after_sha256": "20281eef0ebacc3a0c5427b3aa66378a962ff4ff7eb2bf0e18fbc2fb5200d526",
+  "proposed_after_sha256": "20281eef0ebacc3a0c5427b3aa66378a962ff4ff7eb2bf0e18fbc2fb5200d526",
+  "operations": [
+    {
+      "op": "test",
+      "path": "/implementation_targets"
+    },
+    {
+      "op": "add",
+      "path": "/implementation_change_ids"
+    }
+  ],
+  "backup": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/.mutation-journal/preimages/sha256-361aaa376869cacc5b7b12b49432eabda729ac07097d3dc64d13f84866935249.json",
+  "journal": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/.mutation-journal/mutations/f285dabc01dd8931f84708b804da51761a711148a9bb6bd92dcac09de6101b25.json",
+  "mutation_id": "prepare-d11-change-ids",
+  "validators": [
+    {
+      "command": [
+        "python3",
+        "-m",
+        "json.tool",
+        "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/decisions/11-d-11.json"
+      ],
+      "returncode": 0,
+      "stdout_tail": "s\\ub294 Git \\ucd94\\uc801 \\ub300\\uc0c1\\uc774 \\uc544\\ub2c8\\uba70 \\ub7f0\\ud0c0\\uc784 provider\\u00b7secret\\u00b7network\\uac00 \\ud544\\uc694 \\uc5c6\\uc74c\"\n    ],\n    \"diagram_impacts\": [\n        \"docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/diagrams/matrices/validation-pipeline.flowchart-matrix.json\",\n        \"docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/diagrams/mermaid/validation-pipeline.mmd\",\n        \"docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/diagrams/mermaid/validation-pipeline.svg\",\n        \"docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/diagrams/mermaid/validation-pipeline.png\"\n    ],\n    \"context_topic_ids\": [\n        \"diagram-toolchain\",\n        \"diagram-validation\",\n        \"mermaid-renderer\"\n    ],\n    \"implementation_change_ids\": [\n        \"file-change-11fe041e9525\",\n        \"file-change-2cb2323e87c8\",\n        \"file-change-368e35f4988c\",\n        \"file-change-46574042dc93\",\n        \"file-change-970fbb67544b\",\n        \"file-change-b9c763c03407\",\n        \"file-change-bc37d034bad5\",\n        \"file-change-cadd50729db0\"\n    ]\n}\n",
+      "stderr_tail": ""
+    }
+  ],
+  "completed_at": "2026-09-15T06:54:14.992952+00:00"
+}

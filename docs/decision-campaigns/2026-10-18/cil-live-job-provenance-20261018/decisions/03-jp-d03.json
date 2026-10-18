@@ -1,0 +1,109 @@
+{
+  "decision_id": "JP-D03",
+  "sequence": 3,
+  "unit_id": "CIL-C11-six-workbooks-url-recovery",
+  "title": "6대 공공 채용 엑셀 워크북 체코 URL 100% 복원 및 24열 하이퍼링크 증강",
+  "status": "decision-required",
+  "question": "체코 워크북에서 누락되었던 196건의 URL을 어떻게 100% 복원하고, 6개 워크북 전체를 24열 하이퍼링크 구조로 어떻게 업그레이드할 것인가?",
+  "five_w_one_h": {
+    "who": "6대 IT경영 채용 워크북 생성 파이프라인",
+    "what": "generate_six_it_management_workbooks.py 리팩토링 및 6대 워크북 24열 갱신",
+    "where": "scripts/generate_six_it_management_workbooks.py 및 6개 .xlsx 파일",
+    "when": "2026-10-18 워크북 갱신 단계",
+    "why": "체코 URL 보유율을 0%에서 100%로 복구하고, 엑셀 사용자에게 클릭 가능한 하이퍼링크 및 실시간 상태 정보를 제공하기 위함",
+    "how": "JobSchemaContract 적용, Col 16에 =HYPERLINK() 수식 주입, 마감일/실시간상태/학력 컬럼 증강"
+  },
+  "evidence_refs": [
+    {
+      "evidence_id": "E-WORKBOOK-AUDIT",
+      "source_type": "local-document",
+      "locator": "czech-public-sector-it-management-jobs.xlsx",
+      "content_hash": "sha256:2e3f47ddd0d54d8c72d84657cae56a683f6e39be9437d6a9dac1fe15ba8f0bb7",
+      "line_range": "1-200",
+      "question": "기존 체코 채용 워크북의 URL 컬럼 상태는 어떠한가?",
+      "observation_summary": "전수 조사 결과 체코 175건 및 체코 석박사 21건의 Col 15가 100% None으로 누락되어 있었음",
+      "observed_fact": "전수 조사 결과 체코 175건 및 체코 석박사 21건의 Col 15가 100% None으로 누락되어 있었음"
+    }
+  ],
+  "facts": [
+    "한국(423건/107건)과 슬로바키아(10건/5건)는 이미 URL 100% 보유 중이었음",
+    "체코 원천 CSV에는 portal_id가 전수 존재하므로 100% 복원 가능함"
+  ],
+  "conflicts": [],
+  "unimplemented": ["스크립트 수정 및 6개 엑셀 파일 재생성 대기"],
+  "options": [
+    {
+      "option_id": "A",
+      "description": "체코 URL을 단순 수작업으로 채우기",
+      "impact": {
+        "data": "수작업 갱신",
+        "schema_api": "기존 유지",
+        "ux": "일부 링크 연결",
+        "performance": "변동 없음",
+        "cost": "0원",
+        "security": "변동 없음",
+        "migration": "불필요",
+        "tests": "기존 통과"
+      },
+      "opportunity_costs": ["재생성 시 다시 누락될 위험 존재"]
+    },
+    {
+      "option_id": "B",
+      "description": "생성 파이프라인에 JobSchemaContract를 영구 결속하고 24열 하이퍼링크 스키마로 확장 (권장)",
+      "impact": {
+        "data": "741건 전수 공고의 URL 보유율 100% 달성",
+        "schema_api": "20열 -> 24열 확장 (HYPERLINK 수식, Freshness, Deadline, License)",
+        "ux": "원클릭 브라우저 공고 확인 가능",
+        "performance": "엑셀 생성 시간 변동 미미",
+        "cost": "추가 비용 0원",
+        "security": "공식 정부 도메인만 링크 연결",
+        "migration": "기존 컬럼 1~15 순서 보존",
+        "tests": "tests/test_six_workbooks_provenance.py 전수 Green"
+      },
+      "opportunity_costs": ["기존 20열 엑셀 뷰어와의 호환성 검토 필요 (기존 열 순서 100% 보존으로 해결)"]
+    }
+  ],
+  "recommended_option_id": "B",
+  "recommendation_reason": "데이터 완전성 100% 달성 및 엑셀 사용자 UX 혁신을 위해 필수적임",
+  "impact": {
+    "data": "741건 전수 공고의 URL 보유율 100% 달성",
+    "schema_api": "20열 -> 24열 확장 (HYPERLINK 수식, Freshness, Deadline, License)",
+    "ux": "원클릭 브라우저 공고 확인 가능",
+    "performance": "엑셀 생성 시간 변동 미미",
+    "cost": "추가 비용 0원",
+    "security": "공식 정부 도메인만 링크 연결",
+    "migration": "기존 컬럼 1~15 순서 보존",
+    "tests": "tests/test_six_workbooks_provenance.py 전수 Green"
+  },
+  "opportunity_costs": ["워크북 재생성 시간 5초 소요"],
+  "dependencies": ["JP-D01", "JP-D02"],
+  "dependency_waivers": {},
+  "accepted_decision": null,
+  "implementation_targets": [
+    "scripts/generate_six_it_management_workbooks.py",
+    "tests/test_six_workbooks_provenance.py"
+  ],
+  "implementation_obligations": [
+    {
+      "obligation_id": "JP-D03-O01",
+      "kind": "implementation",
+      "statement": "체코 공고 196건 전수에 대해 MPSV 포털 상세 URL을 100% 복원하여 주입한다.",
+      "required": true
+    },
+    {
+      "obligation_id": "JP-D03-O02",
+      "kind": "boundary",
+      "statement": "Col 16에 주입되는 HYPERLINK 수식의 구문 오류가 없어야 하며 엑셀 로드 시 클릭 가능해야 한다.",
+      "required": true
+    }
+  ],
+  "implementation_change_ids": [
+    "file-change-jp-d03-01",
+    "file-change-jp-d03-02"
+  ],
+  "validation_requirements": [
+    "tests/test_six_workbooks_provenance.py 실행하여 6개 파일 전체 행(741건)의 URL 100% 보유 검증"
+  ],
+  "diagram_impacts": ["엑셀 워크북 산출물 매핑 반영"],
+  "context_topic_ids": ["CIL-C11-six-workbooks-url-recovery"]
+}

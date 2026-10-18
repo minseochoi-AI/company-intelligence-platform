@@ -33,6 +33,26 @@ def test_financial_metrics_cashflow_and_margins():
     assert math.isclose(result["fcf_margin"], 0.1)
 
 
+def test_financial_metrics_liquidity_and_solvency():
+    result = financial_metrics(
+        {
+            "current_assets": 200,
+            "inventory": 50,
+            "cash": 60,
+            "current_liabilities": 100,
+            "debt": 150,
+            "equity": 250,
+            "cfo": 30,
+        }
+    )
+    assert math.isclose(result["current_ratio"], 2.0)
+    assert math.isclose(result["quick_ratio"], 1.5)
+    assert math.isclose(result["cash_ratio"], 0.6)
+    assert math.isclose(result["debt_to_equity"], 0.6)
+    assert math.isclose(result["operating_cash_flow_ratio"], 0.3)
+    assert math.isclose(result["working_capital"], 100.0)
+
+
 def test_ranking_is_peer_scoped_and_lower_leverage_is_better():
     rows = [
         {

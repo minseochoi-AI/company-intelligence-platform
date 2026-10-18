@@ -1,0 +1,7 @@
+Authorized plans applied within 29 exact CREATE/MODIFY paths.
+Post-implementation results: receipts/post-implementation-results.json
+Post-implementation receipt SHA-256: ee5a92e2cc9c2f0e7fbe4d42353fc8f80a50e88c9ba8b9cb8af0a6fe9da601dc
+Observed cohorts: 5
+Observed operations: 29
+git diff --check: exit 0
+External provider invocations: not performed

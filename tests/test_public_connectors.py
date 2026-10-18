@@ -31,6 +31,63 @@ def test_public_korea_probes_use_explicit_namespaces(monkeypatch, tmp_path):
     assert probes[-1].params["serviceKey"] == "test-secret"
 
 
+def test_public_korea_job_taxonomy_probes_and_xml_normalizers(monkeypatch, tmp_path):
+    monkeypatch.setenv("HRDKOREA_NCS_API_KEY", "hrd-secret-key")
+    monkeypatch.setenv("WORKNET_JOB_DUTY_API_KEY", "worknet-secret-key")
+
+    probes = build_probes(Settings.from_env(tmp_path), {"hrdkorea", "worknet"})
+    assert [p.id for p in probes] == ["hrdkorea_ncs_duty", "worknet_job_duty_bridge"]
+
+    hrd_probe = probes[0]
+    assert hrd_probe.params["serviceKey"] == "hrd-secret-key"
+    assert hrd_probe.required_paths == ["items.0.ncs_sub_cd"]
+
+    # Verify real raw XML body normalization for HRD Korea
+    ncs_xml = """<?xml version="1.0" encoding="UTF-8"?>
+    <response>
+        <header><resultCode>00</resultCode><resultMsg>NORMAL SERVICE.</resultMsg></header>
+        <body>
+            <items>
+                <item>
+                    <ncsLclsCd>02</ncsLclsCd>
+                    <ncsMclsCd>0201</ncsMclsCd>
+                    <ncsSclsCd>020101</ncsSclsCd>
+                    <ncsSubCd>02010101</ncsSubCd>
+                    <ncsSubNm>빅데이터분석</ncsSubNm>
+                    <dutyCd>020101</dutyCd>
+                    <compUnitCd>0201010101_16v3</compUnitCd>
+                </item>
+            </items>
+            <totalCount>1</totalCount>
+        </body>
+    </response>""".encode("utf-8")
+    normalized_ncs = hrd_probe.normalizer(ncs_xml, "application/xml")
+    assert normalized_ncs["result_code"] == "00"
+    assert normalized_ncs["items"][0]["ncs_sub_cd"] == "02010101"
+    assert normalized_ncs["items"][0]["ncsSubCd"] == "02010101"
+    assert normalized_ncs["items"][0]["duty_cd"] == "020101"
+
+    wn_probe = probes[1]
+    assert wn_probe.params["authKey"] == "worknet-secret-key"
+    assert wn_probe.required_paths == ["duties.0.ncs_cl_cd"]
+
+    # Verify real raw XML body normalization for Worknet
+    worknet_xml = """<?xml version="1.0" encoding="UTF-8"?>
+    <jobDutyList>
+        <total>1</total>
+        <jobDuty>
+            <dutyCd>020101</dutyCd>
+            <dutyNm>빅데이터기획</dutyNm>
+            <ncsClCd>02010101</ncsClCd>
+        </jobDuty>
+    </jobDutyList>""".encode("utf-8")
+    normalized_wn = wn_probe.normalizer(worknet_xml, "application/xml")
+    assert normalized_wn["total"] == 1
+    assert normalized_wn["duties"][0]["ncs_cl_cd"] == "02010101"
+    assert normalized_wn["duties"][0]["ncsClCd"] == "02010101"
+    assert normalized_wn["duties"][0]["duty_cd"] == "020101"
+
+
 def test_alio_organization_falls_back_to_display_name_without_claiming_identity():
     evidence = alio_context_evidence(
         {"apbaId": "", "apbaNa": None, "title": "근로복지공단", "apbaTypeNa": "준정부기관"}

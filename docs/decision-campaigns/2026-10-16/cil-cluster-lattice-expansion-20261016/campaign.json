@@ -1,0 +1,60 @@
+{
+  "schema_version": "1.6.0",
+  "campaign_id": "cil-cluster-lattice-expansion-20261016",
+  "objective": "5계층 조합형 클러스터 래티스 구축 및 엑셀 시트 07~09 심슨의 역설 해소",
+  "repository_root": "/home/ubuntu/root/company-intelligence-platform",
+  "created_date": "2026-10-16",
+  "status": "draft",
+  "decision_order": [
+    "CL-D01",
+    "CL-D02",
+    "CL-D03",
+    "CL-D04"
+  ],
+  "dependencies": [
+    {
+      "before": "CL-D01",
+      "after": "CL-D02"
+    },
+    {
+      "before": "CL-D01",
+      "after": "CL-D03"
+    },
+    {
+      "before": "CL-D02",
+      "after": "CL-D03"
+    },
+    {
+      "before": "CL-D03",
+      "after": "CL-D04"
+    }
+  ],
+  "implementation_authorization": {
+    "authorized": false,
+    "authorized_by": null,
+    "authorized_at": null,
+    "scope": [],
+    "authorized_plan_refs": []
+  },
+  "implementation_cohorts": [],
+  "context_index_path": "docs/implementation-context-index.json",
+  "component_inventory_path": null,
+  "component_inventory_sha256": null,
+  "workbook_path": "docs/decision-campaigns/2026-10-16/cil-cluster-lattice-expansion-20261016/decision-workbook.md",
+  "decision_files": {
+    "CL-D01": "docs/decision-campaigns/2026-10-16/cil-cluster-lattice-expansion-20261016/decisions/01-cl-d01.json",
+    "CL-D02": "docs/decision-campaigns/2026-10-16/cil-cluster-lattice-expansion-20261016/decisions/02-cl-d02.json",
+    "CL-D03": "docs/decision-campaigns/2026-10-16/cil-cluster-lattice-expansion-20261016/decisions/03-cl-d03.json",
+    "CL-D04": "docs/decision-campaigns/2026-10-16/cil-cluster-lattice-expansion-20261016/decisions/04-cl-d04.json"
+  },
+  "receipt_paths": {
+    "implementation": "docs/decision-campaigns/2026-10-16/cil-cluster-lattice-expansion-20261016/receipts/implementation.json",
+    "validation": "docs/decision-campaigns/2026-10-16/cil-cluster-lattice-expansion-20261016/receipts/validation.json",
+    "diagrams": "docs/decision-campaigns/2026-10-16/cil-cluster-lattice-expansion-20261016/receipts/diagrams.json"
+  },
+  "receipt_manifest_paths": {
+    "implementation": "docs/decision-campaigns/2026-10-16/cil-cluster-lattice-expansion-20261016/receipts/current-implementation.json",
+    "validation": "docs/decision-campaigns/2026-10-16/cil-cluster-lattice-expansion-20261016/receipts/current-validation.json",
+    "diagrams": "docs/decision-campaigns/2026-10-16/cil-cluster-lattice-expansion-20261016/receipts/current-diagrams.json"
+  }
+}

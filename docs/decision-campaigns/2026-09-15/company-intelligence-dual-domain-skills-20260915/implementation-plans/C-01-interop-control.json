@@ -1,0 +1,602 @@
+{
+  "contract_version": "1.2.0",
+  "plan_id": "C-01-interop-control-plan-r1",
+  "owner": {
+    "kind": "campaign-cohort",
+    "id": "C-01-interop-control"
+  },
+  "source_refs": [
+    {
+      "id": "D-01",
+      "path": "docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/decisions/01-d-01.json",
+      "sha256": "sha256:59d08d3c13ed024afc2561f65df51ec87fff57b39069b27472cbb0c77e51c41e"
+    },
+    {
+      "id": "D-02",
+      "path": "docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/decisions/02-d-02.json",
+      "sha256": "sha256:2374807855137b7f344fa501e522dddedc1917483f7a2d98f0829722564e6871"
+    },
+    {
+      "id": "D-03",
+      "path": "docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/decisions/03-d-03.json",
+      "sha256": "sha256:e13ebac8edb7c9e437aee041247f29634632b8617c015fbf6ce947d6383096f4"
+    },
+    {
+      "id": "D-06",
+      "path": "docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/decisions/06-d-06.json",
+      "sha256": "sha256:9fb0ea6b53c88813c5d381084e3cc018e8cfb9bc94e5528f789159c395cda68c"
+    },
+    {
+      "id": "D-07",
+      "path": "docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/decisions/07-d-07.json",
+      "sha256": "sha256:7bc036c1f678228efc35a6bc1e0e7ba8da826a89693df0a76c28a2e159089ac9"
+    },
+    {
+      "id": "D-10",
+      "path": "docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/decisions/10-d-10.json",
+      "sha256": "sha256:68528f71512ab689044fb5e4230ce5fda8645f4fff896a65ba7f635111550fb4"
+    }
+  ],
+  "status": "contract-ready",
+  "change_slices": [
+    {
+      "slice_id": "C-01-interop-control-slice",
+      "behavior": "승인된 결정을 파일 단위로 구현하고 독립 검증한다.",
+      "dependencies": [],
+      "operations": [
+        {
+          "change_id": "C01-001",
+          "operation": "CREATE",
+          "path": ".codex/shared/company-intelligence-interop/domain-plan.schema.json",
+          "symbols": [
+            "domain-plan.schema.json"
+          ],
+          "current_state": "파일이 없음",
+          "source_hash": null,
+          "result_hash": null,
+          "after_state": "career와 venture DomainPlan의 공통 구조를 검증한다.",
+          "rationale": "승인된 결정의 파일 단위 구현 대상이다.",
+          "dependencies": [],
+          "public_contract_impacts": [
+            "버전된 로컬 계약 또는 스킬 동작을 추가한다."
+          ],
+          "compatibility": "기존 CLI와 저장 artifact를 유지하며 새 필드는 additive로 처리한다.",
+          "migration": "기존 artifact는 변경하지 않고 새 schema version에서 선택적으로 사용한다.",
+          "rollback": "CREATE 파일은 제거하고 MODIFY 파일은 기록된 preimage로 복원한다.",
+          "authorization_boundary": "현재 저장소의 명시된 파일만 변경하며 외부 provider·설치·배포를 수행하지 않는다.",
+          "contributes_to": [
+            "D-02"
+          ],
+          "symbol_changes": [
+            {
+              "symbol": "domain-plan.schema.json",
+              "intent": "career와 venture DomainPlan의 공통 구조를 검증한다.",
+              "decision_id": "D-02"
+            }
+          ],
+          "intent_change_ids": [
+            "D-02-intent"
+          ],
+          "contribution_refs": [
+            {
+              "decision_id": "D-02",
+              "path": "docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/decisions/02-d-02.json",
+              "sha256": "sha256:2374807855137b7f344fa501e522dddedc1917483f7a2d98f0829722564e6871",
+              "symbols": [
+                "domain-plan.schema.json"
+              ],
+              "intent_change_ids": [
+                "D-02-intent"
+              ]
+            }
+          ]
+        },
+        {
+          "change_id": "C01-002",
+          "operation": "CREATE",
+          "path": ".codex/shared/company-intelligence-interop/domain-plan-ref.schema.json",
+          "symbols": [
+            "domain-plan-ref.schema.json"
+          ],
+          "current_state": "파일이 없음",
+          "source_hash": null,
+          "result_hash": null,
+          "after_state": "DomainPlan 외부 참조의 hash와 kind를 검증한다.",
+          "rationale": "승인된 결정의 파일 단위 구현 대상이다.",
+          "dependencies": [],
+          "public_contract_impacts": [
+            "버전된 로컬 계약 또는 스킬 동작을 추가한다."
+          ],
+          "compatibility": "기존 CLI와 저장 artifact를 유지하며 새 필드는 additive로 처리한다.",
+          "migration": "기존 artifact는 변경하지 않고 새 schema version에서 선택적으로 사용한다.",
+          "rollback": "CREATE 파일은 제거하고 MODIFY 파일은 기록된 preimage로 복원한다.",
+          "authorization_boundary": "현재 저장소의 명시된 파일만 변경하며 외부 provider·설치·배포를 수행하지 않는다.",
+          "contributes_to": [
+            "D-02",
+            "D-10"
+          ],
+          "symbol_changes": [
+            {
+              "symbol": "domain-plan-ref.schema.json",
+              "intent": "DomainPlan 외부 참조의 hash와 kind를 검증한다.",
+              "decision_id": "D-02"
+            }
+          ],
+          "intent_change_ids": [
+            "D-02-intent",
+            "D-10-intent"
+          ],
+          "contribution_refs": [
+            {
+              "decision_id": "D-02",
+              "path": "docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/decisions/02-d-02.json",
+              "sha256": "sha256:2374807855137b7f344fa501e522dddedc1917483f7a2d98f0829722564e6871",
+              "symbols": [
+                "domain-plan-ref.schema.json"
+              ],
+              "intent_change_ids": [
+                "D-02-intent"
+              ]
+            },
+            {
+              "decision_id": "D-10",
+              "path": "docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/decisions/10-d-10.json",
+              "sha256": "sha256:68528f71512ab689044fb5e4230ce5fda8645f4fff896a65ba7f635111550fb4",
+              "symbols": [
+                "domain-plan-ref.schema.json"
+              ],
+              "intent_change_ids": [
+                "D-10-intent"
+              ]
+            }
+          ]
+        },
+        {
+          "change_id": "C01-003",
+          "operation": "CREATE",
+          "path": ".codex/shared/company-intelligence-interop/evidence-bundle.schema.json",
+          "symbols": [
+            "evidence-bundle.schema.json"
+          ],
+          "current_state": "파일이 없음",
+          "source_hash": null,
+          "result_hash": null,
+          "after_state": "증거 bundle manifest를 검증한다.",
+          "rationale": "승인된 결정의 파일 단위 구현 대상이다.",
+          "dependencies": [],
+          "public_contract_impacts": [
+            "버전된 로컬 계약 또는 스킬 동작을 추가한다."
+          ],
+          "compatibility": "기존 CLI와 저장 artifact를 유지하며 새 필드는 additive로 처리한다.",
+          "migration": "기존 artifact는 변경하지 않고 새 schema version에서 선택적으로 사용한다.",
+          "rollback": "CREATE 파일은 제거하고 MODIFY 파일은 기록된 preimage로 복원한다.",
+          "authorization_boundary": "현재 저장소의 명시된 파일만 변경하며 외부 provider·설치·배포를 수행하지 않는다.",
+          "contributes_to": [
+            "D-03"
+          ],
+          "symbol_changes": [
+            {
+              "symbol": "evidence-bundle.schema.json",
+              "intent": "증거 bundle manifest를 검증한다.",
+              "decision_id": "D-03"
+            }
+          ],
+          "intent_change_ids": [
+            "D-03-intent"
+          ],
+          "contribution_refs": [
+            {
+              "decision_id": "D-03",
+              "path": "docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/decisions/03-d-03.json",
+              "sha256": "sha256:e13ebac8edb7c9e437aee041247f29634632b8617c015fbf6ce947d6383096f4",
+              "symbols": [
+                "evidence-bundle.schema.json"
+              ],
+              "intent_change_ids": [
+                "D-03-intent"
+              ]
+            }
+          ]
+        },
+        {
+          "change_id": "C01-004",
+          "operation": "CREATE",
+          "path": ".codex/shared/company-intelligence-interop/evidence-bundle-ref.schema.json",
+          "symbols": [
+            "evidence-bundle-ref.schema.json"
+          ],
+          "current_state": "파일이 없음",
+          "source_hash": null,
+          "result_hash": null,
+          "after_state": "증거 bundle 참조를 검증한다.",
+          "rationale": "승인된 결정의 파일 단위 구현 대상이다.",
+          "dependencies": [],
+          "public_contract_impacts": [
+            "버전된 로컬 계약 또는 스킬 동작을 추가한다."
+          ],
+          "compatibility": "기존 CLI와 저장 artifact를 유지하며 새 필드는 additive로 처리한다.",
+          "migration": "기존 artifact는 변경하지 않고 새 schema version에서 선택적으로 사용한다.",
+          "rollback": "CREATE 파일은 제거하고 MODIFY 파일은 기록된 preimage로 복원한다.",
+          "authorization_boundary": "현재 저장소의 명시된 파일만 변경하며 외부 provider·설치·배포를 수행하지 않는다.",
+          "contributes_to": [
+            "D-03"
+          ],
+          "symbol_changes": [
+            {
+              "symbol": "evidence-bundle-ref.schema.json",
+              "intent": "증거 bundle 참조를 검증한다.",
+              "decision_id": "D-03"
+            }
+          ],
+          "intent_change_ids": [
+            "D-03-intent"
+          ],
+          "contribution_refs": [
+            {
+              "decision_id": "D-03",
+              "path": "docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/decisions/03-d-03.json",
+              "sha256": "sha256:e13ebac8edb7c9e437aee041247f29634632b8617c015fbf6ce947d6383096f4",
+              "symbols": [
+                "evidence-bundle-ref.schema.json"
+              ],
+              "intent_change_ids": [
+                "D-03-intent"
+              ]
+            }
+          ]
+        },
+        {
+          "change_id": "C01-005",
+          "operation": "CREATE",
+          "path": ".codex/shared/company-intelligence-interop/dual-path-comparison.schema.json",
+          "symbols": [
+            "dual-path-comparison.schema.json"
+          ],
+          "current_state": "파일이 없음",
+          "source_hash": null,
+          "result_hash": null,
+          "after_state": "career와 venture 비교 결과를 검증한다.",
+          "rationale": "승인된 결정의 파일 단위 구현 대상이다.",
+          "dependencies": [],
+          "public_contract_impacts": [
+            "버전된 로컬 계약 또는 스킬 동작을 추가한다."
+          ],
+          "compatibility": "기존 CLI와 저장 artifact를 유지하며 새 필드는 additive로 처리한다.",
+          "migration": "기존 artifact는 변경하지 않고 새 schema version에서 선택적으로 사용한다.",
+          "rollback": "CREATE 파일은 제거하고 MODIFY 파일은 기록된 preimage로 복원한다.",
+          "authorization_boundary": "현재 저장소의 명시된 파일만 변경하며 외부 provider·설치·배포를 수행하지 않는다.",
+          "contributes_to": [
+            "D-10"
+          ],
+          "symbol_changes": [
+            {
+              "symbol": "dual-path-comparison.schema.json",
+              "intent": "career와 venture 비교 결과를 검증한다.",
+              "decision_id": "D-10"
+            }
+          ],
+          "intent_change_ids": [
+            "D-10-intent"
+          ],
+          "contribution_refs": [
+            {
+              "decision_id": "D-10",
+              "path": "docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/decisions/10-d-10.json",
+              "sha256": "sha256:68528f71512ab689044fb5e4230ce5fda8645f4fff896a65ba7f635111550fb4",
+              "symbols": [
+                "dual-path-comparison.schema.json"
+              ],
+              "intent_change_ids": [
+                "D-10-intent"
+              ]
+            }
+          ]
+        },
+        {
+          "change_id": "C01-006",
+          "operation": "CREATE",
+          "path": ".codex/shared/company-intelligence-interop/campaign-link.schema.json",
+          "symbols": [
+            "campaign-link.schema.json"
+          ],
+          "current_state": "파일이 없음",
+          "source_hash": null,
+          "result_hash": null,
+          "after_state": "외부 campaign link를 검증한다.",
+          "rationale": "승인된 결정의 파일 단위 구현 대상이다.",
+          "dependencies": [],
+          "public_contract_impacts": [
+            "버전된 로컬 계약 또는 스킬 동작을 추가한다."
+          ],
+          "compatibility": "기존 CLI와 저장 artifact를 유지하며 새 필드는 additive로 처리한다.",
+          "migration": "기존 artifact는 변경하지 않고 새 schema version에서 선택적으로 사용한다.",
+          "rollback": "CREATE 파일은 제거하고 MODIFY 파일은 기록된 preimage로 복원한다.",
+          "authorization_boundary": "현재 저장소의 명시된 파일만 변경하며 외부 provider·설치·배포를 수행하지 않는다.",
+          "contributes_to": [
+            "D-07"
+          ],
+          "symbol_changes": [
+            {
+              "symbol": "campaign-link.schema.json",
+              "intent": "외부 campaign link를 검증한다.",
+              "decision_id": "D-07"
+            }
+          ],
+          "intent_change_ids": [
+            "D-07-intent"
+          ],
+          "contribution_refs": [
+            {
+              "decision_id": "D-07",
+              "path": "docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/decisions/07-d-07.json",
+              "sha256": "sha256:7bc036c1f678228efc35a6bc1e0e7ba8da826a89693df0a76c28a2e159089ac9",
+              "symbols": [
+                "campaign-link.schema.json"
+              ],
+              "intent_change_ids": [
+                "D-07-intent"
+              ]
+            }
+          ]
+        },
+        {
+          "change_id": "C01-007",
+          "operation": "CREATE",
+          "path": ".codex/shared/company-intelligence-interop/connector-candidates.json",
+          "symbols": [
+            "connector-candidates.json"
+          ],
+          "current_state": "파일이 없음",
+          "source_hash": null,
+          "result_hash": null,
+          "after_state": "무료 connector 후보를 production 의존성 없이 기록한다.",
+          "rationale": "승인된 결정의 파일 단위 구현 대상이다.",
+          "dependencies": [],
+          "public_contract_impacts": [
+            "버전된 로컬 계약 또는 스킬 동작을 추가한다."
+          ],
+          "compatibility": "기존 CLI와 저장 artifact를 유지하며 새 필드는 additive로 처리한다.",
+          "migration": "기존 artifact는 변경하지 않고 새 schema version에서 선택적으로 사용한다.",
+          "rollback": "CREATE 파일은 제거하고 MODIFY 파일은 기록된 preimage로 복원한다.",
+          "authorization_boundary": "현재 저장소의 명시된 파일만 변경하며 외부 provider·설치·배포를 수행하지 않는다.",
+          "contributes_to": [
+            "D-06"
+          ],
+          "symbol_changes": [
+            {
+              "symbol": "connector-candidates.json",
+              "intent": "무료 connector 후보를 production 의존성 없이 기록한다.",
+              "decision_id": "D-06"
+            }
+          ],
+          "intent_change_ids": [
+            "D-06-intent"
+          ],
+          "contribution_refs": [
+            {
+              "decision_id": "D-06",
+              "path": "docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/decisions/06-d-06.json",
+              "sha256": "sha256:9fb0ea6b53c88813c5d381084e3cc018e8cfb9bc94e5528f789159c395cda68c",
+              "symbols": [
+                "connector-candidates.json"
+              ],
+              "intent_change_ids": [
+                "D-06-intent"
+              ]
+            }
+          ]
+        },
+        {
+          "change_id": "C01-008",
+          "operation": "CREATE",
+          "path": ".codex/shared/company-intelligence-interop/BOUNDARIES.md",
+          "symbols": [
+            "BOUNDARIES.md"
+          ],
+          "current_state": "파일이 없음",
+          "source_hash": null,
+          "result_hash": null,
+          "after_state": "세 스킬과 공통 계약의 소유권 경계를 설명한다.",
+          "rationale": "승인된 결정의 파일 단위 구현 대상이다.",
+          "dependencies": [],
+          "public_contract_impacts": [
+            "버전된 로컬 계약 또는 스킬 동작을 추가한다."
+          ],
+          "compatibility": "기존 CLI와 저장 artifact를 유지하며 새 필드는 additive로 처리한다.",
+          "migration": "기존 artifact는 변경하지 않고 새 schema version에서 선택적으로 사용한다.",
+          "rollback": "CREATE 파일은 제거하고 MODIFY 파일은 기록된 preimage로 복원한다.",
+          "authorization_boundary": "현재 저장소의 명시된 파일만 변경하며 외부 provider·설치·배포를 수행하지 않는다.",
+          "contributes_to": [
+            "D-01",
+            "D-03",
+            "D-06",
+            "D-07",
+            "D-10"
+          ],
+          "symbol_changes": [
+            {
+              "symbol": "BOUNDARIES.md",
+              "intent": "세 스킬과 공통 계약의 소유권 경계를 설명한다.",
+              "decision_id": "D-01"
+            }
+          ],
+          "intent_change_ids": [
+            "D-01-intent",
+            "D-03-intent",
+            "D-06-intent",
+            "D-07-intent",
+            "D-10-intent"
+          ],
+          "contribution_refs": [
+            {
+              "decision_id": "D-01",
+              "path": "docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/decisions/01-d-01.json",
+              "sha256": "sha256:59d08d3c13ed024afc2561f65df51ec87fff57b39069b27472cbb0c77e51c41e",
+              "symbols": [
+                "BOUNDARIES.md"
+              ],
+              "intent_change_ids": [
+                "D-01-intent"
+              ]
+            },
+            {
+              "decision_id": "D-03",
+              "path": "docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/decisions/03-d-03.json",
+              "sha256": "sha256:e13ebac8edb7c9e437aee041247f29634632b8617c015fbf6ce947d6383096f4",
+              "symbols": [
+                "BOUNDARIES.md"
+              ],
+              "intent_change_ids": [
+                "D-03-intent"
+              ]
+            },
+            {
+              "decision_id": "D-06",
+              "path": "docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/decisions/06-d-06.json",
+              "sha256": "sha256:9fb0ea6b53c88813c5d381084e3cc018e8cfb9bc94e5528f789159c395cda68c",
+              "symbols": [
+                "BOUNDARIES.md"
+              ],
+              "intent_change_ids": [
+                "D-06-intent"
+              ]
+            },
+            {
+              "decision_id": "D-07",
+              "path": "docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/decisions/07-d-07.json",
+              "sha256": "sha256:7bc036c1f678228efc35a6bc1e0e7ba8da826a89693df0a76c28a2e159089ac9",
+              "symbols": [
+                "BOUNDARIES.md"
+              ],
+              "intent_change_ids": [
+                "D-07-intent"
+              ]
+            },
+            {
+              "decision_id": "D-10",
+              "path": "docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/decisions/10-d-10.json",
+              "sha256": "sha256:68528f71512ab689044fb5e4230ce5fda8645f4fff896a65ba7f635111550fb4",
+              "symbols": [
+                "BOUNDARIES.md"
+              ],
+              "intent_change_ids": [
+                "D-10-intent"
+              ]
+            }
+          ]
+        },
+        {
+          "change_id": "C01-009",
+          "operation": "CREATE",
+          "path": ".codex/shared/company-intelligence-interop/interop.py",
+          "symbols": [
+            "interop.py"
+          ],
+          "current_state": "파일이 없음",
+          "source_hash": null,
+          "result_hash": null,
+          "after_state": "hash 검증과 DualPathComparison 생성을 결정론적으로 수행한다.",
+          "rationale": "승인된 결정의 파일 단위 구현 대상이다.",
+          "dependencies": [],
+          "public_contract_impacts": [
+            "버전된 로컬 계약 또는 스킬 동작을 추가한다."
+          ],
+          "compatibility": "기존 CLI와 저장 artifact를 유지하며 새 필드는 additive로 처리한다.",
+          "migration": "기존 artifact는 변경하지 않고 새 schema version에서 선택적으로 사용한다.",
+          "rollback": "CREATE 파일은 제거하고 MODIFY 파일은 기록된 preimage로 복원한다.",
+          "authorization_boundary": "현재 저장소의 명시된 파일만 변경하며 외부 provider·설치·배포를 수행하지 않는다.",
+          "contributes_to": [
+            "D-02",
+            "D-03",
+            "D-10"
+          ],
+          "symbol_changes": [
+            {
+              "symbol": "interop.py",
+              "intent": "hash 검증과 DualPathComparison 생성을 결정론적으로 수행한다.",
+              "decision_id": "D-02"
+            }
+          ],
+          "intent_change_ids": [
+            "D-02-intent",
+            "D-03-intent",
+            "D-10-intent"
+          ],
+          "contribution_refs": [
+            {
+              "decision_id": "D-02",
+              "path": "docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/decisions/02-d-02.json",
+              "sha256": "sha256:2374807855137b7f344fa501e522dddedc1917483f7a2d98f0829722564e6871",
+              "symbols": [
+                "interop.py"
+              ],
+              "intent_change_ids": [
+                "D-02-intent"
+              ]
+            },
+            {
+              "decision_id": "D-03",
+              "path": "docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/decisions/03-d-03.json",
+              "sha256": "sha256:e13ebac8edb7c9e437aee041247f29634632b8617c015fbf6ce947d6383096f4",
+              "symbols": [
+                "interop.py"
+              ],
+              "intent_change_ids": [
+                "D-03-intent"
+              ]
+            },
+            {
+              "decision_id": "D-10",
+              "path": "docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/decisions/10-d-10.json",
+              "sha256": "sha256:68528f71512ab689044fb5e4230ce5fda8645f4fff896a65ba7f635111550fb4",
+              "symbols": [
+                "interop.py"
+              ],
+              "intent_change_ids": [
+                "D-10-intent"
+              ]
+            }
+          ]
+        }
+      ],
+      "routes": [
+        {
+          "route_id": "skill-create-contracts",
+          "skill": "skill-creator",
+          "requirement": "required",
+          "phase": "IMPLEMENT",
+          "purpose": "두 스킬의 공통 계약을 간결하고 검증 가능하게 구성한다.",
+          "expected_artifact": ".codex/shared/company-intelligence-interop/interop.py"
+        }
+      ],
+      "completion_contract": [
+        {
+          "criterion_id": "interop-self-test",
+          "behavior": "python3 .codex/shared/company-intelligence-interop/interop.py self-test",
+          "blocking": true,
+          "owner_skill": "skill-creator",
+          "phase": "VALIDATE",
+          "depends_on_criteria": [],
+          "test": {
+            "type": "command",
+            "value": "python3 .codex/shared/company-intelligence-interop/interop.py self-test",
+            "runner": "command",
+            "timeout_seconds": 180
+          },
+          "expected_result": "exit 0",
+          "failure_marker": "non-zero exit or contract mismatch",
+          "receipt": {
+            "status": "planned",
+            "path": "docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/receipts/criteria/interop-self-test.json",
+            "sha256": "planned"
+          },
+          "status": "planned"
+        }
+      ]
+    }
+  ],
+  "metadata": {
+    "authored_for_scope_sha256": "718e29f2a7c2c7c8a648433d1725f9f53a662267c05880b3cfaad435ee022d28",
+    "preparation_contract": "campaign-global-ownership-v1"
+  }
+}

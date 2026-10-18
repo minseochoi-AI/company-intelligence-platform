@@ -1,0 +1,51 @@
+{
+  "contract_version": "atomic-json-patch-receipt-v1",
+  "target": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/decisions/05-d-05.json",
+  "outcome": "pass",
+  "before_sha256": "70502b59844210d95536c711411a7e45b3f881353b037ef7eab1b1d844e4848d",
+  "after_sha256": "18c41d180948f6c73e3bf5ca76c731b2595a44a34d05f487797e868f76f66dfe",
+  "proposed_after_sha256": "18c41d180948f6c73e3bf5ca76c731b2595a44a34d05f487797e868f76f66dfe",
+  "operations": [
+    {
+      "op": "test",
+      "path": "/dependencies"
+    },
+    {
+      "op": "test",
+      "path": "/facts"
+    },
+    {
+      "op": "test",
+      "path": "/implementation_targets"
+    },
+    {
+      "op": "replace",
+      "path": "/dependencies"
+    },
+    {
+      "op": "replace",
+      "path": "/facts"
+    },
+    {
+      "op": "replace",
+      "path": "/implementation_targets"
+    }
+  ],
+  "backup": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/.mutation-journal/preimages/sha256-70502b59844210d95536c711411a7e45b3f881353b037ef7eab1b1d844e4848d.json",
+  "journal": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/.mutation-journal/mutations/f464dd00734dfe4995557045acc24c3c70ffaed0c380f773232334741e9a03bb.json",
+  "mutation_id": "amend-05-d-05",
+  "validators": [
+    {
+      "command": [
+        "python3",
+        "-m",
+        "json.tool",
+        "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/decisions/05-d-05.json"
+      ],
+      "returncode": 0,
+      "stdout_tail": ",\n        \".codex/skills/kr-defensible-venture-discovery/references/evidence-and-barriers.md\",\n        \".codex/skills/kr-defensible-venture-discovery/references/venture-session.schema.json\",\n        \".codex/skills/kr-defensible-venture-discovery/references/opportunity-hypothesis.schema.json\",\n        \".codex/skills/kr-defensible-venture-discovery/scripts/venture_artifacts.py\"\n    ],\n    \"implementation_change_ids\": [],\n    \"validation_requirements\": [\n        \"CIL \\uc5c6\\uc774\\ub3c4 \\ucc3d\\uc5c5 core workflow\\uac00 \\uc2e4\\ud589\\ub428\",\n        \"CIL bundle\\uc740 \\uacbd\\uc7c1\\uc0ac gap\\uc774 \\uc788\\uc744 \\ub54c\\ub9cc \\uc694\\uad6c\\ub428\",\n        \"\\uc9c1\\uc811 \\uacbd\\uc7c1\\uc0ac 0\\uac74\\uc774 \\ubbf8\\uac1c\\ucc99 \\ud655\\uc815\\uc73c\\ub85c \\ubcc0\\ud658\\ub418\\uc9c0 \\uc54a\\uc74c\",\n        \"venture DomainPlan\\uc758 \\ub2e8\\uacc4\\ub9c8\\ub2e4 evidence \\ub610\\ub294 unresolved gate\\uac00 \\uc874\\uc7ac\\ud568\"\n    ],\n    \"diagram_impacts\": [\n        \"\\ucc3d\\uc5c5 \\ubc94\\uc704 \\uc124\\uc815\\u00b7baseline\\u00b7gap\\u00b7\\uc120\\ud0dd\\uc801 CIL \\uae30\\uc5c5\\uac80\\uc99d\\u00b7venture plan \\ud750\\ub984\"\n    ],\n    \"context_topic_ids\": [\n        \"venture-analysis\",\n        \"optional-company-evidence\"\n    ]\n}\n",
+      "stderr_tail": ""
+    }
+  ],
+  "completed_at": "2026-09-15T05:24:08.875535+00:00"
+}

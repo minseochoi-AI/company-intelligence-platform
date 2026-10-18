@@ -1,0 +1,31 @@
+{
+  "contract_version": "campaign-attempt-manifest-v1",
+  "campaign_id": "company-intelligence-dual-domain-skills-20260915",
+  "active": {
+    "C-01-interop-control": {
+      "path": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/receipts/attempts/sha256-71f9ce499dcae1b188014409990123567b5201d0e848662151a0acaf28959c92.json",
+      "sha256": "71f9ce499dcae1b188014409990123567b5201d0e848662151a0acaf28959c92"
+    },
+    "C-02-cil-runtime": {
+      "path": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/receipts/attempts/sha256-59a61a3c09b2c6c828e31fc109d7a4d764fd339159bf44d4f21be1207419ec0d.json",
+      "sha256": "59a61a3c09b2c6c828e31fc109d7a4d764fd339159bf44d4f21be1207419ec0d"
+    },
+    "C-03-company-analysis-skill": {
+      "path": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/receipts/attempts/sha256-b3652c351b2057f11df2584f8bca68f40de32f0300fbe8c326578e6f02ad5ce6.json",
+      "sha256": "b3652c351b2057f11df2584f8bca68f40de32f0300fbe8c326578e6f02ad5ce6"
+    },
+    "C-04-venture-analysis-skill": {
+      "path": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/receipts/attempts/sha256-6dab3ce28c55e8109142e360d491801ed7774df4ba8e772999264115833474d1.json",
+      "sha256": "6dab3ce28c55e8109142e360d491801ed7774df4ba8e772999264115833474d1"
+    },
+    "C-05-packaging-validation": {
+      "path": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/receipts/attempts/sha256-9da1d56dbfba2e9d312c28b37f044180df8ddc0001da931e0a8132c2c31cc6e8.json",
+      "sha256": "9da1d56dbfba2e9d312c28b37f044180df8ddc0001da931e0a8132c2c31cc6e8"
+    },
+    "C-06-diagram-toolchain": {
+      "path": "docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/receipts/attempts/sha256-0ce970688e11782539dc356f740a2f5cc983b442caaf842bb84f145bbe527b4f.json",
+      "sha256": "0ce970688e11782539dc356f740a2f5cc983b442caaf842bb84f145bbe527b4f"
+    }
+  },
+  "updated_at": "2026-09-15T07:10:57.522036+00:00"
+}

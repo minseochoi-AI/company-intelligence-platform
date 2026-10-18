@@ -1,0 +1,90 @@
+{
+  "contract_version": "implementation-context-packet-v2",
+  "packet_id": "B-C02-report-opinions-packet-dd65ed3c4119",
+  "topics": [
+    "B-C02-report-opinions"
+  ],
+  "capability_ids": [
+    "B-D02"
+  ],
+  "required_refs": [
+    {
+      "content_hash": "ae5f994a0474c592944b5846e584aea3f413cbe706966082ea1e6a2b7a3cbb07",
+      "line_range": "1-103",
+      "observation_summary": "AI 해석과 사용자 판단을 같은 페이지에 분리하며 원천과 계산값에 출처를 결속한다. 기존 의견은 새 AI revision으로 덮어쓰지 않는다.",
+      "path": "docs/decision-campaigns/2026-10-13/cil-four-perspective-blog-20261013/evidence/product-contract-ko.md",
+      "question": "원천·계산·AI 해석·작성자 평가의 별도 revision",
+      "ref_id": "product-contract",
+      "role": "must-read"
+    }
+  ],
+  "current_entry_points": [],
+  "planned_entry_points": [
+    {
+      "kind": "code",
+      "path": "apps/company-report-blog/src/report_blog/models.py",
+      "symbol": "ArticleSpec",
+      "change_id": "file-change-c03ccdb32605"
+    },
+    {
+      "kind": "code",
+      "path": "apps/company-report-blog/src/report_blog/opinions.py",
+      "symbol": "append_evaluation",
+      "change_id": "file-change-3524bc461a72"
+    },
+    {
+      "kind": "code",
+      "path": "apps/company-report-blog/src/report_blog/compose.py",
+      "symbol": "compose_report",
+      "change_id": "file-change-a633d3050cf5"
+    },
+    {
+      "kind": "code",
+      "path": "apps/company-report-blog/src/report_blog/render.py",
+      "symbol": "render_report",
+      "change_id": "file-change-f176652da040"
+    },
+    {
+      "kind": "code",
+      "path": "apps/company-report-blog/templates/report.html",
+      "symbol": "report_template",
+      "change_id": "file-change-b1b432dea9a9"
+    },
+    {
+      "kind": "code",
+      "path": "apps/company-report-blog/schemas/report.schema.json",
+      "symbol": "report.schema",
+      "change_id": "file-change-e6a672c902bc"
+    },
+    {
+      "kind": "code",
+      "path": "apps/company-report-blog/schemas/human-evaluation.schema.json",
+      "symbol": "human-evaluation.schema",
+      "change_id": "file-change-4f661150db5f"
+    },
+    {
+      "kind": "code",
+      "path": "apps/company-report-blog/tests/test_report_contracts.py",
+      "symbol": "test_report_contracts_contract",
+      "change_id": "file-change-3d0882685c44"
+    },
+    {
+      "kind": "code",
+      "path": "apps/company-report-blog/tests/test_human_preservation.py",
+      "symbol": "test_human_preservation_contract",
+      "change_id": "file-change-3f276d628902"
+    },
+    {
+      "kind": "code",
+      "path": "apps/company-report-blog/tests/test_render.py",
+      "symbol": "test_render_contract",
+      "change_id": "file-change-3290aadb47d1"
+    }
+  ],
+  "external_entry_points": [],
+  "invariants": [
+    "AI와 작성자 평가 소유권 분리; 비밀·캠페인 비공개; 기존 CLI 보존; 원격 실행은 별도 승인"
+  ],
+  "unresolved_conflicts": [],
+  "resume_digest": "Prepared B-C02-report-opinions from current decision hashes and one global file-ownership graph."
+}

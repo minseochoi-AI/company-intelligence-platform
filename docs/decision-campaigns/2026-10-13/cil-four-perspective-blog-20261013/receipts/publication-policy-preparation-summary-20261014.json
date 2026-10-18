@@ -1,0 +1,82 @@
+{
+  "date": "2026-10-14",
+  "policy_decision": "B-D09 A ACCEPT",
+  "open_decisions": [
+    "B-D08",
+    "B-D10"
+  ],
+  "cohorts": 7,
+  "implementation_paths": 40,
+  "scope_sha256": "83dd33d54d9ad3eec926e1aeba9c1b92aa98aa7c559474f486daded58f515469",
+  "implementation_authorized": false,
+  "plan_refs": [
+    {
+      "cohort_id": "B-C01-taxonomy",
+      "path": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-10-13/cil-four-perspective-blog-20261013/implementation-plans/B-C01-taxonomy-r1.json",
+      "sha256": "bf1dd343bb2b31c6f6592bf443291d60b656f5ab6b6132743ae423baaf40e754",
+      "status": "contract-ready"
+    },
+    {
+      "cohort_id": "B-C02-report-opinions",
+      "path": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-10-13/cil-four-perspective-blog-20261013/implementation-plans/B-C02-report-opinions-r1.json",
+      "sha256": "a14bb6e7a8bcc9f5fcce99e5add18dbf5097df79ccab4f465ef24caa8b6701a1",
+      "status": "contract-ready"
+    },
+    {
+      "cohort_id": "B-C03-cil-coverage",
+      "path": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-10-13/cil-four-perspective-blog-20261013/implementation-plans/B-C03-cil-coverage-r2.json",
+      "sha256": "ee93bbff2da340e8f5f4599c3ff9a535adfb5c62622df693beac6ce81e022a15",
+      "status": "contract-ready"
+    },
+    {
+      "cohort_id": "B-C04-blogger",
+      "path": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-10-13/cil-four-perspective-blog-20261013/implementation-plans/B-C04-blogger-r1.json",
+      "sha256": "a90bb56bf7aeb54d44781edfe239cf04f810b5cbcb959c5f245e809d6b49a827",
+      "status": "contract-ready"
+    },
+    {
+      "cohort_id": "B-C05-ledger-links",
+      "path": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-10-13/cil-four-perspective-blog-20261013/implementation-plans/B-C05-ledger-links-r1.json",
+      "sha256": "3aeb4014369f0c36ecb19808412dd67d5789f405fd346099b3d36043b262cc1c",
+      "status": "contract-ready"
+    },
+    {
+      "cohort_id": "B-C06-metrics",
+      "path": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-10-13/cil-four-perspective-blog-20261013/implementation-plans/B-C06-metrics-r1.json",
+      "sha256": "a3d09e95e92f039b7022bb03d0f37088fdb3e3f4c9955635f2f5e42f45578fb2",
+      "status": "contract-ready"
+    },
+    {
+      "cohort_id": "B-C07-cli-skill",
+      "path": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-10-13/cil-four-perspective-blog-20261013/implementation-plans/B-C07-cli-skill-r3.json",
+      "sha256": "2cfcb47bcb7101c478d835d86513da12444ef4f791a3224bb985c8da91098c38",
+      "status": "contract-ready"
+    }
+  ],
+  "six_sibling_plan_json_hashes_preserved": true,
+  "previous_c07_r2_preserved": true,
+  "actual_implementation_or_publication": false,
+  "taxonomy_paper_certificate_supply_chain_expansion": "DISCUSS proposal only; not bound to current plans",
+  "verification": {
+    "campaign": {
+      "exit_code": 0,
+      "stdout": "VALID: cil-four-perspective-blog-20261013 (10 decisions, status=decision-required)"
+    },
+    "scope": {
+      "exit_code": 0,
+      "stdout": "{\"status\": \"current\", \"campaign\": \"/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-10-13/cil-four-perspective-blog-20261013/campaign.json\", \"lock\": \"/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-10-13/cil-four-perspective-blog-20261013/scope-lock.json\"}"
+    },
+    "trace": {
+      "exit_code": 0,
+      "stdout": "{\"campaign_id\":\"cil-four-perspective-blog-20261013\",\"campaign_sha256\":\"da320933460bcf28afdbf8b07ec3ebe2d397117156a4688088d6e55e6f222bd7\",\"status\":\"pass\",\"authority\":\"none\",\"output_projection\":\"model-brief-v1\",\"expanded_payload_sha256\":\"eae718d497114d40d7dc9509db4a79f84528ce144b4c022996ee9bb41a190fd0\",\"counts\":{\"decisions\":10,\"obligations\":9,\"edges\":106},\"errors\":{\"count\":0,\"groups\":[],\"groups_omitted\":0},\"warnings\":{\"count\":2,\"groups\":[{\"kind\":\"legacy-decision-without-obligations\",\"count\":2,\"example\":{\"kind\":\"legacy-decision-without-obligations\",\"id\":\"B-D08\"}}],\"groups_omitted\":0},\"details_available\":true,\"next_read\":\"explicit --details or exact --id\"}"
+    },
+    "inspection": {
+      "exit_code": 0,
+      "stdout": "{\"observation_sha256\":\"6515c17de874f103499926b12e8d93712ce9c54942cafff56845b9f0ba61d026\",\"recommended_check\":\"DISCUSS\",\"output_projection\":\"model-brief-v1\",\"expanded_payload_sha256\":\"a7c6fc917fc20e9fd627c493618abe382e9694e7ee7b60b8dfb01f079714b70f\",\"observation\":{\"campaign_id\":\"cil-four-perspective-blog-20261013\",\"campaign_sha256\":\"da320933460bcf28afdbf8b07ec3ebe2d397117156a4688088d6e55e6f222bd7\",\"counts\":{\"decisions\":10,\"obligations\":9,\"cohorts\":7,\"operations\":40,\"paths\":40,\"criteria\":7,\"routes\":7,\"trace_edges\":57},\"completion\":\"not-evaluated\",\"authority\":\"none\",\"result_receipt_sha256\":null,\"result_reconciled_cohorts\":[],\"warnings\":{\"count\":16,\"groups\":[{\"kind\":\"legacy-decision-without-obligations\",\"count\":2,\"example\":{\"kind\":\"legacy-decision-without-obligations\",\"id\":\"B-D08\"}},{\"kind\":\"parent-as-specialist\",\"count\":7,\"example\":{\"kind\":\"parent-as-specialist\",\"id\":\"B-C01-taxonomy-review\"}},{\"kind\":\"route-contract-incomplete\",\"count\":7,\"example\":{\"kind\":\"route-contract-incomplete\",\"id\":\"B-C01-taxonomy-review\"}}],\"groups_omitted\":0}},\"details_available\":true,\"next_read\":\"explicit --details or exact --id\"}"
+    },
+    "intelligence": {
+      "exit_code": 0,
+      "stdout": "{\n  \"status\": \"pass\",\n  \"errors\": [],\n  \"snapshot_sha256\": \"a9b002b5c8ce9fa268e3d2131254a4b79f2dedf49e1832bbd16d0dde2c5d42c3\",\n  \"graph_sha256\": \"23b9980101947b5039137e910efa565eaa8a8062167723ceef2540f532151c77\"\n}"
+    }
+  }
+}

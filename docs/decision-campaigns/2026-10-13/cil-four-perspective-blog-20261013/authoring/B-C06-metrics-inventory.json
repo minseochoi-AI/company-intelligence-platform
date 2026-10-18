@@ -1,0 +1,46 @@
+{
+  "decision_refs": [
+    {
+      "id": "B-D06",
+      "path": "docs/decision-campaigns/2026-10-13/cil-four-perspective-blog-20261013/decisions/06-b-d06.json"
+    }
+  ],
+  "targets": {
+    "T1": {
+      "path": "apps/company-report-blog/src/report_blog/metrics.py",
+      "symbols": [
+        "collect_search_metrics",
+        "collect_adsense_metrics"
+      ],
+      "decision_id": "B-D06",
+      "obligation_ids": [
+        "B-D06-O01"
+      ]
+    },
+    "T2": {
+      "path": "apps/company-report-blog/tests/test_metrics.py",
+      "symbols": [
+        "test_metrics_contract"
+      ],
+      "decision_id": "B-D06",
+      "obligation_ids": [
+        "B-D06-O01"
+      ]
+    }
+  },
+  "checks": [
+    {
+      "target_ids": [
+        "T1",
+        "T2"
+      ],
+      "test": {
+        "type": "command",
+        "value": "/home/ubuntu/root/company-intelligence-platform/.venv/bin/python -B -m pytest -q -p no:cacheprovider apps/company-report-blog/tests/test_metrics.py",
+        "timeout_seconds": 300,
+        "provider_backed": false
+      },
+      "assertion": "미연동은 unknown, site/account/기간/통화별 집계, URL 매핑/부분 coverage 표시, 임의 페이지 매출 배분 금지와 readonly scope"
+    }
+  ]
+}

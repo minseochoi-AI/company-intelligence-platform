@@ -1,0 +1,14 @@
+{
+  "scenario_id": "C-01-interop-control:interop-self-test",
+  "cohort_id": "C-01-interop-control",
+  "criterion_id": "interop-self-test",
+  "plan_sha256": "6a0e924fbeab435f271962cd428ea77744a08d2de36b68a5c75ac2341b43c8f0",
+  "command": "python3 .codex/shared/company-intelligence-interop/interop.py self-test",
+  "outcome": "pass",
+  "returncode": 0,
+  "first_failure": null,
+  "raw_log_path": "docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/receipts/logs/C-01-interop-control__interop-self-test.log",
+  "raw_log_sha256": "672b731ff258c5c2cb6e96f7f8fa67b00dbf5a304c2f564c2b32c03e9b04f349",
+  "tail": "{\"status\": \"valid\", \"command\": \"self-test\"}\n",
+  "completed_at": "2026-09-15T06:19:36.285508+00:00"
+}

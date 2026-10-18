@@ -1,0 +1,139 @@
+{
+  "decision_id": "D-06",
+  "sequence": 6,
+  "unit_id": "free-connector-policy",
+  "title": "무료 MCP·외부 연결 후보 채택 정책",
+  "status": "accepted",
+  "question": "무료 기업·동향 연결 후보 중 무엇을 즉시 의존성으로 채택하고 무엇을 후보 레지스트리로만 유지할 것인가?",
+  "five_w_one_h": {
+    "who": "기업분석·창업분석 스킬과 CIL provider 운영자",
+    "what": "무료·무키·공식성·추가 coverage·권리·provenance·중복·유지보수 기준으로 MCP 후보를 판별한다.",
+    "where": "무료 connector 후보 레지스트리와 향후 provider governance 결정에서 적용한다.",
+    "when": "스킬 구현 전에는 dependency-free 기본값을 정하고 각 connector 채택 시 별도 검증한다.",
+    "why": "무료 표방은 무제한·무계정·재배포 가능·공식 데이터와 같지 않으며 중복 래퍼는 공격면만 늘릴 수 있다.",
+    "how": "현재는 즉시 채택 0개로 두고 ARES/OpenDART MCP를 중복 후보, Octagon/Tako를 약관·coverage 보류, Yahoo 직접 접근을 비공식 참고로 분류한다."
+  },
+  "evidence_refs": [
+    {
+      "evidence_id": "EV-FREE-CONNECTOR-AUDIT",
+      "source_type": "local-document",
+      "locator": "docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/evidence/free-connector-candidate-audit.json",
+      "observed_fact": "즉시 채택 0개, 무료 공식원천 래퍼 후보 2개, hosted 보류 2개, 방법 참고 1개로 판별했다.",
+      "content_hash": "529eeeec0fcae803d34fd7de9253a28ce0b9c19048b0191bb67bd8fe21b3bf8f",
+      "line_range": "1-EOF",
+      "question": "무료 기업·동향 연결 후보 중 무엇을 즉시 의존성으로 채택하고 무엇을 후보 레지스트리로만 유지할 것인가?",
+      "observation_summary": "즉시 채택 0개, 무료 공식원천 래퍼 후보 2개, hosted 보류 2개, 방법 참고 1개로 판별했다."
+    },
+    {
+      "evidence_id": "EV-PROVIDER-CLUSTERS",
+      "source_type": "code",
+      "locator": "src/company_intel/provider_clusters.py",
+      "observed_fact": "CIL은 wire format이 아니라 질문별 provider 역할과 production disposition을 이미 분리한다.",
+      "content_hash": "b1ac6e5a03be6a1bebbbbe35f6655e51fca359b036d806b15705505940387281",
+      "line_range": "1-EOF",
+      "question": "무료 기업·동향 연결 후보 중 무엇을 즉시 의존성으로 채택하고 무엇을 후보 레지스트리로만 유지할 것인가?",
+      "observation_summary": "CIL은 wire format이 아니라 질문별 provider 역할과 production disposition을 이미 분리한다."
+    }
+  ],
+  "facts": [
+    "체코 ARES 무료·무키 MCP와 한국 OpenDART 무료키 MCP 후보가 존재한다.",
+    "두 후보 모두 CIL이 직접 사용하는 원천과 중복된다.",
+    "Octagon과 Tako의 무료 tier는 영구 무료 범위·재배포·세 국가 coverage가 확정되지 않았다.",
+    "현재 세션에는 이들 기업분석 MCP가 연결되어 있지 않다."
+  ],
+  "conflicts": [
+    "MCP는 에이전트 사용성을 높일 수 있지만 CIL 내부 adapter보다 필드 통제와 공급망 위험이 늘 수 있다.",
+    "무료 Yahoo 데이터는 coverage가 넓지만 비공식 endpoint라 production evidence로 약하다."
+  ],
+  "unimplemented": [
+    "connector-candidate.schema.json",
+    "중복 필드 diff·license·security·rate-limit gate",
+    "MCP adapter sandbox test"
+  ],
+  "options": [
+    {
+      "option_id": "A-INSTALL-FREE-CANDIDATES-NOW",
+      "description": "무료 표방 후보를 스킬의 기본 MCP dependency로 즉시 설치한다.",
+      "impact": {
+        "data": "coverage가 늘 수 있으나 중복·권리 상태가 섞인다.",
+        "schema_api": "제3자 tool schema가 공개 계약이 된다.",
+        "ux": "도구 호출은 쉬워진다.",
+        "performance": "외부 hop이 늘어난다.",
+        "cost": "금전 외 계정·quota·운영비가 생긴다.",
+        "security": "공급망과 데이터 전송면이 늘어난다.",
+        "migration": "서비스 변경에 종속된다.",
+        "tests": "각 MCP live 검증이 필수다."
+      },
+      "opportunity_costs": [
+        "CIL 직접 API의 단순성과 통제력을 잃는다."
+      ]
+    },
+    {
+      "option_id": "B-CANDIDATE-REGISTRY-WITH-GATES",
+      "description": "신규 스킬은 외부 MCP 비종속으로 만들고 무료 후보는 중복·추가가치·약관·보안 검증 후에만 별도 채택한다.",
+      "impact": {
+        "data": "기존 공식 원천 provenance를 유지한다.",
+        "schema_api": "connector는 optional capability가 된다.",
+        "ux": "미연결 상태에서도 core 기능이 동작한다.",
+        "performance": "중복 호출을 피한다.",
+        "cost": "무료 provider 중심을 유지한다.",
+        "security": "검증 전 제3자 실행을 막는다.",
+        "migration": "후보를 독립 adapter로 추가할 수 있다.",
+        "tests": "candidate gate와 fallback을 검증한다."
+      },
+      "opportunity_costs": [
+        "MCP의 편리함을 즉시 얻지 못한다."
+      ]
+    }
+  ],
+  "recommended_option_id": "B-CANDIDATE-REGISTRY-WITH-GATES",
+  "recommendation_reason": "현재 발견된 무료 MCP는 새로운 원천이 아니라 대부분 기존 공식 API의 래퍼이므로 설치 이득이 종속성 비용보다 크다는 증거가 없다.",
+  "impact": {
+    "data": "공식 직접 원천 우선순위를 유지한다.",
+    "schema_api": "connector candidate와 production provider를 분리한다.",
+    "ux": "연결 없음·보류·사용 가능 상태를 명시한다.",
+    "performance": "기본 실행에 외부 MCP hop이 없다.",
+    "cost": "유료·freemium 의존성을 강제하지 않는다.",
+    "security": "MCP 공급망 감사 전 실행하지 않는다.",
+    "migration": "추가가치가 입증된 connector만 별도 결정으로 승격한다.",
+    "tests": "no-MCP 기본 동작과 connector capability diff를 검증한다."
+  },
+  "opportunity_costs": [
+    "현재 즉시 가져올 새 연결구는 0개로 남는다."
+  ],
+  "dependencies": [
+    "D-03"
+  ],
+  "dependency_waivers": {},
+  "accepted_decision": {
+    "disposition": "ACCEPT",
+    "option_id": "B-CANDIDATE-REGISTRY-WITH-GATES",
+    "rule": "사용자의 FULL_EXECUTION 요청에 따라 각 결정의 B 권장안을 승인한다.",
+    "rationale": "비판적 검증에서 확인된 수정사항과 D-09·D-10을 포함한 개정 범위를 구현한다.",
+    "decided_by": "user",
+    "decided_at": "2026-09-15T05:28:25.724684+00:00"
+  },
+  "implementation_targets": [
+    ".codex/shared/company-intelligence-interop/connector-candidates.json",
+    ".codex/shared/company-intelligence-interop/BOUNDARIES.md"
+  ],
+  "implementation_change_ids": [
+    "C01-007",
+    "C01-008"
+  ],
+  "validation_requirements": [
+    "무료 표방만으로 production 승격되지 않음",
+    "기존 CIL과 중복 시 필드 또는 운영상 추가가치를 요구",
+    "비공식 endpoint는 authoritative fact 단독 근거가 아님",
+    "연결 MCP 0개 환경에서도 두 스킬 core 동작"
+  ],
+  "diagram_impacts": [
+    "docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/diagrams/matrices/venture-discovery-connectors.flowchart-matrix.json",
+    "docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/diagrams/mermaid/venture-discovery-connectors.mmd",
+    "docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/diagrams/mermaid/venture-discovery-connectors.svg",
+    "docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/diagrams/mermaid/venture-discovery-connectors.png"
+  ],
+  "context_topic_ids": [
+    "interop-control"
+  ]
+}

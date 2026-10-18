@@ -1,0 +1,78 @@
+{
+  "contract_version": "implementation-context-packet-v2",
+  "packet_id": "C-04-venture-analysis-skill-packet-76389a7c4188",
+  "topics": [
+    "venture-analysis-skill"
+  ],
+  "capability_ids": [
+    "venture-analysis-skill"
+  ],
+  "required_refs": [
+    {
+      "ref_id": "venture-analysis-skill-d-05",
+      "role": "must-read",
+      "path": "docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/decisions/05-d-05.json",
+      "content_hash": "sha256:cbd7ac8b8c50a59b04e575d398b877e96c41c76cd6c058107ea478d32096ad70",
+      "line_range": "1-EOF",
+      "question": "D-05의 승인된 구현 의미는 무엇인가?",
+      "observation_summary": "D-05의 B 권장안이 사용자에 의해 승인되었다."
+    }
+  ],
+  "current_entry_points": [],
+  "planned_entry_points": [
+    {
+      "kind": "code",
+      "path": ".codex/skills/kr-defensible-venture-discovery/SKILL.md",
+      "symbol": "SKILL.md",
+      "change_id": "C04-001"
+    },
+    {
+      "kind": "code",
+      "path": ".codex/skills/kr-defensible-venture-discovery/agents/openai.yaml",
+      "symbol": "openai.yaml",
+      "change_id": "C04-002"
+    },
+    {
+      "kind": "code",
+      "path": ".codex/skills/kr-defensible-venture-discovery/references/market-archetypes.md",
+      "symbol": "market-archetypes.md",
+      "change_id": "C04-003"
+    },
+    {
+      "kind": "code",
+      "path": ".codex/skills/kr-defensible-venture-discovery/references/research-workflow.md",
+      "symbol": "research-workflow.md",
+      "change_id": "C04-004"
+    },
+    {
+      "kind": "code",
+      "path": ".codex/skills/kr-defensible-venture-discovery/references/evidence-and-barriers.md",
+      "symbol": "evidence-and-barriers.md",
+      "change_id": "C04-005"
+    },
+    {
+      "kind": "code",
+      "path": ".codex/skills/kr-defensible-venture-discovery/references/venture-session.schema.json",
+      "symbol": "venture-session.schema.json",
+      "change_id": "C04-006"
+    },
+    {
+      "kind": "code",
+      "path": ".codex/skills/kr-defensible-venture-discovery/references/opportunity-hypothesis.schema.json",
+      "symbol": "opportunity-hypothesis.schema.json",
+      "change_id": "C04-007"
+    },
+    {
+      "kind": "code",
+      "path": ".codex/skills/kr-defensible-venture-discovery/scripts/venture_artifacts.py",
+      "symbol": "venture_artifacts.py",
+      "change_id": "C04-008"
+    }
+  ],
+  "external_entry_points": [],
+  "invariants": [
+    "승인된 결정·scope·근거 hash를 변경하지 않고 파일 단위 계획으로 구현한다."
+  ],
+  "unresolved_conflicts": [],
+  "resume_digest": "Prepared C-04-venture-analysis-skill from current decision hashes and one global file-ownership graph."
+}

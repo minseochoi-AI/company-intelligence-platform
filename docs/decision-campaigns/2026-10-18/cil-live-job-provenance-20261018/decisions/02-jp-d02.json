@@ -1,0 +1,108 @@
+{
+  "decision_id": "JP-D02",
+  "sequence": 2,
+  "unit_id": "CIL-C10-live-provenance-verifier",
+  "title": "실시간 API 정본 및 링크 생존성 검증 모듈 (JobProvenanceVerifier)",
+  "status": "decision-required",
+  "question": "수집된 채용 공고 URL이 실제로 인터넷상에서 유효한지(HTTP 200 OK) 확인하고, 마감일 기준 실시간 상태를 어떻게 자동으로 판정할 것인가?",
+  "five_w_one_h": {
+    "who": "CIL 프로버넌스 감사 엔진",
+    "what": "JobProvenanceVerifier 모듈 (HTTP HEAD 프로빙, 마감일 기준 Freshness 자동 계산)",
+    "where": "src/company_intel/live_job_provenance.py 및 tests/test_live_job_provenance.py",
+    "when": "2026-10-18 실시간 검증 단계",
+    "why": "오프라인 파일에 저장된 공고가 실제 웹사이트에서 살아있는지 물리적 정본을 증명하기 위함",
+    "how": "경량 HTTP HEAD 요청, 타임아웃 3초 격리, 마감일 기준 LIVE_ACTIVE / APPROACHING_DEADLINE / CLOSED 태깅"
+  },
+  "evidence_refs": [
+    {
+      "evidence_id": "E-LIVE-API-DOC",
+      "source_type": "code",
+      "locator": "src/company_intel/provenance_validator.py",
+      "content_hash": "sha256:f961b2c6fb54edd3a89cc4b473aae61b853e98d70dd805e6dd14ce70b58818a0",
+      "line_range": "1-120",
+      "question": "기존 프로버넌스 검증기는 실시간 웹 링크 생존성을 어떻게 검증하고 있는가?",
+      "observation_summary": "기존 provenance_validator는 정본 파일 해시 위주였으며 실시간 공고 웹 링크 생존성 검사는 부재했음",
+      "observed_fact": "기존 provenance_validator는 정본 파일 해시 위주였으며 실시간 공고 웹 링크 생존성 검사는 부재했음"
+    }
+  ],
+  "facts": [
+    "각국 공고 URL(JOB-ALIO, MPSV, USAJOBS, ÚPSVaR)은 표준 HTTP 프로토콜로 직접 접근 가능함"
+  ],
+  "conflicts": [],
+  "unimplemented": ["JobProvenanceVerifier 모듈 및 단위 테스트 대기"],
+  "options": [
+    {
+      "option_id": "A",
+      "description": "URL 유효성 검증 없이 단순 텍스트 링크만 출력",
+      "impact": {
+        "data": "검증 없는 URL 출력",
+        "schema_api": "기존 유지",
+        "ux": "사용자가 직접 클릭하여 마감 여부 확인",
+        "performance": "변동 없음",
+        "cost": "0원",
+        "security": "변동 없음",
+        "migration": "불필요",
+        "tests": "기존 통과"
+      },
+      "opportunity_costs": ["마감되었거나 깨진 링크를 사전에 걸러내지 못함"]
+    },
+    {
+      "option_id": "B",
+      "description": "JobProvenanceVerifier를 통해 실시간 상태 및 HTTP 유효성 1:1 증명 (권장)",
+      "impact": {
+        "data": "공고별 실시간 상태(LIVE_ACTIVE, CLOSED) 및 검증 메모 메타데이터 증강",
+        "schema_api": "verify_job_url_liveness 함수 제공",
+        "ux": "사용자가 공고 마감 여부를 한눈에 파악 가능",
+        "performance": "배치 캐싱을 통한 고속 응답",
+        "cost": "무료 웹 프로빙",
+        "security": "타임아웃 및 SSL 검증 격리",
+        "migration": "독립 모듈로 기존 로직 영향 없음",
+        "tests": "tests/test_live_job_provenance.py 전수 Green"
+      },
+      "opportunity_costs": ["네트워크 호출 오버헤드 (캐싱 및 비동기 처리로 완화)"]
+    }
+  ],
+  "recommended_option_id": "B",
+  "recommendation_reason": "GEMINI.md 절대적 4대 실재성 검증 규칙 준수를 위해 필수적임",
+  "impact": {
+    "data": "공고별 실시간 상태(LIVE_ACTIVE, CLOSED) 및 검증 메모 메타데이터 증강",
+    "schema_api": "verify_job_url_liveness 함수 제공",
+    "ux": "사용자가 공고 마감 여부를 한눈에 파악 가능",
+    "performance": "배치 캐싱을 통한 고속 응답",
+    "cost": "무료 웹 프로빙",
+    "security": "타임아웃 및 SSL 검증 격리",
+    "migration": "독립 모듈로 기존 로직 영향 없음",
+    "tests": "tests/test_live_job_provenance.py 전수 Green"
+  },
+  "opportunity_costs": ["네트워크 프로빙 로직 유지보수"],
+  "dependencies": ["JP-D01"],
+  "dependency_waivers": {},
+  "accepted_decision": null,
+  "implementation_targets": [
+    "src/company_intel/live_job_provenance.py",
+    "tests/test_live_job_provenance.py"
+  ],
+  "implementation_obligations": [
+    {
+      "obligation_id": "JP-D02-O01",
+      "kind": "implementation",
+      "statement": "URL에 대한 HTTP 상태 검증 및 마감일 기준 Freshness를 정확히 계산하여 반환한다.",
+      "required": true
+    },
+    {
+      "obligation_id": "JP-D02-O02",
+      "kind": "boundary",
+      "statement": "오프라인 환경이나 타임아웃 발생 시 에러로 중단되지 않고 UNVERIFIED 상태를 기록한다.",
+      "required": true
+    }
+  ],
+  "implementation_change_ids": [
+    "file-change-jp-d02-01",
+    "file-change-jp-d02-02"
+  ],
+  "validation_requirements": [
+    "tests/test_live_job_provenance.py 실행하여 상태 전이 및 HTTP 검증 테스트 통과"
+  ],
+  "diagram_impacts": ["프로버넌스 감사 파이프라인 반영"],
+  "context_topic_ids": ["CIL-C10-live-provenance-verifier"]
+}

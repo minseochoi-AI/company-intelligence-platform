@@ -1,0 +1,35 @@
+{
+  "contract_version": "atomic-json-patch-receipt-v1",
+  "target": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/decisions/02-d-02.json",
+  "outcome": "pass",
+  "before_sha256": "2374807855137b7f344fa501e522dddedc1917483f7a2d98f0829722564e6871",
+  "after_sha256": "0d94a4451042d11d4fac9bfcc41da6c03f0c773a61b89057423b860a48a4174c",
+  "proposed_after_sha256": "0d94a4451042d11d4fac9bfcc41da6c03f0c773a61b89057423b860a48a4174c",
+  "operations": [
+    {
+      "op": "test",
+      "path": "/diagram_impacts"
+    },
+    {
+      "op": "replace",
+      "path": "/diagram_impacts"
+    }
+  ],
+  "backup": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/.mutation-journal/preimages/sha256-2374807855137b7f344fa501e522dddedc1917483f7a2d98f0829722564e6871.json",
+  "journal": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/.mutation-journal/mutations/f1cec8e347c945683e7f4b3d3a78599a93a6c364bdb8bfa059eef303c5a91792.json",
+  "mutation_id": "amend-diagrams-d-02",
+  "validators": [
+    {
+      "command": [
+        "python3",
+        "-m",
+        "json.tool",
+        "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/decisions/02-d-02.json"
+      ],
+      "returncode": 0,
+      "stdout_tail": ",\n    \"implementation_change_ids\": [\n        \"C01-001\",\n        \"C01-002\",\n        \"C01-009\"\n    ],\n    \"validation_requirements\": [\n        \"implementation_plan_sha256\\uac00 DomainPlan hash\\ub85c \\uc7ac\\uc0ac\\uc6a9\\ub418\\uc9c0 \\uc54a\\uc74c\",\n        \"DomainPlanRef hash \\ubd88\\uc77c\\uce58 \\uc2dc \\uc18c\\ube44 \\uac70\\ubd80\",\n        \"career\\uc640 venture plan_kind \\ud63c\\uc785 \\uac70\\ubd80\",\n        \"\\ub3c4\\uba54\\uc778 \\uacc4\\ud68d \\uc2b9\\uc778\\ub9cc\\uc73c\\ub85c \\uad6c\\ud604 \\uad8c\\ud55c\\uc774 \\uc0dd\\uae30\\uc9c0 \\uc54a\\uc74c\"\n    ],\n    \"diagram_impacts\": [\n        \"docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/diagrams/matrices/plan-evidence-interop.flowchart-matrix.json\",\n        \"docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/diagrams/mermaid/plan-evidence-interop.mmd\",\n        \"docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/diagrams/mermaid/plan-evidence-interop.svg\",\n        \"docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/diagrams/mermaid/plan-evidence-interop.png\"\n    ],\n    \"context_topic_ids\": [\n        \"interop-control\"\n    ]\n}\n",
+      "stderr_tail": ""
+    }
+  ],
+  "completed_at": "2026-09-15T06:38:40.998612+00:00"
+}

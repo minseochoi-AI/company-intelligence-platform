@@ -1,0 +1,73 @@
+{
+  "contract_version": "implementation-context-packet-v2",
+  "packet_id": "B-C03-cil-coverage-packet-2ebfea786077",
+  "topics": [
+    "B-C03-cil-coverage"
+  ],
+  "capability_ids": [
+    "B-D03"
+  ],
+  "required_refs": [
+    {
+      "content_hash": "ae5f994a0474c592944b5846e584aea3f413cbe706966082ea1e6a2b7a3cbb07",
+      "line_range": "1-103",
+      "observation_summary": "등록 28개 검증 상태와 새 수집 operation 4개, 기존 operation 증강 8개, 미확인 계약 2개를 별도 집계하고 적격 조건을 만족하는 시계열만 연결한다.",
+      "path": "docs/decision-campaigns/2026-10-13/cil-four-perspective-blog-20261013/evidence/product-contract-ko.md",
+      "question": "기존 CIL parameterized 수집·재무·채용·인력·거시 경로 보강",
+      "ref_id": "product-contract",
+      "role": "must-read"
+    }
+  ],
+  "current_entry_points": [
+    {
+      "kind": "code",
+      "path": "src/company_intel/connectors/keyed.py",
+      "symbol": "_fred",
+      "source_hash": "sha256:a23b1ba496c6cd2fff4a27e2b502a08a48c5161298a58a9b13e6306131166d36"
+    },
+    {
+      "kind": "code",
+      "path": "src/company_intel/connectors/keyless.py",
+      "symbol": "keyless_probes",
+      "source_hash": "sha256:749eb418824d2fd9922893fe677dac630db68d5cd04250f386faba80a4a35e71"
+    },
+    {
+      "kind": "code",
+      "path": "src/company_intel/normalization.py",
+      "symbol": "AtomicObservationMapper",
+      "source_hash": "sha256:e37bc2ef638d535a4265031cc652403883fe1798bb9d95f11188cfdf369fbaa0"
+    },
+    {
+      "kind": "code",
+      "path": "config/providers.json",
+      "symbol": "atomic_operations",
+      "source_hash": "sha256:eda18ca82e832c07426425671a29b56b90875654444a7fa06d588d32cb5b7a74"
+    }
+  ],
+  "planned_entry_points": [
+    {
+      "kind": "code",
+      "path": "src/company_intel/connectors/collectors.py",
+      "symbol": "CollectionSpec",
+      "change_id": "file-change-2199b175807c"
+    },
+    {
+      "kind": "test",
+      "path": "tests/test_parameterized_collection.py",
+      "symbol": "test_parameterized_collection_contract",
+      "change_id": "file-change-18064dda30b3"
+    },
+    {
+      "kind": "test",
+      "path": "tests/test_blog_source_mapping.py",
+      "symbol": "test_blog_source_mapping_contract",
+      "change_id": "file-change-705f2199a5ae"
+    }
+  ],
+  "external_entry_points": [],
+  "invariants": [
+    "AI와 작성자 평가 소유권 분리; 비밀·캠페인 비공개; 기존 CLI 보존; 원격 실행은 별도 승인"
+  ],
+  "unresolved_conflicts": [],
+  "resume_digest": "Prepared B-C03-cil-coverage from current decision hashes and one global file-ownership graph."
+}

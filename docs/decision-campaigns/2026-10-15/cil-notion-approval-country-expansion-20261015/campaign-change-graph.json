@@ -1,0 +1,322 @@
+{
+  "contract_version": "campaign-change-graph-v1",
+  "campaign_id": "cil-notion-approval-country-expansion-20261015",
+  "operations": [
+    {
+      "path": "src/company_intel/connectors/ares_dynamic.py",
+      "owner_cohort_id": "CIL-C03-czech-ares",
+      "change_id": "file-change-cil-d03-01",
+      "operation": "CREATE",
+      "contribution_refs": [
+        {
+          "decision_id": "CIL-D03",
+          "path": "docs/decision-campaigns/2026-10-15/cil-notion-approval-country-expansion-20261015/decisions/03-cil-d03.json",
+          "sha256": "sha256:8ddf7b3dab81b1d3de604536e38049e618f929f0431bc7b6fa77cf28f6c63cd5",
+          "symbols": [
+            "AresDynamicClient",
+            "get_economic_subject"
+          ],
+          "intent_change_ids": [
+            "file-change-cil-d03-01"
+          ],
+          "obligation_ids": [
+            "CIL-D03-O01"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "src/company_intel/connectors/mpsv_stream.py",
+      "owner_cohort_id": "CIL-C02-czech-mpsv",
+      "change_id": "file-change-cil-d02-01",
+      "operation": "CREATE",
+      "contribution_refs": [
+        {
+          "decision_id": "CIL-D02",
+          "path": "docs/decision-campaigns/2026-10-15/cil-notion-approval-country-expansion-20261015/decisions/02-cil-d02.json",
+          "sha256": "sha256:d9681986c330530dcdedef6a0719fcbb9808768624e2291ea22b4e488206c472",
+          "symbols": [
+            "stream_mpsv_vacancies",
+            "aggregate_by_cz_isco"
+          ],
+          "intent_change_ids": [
+            "file-change-cil-d02-01"
+          ],
+          "obligation_ids": [
+            "CIL-D02-O01"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "src/company_intel/connectors/opendart_master.py",
+      "owner_cohort_id": "CIL-C01-opendart-master",
+      "change_id": "file-change-cil-d01-01",
+      "operation": "CREATE",
+      "contribution_refs": [
+        {
+          "decision_id": "CIL-D01",
+          "path": "docs/decision-campaigns/2026-10-15/cil-notion-approval-country-expansion-20261015/decisions/01-cil-d01.json",
+          "sha256": "sha256:d7ef855cadf25d63e62e7dd723ed0ca00134cdec6bee1e1ee4a364d780a836ac",
+          "symbols": [
+            "OpenDartMasterIndex",
+            "resolve_corp_code"
+          ],
+          "intent_change_ids": [
+            "file-change-cil-d01-01"
+          ],
+          "obligation_ids": [
+            "CIL-D01-O01"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "src/company_intel/connectors/worknet.py",
+      "owner_cohort_id": "CIL-C04-worknet-public",
+      "change_id": "file-change-cil-d04-01",
+      "operation": "CREATE",
+      "contribution_refs": [
+        {
+          "decision_id": "CIL-D04",
+          "path": "docs/decision-campaigns/2026-10-15/cil-notion-approval-country-expansion-20261015/decisions/04-cil-d04.json",
+          "sha256": "sha256:bb5332a44e023ef9b8eecf0e60d2726e40a2e5ec61a21b91f5fa060d9d643733",
+          "symbols": [
+            "WorknetJobConnector",
+            "search_worknet_jobs"
+          ],
+          "intent_change_ids": [
+            "file-change-cil-d04-01"
+          ],
+          "obligation_ids": [
+            "CIL-D04-O01"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "src/company_intel/dynamic_screening.py",
+      "owner_cohort_id": "CIL-C07-platform-integration",
+      "change_id": "file-change-cil-d07-01",
+      "operation": "CREATE",
+      "contribution_refs": [
+        {
+          "decision_id": "CIL-D07",
+          "path": "docs/decision-campaigns/2026-10-15/cil-notion-approval-country-expansion-20261015/decisions/07-cil-d07.json",
+          "sha256": "sha256:d32e6ce99ab9be9794a1246382e5aed4d992926818911e78c266b911aa6526b6",
+          "symbols": [
+            "DynamicScreeningEngine",
+            "run_screening_pipeline"
+          ],
+          "intent_change_ids": [
+            "file-change-cil-d07-01"
+          ],
+          "obligation_ids": [
+            "CIL-D07-O01"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "src/company_intel/notion_queue.py",
+      "owner_cohort_id": "CIL-C05-notion-approval",
+      "change_id": "file-change-cil-d05-01",
+      "operation": "CREATE",
+      "contribution_refs": [
+        {
+          "decision_id": "CIL-D05",
+          "path": "docs/decision-campaigns/2026-10-15/cil-notion-approval-country-expansion-20261015/decisions/05-cil-d05.json",
+          "sha256": "sha256:e2f22fa77a104bb67b6c2cfcb6a1797cae6d55f5ef09a3e929202352317e4c97",
+          "symbols": [
+            "NotionApprovalQueue",
+            "create_draft_page",
+            "poll_approved_pages"
+          ],
+          "intent_change_ids": [
+            "file-change-cil-d05-01"
+          ],
+          "obligation_ids": [
+            "CIL-D05-O01"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "src/company_intel/publisher/blogger_publisher.py",
+      "owner_cohort_id": "CIL-C06-blogger-headless",
+      "change_id": "file-change-cil-d06-01",
+      "operation": "CREATE",
+      "contribution_refs": [
+        {
+          "decision_id": "CIL-D06",
+          "path": "docs/decision-campaigns/2026-10-15/cil-notion-approval-country-expansion-20261015/decisions/06-cil-d06.json",
+          "sha256": "sha256:1baf59b6d4b84a574458ca488879151e8f5d1df38a0ce1054beac0b69b210cac",
+          "symbols": [
+            "BloggerPublisher",
+            "publish_post_from_notion"
+          ],
+          "intent_change_ids": [
+            "file-change-cil-d06-01"
+          ],
+          "obligation_ids": [
+            "CIL-D06-O01"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "tests/test_ares_dynamic.py",
+      "owner_cohort_id": "CIL-C03-czech-ares",
+      "change_id": "file-change-cil-d03-02",
+      "operation": "CREATE",
+      "contribution_refs": [
+        {
+          "decision_id": "CIL-D03",
+          "path": "docs/decision-campaigns/2026-10-15/cil-notion-approval-country-expansion-20261015/decisions/03-cil-d03.json",
+          "sha256": "sha256:8ddf7b3dab81b1d3de604536e38049e618f929f0431bc7b6fa77cf28f6c63cd5",
+          "symbols": [
+            "test_ares_dynamic_lookup"
+          ],
+          "intent_change_ids": [
+            "file-change-cil-d03-02"
+          ],
+          "obligation_ids": [
+            "CIL-D03-O02"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "tests/test_blogger_publisher.py",
+      "owner_cohort_id": "CIL-C06-blogger-headless",
+      "change_id": "file-change-cil-d06-02",
+      "operation": "CREATE",
+      "contribution_refs": [
+        {
+          "decision_id": "CIL-D06",
+          "path": "docs/decision-campaigns/2026-10-15/cil-notion-approval-country-expansion-20261015/decisions/06-cil-d06.json",
+          "sha256": "sha256:1baf59b6d4b84a574458ca488879151e8f5d1df38a0ce1054beac0b69b210cac",
+          "symbols": [
+            "test_blogger_headless_publishing"
+          ],
+          "intent_change_ids": [
+            "file-change-cil-d06-02"
+          ],
+          "obligation_ids": [
+            "CIL-D06-O02"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "tests/test_dynamic_screening.py",
+      "owner_cohort_id": "CIL-C07-platform-integration",
+      "change_id": "file-change-cil-d07-02",
+      "operation": "CREATE",
+      "contribution_refs": [
+        {
+          "decision_id": "CIL-D07",
+          "path": "docs/decision-campaigns/2026-10-15/cil-notion-approval-country-expansion-20261015/decisions/07-cil-d07.json",
+          "sha256": "sha256:d32e6ce99ab9be9794a1246382e5aed4d992926818911e78c266b911aa6526b6",
+          "symbols": [
+            "test_dynamic_screening_pipeline"
+          ],
+          "intent_change_ids": [
+            "file-change-cil-d07-02"
+          ],
+          "obligation_ids": [
+            "CIL-D07-O02"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "tests/test_mpsv_stream.py",
+      "owner_cohort_id": "CIL-C02-czech-mpsv",
+      "change_id": "file-change-cil-d02-02",
+      "operation": "CREATE",
+      "contribution_refs": [
+        {
+          "decision_id": "CIL-D02",
+          "path": "docs/decision-campaigns/2026-10-15/cil-notion-approval-country-expansion-20261015/decisions/02-cil-d02.json",
+          "sha256": "sha256:d9681986c330530dcdedef6a0719fcbb9808768624e2291ea22b4e488206c472",
+          "symbols": [
+            "test_mpsv_stream_parsing"
+          ],
+          "intent_change_ids": [
+            "file-change-cil-d02-02"
+          ],
+          "obligation_ids": [
+            "CIL-D02-O02"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "tests/test_notion_queue.py",
+      "owner_cohort_id": "CIL-C05-notion-approval",
+      "change_id": "file-change-cil-d05-02",
+      "operation": "CREATE",
+      "contribution_refs": [
+        {
+          "decision_id": "CIL-D05",
+          "path": "docs/decision-campaigns/2026-10-15/cil-notion-approval-country-expansion-20261015/decisions/05-cil-d05.json",
+          "sha256": "sha256:e2f22fa77a104bb67b6c2cfcb6a1797cae6d55f5ef09a3e929202352317e4c97",
+          "symbols": [
+            "test_notion_approval_flow"
+          ],
+          "intent_change_ids": [
+            "file-change-cil-d05-02"
+          ],
+          "obligation_ids": [
+            "CIL-D05-O02"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "tests/test_opendart_master.py",
+      "owner_cohort_id": "CIL-C01-opendart-master",
+      "change_id": "file-change-cil-d01-02",
+      "operation": "CREATE",
+      "contribution_refs": [
+        {
+          "decision_id": "CIL-D01",
+          "path": "docs/decision-campaigns/2026-10-15/cil-notion-approval-country-expansion-20261015/decisions/01-cil-d01.json",
+          "sha256": "sha256:d7ef855cadf25d63e62e7dd723ed0ca00134cdec6bee1e1ee4a364d780a836ac",
+          "symbols": [
+            "test_opendart_master_index"
+          ],
+          "intent_change_ids": [
+            "file-change-cil-d01-02"
+          ],
+          "obligation_ids": [
+            "CIL-D01-O02"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "tests/test_worknet.py",
+      "owner_cohort_id": "CIL-C04-worknet-public",
+      "change_id": "file-change-cil-d04-02",
+      "operation": "CREATE",
+      "contribution_refs": [
+        {
+          "decision_id": "CIL-D04",
+          "path": "docs/decision-campaigns/2026-10-15/cil-notion-approval-country-expansion-20261015/decisions/04-cil-d04.json",
+          "sha256": "sha256:bb5332a44e023ef9b8eecf0e60d2726e40a2e5ec61a21b91f5fa060d9d643733",
+          "symbols": [
+            "test_worknet_jobs_parsing"
+          ],
+          "intent_change_ids": [
+            "file-change-cil-d04-02"
+          ],
+          "obligation_ids": [
+            "CIL-D04-O02"
+          ]
+        }
+      ]
+    }
+  ]
+}

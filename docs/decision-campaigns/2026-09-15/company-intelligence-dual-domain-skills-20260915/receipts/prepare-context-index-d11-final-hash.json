@@ -1,0 +1,35 @@
+{
+  "contract_version": "atomic-json-patch-receipt-v1",
+  "target": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/context-index.json",
+  "outcome": "pass",
+  "before_sha256": "f10f33d8714e464bd75629863e2700dd6e64cd20d6f3387c2ec394cbea7af135",
+  "after_sha256": "966aee02c6bec4941e2e48da6f1a8f12c6eeb3c9361a6a1947be89d22cae7a33",
+  "proposed_after_sha256": "966aee02c6bec4941e2e48da6f1a8f12c6eeb3c9361a6a1947be89d22cae7a33",
+  "operations": [
+    {
+      "op": "test",
+      "path": "/topics"
+    },
+    {
+      "op": "replace",
+      "path": "/topics"
+    }
+  ],
+  "backup": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/.mutation-journal/preimages/sha256-f10f33d8714e464bd75629863e2700dd6e64cd20d6f3387c2ec394cbea7af135.json",
+  "journal": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/.mutation-journal/mutations/8454cc9eabb48da2dce4db790330a4204ccf848235ad1b6b0fc3d0a6b112a4db.json",
+  "mutation_id": "prepare-context-index-d11-final-hash",
+  "validators": [
+    {
+      "command": [
+        "python3",
+        "-m",
+        "json.tool",
+        "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/context-index.json"
+      ],
+      "returncode": 0,
+      "stdout_tail": "\"topic_id\": \"mermaid-renderer\",\n            \"description\": \"D-11 pinned Mermaid CLI\\uc640 \\uba85\\uc2dc Chrome renderer \\uacbd\\uacc4\",\n            \"capability_ids\": [\n                \"mermaid-renderer\"\n            ],\n            \"refs\": [\n                {\n                    \"ref_id\": \"mermaid-renderer-d-11\",\n                    \"role\": \"must-read\",\n                    \"path\": \"docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/decisions/11-d-11.json\",\n                    \"content_hash\": \"sha256:20281eef0ebacc3a0c5427b3aa66378a962ff4ff7eb2bf0e18fbc2fb5200d526\",\n                    \"line_range\": \"1-EOF\",\n                    \"question\": \"renderer version, browser path, output proof\\ub294 \\ubb34\\uc5c7\\uc778\\uac00?\",\n                    \"observation_summary\": \"mmdc 11.17.0, /usr/bin/google-chrome, SVG/PNG signature\\uc640 repeated bytes\\ub97c \\uac80\\uc99d\\ud55c\\ub2e4.\"\n                }\n            ],\n            \"code_entry_points\": [],\n            \"test_entry_points\": [],\n            \"invariants\": [\n                \"node_modules\\ub294 cache\\uc774\\uba70 package-lock integrity\\uac00 \\uc124\\uce58 \\uc815\\ubcf8\\uc774\\ub2e4.\"\n            ]\n        }\n    ]\n}\n",
+      "stderr_tail": ""
+    }
+  ],
+  "completed_at": "2026-09-15T06:54:15.183421+00:00"
+}

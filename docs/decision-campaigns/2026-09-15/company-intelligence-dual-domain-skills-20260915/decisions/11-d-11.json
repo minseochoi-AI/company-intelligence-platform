@@ -1,0 +1,167 @@
+{
+  "decision_id": "D-11",
+  "sequence": 11,
+  "unit_id": "deterministic-diagram-toolchain",
+  "title": "결정론적 다이어그램 검증·렌더링 도구체인",
+  "status": "accepted",
+  "question": "캠페인 다이어그램을 저장소 자체에서 검증·컴파일·SVG/PNG 렌더·freshness 검사할 도구체인을 어떤 경계로 소유할 것인가?",
+  "five_w_one_h": {
+    "who": "캠페인 다이어그램 작성 에이전트와 저장소 검증 실행자",
+    "what": "저장소 로컬 Python 검증·컴파일 CLI와 정확히 고정된 Mermaid CLI 렌더러를 추가한다.",
+    "where": "tools/flowchart_matrix.py, tools/mermaid-renderer, tests/tools에 둔다.",
+    "when": "승인된 flowchart-design-review와 flowchart matrix를 파생 Mermaid·SVG·PNG로 만들거나 freshness를 확인할 때 실행한다.",
+    "why": "외부 스킬 경로와 전역 도구에 의존하면 저장소 단독 재현, exact plan SHA, 결과 receipt 결속을 보장할 수 없다.",
+    "how": "Python은 의미·그래프·coverage와 파생물 freshness를 검증하고, lockfile로 고정된 mmdc CLI가 명시된 로컬 Chrome으로 SVG와 PNG를 렌더한다."
+  },
+  "evidence_refs": [
+    {
+      "evidence_id": "EV-D11-DEPENDENCY-CATALOG",
+      "source_type": "local-document",
+      "locator": "docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/evidence/diagram-toolchain-dependency-catalog.json",
+      "observed_fact": "저장소에는 다이어그램 도구나 Node manifest가 없고 외부 스킬 validator와 시스템 Chrome만 관찰되었다.",
+      "content_hash": "a98a56968c4e047c05688eb54145b9776a922f142c37034d3d5da12e7cfa9718",
+      "line_range": "1-EOF",
+      "question": "어떤 구성요소를 유지·추가해야 저장소 단독 재현이 가능한가?",
+      "observation_summary": "저장소 소유 Python CLI와 pinned Mermaid CLI는 required, 시스템 Chrome은 existing으로 분리한다."
+    },
+    {
+      "evidence_id": "EV-D11-INTEGRATION-MATRIX",
+      "source_type": "deepwiki",
+      "locator": "docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/evidence/diagram-toolchain-integration-matrix.md",
+      "observed_fact": "Mermaid CLI의 semver 적용 CLI 경계, mmdc 옵션, Puppeteer config, SVG/PNG 및 실패 검증 조건이 ready-for-implementation으로 정리되었다.",
+      "content_hash": "57db51c0ae7ee6b96d847f9d8ef48f5b5103444c4b470a7dfd2139976c4f5f17",
+      "line_range": "1-EOF",
+      "question": "외부 렌더러를 어떤 인터페이스와 시험으로 격리해야 하는가?",
+      "observation_summary": "불안정한 Node API 대신 고정 mmdc CLI를 subprocess 경계로 사용하고 오류와 freshness를 저장소 도구가 소유한다."
+    },
+    {
+      "evidence_id": "EV-D11-EXTERNAL-VALIDATOR",
+      "source_type": "code",
+      "locator": "/home/ubuntu/.codex/skills/flowchart-matrix-validation/scripts/validate_flowchart_matrix.py",
+      "observed_fact": "외부 스킬에는 evidence, design, matrix 검증과 Mermaid 컴파일 구현이 있지만 저장소에는 해당 실행 파일이 없다.",
+      "content_hash": "cd48864ca3d2866fee3cf791b6f9fbb852804ea508b69776218a3dac63bc85d1",
+      "line_range": "1-EOF",
+      "question": "기존 검증 계약을 복제하지 않고 저장소 실행 계약으로 가져올 수 있는가?",
+      "observation_summary": "검증 의미를 기반으로 저장소 로컬 CLI를 만들되 PNG와 byte freshness, 버전 preflight를 보강해야 한다."
+    }
+  ],
+  "facts": [
+    "현재 저장소에는 tools/flowchart_matrix.py, package.json, package-lock.json, mmdc가 없다.",
+    "현재 실행 환경에는 Node 22.21.0과 /usr/bin/google-chrome가 존재한다.",
+    "공식 npm 조회에서 @mermaid-js/mermaid-cli 최신 버전은 11.17.0, 라이선스는 MIT, Node 요구사항은 ^18.19 또는 >=20.0이다.",
+    "Mermaid CLI는 .mmd에서 SVG와 PNG를 생성하며 잘못된 Mermaid 입력에서 non-zero 오류를 낸다.",
+    "Node 프로그램 API는 semver 대상이 아니므로 CLI 경계가 더 안정적이다."
+  ],
+  "conflicts": [
+    "시스템 Chrome을 쓰면 브라우저 다운로드를 피하지만 Chrome 업데이트가 결과 바이트에 영향을 줄 수 있으므로 환경 receipt와 freshness 검사가 필요하다.",
+    "SVG와 PNG byte 비교는 강한 재현성 검사지만 렌더러 또는 브라우저 버전 변경 시 의도적인 재생성과 새 승인이 필요하다."
+  ],
+  "unimplemented": [
+    "저장소 로컬 evidence/design/matrix validator와 Mermaid compiler",
+    "정확한 Mermaid CLI dependency와 lockfile",
+    "SVG·PNG 렌더 및 byte-for-byte freshness 검사",
+    "유효·무효·stale 입력과 renderer preflight에 대한 테스트"
+  ],
+  "options": [
+    {
+      "option_id": "A-EXTERNAL-SKILL-ONLY",
+      "description": "외부 flowchart skill 스크립트와 사용 시점의 전역/npx 렌더러만 사용한다.",
+      "impact": {
+        "data": "다이어그램 의미 정본은 유지되지만 실행 환경이 정본 밖에 남는다.",
+        "schema_api": "저장소 CLI 계약이 추가되지 않는다.",
+        "ux": "초기 파일 수는 적지만 실행자가 외부 경로를 알아야 한다.",
+        "performance": "npx 사용 시 반복 다운로드 가능성이 있다.",
+        "cost": "코드 유지비는 낮지만 재현 실패 조사비가 높다.",
+        "security": "unpinned 전역 또는 즉시 다운로드 공급망 위험이 남는다.",
+        "migration": "외부 스킬 변경이 저장소 계획 없이 동작을 바꿀 수 있다.",
+        "tests": "저장소 CI가 도구 계약을 독립적으로 검증할 수 없다."
+      },
+      "opportunity_costs": [
+        "저장소 단독 재현성과 exact result receipt를 포기한다."
+      ]
+    },
+    {
+      "option_id": "B-REPOSITORY-PINNED-TOOLCHAIN",
+      "description": "저장소 로컬 Python CLI, pinned Mermaid CLI lockfile, 명시적 Chrome config와 양·음성·freshness 시험을 추가한다.",
+      "impact": {
+        "data": "의미 JSON과 생성물을 분리하고 각 파생물 hash를 검증할 수 있다.",
+        "schema_api": "validate-evidence, validate-design, validate, build, check 명령 계약을 저장소가 소유한다.",
+        "ux": "한 저장소 명령으로 검증·렌더·freshness 확인이 가능하다.",
+        "performance": "설치 후 렌더는 로컬이며 네트워크가 필요 없다.",
+        "cost": "무료 MIT 도구이며 lockfile과 테스트 유지비가 추가된다.",
+        "security": "정확한 패키지 integrity와 로컬-only 입력을 사용하고 secret·provider 호출이 없다.",
+        "migration": "버전 또는 Chrome 변경은 새 결과 hash와 캠페인 승인으로 관리한다.",
+        "tests": "그래프 검증, 오류 입력, SVG/PNG signature, 반복 바이트, stale 거부를 자동화한다."
+      },
+      "opportunity_costs": [
+        "Node 개발 의존성과 시스템 Chrome 가용성 관리가 추가된다."
+      ]
+    }
+  ],
+  "recommended_option_id": "B-REPOSITORY-PINNED-TOOLCHAIN",
+  "recommendation_reason": "캠페인의 exact-plan·source-hash·receipt 원칙을 다이어그램에도 적용하려면 외부 스킬이나 전역 도구가 아니라 저장소가 검증 CLI와 렌더러 버전을 소유해야 한다.",
+  "impact": {
+    "data": "다이어그램 evidence, design, matrix, Mermaid, SVG, PNG 사이의 파생 관계와 hash를 검증한다.",
+    "schema_api": "저장소 로컬 diagram CLI 명령과 구성 파일을 추가한다.",
+    "ux": "작성자는 외부 스킬 경로 대신 저장소 명령을 실행한다.",
+    "performance": "브라우저 다운로드 없이 로컬 Chrome으로 다섯 diagram을 순차 렌더한다.",
+    "cost": "라이선스 비용은 없고 Node 설치·업데이트 유지비만 발생한다.",
+    "security": "외부 데이터 전송 없이 strict Mermaid 설정과 고정 dependency integrity를 사용한다.",
+    "migration": "현재 다이어그램 경로는 유지하고 생성 도구만 새 정본으로 도입한다.",
+    "tests": "Python 단위시험과 실제 mmdc SVG/PNG 통합시험을 분리한다."
+  },
+  "opportunity_costs": [
+    "도구체인 승인을 위한 별도 cohort와 plan SHA가 필요하다."
+  ],
+  "dependencies": [
+    "D-08"
+  ],
+  "dependency_waivers": {},
+  "accepted_decision": {
+    "disposition": "ACCEPT",
+    "option_id": "B-REPOSITORY-PINNED-TOOLCHAIN",
+    "rule": "사용자가 D-11의 B 권장안 승인, PREPARE, 생성 Plan SHA 결속, IMPLEMENT와 VALIDATE를 명시적으로 승인했다.",
+    "rationale": "저장소 소유 검증·렌더링 도구체인으로 다이어그램의 plan SHA와 결과 receipt 재현성을 확보한다.",
+    "decided_by": "user",
+    "decided_at": "2026-09-15T00:00:00+09:00"
+  },
+  "implementation_targets": [
+    ".gitignore",
+    "tools/flowchart_matrix.py",
+    "tools/mermaid-renderer/package.json",
+    "tools/mermaid-renderer/package-lock.json",
+    "tools/mermaid-renderer/mermaid.config.json",
+    "tools/mermaid-renderer/puppeteer.local.json",
+    "tests/tools/test_flowchart_matrix.py",
+    "tests/tools/test_mermaid_renderer.py"
+  ],
+  "validation_requirements": [
+    "저장소 외부 스킬 경로가 없어도 evidence·design·matrix 검증과 Mermaid 컴파일이 동작함",
+    "고정된 mmdc 11.17.0과 /usr/bin/google-chrome로 SVG 및 PNG를 생성함",
+    "유효하지 않은 evidence·design·matrix·Mermaid가 non-zero로 거부됨",
+    "생성물 누락·변조·source 또는 config 변경을 --check가 stale로 거부함",
+    "두 번 연속 렌더한 SVG와 PNG가 byte-for-byte 동일함",
+    "node_modules는 Git 추적 대상이 아니며 런타임 provider·secret·network가 필요 없음"
+  ],
+  "diagram_impacts": [
+    "docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/diagrams/matrices/validation-pipeline.flowchart-matrix.json",
+    "docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/diagrams/mermaid/validation-pipeline.mmd",
+    "docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/diagrams/mermaid/validation-pipeline.svg",
+    "docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/diagrams/mermaid/validation-pipeline.png"
+  ],
+  "context_topic_ids": [
+    "diagram-toolchain",
+    "diagram-validation",
+    "mermaid-renderer"
+  ],
+  "implementation_change_ids": [
+    "file-change-11fe041e9525",
+    "file-change-2cb2323e87c8",
+    "file-change-368e35f4988c",
+    "file-change-46574042dc93",
+    "file-change-970fbb67544b",
+    "file-change-b9c763c03407",
+    "file-change-bc37d034bad5",
+    "file-change-cadd50729db0"
+  ]
+}

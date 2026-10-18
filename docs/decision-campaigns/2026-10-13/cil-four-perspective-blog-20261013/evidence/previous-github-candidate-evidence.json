@@ -1,0 +1,144 @@
+{
+  "retrieved_at": "2026-10-13",
+  "capability": "Evidence-based CIL/company/venture report publishing to an owned AdSense-supported blog",
+  "boundaries": [
+    "public repositories only",
+    "research and code inspection; no installation or external publication",
+    "a working publisher is not AdSense approval or earnings proof"
+  ],
+  "selection_status": "conditional; blog platform not yet specified",
+  "candidates": [
+    {
+      "candidate": "googleapis/google-api-python-client",
+      "status": "candidate",
+      "sha": "6ee20fa2fb4f621bd551ebe305936a70a1184492",
+      "license": "Apache-2.0",
+      "verified_features": [
+        "official Google discovery-based client",
+        "Blogger v3 insert/patch/publish definitions present",
+        "library maintenance mode"
+      ],
+      "locators": [
+        "README.md",
+        "LICENSE",
+        "googleapiclient/discovery_cache/documents/blogger.v3.json"
+      ],
+      "adoption": "conditional on Blogger platform choice; use a thin Python publisher",
+      "missing": [
+        "OAuth account/blog ownership",
+        "publish/update reconciliation",
+        "CIL report integration",
+        "live AdSense account"
+      ],
+      "next_step": "platform decision before deepwiki-logic-integration"
+    },
+    {
+      "candidate": "zachsladecode/blogger-mcp-server",
+      "status": "candidate",
+      "sha": "c40673a3426c6a5c569545280e3591e64f1c966c",
+      "license": "MIT",
+      "verified_features": [
+        "stdio MCP server",
+        "Blogger read/create/update/delete tools",
+        "OAuth required for write operations"
+      ],
+      "locators": [
+        "src/index.ts",
+        "LICENSE"
+      ],
+      "adoption": "conditional MCP bridge if useful to the agent",
+      "missing": [
+        "create_post defaults isDraft to false; wrapper must explicitly choose draft",
+        "no CIL evidence validation",
+        "no AdSense reporting",
+        "runtime OAuth proof"
+      ],
+      "next_step": "protocol and draft gate validation before integration"
+    },
+    {
+      "candidate": "51-Shenn/wordpress-blog-automation",
+      "status": "candidate",
+      "sha": "24bca31e057c10fbea8d203791fc1b0169f4ebeb",
+      "license": "MIT template; n8n runtime separately licensed",
+      "verified_features": [
+        "n8n workflow nodes for Google Sheets/OpenAI/Pexels/WordPress",
+        "README defines draft generation and status/URL updates"
+      ],
+      "locators": [
+        "README.md",
+        "workflow.json",
+        "LICENSE"
+      ],
+      "adoption": "reference draft and publication-status workflow; do not inherit generic generation prompts",
+      "missing": [
+        "claim-level citations and metric provenance",
+        "CIL API adapter",
+        "actual costs and external permissions"
+      ],
+      "next_step": "WordPress and workflow-runtime selection before integration"
+    },
+    {
+      "candidate": "activepieces/activepieces",
+      "status": "candidate",
+      "sha": "4a82369c02db2f62f19c2552df34c6145eca8311",
+      "license": "MIT outside enterprise directories; enterprise license separate",
+      "verified_features": [
+        "WordPress create-post action",
+        "explicit status property",
+        "action declares non-idempotent creation"
+      ],
+      "locators": [
+        "packages/pieces/community/wordpress/src/lib/actions/create-post.action.ts",
+        "LICENSE"
+      ],
+      "adoption": "defer full engine until multi-provider workflow need is proven",
+      "missing": [
+        "idempotent report_id/post_id mapping",
+        "CIL meaning/evidence pipeline",
+        "runtime capacity/cost"
+      ],
+      "next_step": "NO_CHANGE/thin CLI comparison first"
+    },
+    {
+      "candidate": "AryanVBW/AUTO-blogger",
+      "status": "candidate",
+      "sha": "be0fae2a4a438ac13d857c7637f82aef656eeb72",
+      "license": "MIT",
+      "verified_features": [
+        "WordPress automation engine",
+        "requests BasicAuth and Gemini prompt configuration"
+      ],
+      "locators": [
+        "auto_blogger/automation_engine.py",
+        "LICENSE"
+      ],
+      "adoption": "defer complete application; inspect publishing pieces only if needed",
+      "missing": [
+        "CIL numeric/citation contract",
+        "post-write retry idempotency",
+        "source redistribution/image rights"
+      ],
+      "next_step": "component-level review only"
+    },
+    {
+      "candidate": "KartikeySepta/ollama-blog-writer",
+      "status": "rejected",
+      "sha": "a23b621c9d3226c520314627c0999de968417a60",
+      "license": "no LICENSE found in inspected tree",
+      "verified_features": [
+        "README advertises end-to-end automation",
+        "backend/server.js contains a single unrelated text line and no server implementation"
+      ],
+      "locators": [
+        "README.md",
+        "backend/server.js"
+      ],
+      "adoption": "reject as runnable end-to-end implementation at inspected SHA",
+      "missing": [
+        "functional backend",
+        "redistribution license"
+      ],
+      "next_step": null
+    }
+  ]
+}

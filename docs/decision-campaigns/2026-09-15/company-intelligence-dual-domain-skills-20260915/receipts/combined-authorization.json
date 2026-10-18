@@ -1,0 +1,45 @@
+{
+  "contract_version": "campaign-combined-authorization-v1",
+  "campaign_id": "company-intelligence-dual-domain-skills-20260915",
+  "campaign_path": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/campaign.json",
+  "scope_lock_path": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/scope-lock.json",
+  "scope_lock_sha256": "1da5af1cdac11c3150f4cdc301e385a49ddda74d6b5fd9113b2203c97511846c",
+  "authorized_by": "user",
+  "authorized_at": "2026-09-15T05:33:02.271380+00:00",
+  "authorization_text": "아래 적용하여 전체 plan sha부터 스킬 생성까지 전부 decision-campaign-workbook skill-creator 로 연결해서 진행해; company-intelligence-dual-domain-skills-20260915 AMEND_SCOPE: D-01~D-08의 B 방향을 유지하고 D-09 CIL 실행 준비도와 D-10 3스킬·DualPathComparison 소유권을 추가하며 공유 계약은 비스킬 패키지로 두고 모든 구현 대상을 정확한 파일 경로로 확정한다.",
+  "authorization_text_sha256": "bcfdb33ba064fd464f7a967567f2fec2dcbd2df43660a35d0d7d914552e1f573",
+  "authorized_plan_refs": [
+    {
+      "cohort_id": "C-01-interop-control",
+      "plan_id": "C-01-interop-control-plan-r1",
+      "path": "docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/implementation-plans/C-01-interop-control.json",
+      "sha256": "6a0e924fbeab435f271962cd428ea77744a08d2de36b68a5c75ac2341b43c8f0"
+    },
+    {
+      "cohort_id": "C-02-cil-runtime",
+      "plan_id": "C-02-cil-runtime-plan-r1",
+      "path": "docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/implementation-plans/C-02-cil-runtime.json",
+      "sha256": "4bffa4b6ab878493b390485d392141e393a61bde571af39e647da43677a2092b"
+    },
+    {
+      "cohort_id": "C-03-company-analysis-skill",
+      "plan_id": "C-03-company-analysis-skill-plan-r1",
+      "path": "docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/implementation-plans/C-03-company-analysis-skill.json",
+      "sha256": "930d3d7a9f7b73b789d356fc8a84024975f2c5b098edbb3de67d16ec44a3b116"
+    },
+    {
+      "cohort_id": "C-04-venture-analysis-skill",
+      "plan_id": "C-04-venture-analysis-skill-plan-r1",
+      "path": "docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/implementation-plans/C-04-venture-analysis-skill.json",
+      "sha256": "82ce2475b651c6f1ba32fdcfe7978561f5a646a6332ad9d0c49812f0b88d67ee"
+    },
+    {
+      "cohort_id": "C-05-packaging-validation",
+      "plan_id": "C-05-packaging-validation-plan-r1",
+      "path": "docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/implementation-plans/C-05-packaging-validation.json",
+      "sha256": "732149ab95552b32019265e90382cba00383edf4e7754173224958c49168dbcc"
+    }
+  ],
+  "stop_before_validation": false,
+  "external_actions_authorized": false
+}

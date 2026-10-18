@@ -12,12 +12,13 @@ from urllib.parse import urlparse
 import pandas as pd
 
 from .query_contract import FilterVerdict, UnknownPolicy, text_verdict
+from .taxonomy import resolve_title_to_isco
 
 JOB_COLUMNS = (
     "provider", "job_id", "entity_id", "company_name", "company_type", "industry_raw",
     "business_unit", "institution_type_code", "institution_type_raw",
     "identity_link_status", "public_context", "public_institution_type", "legal_form", "ownership_sector",
-    "title_raw", "occupation_label", "occupation_code", "occupation_system",
+    "title_raw", "occupation_label", "occupation_code", "occupation_system", "occupation_pivot", "ncs_code",
     "country_code", "location_raw", "city", "region", "workplace_type",
     "employment_type", "employment_type_raw", "posting_language", "salary_min",
     "salary_max", "salary_currency", "salary_period", "salary_period_raw", "salary_basis",
@@ -49,6 +50,8 @@ class JobSearchProfile:
     countries: tuple[str, ...]
     job_keywords: tuple[str, ...]
     occupations: tuple[str, ...] = ()
+    isco_codes: tuple[str, ...] = ()
+    ncs_codes: tuple[str, ...] = ()
     locations: tuple[str, ...] = ()
     workplace_types: tuple[str, ...] = ()
     employment_types: tuple[str, ...] = ()
@@ -329,6 +332,7 @@ def normalize_greenhouse_jobs(payload: Any) -> tuple[list[dict[str, Any]], list[
             "industry_raw": record.get("industry"), "business_unit": "; ".join(department_names) or None,
             "institution_type_code": None, "institution_type_raw": None, "identity_link_status": "unresolved", "public_context": None, "public_institution_type": None, "legal_form": None, "ownership_sector": None, "title_raw": record.get("title"),
             "occupation_label": record.get("title"), "occupation_code": None, "occupation_system": "title-only",
+            "occupation_pivot": resolve_title_to_isco(record.get("title")), "ncs_code": None,
             "country_code": record.get("country") or country, "location_raw": location, "city": None, "region": None,
             "workplace_type": _workplace(location, record.get("workplace_type")), "employment_type": "unknown",
             "employment_type_raw": None, "posting_language": record.get("language"), "salary_min": salary_min,
@@ -355,7 +359,13 @@ def normalize_lever_jobs(payload: Any) -> tuple[list[dict[str, Any]], list[dict[
         job_id = str(record.get("job_id") or record.get("id") or "")
         categories = record.get("categories") if isinstance(record.get("categories"), dict) else {}
         location = str(record.get("location") or categories.get("location") or "")
-        all_locations = record.get("allLocations") or record.get("all_locations") or []
+        all_locations = (
+            record.get("allLocations")
+            or record.get("all_locations")
+            or categories.get("allLocations")
+            or categories.get("all_locations")
+            or []
+        )
         if isinstance(all_locations, str):
             all_locations = [all_locations]
         location_candidates = [location, *(str(item) for item in all_locations if item)]
@@ -392,6 +402,7 @@ def normalize_lever_jobs(payload: Any) -> tuple[list[dict[str, Any]], list[dict[
             "business_unit": " / ".join(filter(None, (str(categories.get("team") or ""), str(categories.get("department") or "")))) or None,
             "institution_type_code": None, "institution_type_raw": None, "identity_link_status": "unresolved", "public_context": None, "public_institution_type": None, "legal_form": None, "ownership_sector": None, "title_raw": record.get("title") or record.get("text"),
             "occupation_label": record.get("title") or record.get("text"), "occupation_code": None, "occupation_system": "title-only",
+            "occupation_pivot": resolve_title_to_isco(record.get("title") or record.get("text")), "ncs_code": None,
             "country_code": country, "location_raw": location, "city": None, "region": None,
             "workplace_type": _workplace(location, record.get("workplaceType") or record.get("workplace_type")),
             "employment_type": employment, "employment_type_raw": employment_raw,
@@ -406,7 +417,7 @@ def normalize_lever_jobs(payload: Any) -> tuple[list[dict[str, Any]], list[dict[
             "_department_text": " ".join((str(categories.get("team") or ""), str(categories.get("department") or ""))),
         }
         jobs.append(job)
-        requirements.extend(_atomic_requirements(provider="lever", job_id=job_id, company_name=company_name, texts=requirement_texts, source_url=source_url, default_necessity="required"))
+        requirements.extend(_atomic_requirements(provider="lever", job_id=job_id, company_name=company_name, texts=requirement_texts, source_url=source_url, default_necessity="unspecified"))
     return jobs, requirements, {"provider": "lever", "snapshot_at": snapshot_at, "record_count": len(jobs), "source_url": "https://api.lever.co/v0/postings", "coverage": "country, workplace, commitment, location, descriptions; salaryRange optional", "limitations": "site-specific; no global full-text search; posting language usually absent"}
 
 
@@ -415,6 +426,18 @@ def normalize_mpm_jobs(payload: Any) -> tuple[list[dict[str, Any]], list[dict[st
     jobs = []
     for record in _records(payload, "jobs", "postings"):
         job_id = str(record.get("posting_id") or record.get("idx") or "")
+        posting_type_raw = str(record.get("posting_type") or record.get("type02") or "").strip() or None
+        emp_type = "unknown"
+        if posting_type_raw:
+            lowered_pt = posting_type_raw.casefold()
+            if "정규" in lowered_pt:
+                emp_type = "permanent"
+            elif "계약" in lowered_pt or "기간제" in lowered_pt:
+                emp_type = "contract"
+            elif "인턴" in lowered_pt:
+                emp_type = "internship"
+        title_str = str(record.get("title") or "")
+        isco_pivot = resolve_title_to_isco(title_str)
         jobs.append({
             "provider": "mpm_public_employment", "job_id": job_id, "entity_id": None,
             "company_name": record.get("institution_name") or record.get("insttname"), "company_type": "public-sector-employer",
@@ -424,9 +447,10 @@ def normalize_mpm_jobs(payload: Any) -> tuple[list[dict[str, Any]], list[dict[st
             "identity_link_status": "unresolved", "public_context": "public_employment_listing", "public_institution_type": None,
             "legal_form": None, "ownership_sector": None,
             "title_raw": record.get("title"), "occupation_label": record.get("title"),
-            "occupation_code": None, "occupation_system": "title-only", "country_code": "KR", "location_raw": None,
-            "city": None, "region": None, "workplace_type": "unknown", "employment_type": "unknown",
-            "employment_type_raw": record.get("posting_type") or record.get("type02"), "posting_language": "ko",
+            "occupation_code": None, "occupation_system": "title-only",
+            "occupation_pivot": isco_pivot, "ncs_code": None, "country_code": "KR", "location_raw": None,
+            "city": None, "region": None, "workplace_type": "unknown", "employment_type": emp_type,
+            "employment_type_raw": posting_type_raw, "posting_language": "ko",
             "salary_min": None, "salary_max": None, "salary_currency": None, "salary_period": None,
             "salary_period_raw": None, "salary_basis": None, "posted_at": record.get("registered_at") or record.get("regdate"),
             "updated_at": None, "closing_at": record.get("closing_at") or record.get("enddate"), "snapshot_at": snapshot_at,
@@ -452,9 +476,9 @@ def _mpsv_location(record: dict[str, Any]) -> tuple[str | None, str | None, str 
 def _mpsv_salary_period(value: Any) -> tuple[str | None, str | None]:
     raw = str(_value(value) or "") or None
     lowered = (raw or "").casefold()
-    if "hodin" in lowered or "hour" in lowered:
+    if "hodin" in lowered or "hour" in lowered or lowered == "hod" or "hod." in lowered or "/hod" in lowered:
         return "hour", raw
-    if "mesic" in lowered or "měsíc" in lowered or "month" in lowered:
+    if "mesic" in lowered or "měsíc" in lowered or "month" in lowered or lowered == "měs" or "mes" in lowered:
         return "month", raw
     return None, raw
 
@@ -469,7 +493,8 @@ def normalize_mpsv_jobs(payload: Any) -> tuple[list[dict[str, Any]], list[dict[s
         location, city, region = _mpsv_location(record)
         period, period_raw = _mpsv_salary_period(record.get("typMzdy"))
         title = _value(record.get("pozadovanaProfese"), "cs") or record.get("pozadovanaProfese")
-        occupation = _value(record.get("profeseCzIsco"))
+        cz_isco = str(_value(record.get("profeseCzIsco")) or "").strip() or None
+        isco_pivot = cz_isco[:4] if cz_isco and len(cz_isco) >= 4 else None
         employment_raw = ",".join(str(_value(item)) for item in (record.get("pracovnePravniVztahy") or [])) or None
         employment, employment_raw = _employment(employment_raw)
         source_url = record.get("urlAdresa")
@@ -479,8 +504,9 @@ def normalize_mpsv_jobs(payload: Any) -> tuple[list[dict[str, Any]], list[dict[s
             "industry_raw": None, "business_unit": None, "institution_type_code": None, "institution_type_raw": None,
             "identity_link_status": "unresolved", "public_context": "public_administration" if record.get("statniSpravaSamosprava") else None,
             "public_institution_type": None, "legal_form": None, "ownership_sector": None,
-            "title_raw": title, "occupation_label": title, "occupation_code": occupation,
-            "occupation_system": "CZ-ISCO", "country_code": "CZ", "location_raw": location, "city": city, "region": region,
+            "title_raw": title, "occupation_label": title, "occupation_code": cz_isco,
+            "occupation_system": "CZ-ISCO", "occupation_pivot": isco_pivot, "ncs_code": None,
+            "country_code": "CZ", "location_raw": location, "city": city, "region": region,
             "workplace_type": "unknown", "employment_type": employment, "employment_type_raw": employment_raw,
             "posting_language": "cs", "salary_min": record.get("mesicniMzdaOd"), "salary_max": record.get("mesicniMzdaDo"),
             "salary_currency": "CZK", "salary_period": period, "salary_period_raw": period_raw,
@@ -528,7 +554,9 @@ def normalize_mpsv_jobs(payload: Any) -> tuple[list[dict[str, Any]], list[dict[s
 NORMALIZERS = {
     "greenhouse": normalize_greenhouse_jobs,
     "lever": normalize_lever_jobs,
+    "mpm": normalize_mpm_jobs,
     "mpm_public_employment": normalize_mpm_jobs,
+    "mpsv": normalize_mpsv_jobs,
     "mpsv_cz": normalize_mpsv_jobs,
 }
 
@@ -636,7 +664,7 @@ def _record_verdict(reasons: list[tuple[str, str, Any]], field: str, verdict: Fi
 def _validate_profile(profile: JobSearchProfile) -> None:
     if not profile.countries:
         raise ValueError("countries must contain at least one ISO code")
-    if not profile.job_keywords and not profile.occupations:
+    if not profile.job_keywords and not profile.occupations and not profile.isco_codes and not profile.ncs_codes:
         raise ValueError("job_keywords or occupations must contain an explicit term")
     unknown = set(profile.country_allocation) - set(profile.countries)
     if unknown:
@@ -669,12 +697,21 @@ def search_job_dataframes(payloads: dict[str, Any], profile: JobSearchProfile) -
                 verdicts.append((field, verdict, observed))
 
         evaluate("country", _membership_verdict(row.get("country_code"), profile.countries), row.get("country_code"))
+        inferred_isco = resolve_title_to_isco(" ".join(profile.job_keywords))
         keyword_text = " ".join((str(row.get("_title_text") or ""), str(row.get("occupation_label") or "")))
+        if inferred_isco and row.get("occupation_pivot") == inferred_isco:
+            keyword_text = " ".join((keyword_text, *profile.job_keywords))
         if profile.keyword_scope == "title_or_description":
             keyword_text = " ".join((keyword_text, str(row.get("_description_text") or "")))
         evaluate("job_keywords", text_verdict(keyword_text, profile.job_keywords), keyword_text or None)
-        occupation_text = " ".join(str(row.get(key) or "") for key in ("occupation_label", "occupation_code"))
+        occupation_text = " ".join(str(row.get(key) or "") for key in ("occupation_label", "occupation_code", "occupation_pivot", "ncs_code"))
         evaluate("occupations", _contains_verdict(occupation_text, profile.occupations), occupation_text or None)
+        if profile.isco_codes:
+            pivot_val = row.get("occupation_pivot") or ""
+            evaluate("isco_codes", _membership_verdict(pivot_val, profile.isco_codes), pivot_val or None)
+        if profile.ncs_codes:
+            ncs_val = row.get("ncs_code") or ""
+            evaluate("ncs_codes", _contains_verdict(ncs_val, profile.ncs_codes), ncs_val or None)
         evaluate("locations", _contains_verdict(row.get("_location_text") or row.get("location_raw"), profile.locations), row.get("_location_text") or row.get("location_raw"))
         evaluate("workplace_types", _membership_verdict(row.get("workplace_type"), profile.workplace_types), row.get("workplace_type"))
         evaluate("employment_types", _membership_verdict(row.get("employment_type"), profile.employment_types), row.get("employment_type"))

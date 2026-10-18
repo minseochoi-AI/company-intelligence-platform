@@ -1,0 +1,51 @@
+{
+  "contract_version": "atomic-json-patch-receipt-v1",
+  "target": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/decisions/08-d-08.json",
+  "outcome": "pass",
+  "before_sha256": "9a43484e35d6af53ecb5bb2ba943bd8c99290379b6b840d84d6793ebe06a3cea",
+  "after_sha256": "43c8d06ea84a19d12aca93cbedc48084c18b64c654323203c62b4f66c2a8f75c",
+  "proposed_after_sha256": "43c8d06ea84a19d12aca93cbedc48084c18b64c654323203c62b4f66c2a8f75c",
+  "operations": [
+    {
+      "op": "test",
+      "path": "/dependencies"
+    },
+    {
+      "op": "test",
+      "path": "/implementation_targets"
+    },
+    {
+      "op": "test",
+      "path": "/validation_requirements"
+    },
+    {
+      "op": "replace",
+      "path": "/dependencies"
+    },
+    {
+      "op": "replace",
+      "path": "/implementation_targets"
+    },
+    {
+      "op": "replace",
+      "path": "/validation_requirements"
+    }
+  ],
+  "backup": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/.mutation-journal/preimages/sha256-9a43484e35d6af53ecb5bb2ba943bd8c99290379b6b840d84d6793ebe06a3cea.json",
+  "journal": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/.mutation-journal/mutations/896afaed9744a73017b7c3600c2b8e998bfff082edffab67ac9532a1f18a27b2.json",
+  "mutation_id": "amend-08-d-08",
+  "validators": [
+    {
+      "command": [
+        "python3",
+        "-m",
+        "json.tool",
+        "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/decisions/08-d-08.json"
+      ],
+      "returncode": 0,
+      "stdout_tail": "ills/test_company_intelligence_analysis_skill.py\",\n        \"tests/skills/test_venture_discovery_skill.py\",\n        \"tests/skills/test_skill_artifact_interop.py\"\n    ],\n    \"implementation_change_ids\": [],\n    \"validation_requirements\": [\n        \"\\ub450 \\uc2e0\\uaddc \\uc2a4\\ud0ac\\uc774 skill-creator quick_validate\\uc640 skill2-audit\\ub97c \\ud1b5\\uacfc\\ud568\",\n        \"\\uae30\\uc874 \\ucee4\\ub9ac\\uc5b4 \\uc2a4\\ud0ac\\uacfc \\ub450 \\uc2e0\\uaddc \\uc2a4\\ud0ac\\uc758 \\uc591\\uc131\\u00b7\\uc74c\\uc131\\u00b7\\uad50\\ucc28 trigger \\uacbd\\uacc4\\uac00 \\uac80\\ud1a0\\ub428\",\n        \"repo \\ubc16 cwd CIL \\ud638\\ucd9c\\uc774 \\uba85\\uc2dc root\\ub85c \\uc131\\uacf5\\ud568\",\n        \"\\ubcc0\\uc870\\u00b7stale\\u00b7wrong-kind bundle\\uacfc DomainPlanRef\\ub97c \\uac70\\ubd80\\ud568\",\n        \"\\uc678\\ubd80 MCP \\uc5c6\\uc774 \\ucc3d\\uc5c5 core workflow\\uc640 DualPathComparison\\uc744 \\uac80\\uc99d\\ud568\"\n    ],\n    \"diagram_impacts\": [\n        \"\\uc791\\uc131\\u00b7\\uad6c\\uc870\\uac80\\uc99d\\u00b7\\ud589\\ub3d9\\uac80\\uc99d\\u00b7offline replay\\u00b7\\uc870\\uac74\\ubd80 provider \\uac80\\uc99d\\uc758 \\uac80\\uc99d \\ud30c\\uc774\\ud504\\ub77c\\uc778\"\n    ],\n    \"context_topic_ids\": [\n        \"skill-packaging\",\n        \"behavior-validation\"\n    ]\n}\n",
+      "stderr_tail": ""
+    }
+  ],
+  "completed_at": "2026-09-15T05:24:09.043254+00:00"
+}

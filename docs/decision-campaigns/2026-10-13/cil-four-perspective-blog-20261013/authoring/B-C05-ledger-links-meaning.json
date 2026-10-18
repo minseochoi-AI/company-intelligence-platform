@@ -1,0 +1,63 @@
+{
+  "prose": {
+    "reason": "SQLite 트랜잭션과 단일 writer를 사용해 보고서·AI revision·사용자 revision·원격 ID·outbox 상태를 연결하며 불확실한 게시 결과를 원격과 대조한다.",
+    "assertion": "동일 입력 재실행 no-op, pending/uncertain 복구, 네 독자 목차가 동일 URL 사용, broken link 검출, 의견 revision append 및 public/private 분리"
+  },
+  "changes": {
+    "T1": {
+      "problem": "이 목적의 컴포넌트 없음",
+      "reason": {
+        "$prose": "reason"
+      },
+      "change": "적용 경계: apps/company-report-blog/src/report_blog/ledger.py; SQLite transactional outbox·single writer·stable content_key·append revision; network와 DB의 비원자성 복구",
+      "evidence": "docs/decision-campaigns/2026-10-13/cil-four-perspective-blog-20261013/evidence/product-contract-ko.md",
+      "assertion": {
+        "$prose": "assertion"
+      }
+    },
+    "T2": {
+      "problem": "이 목적의 컴포넌트 없음",
+      "reason": {
+        "$prose": "reason"
+      },
+      "change": "적용 경계: apps/company-report-blog/src/report_blog/links.py; 명시 이유/관계의 typed 연결; 산업/직종/기업/시점/반박 글의 안정 ID 및 missing URL 상태; 자동 인과 추정 금지",
+      "evidence": "docs/decision-campaigns/2026-10-13/cil-four-perspective-blog-20261013/evidence/product-contract-ko.md",
+      "assertion": {
+        "$prose": "assertion"
+      }
+    },
+    "T3": {
+      "problem": "이 목적의 컴포넌트 없음",
+      "reason": {
+        "$prose": "reason"
+      },
+      "change": "적용 경계: apps/company-report-blog/migrations/001.sql; report/revision/evaluation/relation/publication_attempt 테이블과 고유 content_key 제약; 고객/키 데이터 저장 금지",
+      "evidence": "docs/decision-campaigns/2026-10-13/cil-four-perspective-blog-20261013/evidence/product-contract-ko.md",
+      "assertion": {
+        "$prose": "assertion"
+      }
+    },
+    "T4": {
+      "problem": "이 목적의 컴포넌트 없음",
+      "reason": {
+        "$prose": "reason"
+      },
+      "change": "적용 경계: apps/company-report-blog/tests/test_ledger.py; 새 테스트 파일: 동일 입력 재실행 no-op, pending/uncertain 복구, 네 독자 목차가 동일 URL 사용, broken link 검출, 의견 revision append 및 public/private 분리; 해당 그룹 변경점과 fixtures/반례를 모두 실행한다.",
+      "evidence": "docs/decision-campaigns/2026-10-13/cil-four-perspective-blog-20261013/evidence/product-contract-ko.md",
+      "assertion": {
+        "$prose": "assertion"
+      }
+    },
+    "T5": {
+      "problem": "이 목적의 컴포넌트 없음",
+      "reason": {
+        "$prose": "reason"
+      },
+      "change": "적용 경계: apps/company-report-blog/tests/test_relations.py; 새 테스트 파일: 동일 입력 재실행 no-op, pending/uncertain 복구, 네 독자 목차가 동일 URL 사용, broken link 검출, 의견 revision append 및 public/private 분리; 해당 그룹 변경점과 fixtures/반례를 모두 실행한다.",
+      "evidence": "docs/decision-campaigns/2026-10-13/cil-four-perspective-blog-20261013/evidence/product-contract-ko.md",
+      "assertion": {
+        "$prose": "assertion"
+      }
+    }
+  }
+}

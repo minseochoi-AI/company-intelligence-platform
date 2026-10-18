@@ -1,0 +1,78 @@
+{
+  "contract_version": "implementation-context-packet-v2",
+  "packet_id": "B-C07-cli-skill-packet-c9ae3787618e",
+  "topics": [
+    "B-C07-cli-skill"
+  ],
+  "capability_ids": [
+    "B-D07"
+  ],
+  "required_refs": [
+    {
+      "content_hash": "ae5f994a0474c592944b5846e584aea3f413cbe706966082ea1e6a2b7a3cbb07",
+      "line_range": "1-103",
+      "observation_summary": "사용자가 실행할 때 기존 CIL→보고서 구성기→게시 adapter→장부→성과 조회를 연결한다. AI 의미 작성은 현재 대화 모델이 맡고 도구는 검사/집계/갱신을 맡는다.",
+      "path": "docs/decision-campaigns/2026-10-13/cil-four-perspective-blog-20261013/evidence/product-contract-ko.md",
+      "question": "수동 실행 CLI와 thin skill의 책임·재사용 경계",
+      "ref_id": "product-contract",
+      "role": "must-read"
+    }
+  ],
+  "current_entry_points": [],
+  "planned_entry_points": [
+    {
+      "kind": "code",
+      "path": "apps/company-report-blog/pyproject.toml",
+      "symbol": "report_blog_package",
+      "change_id": "file-change-6da0dec88ca8"
+    },
+    {
+      "kind": "code",
+      "path": "apps/company-report-blog/uv.lock",
+      "symbol": "resolved_dependency_lock",
+      "change_id": "file-change-269781ae6688"
+    },
+    {
+      "kind": "code",
+      "path": "apps/company-report-blog/src/report_blog/__init__.py",
+      "symbol": "__init__",
+      "change_id": "file-change-57c5036c11db"
+    },
+    {
+      "kind": "code",
+      "path": "apps/company-report-blog/src/report_blog/cli.py",
+      "symbol": "main",
+      "change_id": "file-change-0fa8857c54f3"
+    },
+    {
+      "kind": "code",
+      "path": "apps/company-report-blog/README.md",
+      "symbol": "README",
+      "change_id": "file-change-3d21764f4086"
+    },
+    {
+      "kind": "code",
+      "path": "apps/company-report-blog/skills/company-report-blog/SKILL.md",
+      "symbol": "company-report-blog",
+      "change_id": "file-change-335b547b9414"
+    },
+    {
+      "kind": "code",
+      "path": "apps/company-report-blog/skills/company-report-blog/agents/openai.yaml",
+      "symbol": "skill_metadata",
+      "change_id": "file-change-c8824f26de4b"
+    },
+    {
+      "kind": "code",
+      "path": "apps/company-report-blog/tests/test_cli.py",
+      "symbol": "test_cli_contract",
+      "change_id": "file-change-f292f33ffbc7"
+    }
+  ],
+  "external_entry_points": [],
+  "invariants": [
+    "AI와 작성자 평가 소유권 분리; 비밀·캠페인 비공개; 기존 CLI 보존; 원격 실행은 별도 승인"
+  ],
+  "unresolved_conflicts": [],
+  "resume_digest": "Prepared B-C07-cli-skill from current decision hashes and one global file-ownership graph."
+}

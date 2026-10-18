@@ -1,0 +1,153 @@
+{
+  "decision_id": "D-05",
+  "sequence": 5,
+  "unit_id": "venture-analysis-skill",
+  "title": "창업분석 스킬의 실행·출력·한계 계약",
+  "status": "accepted",
+  "question": "창업분석 스킬이 시장기회·경쟁·방어력·창업자 자원을 어떻게 판단하고 CIL 기업증거는 언제 선택적으로 사용할 것인가?",
+  "five_w_one_h": {
+    "who": "한국에서 방어 가능한 사업기회를 찾고 검증하려는 창업자와 조사 에이전트",
+    "what": "창업자 제약, 시장유형, 근거·권리, 시장·경쟁, 장벽·자원, gap-driven 증강조사와 venture DomainPlan을 생성한다.",
+    "where": "신규 스킬의 schema·workflow 안에서 동작하고 알려진 경쟁사 검증이 필요할 때만 CIL EvidenceBundleRef를 읽는다.",
+    "when": "문제·고객·지역·기간·가용자원 범위를 잠근 뒤 baseline 조사와 gap 분석을 순차 수행한다.",
+    "why": "회사 재무 비교만으로 시장 수요·대체수단·조달·규제·현장 실행 가능성을 판단할 수 없다.",
+    "how": "기존 창업 캠페인의 8개 결정 모델을 입력으로 재사용하되 이 저장소에서 독립 구현하고, CIL 연동은 competitor/company evidence가 필요한 gap에만 요청한다."
+  },
+  "evidence_refs": [
+    {
+      "evidence_id": "EV-VENTURE-CAMPAIGN",
+      "source_type": "local-document",
+      "locator": "/home/ubuntu/root/agents/docs/decision-campaigns/2026-09-15/kr-defensible-venture-discovery-skill-20260915/campaign.json",
+      "observed_fact": "창업자 제약·시장유형·증거·경쟁·장벽·증강조사·재사용·검증의 8개 결정이 decision-required 상태로 구성되어 있다.",
+      "content_hash": "841b4fab3bb299f280640322bdb0ba84d3eaba9f07ac9e6d713eca50230f5cd4",
+      "line_range": "1-EOF",
+      "question": "창업분석 스킬이 시장기회·경쟁·방어력·창업자 자원을 어떻게 판단하고 CIL 기업증거는 언제 선택적으로 사용할 것인가?",
+      "observation_summary": "창업자 제약·시장유형·증거·경쟁·장벽·증강조사·재사용·검증의 8개 결정이 decision-required 상태로 구성되어 있다."
+    },
+    {
+      "evidence_id": "EV-VENTURE-WORKBOOK",
+      "source_type": "local-document",
+      "locator": "/home/ubuntu/root/agents/docs/decision-campaigns/2026-09-15/kr-defensible-venture-discovery-skill-20260915/decision-workbook.md",
+      "observed_fact": "시장크기·경쟁도·대체수단과 장벽·자원 적합성을 단일 점수가 아닌 분리 레코드로 다루는 권장안이 정리되어 있다.",
+      "content_hash": "d38631f8386dcbad8de64b78416e6300a15b6bff49b462b55fb820233597529e",
+      "line_range": "1-EOF",
+      "question": "창업분석 스킬이 시장기회·경쟁·방어력·창업자 자원을 어떻게 판단하고 CIL 기업증거는 언제 선택적으로 사용할 것인가?",
+      "observation_summary": "시장크기·경쟁도·대체수단과 장벽·자원 적합성을 단일 점수가 아닌 분리 레코드로 다루는 권장안이 정리되어 있다."
+    }
+  ],
+  "facts": [
+    "기존 창업 캠페인은 설계 근거이며 현재 캠페인의 D-05 승인이 구현 의미의 정본이다.",
+    "CIL은 식별된 회사 분석에는 유용하지만 시장 문제 발견과 창업자 자원 검증을 소유하지 않는다.",
+    "공개 기업 자료가 없거나 비상장·수작업·현상유지 경쟁자는 CIL만으로 분석할 수 없다."
+  ],
+  "conflicts": [
+    "기존 /home/ubuntu/root/agents 캠페인을 복사하면 두 정본이 생길 수 있다.",
+    "창업 스킬이 CIL을 필수로 만들면 CIL coverage 밖 기회를 부당하게 배제한다."
+  ],
+  "unimplemented": [
+    "kr-defensible-venture-discovery SKILL.md",
+    "창업 schema·validator",
+    "venture DomainPlan generator",
+    "선택적 CIL evidence request/consume 절차"
+  ],
+  "options": [
+    {
+      "option_id": "A-CIL-CENTRIC-VENTURE-SKILL",
+      "description": "모든 창업 후보를 CIL 기업·재무 데이터로 평가하고 CIL 결과가 없는 후보는 제외한다.",
+      "impact": {
+        "data": "공시기업 중심 편향이 생긴다.",
+        "schema_api": "시장·자원 모델이 CIL 회사 모델에 종속된다.",
+        "ux": "비교는 단순하지만 초기 기회를 놓친다.",
+        "performance": "기업 조회가 항상 필요하다.",
+        "cost": "불필요한 provider 호출이 늘 수 있다.",
+        "security": "창업자 제약이 기업 artifact와 섞인다.",
+        "migration": "CIL coverage 변화에 결과가 흔들린다.",
+        "tests": "비상장·무경쟁 후보를 표현하기 어렵다."
+      },
+      "opportunity_costs": [
+        "시장 형성 전·공공조달·지역 틈새 후보를 잃는다."
+      ]
+    },
+    {
+      "option_id": "B-INDEPENDENT-VENTURE-WITH-OPTIONAL-CIL",
+      "description": "창업 스킬은 독립 조사·판단 엔진을 가지며 식별된 경쟁사·기업 검증 gap에만 CIL bundle을 선택 소비한다.",
+      "impact": {
+        "data": "시장·수요·대체수단·회사 증거를 구분한다.",
+        "schema_api": "CIL은 optional EvidenceBundleRef provider다.",
+        "ux": "CIL 미사용·사용 이유가 명시된다.",
+        "performance": "필요한 후보만 기업 조회한다.",
+        "cost": "광범위 조사 비용을 gap별로 통제한다.",
+        "security": "창업자 민감정보를 CIL로 전달하지 않는다.",
+        "migration": "기존 창업 설계를 출처로 참조하고 새 정본만 구현한다.",
+        "tests": "CIL 유무와 관계없이 core workflow를 검증한다."
+      },
+      "opportunity_costs": [
+        "두 분석 결과를 결합하는 adapter가 필요하다."
+      ]
+    }
+  ],
+  "recommended_option_id": "B-INDEPENDENT-VENTURE-WITH-OPTIONAL-CIL",
+  "recommendation_reason": "창업기회 검증의 중심은 시장·고객·장벽·자원이며 기업 데이터는 특정 경쟁사 주장을 보강하는 선택 근거여야 한다.",
+  "impact": {
+    "data": "venture evidence와 company evidence를 별도 type으로 보존한다.",
+    "schema_api": "optional company_evidence_refs와 venture DomainPlan을 정의한다.",
+    "ux": "근거 부족·현장검증 필요·blocked 상태를 숨기지 않는다.",
+    "performance": "gap 우선 조사로 호출을 줄인다.",
+    "cost": "무료 공식 원천을 우선하고 유료 자료를 필수화하지 않는다.",
+    "security": "창업자 자원·개인정보를 공개 bundle과 분리한다.",
+    "migration": "기존 agents 캠페인은 역사적 근거로 고정하고 본 저장소 캠페인이 구현 정본이 된다.",
+    "tests": "CIL 없는 독립 실행, 변조 bundle 거부, 대체수단 누락 gate를 검증한다."
+  },
+  "opportunity_costs": [
+    "기업 재무 점수 하나로 창업후보를 빠르게 줄이는 방식은 사용하지 않는다."
+  ],
+  "dependencies": [
+    "D-01",
+    "D-03",
+    "D-10"
+  ],
+  "dependency_waivers": {},
+  "accepted_decision": {
+    "disposition": "ACCEPT",
+    "option_id": "B-INDEPENDENT-VENTURE-WITH-OPTIONAL-CIL",
+    "rule": "사용자의 FULL_EXECUTION 요청에 따라 각 결정의 B 권장안을 승인한다.",
+    "rationale": "비판적 검증에서 확인된 수정사항과 D-09·D-10을 포함한 개정 범위를 구현한다.",
+    "decided_by": "user",
+    "decided_at": "2026-09-15T05:28:25.724684+00:00"
+  },
+  "implementation_targets": [
+    ".codex/skills/kr-defensible-venture-discovery/SKILL.md",
+    ".codex/skills/kr-defensible-venture-discovery/agents/openai.yaml",
+    ".codex/skills/kr-defensible-venture-discovery/references/market-archetypes.md",
+    ".codex/skills/kr-defensible-venture-discovery/references/research-workflow.md",
+    ".codex/skills/kr-defensible-venture-discovery/references/evidence-and-barriers.md",
+    ".codex/skills/kr-defensible-venture-discovery/references/venture-session.schema.json",
+    ".codex/skills/kr-defensible-venture-discovery/references/opportunity-hypothesis.schema.json",
+    ".codex/skills/kr-defensible-venture-discovery/scripts/venture_artifacts.py"
+  ],
+  "implementation_change_ids": [
+    "C04-001",
+    "C04-002",
+    "C04-003",
+    "C04-004",
+    "C04-005",
+    "C04-006",
+    "C04-007",
+    "C04-008"
+  ],
+  "validation_requirements": [
+    "CIL 없이도 창업 core workflow가 실행됨",
+    "CIL bundle은 경쟁사 gap이 있을 때만 요구됨",
+    "직접 경쟁사 0건이 미개척 확정으로 변환되지 않음",
+    "venture DomainPlan의 단계마다 evidence 또는 unresolved gate가 존재함"
+  ],
+  "diagram_impacts": [
+    "docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/diagrams/matrices/venture-discovery-connectors.flowchart-matrix.json",
+    "docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/diagrams/mermaid/venture-discovery-connectors.mmd",
+    "docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/diagrams/mermaid/venture-discovery-connectors.svg",
+    "docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/diagrams/mermaid/venture-discovery-connectors.png"
+  ],
+  "context_topic_ids": [
+    "venture-analysis-skill"
+  ]
+}

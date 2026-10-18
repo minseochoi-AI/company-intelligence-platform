@@ -1,0 +1,20 @@
+{
+  "contract_version": "decision-campaign-validation-v1",
+  "campaign_id": "cil-cluster-lattice-expansion-20261016",
+  "outcome": "not-started",
+  "updated_at": null,
+  "cohorts": [],
+  "telemetry": {
+    "provider": {
+      "measurement": "not-applicable",
+      "invocations": null,
+      "input_tokens": null,
+      "output_tokens": null
+    },
+    "agent_session": {
+      "measurement": "unavailable-platform",
+      "token_count": null,
+      "tool_output_chars": null
+    }
+  }
+}

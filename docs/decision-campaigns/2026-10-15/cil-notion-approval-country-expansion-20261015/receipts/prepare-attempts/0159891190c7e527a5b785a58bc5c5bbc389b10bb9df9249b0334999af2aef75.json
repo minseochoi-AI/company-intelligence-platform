@@ -1,0 +1,12 @@
+{
+  "contract_version": "campaign-prepare-attempt-v1",
+  "status": "pass",
+  "campaign": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-10-15/cil-notion-approval-country-expansion-20261015/campaign.json",
+  "cohorts": "all",
+  "files": 31,
+  "operations": 14,
+  "unique_paths": 14,
+  "repository_intelligence_required": false,
+  "transaction_sha256": "0159891190c7e527a5b785a58bc5c5bbc389b10bb9df9249b0334999af2aef75",
+  "graph_sha256": "9778517f0ba6e0c67c7dece179a738db4b9a3608b8515320c696ef49b961133b"
+}

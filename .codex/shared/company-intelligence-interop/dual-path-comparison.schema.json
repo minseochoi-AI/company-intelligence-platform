@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://local.company-intel/schemas/dual-path-comparison.schema.json",
+  "title": "Career-versus-venture comparison without automatic selection",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "comparison_id", "generated_at", "career_plan_ref", "venture_plan_ref", "status", "axes", "unresolved_axes", "decision"],
+  "properties": {
+    "schema_version": {"const": "1.0.0"},
+    "comparison_id": {"type": "string", "minLength": 1},
+    "generated_at": {"type": "string", "format": "date-time"},
+    "career_plan_ref": {"$ref": "#/$defs/inputRef"},
+    "venture_plan_ref": {"$ref": "#/$defs/inputRef"},
+    "status": {"enum": ["comparable", "partial", "blocked"]},
+    "axes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["axis", "career_value", "venture_value", "status"],
+        "properties": {
+          "axis": {"type": "string", "minLength": 1},
+          "career_value": {},
+          "venture_value": {},
+          "status": {"enum": ["comparable", "missing-career", "missing-venture", "missing-both"]}
+        }
+      }
+    },
+    "unresolved_axes": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+    "decision": {"const": "human-required"}
+  },
+  "$defs": {
+    "inputRef": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "sha256"],
+      "properties": {
+        "path": {"type": "string", "minLength": 1, "pattern": "^(?!/)(?!.*(?:^|/)\\.\\.(?:/|$)).+$"},
+        "sha256": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"}
+      }
+    }
+  }
+}

@@ -1,0 +1,152 @@
+{
+  "decision_id": "D-09",
+  "sequence": 9,
+  "unit_id": "cil-runtime-readiness",
+  "title": "CIL 실행 위치·출력·fixture 경계",
+  "status": "accepted",
+  "question": "기업분석 스킬이 저장소 밖에서도 CIL을 안전하게 실행하고 fixture와 production 결과를 혼동하지 않도록 어떤 실행 계약을 둘 것인가?",
+  "five_w_one_h": {
+    "who": "CIL을 thin orchestrator로 호출하는 기업분석 스킬과 그 결과를 소비하는 사용자",
+    "what": "명시적 project root, versioned JSON 결과, fixture/production 구분과 실패 envelope를 제공한다.",
+    "where": "CIL CLI 설정·명령 파서와 저장소 밖 cwd smoke test에 적용한다.",
+    "when": "company-intelligence-analysis 스킬 구현과 행동시험보다 먼저 적용한다.",
+    "why": "현재 CLI는 Path.cwd()를 project root로 고정해 저장소 밖에서 실패하고 고정 probe가 제품 분석으로 오인될 수 있다.",
+    "how": "--project-root/--프로젝트-경로와 COMPANY_INTEL_PROJECT_ROOT를 지원하고 probe 목적을 결과에 보존하며 구조화 오류를 반환한다."
+  },
+  "evidence_refs": [
+    {
+      "evidence_id": "EV-D09-CONFIG",
+      "source_type": "code",
+      "locator": "src/company_intel/config.py",
+      "observed_fact": "Settings.from_env는 명시값이 없을 때 Path.cwd()를 root로 사용한다.",
+      "content_hash": "44879c8438ccf7169c2b4ab8c4c975f61a9a9bf87eccaec7b8df93f7674db393",
+      "line_range": "25-43",
+      "question": "저장소 밖 실행 시 프로젝트 루트를 결정할 명시적 계약이 있는가?",
+      "observation_summary": "환경변수나 전역 CLI 인자가 없어 cwd가 곧 설정 루트가 된다."
+    },
+    {
+      "evidence_id": "EV-D09-CLI",
+      "source_type": "code",
+      "locator": "src/company_intel/cli.py",
+      "observed_fact": "CLI main은 Settings.from_env(Path.cwd())를 직접 호출한다.",
+      "content_hash": "79d5f528d8a7990030f8a04aad948074ca38b475834b070a227d15827233fcc7",
+      "line_range": "634-634",
+      "question": "기업분석 스킬이 cwd와 무관한 동일 명령을 실행할 수 있는가?",
+      "observation_summary": "현재 명령은 /tmp에서 /tmp/config/providers.json을 찾다가 실패한다."
+    },
+    {
+      "evidence_id": "EV-D09-PROVIDERS",
+      "source_type": "code",
+      "locator": "config/providers.json",
+      "observed_fact": "semantic_contract는 고정 기업 probe가 connector health fixture이며 production discovery가 아니라고 선언한다.",
+      "content_hash": "610d27a4783128dae59b567ab5251031165847bd30ebd7c59718e3ca9a8a74a8",
+      "line_range": "23-27",
+      "question": "고정 probe와 production 분석을 결과 소비자가 구분할 수 있는가?",
+      "observation_summary": "정책 선언은 있으나 skill-facing 실행 계약과 cwd smoke가 필요하다."
+    }
+  ],
+  "facts": [
+    "저장소 밖 cwd에서 company-intel 원천-상태가 FileNotFoundError로 실패한다.",
+    "connector registry에는 probe와 production 선택 경계가 이미 존재한다.",
+    "기존 97개 테스트는 통과하지만 저장소 밖 cwd 계약은 포함하지 않는다."
+  ],
+  "conflicts": [
+    "패키지 위치를 자동 탐색하면 편리하지만 여러 checkout이 있을 때 모호해진다.",
+    "stack trace는 개발에는 유용하지만 스킬 소비자에게 안정된 실패 계약이 아니다."
+  ],
+  "unimplemented": [
+    "전역 project-root 인자와 환경변수 우선순위",
+    "저장소 밖 cwd 회귀시험",
+    "기업분석 스킬용 구조화 실행 실패 계약"
+  ],
+  "options": [
+    {
+      "option_id": "A-SKILL-CWD-WORKAROUND",
+      "description": "스킬이 매번 저장소로 cd한 뒤 CIL을 호출하고 CIL 자체 계약은 바꾸지 않는다.",
+      "impact": {
+        "data": "결과는 유지된다.",
+        "schema_api": "공식 root 인자가 없다.",
+        "ux": "설치 위치 추정 실패가 숨는다.",
+        "performance": "차이는 작다.",
+        "cost": "스킬별 workaround가 반복된다.",
+        "security": "임의 cwd 선택 위험이 있다.",
+        "migration": "다른 소비자가 같은 문제를 다시 푼다.",
+        "tests": "스킬 내부 경로만 시험한다."
+      },
+      "opportunity_costs": [
+        "CIL CLI 자체의 재사용성과 오류 계약을 개선하지 못한다."
+      ]
+    },
+    {
+      "option_id": "B-EXPLICIT-ROOT-AND-PURPOSE-CONTRACT",
+      "description": "CIL에 명시적 root 해석과 구조화 실패를 추가하고 fixture/production 목적을 보존한다.",
+      "impact": {
+        "data": "동일 설정·artifact root를 재현한다.",
+        "schema_api": "--project-root와 COMPANY_INTEL_PROJECT_ROOT를 추가한다.",
+        "ux": "실패가 actionable JSON 또는 명확한 오류가 된다.",
+        "performance": "경로 확인만 추가된다.",
+        "cost": "작은 CLI·설정 변경이 필요하다.",
+        "security": "명시된 로컬 root만 읽는다.",
+        "migration": "기존 cwd 기본값은 호환 유지한다.",
+        "tests": "cwd·인자·환경변수 우선순위를 시험한다."
+      },
+      "opportunity_costs": [
+        "CLI 공개 표면이 하나 늘어난다."
+      ]
+    }
+  ],
+  "recommended_option_id": "B-EXPLICIT-ROOT-AND-PURPOSE-CONTRACT",
+  "recommendation_reason": "thin skill의 계산 정본을 CIL로 유지하려면 CIL 자체가 호출 위치와 분석 목적을 명시적으로 받아야 한다.",
+  "impact": {
+    "data": "project root와 artifact root가 재현 가능해진다.",
+    "schema_api": "기존 명령과 호환되는 전역 인자를 추가한다.",
+    "ux": "저장소 밖에서도 명시 root로 실행한다.",
+    "performance": "영향은 무시할 수준이다.",
+    "cost": "세 파일과 회귀시험 범위다.",
+    "security": "외부 provider 호출 권한은 추가하지 않는다.",
+    "migration": "기존 cwd 동작을 fallback으로 유지한다.",
+    "tests": "repo 외부 cwd와 잘못된 root를 검증한다."
+  },
+  "opportunity_costs": [
+    "자동 checkout 탐색은 제공하지 않아 사용자가 root를 지정해야 할 수 있다."
+  ],
+  "dependencies": [
+    "D-01"
+  ],
+  "dependency_waivers": {},
+  "accepted_decision": {
+    "disposition": "ACCEPT",
+    "option_id": "B-EXPLICIT-ROOT-AND-PURPOSE-CONTRACT",
+    "rule": "사용자의 FULL_EXECUTION 요청에 따라 각 결정의 B 권장안을 승인한다.",
+    "rationale": "비판적 검증에서 확인된 수정사항과 D-09·D-10을 포함한 개정 범위를 구현한다.",
+    "decided_by": "user",
+    "decided_at": "2026-09-15T05:28:25.724684+00:00"
+  },
+  "implementation_targets": [
+    "src/company_intel/config.py",
+    "src/company_intel/cli.py",
+    ".codex/skills/company-intel-cli/SKILL.md",
+    "tests/test_cli_project_root.py"
+  ],
+  "implementation_change_ids": [
+    "C02-001",
+    "C02-002",
+    "C02-003",
+    "C02-004"
+  ],
+  "validation_requirements": [
+    "명시 root로 저장소 밖 cwd에서 원천-상태가 실행됨",
+    "환경변수보다 CLI 인자가 우선함",
+    "잘못된 root는 config 경로를 포함한 명확한 오류를 냄",
+    "기존 저장소 cwd 동작과 97개 회귀시험이 유지됨"
+  ],
+  "diagram_impacts": [
+    "docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/diagrams/matrices/company-analysis-cil-runtime.flowchart-matrix.json",
+    "docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/diagrams/mermaid/company-analysis-cil-runtime.mmd",
+    "docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/diagrams/mermaid/company-analysis-cil-runtime.svg",
+    "docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/diagrams/mermaid/company-analysis-cil-runtime.png"
+  ],
+  "context_topic_ids": [
+    "cil-runtime-readiness"
+  ]
+}

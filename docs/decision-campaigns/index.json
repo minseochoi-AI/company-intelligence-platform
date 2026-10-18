@@ -1,11 +1,36 @@
 {
   "schema_version": "1.0.0",
-  "active_campaign_id": "company-intelligence-cross-region-career-preparation",
+  "active_campaign_id": "cil-live-job-provenance-20261018",
   "campaigns": [
     {
       "campaign_id": "company-intelligence-cross-region-career-preparation",
       "created_date": "2026-09-11",
       "manifest": "docs/decision-campaigns/2026-09-11/company-intelligence-cross-region-career-preparation/campaign.json"
+    },
+    {
+      "campaign_id": "company-intelligence-dual-domain-skills-20260915",
+      "created_date": "2026-09-15",
+      "manifest": "docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/campaign.json"
+    },
+    {
+      "campaign_id": "cil-four-perspective-blog-20261013",
+      "created_date": "2026-10-13",
+      "manifest": "docs/decision-campaigns/2026-10-13/cil-four-perspective-blog-20261013/campaign.json"
+    },
+    {
+      "campaign_id": "cil-notion-approval-country-expansion-20261015",
+      "created_date": "2026-10-15",
+      "manifest": "docs/decision-campaigns/2026-10-15/cil-notion-approval-country-expansion-20261015/campaign.json"
+    },
+    {
+      "campaign_id": "cil-cluster-lattice-expansion-20261016",
+      "created_date": "2026-10-16",
+      "manifest": "docs/decision-campaigns/2026-10-16/cil-cluster-lattice-expansion-20261016/campaign.json"
+    },
+    {
+      "campaign_id": "cil-live-job-provenance-20261018",
+      "created_date": "2026-10-18",
+      "manifest": "docs/decision-campaigns/2026-10-18/cil-live-job-provenance-20261018/campaign.json"
     }
   ]
 }

@@ -1,0 +1,103 @@
+{
+  "contract_version": "implementation-context-packet-v2",
+  "packet_id": "C-06-diagram-toolchain-packet-38c57c58b775",
+  "topics": [
+    "diagram-toolchain",
+    "diagram-validation",
+    "mermaid-renderer"
+  ],
+  "capability_ids": [
+    "diagram-toolchain",
+    "diagram-validation",
+    "mermaid-renderer"
+  ],
+  "required_refs": [
+    {
+      "ref_id": "diagram-toolchain-d-11",
+      "role": "must-read",
+      "path": "docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/decisions/11-d-11.json",
+      "content_hash": "sha256:20281eef0ebacc3a0c5427b3aa66378a962ff4ff7eb2bf0e18fbc2fb5200d526",
+      "line_range": "1-EOF",
+      "question": "D-11의 승인된 도구체인 범위와 file targets는 무엇인가?",
+      "observation_summary": "고정 CLI, local Chrome, lockfile, focused tests를 구현한다."
+    },
+    {
+      "ref_id": "diagram-validation-d-11",
+      "role": "must-read",
+      "path": "docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/decisions/11-d-11.json",
+      "content_hash": "sha256:20281eef0ebacc3a0c5427b3aa66378a962ff4ff7eb2bf0e18fbc2fb5200d526",
+      "line_range": "1-EOF",
+      "question": "어떤 negative·freshness 검증이 blocking 인가?",
+      "observation_summary": "invalid input과 stale derivative는 non-zero로 실패해야 한다."
+    },
+    {
+      "ref_id": "mermaid-renderer-d-11",
+      "role": "must-read",
+      "path": "docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/decisions/11-d-11.json",
+      "content_hash": "sha256:20281eef0ebacc3a0c5427b3aa66378a962ff4ff7eb2bf0e18fbc2fb5200d526",
+      "line_range": "1-EOF",
+      "question": "renderer version, browser path, output proof는 무엇인가?",
+      "observation_summary": "mmdc 11.17.0, /usr/bin/google-chrome, SVG/PNG signature와 repeated bytes를 검증한다."
+    }
+  ],
+  "current_entry_points": [
+    {
+      "kind": "code",
+      "path": ".gitignore",
+      "symbol": "tools/mermaid-renderer/node_modules/",
+      "source_hash": "sha256:c20e0dc819751315e627678e640e413aafce4abbbd594a18981c29afa27b799b"
+    }
+  ],
+  "planned_entry_points": [
+    {
+      "kind": "code",
+      "path": "tools/flowchart_matrix.py",
+      "symbol": "validate_evidence",
+      "change_id": "file-change-cadd50729db0"
+    },
+    {
+      "kind": "code",
+      "path": "tools/mermaid-renderer/package.json",
+      "symbol": "devDependencies.@mermaid-js/mermaid-cli",
+      "change_id": "file-change-2cb2323e87c8"
+    },
+    {
+      "kind": "code",
+      "path": "tools/mermaid-renderer/package-lock.json",
+      "symbol": "lockfileVersion",
+      "change_id": "file-change-11fe041e9525"
+    },
+    {
+      "kind": "code",
+      "path": "tools/mermaid-renderer/mermaid.config.json",
+      "symbol": "securityLevel",
+      "change_id": "file-change-970fbb67544b"
+    },
+    {
+      "kind": "code",
+      "path": "tools/mermaid-renderer/puppeteer.local.json",
+      "symbol": "executablePath",
+      "change_id": "file-change-b9c763c03407"
+    },
+    {
+      "kind": "test",
+      "path": "tests/tools/test_flowchart_matrix.py",
+      "symbol": "test_validates_and_compiles",
+      "change_id": "file-change-46574042dc93"
+    },
+    {
+      "kind": "test",
+      "path": "tests/tools/test_mermaid_renderer.py",
+      "symbol": "test_renders_svg_and_png",
+      "change_id": "file-change-368e35f4988c"
+    }
+  ],
+  "external_entry_points": [],
+  "invariants": [
+    "외부 skill path나 전역 mmdc 없이 저장소 도구만으로 검증한다.",
+    "파생 Mermaid·SVG·PNG를 직접 편집하지 않는다.",
+    "node_modules는 cache이며 package-lock integrity가 설치 정본이다."
+  ],
+  "unresolved_conflicts": [],
+  "resume_digest": "Prepared C-06-diagram-toolchain from current decision hashes and one global file-ownership graph."
+}

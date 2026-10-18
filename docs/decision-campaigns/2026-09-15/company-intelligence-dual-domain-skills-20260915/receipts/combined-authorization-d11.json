@@ -1,0 +1,21 @@
+{
+  "contract_version": "campaign-combined-authorization-v1",
+  "campaign_id": "company-intelligence-dual-domain-skills-20260915",
+  "campaign_path": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/campaign.json",
+  "scope_lock_path": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/scope-lock.json",
+  "scope_lock_sha256": "5667b1920eac81e3193781d4c7a2ad29b1b39248f8df9bb0262fc49ed04ea995",
+  "authorized_by": "user",
+  "authorized_at": "2026-09-15T06:55:00.420883+00:00",
+  "authorization_text": "D-11 B APPROVE, PREPARE 후 생성된 Plan SHA를 결속하여 IMPLEMENT와 VALIDATE까지 진행",
+  "authorization_text_sha256": "de623166d7475d0728a2c99816c43739ea3e0f85ccc7630c30813fc8ee4b5800",
+  "authorized_plan_refs": [
+    {
+      "cohort_id": "C-06-diagram-toolchain",
+      "plan_id": "C-06-diagram-toolchain-plan-r1",
+      "path": "docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/implementation-plans/C-06-diagram-toolchain.json",
+      "sha256": "55f0309057185184b44a159fcf77f9dadc40d901a2f7b06a52e9e2f6b36e19e3"
+    }
+  ],
+  "stop_before_validation": false,
+  "external_actions_authorized": false
+}

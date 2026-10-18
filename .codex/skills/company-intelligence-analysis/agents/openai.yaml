@@ -1,0 +1,6 @@
+interface:
+  display_name: "Company Intelligence Analysis"
+  short_description: "CIL 기반 기업·기관 근거 분석 오케스트레이션"
+  default_prompt: "Use $company-intelligence-analysis to analyze a named company or institution from saved CIL evidence."
+policy:
+  allow_implicit_invocation: true

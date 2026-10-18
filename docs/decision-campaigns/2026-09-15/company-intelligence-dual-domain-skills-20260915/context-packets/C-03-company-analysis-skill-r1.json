@@ -1,0 +1,60 @@
+{
+  "contract_version": "implementation-context-packet-v2",
+  "packet_id": "C-03-company-analysis-skill-packet-4ec69c0eb3d5",
+  "topics": [
+    "company-analysis-skill"
+  ],
+  "capability_ids": [
+    "company-analysis-skill"
+  ],
+  "required_refs": [
+    {
+      "ref_id": "company-analysis-skill-d-04",
+      "role": "must-read",
+      "path": "docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/decisions/04-d-04.json",
+      "content_hash": "sha256:ba13cb9fca969e327442a26ab790c895b3d457682fe0076be8508931032ef523",
+      "line_range": "1-EOF",
+      "question": "D-04의 승인된 구현 의미는 무엇인가?",
+      "observation_summary": "D-04의 B 권장안이 사용자에 의해 승인되었다."
+    }
+  ],
+  "current_entry_points": [],
+  "planned_entry_points": [
+    {
+      "kind": "code",
+      "path": ".codex/skills/company-intelligence-analysis/SKILL.md",
+      "symbol": "SKILL.md",
+      "change_id": "C03-001"
+    },
+    {
+      "kind": "code",
+      "path": ".codex/skills/company-intelligence-analysis/agents/openai.yaml",
+      "symbol": "openai.yaml",
+      "change_id": "C03-002"
+    },
+    {
+      "kind": "code",
+      "path": ".codex/skills/company-intelligence-analysis/references/analysis-routing.md",
+      "symbol": "analysis-routing.md",
+      "change_id": "C03-003"
+    },
+    {
+      "kind": "code",
+      "path": ".codex/skills/company-intelligence-analysis/references/output-contract.md",
+      "symbol": "output-contract.md",
+      "change_id": "C03-004"
+    },
+    {
+      "kind": "code",
+      "path": ".codex/skills/company-intelligence-analysis/scripts/verify_cil_artifact.py",
+      "symbol": "verify_cil_artifact.py",
+      "change_id": "C03-005"
+    }
+  ],
+  "external_entry_points": [],
+  "invariants": [
+    "승인된 결정·scope·근거 hash를 변경하지 않고 파일 단위 계획으로 구현한다."
+  ],
+  "unresolved_conflicts": [],
+  "resume_digest": "Prepared C-03-company-analysis-skill from current decision hashes and one global file-ownership graph."
+}

@@ -1,0 +1,31 @@
+{
+  "contract_version": "atomic-json-patch-receipt-v1",
+  "target": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/index.json",
+  "outcome": "pass",
+  "before_sha256": "72327d5d083fdb754ebe6cdfa9518bbdd97bc8524e8b1099f9186c6511a5fe0f",
+  "after_sha256": "9dc83370977a303a40b967c73f3a32c45e36adead02936774c9dfe0eb8ded0db",
+  "proposed_after_sha256": "9dc83370977a303a40b967c73f3a32c45e36adead02936774c9dfe0eb8ded0db",
+  "operations": [
+    {
+      "op": "test",
+      "path": "/active_campaign_id"
+    },
+    {
+      "op": "test",
+      "path": "/schema_version"
+    },
+    {
+      "op": "replace",
+      "path": "/active_campaign_id"
+    },
+    {
+      "op": "add",
+      "path": "/campaigns/-"
+    }
+  ],
+  "backup": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/.mutation-journal/preimages/sha256-72327d5d083fdb754ebe6cdfa9518bbdd97bc8524e8b1099f9186c6511a5fe0f.json",
+  "journal": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/.mutation-journal/mutations/0230c30bbd2e4f5228e3528bf5d90cf50b24369eae071898c589b2d9f0c45a54.json",
+  "mutation_id": "register:cil-cluster-lattice-expansion-20261016",
+  "validators": [],
+  "completed_at": "2026-10-16T02:54:34.692853+00:00"
+}

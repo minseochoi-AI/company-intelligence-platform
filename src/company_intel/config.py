@@ -29,7 +29,8 @@ class Settings:
 
     @classmethod
     def from_env(cls, project_root: Path | None = None) -> Settings:
-        root = project_root or Path.cwd()
+        configured_root = os.getenv("COMPANY_INTEL_PROJECT_ROOT")
+        root = (project_root or (Path(configured_root) if configured_root else Path.cwd())).resolve()
         load_dotenv(root / ".env")
         artifact_dir = Path(os.getenv("ARTIFACT_DIR", str(root / "artifacts"))).resolve()
         return cls(

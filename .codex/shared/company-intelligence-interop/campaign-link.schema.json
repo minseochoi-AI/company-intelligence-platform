@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://local.company-intel/schemas/campaign-link.schema.json",
+  "title": "Optional link from a domain artifact to a decision campaign",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "campaign_id", "relationship", "path", "sha256"],
+  "properties": {
+    "schema_version": {"const": "1.0.0"},
+    "campaign_id": {"type": "string", "minLength": 1},
+    "relationship": {"enum": ["evidence-input", "decision-input", "implementation-output"]},
+    "path": {"type": "string", "minLength": 1},
+    "sha256": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"}
+  }
+}

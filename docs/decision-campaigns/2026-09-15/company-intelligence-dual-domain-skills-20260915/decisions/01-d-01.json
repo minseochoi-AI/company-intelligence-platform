@@ -1,0 +1,159 @@
+{
+  "decision_id": "D-01",
+  "sequence": 1,
+  "unit_id": "skill-portfolio-boundary",
+  "title": "두 스킬의 제품 경계와 기존 취업 조사 스킬 관계",
+  "status": "accepted",
+  "question": "기업분석과 창업분석을 어떤 독립 스킬로 나누고 기존 취업 조사 스킬과 어떻게 충돌 없이 공존시킬 것인가?",
+  "five_w_one_h": {
+    "who": "기업·공공기관을 비교하려는 사용자, 창업기회를 검증하려는 창업자, 취업 준비 근거를 찾는 구직자와 이를 수행하는 Codex",
+    "what": "company-intelligence-analysis와 kr-defensible-venture-discovery를 별도 스킬로 만들고 기존 company-intelligence-career-research의 취업 조사 책임을 유지한다.",
+    "where": "저장소의 skills/ 아래 두 신규 패키지와 현재 전역에 설치된 취업 조사 스킬 경계에서 적용한다.",
+    "when": "스킬 구현·설치 전에 trigger, 입력, 출력, 금지행동과 상호 참조 계약을 먼저 확정한다.",
+    "why": "기업 사실 검증, 취업 준비, 창업기회 판단은 데이터 일부를 공유해도 질문·실패조건·출력이 달라 하나의 스킬로 합치면 오작동과 과잉 활성화가 생긴다.",
+    "how": "기업분석은 식별된 기업의 CIL 근거를 생성하고, 취업 조사는 채용·요건·커리어 계획을 생성하며, 창업분석은 시장·경쟁·장벽·자원 적합성을 판단하도록 책임을 분리한다."
+  },
+  "evidence_refs": [
+    {
+      "evidence_id": "EV-USER-SKILL-AUDIT",
+      "source_type": "local-document",
+      "locator": "/home/ubuntu/.codex/attachments/c2ee1c4e-3b8a-473a-8de6-3b1591d1bbcd/pasted-text.txt",
+      "observed_fact": "사용자가 기업분석과 창업분석 스킬을 분리하고 선택적 연동을 요구했다.",
+      "content_hash": "09ba1d61173161f4e7961d00f1da465430b8231c64b0ded1945755521f3a56b6",
+      "line_range": "1-EOF",
+      "question": "기업분석과 창업분석을 어떤 독립 스킬로 나누고 기존 취업 조사 스킬과 어떻게 충돌 없이 공존시킬 것인가?",
+      "observation_summary": "사용자가 기업분석과 창업분석 스킬을 분리하고 선택적 연동을 요구했다."
+    },
+    {
+      "evidence_id": "EV-EXISTING-CAREER-SKILL",
+      "source_type": "local-document",
+      "locator": "/home/ubuntu/.codex/skills/company-intelligence-career-research/SKILL.md",
+      "observed_fact": "기존 스킬은 미국·한국·체코 기업·직무 요건·자격증·준비사항 조사에 한정된 별도 trigger를 이미 가진다.",
+      "content_hash": "cedd2c20963e94912403b59500669fbd2297525fb3f80fb5ea07d80e58473725",
+      "line_range": "1-EOF",
+      "question": "기업분석과 창업분석을 어떤 독립 스킬로 나누고 기존 취업 조사 스킬과 어떻게 충돌 없이 공존시킬 것인가?",
+      "observation_summary": "기존 스킬은 미국·한국·체코 기업·직무 요건·자격증·준비사항 조사에 한정된 별도 trigger를 이미 가진다."
+    },
+    {
+      "evidence_id": "EV-CIL-CLI-SKILL",
+      "source_type": "local-document",
+      "locator": ".codex/skills/company-intel-cli/SKILL.md",
+      "observed_fact": "저장소에는 CIL 명령 사용법을 담당하는 로컬 스킬이 있으나 도메인 판단 스킬은 아니다.",
+      "content_hash": "9d018a09dabb7d5a275a102345b6c69379893cb14823c6162c9cf9062c171d46",
+      "line_range": "1-EOF",
+      "question": "기업분석과 창업분석을 어떤 독립 스킬로 나누고 기존 취업 조사 스킬과 어떻게 충돌 없이 공존시킬 것인가?",
+      "observation_summary": "저장소에는 CIL 명령 사용법을 담당하는 로컬 스킬이 있으나 도메인 판단 스킬은 아니다."
+    }
+  ],
+  "facts": [
+    "CIL CLI 사용 스킬과 취업 조사 스킬이 이미 서로 다른 책임으로 존재한다.",
+    "창업분석에는 시장경계·경쟁·자원·장벽 판단이 필요하며 이는 기업 조회와 동일하지 않다.",
+    "신규 스킬을 두 개로 제한해도 기존 취업 스킬을 삭제하거나 신규 스킬에 합칠 필요는 없다."
+  ],
+  "conflicts": [
+    "기업분석 결과는 취업과 창업 양쪽에서 재사용되지만 재사용을 이유로 실행 책임까지 합치면 trigger가 모호해진다.",
+    "사용자가 말한 두 스킬과 기존 취업 스킬을 합산하면 실제 배포 단위는 세 개가 될 수 있다."
+  ],
+  "unimplemented": [
+    "두 신규 스킬 디렉터리와 SKILL.md",
+    "세 도메인 사이 trigger 충돌 검사",
+    "공유 artifact의 producer/consumer 책임표"
+  ],
+  "options": [
+    {
+      "option_id": "A-MONOLITHIC-ANALYSIS-SKILL",
+      "description": "기업·취업·창업 분석을 하나의 대형 스킬로 합쳐 내부 분기로 처리한다.",
+      "impact": {
+        "data": "서로 다른 개인정보·재무·시장 증거가 섞인다.",
+        "schema_api": "입출력 union이 커진다.",
+        "ux": "한곳에서 찾지만 오활성화 가능성이 높다.",
+        "performance": "관련 없는 참조도 읽는다.",
+        "cost": "초기 파일은 적지만 유지비가 커진다.",
+        "security": "구직자 정보 경계가 약해진다.",
+        "migration": "기존 취업 스킬과 충돌한다.",
+        "tests": "모든 조합을 한 행렬로 검증해야 한다."
+      },
+      "opportunity_costs": [
+        "독립 배포와 도메인별 개선이 어려워진다."
+      ]
+    },
+    {
+      "option_id": "B-SEPARATE-DOMAIN-SKILLS",
+      "description": "기업분석과 창업분석을 별도 신규 스킬로 만들고 기존 취업 조사 스킬은 유지하며 파일 계약으로만 연동한다.",
+      "impact": {
+        "data": "각 스킬은 최소 증거만 읽는다.",
+        "schema_api": "공통 artifact ref만 공유한다.",
+        "ux": "목적별 진입점이 명확하다.",
+        "performance": "선택 스킬만 로드한다.",
+        "cost": "패키지·테스트가 늘지만 영향이 국소화된다.",
+        "security": "취업 개인정보를 기본 분리한다.",
+        "migration": "기존 스킬을 보존한다.",
+        "tests": "trigger와 interop을 독립 검증한다."
+      },
+      "opportunity_costs": [
+        "사용자가 복수 스킬의 차이를 이해해야 한다."
+      ]
+    }
+  ],
+  "recommended_option_id": "B-SEPARATE-DOMAIN-SKILLS",
+  "recommendation_reason": "실행 엔진은 공유할 수 있지만 사용자 질문과 증거의 의미가 달라 독립 trigger·출력·실패계약이 필요하다.",
+  "impact": {
+    "data": "도메인별 근거 최소화와 provenance를 우선한다.",
+    "schema_api": "DomainPlanRef와 EvidenceBundleRef만 공유한다.",
+    "ux": "기업 검증·취업 조사·창업 계획이 구분된다.",
+    "performance": "필요한 스킬만 로드한다.",
+    "cost": "세 경계의 유지비가 생긴다.",
+    "security": "구직자 정보는 자동 전달하지 않는다.",
+    "migration": "기존 스킬을 폐기하지 않는다.",
+    "tests": "양성·음성 trigger 검증이 필요하다."
+  },
+  "opportunity_costs": [
+    "모든 기능을 한 명령으로 보이는 단순성은 포기한다."
+  ],
+  "dependencies": [],
+  "dependency_waivers": {},
+  "accepted_decision": {
+    "disposition": "ACCEPT",
+    "option_id": "B-SEPARATE-DOMAIN-SKILLS",
+    "rule": "사용자의 FULL_EXECUTION 요청에 따라 각 결정의 B 권장안을 승인한다.",
+    "rationale": "비판적 검증에서 확인된 수정사항과 D-09·D-10을 포함한 개정 범위를 구현한다.",
+    "decided_by": "user",
+    "decided_at": "2026-09-15T05:28:25.724684+00:00"
+  },
+  "implementation_targets": [
+    ".codex/skills/company-intelligence-analysis/SKILL.md",
+    ".codex/skills/kr-defensible-venture-discovery/SKILL.md",
+    ".codex/shared/company-intelligence-interop/BOUNDARIES.md"
+  ],
+  "implementation_change_ids": [
+    "C01-008",
+    "C03-001",
+    "C03-002",
+    "C03-003",
+    "C03-004",
+    "C03-005",
+    "C04-001",
+    "C04-002",
+    "C04-003",
+    "C04-004",
+    "C04-005",
+    "C04-006",
+    "C04-007",
+    "C04-008"
+  ],
+  "validation_requirements": [
+    "기업·기존 커리어·창업 책임이 서로 배타적인 trigger를 가짐",
+    "기존 글로벌 커리어 스킬을 저장소 안에 복제하지 않음",
+    "두 신규 스킬은 파일 계약 없이 서로를 직접 import하지 않음",
+    "공통 계약은 사용자 대면 스킬로 등록되지 않음"
+  ],
+  "diagram_impacts": [
+    "docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/diagrams/matrices/skill-domain-routing.flowchart-matrix.json",
+    "docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/diagrams/mermaid/skill-domain-routing.mmd",
+    "docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/diagrams/mermaid/skill-domain-routing.svg",
+    "docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/diagrams/mermaid/skill-domain-routing.png"
+  ],
+  "context_topic_ids": [
+    "interop-control"
+  ]
+}

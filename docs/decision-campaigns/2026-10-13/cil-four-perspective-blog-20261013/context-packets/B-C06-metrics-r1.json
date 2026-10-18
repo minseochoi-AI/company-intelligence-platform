@@ -1,0 +1,42 @@
+{
+  "contract_version": "implementation-context-packet-v2",
+  "packet_id": "B-C06-metrics-packet-988e8ae8e8c2",
+  "topics": [
+    "B-C06-metrics"
+  ],
+  "capability_ids": [
+    "B-D06"
+  ],
+  "required_refs": [
+    {
+      "content_hash": "ae5f994a0474c592944b5846e584aea3f413cbe706966082ea1e6a2b7a3cbb07",
+      "line_range": "1-103",
+      "observation_summary": "Search Console/AdSense 4 operation의 읽기 전용 접근으로 확인 가능한 성과만 집계하며 콘텐츠 품질·사용자 평가를 수익으로 대체하지 않는다.",
+      "path": "docs/decision-campaigns/2026-10-13/cil-four-perspective-blog-20261013/evidence/product-contract-ko.md",
+      "question": "소유 블로그의 유입·관측 수익과 사용자 판단 분리",
+      "ref_id": "product-contract",
+      "role": "must-read"
+    }
+  ],
+  "current_entry_points": [],
+  "planned_entry_points": [
+    {
+      "kind": "code",
+      "path": "apps/company-report-blog/src/report_blog/metrics.py",
+      "symbol": "collect_search_metrics",
+      "change_id": "file-change-475e37c19be1"
+    },
+    {
+      "kind": "code",
+      "path": "apps/company-report-blog/tests/test_metrics.py",
+      "symbol": "test_metrics_contract",
+      "change_id": "file-change-d88831450f77"
+    }
+  ],
+  "external_entry_points": [],
+  "invariants": [
+    "AI와 작성자 평가 소유권 분리; 비밀·캠페인 비공개; 기존 CLI 보존; 원격 실행은 별도 승인"
+  ],
+  "unresolved_conflicts": [],
+  "resume_digest": "Prepared B-C06-metrics from current decision hashes and one global file-ownership graph."
+}

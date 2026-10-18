@@ -14,7 +14,7 @@ def test_catalog_declares_every_registered_atomic_probe():
     catalog = load_source_catalog(root / "config/providers.json")
     probes = build_probes(Settings.from_env(root))
 
-    assert len(catalog.operations) == 28
+    assert len(catalog.operations) == 30
     assert {item.operation_id for item in catalog.operations} == {probe.id for probe in probes}
     assert validate_atomic_contract(catalog, {probe.id for probe in probes}) == []
 

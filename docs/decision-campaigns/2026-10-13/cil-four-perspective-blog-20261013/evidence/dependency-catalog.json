@@ -1,0 +1,271 @@
+{
+  "date": "2026-10-13",
+  "items": [
+    {
+      "component_id": "google-api-python-client",
+      "category": "library",
+      "lifecycle_status": "required",
+      "observed_state": "선정했으나 설치/연동 미검증",
+      "desired_state": "Blogger/성과 discovery-based typed adapter",
+      "capability": "Blogger/성과 discovery-based typed adapter",
+      "product_owner": "blog owner",
+      "operational_owner": "manual CLI",
+      "consumers": [
+        "report-blog"
+      ],
+      "version_ssot": "apps/company-report-blog/uv.lock; proposal verified against PyPI metadata 2026-10-13",
+      "proposed_version": "2.201.0",
+      "config_ssot": "apps/company-report-blog/config/provider-contracts.json",
+      "evidence": [
+        "evidence/product-contract-ko.md",
+        "evidence/integration-matrix.md"
+      ],
+      "data_classes": [
+        "reviewed evidence",
+        "AI report",
+        "human evaluation"
+      ],
+      "region": "local server; authorized Google API egress only",
+      "secret_refs": [
+        "BLOGGER_OAUTH_CREDENTIAL_PATH"
+      ],
+      "timeout_seconds": 30,
+      "retry_policy": "reads max3; insert no blind retry",
+      "fallback": "local HTML/JSON only",
+      "cost_class": "unknown total; library license fee not model/API/operations cost",
+      "billing_unit": "existing server + source requests + optional authorized AI",
+      "workload_assumption": "manual runs; actual calls/posts/runtime unknown",
+      "exit_contract": "export JSON/HTML/SQLite, disable remote adapter; preserve human revisions",
+      "alternatives": [
+        "NO_CHANGE",
+        "stdlib template/HTTP",
+        "extra MCP/workflow runtime"
+      ],
+      "installation_authorized": false,
+      "production_verified": false
+    },
+    {
+      "component_id": "google-auth",
+      "category": "library",
+      "lifecycle_status": "required",
+      "observed_state": "선정했으나 설치/연동 미검증",
+      "desired_state": "OAuth credential refresh와 인증 transport",
+      "capability": "OAuth credential refresh와 인증 transport",
+      "product_owner": "blog owner",
+      "operational_owner": "manual CLI",
+      "consumers": [
+        "report-blog"
+      ],
+      "version_ssot": "apps/company-report-blog/uv.lock; proposal verified against PyPI metadata 2026-10-13",
+      "proposed_version": "2.62.0",
+      "config_ssot": "apps/company-report-blog/config/provider-contracts.json",
+      "evidence": [
+        "evidence/product-contract-ko.md",
+        "evidence/integration-matrix.md"
+      ],
+      "data_classes": [
+        "reviewed evidence",
+        "AI report",
+        "human evaluation"
+      ],
+      "region": "local server; authorized Google API egress only",
+      "secret_refs": [
+        "BLOGGER_OAUTH_CREDENTIAL_PATH"
+      ],
+      "timeout_seconds": 30,
+      "retry_policy": "reads max3; insert no blind retry",
+      "fallback": "local HTML/JSON only",
+      "cost_class": "unknown total; library license fee not model/API/operations cost",
+      "billing_unit": "existing server + source requests + optional authorized AI",
+      "workload_assumption": "manual runs; actual calls/posts/runtime unknown",
+      "exit_contract": "export JSON/HTML/SQLite, disable remote adapter; preserve human revisions",
+      "alternatives": [
+        "NO_CHANGE",
+        "stdlib template/HTTP",
+        "extra MCP/workflow runtime"
+      ],
+      "installation_authorized": false,
+      "production_verified": false
+    },
+    {
+      "component_id": "google-auth-oauthlib",
+      "category": "library",
+      "lifecycle_status": "required",
+      "observed_state": "선정했으나 설치/연동 미검증",
+      "desired_state": "사용자 동의 OAuth 초기 연결",
+      "capability": "사용자 동의 OAuth 초기 연결",
+      "product_owner": "blog owner",
+      "operational_owner": "manual CLI",
+      "consumers": [
+        "report-blog"
+      ],
+      "version_ssot": "apps/company-report-blog/uv.lock; proposal verified against PyPI metadata 2026-10-13",
+      "proposed_version": "1.5.0",
+      "config_ssot": "apps/company-report-blog/config/provider-contracts.json",
+      "evidence": [
+        "evidence/product-contract-ko.md",
+        "evidence/integration-matrix.md"
+      ],
+      "data_classes": [
+        "reviewed evidence",
+        "AI report",
+        "human evaluation"
+      ],
+      "region": "local server; authorized Google API egress only",
+      "secret_refs": [
+        "BLOGGER_OAUTH_CREDENTIAL_PATH"
+      ],
+      "timeout_seconds": 30,
+      "retry_policy": "reads max3; insert no blind retry",
+      "fallback": "local HTML/JSON only",
+      "cost_class": "unknown total; library license fee not model/API/operations cost",
+      "billing_unit": "existing server + source requests + optional authorized AI",
+      "workload_assumption": "manual runs; actual calls/posts/runtime unknown",
+      "exit_contract": "export JSON/HTML/SQLite, disable remote adapter; preserve human revisions",
+      "alternatives": [
+        "NO_CHANGE",
+        "stdlib template/HTTP",
+        "extra MCP/workflow runtime"
+      ],
+      "installation_authorized": false,
+      "production_verified": false
+    },
+    {
+      "component_id": "Jinja2",
+      "category": "library",
+      "lifecycle_status": "required",
+      "observed_state": "선정했으나 설치/연동 미검증",
+      "desired_state": "안전한 단일 보고서 HTML template",
+      "capability": "안전한 단일 보고서 HTML template",
+      "product_owner": "blog owner",
+      "operational_owner": "manual CLI",
+      "consumers": [
+        "report-blog"
+      ],
+      "version_ssot": "apps/company-report-blog/uv.lock; proposal verified against PyPI metadata 2026-10-13",
+      "proposed_version": "3.1.6",
+      "config_ssot": "apps/company-report-blog/config/provider-contracts.json",
+      "evidence": [
+        "evidence/product-contract-ko.md",
+        "evidence/integration-matrix.md"
+      ],
+      "data_classes": [
+        "reviewed evidence",
+        "AI report",
+        "human evaluation"
+      ],
+      "region": "local server; authorized Google API egress only",
+      "secret_refs": [
+        "BLOGGER_OAUTH_CREDENTIAL_PATH"
+      ],
+      "timeout_seconds": 30,
+      "retry_policy": "reads max3; insert no blind retry",
+      "fallback": "local HTML/JSON only",
+      "cost_class": "unknown total; library license fee not model/API/operations cost",
+      "billing_unit": "existing server + source requests + optional authorized AI",
+      "workload_assumption": "manual runs; actual calls/posts/runtime unknown",
+      "exit_contract": "export JSON/HTML/SQLite, disable remote adapter; preserve human revisions",
+      "alternatives": [
+        "NO_CHANGE",
+        "stdlib template/HTTP",
+        "extra MCP/workflow runtime"
+      ],
+      "installation_authorized": false,
+      "production_verified": false
+    },
+    {
+      "component_id": "sqlite3",
+      "category": "data-store",
+      "lifecycle_status": "required",
+      "observed_state": "선정했으나 설치/연동 미검증",
+      "desired_state": "게시 장부/의견 revision/single writer",
+      "capability": "게시 장부/의견 revision/single writer",
+      "product_owner": "blog owner",
+      "operational_owner": "manual CLI",
+      "consumers": [
+        "report-blog"
+      ],
+      "version_ssot": "apps/company-report-blog/uv.lock; proposal verified against PyPI metadata 2026-10-13",
+      "proposed_version": "Python stdlib",
+      "config_ssot": "apps/company-report-blog/config/provider-contracts.json",
+      "evidence": [
+        "evidence/product-contract-ko.md",
+        "evidence/integration-matrix.md"
+      ],
+      "data_classes": [
+        "reviewed evidence",
+        "AI report",
+        "human evaluation"
+      ],
+      "region": "local server; authorized Google API egress only",
+      "secret_refs": [
+        "BLOGGER_OAUTH_CREDENTIAL_PATH"
+      ],
+      "timeout_seconds": 30,
+      "retry_policy": "reads max3; insert no blind retry",
+      "fallback": "local HTML/JSON only",
+      "cost_class": "unknown total; library license fee not model/API/operations cost",
+      "billing_unit": "existing server + source requests + optional authorized AI",
+      "workload_assumption": "manual runs; actual calls/posts/runtime unknown",
+      "exit_contract": "export JSON/HTML/SQLite, disable remote adapter; preserve human revisions",
+      "alternatives": [
+        "NO_CHANGE",
+        "stdlib template/HTTP",
+        "extra MCP/workflow runtime"
+      ],
+      "installation_authorized": false,
+      "production_verified": false
+    },
+    {
+      "component_id": "CIL",
+      "category": "runtime",
+      "lifecycle_status": "existing",
+      "observed_state": "기존 CIL 사용",
+      "desired_state": "기존 CLI/계산/원천 근거",
+      "capability": "기존 CLI/계산/원천 근거",
+      "product_owner": "blog owner",
+      "operational_owner": "manual CLI",
+      "consumers": [
+        "report-blog"
+      ],
+      "version_ssot": "apps/company-report-blog/uv.lock; proposal verified against PyPI metadata 2026-10-13",
+      "proposed_version": "current source snapshot",
+      "config_ssot": "apps/company-report-blog/config/provider-contracts.json",
+      "evidence": [
+        "evidence/product-contract-ko.md",
+        "evidence/integration-matrix.md"
+      ],
+      "data_classes": [
+        "reviewed evidence",
+        "AI report",
+        "human evaluation"
+      ],
+      "region": "local server; authorized Google API egress only",
+      "secret_refs": [
+        "BLOGGER_OAUTH_CREDENTIAL_PATH"
+      ],
+      "timeout_seconds": 30,
+      "retry_policy": "reads max3; insert no blind retry",
+      "fallback": "local HTML/JSON only",
+      "cost_class": "unknown total; library license fee not model/API/operations cost",
+      "billing_unit": "existing server + source requests + optional authorized AI",
+      "workload_assumption": "manual runs; actual calls/posts/runtime unknown",
+      "exit_contract": "export JSON/HTML/SQLite, disable remote adapter; preserve human revisions",
+      "alternatives": [
+        "NO_CHANGE",
+        "stdlib template/HTTP",
+        "extra MCP/workflow runtime"
+      ],
+      "installation_authorized": false,
+      "production_verified": false
+    }
+  ],
+  "deferred": [
+    "Blogger MCP",
+    "n8n",
+    "Activepieces",
+    "WordPress",
+    "paid autonomous AI"
+  ],
+  "cost_model": "TCO = current server + source/API usage + AI usage + storage/egress + review/operations + exit; all unmeasured terms unknown"
+}

@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://local.company-intel/schemas/evidence-bundle-ref.schema.json",
+  "title": "Hash-bound EvidenceBundle reference",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "bundle_id", "path", "sha256", "generated_at"],
+  "properties": {
+    "schema_version": {"const": "1.0.0"},
+    "bundle_id": {"type": "string", "minLength": 1},
+    "path": {"type": "string", "minLength": 1},
+    "sha256": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"},
+    "generated_at": {"type": "string", "format": "date-time"}
+  }
+}

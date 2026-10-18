@@ -1,0 +1,51 @@
+{
+  "contract_version": "atomic-json-patch-receipt-v1",
+  "target": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/decisions/10-d-10.json",
+  "outcome": "pass",
+  "before_sha256": "eb9fb4d7feed005c33e485ecbc91d9d5cb8456e93214c606b35460f3f98c2771",
+  "after_sha256": "7fd45082c2768b2997b23de76c056781cdead35bc9d5a45d58f761a1424d507e",
+  "proposed_after_sha256": "7fd45082c2768b2997b23de76c056781cdead35bc9d5a45d58f761a1424d507e",
+  "operations": [
+    {
+      "op": "test",
+      "path": "/status"
+    },
+    {
+      "op": "test",
+      "path": "/accepted_decision"
+    },
+    {
+      "op": "test",
+      "path": "/context_topic_ids"
+    },
+    {
+      "op": "replace",
+      "path": "/status"
+    },
+    {
+      "op": "replace",
+      "path": "/accepted_decision"
+    },
+    {
+      "op": "replace",
+      "path": "/context_topic_ids"
+    }
+  ],
+  "backup": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/.mutation-journal/preimages/sha256-eb9fb4d7feed005c33e485ecbc91d9d5cb8456e93214c606b35460f3f98c2771.json",
+  "journal": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/.mutation-journal/mutations/5d32ed36dbd5a6988266fee93fa3f8a7f3293cc033eecf703a83867e17f8357a.json",
+  "mutation_id": "approve-d-10",
+  "validators": [
+    {
+      "command": [
+        "python3",
+        "-m",
+        "json.tool",
+        "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/decisions/10-d-10.json"
+      ],
+      "returncode": 0,
+      "stdout_tail": "on\",\n        \".codex/shared/company-intelligence-interop/domain-plan-ref.schema.json\",\n        \".codex/shared/company-intelligence-interop/dual-path-comparison.schema.json\",\n        \".codex/shared/company-intelligence-interop/interop.py\",\n        \".codex/shared/company-intelligence-interop/BOUNDARIES.md\"\n    ],\n    \"implementation_change_ids\": [],\n    \"validation_requirements\": [\n        \"career\\uc640 venture \\uacc4\\ud68d\\uc774 \\ubaa8\\ub450 \\uc5c6\\uc73c\\uba74 \\ube44\\uad50 \\uc0dd\\uc131 \\uac70\\ubd80\",\n        \"\\uc785\\ub825 plan hash \\ubd88\\uc77c\\uce58 \\uc2dc stale \\ubc18\\ud658\",\n        \"\\ube44\\uad50 \\ubd88\\uac00\\ub2a5\\ud55c \\ub2e8\\uc704\\u00b7\\uae30\\uac04\\uc744 \\uc810\\uc218\\ub85c \\uac15\\uc81c \\ubcc0\\ud658\\ud558\\uc9c0 \\uc54a\\uc74c\",\n        \"\\ub124 \\ubc88\\uc9f8 \\uc0ac\\uc6a9\\uc790 \\uc2a4\\ud0ac\\uc774\\ub098 campaign \\uc9c0\\uce68 \\ubcf5\\uc81c\\ubcf8\\uc744 \\ub9cc\\ub4e4\\uc9c0 \\uc54a\\uc74c\"\n    ],\n    \"diagram_impacts\": [\n        \"\\uc138 \\uc0ac\\uc6a9\\uc790 \\uc2a4\\ud0ac\\uc758 \\ub3c5\\ub9bd \\uc0b0\\ucd9c\\ubb3c\\uc774 \\ube44\\uc2a4\\ud0ac DualPathComparison \\uacc4\\uc57d\\uc5d0\\uc11c \\uc120\\ud0dd \\uacb0\\ud569\\ub418\\ub294 \\ud750\\ub984\"\n    ],\n    \"context_topic_ids\": [\n        \"interop-control\"\n    ]\n}\n",
+      "stderr_tail": ""
+    }
+  ],
+  "completed_at": "2026-09-15T05:28:27.243290+00:00"
+}

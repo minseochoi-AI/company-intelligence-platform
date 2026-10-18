@@ -1,0 +1,14 @@
+{
+  "scenario_id": "C-05-packaging-validation:skill-behavior-pytest",
+  "cohort_id": "C-05-packaging-validation",
+  "criterion_id": "skill-behavior-pytest",
+  "plan_sha256": "732149ab95552b32019265e90382cba00383edf4e7754173224958c49168dbcc",
+  "command": "tests/skills",
+  "outcome": "pass",
+  "returncode": 0,
+  "first_failure": null,
+  "raw_log_path": "docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/receipts/logs/C-05-packaging-validation__skill-behavior-pytest.log",
+  "raw_log_sha256": "8fbf1ad2230478d7fa8f87bfde57991b802b3e5bac9b14f4ede1ad1820e4f583",
+  "tail": "...........                                                              [100%]\n11 passed in 0.09s\n",
+  "completed_at": "2026-09-15T06:24:29.644312+00:00"
+}

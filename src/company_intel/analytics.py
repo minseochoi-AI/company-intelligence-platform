@@ -41,6 +41,21 @@ def financial_metrics(facts: dict[str, float | None]) -> dict[str, float | None]
         ),
         "cash_conversion": safe_div(facts.get("cfo"), facts.get("net_income")),
         "current_ratio": safe_div(facts.get("current_assets"), facts.get("current_liabilities")),
+        "quick_ratio": safe_div(
+            (facts.get("current_assets") or 0.0) - (facts.get("inventory") or 0.0)
+            if facts.get("current_assets") is not None
+            else None,
+            facts.get("current_liabilities"),
+        ),
+        "cash_ratio": safe_div(facts.get("cash"), facts.get("current_liabilities")),
+        "debt_to_equity": safe_div(
+            facts.get("debt") if facts.get("debt") is not None else facts.get("total_liabilities"),
+            facts.get("equity"),
+        ),
+        "operating_cash_flow_ratio": safe_div(facts.get("cfo"), facts.get("current_liabilities")),
+        "working_capital": None
+        if facts.get("current_assets") is None or facts.get("current_liabilities") is None
+        else facts["current_assets"] - facts["current_liabilities"],
         "net_debt": None
         if facts.get("debt") is None or facts.get("cash") is None
         else facts["debt"] - facts["cash"],
@@ -487,3 +502,99 @@ def future_value_score(
         "components": detail,
         "interpretation": "Peer-relative composite, not a price target. Read with scenario DCF and source evidence.",
     }
+
+
+def calculate_cluster_elasticity_breakdown(
+    cohorts: list[dict[str, Any]],
+) -> dict[str, Any]:
+    """Calculate multi-tier cluster elasticity breakdown and detect Simpson's paradox.
+
+    Each cohort dict should contain:
+        - signature: str or ClusterSignature (e.g. 'KR:SOE:p01:REGULAR:ONSITE')
+        - name: str (e.g. '한국전력공사 일반정규직')
+        - rev_growth: float (e.g. 0.08)
+        - hiring_growth: float (e.g. -0.081)
+        - weight: float (optional, e.g. active postings or revenue base)
+    """
+    cohort_results: list[dict[str, Any]] = []
+    total_rev_weighted = 0.0
+    total_hiring_weighted = 0.0
+    total_weight = 0.0
+
+    private_elasticity: float | None = None
+    soe_regular_elasticity: float | None = None
+    soe_intern_elasticity: float | None = None
+
+    for c in cohorts:
+        sig_str = str(c.get("signature") or "ALL:ALL:ALL:ALL:ALL")
+        name = str(c.get("name") or sig_str)
+        rev_g = float(c.get("rev_growth") or 0.0)
+        hire_g = float(c.get("hiring_growth") or 0.0)
+        w = float(c.get("weight") or 1.0)
+
+        elas = safe_div(hire_g, rev_g)
+        diagnostic: str
+        if rev_g > 0 and hire_g > rev_g:
+            diagnostic = "aggressive_expansion"
+        elif rev_g > 0 and hire_g >= 0:
+            diagnostic = "balanced_growth"
+        elif rev_g > 0 and hire_g < 0:
+            diagnostic = "margin_expansion_hiring_freeze"
+        elif rev_g <= 0 and hire_g > 0:
+            diagnostic = "speculative_investment"
+        else:
+            diagnostic = "restructuring_or_contraction"
+
+        cohort_results.append({
+            "signature": sig_str,
+            "name": name,
+            "rev_growth": rev_g,
+            "hiring_growth": hire_g,
+            "elasticity": elas,
+            "diagnostic": diagnostic,
+            "weight": w,
+        })
+
+        total_rev_weighted += rev_g * w
+        total_hiring_weighted += hire_g * w
+        total_weight += w
+
+        if ":PRIVATE:" in sig_str:
+            private_elasticity = elas
+        elif ":SOE:" in sig_str and ":REGULAR:" in sig_str:
+            soe_regular_elasticity = elas
+        elif ":SOE:" in sig_str and ":INTERN:" in sig_str:
+            soe_intern_elasticity = elas
+
+    macro_rev_g = safe_div(total_rev_weighted, total_weight) or 0.0
+    macro_hiring_g = safe_div(total_hiring_weighted, total_weight) or 0.0
+    macro_elasticity = safe_div(macro_hiring_g, macro_rev_g)
+
+    distortion_index = 0.0
+    if private_elasticity is not None and soe_regular_elasticity is not None:
+        distortion_index = abs(private_elasticity - soe_regular_elasticity)
+
+    simpson_detected = distortion_index > 0.5
+
+    return {
+        "status": "success",
+        "macro_rollup": {
+            "signature": "KR:ALL:ALL:ALL:ALL",
+            "name": "전체 거시 통합 (Macro Roll-up)",
+            "rev_growth": macro_rev_g,
+            "hiring_growth": macro_hiring_g,
+            "elasticity": macro_elasticity,
+            "diagnostic": "aggregated_blended",
+        },
+        "cohorts": cohort_results,
+        "simpsons_paradox_detected": simpson_detected,
+        "distortion_index": distortion_index,
+        "explanation": (
+            "심슨의 역설 발생: 사기업은 매출 성장에 맞춰 선제적 채용 확장(고탄력성)을 보이는 반면, "
+            "공공부문은 정원 규제로 정규직 채용이 위축(탄력성 0 수렴)되고 청년인턴으로 우회 확충됩니다. "
+            "따라서 두 부문을 단일 평균으로 합산하면 진실이 왜곡됩니다."
+            if simpson_detected
+            else "클러스터 간 유의미한 고용탄력성 왜곡이 발견되지 않았습니다."
+        ),
+    }
+

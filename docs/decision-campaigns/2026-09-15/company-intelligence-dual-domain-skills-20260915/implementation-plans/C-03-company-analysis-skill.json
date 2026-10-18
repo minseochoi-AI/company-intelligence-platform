@@ -1,0 +1,363 @@
+{
+  "contract_version": "1.2.0",
+  "plan_id": "C-03-company-analysis-skill-plan-r1",
+  "owner": {
+    "kind": "campaign-cohort",
+    "id": "C-03-company-analysis-skill"
+  },
+  "source_refs": [
+    {
+      "id": "D-04",
+      "path": "docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/decisions/04-d-04.json",
+      "sha256": "sha256:ba13cb9fca969e327442a26ab790c895b3d457682fe0076be8508931032ef523"
+    }
+  ],
+  "status": "contract-ready",
+  "change_slices": [
+    {
+      "slice_id": "C-03-company-analysis-skill-slice",
+      "behavior": "승인된 결정을 파일 단위로 구현하고 독립 검증한다.",
+      "dependencies": [],
+      "operations": [
+        {
+          "change_id": "C03-001",
+          "operation": "CREATE",
+          "path": ".codex/skills/company-intelligence-analysis/SKILL.md",
+          "symbols": [
+            "SKILL.md"
+          ],
+          "current_state": "파일이 없음",
+          "source_hash": null,
+          "result_hash": null,
+          "after_state": "기업·기관의 CIL 기반 근거 분석을 라우팅한다.",
+          "rationale": "승인된 결정의 파일 단위 구현 대상이다.",
+          "dependencies": [],
+          "public_contract_impacts": [
+            "버전된 로컬 계약 또는 스킬 동작을 추가한다."
+          ],
+          "compatibility": "기존 CLI와 저장 artifact를 유지하며 새 필드는 additive로 처리한다.",
+          "migration": "기존 artifact는 변경하지 않고 새 schema version에서 선택적으로 사용한다.",
+          "rollback": "CREATE 파일은 제거하고 MODIFY 파일은 기록된 preimage로 복원한다.",
+          "authorization_boundary": "현재 저장소의 명시된 파일만 변경하며 외부 provider·설치·배포를 수행하지 않는다.",
+          "contributes_to": [
+            "D-01",
+            "D-04"
+          ],
+          "symbol_changes": [
+            {
+              "symbol": "SKILL.md",
+              "intent": "기업·기관의 CIL 기반 근거 분석을 라우팅한다.",
+              "decision_id": "D-01"
+            }
+          ],
+          "intent_change_ids": [
+            "D-01-intent",
+            "D-04-intent"
+          ],
+          "contribution_refs": [
+            {
+              "decision_id": "D-01",
+              "path": "docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/decisions/01-d-01.json",
+              "sha256": "sha256:59d08d3c13ed024afc2561f65df51ec87fff57b39069b27472cbb0c77e51c41e",
+              "symbols": [
+                "SKILL.md"
+              ],
+              "intent_change_ids": [
+                "D-01-intent"
+              ]
+            },
+            {
+              "decision_id": "D-04",
+              "path": "docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/decisions/04-d-04.json",
+              "sha256": "sha256:ba13cb9fca969e327442a26ab790c895b3d457682fe0076be8508931032ef523",
+              "symbols": [
+                "SKILL.md"
+              ],
+              "intent_change_ids": [
+                "D-04-intent"
+              ]
+            }
+          ]
+        },
+        {
+          "change_id": "C03-002",
+          "operation": "CREATE",
+          "path": ".codex/skills/company-intelligence-analysis/agents/openai.yaml",
+          "symbols": [
+            "openai.yaml"
+          ],
+          "current_state": "파일이 없음",
+          "source_hash": null,
+          "result_hash": null,
+          "after_state": "발견 가능한 UI 메타데이터를 제공한다.",
+          "rationale": "승인된 결정의 파일 단위 구현 대상이다.",
+          "dependencies": [],
+          "public_contract_impacts": [
+            "버전된 로컬 계약 또는 스킬 동작을 추가한다."
+          ],
+          "compatibility": "기존 CLI와 저장 artifact를 유지하며 새 필드는 additive로 처리한다.",
+          "migration": "기존 artifact는 변경하지 않고 새 schema version에서 선택적으로 사용한다.",
+          "rollback": "CREATE 파일은 제거하고 MODIFY 파일은 기록된 preimage로 복원한다.",
+          "authorization_boundary": "현재 저장소의 명시된 파일만 변경하며 외부 provider·설치·배포를 수행하지 않는다.",
+          "contributes_to": [
+            "D-01",
+            "D-04"
+          ],
+          "symbol_changes": [
+            {
+              "symbol": "openai.yaml",
+              "intent": "발견 가능한 UI 메타데이터를 제공한다.",
+              "decision_id": "D-01"
+            }
+          ],
+          "intent_change_ids": [
+            "D-01-intent",
+            "D-04-intent"
+          ],
+          "contribution_refs": [
+            {
+              "decision_id": "D-01",
+              "path": "docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/decisions/01-d-01.json",
+              "sha256": "sha256:59d08d3c13ed024afc2561f65df51ec87fff57b39069b27472cbb0c77e51c41e",
+              "symbols": [
+                "openai.yaml"
+              ],
+              "intent_change_ids": [
+                "D-01-intent"
+              ]
+            },
+            {
+              "decision_id": "D-04",
+              "path": "docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/decisions/04-d-04.json",
+              "sha256": "sha256:ba13cb9fca969e327442a26ab790c895b3d457682fe0076be8508931032ef523",
+              "symbols": [
+                "openai.yaml"
+              ],
+              "intent_change_ids": [
+                "D-04-intent"
+              ]
+            }
+          ]
+        },
+        {
+          "change_id": "C03-003",
+          "operation": "CREATE",
+          "path": ".codex/skills/company-intelligence-analysis/references/analysis-routing.md",
+          "symbols": [
+            "analysis-routing.md"
+          ],
+          "current_state": "파일이 없음",
+          "source_hash": null,
+          "result_hash": null,
+          "after_state": "CIL 명령과 분석 목적 매핑을 제공한다.",
+          "rationale": "승인된 결정의 파일 단위 구현 대상이다.",
+          "dependencies": [],
+          "public_contract_impacts": [
+            "버전된 로컬 계약 또는 스킬 동작을 추가한다."
+          ],
+          "compatibility": "기존 CLI와 저장 artifact를 유지하며 새 필드는 additive로 처리한다.",
+          "migration": "기존 artifact는 변경하지 않고 새 schema version에서 선택적으로 사용한다.",
+          "rollback": "CREATE 파일은 제거하고 MODIFY 파일은 기록된 preimage로 복원한다.",
+          "authorization_boundary": "현재 저장소의 명시된 파일만 변경하며 외부 provider·설치·배포를 수행하지 않는다.",
+          "contributes_to": [
+            "D-01",
+            "D-04"
+          ],
+          "symbol_changes": [
+            {
+              "symbol": "analysis-routing.md",
+              "intent": "CIL 명령과 분석 목적 매핑을 제공한다.",
+              "decision_id": "D-01"
+            }
+          ],
+          "intent_change_ids": [
+            "D-01-intent",
+            "D-04-intent"
+          ],
+          "contribution_refs": [
+            {
+              "decision_id": "D-01",
+              "path": "docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/decisions/01-d-01.json",
+              "sha256": "sha256:59d08d3c13ed024afc2561f65df51ec87fff57b39069b27472cbb0c77e51c41e",
+              "symbols": [
+                "analysis-routing.md"
+              ],
+              "intent_change_ids": [
+                "D-01-intent"
+              ]
+            },
+            {
+              "decision_id": "D-04",
+              "path": "docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/decisions/04-d-04.json",
+              "sha256": "sha256:ba13cb9fca969e327442a26ab790c895b3d457682fe0076be8508931032ef523",
+              "symbols": [
+                "analysis-routing.md"
+              ],
+              "intent_change_ids": [
+                "D-04-intent"
+              ]
+            }
+          ]
+        },
+        {
+          "change_id": "C03-004",
+          "operation": "CREATE",
+          "path": ".codex/skills/company-intelligence-analysis/references/output-contract.md",
+          "symbols": [
+            "output-contract.md"
+          ],
+          "current_state": "파일이 없음",
+          "source_hash": null,
+          "result_hash": null,
+          "after_state": "상태·근거·한계 출력 계약을 제공한다.",
+          "rationale": "승인된 결정의 파일 단위 구현 대상이다.",
+          "dependencies": [],
+          "public_contract_impacts": [
+            "버전된 로컬 계약 또는 스킬 동작을 추가한다."
+          ],
+          "compatibility": "기존 CLI와 저장 artifact를 유지하며 새 필드는 additive로 처리한다.",
+          "migration": "기존 artifact는 변경하지 않고 새 schema version에서 선택적으로 사용한다.",
+          "rollback": "CREATE 파일은 제거하고 MODIFY 파일은 기록된 preimage로 복원한다.",
+          "authorization_boundary": "현재 저장소의 명시된 파일만 변경하며 외부 provider·설치·배포를 수행하지 않는다.",
+          "contributes_to": [
+            "D-01",
+            "D-04"
+          ],
+          "symbol_changes": [
+            {
+              "symbol": "output-contract.md",
+              "intent": "상태·근거·한계 출력 계약을 제공한다.",
+              "decision_id": "D-01"
+            }
+          ],
+          "intent_change_ids": [
+            "D-01-intent",
+            "D-04-intent"
+          ],
+          "contribution_refs": [
+            {
+              "decision_id": "D-01",
+              "path": "docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/decisions/01-d-01.json",
+              "sha256": "sha256:59d08d3c13ed024afc2561f65df51ec87fff57b39069b27472cbb0c77e51c41e",
+              "symbols": [
+                "output-contract.md"
+              ],
+              "intent_change_ids": [
+                "D-01-intent"
+              ]
+            },
+            {
+              "decision_id": "D-04",
+              "path": "docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/decisions/04-d-04.json",
+              "sha256": "sha256:ba13cb9fca969e327442a26ab790c895b3d457682fe0076be8508931032ef523",
+              "symbols": [
+                "output-contract.md"
+              ],
+              "intent_change_ids": [
+                "D-04-intent"
+              ]
+            }
+          ]
+        },
+        {
+          "change_id": "C03-005",
+          "operation": "CREATE",
+          "path": ".codex/skills/company-intelligence-analysis/scripts/verify_cil_artifact.py",
+          "symbols": [
+            "verify_cil_artifact.py"
+          ],
+          "current_state": "파일이 없음",
+          "source_hash": null,
+          "result_hash": null,
+          "after_state": "CIL artifact와 evidence bundle 참조를 검증한다.",
+          "rationale": "승인된 결정의 파일 단위 구현 대상이다.",
+          "dependencies": [],
+          "public_contract_impacts": [
+            "버전된 로컬 계약 또는 스킬 동작을 추가한다."
+          ],
+          "compatibility": "기존 CLI와 저장 artifact를 유지하며 새 필드는 additive로 처리한다.",
+          "migration": "기존 artifact는 변경하지 않고 새 schema version에서 선택적으로 사용한다.",
+          "rollback": "CREATE 파일은 제거하고 MODIFY 파일은 기록된 preimage로 복원한다.",
+          "authorization_boundary": "현재 저장소의 명시된 파일만 변경하며 외부 provider·설치·배포를 수행하지 않는다.",
+          "contributes_to": [
+            "D-01",
+            "D-04"
+          ],
+          "symbol_changes": [
+            {
+              "symbol": "verify_cil_artifact.py",
+              "intent": "CIL artifact와 evidence bundle 참조를 검증한다.",
+              "decision_id": "D-01"
+            }
+          ],
+          "intent_change_ids": [
+            "D-01-intent",
+            "D-04-intent"
+          ],
+          "contribution_refs": [
+            {
+              "decision_id": "D-01",
+              "path": "docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/decisions/01-d-01.json",
+              "sha256": "sha256:59d08d3c13ed024afc2561f65df51ec87fff57b39069b27472cbb0c77e51c41e",
+              "symbols": [
+                "verify_cil_artifact.py"
+              ],
+              "intent_change_ids": [
+                "D-01-intent"
+              ]
+            },
+            {
+              "decision_id": "D-04",
+              "path": "docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/decisions/04-d-04.json",
+              "sha256": "sha256:ba13cb9fca969e327442a26ab790c895b3d457682fe0076be8508931032ef523",
+              "symbols": [
+                "verify_cil_artifact.py"
+              ],
+              "intent_change_ids": [
+                "D-04-intent"
+              ]
+            }
+          ]
+        }
+      ],
+      "routes": [
+        {
+          "route_id": "create-company-skill",
+          "skill": "skill-creator",
+          "requirement": "required",
+          "phase": "IMPLEMENT",
+          "purpose": "CIL thin orchestration 스킬을 생성한다.",
+          "expected_artifact": ".codex/skills/company-intelligence-analysis/SKILL.md"
+        }
+      ],
+      "completion_contract": [
+        {
+          "criterion_id": "company-skill-quick-validate",
+          "behavior": "python3 /home/ubuntu/.codex/skills/.system/skill-creator/scripts/quick_validate.py .codex/skills/company-intelligence-analysis",
+          "blocking": true,
+          "owner_skill": "skill-creator",
+          "phase": "VALIDATE",
+          "depends_on_criteria": [],
+          "test": {
+            "type": "command",
+            "value": "python3 /home/ubuntu/.codex/skills/.system/skill-creator/scripts/quick_validate.py .codex/skills/company-intelligence-analysis",
+            "runner": "command",
+            "timeout_seconds": 180
+          },
+          "expected_result": "exit 0",
+          "failure_marker": "non-zero exit or contract mismatch",
+          "receipt": {
+            "status": "planned",
+            "path": "docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/receipts/criteria/company-skill-quick-validate.json",
+            "sha256": "planned"
+          },
+          "status": "planned"
+        }
+      ]
+    }
+  ],
+  "metadata": {
+    "authored_for_scope_sha256": "718e29f2a7c2c7c8a648433d1725f9f53a662267c05880b3cfaad435ee022d28",
+    "preparation_contract": "campaign-global-ownership-v1"
+  }
+}

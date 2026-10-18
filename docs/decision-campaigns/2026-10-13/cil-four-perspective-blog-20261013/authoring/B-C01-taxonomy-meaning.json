@@ -1,0 +1,52 @@
+{
+  "prose": {
+    "reason": "한 블로그의 산업 부모/자식 구조와 네 관점 라벨; 보고서는 하나이며 관련 분석을 stable ID로 연결한다.",
+    "assertion": "고정된 네 관점, 순서/부모 보존, native 폴더 오인 방지, 미분류 유지와 같은 report_id의 중복 방지"
+  },
+  "changes": {
+    "T1": {
+      "problem": "이 목적의 컴포넌트 없음",
+      "reason": {
+        "$prose": "reason"
+      },
+      "change": "적용 경계: apps/company-report-blog/src/report_blog/taxonomy.py; 명시 sector parent/order와 네 audience를 유지하고 slug collision/분류 미등록을 검사; 목차는 report_id로 연결",
+      "evidence": "docs/decision-campaigns/2026-10-13/cil-four-perspective-blog-20261013/evidence/product-contract-ko.md",
+      "assertion": {
+        "$prose": "assertion"
+      }
+    },
+    "T2": {
+      "problem": "이 목적의 컴포넌트 없음",
+      "reason": {
+        "$prose": "reason"
+      },
+      "change": "적용 경계: apps/company-report-blog/schemas/taxonomy.schema.json; 한 블로그의 산업 부모/자식 구조와 네 관점 라벨; 보고서는 하나이며 관련 분석을 stable ID로 연결한다.",
+      "evidence": "docs/decision-campaigns/2026-10-13/cil-four-perspective-blog-20261013/evidence/product-contract-ko.md",
+      "assertion": {
+        "$prose": "assertion"
+      }
+    },
+    "T3": {
+      "problem": "이 목적의 컴포넌트 없음",
+      "reason": {
+        "$prose": "reason"
+      },
+      "change": "적용 경계: apps/company-report-blog/config/taxonomy.json; 한 블로그의 산업 부모/자식 구조와 네 관점 라벨; 보고서는 하나이며 관련 분석을 stable ID로 연결한다.",
+      "evidence": "docs/decision-campaigns/2026-10-13/cil-four-perspective-blog-20261013/evidence/product-contract-ko.md",
+      "assertion": {
+        "$prose": "assertion"
+      }
+    },
+    "T4": {
+      "problem": "이 목적의 컴포넌트 없음",
+      "reason": {
+        "$prose": "reason"
+      },
+      "change": "적용 경계: apps/company-report-blog/tests/test_taxonomy.py; 새 테스트 파일: 고정된 네 관점, 순서/부모 보존, native 폴더 오인 방지, 미분류 유지와 같은 report_id의 중복 방지; 해당 그룹 변경점과 fixtures/반례를 모두 실행한다.",
+      "evidence": "docs/decision-campaigns/2026-10-13/cil-four-perspective-blog-20261013/evidence/product-contract-ko.md",
+      "assertion": {
+        "$prose": "assertion"
+      }
+    }
+  }
+}

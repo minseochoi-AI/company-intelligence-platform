@@ -1,0 +1,52 @@
+{
+  "prose": {
+    "reason": "CIL 계산과 보고서 의미를 게시 SDK에서 복제하지 않고 명시적 dry-run/draft/update/publish를 분리한다. Blogger 7 operation과 OAuth 경계를 구현한다.",
+    "assertion": "isDraft=True 명시, 같은 content_key의 insert 재시도 금지, 외부 편집 충돌 stop, 토큰 redaction, get/list pagination 및 테스트에서 원격 쓰기 0회"
+  },
+  "changes": {
+    "T1": {
+      "problem": "이 목적의 컴포넌트 없음",
+      "reason": {
+        "$prose": "reason"
+      },
+      "change": "적용 경계: apps/company-report-blog/src/report_blog/blogger.py; 소유 계정 blog 해소·list/get/draft insert/patch/publish; dry-run/명시 mode, 불확실 응답 대조 및 외부 편집 충돌 차단",
+      "evidence": "docs/decision-campaigns/2026-10-13/cil-four-perspective-blog-20261013/evidence/product-contract-ko.md",
+      "assertion": {
+        "$prose": "assertion"
+      }
+    },
+    "T2": {
+      "problem": "이 목적의 컴포넌트 없음",
+      "reason": {
+        "$prose": "reason"
+      },
+      "change": "적용 경계: apps/company-report-blog/src/report_blog/google_auth.py; 사용자 OAuth 파일 외부 secret reference; scope별 서비스·refresh·30s transport; key나 token 출력 금지",
+      "evidence": "docs/decision-campaigns/2026-10-13/cil-four-perspective-blog-20261013/evidence/product-contract-ko.md",
+      "assertion": {
+        "$prose": "assertion"
+      }
+    },
+    "T3": {
+      "problem": "이 목적의 컴포넌트 없음",
+      "reason": {
+        "$prose": "reason"
+      },
+      "change": "적용 경계: apps/company-report-blog/config/provider-contracts.json; Google7+성과4의 호출형식·secret ref·scope·read/write·retry/쿼터/권리/exit 경계를 분리",
+      "evidence": "docs/decision-campaigns/2026-10-13/cil-four-perspective-blog-20261013/evidence/product-contract-ko.md",
+      "assertion": {
+        "$prose": "assertion"
+      }
+    },
+    "T4": {
+      "problem": "이 목적의 컴포넌트 없음",
+      "reason": {
+        "$prose": "reason"
+      },
+      "change": "적용 경계: apps/company-report-blog/tests/test_blogger_adapter.py; 새 테스트 파일: isDraft=True 명시, 같은 content_key의 insert 재시도 금지, 외부 편집 충돌 stop, 토큰 redaction, get/list pagination 및 테스트에서 원격 쓰기 0회; 해당 그룹 변경점과 fixtures/반례를 모두 실행한다.",
+      "evidence": "docs/decision-campaigns/2026-10-13/cil-four-perspective-blog-20261013/evidence/product-contract-ko.md",
+      "assertion": {
+        "$prose": "assertion"
+      }
+    }
+  }
+}

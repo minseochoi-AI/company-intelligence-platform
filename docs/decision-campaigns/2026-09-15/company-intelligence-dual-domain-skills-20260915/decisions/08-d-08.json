@@ -1,0 +1,161 @@
+{
+  "decision_id": "D-08",
+  "sequence": 8,
+  "unit_id": "packaging-validation",
+  "title": "패키징·발견성·행동 검증 계약",
+  "status": "accepted",
+  "question": "두 스킬을 실제 Codex에서 발견·선택·실행·연동할 수 있음을 어떤 검증으로 입증할 것인가?",
+  "five_w_one_h": {
+    "who": "스킬 작성자, 미래 Codex 에이전트와 사용자",
+    "what": "구조 감사, trigger 행동시험, CIL 실행경로, artifact 변조·stale·fallback, campaign routing을 검증한다.",
+    "where": "저장소 skill 패키지, 격리된 테스트 환경, CIL 프로젝트 안팎 cwd에서 수행한다.",
+    "when": "두 스킬과 공유 계약 구현 뒤 설치·배포 주장 전에 수행한다.",
+    "why": "SKILL.md가 존재하거나 정적 schema를 통과하는 것만으로 실제 활성화·비활성화·도구 실행·안전한 실패를 증명하지 못한다.",
+    "how": "skill-creator로 작성하고 skill2-audit와 skill2-test를 각각 구조·행동 검증에 사용하며 CIL offline fixtures와 tamper fixtures를 실행한다."
+  },
+  "evidence_refs": [
+    {
+      "evidence_id": "EV-CIL-CONFIG-CWD",
+      "source_type": "code",
+      "locator": "src/company_intel/config.py",
+      "observed_fact": "Settings.from_env는 명시 project_root가 없으면 Path.cwd()를 사용하므로 설치된 CLI/스킬의 cwd 독립성을 별도 검증해야 한다.",
+      "content_hash": "44879c8438ccf7169c2b4ab8c4c975f61a9a9bf87eccaec7b8df93f7674db393",
+      "line_range": "1-EOF",
+      "question": "두 스킬을 실제 Codex에서 발견·선택·실행·연동할 수 있음을 어떤 검증으로 입증할 것인가?",
+      "observation_summary": "Settings.from_env는 명시 project_root가 없으면 Path.cwd()를 사용하므로 설치된 CLI/스킬의 cwd 독립성을 별도 검증해야 한다."
+    },
+    {
+      "evidence_id": "EV-CIL-CLI-CWD",
+      "source_type": "code",
+      "locator": "src/company_intel/cli.py",
+      "observed_fact": "현재 CLI main은 Settings.from_env(Path.cwd())를 호출한다.",
+      "content_hash": "79d5f528d8a7990030f8a04aad948074ca38b475834b070a227d15827233fcc7",
+      "line_range": "1-EOF",
+      "question": "두 스킬을 실제 Codex에서 발견·선택·실행·연동할 수 있음을 어떤 검증으로 입증할 것인가?",
+      "observation_summary": "현재 CLI main은 Settings.from_env(Path.cwd())를 호출한다."
+    },
+    {
+      "evidence_id": "EV-CIL-PROJECT-METADATA",
+      "source_type": "code",
+      "locator": "pyproject.toml",
+      "observed_fact": "CIL 패키지와 console entrypoint의 설치·실행 기반이 정의되어 있다.",
+      "content_hash": "84e86a16e36afbfe04fb3e64a88aaf423112a9ca35386bd4ade237e86533c0a1",
+      "line_range": "1-EOF",
+      "question": "두 스킬을 실제 Codex에서 발견·선택·실행·연동할 수 있음을 어떤 검증으로 입증할 것인가?",
+      "observation_summary": "CIL 패키지와 console entrypoint의 설치·실행 기반이 정의되어 있다."
+    }
+  ],
+  "facts": [
+    "저장소 로컬 company-intel-cli 스킬은 현재 세션의 사용 가능 스킬 목록에 자동 노출되지 않았다.",
+    "설치된 company-intel 명령은 cwd에 따라 config 경로가 달라질 수 있다.",
+    "구조 검증과 trigger 행동 검증은 서로 다른 증거다."
+  ],
+  "conflicts": [
+    "repo 안에서만 통과하는 smoke는 전역 사용을 증명하지 못한다.",
+    "provider live test는 외부 권한·키·변동성 때문에 스킬 core 검증과 분리해야 한다."
+  ],
+  "unimplemented": [
+    "두 스킬 구조·행동 test matrix",
+    "격리 설치 smoke",
+    "cwd 독립 CIL launcher 또는 명시 root 계약",
+    "artifact tamper fixtures",
+    "turnover receipt"
+  ],
+  "options": [
+    {
+      "option_id": "A-STRUCTURE-ONLY-VALIDATION",
+      "description": "SKILL.md frontmatter와 파일 존재만 검사해 완료로 판정한다.",
+      "impact": {
+        "data": "실제 artifact는 검증하지 않는다.",
+        "schema_api": "정적 형식만 본다.",
+        "ux": "오활성화가 배포 후 드러난다.",
+        "performance": "검증은 빠르다.",
+        "cost": "초기 비용은 낮다.",
+        "security": "변조·경로 문제를 놓친다.",
+        "migration": "환경 차이를 발견하지 못한다.",
+        "tests": "행동 회귀가 없다."
+      },
+      "opportunity_costs": [
+        "실사용 가능성을 주장할 근거가 없다."
+      ]
+    },
+    {
+      "option_id": "B-STRUCTURAL-AND-BEHAVIORAL-VALIDATION",
+      "description": "구조 감사와 격리 trigger·CLI·artifact·routing 행동시험을 분리 실행한다.",
+      "impact": {
+        "data": "fixture와 receipt가 남는다.",
+        "schema_api": "계약별 검증기가 실행된다.",
+        "ux": "선택·비선택·오류 안내를 검증한다.",
+        "performance": "테스트 시간이 늘어난다.",
+        "cost": "격리 환경과 fixture 유지비가 든다.",
+        "security": "tamper·path·secret 누출을 검사한다.",
+        "migration": "버전·cwd 차이를 조기 발견한다.",
+        "tests": "양성·음성·회귀 행렬을 가진다."
+      },
+      "opportunity_costs": [
+        "구현 직후 바로 완료 선언하지 못한다."
+      ]
+    }
+  ],
+  "recommended_option_id": "B-STRUCTURAL-AND-BEHAVIORAL-VALIDATION",
+  "recommendation_reason": "사용자가 실제 구성 가능한 스킬을 원하므로 파일 존재가 아니라 올바른 활성화·실행·증거 거부·독립성까지 입증해야 한다.",
+  "impact": {
+    "data": "테스트 fixture와 receipt가 plan SHA에 결속된다.",
+    "schema_api": "각 공유 schema validator를 실행한다.",
+    "ux": "한국어 실패 설명과 다음 행동을 검증한다.",
+    "performance": "offline core와 optional provider test를 분리한다.",
+    "cost": "무료·offline 기본 검증을 우선한다.",
+    "security": "secret·PII·path traversal·hash tamper를 검사한다.",
+    "migration": "전역 설치 전 프로젝트 로컬 발견성부터 검증한다.",
+    "tests": "skill2-audit, skill2-test, pytest, cwd smoke, interop replay가 필요하다."
+  },
+  "opportunity_costs": [
+    "외부 provider live 증거가 없는 상태에서는 해당 connector 지원을 완료로 주장하지 않는다."
+  ],
+  "dependencies": [
+    "D-04",
+    "D-05",
+    "D-06",
+    "D-07",
+    "D-09",
+    "D-10"
+  ],
+  "dependency_waivers": {},
+  "accepted_decision": {
+    "disposition": "ACCEPT",
+    "option_id": "B-STRUCTURAL-AND-BEHAVIORAL-VALIDATION",
+    "rule": "사용자의 FULL_EXECUTION 요청에 따라 각 결정의 B 권장안을 승인한다.",
+    "rationale": "비판적 검증에서 확인된 수정사항과 D-09·D-10을 포함한 개정 범위를 구현한다.",
+    "decided_by": "user",
+    "decided_at": "2026-09-15T05:28:25.724684+00:00"
+  },
+  "implementation_targets": [
+    "tests/skills/test_company_intelligence_analysis_skill.py",
+    "tests/skills/test_venture_discovery_skill.py",
+    "tests/skills/test_skill_artifact_interop.py"
+  ],
+  "implementation_change_ids": [
+    "C05-001",
+    "C05-002",
+    "C05-003"
+  ],
+  "validation_requirements": [
+    "두 신규 스킬이 skill-creator quick_validate와 skill2-audit를 통과함",
+    "기존 커리어 스킬과 두 신규 스킬의 양성·음성·교차 trigger 경계가 검토됨",
+    "repo 밖 cwd CIL 호출이 명시 root로 성공함",
+    "변조·stale·wrong-kind bundle과 DomainPlanRef를 거부함",
+    "외부 MCP 없이 창업 core workflow와 DualPathComparison을 검증함"
+  ],
+  "diagram_impacts": [
+    "docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/diagrams/flowchart-source-matrix.json",
+    "docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/diagrams/flowchart-design-review.json",
+    "docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/diagrams/flowchart-semantic-review.md",
+    "docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/diagrams/matrices/validation-pipeline.flowchart-matrix.json",
+    "docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/diagrams/mermaid/validation-pipeline.mmd",
+    "docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/diagrams/mermaid/validation-pipeline.svg",
+    "docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/diagrams/mermaid/validation-pipeline.png"
+  ],
+  "context_topic_ids": [
+    "packaging-validation"
+  ]
+}

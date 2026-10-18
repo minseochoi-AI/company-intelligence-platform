@@ -1,0 +1,41 @@
+{
+  "cohort_id": "C-02-cil-runtime",
+  "status": "completed",
+  "changed_paths": [
+    "src/company_intel/config.py",
+    "src/company_intel/cli.py",
+    ".codex/skills/company-intel-cli/SKILL.md",
+    "tests/test_cli_project_root.py"
+  ],
+  "commands": [
+    "tests/test_cli_project_root.py"
+  ],
+  "outcome": "pass",
+  "raw_log_path": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/receipts/logs/C-02-cil-runtime__cil-root-tests.log",
+  "raw_log_sha256": "4a6e9c36d8f59b5f37fea72c93e4df9fc194a7d55658ccade2f5975a987ec522",
+  "first_failure": null,
+  "stdout_tail": "...                                                                      [100%]\n3 passed in 0.47s\n",
+  "stderr_tail": null,
+  "telemetry": {
+    "provider": {
+      "measurement": "not-applicable",
+      "invocations": null,
+      "input_tokens": null,
+      "output_tokens": null
+    },
+    "agent_session": {
+      "measurement": "unavailable-platform",
+      "token_count": null,
+      "tool_output_chars": null
+    }
+  },
+  "provider_guard": null,
+  "updated_at": "2026-09-15T06:26:09.788055+00:00",
+  "context_packet_id": "C-02-cil-runtime-packet-0064d7f0dd52",
+  "context_packet_sha256": "97cf85862ca511afde7a2b6fa3d7696916d8092f74858f4343dd8c91564f4399",
+  "implementation_plan_id": "C-02-cil-runtime-plan-r1",
+  "implementation_plan_sha256": "4bffa4b6ab878493b390485d392141e393a61bde571af39e647da43677a2092b",
+  "passed_criterion_ids": [
+    "cil-root-tests"
+  ]
+}

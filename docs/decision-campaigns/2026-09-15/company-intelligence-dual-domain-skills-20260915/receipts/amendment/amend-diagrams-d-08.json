@@ -1,0 +1,35 @@
+{
+  "contract_version": "atomic-json-patch-receipt-v1",
+  "target": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/decisions/08-d-08.json",
+  "outcome": "pass",
+  "before_sha256": "441ee8007b81cec7e9fbaae360d263c1a640fe8dd1226fbb6b3a77e0f9057192",
+  "after_sha256": "0bd39ad9f0d177d80c8abc318de78c2a7c377bb04137bf8f4fafd3d1858426b8",
+  "proposed_after_sha256": "0bd39ad9f0d177d80c8abc318de78c2a7c377bb04137bf8f4fafd3d1858426b8",
+  "operations": [
+    {
+      "op": "test",
+      "path": "/diagram_impacts"
+    },
+    {
+      "op": "replace",
+      "path": "/diagram_impacts"
+    }
+  ],
+  "backup": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/.mutation-journal/preimages/sha256-441ee8007b81cec7e9fbaae360d263c1a640fe8dd1226fbb6b3a77e0f9057192.json",
+  "journal": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/.mutation-journal/mutations/e93666c9c54b634f4c54e791bcf5a8f72df8a42752db2795baf940d49c422c9d.json",
+  "mutation_id": "amend-diagrams-d-08",
+  "validators": [
+    {
+      "command": [
+        "python3",
+        "-m",
+        "json.tool",
+        "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/decisions/08-d-08.json"
+      ],
+      "returncode": 0,
+      "stdout_tail": "70\\ubd80\\ud568\",\n        \"\\uc678\\ubd80 MCP \\uc5c6\\uc774 \\ucc3d\\uc5c5 core workflow\\uc640 DualPathComparison\\uc744 \\uac80\\uc99d\\ud568\"\n    ],\n    \"diagram_impacts\": [\n        \"docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/diagrams/flowchart-source-matrix.json\",\n        \"docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/diagrams/flowchart-design-review.json\",\n        \"docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/diagrams/flowchart-semantic-review.md\",\n        \"docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/diagrams/matrices/validation-pipeline.flowchart-matrix.json\",\n        \"docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/diagrams/mermaid/validation-pipeline.mmd\",\n        \"docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/diagrams/mermaid/validation-pipeline.svg\",\n        \"docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/diagrams/mermaid/validation-pipeline.png\"\n    ],\n    \"context_topic_ids\": [\n        \"packaging-validation\"\n    ]\n}\n",
+      "stderr_tail": ""
+    }
+  ],
+  "completed_at": "2026-09-15T06:38:41.800181+00:00"
+}

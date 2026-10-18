@@ -126,20 +126,24 @@ class JobSearchRequest(BaseModel):
     public_institution_types: list[str] = Field(default_factory=list)
     legal_forms: list[str] = Field(default_factory=list)
     ownership_sectors: list[str] = Field(default_factory=list)
+    isco_codes: list[str] = Field(default_factory=list)
+    ncs_codes: list[str] = Field(default_factory=list)
     active_only: bool = True
     country_allocation: dict[str, int] = Field(default_factory=dict)
     unknown_policy: str = "exclude"
     keyword_scope: str = "title_or_occupation"
 
     def to_domain(self) -> JobSearchProfile:
-        values = self.model_dump(exclude={"payloads"})
+        # Subclass request metadata belongs to snapshot execution, not the search profile.
+        values = self.model_dump(include=set(JobSearchProfile.__dataclass_fields__))
         for key in (
             "countries", "job_keywords", "occupations", "locations", "workplace_types",
             "employment_types", "languages", "posting_languages", "business_units", "industries", "company_types",
             "required_requirement_terms", "preferred_requirement_terms", "required_languages",
             "identity_link_statuses", "public_contexts", "public_institution_types", "legal_forms", "ownership_sectors",
+            "isco_codes", "ncs_codes",
         ):
-            values[key] = tuple(values[key])
+            values[key] = tuple(values.get(key, ()))
         return JobSearchProfile(**values)
 
 
@@ -280,7 +284,10 @@ def company_capabilities(entity_id: str) -> dict[str, Any]:
 
 @app.post("/v1/company-search")
 def company_search(request: SearchProfileRequest) -> dict[str, Any]:
-    profile = validate_search_profile(request.to_domain())
+    try:
+        profile = validate_search_profile(request.to_domain())
+    except ValueError as error:
+        raise HTTPException(422, str(error)) from error
     settings = Settings.from_env(Path.cwd())
     try:
         candidates = Warehouse(settings).search_candidates(profile.countries)

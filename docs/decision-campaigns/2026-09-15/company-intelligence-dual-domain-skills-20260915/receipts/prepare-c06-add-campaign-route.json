@@ -1,0 +1,35 @@
+{
+  "contract_version": "atomic-json-patch-receipt-v1",
+  "target": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/implementation-plans/C-06-diagram-toolchain.json",
+  "outcome": "pass",
+  "before_sha256": "48a058711fb8f09cad7ec1126fac5fef81315fb4ba44ac9ad840d6e033531223",
+  "after_sha256": "1130e483528cf457bd651566255f5c3f02c61400f97437e20a809d8f505c434d",
+  "proposed_after_sha256": "1130e483528cf457bd651566255f5c3f02c61400f97437e20a809d8f505c434d",
+  "operations": [
+    {
+      "op": "test",
+      "path": "/change_slices/0/routes"
+    },
+    {
+      "op": "replace",
+      "path": "/change_slices/0/routes"
+    }
+  ],
+  "backup": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/.mutation-journal/preimages/sha256-48a058711fb8f09cad7ec1126fac5fef81315fb4ba44ac9ad840d6e033531223.json",
+  "journal": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/.mutation-journal/mutations/1a344cb4468cd339705321f94ef8e4d56a86b4238ac136a203912adb459982b5.json",
+  "mutation_id": "prepare-c06-add-campaign-route",
+  "validators": [
+    {
+      "command": [
+        "python3",
+        "-m",
+        "json.tool",
+        "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/implementation-plans/C-06-diagram-toolchain.json"
+      ],
+      "returncode": 0,
+      "stdout_tail": "    \"blocking\": true,\n                    \"owner_skill\": \"decision-campaign-workbook\",\n                    \"test\": {\n                        \"type\": \"pytest\",\n                        \"value\": \"uv run --frozen pytest\",\n                        \"runner\": \"pytest\",\n                        \"paths\": [\n                            \"tests\"\n                        ],\n                        \"timeout_seconds\": 300\n                    },\n                    \"expected_result\": \"full pytest suite passes\",\n                    \"failure_marker\": \"repository regression pytest failure\",\n                    \"receipt\": {\n                        \"status\": \"planned\",\n                        \"path\": \"docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/receipts/criteria/repository-regression-pytest.json\",\n                        \"sha256\": \"planned\"\n                    },\n                    \"status\": \"planned\",\n                    \"phase\": \"VALIDATE\",\n                    \"depends_on_criteria\": []\n                }\n            ]\n        }\n    ],\n    \"metadata\": {\n        \"purpose\": \"D-11 deterministic diagram toolchain\",\n        \"compiled_from_decision_intents\": true\n    }\n}\n",
+      "stderr_tail": ""
+    }
+  ],
+  "completed_at": "2026-09-15T06:53:23.780659+00:00"
+}

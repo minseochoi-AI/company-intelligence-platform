@@ -1,0 +1,69 @@
+{
+  "decision_refs": [
+    {
+      "id": "B-D04",
+      "path": "docs/decision-campaigns/2026-10-13/cil-four-perspective-blog-20261013/decisions/04-b-d04.json"
+    }
+  ],
+  "targets": {
+    "T1": {
+      "path": "apps/company-report-blog/src/report_blog/blogger.py",
+      "symbols": [
+        "BloggerPublisher",
+        "reconcile_post"
+      ],
+      "decision_id": "B-D04",
+      "obligation_ids": [
+        "B-D04-O01"
+      ]
+    },
+    "T2": {
+      "path": "apps/company-report-blog/src/report_blog/google_auth.py",
+      "symbols": [
+        "load_user_credentials",
+        "build_authorized_service"
+      ],
+      "decision_id": "B-D04",
+      "obligation_ids": [
+        "B-D04-O01"
+      ]
+    },
+    "T3": {
+      "path": "apps/company-report-blog/config/provider-contracts.json",
+      "symbols": [
+        "provider_contracts"
+      ],
+      "decision_id": "B-D04",
+      "obligation_ids": [
+        "B-D04-O01"
+      ]
+    },
+    "T4": {
+      "path": "apps/company-report-blog/tests/test_blogger_adapter.py",
+      "symbols": [
+        "test_blogger_adapter_contract"
+      ],
+      "decision_id": "B-D04",
+      "obligation_ids": [
+        "B-D04-O01"
+      ]
+    }
+  },
+  "checks": [
+    {
+      "target_ids": [
+        "T1",
+        "T2",
+        "T3",
+        "T4"
+      ],
+      "test": {
+        "type": "command",
+        "value": "/home/ubuntu/root/company-intelligence-platform/.venv/bin/python -B -m pytest -q -p no:cacheprovider apps/company-report-blog/tests/test_blogger_adapter.py",
+        "timeout_seconds": 300,
+        "provider_backed": false
+      },
+      "assertion": "isDraft=True 명시, 같은 content_key의 insert 재시도 금지, 외부 편집 충돌 stop, 토큰 redaction, get/list pagination 및 테스트에서 원격 쓰기 0회"
+    }
+  ]
+}

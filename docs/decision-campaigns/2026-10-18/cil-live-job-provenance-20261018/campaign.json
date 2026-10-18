@@ -1,0 +1,64 @@
+{
+  "schema_version": "1.6.0",
+  "campaign_id": "cil-live-job-provenance-20261018",
+  "objective": "ClusterSignature 기반 실시간 API 속성 정규화, 키 불일치 방어, 6대 엑셀 하이퍼링크 증강 및 CLI 파이프라인",
+  "repository_root": "/home/ubuntu/root/company-intelligence-platform",
+  "created_date": "2026-10-18",
+  "status": "draft",
+  "decision_order": [
+    "JP-D01",
+    "JP-D02",
+    "JP-D03",
+    "JP-D04"
+  ],
+  "dependencies": [
+    {
+      "before": "JP-D01",
+      "after": "JP-D02"
+    },
+    {
+      "before": "JP-D01",
+      "after": "JP-D03"
+    },
+    {
+      "before": "JP-D02",
+      "after": "JP-D03"
+    },
+    {
+      "before": "JP-D01",
+      "after": "JP-D04"
+    },
+    {
+      "before": "JP-D03",
+      "after": "JP-D04"
+    }
+  ],
+  "implementation_authorization": {
+    "authorized": false,
+    "authorized_by": null,
+    "authorized_at": null,
+    "scope": [],
+    "authorized_plan_refs": []
+  },
+  "implementation_cohorts": [],
+  "context_index_path": "docs/implementation-context-index.json",
+  "component_inventory_path": null,
+  "component_inventory_sha256": null,
+  "workbook_path": "docs/decision-campaigns/2026-10-18/cil-live-job-provenance-20261018/decision-workbook.md",
+  "decision_files": {
+    "JP-D01": "docs/decision-campaigns/2026-10-18/cil-live-job-provenance-20261018/decisions/01-jp-d01.json",
+    "JP-D02": "docs/decision-campaigns/2026-10-18/cil-live-job-provenance-20261018/decisions/02-jp-d02.json",
+    "JP-D03": "docs/decision-campaigns/2026-10-18/cil-live-job-provenance-20261018/decisions/03-jp-d03.json",
+    "JP-D04": "docs/decision-campaigns/2026-10-18/cil-live-job-provenance-20261018/decisions/04-jp-d04.json"
+  },
+  "receipt_paths": {
+    "implementation": "docs/decision-campaigns/2026-10-18/cil-live-job-provenance-20261018/receipts/implementation.json",
+    "validation": "docs/decision-campaigns/2026-10-18/cil-live-job-provenance-20261018/receipts/validation.json",
+    "diagrams": "docs/decision-campaigns/2026-10-18/cil-live-job-provenance-20261018/receipts/diagrams.json"
+  },
+  "receipt_manifest_paths": {
+    "implementation": "docs/decision-campaigns/2026-10-18/cil-live-job-provenance-20261018/receipts/current-implementation.json",
+    "validation": "docs/decision-campaigns/2026-10-18/cil-live-job-provenance-20261018/receipts/current-validation.json",
+    "diagrams": "docs/decision-campaigns/2026-10-18/cil-live-job-provenance-20261018/receipts/current-diagrams.json"
+  }
+}

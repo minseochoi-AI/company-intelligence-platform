@@ -1,0 +1,10 @@
+{
+  "schema_version": "1.0.0",
+  "policy": "candidate-only-until-evidence-and-operations-gates-pass",
+  "production_dependencies": [],
+  "candidates": [
+    {"candidate_id": "ares-mcp", "disposition": "defer-duplicate-source", "gates": ["field-gain", "supply-chain-review", "license", "operational-advantage"]},
+    {"candidate_id": "opendart-fss-mcp", "disposition": "defer-duplicate-source", "gates": ["field-gain", "tool-contract-review", "license", "quota"]},
+    {"candidate_id": "octagon", "disposition": "defer-commercial-terms-unknown", "gates": ["long-term-free-limit", "redistribution-rights", "kr-cz-coverage", "key-management"]}
+  ]
+}

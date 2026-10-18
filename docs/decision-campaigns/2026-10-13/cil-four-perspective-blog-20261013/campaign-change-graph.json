@@ -1,0 +1,925 @@
+{
+  "contract_version": "campaign-change-graph-v1",
+  "campaign_id": "cil-four-perspective-blog-20261013",
+  "operations": [
+    {
+      "path": "apps/company-report-blog/README.md",
+      "owner_cohort_id": "B-C07-cli-skill",
+      "change_id": "file-change-3d21764f4086",
+      "operation": "CREATE",
+      "contribution_refs": [
+        {
+          "decision_id": "B-D07",
+          "intent_change_ids": [
+            "file-change-3d21764f4086"
+          ],
+          "obligation_ids": [
+            "B-D07-O01"
+          ],
+          "path": "docs/decision-campaigns/2026-10-13/cil-four-perspective-blog-20261013/decisions/07-b-d07.json",
+          "sha256": "sha256:c7bb87952253e9f412149b39e9ea8e8f7c7c8e142f1a5a511a08c041c2295ebb",
+          "symbols": [
+            "README"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "apps/company-report-blog/config/provider-contracts.json",
+      "owner_cohort_id": "B-C04-blogger",
+      "change_id": "file-change-871e48ad3a4d",
+      "operation": "CREATE",
+      "contribution_refs": [
+        {
+          "decision_id": "B-D04",
+          "intent_change_ids": [
+            "file-change-871e48ad3a4d"
+          ],
+          "obligation_ids": [
+            "B-D04-O01"
+          ],
+          "path": "docs/decision-campaigns/2026-10-13/cil-four-perspective-blog-20261013/decisions/04-b-d04.json",
+          "sha256": "sha256:a2f3c5e5fea8f618de166b3918ca9fa1da112ff14e5952b483bc8c3c93b40083",
+          "symbols": [
+            "provider_contracts"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "apps/company-report-blog/config/taxonomy.json",
+      "owner_cohort_id": "B-C01-taxonomy",
+      "change_id": "file-change-0a8210721a0f",
+      "operation": "CREATE",
+      "contribution_refs": [
+        {
+          "decision_id": "B-D01",
+          "intent_change_ids": [
+            "file-change-0a8210721a0f"
+          ],
+          "obligation_ids": [
+            "B-D01-O01"
+          ],
+          "path": "docs/decision-campaigns/2026-10-13/cil-four-perspective-blog-20261013/decisions/01-b-d01.json",
+          "sha256": "sha256:126dd20033c39074719c0020a972089c4e2496d1a7480a1e4666b4c7ee0525e8",
+          "symbols": [
+            "taxonomy"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "apps/company-report-blog/migrations/001.sql",
+      "owner_cohort_id": "B-C05-ledger-links",
+      "change_id": "file-change-618b7cf82e49",
+      "operation": "CREATE",
+      "contribution_refs": [
+        {
+          "decision_id": "B-D05",
+          "intent_change_ids": [
+            "file-change-618b7cf82e49"
+          ],
+          "obligation_ids": [
+            "B-D05-O01"
+          ],
+          "path": "docs/decision-campaigns/2026-10-13/cil-four-perspective-blog-20261013/decisions/05-b-d05.json",
+          "sha256": "sha256:7f13912028d179d63080fe0b92c6671d07b6b92af3b2a49d1264b09e97c89d57",
+          "symbols": [
+            "ledger_schema_v1"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "apps/company-report-blog/pyproject.toml",
+      "owner_cohort_id": "B-C07-cli-skill",
+      "change_id": "file-change-6da0dec88ca8",
+      "operation": "CREATE",
+      "contribution_refs": [
+        {
+          "decision_id": "B-D07",
+          "intent_change_ids": [
+            "file-change-6da0dec88ca8"
+          ],
+          "obligation_ids": [
+            "B-D07-O01"
+          ],
+          "path": "docs/decision-campaigns/2026-10-13/cil-four-perspective-blog-20261013/decisions/07-b-d07.json",
+          "sha256": "sha256:c7bb87952253e9f412149b39e9ea8e8f7c7c8e142f1a5a511a08c041c2295ebb",
+          "symbols": [
+            "report_blog_package"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "apps/company-report-blog/schemas/human-evaluation.schema.json",
+      "owner_cohort_id": "B-C02-report-opinions",
+      "change_id": "file-change-4f661150db5f",
+      "operation": "CREATE",
+      "contribution_refs": [
+        {
+          "decision_id": "B-D02",
+          "intent_change_ids": [
+            "file-change-4f661150db5f"
+          ],
+          "obligation_ids": [
+            "B-D02-O01"
+          ],
+          "path": "docs/decision-campaigns/2026-10-13/cil-four-perspective-blog-20261013/decisions/02-b-d02.json",
+          "sha256": "sha256:5b88875b66887ab49373dbe25c35d31fdcfd24092762610a4d8e5ead8b517301",
+          "symbols": [
+            "human-evaluation.schema"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "apps/company-report-blog/schemas/report.schema.json",
+      "owner_cohort_id": "B-C02-report-opinions",
+      "change_id": "file-change-e6a672c902bc",
+      "operation": "CREATE",
+      "contribution_refs": [
+        {
+          "decision_id": "B-D02",
+          "intent_change_ids": [
+            "file-change-e6a672c902bc"
+          ],
+          "obligation_ids": [
+            "B-D02-O01"
+          ],
+          "path": "docs/decision-campaigns/2026-10-13/cil-four-perspective-blog-20261013/decisions/02-b-d02.json",
+          "sha256": "sha256:5b88875b66887ab49373dbe25c35d31fdcfd24092762610a4d8e5ead8b517301",
+          "symbols": [
+            "report.schema"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "apps/company-report-blog/schemas/taxonomy.schema.json",
+      "owner_cohort_id": "B-C01-taxonomy",
+      "change_id": "file-change-8a2889c1dc62",
+      "operation": "CREATE",
+      "contribution_refs": [
+        {
+          "decision_id": "B-D01",
+          "intent_change_ids": [
+            "file-change-8a2889c1dc62"
+          ],
+          "obligation_ids": [
+            "B-D01-O01"
+          ],
+          "path": "docs/decision-campaigns/2026-10-13/cil-four-perspective-blog-20261013/decisions/01-b-d01.json",
+          "sha256": "sha256:126dd20033c39074719c0020a972089c4e2496d1a7480a1e4666b4c7ee0525e8",
+          "symbols": [
+            "taxonomy.schema"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "apps/company-report-blog/skills/company-report-blog/SKILL.md",
+      "owner_cohort_id": "B-C07-cli-skill",
+      "change_id": "file-change-335b547b9414",
+      "operation": "CREATE",
+      "contribution_refs": [
+        {
+          "decision_id": "B-D07",
+          "intent_change_ids": [
+            "file-change-335b547b9414"
+          ],
+          "obligation_ids": [
+            "B-D07-O01"
+          ],
+          "path": "docs/decision-campaigns/2026-10-13/cil-four-perspective-blog-20261013/decisions/07-b-d07.json",
+          "sha256": "sha256:c7bb87952253e9f412149b39e9ea8e8f7c7c8e142f1a5a511a08c041c2295ebb",
+          "symbols": [
+            "company-report-blog"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "apps/company-report-blog/skills/company-report-blog/agents/openai.yaml",
+      "owner_cohort_id": "B-C07-cli-skill",
+      "change_id": "file-change-c8824f26de4b",
+      "operation": "CREATE",
+      "contribution_refs": [
+        {
+          "decision_id": "B-D07",
+          "intent_change_ids": [
+            "file-change-c8824f26de4b"
+          ],
+          "obligation_ids": [
+            "B-D07-O01"
+          ],
+          "path": "docs/decision-campaigns/2026-10-13/cil-four-perspective-blog-20261013/decisions/07-b-d07.json",
+          "sha256": "sha256:c7bb87952253e9f412149b39e9ea8e8f7c7c8e142f1a5a511a08c041c2295ebb",
+          "symbols": [
+            "skill_metadata"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "apps/company-report-blog/src/report_blog/__init__.py",
+      "owner_cohort_id": "B-C07-cli-skill",
+      "change_id": "file-change-57c5036c11db",
+      "operation": "CREATE",
+      "contribution_refs": [
+        {
+          "decision_id": "B-D07",
+          "intent_change_ids": [
+            "file-change-57c5036c11db"
+          ],
+          "obligation_ids": [
+            "B-D07-O01"
+          ],
+          "path": "docs/decision-campaigns/2026-10-13/cil-four-perspective-blog-20261013/decisions/07-b-d07.json",
+          "sha256": "sha256:c7bb87952253e9f412149b39e9ea8e8f7c7c8e142f1a5a511a08c041c2295ebb",
+          "symbols": [
+            "__init__"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "apps/company-report-blog/src/report_blog/blogger.py",
+      "owner_cohort_id": "B-C04-blogger",
+      "change_id": "file-change-9bd037dc0311",
+      "operation": "CREATE",
+      "contribution_refs": [
+        {
+          "decision_id": "B-D04",
+          "intent_change_ids": [
+            "file-change-9bd037dc0311"
+          ],
+          "obligation_ids": [
+            "B-D04-O01"
+          ],
+          "path": "docs/decision-campaigns/2026-10-13/cil-four-perspective-blog-20261013/decisions/04-b-d04.json",
+          "sha256": "sha256:a2f3c5e5fea8f618de166b3918ca9fa1da112ff14e5952b483bc8c3c93b40083",
+          "symbols": [
+            "BloggerPublisher",
+            "reconcile_post"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "apps/company-report-blog/src/report_blog/cli.py",
+      "owner_cohort_id": "B-C07-cli-skill",
+      "change_id": "file-change-0fa8857c54f3",
+      "operation": "CREATE",
+      "contribution_refs": [
+        {
+          "decision_id": "B-D07",
+          "intent_change_ids": [
+            "file-change-0fa8857c54f3"
+          ],
+          "obligation_ids": [
+            "B-D07-O01"
+          ],
+          "path": "docs/decision-campaigns/2026-10-13/cil-four-perspective-blog-20261013/decisions/07-b-d07.json",
+          "sha256": "sha256:c7bb87952253e9f412149b39e9ea8e8f7c7c8e142f1a5a511a08c041c2295ebb",
+          "symbols": [
+            "main"
+          ]
+        },
+        {
+          "decision_id": "B-D09",
+          "intent_change_ids": [
+            "file-change-0fa8857c54f3"
+          ],
+          "obligation_ids": [
+            "B-D09-O01"
+          ],
+          "path": "docs/decision-campaigns/2026-10-13/cil-four-perspective-blog-20261013/decisions/09-b-d09.json",
+          "sha256": "sha256:6fae81cc0c048a2dd4648753b1f4c6f04fdb101a58108273f3ae9199f47d3228",
+          "symbols": [
+            "main"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "apps/company-report-blog/src/report_blog/compose.py",
+      "owner_cohort_id": "B-C02-report-opinions",
+      "change_id": "file-change-a633d3050cf5",
+      "operation": "CREATE",
+      "contribution_refs": [
+        {
+          "decision_id": "B-D02",
+          "intent_change_ids": [
+            "file-change-a633d3050cf5"
+          ],
+          "obligation_ids": [
+            "B-D02-O01"
+          ],
+          "path": "docs/decision-campaigns/2026-10-13/cil-four-perspective-blog-20261013/decisions/02-b-d02.json",
+          "sha256": "sha256:5b88875b66887ab49373dbe25c35d31fdcfd24092762610a4d8e5ead8b517301",
+          "symbols": [
+            "compose_report"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "apps/company-report-blog/src/report_blog/google_auth.py",
+      "owner_cohort_id": "B-C04-blogger",
+      "change_id": "file-change-7d2de96119d5",
+      "operation": "CREATE",
+      "contribution_refs": [
+        {
+          "decision_id": "B-D04",
+          "intent_change_ids": [
+            "file-change-7d2de96119d5"
+          ],
+          "obligation_ids": [
+            "B-D04-O01"
+          ],
+          "path": "docs/decision-campaigns/2026-10-13/cil-four-perspective-blog-20261013/decisions/04-b-d04.json",
+          "sha256": "sha256:a2f3c5e5fea8f618de166b3918ca9fa1da112ff14e5952b483bc8c3c93b40083",
+          "symbols": [
+            "load_user_credentials",
+            "build_authorized_service"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "apps/company-report-blog/src/report_blog/ledger.py",
+      "owner_cohort_id": "B-C05-ledger-links",
+      "change_id": "file-change-9efdb1632b49",
+      "operation": "CREATE",
+      "contribution_refs": [
+        {
+          "decision_id": "B-D05",
+          "intent_change_ids": [
+            "file-change-9efdb1632b49"
+          ],
+          "obligation_ids": [
+            "B-D05-O01"
+          ],
+          "path": "docs/decision-campaigns/2026-10-13/cil-four-perspective-blog-20261013/decisions/05-b-d05.json",
+          "sha256": "sha256:7f13912028d179d63080fe0b92c6671d07b6b92af3b2a49d1264b09e97c89d57",
+          "symbols": [
+            "PublicationLedger",
+            "acquire_writer",
+            "record_attempt"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "apps/company-report-blog/src/report_blog/links.py",
+      "owner_cohort_id": "B-C05-ledger-links",
+      "change_id": "file-change-a47c5eb0c4ed",
+      "operation": "CREATE",
+      "contribution_refs": [
+        {
+          "decision_id": "B-D05",
+          "intent_change_ids": [
+            "file-change-a47c5eb0c4ed"
+          ],
+          "obligation_ids": [
+            "B-D05-O01"
+          ],
+          "path": "docs/decision-campaigns/2026-10-13/cil-four-perspective-blog-20261013/decisions/05-b-d05.json",
+          "sha256": "sha256:7f13912028d179d63080fe0b92c6671d07b6b92af3b2a49d1264b09e97c89d57",
+          "symbols": [
+            "register_relation",
+            "refresh_index_links"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "apps/company-report-blog/src/report_blog/metrics.py",
+      "owner_cohort_id": "B-C06-metrics",
+      "change_id": "file-change-475e37c19be1",
+      "operation": "CREATE",
+      "contribution_refs": [
+        {
+          "decision_id": "B-D06",
+          "intent_change_ids": [
+            "file-change-475e37c19be1"
+          ],
+          "obligation_ids": [
+            "B-D06-O01"
+          ],
+          "path": "docs/decision-campaigns/2026-10-13/cil-four-perspective-blog-20261013/decisions/06-b-d06.json",
+          "sha256": "sha256:defdd20c40b8abf4629d6efaca8a47b526a4f8d7341909695510a9d65544f9d7",
+          "symbols": [
+            "collect_search_metrics",
+            "collect_adsense_metrics"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "apps/company-report-blog/src/report_blog/models.py",
+      "owner_cohort_id": "B-C02-report-opinions",
+      "change_id": "file-change-c03ccdb32605",
+      "operation": "CREATE",
+      "contribution_refs": [
+        {
+          "decision_id": "B-D02",
+          "intent_change_ids": [
+            "file-change-c03ccdb32605"
+          ],
+          "obligation_ids": [
+            "B-D02-O01"
+          ],
+          "path": "docs/decision-campaigns/2026-10-13/cil-four-perspective-blog-20261013/decisions/02-b-d02.json",
+          "sha256": "sha256:5b88875b66887ab49373dbe25c35d31fdcfd24092762610a4d8e5ead8b517301",
+          "symbols": [
+            "ArticleSpec",
+            "AIReportRevision",
+            "HumanEvaluationRevision"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "apps/company-report-blog/src/report_blog/opinions.py",
+      "owner_cohort_id": "B-C02-report-opinions",
+      "change_id": "file-change-3524bc461a72",
+      "operation": "CREATE",
+      "contribution_refs": [
+        {
+          "decision_id": "B-D02",
+          "intent_change_ids": [
+            "file-change-3524bc461a72"
+          ],
+          "obligation_ids": [
+            "B-D02-O01"
+          ],
+          "path": "docs/decision-campaigns/2026-10-13/cil-four-perspective-blog-20261013/decisions/02-b-d02.json",
+          "sha256": "sha256:5b88875b66887ab49373dbe25c35d31fdcfd24092762610a4d8e5ead8b517301",
+          "symbols": [
+            "append_evaluation",
+            "mark_review_outdated"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "apps/company-report-blog/src/report_blog/render.py",
+      "owner_cohort_id": "B-C02-report-opinions",
+      "change_id": "file-change-f176652da040",
+      "operation": "CREATE",
+      "contribution_refs": [
+        {
+          "decision_id": "B-D02",
+          "intent_change_ids": [
+            "file-change-f176652da040"
+          ],
+          "obligation_ids": [
+            "B-D02-O01"
+          ],
+          "path": "docs/decision-campaigns/2026-10-13/cil-four-perspective-blog-20261013/decisions/02-b-d02.json",
+          "sha256": "sha256:5b88875b66887ab49373dbe25c35d31fdcfd24092762610a4d8e5ead8b517301",
+          "symbols": [
+            "render_report",
+            "validate_link_scheme"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "apps/company-report-blog/src/report_blog/taxonomy.py",
+      "owner_cohort_id": "B-C01-taxonomy",
+      "change_id": "file-change-760b6123d467",
+      "operation": "CREATE",
+      "contribution_refs": [
+        {
+          "decision_id": "B-D01",
+          "intent_change_ids": [
+            "file-change-760b6123d467"
+          ],
+          "obligation_ids": [
+            "B-D01-O01"
+          ],
+          "path": "docs/decision-campaigns/2026-10-13/cil-four-perspective-blog-20261013/decisions/01-b-d01.json",
+          "sha256": "sha256:126dd20033c39074719c0020a972089c4e2496d1a7480a1e4666b4c7ee0525e8",
+          "symbols": [
+            "build_sector_tree",
+            "project_blogger_labels"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "apps/company-report-blog/templates/report.html",
+      "owner_cohort_id": "B-C02-report-opinions",
+      "change_id": "file-change-b1b432dea9a9",
+      "operation": "CREATE",
+      "contribution_refs": [
+        {
+          "decision_id": "B-D02",
+          "intent_change_ids": [
+            "file-change-b1b432dea9a9"
+          ],
+          "obligation_ids": [
+            "B-D02-O01"
+          ],
+          "path": "docs/decision-campaigns/2026-10-13/cil-four-perspective-blog-20261013/decisions/02-b-d02.json",
+          "sha256": "sha256:5b88875b66887ab49373dbe25c35d31fdcfd24092762610a4d8e5ead8b517301",
+          "symbols": [
+            "report_template"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "apps/company-report-blog/tests/test_blogger_adapter.py",
+      "owner_cohort_id": "B-C04-blogger",
+      "change_id": "file-change-76f93b28cdc1",
+      "operation": "CREATE",
+      "contribution_refs": [
+        {
+          "decision_id": "B-D04",
+          "intent_change_ids": [
+            "file-change-76f93b28cdc1"
+          ],
+          "obligation_ids": [
+            "B-D04-O01"
+          ],
+          "path": "docs/decision-campaigns/2026-10-13/cil-four-perspective-blog-20261013/decisions/04-b-d04.json",
+          "sha256": "sha256:a2f3c5e5fea8f618de166b3918ca9fa1da112ff14e5952b483bc8c3c93b40083",
+          "symbols": [
+            "test_blogger_adapter_contract"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "apps/company-report-blog/tests/test_cli.py",
+      "owner_cohort_id": "B-C07-cli-skill",
+      "change_id": "file-change-f292f33ffbc7",
+      "operation": "CREATE",
+      "contribution_refs": [
+        {
+          "decision_id": "B-D07",
+          "intent_change_ids": [
+            "file-change-f292f33ffbc7"
+          ],
+          "obligation_ids": [
+            "B-D07-O01"
+          ],
+          "path": "docs/decision-campaigns/2026-10-13/cil-four-perspective-blog-20261013/decisions/07-b-d07.json",
+          "sha256": "sha256:c7bb87952253e9f412149b39e9ea8e8f7c7c8e142f1a5a511a08c041c2295ebb",
+          "symbols": [
+            "test_cli_contract"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "apps/company-report-blog/tests/test_human_preservation.py",
+      "owner_cohort_id": "B-C02-report-opinions",
+      "change_id": "file-change-3f276d628902",
+      "operation": "CREATE",
+      "contribution_refs": [
+        {
+          "decision_id": "B-D02",
+          "intent_change_ids": [
+            "file-change-3f276d628902"
+          ],
+          "obligation_ids": [
+            "B-D02-O01"
+          ],
+          "path": "docs/decision-campaigns/2026-10-13/cil-four-perspective-blog-20261013/decisions/02-b-d02.json",
+          "sha256": "sha256:5b88875b66887ab49373dbe25c35d31fdcfd24092762610a4d8e5ead8b517301",
+          "symbols": [
+            "test_human_preservation_contract"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "apps/company-report-blog/tests/test_ledger.py",
+      "owner_cohort_id": "B-C05-ledger-links",
+      "change_id": "file-change-7e7c210fc33d",
+      "operation": "CREATE",
+      "contribution_refs": [
+        {
+          "decision_id": "B-D05",
+          "intent_change_ids": [
+            "file-change-7e7c210fc33d"
+          ],
+          "obligation_ids": [
+            "B-D05-O01"
+          ],
+          "path": "docs/decision-campaigns/2026-10-13/cil-four-perspective-blog-20261013/decisions/05-b-d05.json",
+          "sha256": "sha256:7f13912028d179d63080fe0b92c6671d07b6b92af3b2a49d1264b09e97c89d57",
+          "symbols": [
+            "test_ledger_contract"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "apps/company-report-blog/tests/test_metrics.py",
+      "owner_cohort_id": "B-C06-metrics",
+      "change_id": "file-change-d88831450f77",
+      "operation": "CREATE",
+      "contribution_refs": [
+        {
+          "decision_id": "B-D06",
+          "intent_change_ids": [
+            "file-change-d88831450f77"
+          ],
+          "obligation_ids": [
+            "B-D06-O01"
+          ],
+          "path": "docs/decision-campaigns/2026-10-13/cil-four-perspective-blog-20261013/decisions/06-b-d06.json",
+          "sha256": "sha256:defdd20c40b8abf4629d6efaca8a47b526a4f8d7341909695510a9d65544f9d7",
+          "symbols": [
+            "test_metrics_contract"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "apps/company-report-blog/tests/test_relations.py",
+      "owner_cohort_id": "B-C05-ledger-links",
+      "change_id": "file-change-b630dece86b2",
+      "operation": "CREATE",
+      "contribution_refs": [
+        {
+          "decision_id": "B-D05",
+          "intent_change_ids": [
+            "file-change-b630dece86b2"
+          ],
+          "obligation_ids": [
+            "B-D05-O01"
+          ],
+          "path": "docs/decision-campaigns/2026-10-13/cil-four-perspective-blog-20261013/decisions/05-b-d05.json",
+          "sha256": "sha256:7f13912028d179d63080fe0b92c6671d07b6b92af3b2a49d1264b09e97c89d57",
+          "symbols": [
+            "test_relations_contract"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "apps/company-report-blog/tests/test_render.py",
+      "owner_cohort_id": "B-C02-report-opinions",
+      "change_id": "file-change-3290aadb47d1",
+      "operation": "CREATE",
+      "contribution_refs": [
+        {
+          "decision_id": "B-D02",
+          "intent_change_ids": [
+            "file-change-3290aadb47d1"
+          ],
+          "obligation_ids": [
+            "B-D02-O01"
+          ],
+          "path": "docs/decision-campaigns/2026-10-13/cil-four-perspective-blog-20261013/decisions/02-b-d02.json",
+          "sha256": "sha256:5b88875b66887ab49373dbe25c35d31fdcfd24092762610a4d8e5ead8b517301",
+          "symbols": [
+            "test_render_contract"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "apps/company-report-blog/tests/test_report_contracts.py",
+      "owner_cohort_id": "B-C02-report-opinions",
+      "change_id": "file-change-3d0882685c44",
+      "operation": "CREATE",
+      "contribution_refs": [
+        {
+          "decision_id": "B-D02",
+          "intent_change_ids": [
+            "file-change-3d0882685c44"
+          ],
+          "obligation_ids": [
+            "B-D02-O01"
+          ],
+          "path": "docs/decision-campaigns/2026-10-13/cil-four-perspective-blog-20261013/decisions/02-b-d02.json",
+          "sha256": "sha256:5b88875b66887ab49373dbe25c35d31fdcfd24092762610a4d8e5ead8b517301",
+          "symbols": [
+            "test_report_contracts_contract"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "apps/company-report-blog/tests/test_taxonomy.py",
+      "owner_cohort_id": "B-C01-taxonomy",
+      "change_id": "file-change-aeda4c03fbdf",
+      "operation": "CREATE",
+      "contribution_refs": [
+        {
+          "decision_id": "B-D01",
+          "intent_change_ids": [
+            "file-change-aeda4c03fbdf"
+          ],
+          "obligation_ids": [
+            "B-D01-O01"
+          ],
+          "path": "docs/decision-campaigns/2026-10-13/cil-four-perspective-blog-20261013/decisions/01-b-d01.json",
+          "sha256": "sha256:126dd20033c39074719c0020a972089c4e2496d1a7480a1e4666b4c7ee0525e8",
+          "symbols": [
+            "test_taxonomy_contract"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "apps/company-report-blog/uv.lock",
+      "owner_cohort_id": "B-C07-cli-skill",
+      "change_id": "file-change-269781ae6688",
+      "operation": "CREATE",
+      "contribution_refs": [
+        {
+          "decision_id": "B-D07",
+          "intent_change_ids": [
+            "file-change-269781ae6688"
+          ],
+          "obligation_ids": [
+            "B-D07-O01"
+          ],
+          "path": "docs/decision-campaigns/2026-10-13/cil-four-perspective-blog-20261013/decisions/07-b-d07.json",
+          "sha256": "sha256:c7bb87952253e9f412149b39e9ea8e8f7c7c8e142f1a5a511a08c041c2295ebb",
+          "symbols": [
+            "resolved_dependency_lock"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "config/providers.json",
+      "owner_cohort_id": "B-C03-cil-coverage",
+      "change_id": "file-change-e1e3c60c9a87",
+      "operation": "MODIFY",
+      "contribution_refs": [
+        {
+          "decision_id": "B-D03",
+          "path": "docs/decision-campaigns/2026-10-13/cil-four-perspective-blog-20261013/decisions/03-b-d03.json",
+          "sha256": "sha256:5bc8907373691728e7ad6c8031f6f4d22f09e2a314774a9559ff7de2b91f070b",
+          "symbols": [
+            "atomic_operations"
+          ],
+          "intent_change_ids": [
+            "file-change-e1e3c60c9a87"
+          ],
+          "obligation_ids": [
+            "B-D03-O01",
+            "B-D03-O02"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "src/company_intel/connectors/collectors.py",
+      "owner_cohort_id": "B-C03-cil-coverage",
+      "change_id": "file-change-2199b175807c",
+      "operation": "CREATE",
+      "contribution_refs": [
+        {
+          "decision_id": "B-D03",
+          "path": "docs/decision-campaigns/2026-10-13/cil-four-perspective-blog-20261013/decisions/03-b-d03.json",
+          "sha256": "sha256:5bc8907373691728e7ad6c8031f6f4d22f09e2a314774a9559ff7de2b91f070b",
+          "symbols": [
+            "CollectionSpec",
+            "collect_evidence"
+          ],
+          "intent_change_ids": [
+            "file-change-2199b175807c"
+          ],
+          "obligation_ids": [
+            "B-D03-O01",
+            "B-D03-O02"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "src/company_intel/connectors/keyed.py",
+      "owner_cohort_id": "B-C03-cil-coverage",
+      "change_id": "file-change-927a21cab8b8",
+      "operation": "MODIFY",
+      "contribution_refs": [
+        {
+          "decision_id": "B-D03",
+          "path": "docs/decision-campaigns/2026-10-13/cil-four-perspective-blog-20261013/decisions/03-b-d03.json",
+          "sha256": "sha256:5bc8907373691728e7ad6c8031f6f4d22f09e2a314774a9559ff7de2b91f070b",
+          "symbols": [
+            "_fred",
+            "_bea",
+            "keyed_probes",
+            "normalize_employee_disclosure"
+          ],
+          "intent_change_ids": [
+            "file-change-927a21cab8b8"
+          ],
+          "obligation_ids": [
+            "B-D03-O01",
+            "B-D03-O02"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "src/company_intel/connectors/keyless.py",
+      "owner_cohort_id": "B-C03-cil-coverage",
+      "change_id": "file-change-8925cfef251f",
+      "operation": "MODIFY",
+      "contribution_refs": [
+        {
+          "decision_id": "B-D03",
+          "path": "docs/decision-campaigns/2026-10-13/cil-four-perspective-blog-20261013/decisions/03-b-d03.json",
+          "sha256": "sha256:5bc8907373691728e7ad6c8031f6f4d22f09e2a314774a9559ff7de2b91f070b",
+          "symbols": [
+            "keyless_probes",
+            "normalize_sec_companyfacts",
+            "normalize_sdmx_observations"
+          ],
+          "intent_change_ids": [
+            "file-change-8925cfef251f"
+          ],
+          "obligation_ids": [
+            "B-D03-O01",
+            "B-D03-O02"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "src/company_intel/normalization.py",
+      "owner_cohort_id": "B-C03-cil-coverage",
+      "change_id": "file-change-58fda9542e8a",
+      "operation": "MODIFY",
+      "contribution_refs": [
+        {
+          "decision_id": "B-D03",
+          "path": "docs/decision-campaigns/2026-10-13/cil-four-perspective-blog-20261013/decisions/03-b-d03.json",
+          "sha256": "sha256:5bc8907373691728e7ad6c8031f6f4d22f09e2a314774a9559ff7de2b91f070b",
+          "symbols": [
+            "AtomicObservationMapper",
+            "comparability_signature"
+          ],
+          "intent_change_ids": [
+            "file-change-58fda9542e8a"
+          ],
+          "obligation_ids": [
+            "B-D03-O01",
+            "B-D03-O02"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "tests/test_blog_source_mapping.py",
+      "owner_cohort_id": "B-C03-cil-coverage",
+      "change_id": "file-change-705f2199a5ae",
+      "operation": "CREATE",
+      "contribution_refs": [
+        {
+          "decision_id": "B-D03",
+          "path": "docs/decision-campaigns/2026-10-13/cil-four-perspective-blog-20261013/decisions/03-b-d03.json",
+          "sha256": "sha256:5bc8907373691728e7ad6c8031f6f4d22f09e2a314774a9559ff7de2b91f070b",
+          "symbols": [
+            "test_blog_source_mapping_contract"
+          ],
+          "intent_change_ids": [
+            "file-change-705f2199a5ae"
+          ],
+          "obligation_ids": [
+            "B-D03-O01",
+            "B-D03-O02"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "tests/test_parameterized_collection.py",
+      "owner_cohort_id": "B-C03-cil-coverage",
+      "change_id": "file-change-18064dda30b3",
+      "operation": "CREATE",
+      "contribution_refs": [
+        {
+          "decision_id": "B-D03",
+          "path": "docs/decision-campaigns/2026-10-13/cil-four-perspective-blog-20261013/decisions/03-b-d03.json",
+          "sha256": "sha256:5bc8907373691728e7ad6c8031f6f4d22f09e2a314774a9559ff7de2b91f070b",
+          "symbols": [
+            "test_parameterized_collection_contract"
+          ],
+          "intent_change_ids": [
+            "file-change-18064dda30b3"
+          ],
+          "obligation_ids": [
+            "B-D03-O01",
+            "B-D03-O02"
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,124 @@
+{
+  "contract_version": "scope-lock-v1",
+  "owner": {
+    "kind": "decision-campaign",
+    "id": "cil-four-perspective-blog-20261013"
+  },
+  "campaign_path": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-10-13/cil-four-perspective-blog-20261013/campaign.json",
+  "scope": {
+    "campaign_id": "cil-four-perspective-blog-20261013",
+    "decision_order": [
+      "B-D01",
+      "B-D02",
+      "B-D03",
+      "B-D04",
+      "B-D05",
+      "B-D06",
+      "B-D07",
+      "B-D08",
+      "B-D09",
+      "B-D10"
+    ],
+    "dependencies": [
+      {
+        "before": "B-D01",
+        "after": "B-D02"
+      },
+      {
+        "before": "B-D01",
+        "after": "B-D04"
+      },
+      {
+        "before": "B-D02",
+        "after": "B-D04"
+      },
+      {
+        "before": "B-D05",
+        "after": "B-D04"
+      },
+      {
+        "before": "B-D02",
+        "after": "B-D05"
+      },
+      {
+        "before": "B-D05",
+        "after": "B-D06"
+      },
+      {
+        "before": "B-D01",
+        "after": "B-D07"
+      },
+      {
+        "before": "B-D02",
+        "after": "B-D07"
+      },
+      {
+        "before": "B-D03",
+        "after": "B-D07"
+      },
+      {
+        "before": "B-D04",
+        "after": "B-D07"
+      },
+      {
+        "before": "B-D05",
+        "after": "B-D07"
+      },
+      {
+        "before": "B-D06",
+        "after": "B-D07"
+      }
+    ],
+    "cohorts": [
+      {
+        "cohort_id": "B-C01-taxonomy",
+        "decision_ids": [
+          "B-D01"
+        ]
+      },
+      {
+        "cohort_id": "B-C02-report-opinions",
+        "decision_ids": [
+          "B-D02"
+        ]
+      },
+      {
+        "cohort_id": "B-C03-cil-coverage",
+        "decision_ids": [
+          "B-D03"
+        ]
+      },
+      {
+        "cohort_id": "B-C04-blogger",
+        "decision_ids": [
+          "B-D04"
+        ]
+      },
+      {
+        "cohort_id": "B-C05-ledger-links",
+        "decision_ids": [
+          "B-D05"
+        ]
+      },
+      {
+        "cohort_id": "B-C06-metrics",
+        "decision_ids": [
+          "B-D06"
+        ]
+      },
+      {
+        "cohort_id": "B-C07-cli-skill",
+        "decision_ids": [
+          "B-D07",
+          "B-D09"
+        ]
+      }
+    ]
+  },
+  "scope_sha256": "83dd33d54d9ad3eec926e1aeba9c1b92aa98aa7c559474f486daded58f515469",
+  "amendment": {
+    "reason": "B-D09 사용자 승인 정책을 기존 C07 CLI operation에 연결; 파일 수와 API 목표 불변",
+    "authorization_text_ref": "docs/decision-campaigns/2026-10-13/cil-four-perspective-blog-20261013/evidence/publication-policy-approval-20261014.json",
+    "previous_scope_sha256": "20630b5cadecd6364db07292d0151a7e52b8c3242c06e20fff30f1eec4cb7a58"
+  }
+}

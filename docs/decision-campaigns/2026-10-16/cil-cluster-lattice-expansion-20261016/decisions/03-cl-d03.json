@@ -1,0 +1,46 @@
+{
+  "decision_id": "CL-D03",
+  "sequence": 3,
+  "unit_id": "CIL-C10-excel-cluster-lattice",
+  "title": "10대 시트 엑셀 워크북 클러스터 메타데이터 주입 및 블록 계층화",
+  "status": "inventory",
+  "question": "TBD",
+  "five_w_one_h": {
+    "who": "TBD",
+    "what": "TBD",
+    "where": "TBD",
+    "when": "TBD",
+    "why": "TBD",
+    "how": "TBD"
+  },
+  "evidence_refs": [],
+  "facts": [],
+  "conflicts": [],
+  "unimplemented": [],
+  "options": [],
+  "recommended_option_id": null,
+  "recommendation_reason": null,
+  "impact": {
+    "data": "TBD",
+    "schema_api": "TBD",
+    "ux": "TBD",
+    "performance": "TBD",
+    "cost": "TBD",
+    "security": "TBD",
+    "migration": "TBD",
+    "tests": "TBD"
+  },
+  "opportunity_costs": [],
+  "dependencies": [
+    "CL-D01",
+    "CL-D02"
+  ],
+  "dependency_waivers": {},
+  "accepted_decision": null,
+  "implementation_targets": [],
+  "implementation_obligations": [],
+  "implementation_change_ids": [],
+  "validation_requirements": [],
+  "diagram_impacts": [],
+  "context_topic_ids": []
+}

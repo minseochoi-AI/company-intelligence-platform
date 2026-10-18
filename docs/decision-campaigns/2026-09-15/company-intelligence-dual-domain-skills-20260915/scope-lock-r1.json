@@ -1,0 +1,112 @@
+{
+  "contract_version": "scope-lock-v1",
+  "owner": {
+    "kind": "decision-campaign",
+    "id": "company-intelligence-dual-domain-skills-20260915"
+  },
+  "campaign_path": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/campaign.json",
+  "scope": {
+    "campaign_id": "company-intelligence-dual-domain-skills-20260915",
+    "decision_order": [
+      "D-01",
+      "D-02",
+      "D-03",
+      "D-04",
+      "D-05",
+      "D-06",
+      "D-07",
+      "D-08"
+    ],
+    "dependencies": [
+      {
+        "before": "D-01",
+        "after": "D-02"
+      },
+      {
+        "before": "D-02",
+        "after": "D-03"
+      },
+      {
+        "before": "D-01",
+        "after": "D-04"
+      },
+      {
+        "before": "D-03",
+        "after": "D-04"
+      },
+      {
+        "before": "D-01",
+        "after": "D-05"
+      },
+      {
+        "before": "D-03",
+        "after": "D-05"
+      },
+      {
+        "before": "D-03",
+        "after": "D-06"
+      },
+      {
+        "before": "D-02",
+        "after": "D-07"
+      },
+      {
+        "before": "D-03",
+        "after": "D-07"
+      },
+      {
+        "before": "D-04",
+        "after": "D-08"
+      },
+      {
+        "before": "D-05",
+        "after": "D-08"
+      },
+      {
+        "before": "D-06",
+        "after": "D-08"
+      },
+      {
+        "before": "D-07",
+        "after": "D-08"
+      }
+    ],
+    "cohorts": [
+      {
+        "cohort_id": "C-01-control-plane-and-plan-kinds",
+        "decision_ids": [
+          "D-01",
+          "D-02",
+          "D-07"
+        ]
+      },
+      {
+        "cohort_id": "C-02-evidence-and-connector-boundary",
+        "decision_ids": [
+          "D-03",
+          "D-06"
+        ]
+      },
+      {
+        "cohort_id": "C-03-company-analysis-skill",
+        "decision_ids": [
+          "D-04"
+        ]
+      },
+      {
+        "cohort_id": "C-04-venture-analysis-skill",
+        "decision_ids": [
+          "D-05"
+        ]
+      },
+      {
+        "cohort_id": "C-05-packaging-and-behavior-validation",
+        "decision_ids": [
+          "D-08"
+        ]
+      }
+    ]
+  },
+  "scope_sha256": "c1747de2eb54da496f0b047944fc0439d0f2d7c78ef5ad1b57b23edebff25f65",
+  "amendment": null
+}

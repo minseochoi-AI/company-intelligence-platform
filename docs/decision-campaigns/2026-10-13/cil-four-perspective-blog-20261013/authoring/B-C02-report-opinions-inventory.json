@@ -1,0 +1,137 @@
+{
+  "decision_refs": [
+    {
+      "id": "B-D02",
+      "path": "docs/decision-campaigns/2026-10-13/cil-four-perspective-blog-20261013/decisions/02-b-d02.json"
+    }
+  ],
+  "targets": {
+    "T1": {
+      "path": "apps/company-report-blog/src/report_blog/models.py",
+      "symbols": [
+        "ArticleSpec",
+        "AIReportRevision",
+        "HumanEvaluationRevision"
+      ],
+      "decision_id": "B-D02",
+      "obligation_ids": [
+        "B-D02-O01"
+      ]
+    },
+    "T2": {
+      "path": "apps/company-report-blog/src/report_blog/opinions.py",
+      "symbols": [
+        "append_evaluation",
+        "mark_review_outdated"
+      ],
+      "decision_id": "B-D02",
+      "obligation_ids": [
+        "B-D02-O01"
+      ]
+    },
+    "T3": {
+      "path": "apps/company-report-blog/src/report_blog/compose.py",
+      "symbols": [
+        "compose_report"
+      ],
+      "decision_id": "B-D02",
+      "obligation_ids": [
+        "B-D02-O01"
+      ]
+    },
+    "T4": {
+      "path": "apps/company-report-blog/src/report_blog/render.py",
+      "symbols": [
+        "render_report",
+        "validate_link_scheme"
+      ],
+      "decision_id": "B-D02",
+      "obligation_ids": [
+        "B-D02-O01"
+      ]
+    },
+    "T5": {
+      "path": "apps/company-report-blog/templates/report.html",
+      "symbols": [
+        "report_template"
+      ],
+      "decision_id": "B-D02",
+      "obligation_ids": [
+        "B-D02-O01"
+      ]
+    },
+    "T6": {
+      "path": "apps/company-report-blog/schemas/report.schema.json",
+      "symbols": [
+        "report.schema"
+      ],
+      "decision_id": "B-D02",
+      "obligation_ids": [
+        "B-D02-O01"
+      ]
+    },
+    "T7": {
+      "path": "apps/company-report-blog/schemas/human-evaluation.schema.json",
+      "symbols": [
+        "human-evaluation.schema"
+      ],
+      "decision_id": "B-D02",
+      "obligation_ids": [
+        "B-D02-O01"
+      ]
+    },
+    "T8": {
+      "path": "apps/company-report-blog/tests/test_report_contracts.py",
+      "symbols": [
+        "test_report_contracts_contract"
+      ],
+      "decision_id": "B-D02",
+      "obligation_ids": [
+        "B-D02-O01"
+      ]
+    },
+    "T9": {
+      "path": "apps/company-report-blog/tests/test_human_preservation.py",
+      "symbols": [
+        "test_human_preservation_contract"
+      ],
+      "decision_id": "B-D02",
+      "obligation_ids": [
+        "B-D02-O01"
+      ]
+    },
+    "T10": {
+      "path": "apps/company-report-blog/tests/test_render.py",
+      "symbols": [
+        "test_render_contract"
+      ],
+      "decision_id": "B-D02",
+      "obligation_ids": [
+        "B-D02-O01"
+      ]
+    }
+  },
+  "checks": [
+    {
+      "target_ids": [
+        "T1",
+        "T2",
+        "T3",
+        "T4",
+        "T5",
+        "T6",
+        "T7",
+        "T8",
+        "T9",
+        "T10"
+      ],
+      "test": {
+        "type": "command",
+        "value": "/home/ubuntu/root/company-intelligence-platform/.venv/bin/python -B -m pytest -q -p no:cacheprovider apps/company-report-blog/tests/test_report_contracts.py apps/company-report-blog/tests/test_human_preservation.py apps/company-report-blog/tests/test_render.py",
+        "timeout_seconds": 300,
+        "provider_backed": false
+      },
+      "assertion": "원천/계산/AI/사람 구별, 허위 수치 차단, 작성자 평가 bytes/revision 보존, stale 평가 표시와 XSS/URL scheme 차단"
+    }
+  ]
+}

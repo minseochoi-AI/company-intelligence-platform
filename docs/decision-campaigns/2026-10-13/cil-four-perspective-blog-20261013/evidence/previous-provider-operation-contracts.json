@@ -1,0 +1,961 @@
+[
+  {
+    "operation_id": "fred_federal_funds_rate",
+    "provider": "fred",
+    "method": "GET",
+    "url": "https://api.stlouisfed.org/fred/series/observations",
+    "query": {
+      "series_id": "FEDFUNDS",
+      "file_type": "json",
+      "observation_start": "2025-10-08",
+      "api_key": "<FRED_API_KEY>"
+    },
+    "headers": {},
+    "json_body": null,
+    "form_body": null,
+    "secret_env": "FRED_API_KEY",
+    "expected_format": "json",
+    "required_paths": [
+      "observations.0.date",
+      "observations.0.value"
+    ],
+    "normalizer": "_fred",
+    "capabilities": [
+      "us_interest_rate",
+      "macro_timeseries",
+      "point_in_time_vintage"
+    ],
+    "limitation": null,
+    "access_mode": "registered-key",
+    "disposition": "production",
+    "effective_disposition": "production",
+    "disposition_reason": "Series require unit, frequency, and vintage matching.",
+    "license_declaration": "official-public-api",
+    "quota_declaration": "cache and respect provider limits",
+    "last_verified_in_catalog": "2026-09-11"
+  },
+  {
+    "operation_id": "bea_dataset_catalog",
+    "provider": "bea",
+    "method": "GET",
+    "url": "https://apps.bea.gov/api/data",
+    "query": {
+      "UserID": "<BEA_API_KEY>",
+      "method": "GETDATASETLIST",
+      "ResultFormat": "JSON"
+    },
+    "headers": {},
+    "json_body": null,
+    "form_body": null,
+    "secret_env": "BEA_API_KEY",
+    "expected_format": "json",
+    "required_paths": [
+      "BEAAPI.Results.Dataset.0.DatasetName"
+    ],
+    "normalizer": "_bea",
+    "capabilities": [
+      "dataset_discovery",
+      "gdp",
+      "industry_value_added",
+      "input_output"
+    ],
+    "limitation": null,
+    "access_mode": "registered-key",
+    "disposition": "production",
+    "effective_disposition": "metadata_only",
+    "disposition_reason": "Dataset catalog is discovery metadata, not an economic observation.",
+    "license_declaration": "official-public-api",
+    "quota_declaration": "cache and respect provider limits",
+    "last_verified_in_catalog": "2026-09-11"
+  },
+  {
+    "operation_id": "opendart_samsung_financials",
+    "provider": "opendart",
+    "method": "GET",
+    "url": "https://opendart.fss.or.kr/api/fnlttSinglAcntAll.json",
+    "query": {
+      "crtfc_key": "<OPENDART_API_KEY>",
+      "corp_code": "00126380",
+      "bsns_year": "2025",
+      "reprt_code": "11011",
+      "fs_div": "CFS"
+    },
+    "headers": {},
+    "json_body": null,
+    "form_body": null,
+    "secret_env": "OPENDART_API_KEY",
+    "expected_format": "json",
+    "required_paths": [
+      "status",
+      "list.0.account_nm",
+      "list.0.thstrm_amount"
+    ],
+    "normalizer": "_dart",
+    "capabilities": [
+      "kr_financial_statements",
+      "cashflow",
+      "margins",
+      "filing_evidence"
+    ],
+    "limitation": "Probe targets Samsung Electronics annual consolidated statement for 2025.",
+    "access_mode": "registered-key",
+    "disposition": "production",
+    "effective_disposition": "production",
+    "disposition_reason": "Reported financial facts remain period and unit scoped.",
+    "license_declaration": "official-public-api",
+    "quota_declaration": "provider-limit",
+    "last_verified_in_catalog": "2026-09-11"
+  },
+  {
+    "operation_id": "ecos_korea_base_rate",
+    "provider": "ecos",
+    "method": "GET",
+    "url": "https://ecos.bok.or.kr/api/StatisticSearch/<ECOS_API_KEY>/json/kr/1/1000/722Y001/D/20251008/20261013/0101000",
+    "query": {},
+    "headers": {},
+    "json_body": null,
+    "form_body": null,
+    "secret_env": "ECOS_API_KEY",
+    "expected_format": "json",
+    "required_paths": [
+      "StatisticSearch.row.0.TIME",
+      "StatisticSearch.row.0.DATA_VALUE"
+    ],
+    "normalizer": "_ecos",
+    "capabilities": [
+      "kr_policy_rate",
+      "kr_macro_timeseries"
+    ],
+    "limitation": null,
+    "access_mode": "registered-key",
+    "disposition": "production",
+    "effective_disposition": "production",
+    "disposition_reason": "Series require unit, frequency, and vintage matching.",
+    "license_declaration": "official-public-api",
+    "quota_declaration": "provider-limit",
+    "last_verified_in_catalog": "2026-09-11"
+  },
+  {
+    "operation_id": "alioplus_facility",
+    "provider": "alioplus",
+    "method": "POST",
+    "url": "http://openapi.alioplus.go.kr/api/facility",
+    "query": {},
+    "headers": {},
+    "json_body": null,
+    "form_body": {
+      "X-API-AUTH-KEY": "<ALIO_PLUS_FACILITY_API_KEY>",
+      "pageSize": 1
+    },
+    "secret_env": "ALIO_PLUS_FACILITY_API_KEY",
+    "expected_format": "json",
+    "required_paths": [
+      "0.facltNa",
+      "0.apbaNa"
+    ],
+    "normalizer": "_alio_plus",
+    "capabilities": [
+      "kr_public_facilities",
+      "public_institution_service_signal"
+    ],
+    "limitation": "ALIO Plus guide v1.6 specifies HTTP only; do not send personally identifying search terms.",
+    "access_mode": "registered-key",
+    "disposition": "production",
+    "effective_disposition": "context_only",
+    "disposition_reason": "ALIO Plus describes public-institution context, not job requirements.",
+    "license_declaration": "official-public-api",
+    "quota_declaration": "provider-limit",
+    "last_verified_in_catalog": "2026-09-11"
+  },
+  {
+    "operation_id": "alioplus_event",
+    "provider": "alioplus",
+    "method": "POST",
+    "url": "http://openapi.alioplus.go.kr/api/event",
+    "query": {},
+    "headers": {},
+    "json_body": null,
+    "form_body": {
+      "X-API-AUTH-KEY": "<ALIO_PLUS_EVENT_API_KEY>",
+      "pageSize": 1
+    },
+    "secret_env": "ALIO_PLUS_EVENT_API_KEY",
+    "expected_format": "json",
+    "required_paths": [
+      "0.evtNa",
+      "0.apbaNa"
+    ],
+    "normalizer": "_alio_plus",
+    "capabilities": [
+      "kr_public_events",
+      "public_institution_activity_signal"
+    ],
+    "limitation": "ALIO Plus guide v1.6 specifies HTTP only; do not send personally identifying search terms.",
+    "access_mode": "registered-key",
+    "disposition": "production",
+    "effective_disposition": "context_only",
+    "disposition_reason": "ALIO Plus describes public-institution context, not job requirements.",
+    "license_declaration": "official-public-api",
+    "quota_declaration": "provider-limit",
+    "last_verified_in_catalog": "2026-09-11"
+  },
+  {
+    "operation_id": "alioplus_business",
+    "provider": "alioplus",
+    "method": "POST",
+    "url": "http://openapi.alioplus.go.kr/api/business",
+    "query": {},
+    "headers": {},
+    "json_body": null,
+    "form_body": {
+      "X-API-AUTH-KEY": "<ALIO_PLUS_BUSINESS_API_KEY>",
+      "pageSize": 1
+    },
+    "secret_env": "ALIO_PLUS_BUSINESS_API_KEY",
+    "expected_format": "json",
+    "required_paths": [
+      "0.bsnNa",
+      "0.apbaNa"
+    ],
+    "normalizer": "_alio_plus",
+    "capabilities": [
+      "kr_public_businesses",
+      "public_institution_service_signal"
+    ],
+    "limitation": "ALIO Plus guide v1.6 specifies HTTP only; do not send personally identifying search terms.",
+    "access_mode": "registered-key",
+    "disposition": "production",
+    "effective_disposition": "context_only",
+    "disposition_reason": "ALIO Plus describes public-institution context, not job requirements.",
+    "license_declaration": "official-public-api",
+    "quota_declaration": "provider-limit",
+    "last_verified_in_catalog": "2026-09-11"
+  },
+  {
+    "operation_id": "alioplus_organization",
+    "provider": "alioplus",
+    "method": "POST",
+    "url": "http://openapi.alioplus.go.kr/api/apba",
+    "query": {},
+    "headers": {},
+    "json_body": null,
+    "form_body": {
+      "X-API-AUTH-KEY": "<ALIO_PLUS_ORGANIZATION_API_KEY>",
+      "pageSize": 1
+    },
+    "secret_env": "ALIO_PLUS_ORGANIZATION_API_KEY",
+    "expected_format": "json",
+    "required_paths": [
+      "0.title",
+      "0.apbaTypeNa"
+    ],
+    "normalizer": "_alio_plus",
+    "capabilities": [
+      "kr_public_institution_name",
+      "public_institution_businesses"
+    ],
+    "limitation": "ALIO Plus guide v1.6 specifies HTTP only; do not send personally identifying search terms.",
+    "access_mode": "registered-key",
+    "disposition": "context_only",
+    "effective_disposition": "context_only",
+    "disposition_reason": "Catalog disposition is context_only; production routing is disabled or constrained accordingly.",
+    "license_declaration": "official-public-api",
+    "quota_declaration": "provider-limit",
+    "last_verified_in_catalog": "2026-09-11"
+  },
+  {
+    "operation_id": "mpm_public_employment_list",
+    "provider": "mpm_public_employment",
+    "method": "GET",
+    "url": "https://apis.data.go.kr/1760000/PblJobService/getList",
+    "query": {
+      "serviceKey": "<MPM_PUBLIC_EMPLOYMENT_API_KEY>",
+      "pageNo": 1,
+      "numOfRows": 1,
+      "Pblanc_ty": "e01",
+      "Instt_se": "g01",
+      "Sort_order": "1"
+    },
+    "headers": {},
+    "json_body": null,
+    "form_body": null,
+    "secret_env": "MPM_PUBLIC_EMPLOYMENT_API_KEY",
+    "expected_format": "xml",
+    "required_paths": [
+      "result_code"
+    ],
+    "normalizer": "_public_employment",
+    "capabilities": [
+      "kr_public_job_postings",
+      "civil_service_job_postings",
+      "public_institution_job_postings"
+    ],
+    "limitation": "The list API returns postings, not hires; save snapshots and retrieve details by posting ID only when needed.",
+    "access_mode": "registered-key",
+    "disposition": "production",
+    "effective_disposition": "metadata_only",
+    "disposition_reason": "List response lacks verified salary, location, and requirement detail.",
+    "license_declaration": "official-public-api",
+    "quota_declaration": "provider-limit",
+    "last_verified_in_catalog": "2026-09-11"
+  },
+  {
+    "operation_id": "alphavantage_ibm_daily",
+    "provider": "alphavantage",
+    "method": "GET",
+    "url": "https://www.alphavantage.co/query",
+    "query": {
+      "function": "TIME_SERIES_DAILY",
+      "symbol": "IBM",
+      "outputsize": "compact",
+      "datatype": "json",
+      "apikey": "<ALPHAVANTAGE_API_KEY>"
+    },
+    "headers": {},
+    "json_body": null,
+    "form_body": null,
+    "secret_env": "ALPHAVANTAGE_API_KEY",
+    "expected_format": "json",
+    "required_paths": [
+      "Time Series (Daily)"
+    ],
+    "normalizer": "_alpha",
+    "capabilities": [
+      "daily_ohlcv",
+      "returns",
+      "event_study"
+    ],
+    "limitation": "Free compact daily output is suitable for validation/MVP, not global full-history collection.",
+    "access_mode": "registered-key",
+    "disposition": "production",
+    "effective_disposition": "production",
+    "disposition_reason": "Series require unit, frequency, and vintage matching.",
+    "license_declaration": "provider-terms",
+    "quota_declaration": "free-tier-limited",
+    "last_verified_in_catalog": "2026-09-11"
+  },
+  {
+    "operation_id": "sec_submissions_apple",
+    "provider": "sec",
+    "method": "GET",
+    "url": "https://data.sec.gov/submissions/CIK0000320193.json",
+    "query": {},
+    "headers": {
+      "User-Agent": "<SEC_USER_AGENT>"
+    },
+    "json_body": null,
+    "form_body": null,
+    "secret_env": null,
+    "expected_format": "json",
+    "required_paths": [
+      "cik",
+      "name",
+      "filings.recent.accessionNumber.0"
+    ],
+    "normalizer": "safe_normalize",
+    "capabilities": [
+      "filing_events",
+      "company_identity"
+    ],
+    "limitation": "Automated use must identify the caller with a real contact in SEC_USER_AGENT.",
+    "access_mode": "keyless",
+    "disposition": "production",
+    "effective_disposition": "metadata_only",
+    "disposition_reason": "No production search contract is declared.",
+    "license_declaration": "official-public-api",
+    "quota_declaration": "fair-access",
+    "last_verified_in_catalog": "2026-09-11"
+  },
+  {
+    "operation_id": "sec_companyfacts_apple",
+    "provider": "sec",
+    "method": "GET",
+    "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000320193.json",
+    "query": {},
+    "headers": {
+      "User-Agent": "<SEC_USER_AGENT>"
+    },
+    "json_body": null,
+    "form_body": null,
+    "secret_env": null,
+    "expected_format": "json",
+    "required_paths": [
+      "cik",
+      "entityName",
+      "facts.us-gaap.Assets.units.USD.0.val"
+    ],
+    "normalizer": "safe_normalize",
+    "capabilities": [
+      "us_financial_statements",
+      "cashflow",
+      "margins",
+      "point_in_time_facts"
+    ],
+    "limitation": null,
+    "access_mode": "keyless",
+    "disposition": "production",
+    "effective_disposition": "production",
+    "disposition_reason": "Reported financial facts remain period and unit scoped.",
+    "license_declaration": "official-public-api",
+    "quota_declaration": "fair-access",
+    "last_verified_in_catalog": "2026-09-11"
+  },
+  {
+    "operation_id": "bls_total_nonfarm",
+    "provider": "bls",
+    "method": "POST",
+    "url": "https://api.bls.gov/publicAPI/v2/timeseries/data/",
+    "query": {},
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "json_body": {
+      "seriesid": [
+        "CES0000000001"
+      ],
+      "startyear": "2025",
+      "endyear": "2026"
+    },
+    "form_body": null,
+    "secret_env": null,
+    "expected_format": "json",
+    "required_paths": [
+      "status",
+      "Results.series.0.seriesID",
+      "Results.series.0.data.0.value"
+    ],
+    "normalizer": "safe_normalize",
+    "capabilities": [
+      "employment_macro_control",
+      "time_series"
+    ],
+    "limitation": null,
+    "access_mode": "keyless",
+    "disposition": "production",
+    "effective_disposition": "production",
+    "disposition_reason": "Series require unit, frequency, and vintage matching.",
+    "license_declaration": "official-public-api",
+    "quota_declaration": "fair-use",
+    "last_verified_in_catalog": "2026-09-11"
+  },
+  {
+    "operation_id": "gleif_apple",
+    "provider": "gleif",
+    "method": "GET",
+    "url": "https://api.gleif.org/api/v1/lei-records",
+    "query": {
+      "filter[entity.legalName]": "Apple Inc.",
+      "page[size]": 1
+    },
+    "headers": {},
+    "json_body": null,
+    "form_body": null,
+    "secret_env": null,
+    "expected_format": "json",
+    "required_paths": [
+      "data.0.id",
+      "data.0.attributes.entity.legalName.name"
+    ],
+    "normalizer": "safe_normalize",
+    "capabilities": [
+      "lei_identity",
+      "ownership_discovery"
+    ],
+    "limitation": null,
+    "access_mode": "keyless",
+    "disposition": "production",
+    "effective_disposition": "production",
+    "disposition_reason": "Legal identifiers may resolve an entity, but never infer a match.",
+    "license_declaration": "official-public-api",
+    "quota_declaration": "fair-use",
+    "last_verified_in_catalog": "2026-09-11"
+  },
+  {
+    "operation_id": "ares_czech_company",
+    "provider": "ares",
+    "method": "GET",
+    "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/27074358",
+    "query": {},
+    "headers": {},
+    "json_body": null,
+    "form_body": null,
+    "secret_env": null,
+    "expected_format": "json",
+    "required_paths": [
+      "ico",
+      "obchodniJmeno",
+      "sidlo.kodStatu"
+    ],
+    "normalizer": "safe_normalize",
+    "capabilities": [
+      "czech_company_master",
+      "nace_industry"
+    ],
+    "limitation": null,
+    "access_mode": "keyless",
+    "disposition": "production",
+    "effective_disposition": "production",
+    "disposition_reason": "Legal identifiers may resolve an entity, but never infer a match.",
+    "license_declaration": "official-public-api",
+    "quota_declaration": "fair-use",
+    "last_verified_in_catalog": "2026-09-11"
+  },
+  {
+    "operation_id": "eurostat_czech_gdp",
+    "provider": "eurostat",
+    "method": "GET",
+    "url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/tec00115",
+    "query": {
+      "geo": "CZ",
+      "sinceTimePeriod": "2023"
+    },
+    "headers": {},
+    "json_body": null,
+    "form_body": null,
+    "secret_env": null,
+    "expected_format": "json",
+    "required_paths": [
+      "class",
+      "id",
+      "value"
+    ],
+    "normalizer": "safe_normalize",
+    "capabilities": [
+      "czech_gdp_growth",
+      "eu_cross_country_macro"
+    ],
+    "limitation": null,
+    "access_mode": "keyless",
+    "disposition": "production",
+    "effective_disposition": "production",
+    "disposition_reason": "Series require unit, frequency, and vintage matching.",
+    "license_declaration": "official-public-api",
+    "quota_declaration": "fair-use",
+    "last_verified_in_catalog": "2026-09-11"
+  },
+  {
+    "operation_id": "ecb_usd_eur",
+    "provider": "ecb",
+    "method": "GET",
+    "url": "https://data-api.ecb.europa.eu/service/data/EXR/D.USD.EUR.SP00.A",
+    "query": {
+      "startPeriod": "2026-10-01",
+      "format": "jsondata"
+    },
+    "headers": {},
+    "json_body": null,
+    "form_body": null,
+    "secret_env": null,
+    "expected_format": "json",
+    "required_paths": [
+      "header.sender.id",
+      "dataSets.0.series"
+    ],
+    "normalizer": "safe_normalize",
+    "capabilities": [
+      "eur_fx",
+      "market_control"
+    ],
+    "limitation": null,
+    "access_mode": "keyless",
+    "disposition": "production",
+    "effective_disposition": "production",
+    "disposition_reason": "Series require unit, frequency, and vintage matching.",
+    "license_declaration": "official-public-api",
+    "quota_declaration": "fair-use",
+    "last_verified_in_catalog": "2026-09-11"
+  },
+  {
+    "operation_id": "oecd_cli",
+    "provider": "oecd",
+    "method": "GET",
+    "url": "https://sdmx.oecd.org/public/rest/data/OECD.SDD.STES,DSD_STES@DF_CLI/.M.LI...AA...H",
+    "query": {
+      "startPeriod": "2025-01",
+      "dimensionAtObservation": "AllDimensions",
+      "format": "jsondata"
+    },
+    "headers": {},
+    "json_body": null,
+    "form_body": null,
+    "secret_env": null,
+    "expected_format": "json",
+    "required_paths": [
+      "meta.sender.id",
+      "data.dataSets.0.observations"
+    ],
+    "normalizer": "safe_normalize",
+    "capabilities": [
+      "leading_indicator",
+      "industry_cycle_control"
+    ],
+    "limitation": null,
+    "access_mode": "keyless",
+    "disposition": "production",
+    "effective_disposition": "production",
+    "disposition_reason": "Series require unit, frequency, and vintage matching.",
+    "license_declaration": "official-public-api",
+    "quota_declaration": "fair-use",
+    "last_verified_in_catalog": "2026-09-11"
+  },
+  {
+    "operation_id": "imf_czech_growth",
+    "provider": "imf",
+    "method": "GET",
+    "url": "https://www.imf.org/external/datamapper/api/v1/NGDP_RPCH/CZE",
+    "query": {},
+    "headers": {},
+    "json_body": null,
+    "form_body": null,
+    "secret_env": null,
+    "expected_format": "json",
+    "required_paths": [
+      "values.NGDP_RPCH.CZE"
+    ],
+    "normalizer": "safe_normalize",
+    "capabilities": [
+      "gdp_forecast",
+      "scenario_control"
+    ],
+    "limitation": "The endpoint may over-return countries; normalization keeps the explicit CZE path.",
+    "access_mode": "keyless",
+    "disposition": "rejected",
+    "effective_disposition": "rejected",
+    "disposition_reason": "Catalog disposition is rejected; production routing is disabled or constrained accordingly.",
+    "license_declaration": "official-public-api",
+    "quota_declaration": "provider-limit",
+    "last_verified_in_catalog": "2026-09-11"
+  },
+  {
+    "operation_id": "world_bank_gdp",
+    "provider": "world_bank",
+    "method": "GET",
+    "url": "https://api.worldbank.org/v2/country/USA;KOR;CZE/indicator/NY.GDP.MKTP.CD",
+    "query": {
+      "format": "json",
+      "date": "2023:2026",
+      "per_page": 100
+    },
+    "headers": {},
+    "json_body": null,
+    "form_body": null,
+    "secret_env": null,
+    "expected_format": "json",
+    "required_paths": [
+      "0.total",
+      "1.0.countryiso3code",
+      "1.0.date"
+    ],
+    "normalizer": "safe_normalize",
+    "capabilities": [
+      "cross_country_gdp",
+      "country_size_control"
+    ],
+    "limitation": null,
+    "access_mode": "keyless",
+    "disposition": "production",
+    "effective_disposition": "production",
+    "disposition_reason": "Series require unit, frequency, and vintage matching.",
+    "license_declaration": "official-public-api",
+    "quota_declaration": "fair-use",
+    "last_verified_in_catalog": "2026-10-13"
+  },
+  {
+    "operation_id": "cnb_exchange",
+    "provider": "cnb",
+    "method": "GET",
+    "url": "https://api.cnb.cz/cnbapi/exrates/daily",
+    "query": {
+      "date": "2026-10-13"
+    },
+    "headers": {},
+    "json_body": null,
+    "form_body": null,
+    "secret_env": null,
+    "expected_format": "json",
+    "required_paths": [
+      "rates.0.currencyCode",
+      "rates.0.rate",
+      "rates.0.validFor"
+    ],
+    "normalizer": "safe_normalize",
+    "capabilities": [
+      "czk_fx",
+      "currency_exposure"
+    ],
+    "limitation": null,
+    "access_mode": "keyless",
+    "disposition": "production",
+    "effective_disposition": "production",
+    "disposition_reason": "Series require unit, frequency, and vintage matching.",
+    "license_declaration": "official-public-api",
+    "quota_declaration": "fair-use",
+    "last_verified_in_catalog": "2026-09-11"
+  },
+  {
+    "operation_id": "cnb_czeonia",
+    "provider": "cnb",
+    "method": "GET",
+    "url": "https://api.cnb.cz/cnbapi/czeonia/daily",
+    "query": {
+      "date": "2026-10-13"
+    },
+    "headers": {},
+    "json_body": null,
+    "form_body": null,
+    "secret_env": null,
+    "expected_format": "json",
+    "required_paths": [
+      "czeoniaDaily.validFor",
+      "czeoniaDaily.rate",
+      "czeoniaDaily.volumeInCZKmio"
+    ],
+    "normalizer": "safe_normalize",
+    "capabilities": [
+      "czech_money_market_rate",
+      "discount_rate_control"
+    ],
+    "limitation": null,
+    "access_mode": "keyless",
+    "disposition": "production",
+    "effective_disposition": "production",
+    "disposition_reason": "Series require unit, frequency, and vintage matching.",
+    "license_declaration": "official-public-api",
+    "quota_declaration": "fair-use",
+    "last_verified_in_catalog": "2026-09-11"
+  },
+  {
+    "operation_id": "ted_czech_notices",
+    "provider": "ted",
+    "method": "POST",
+    "url": "https://api.ted.europa.eu/v3/notices/search",
+    "query": {},
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "json_body": {
+      "query": "buyer-country = CZE AND publication-date >= 20260101",
+      "fields": [
+        "publication-number",
+        "publication-date",
+        "buyer-country",
+        "buyer-name",
+        "winner-name",
+        "total-value"
+      ],
+      "limit": 1
+    },
+    "form_body": null,
+    "secret_env": null,
+    "expected_format": "json",
+    "required_paths": [
+      "totalNoticeCount",
+      "notices.0.publication-number"
+    ],
+    "normalizer": "safe_normalize",
+    "capabilities": [
+      "czech_contract_demand",
+      "buyer_supplier_evidence"
+    ],
+    "limitation": null,
+    "access_mode": "keyless",
+    "disposition": "production",
+    "effective_disposition": "context_only",
+    "disposition_reason": "Context must not be promoted to a job or financial fact.",
+    "license_declaration": "official-public-api",
+    "quota_declaration": "fair-use",
+    "last_verified_in_catalog": "2026-09-11"
+  },
+  {
+    "operation_id": "usaspending_contracts",
+    "provider": "usaspending",
+    "method": "POST",
+    "url": "https://api.usaspending.gov/api/v2/search/spending_by_award/",
+    "query": {},
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "json_body": {
+      "filters": {
+        "time_period": [
+          {
+            "start_date": "2026-01-01",
+            "end_date": "2026-10-13"
+          }
+        ],
+        "award_type_codes": [
+          "A",
+          "B",
+          "C",
+          "D"
+        ]
+      },
+      "fields": [
+        "Award ID",
+        "Recipient Name",
+        "Award Amount",
+        "Awarding Agency",
+        "Start Date",
+        "End Date",
+        "NAICS Code"
+      ],
+      "page": 1,
+      "limit": 1,
+      "subawards": false
+    },
+    "form_body": null,
+    "secret_env": null,
+    "expected_format": "json",
+    "required_paths": [
+      "results.0.Award ID",
+      "results.0.Recipient Name"
+    ],
+    "normalizer": "safe_normalize",
+    "capabilities": [
+      "us_contract_revenue_signal",
+      "government_customer_concentration"
+    ],
+    "limitation": "Filter dates can refer to transaction/action activity; use transaction endpoints for event timing.",
+    "access_mode": "keyless",
+    "disposition": "production",
+    "effective_disposition": "context_only",
+    "disposition_reason": "Context must not be promoted to a job or financial fact.",
+    "license_declaration": "official-public-api",
+    "quota_declaration": "fair-use",
+    "last_verified_in_catalog": "2026-09-11"
+  },
+  {
+    "operation_id": "greenhouse_airtable",
+    "provider": "greenhouse",
+    "method": "GET",
+    "url": "https://boards-api.greenhouse.io/v1/boards/airtable/jobs",
+    "query": {
+      "content": "true"
+    },
+    "headers": {},
+    "json_body": null,
+    "form_body": null,
+    "secret_env": null,
+    "expected_format": "json",
+    "required_paths": [
+      "jobs.0.id",
+      "jobs.0.title",
+      "jobs.0.updated_at"
+    ],
+    "normalizer": "_greenhouse",
+    "capabilities": [
+      "job_posting_snapshot",
+      "department_demand"
+    ],
+    "limitation": "A company board token must be discovered; removed postings require historical snapshots.",
+    "access_mode": "keyless",
+    "disposition": "production",
+    "effective_disposition": "metadata_only",
+    "disposition_reason": "Fixed board probe is a connector fixture, not market-wide company discovery.",
+    "license_declaration": "provider-terms",
+    "quota_declaration": "provider-terms",
+    "last_verified_in_catalog": "2026-09-11"
+  },
+  {
+    "operation_id": "lever_spotify",
+    "provider": "lever",
+    "method": "GET",
+    "url": "https://api.lever.co/v0/postings/spotify",
+    "query": {
+      "mode": "json"
+    },
+    "headers": {},
+    "json_body": null,
+    "form_body": null,
+    "secret_env": null,
+    "expected_format": "json",
+    "required_paths": [
+      "0.id",
+      "0.text",
+      "0.createdAt"
+    ],
+    "normalizer": "_lever",
+    "capabilities": [
+      "job_posting_snapshot",
+      "team_location_demand"
+    ],
+    "limitation": "A company site slug must be discovered; removed postings require historical snapshots.",
+    "access_mode": "keyless",
+    "disposition": "production",
+    "effective_disposition": "metadata_only",
+    "disposition_reason": "Fixed board probe is a connector fixture, not market-wide company discovery.",
+    "license_declaration": "provider-terms",
+    "quota_declaration": "provider-terms",
+    "last_verified_in_catalog": "2026-09-11"
+  },
+  {
+    "operation_id": "github_microsoft",
+    "provider": "github",
+    "method": "GET",
+    "url": "https://api.github.com/orgs/microsoft/repos",
+    "query": {
+      "per_page": 1,
+      "sort": "updated"
+    },
+    "headers": {
+      "Accept": "application/vnd.github+json",
+      "X-GitHub-Api-Version": "2022-11-28"
+    },
+    "json_body": null,
+    "form_body": null,
+    "secret_env": null,
+    "expected_format": "json",
+    "required_paths": [
+      "0.id",
+      "0.full_name",
+      "0.pushed_at"
+    ],
+    "normalizer": "<lambda>",
+    "capabilities": [
+      "engineering_activity_proxy",
+      "ai_adoption_evidence"
+    ],
+    "limitation": null,
+    "access_mode": "keyless",
+    "disposition": "production",
+    "effective_disposition": "proxy_only",
+    "disposition_reason": "Activity and research are not company financial or hiring facts.",
+    "license_declaration": "provider-terms",
+    "quota_declaration": "fair-use",
+    "last_verified_in_catalog": "2026-09-11"
+  },
+  {
+    "operation_id": "openalex_microsoft",
+    "provider": "openalex",
+    "method": "GET",
+    "url": "https://api.openalex.org/works",
+    "query": {
+      "filter": "institutions.id:I1290206253",
+      "per-page": 1,
+      "sort": "publication_date:desc"
+    },
+    "headers": {},
+    "json_body": null,
+    "form_body": null,
+    "secret_env": null,
+    "expected_format": "json",
+    "required_paths": [
+      "meta.count",
+      "results.0.id",
+      "results.0.publication_year"
+    ],
+    "normalizer": "safe_normalize",
+    "capabilities": [
+      "research_output_proxy",
+      "innovation_signal"
+    ],
+    "limitation": null,
+    "access_mode": "keyless",
+    "disposition": "production",
+    "effective_disposition": "proxy_only",
+    "disposition_reason": "Activity and research are not company financial or hiring facts.",
+    "license_declaration": "provider-terms",
+    "quota_declaration": "fair-use",
+    "last_verified_in_catalog": "2026-09-11"
+  }
+]

@@ -1,0 +1,148 @@
+{
+  "decision_id": "D-04",
+  "sequence": 4,
+  "unit_id": "company-analysis-skill",
+  "title": "기업분석 스킬의 실행·출력·한계 계약",
+  "status": "accepted",
+  "question": "기업분석 스킬은 CIL의 어떤 기능을 재사용하고 어디까지를 분석 완료로 주장할 것인가?",
+  "five_w_one_h": {
+    "who": "미국·한국·체코의 식별된 기업·공공기관을 비교하는 사용자",
+    "what": "기업 식별, source capability, 동료군 비교, timeline, valuation scenario, AI-event 분석과 근거 export를 안내·검증한다.",
+    "where": "CIL CLI/API와 저장된 snapshot·run manifest·export artifact 위에서 동작한다.",
+    "when": "대상 기업·국가·관측 기준일과 필요한 분석 축이 정해진 뒤 실행한다.",
+    "why": "스킬이 계산 로직을 복제하면 CIL 테스트와 다른 결과가 생기며, CIL이 제공하지 않는 시장 발견을 과장할 위험이 있다.",
+    "how": "thin orchestration으로 CIL 명령을 선택하고 출력 manifest를 검증한 뒤 사실·추론·불가항목·비교 가능 집단을 분리 보고한다."
+  },
+  "evidence_refs": [
+    {
+      "evidence_id": "EV-CIL-QUERY-CONTRACT",
+      "source_type": "code",
+      "locator": "src/company_intel/query_contract.py",
+      "observed_fact": "provider 원시 필드를 보존하면서 provider-neutral filter와 평가 불가능 상태를 분리한다.",
+      "content_hash": "131eb58008c519d785dcf934c8eb50754a142fc114a3f2662ff8eb14e8a94ed7",
+      "line_range": "1-EOF",
+      "question": "기업분석 스킬은 CIL의 어떤 기능을 재사용하고 어디까지를 분석 완료로 주장할 것인가?",
+      "observation_summary": "provider 원시 필드를 보존하면서 provider-neutral filter와 평가 불가능 상태를 분리한다."
+    },
+    {
+      "evidence_id": "EV-CIL-ANALYSIS",
+      "source_type": "code",
+      "locator": "src/company_intel/analysis_service.py",
+      "observed_fact": "기업 비교·timeline·가치·AI 사건 분석 서비스가 구현되어 있다.",
+      "content_hash": "5829f55ba792d74a45e257f78d504fb759d0254a803f55511b115ffd6d31b051",
+      "line_range": "1-EOF",
+      "question": "기업분석 스킬은 CIL의 어떤 기능을 재사용하고 어디까지를 분석 완료로 주장할 것인가?",
+      "observation_summary": "기업 비교·timeline·가치·AI 사건 분석 서비스가 구현되어 있다."
+    }
+  ],
+  "facts": [
+    "CIL은 식별자·capability·비교 규격과 근거 export를 제공한다.",
+    "CIL의 기업 검색은 원천 coverage에 제한되며 전체 시장 경쟁사를 자동 발견하지 않는다.",
+    "valuation과 AI-event 결과는 입력 근거·통제군·단위가 없으면 제한적이다."
+  ],
+  "conflicts": [
+    "사용자는 기업가치 분석을 원하지만 재무 원천이 없는 기업은 정렬·평가할 수 없다.",
+    "실시간 provider 호출은 비용·권한·rate limit 때문에 기본 자동행동이 될 수 없다."
+  ],
+  "unimplemented": [
+    "company-intelligence-analysis SKILL.md",
+    "CIL project-root 안정화 안내",
+    "기업분석 artifact adapter",
+    "결과 설명 template"
+  ],
+  "options": [
+    {
+      "option_id": "A-REIMPLEMENT-CIL-IN-SKILL",
+      "description": "스킬 내부 스크립트가 CIL의 정규화·검색·분석 계산을 다시 구현한다.",
+      "impact": {
+        "data": "동일 원천에 두 해석이 생긴다.",
+        "schema_api": "중복 모델이 증가한다.",
+        "ux": "단독 실행은 쉽지만 결과가 갈릴 수 있다.",
+        "performance": "중복 처리한다.",
+        "cost": "유지보수가 배가된다.",
+        "security": "비밀 처리 경계도 복제된다.",
+        "migration": "CIL 변경을 따라가기 어렵다.",
+        "tests": "이중 테스트가 필요하다."
+      },
+      "opportunity_costs": [
+        "CIL을 단일 계산 정본으로 쓸 수 없다."
+      ]
+    },
+    {
+      "option_id": "B-THIN-CIL-ORCHESTRATOR",
+      "description": "스킬은 CIL 명령 선택·입력 검증·근거 해석·보고만 담당하고 계산은 CIL에 위임한다.",
+      "impact": {
+        "data": "CIL manifest를 정본으로 사용한다.",
+        "schema_api": "얇은 adapter와 bundle ref만 추가한다.",
+        "ux": "분석 목적별 명령과 불가 사유를 안내한다.",
+        "performance": "중복 계산을 피한다.",
+        "cost": "CIL 설치·경로 계약이 필요하다.",
+        "security": "기존 sanitizer를 재사용한다.",
+        "migration": "CIL 명령 버전을 명시한다.",
+        "tests": "명령 선택·manifest 해석을 집중 검증한다."
+      },
+      "opportunity_costs": [
+        "CIL이 없는 환경에서는 제한된 설명 모드만 가능하다."
+      ]
+    }
+  ],
+  "recommended_option_id": "B-THIN-CIL-ORCHESTRATOR",
+  "recommendation_reason": "기업분석 수치의 계산 정본을 하나로 유지하고 스킬은 목적 라우팅과 증거 해석에 집중해야 한다.",
+  "impact": {
+    "data": "CIL 결과와 source limitations를 그대로 보존한다.",
+    "schema_api": "known-company analysis 요청·EvidenceBundleRef 출력을 정의한다.",
+    "ux": "회사 발견과 회사 검증의 차이를 명시한다.",
+    "performance": "CIL 캐시·snapshot을 재사용한다.",
+    "cost": "무료 원천 우선이며 외부 호출은 별도 권한이다.",
+    "security": "비밀·PII를 보고서에 포함하지 않는다.",
+    "migration": "repo root 자동 탐색 또는 명시 인자가 필요하다.",
+    "tests": "CIL 부재·cwd 변경·분석불가·부분 coverage를 검증한다."
+  },
+  "opportunity_costs": [
+    "범용 웹 경쟁사 발굴은 이 스킬만으로 완료하지 않는다."
+  ],
+  "dependencies": [
+    "D-01",
+    "D-03",
+    "D-09"
+  ],
+  "dependency_waivers": {},
+  "accepted_decision": {
+    "disposition": "ACCEPT",
+    "option_id": "B-THIN-CIL-ORCHESTRATOR",
+    "rule": "사용자의 FULL_EXECUTION 요청에 따라 각 결정의 B 권장안을 승인한다.",
+    "rationale": "비판적 검증에서 확인된 수정사항과 D-09·D-10을 포함한 개정 범위를 구현한다.",
+    "decided_by": "user",
+    "decided_at": "2026-09-15T05:28:25.724684+00:00"
+  },
+  "implementation_targets": [
+    ".codex/skills/company-intelligence-analysis/SKILL.md",
+    ".codex/skills/company-intelligence-analysis/agents/openai.yaml",
+    ".codex/skills/company-intelligence-analysis/references/analysis-routing.md",
+    ".codex/skills/company-intelligence-analysis/references/output-contract.md",
+    ".codex/skills/company-intelligence-analysis/scripts/verify_cil_artifact.py"
+  ],
+  "implementation_change_ids": [
+    "C03-001",
+    "C03-002",
+    "C03-003",
+    "C03-004",
+    "C03-005"
+  ],
+  "validation_requirements": [
+    "스킬이 CIL 계산식을 복제하지 않음",
+    "회사 미식별과 필드 미제공을 0으로 해석하지 않음",
+    "provider 호출은 명시 승인 없이는 수행하지 않음",
+    "명시 project root로 repo 밖 cwd에서도 CIL을 실행함",
+    "고정 probe를 production discovery로 표현하지 않음"
+  ],
+  "diagram_impacts": [
+    "docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/diagrams/matrices/company-analysis-cil-runtime.flowchart-matrix.json",
+    "docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/diagrams/mermaid/company-analysis-cil-runtime.mmd",
+    "docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/diagrams/mermaid/company-analysis-cil-runtime.svg",
+    "docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/diagrams/mermaid/company-analysis-cil-runtime.png"
+  ],
+  "context_topic_ids": [
+    "company-analysis-skill"
+  ]
+}

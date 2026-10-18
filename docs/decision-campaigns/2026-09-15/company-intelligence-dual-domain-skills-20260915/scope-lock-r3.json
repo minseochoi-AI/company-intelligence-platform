@@ -1,0 +1,154 @@
+{
+  "contract_version": "scope-lock-v1",
+  "owner": {
+    "kind": "decision-campaign",
+    "id": "company-intelligence-dual-domain-skills-20260915"
+  },
+  "campaign_path": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/campaign.json",
+  "scope": {
+    "campaign_id": "company-intelligence-dual-domain-skills-20260915",
+    "decision_order": [
+      "D-01",
+      "D-02",
+      "D-03",
+      "D-04",
+      "D-05",
+      "D-06",
+      "D-07",
+      "D-08",
+      "D-09",
+      "D-10"
+    ],
+    "dependencies": [
+      {
+        "before": "D-01",
+        "after": "D-02"
+      },
+      {
+        "before": "D-02",
+        "after": "D-03"
+      },
+      {
+        "before": "D-03",
+        "after": "D-06"
+      },
+      {
+        "before": "D-02",
+        "after": "D-07"
+      },
+      {
+        "before": "D-03",
+        "after": "D-07"
+      },
+      {
+        "before": "D-01",
+        "after": "D-09"
+      },
+      {
+        "before": "D-01",
+        "after": "D-10"
+      },
+      {
+        "before": "D-02",
+        "after": "D-10"
+      },
+      {
+        "before": "D-03",
+        "after": "D-10"
+      },
+      {
+        "before": "D-01",
+        "after": "D-04"
+      },
+      {
+        "before": "D-03",
+        "after": "D-04"
+      },
+      {
+        "before": "D-09",
+        "after": "D-04"
+      },
+      {
+        "before": "D-01",
+        "after": "D-05"
+      },
+      {
+        "before": "D-03",
+        "after": "D-05"
+      },
+      {
+        "before": "D-10",
+        "after": "D-05"
+      },
+      {
+        "before": "D-04",
+        "after": "D-08"
+      },
+      {
+        "before": "D-05",
+        "after": "D-08"
+      },
+      {
+        "before": "D-06",
+        "after": "D-08"
+      },
+      {
+        "before": "D-07",
+        "after": "D-08"
+      },
+      {
+        "before": "D-09",
+        "after": "D-08"
+      },
+      {
+        "before": "D-10",
+        "after": "D-08"
+      }
+    ],
+    "cohorts": [
+      {
+        "cohort_id": "C-01-interop-control",
+        "decision_ids": [
+          "D-01",
+          "D-02",
+          "D-03",
+          "D-06",
+          "D-07",
+          "D-10"
+        ]
+      },
+      {
+        "cohort_id": "C-02-cil-runtime",
+        "decision_ids": [
+          "D-09"
+        ]
+      },
+      {
+        "cohort_id": "C-03-company-analysis-skill",
+        "decision_ids": [
+          "D-04"
+        ]
+      },
+      {
+        "cohort_id": "C-04-venture-analysis-skill",
+        "decision_ids": [
+          "D-05"
+        ]
+      },
+      {
+        "cohort_id": "C-05-packaging-validation",
+        "decision_ids": [
+          "D-08"
+        ]
+      }
+    ]
+  },
+  "scope_sha256": "718e29f2a7c2c7c8a648433d1725f9f53a662267c05880b3cfaad435ee022d28",
+  "amendment": {
+    "action": "AMEND_SCOPE",
+    "authorized_by": "user",
+    "authorized_at": "2026-09-15",
+    "authority_text": "D-01~D-10의 선언된 diagram_impacts를 실제 diagram 파일 경로로 AMEND_SCOPE 해서 진행해",
+    "previous_lock": "docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/scope-lock-r2.json"
+  }
+}

@@ -1,0 +1,63 @@
+{
+  "contract_version": "atomic-json-patch-receipt-v1",
+  "target": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/campaign.json",
+  "outcome": "pass",
+  "before_sha256": "26d58e3f653d0e414f5976ffaec98a2da532e9267dc9b734cc19d4806616ba87",
+  "after_sha256": "166e86e1b0b94f1049baf854cfa469a6b16abea375de0b2c8a2057bb3a3ab1df",
+  "proposed_after_sha256": "166e86e1b0b94f1049baf854cfa469a6b16abea375de0b2c8a2057bb3a3ab1df",
+  "operations": [
+    {
+      "op": "test",
+      "path": "/status"
+    },
+    {
+      "op": "test",
+      "path": "/implementation_cohorts/0/status"
+    },
+    {
+      "op": "test",
+      "path": "/implementation_cohorts/1/status"
+    },
+    {
+      "op": "test",
+      "path": "/implementation_cohorts/2/status"
+    },
+    {
+      "op": "test",
+      "path": "/implementation_cohorts/3/status"
+    },
+    {
+      "op": "test",
+      "path": "/implementation_cohorts/4/status"
+    },
+    {
+      "op": "replace",
+      "path": "/status"
+    },
+    {
+      "op": "replace",
+      "path": "/implementation_cohorts/0/status"
+    },
+    {
+      "op": "replace",
+      "path": "/implementation_cohorts/1/status"
+    },
+    {
+      "op": "replace",
+      "path": "/implementation_cohorts/2/status"
+    },
+    {
+      "op": "replace",
+      "path": "/implementation_cohorts/3/status"
+    },
+    {
+      "op": "replace",
+      "path": "/implementation_cohorts/4/status"
+    }
+  ],
+  "backup": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/.mutation-journal/preimages/sha256-26d58e3f653d0e414f5976ffaec98a2da532e9267dc9b734cc19d4806616ba87.json",
+  "journal": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/.mutation-journal/mutations/7a7a96591b9e7e85b9f26d203f26628d6d4ff873100d3c3c3c1a4fd54d9c8c8f.json",
+  "mutation_id": "advance-all-cohorts-to-validated",
+  "validators": [],
+  "completed_at": "2026-09-15T06:22:15.909040+00:00"
+}

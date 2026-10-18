@@ -1,0 +1,143 @@
+{
+  "decision_id": "D-03",
+  "sequence": 3,
+  "unit_id": "evidence-interop-contract",
+  "title": "증거 파일·해시 기반 선택 연동 계약",
+  "status": "accepted",
+  "question": "기업분석·취업·창업 스킬이 런타임 종속 없이 검증된 증거만 선택적으로 교환하려면 어떤 계약이 필요한가?",
+  "five_w_one_h": {
+    "who": "증거를 생성하는 CIL/기업분석 스킬과 이를 선택 소비하는 취업·창업 스킬",
+    "what": "EvidenceBundleManifest와 EvidenceBundleRef로 파일별 hash, schema, producer, source, 관측시각, 권리, redaction, subject identity를 결속한다.",
+    "where": "사용자 지정 artifact 디렉터리에 immutable bundle과 외부 ref를 저장한다.",
+    "when": "producer 출력 직후 hash를 만들고 consumer가 읽기 전에 전부 재검증한다.",
+    "why": "스킬끼리 Python import나 숨은 상태를 공유하면 재현성·선택성·설치 독립성이 깨진다.",
+    "how": "consumer는 명시된 path와 sha256만 읽고 schema·identity·freshness·license·redaction gate 중 하나라도 실패하면 unavailable로 남긴다."
+  },
+  "evidence_refs": [
+    {
+      "evidence_id": "EV-CIL-EXPORT",
+      "source_type": "code",
+      "locator": "src/company_intel/exporting.py",
+      "observed_fact": "CIL export는 표별 파일 hash와 run_manifest_sha256를 생성하고 formula/secret 안전 처리를 한다.",
+      "content_hash": "8864b8e6ace3baa2e5217fecdb76c8577800c97033cfa2ae886df334db31f759",
+      "line_range": "1-EOF",
+      "question": "기업분석·취업·창업 스킬이 런타임 종속 없이 검증된 증거만 선택적으로 교환하려면 어떤 계약이 필요한가?",
+      "observation_summary": "CIL export는 표별 파일 hash와 run_manifest_sha256를 생성하고 formula/secret 안전 처리를 한다."
+    },
+    {
+      "evidence_id": "EV-CIL-RUN-MANIFEST",
+      "source_type": "code",
+      "locator": "src/company_intel/run_manifest.py",
+      "observed_fact": "CIL은 선택·snapshot·결과 reference를 결속하는 run manifest를 구현했다.",
+      "content_hash": "a4acf36a2012583c7837d45377ae58db982827a4a2c585e1c1832ee2425226a6",
+      "line_range": "1-EOF",
+      "question": "기업분석·취업·창업 스킬이 런타임 종속 없이 검증된 증거만 선택적으로 교환하려면 어떤 계약이 필요한가?",
+      "observation_summary": "CIL은 선택·snapshot·결과 reference를 결속하는 run manifest를 구현했다."
+    }
+  ],
+  "facts": [
+    "CIL은 이미 파일별 hash와 run manifest 기반을 제공한다.",
+    "현재 형식은 CIL 실행 재현에 초점이 있고 스킬 간 도메인 소비 허용 범위는 정의하지 않는다.",
+    "hash 일치는 출처의 진실성이나 분석 성공을 자동 증명하지 않는다."
+  ],
+  "conflicts": [
+    "완전 복사 bundle은 재현성이 높지만 개인정보·용량을 늘릴 수 있다.",
+    "경로 참조만 쓰면 원본 이동·수정에 취약하다."
+  ],
+  "unimplemented": [
+    "evidence-bundle-manifest.schema.json",
+    "evidence-bundle-ref.schema.json",
+    "producer/consumer capability matrix",
+    "tamper·license·freshness validator"
+  ],
+  "options": [
+    {
+      "option_id": "A-DIRECT-SKILL-IMPORT",
+      "description": "스킬이 다른 스킬의 스크립트·내부 상태를 직접 import하고 반환 객체를 전달한다.",
+      "impact": {
+        "data": "메모리 객체 provenance가 약하다.",
+        "schema_api": "내부 구현이 공개 API가 된다.",
+        "ux": "자동 연결되지만 실패 원인이 숨는다.",
+        "performance": "복사는 줄지만 결합이 커진다.",
+        "cost": "동시 업그레이드가 필요하다.",
+        "security": "최소 공개 경계가 없다.",
+        "migration": "한 스킬 변경이 다른 스킬을 깨뜨린다.",
+        "tests": "통합 환경 없이 검증하기 어렵다."
+      },
+      "opportunity_costs": [
+        "스킬 독립성과 offline replay를 잃는다."
+      ]
+    },
+    {
+      "option_id": "B-HASHED-EVIDENCE-BUNDLE",
+      "description": "각 스킬은 독립 실행하고 hash 검증된 EvidenceBundleRef만 명시적으로 교환한다.",
+      "impact": {
+        "data": "불변 파일과 provenance를 보존한다.",
+        "schema_api": "공유 표면이 작은 versioned contract가 된다.",
+        "ux": "사용자가 연동 여부와 증거 상태를 확인한다.",
+        "performance": "파일 hash 비용이 생긴다.",
+        "cost": "bundle validator가 필요하다.",
+        "security": "redaction·allowlist를 강제할 수 있다.",
+        "migration": "schema version으로 점진 이행한다.",
+        "tests": "변조·누락·stale을 fixture로 검증한다."
+      },
+      "opportunity_costs": [
+        "실시간 객체 전달보다 절차가 한 단계 늘어난다."
+      ]
+    }
+  ],
+  "recommended_option_id": "B-HASHED-EVIDENCE-BUNDLE",
+  "recommendation_reason": "CIL의 기존 hash·manifest 강점을 재사용하면서 스킬 설치와 실행을 독립적으로 유지한다.",
+  "impact": {
+    "data": "source·dataset·evidence·claim 관계와 파일 hash를 보존한다.",
+    "schema_api": "CIL run manifest를 바꾸지 않고 상위 bundle manifest로 감싼다.",
+    "ux": "verified, stale, incompatible, unavailable 상태를 표시한다.",
+    "performance": "선택한 bundle만 읽는다.",
+    "cost": "공유 validator 구현이 필요하다.",
+    "security": "secret·PII 필드 allowlist와 path 제한이 필요하다.",
+    "migration": "기존 export는 adapter로 bundle화한다.",
+    "tests": "byte tamper·wrong subject·unsupported schema·expired evidence를 검증한다."
+  },
+  "opportunity_costs": [
+    "자동 연동 대신 명시적 파일 전달이 필요하다."
+  ],
+  "dependencies": [
+    "D-02"
+  ],
+  "dependency_waivers": {},
+  "accepted_decision": {
+    "disposition": "ACCEPT",
+    "option_id": "B-HASHED-EVIDENCE-BUNDLE",
+    "rule": "사용자의 FULL_EXECUTION 요청에 따라 각 결정의 B 권장안을 승인한다.",
+    "rationale": "비판적 검증에서 확인된 수정사항과 D-09·D-10을 포함한 개정 범위를 구현한다.",
+    "decided_by": "user",
+    "decided_at": "2026-09-15T05:28:25.724684+00:00"
+  },
+  "implementation_targets": [
+    ".codex/shared/company-intelligence-interop/evidence-bundle.schema.json",
+    ".codex/shared/company-intelligence-interop/evidence-bundle-ref.schema.json",
+    ".codex/shared/company-intelligence-interop/interop.py",
+    ".codex/shared/company-intelligence-interop/BOUNDARIES.md"
+  ],
+  "implementation_change_ids": [
+    "C01-003",
+    "C01-004",
+    "C01-008",
+    "C01-009"
+  ],
+  "validation_requirements": [
+    "모든 소비 파일의 sha256 재검증",
+    "허용 경로 밖 reference 거부",
+    "민감 필드가 bundle에 있으면 redaction 실패",
+    "hash 일치만으로 claim verified 상태를 만들지 않음"
+  ],
+  "diagram_impacts": [
+    "docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/diagrams/matrices/plan-evidence-interop.flowchart-matrix.json",
+    "docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/diagrams/mermaid/plan-evidence-interop.mmd",
+    "docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/diagrams/mermaid/plan-evidence-interop.svg",
+    "docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/diagrams/mermaid/plan-evidence-interop.png"
+  ],
+  "context_topic_ids": [
+    "interop-control"
+  ]
+}

@@ -1,0 +1,543 @@
+{
+  "contract_version": "1.2.0",
+  "plan_id": "C-04-venture-analysis-skill-plan-r1",
+  "owner": {
+    "kind": "campaign-cohort",
+    "id": "C-04-venture-analysis-skill"
+  },
+  "source_refs": [
+    {
+      "id": "D-05",
+      "path": "docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/decisions/05-d-05.json",
+      "sha256": "sha256:cbd7ac8b8c50a59b04e575d398b877e96c41c76cd6c058107ea478d32096ad70"
+    }
+  ],
+  "status": "contract-ready",
+  "change_slices": [
+    {
+      "slice_id": "C-04-venture-analysis-skill-slice",
+      "behavior": "승인된 결정을 파일 단위로 구현하고 독립 검증한다.",
+      "dependencies": [],
+      "operations": [
+        {
+          "change_id": "C04-001",
+          "operation": "CREATE",
+          "path": ".codex/skills/kr-defensible-venture-discovery/SKILL.md",
+          "symbols": [
+            "SKILL.md"
+          ],
+          "current_state": "파일이 없음",
+          "source_hash": null,
+          "result_hash": null,
+          "after_state": "한국형 방어가능 창업기회를 제약과 근거로 조사한다.",
+          "rationale": "승인된 결정의 파일 단위 구현 대상이다.",
+          "dependencies": [],
+          "public_contract_impacts": [
+            "버전된 로컬 계약 또는 스킬 동작을 추가한다."
+          ],
+          "compatibility": "기존 CLI와 저장 artifact를 유지하며 새 필드는 additive로 처리한다.",
+          "migration": "기존 artifact는 변경하지 않고 새 schema version에서 선택적으로 사용한다.",
+          "rollback": "CREATE 파일은 제거하고 MODIFY 파일은 기록된 preimage로 복원한다.",
+          "authorization_boundary": "현재 저장소의 명시된 파일만 변경하며 외부 provider·설치·배포를 수행하지 않는다.",
+          "contributes_to": [
+            "D-01",
+            "D-05"
+          ],
+          "symbol_changes": [
+            {
+              "symbol": "SKILL.md",
+              "intent": "한국형 방어가능 창업기회를 제약과 근거로 조사한다.",
+              "decision_id": "D-01"
+            }
+          ],
+          "intent_change_ids": [
+            "D-01-intent",
+            "D-05-intent"
+          ],
+          "contribution_refs": [
+            {
+              "decision_id": "D-01",
+              "path": "docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/decisions/01-d-01.json",
+              "sha256": "sha256:59d08d3c13ed024afc2561f65df51ec87fff57b39069b27472cbb0c77e51c41e",
+              "symbols": [
+                "SKILL.md"
+              ],
+              "intent_change_ids": [
+                "D-01-intent"
+              ]
+            },
+            {
+              "decision_id": "D-05",
+              "path": "docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/decisions/05-d-05.json",
+              "sha256": "sha256:cbd7ac8b8c50a59b04e575d398b877e96c41c76cd6c058107ea478d32096ad70",
+              "symbols": [
+                "SKILL.md"
+              ],
+              "intent_change_ids": [
+                "D-05-intent"
+              ]
+            }
+          ]
+        },
+        {
+          "change_id": "C04-002",
+          "operation": "CREATE",
+          "path": ".codex/skills/kr-defensible-venture-discovery/agents/openai.yaml",
+          "symbols": [
+            "openai.yaml"
+          ],
+          "current_state": "파일이 없음",
+          "source_hash": null,
+          "result_hash": null,
+          "after_state": "발견 가능한 UI 메타데이터를 제공한다.",
+          "rationale": "승인된 결정의 파일 단위 구현 대상이다.",
+          "dependencies": [],
+          "public_contract_impacts": [
+            "버전된 로컬 계약 또는 스킬 동작을 추가한다."
+          ],
+          "compatibility": "기존 CLI와 저장 artifact를 유지하며 새 필드는 additive로 처리한다.",
+          "migration": "기존 artifact는 변경하지 않고 새 schema version에서 선택적으로 사용한다.",
+          "rollback": "CREATE 파일은 제거하고 MODIFY 파일은 기록된 preimage로 복원한다.",
+          "authorization_boundary": "현재 저장소의 명시된 파일만 변경하며 외부 provider·설치·배포를 수행하지 않는다.",
+          "contributes_to": [
+            "D-01",
+            "D-05"
+          ],
+          "symbol_changes": [
+            {
+              "symbol": "openai.yaml",
+              "intent": "발견 가능한 UI 메타데이터를 제공한다.",
+              "decision_id": "D-01"
+            }
+          ],
+          "intent_change_ids": [
+            "D-01-intent",
+            "D-05-intent"
+          ],
+          "contribution_refs": [
+            {
+              "decision_id": "D-01",
+              "path": "docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/decisions/01-d-01.json",
+              "sha256": "sha256:59d08d3c13ed024afc2561f65df51ec87fff57b39069b27472cbb0c77e51c41e",
+              "symbols": [
+                "openai.yaml"
+              ],
+              "intent_change_ids": [
+                "D-01-intent"
+              ]
+            },
+            {
+              "decision_id": "D-05",
+              "path": "docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/decisions/05-d-05.json",
+              "sha256": "sha256:cbd7ac8b8c50a59b04e575d398b877e96c41c76cd6c058107ea478d32096ad70",
+              "symbols": [
+                "openai.yaml"
+              ],
+              "intent_change_ids": [
+                "D-05-intent"
+              ]
+            }
+          ]
+        },
+        {
+          "change_id": "C04-003",
+          "operation": "CREATE",
+          "path": ".codex/skills/kr-defensible-venture-discovery/references/market-archetypes.md",
+          "symbols": [
+            "market-archetypes.md"
+          ],
+          "current_state": "파일이 없음",
+          "source_hash": null,
+          "result_hash": null,
+          "after_state": "경쟁·틈새·미개척 후보의 증거 기준을 정의한다.",
+          "rationale": "승인된 결정의 파일 단위 구현 대상이다.",
+          "dependencies": [],
+          "public_contract_impacts": [
+            "버전된 로컬 계약 또는 스킬 동작을 추가한다."
+          ],
+          "compatibility": "기존 CLI와 저장 artifact를 유지하며 새 필드는 additive로 처리한다.",
+          "migration": "기존 artifact는 변경하지 않고 새 schema version에서 선택적으로 사용한다.",
+          "rollback": "CREATE 파일은 제거하고 MODIFY 파일은 기록된 preimage로 복원한다.",
+          "authorization_boundary": "현재 저장소의 명시된 파일만 변경하며 외부 provider·설치·배포를 수행하지 않는다.",
+          "contributes_to": [
+            "D-01",
+            "D-05"
+          ],
+          "symbol_changes": [
+            {
+              "symbol": "market-archetypes.md",
+              "intent": "경쟁·틈새·미개척 후보의 증거 기준을 정의한다.",
+              "decision_id": "D-01"
+            }
+          ],
+          "intent_change_ids": [
+            "D-01-intent",
+            "D-05-intent"
+          ],
+          "contribution_refs": [
+            {
+              "decision_id": "D-01",
+              "path": "docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/decisions/01-d-01.json",
+              "sha256": "sha256:59d08d3c13ed024afc2561f65df51ec87fff57b39069b27472cbb0c77e51c41e",
+              "symbols": [
+                "market-archetypes.md"
+              ],
+              "intent_change_ids": [
+                "D-01-intent"
+              ]
+            },
+            {
+              "decision_id": "D-05",
+              "path": "docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/decisions/05-d-05.json",
+              "sha256": "sha256:cbd7ac8b8c50a59b04e575d398b877e96c41c76cd6c058107ea478d32096ad70",
+              "symbols": [
+                "market-archetypes.md"
+              ],
+              "intent_change_ids": [
+                "D-05-intent"
+              ]
+            }
+          ]
+        },
+        {
+          "change_id": "C04-004",
+          "operation": "CREATE",
+          "path": ".codex/skills/kr-defensible-venture-discovery/references/research-workflow.md",
+          "symbols": [
+            "research-workflow.md"
+          ],
+          "current_state": "파일이 없음",
+          "source_hash": null,
+          "result_hash": null,
+          "after_state": "설정·baseline·gap·증강조사 상태 전이를 정의한다.",
+          "rationale": "승인된 결정의 파일 단위 구현 대상이다.",
+          "dependencies": [],
+          "public_contract_impacts": [
+            "버전된 로컬 계약 또는 스킬 동작을 추가한다."
+          ],
+          "compatibility": "기존 CLI와 저장 artifact를 유지하며 새 필드는 additive로 처리한다.",
+          "migration": "기존 artifact는 변경하지 않고 새 schema version에서 선택적으로 사용한다.",
+          "rollback": "CREATE 파일은 제거하고 MODIFY 파일은 기록된 preimage로 복원한다.",
+          "authorization_boundary": "현재 저장소의 명시된 파일만 변경하며 외부 provider·설치·배포를 수행하지 않는다.",
+          "contributes_to": [
+            "D-01",
+            "D-05"
+          ],
+          "symbol_changes": [
+            {
+              "symbol": "research-workflow.md",
+              "intent": "설정·baseline·gap·증강조사 상태 전이를 정의한다.",
+              "decision_id": "D-01"
+            }
+          ],
+          "intent_change_ids": [
+            "D-01-intent",
+            "D-05-intent"
+          ],
+          "contribution_refs": [
+            {
+              "decision_id": "D-01",
+              "path": "docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/decisions/01-d-01.json",
+              "sha256": "sha256:59d08d3c13ed024afc2561f65df51ec87fff57b39069b27472cbb0c77e51c41e",
+              "symbols": [
+                "research-workflow.md"
+              ],
+              "intent_change_ids": [
+                "D-01-intent"
+              ]
+            },
+            {
+              "decision_id": "D-05",
+              "path": "docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/decisions/05-d-05.json",
+              "sha256": "sha256:cbd7ac8b8c50a59b04e575d398b877e96c41c76cd6c058107ea478d32096ad70",
+              "symbols": [
+                "research-workflow.md"
+              ],
+              "intent_change_ids": [
+                "D-05-intent"
+              ]
+            }
+          ]
+        },
+        {
+          "change_id": "C04-005",
+          "operation": "CREATE",
+          "path": ".codex/skills/kr-defensible-venture-discovery/references/evidence-and-barriers.md",
+          "symbols": [
+            "evidence-and-barriers.md"
+          ],
+          "current_state": "파일이 없음",
+          "source_hash": null,
+          "result_hash": null,
+          "after_state": "원천 권리와 방어력·자원 적합성 경계를 정의한다.",
+          "rationale": "승인된 결정의 파일 단위 구현 대상이다.",
+          "dependencies": [],
+          "public_contract_impacts": [
+            "버전된 로컬 계약 또는 스킬 동작을 추가한다."
+          ],
+          "compatibility": "기존 CLI와 저장 artifact를 유지하며 새 필드는 additive로 처리한다.",
+          "migration": "기존 artifact는 변경하지 않고 새 schema version에서 선택적으로 사용한다.",
+          "rollback": "CREATE 파일은 제거하고 MODIFY 파일은 기록된 preimage로 복원한다.",
+          "authorization_boundary": "현재 저장소의 명시된 파일만 변경하며 외부 provider·설치·배포를 수행하지 않는다.",
+          "contributes_to": [
+            "D-01",
+            "D-05"
+          ],
+          "symbol_changes": [
+            {
+              "symbol": "evidence-and-barriers.md",
+              "intent": "원천 권리와 방어력·자원 적합성 경계를 정의한다.",
+              "decision_id": "D-01"
+            }
+          ],
+          "intent_change_ids": [
+            "D-01-intent",
+            "D-05-intent"
+          ],
+          "contribution_refs": [
+            {
+              "decision_id": "D-01",
+              "path": "docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/decisions/01-d-01.json",
+              "sha256": "sha256:59d08d3c13ed024afc2561f65df51ec87fff57b39069b27472cbb0c77e51c41e",
+              "symbols": [
+                "evidence-and-barriers.md"
+              ],
+              "intent_change_ids": [
+                "D-01-intent"
+              ]
+            },
+            {
+              "decision_id": "D-05",
+              "path": "docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/decisions/05-d-05.json",
+              "sha256": "sha256:cbd7ac8b8c50a59b04e575d398b877e96c41c76cd6c058107ea478d32096ad70",
+              "symbols": [
+                "evidence-and-barriers.md"
+              ],
+              "intent_change_ids": [
+                "D-05-intent"
+              ]
+            }
+          ]
+        },
+        {
+          "change_id": "C04-006",
+          "operation": "CREATE",
+          "path": ".codex/skills/kr-defensible-venture-discovery/references/venture-session.schema.json",
+          "symbols": [
+            "venture-session.schema.json"
+          ],
+          "current_state": "파일이 없음",
+          "source_hash": null,
+          "result_hash": null,
+          "after_state": "창업 조사 세션을 검증한다.",
+          "rationale": "승인된 결정의 파일 단위 구현 대상이다.",
+          "dependencies": [],
+          "public_contract_impacts": [
+            "버전된 로컬 계약 또는 스킬 동작을 추가한다."
+          ],
+          "compatibility": "기존 CLI와 저장 artifact를 유지하며 새 필드는 additive로 처리한다.",
+          "migration": "기존 artifact는 변경하지 않고 새 schema version에서 선택적으로 사용한다.",
+          "rollback": "CREATE 파일은 제거하고 MODIFY 파일은 기록된 preimage로 복원한다.",
+          "authorization_boundary": "현재 저장소의 명시된 파일만 변경하며 외부 provider·설치·배포를 수행하지 않는다.",
+          "contributes_to": [
+            "D-01",
+            "D-05"
+          ],
+          "symbol_changes": [
+            {
+              "symbol": "venture-session.schema.json",
+              "intent": "창업 조사 세션을 검증한다.",
+              "decision_id": "D-01"
+            }
+          ],
+          "intent_change_ids": [
+            "D-01-intent",
+            "D-05-intent"
+          ],
+          "contribution_refs": [
+            {
+              "decision_id": "D-01",
+              "path": "docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/decisions/01-d-01.json",
+              "sha256": "sha256:59d08d3c13ed024afc2561f65df51ec87fff57b39069b27472cbb0c77e51c41e",
+              "symbols": [
+                "venture-session.schema.json"
+              ],
+              "intent_change_ids": [
+                "D-01-intent"
+              ]
+            },
+            {
+              "decision_id": "D-05",
+              "path": "docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/decisions/05-d-05.json",
+              "sha256": "sha256:cbd7ac8b8c50a59b04e575d398b877e96c41c76cd6c058107ea478d32096ad70",
+              "symbols": [
+                "venture-session.schema.json"
+              ],
+              "intent_change_ids": [
+                "D-05-intent"
+              ]
+            }
+          ]
+        },
+        {
+          "change_id": "C04-007",
+          "operation": "CREATE",
+          "path": ".codex/skills/kr-defensible-venture-discovery/references/opportunity-hypothesis.schema.json",
+          "symbols": [
+            "opportunity-hypothesis.schema.json"
+          ],
+          "current_state": "파일이 없음",
+          "source_hash": null,
+          "result_hash": null,
+          "after_state": "시장 유형별 후보 가설을 검증한다.",
+          "rationale": "승인된 결정의 파일 단위 구현 대상이다.",
+          "dependencies": [],
+          "public_contract_impacts": [
+            "버전된 로컬 계약 또는 스킬 동작을 추가한다."
+          ],
+          "compatibility": "기존 CLI와 저장 artifact를 유지하며 새 필드는 additive로 처리한다.",
+          "migration": "기존 artifact는 변경하지 않고 새 schema version에서 선택적으로 사용한다.",
+          "rollback": "CREATE 파일은 제거하고 MODIFY 파일은 기록된 preimage로 복원한다.",
+          "authorization_boundary": "현재 저장소의 명시된 파일만 변경하며 외부 provider·설치·배포를 수행하지 않는다.",
+          "contributes_to": [
+            "D-01",
+            "D-05"
+          ],
+          "symbol_changes": [
+            {
+              "symbol": "opportunity-hypothesis.schema.json",
+              "intent": "시장 유형별 후보 가설을 검증한다.",
+              "decision_id": "D-01"
+            }
+          ],
+          "intent_change_ids": [
+            "D-01-intent",
+            "D-05-intent"
+          ],
+          "contribution_refs": [
+            {
+              "decision_id": "D-01",
+              "path": "docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/decisions/01-d-01.json",
+              "sha256": "sha256:59d08d3c13ed024afc2561f65df51ec87fff57b39069b27472cbb0c77e51c41e",
+              "symbols": [
+                "opportunity-hypothesis.schema.json"
+              ],
+              "intent_change_ids": [
+                "D-01-intent"
+              ]
+            },
+            {
+              "decision_id": "D-05",
+              "path": "docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/decisions/05-d-05.json",
+              "sha256": "sha256:cbd7ac8b8c50a59b04e575d398b877e96c41c76cd6c058107ea478d32096ad70",
+              "symbols": [
+                "opportunity-hypothesis.schema.json"
+              ],
+              "intent_change_ids": [
+                "D-05-intent"
+              ]
+            }
+          ]
+        },
+        {
+          "change_id": "C04-008",
+          "operation": "CREATE",
+          "path": ".codex/skills/kr-defensible-venture-discovery/scripts/venture_artifacts.py",
+          "symbols": [
+            "venture_artifacts.py"
+          ],
+          "current_state": "파일이 없음",
+          "source_hash": null,
+          "result_hash": null,
+          "after_state": "창업 artifact를 검증하고 gap을 계산한다.",
+          "rationale": "승인된 결정의 파일 단위 구현 대상이다.",
+          "dependencies": [],
+          "public_contract_impacts": [
+            "버전된 로컬 계약 또는 스킬 동작을 추가한다."
+          ],
+          "compatibility": "기존 CLI와 저장 artifact를 유지하며 새 필드는 additive로 처리한다.",
+          "migration": "기존 artifact는 변경하지 않고 새 schema version에서 선택적으로 사용한다.",
+          "rollback": "CREATE 파일은 제거하고 MODIFY 파일은 기록된 preimage로 복원한다.",
+          "authorization_boundary": "현재 저장소의 명시된 파일만 변경하며 외부 provider·설치·배포를 수행하지 않는다.",
+          "contributes_to": [
+            "D-01",
+            "D-05"
+          ],
+          "symbol_changes": [
+            {
+              "symbol": "venture_artifacts.py",
+              "intent": "창업 artifact를 검증하고 gap을 계산한다.",
+              "decision_id": "D-01"
+            }
+          ],
+          "intent_change_ids": [
+            "D-01-intent",
+            "D-05-intent"
+          ],
+          "contribution_refs": [
+            {
+              "decision_id": "D-01",
+              "path": "docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/decisions/01-d-01.json",
+              "sha256": "sha256:59d08d3c13ed024afc2561f65df51ec87fff57b39069b27472cbb0c77e51c41e",
+              "symbols": [
+                "venture_artifacts.py"
+              ],
+              "intent_change_ids": [
+                "D-01-intent"
+              ]
+            },
+            {
+              "decision_id": "D-05",
+              "path": "docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/decisions/05-d-05.json",
+              "sha256": "sha256:cbd7ac8b8c50a59b04e575d398b877e96c41c76cd6c058107ea478d32096ad70",
+              "symbols": [
+                "venture_artifacts.py"
+              ],
+              "intent_change_ids": [
+                "D-05-intent"
+              ]
+            }
+          ]
+        }
+      ],
+      "routes": [
+        {
+          "route_id": "create-venture-skill",
+          "skill": "skill-creator",
+          "requirement": "required",
+          "phase": "IMPLEMENT",
+          "purpose": "한국형 창업시장 발굴 스킬을 생성한다.",
+          "expected_artifact": ".codex/skills/kr-defensible-venture-discovery/SKILL.md"
+        }
+      ],
+      "completion_contract": [
+        {
+          "criterion_id": "venture-skill-quick-validate",
+          "behavior": "python3 /home/ubuntu/.codex/skills/.system/skill-creator/scripts/quick_validate.py .codex/skills/kr-defensible-venture-discovery",
+          "blocking": true,
+          "owner_skill": "skill-creator",
+          "phase": "VALIDATE",
+          "depends_on_criteria": [],
+          "test": {
+            "type": "command",
+            "value": "python3 /home/ubuntu/.codex/skills/.system/skill-creator/scripts/quick_validate.py .codex/skills/kr-defensible-venture-discovery",
+            "runner": "command",
+            "timeout_seconds": 180
+          },
+          "expected_result": "exit 0",
+          "failure_marker": "non-zero exit or contract mismatch",
+          "receipt": {
+            "status": "planned",
+            "path": "docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/receipts/criteria/venture-skill-quick-validate.json",
+            "sha256": "planned"
+          },
+          "status": "planned"
+        }
+      ]
+    }
+  ],
+  "metadata": {
+    "authored_for_scope_sha256": "718e29f2a7c2c7c8a648433d1725f9f53a662267c05880b3cfaad435ee022d28",
+    "preparation_contract": "campaign-global-ownership-v1"
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "contract_version": "atomic-json-patch-receipt-v1",
+  "target": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/index.json",
+  "outcome": "pass",
+  "before_sha256": "7794dbf4389bc9ac706ea81d683c7c4c498602484f873007ad5a9b3de9f57776",
+  "after_sha256": "7fea29f97b561d4823f5f7bd0c796b256c3c257d31119617f7cb5ab808a3b566",
+  "proposed_after_sha256": "7fea29f97b561d4823f5f7bd0c796b256c3c257d31119617f7cb5ab808a3b566",
+  "operations": [
+    {
+      "op": "test",
+      "path": "/active_campaign_id"
+    },
+    {
+      "op": "test",
+      "path": "/schema_version"
+    },
+    {
+      "op": "replace",
+      "path": "/active_campaign_id"
+    },
+    {
+      "op": "add",
+      "path": "/campaigns/-"
+    }
+  ],
+  "backup": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/.mutation-journal/preimages/sha256-7794dbf4389bc9ac706ea81d683c7c4c498602484f873007ad5a9b3de9f57776.json",
+  "journal": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/.mutation-journal/mutations/2f7af6fe275f5891a31be34827300f4657ea106f5b152bdd54a71fb771649758.json",
+  "mutation_id": "register:company-intelligence-dual-domain-skills-20260915",
+  "validators": [],
+  "completed_at": "2026-09-15T04:48:18.202891+00:00"
+}

@@ -1,0 +1,54 @@
+{
+  "contract_version": "implementation-context-packet-v2",
+  "packet_id": "B-C01-taxonomy-packet-07bff88c8cf2",
+  "topics": [
+    "B-C01-taxonomy"
+  ],
+  "capability_ids": [
+    "B-D01"
+  ],
+  "required_refs": [
+    {
+      "content_hash": "ae5f994a0474c592944b5846e584aea3f413cbe706966082ea1e6a2b7a3cbb07",
+      "line_range": "1-103",
+      "observation_summary": "한 블로그의 산업 부모/자식 구조와 네 관점 라벨; 보고서는 하나이며 관련 분석을 stable ID로 연결한다.",
+      "path": "docs/decision-campaigns/2026-10-13/cil-four-perspective-blog-20261013/evidence/product-contract-ko.md",
+      "question": "산업별 목차와 단일 보고서의 네 독자 관점",
+      "ref_id": "product-contract",
+      "role": "must-read"
+    }
+  ],
+  "current_entry_points": [],
+  "planned_entry_points": [
+    {
+      "kind": "code",
+      "path": "apps/company-report-blog/src/report_blog/taxonomy.py",
+      "symbol": "build_sector_tree",
+      "change_id": "file-change-760b6123d467"
+    },
+    {
+      "kind": "code",
+      "path": "apps/company-report-blog/schemas/taxonomy.schema.json",
+      "symbol": "taxonomy.schema",
+      "change_id": "file-change-8a2889c1dc62"
+    },
+    {
+      "kind": "code",
+      "path": "apps/company-report-blog/config/taxonomy.json",
+      "symbol": "taxonomy",
+      "change_id": "file-change-0a8210721a0f"
+    },
+    {
+      "kind": "code",
+      "path": "apps/company-report-blog/tests/test_taxonomy.py",
+      "symbol": "test_taxonomy_contract",
+      "change_id": "file-change-aeda4c03fbdf"
+    }
+  ],
+  "external_entry_points": [],
+  "invariants": [
+    "AI와 작성자 평가 소유권 분리; 비밀·캠페인 비공개; 기존 CLI 보존; 원격 실행은 별도 승인"
+  ],
+  "unresolved_conflicts": [],
+  "resume_digest": "Prepared B-C01-taxonomy from current decision hashes and one global file-ownership graph."
+}

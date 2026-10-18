@@ -1,0 +1,13 @@
+{
+  "contract_version": "campaign-prepare-attempt-v1",
+  "status": "pass",
+  "campaign": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/2026-09-15/company-intelligence-dual-domain-skills-20260915/campaign.json",
+  "cohorts": [
+    "C-06-diagram-toolchain"
+  ],
+  "files": 7,
+  "operations": 8,
+  "unique_paths": 8,
+  "transaction_sha256": "93b388e20b54ca78006840423125066100f8f3a92c44d7d2f86a8bc38f415c87",
+  "graph_sha256": "55df83e6364a45f721b2247e01675fcbb5d5e0e315487bb689513e46e91fc34e"
+}

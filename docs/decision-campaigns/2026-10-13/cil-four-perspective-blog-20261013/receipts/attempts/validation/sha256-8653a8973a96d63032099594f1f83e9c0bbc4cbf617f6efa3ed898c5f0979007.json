@@ -1,0 +1,19 @@
+{
+  "execution_mode": "preflight",
+  "scenario_id": "B-C01-taxonomy:B-C01-taxonomy-K01",
+  "cohort_id": "B-C01-taxonomy",
+  "criterion_id": "B-C01-taxonomy-K01",
+  "plan_sha256": "bf1dd343bb2b31c6f6592bf443291d60b656f5ab6b6132743ae423baaf40e754",
+  "command": "/home/ubuntu/root/company-intelligence-platform/.venv/bin/python -B -m pytest -q -p no:cacheprovider apps/company-report-blog/tests/test_taxonomy.py",
+  "outcome": "fail",
+  "returncode": 2,
+  "proof": {
+    "status": "not-required",
+    "claim_scope": "registered-tests-only"
+  },
+  "first_failure": "preflight: referenced path(s) missing: apps/company-report-blog/tests/test_taxonomy.py",
+  "raw_log_path": ".runtime/campaign-orchestrator/cil-four-perspective-blog-20261013/validation/B-C01-taxonomy__B-C01-taxonomy-K01.log",
+  "raw_log_sha256": "b2781e5c719d9a5f482b0b12344f34a6ccb8f58b118446e5b22140aa52722149",
+  "tail": "preflight: referenced path(s) missing: apps/company-report-blog/tests/test_taxonomy.py\n",
+  "completed_at": "2026-10-15T11:34:37.762709+00:00"
+}
