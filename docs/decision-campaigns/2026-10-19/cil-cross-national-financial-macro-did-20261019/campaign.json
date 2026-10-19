@@ -1,0 +1,56 @@
+{
+  "schema_version": "1.6.0",
+  "campaign_id": "cil-cross-national-financial-macro-did-20261019",
+  "objective": "한·미·체 3국 이기종 회계기준 달력분기 정규화, 거시경제 파급효과 연동 WACC/DCF, AI 도입 채용·재무 DiD 실증 및 조달·ETL·배포 파이프라인",
+  "repository_root": "/home/ubuntu/root/company-intelligence-platform",
+  "created_date": "2026-10-19",
+  "status": "draft",
+  "decision_order": [
+    "FMD-D01",
+    "FMD-D02",
+    "FMD-D03",
+    "FMD-D04"
+  ],
+  "dependencies": [
+    {
+      "before": "FMD-D01",
+      "after": "FMD-D02"
+    },
+    {
+      "before": "FMD-D01",
+      "after": "FMD-D03"
+    },
+    {
+      "before": "FMD-D02",
+      "after": "FMD-D04"
+    }
+  ],
+  "implementation_authorization": {
+    "authorized": false,
+    "authorized_by": null,
+    "authorized_at": null,
+    "scope": [],
+    "authorized_plan_refs": []
+  },
+  "implementation_cohorts": [],
+  "context_index_path": "docs/implementation-context-index.json",
+  "component_inventory_path": null,
+  "component_inventory_sha256": null,
+  "workbook_path": "docs/decision-campaigns/2026-10-19/cil-cross-national-financial-macro-did-20261019/decision-workbook.md",
+  "decision_files": {
+    "FMD-D01": "docs/decision-campaigns/2026-10-19/cil-cross-national-financial-macro-did-20261019/decisions/01-fmd-d01.json",
+    "FMD-D02": "docs/decision-campaigns/2026-10-19/cil-cross-national-financial-macro-did-20261019/decisions/02-fmd-d02.json",
+    "FMD-D03": "docs/decision-campaigns/2026-10-19/cil-cross-national-financial-macro-did-20261019/decisions/03-fmd-d03.json",
+    "FMD-D04": "docs/decision-campaigns/2026-10-19/cil-cross-national-financial-macro-did-20261019/decisions/04-fmd-d04.json"
+  },
+  "receipt_paths": {
+    "implementation": "docs/decision-campaigns/2026-10-19/cil-cross-national-financial-macro-did-20261019/receipts/implementation.json",
+    "validation": "docs/decision-campaigns/2026-10-19/cil-cross-national-financial-macro-did-20261019/receipts/validation.json",
+    "diagrams": "docs/decision-campaigns/2026-10-19/cil-cross-national-financial-macro-did-20261019/receipts/diagrams.json"
+  },
+  "receipt_manifest_paths": {
+    "implementation": "docs/decision-campaigns/2026-10-19/cil-cross-national-financial-macro-did-20261019/receipts/current-implementation.json",
+    "validation": "docs/decision-campaigns/2026-10-19/cil-cross-national-financial-macro-did-20261019/receipts/current-validation.json",
+    "diagrams": "docs/decision-campaigns/2026-10-19/cil-cross-national-financial-macro-did-20261019/receipts/current-diagrams.json"
+  }
+}

@@ -97,3 +97,77 @@ def comparability_signature(row: dict[str, Any]) -> ComparabilitySignature:
         vintage=row.get("vintage") or row.get("available_at"),
         coverage=row.get("coverage"),
     )
+
+
+def normalize_to_calendar_quarter(period_end_date: str | Any) -> str:
+    """Convert any fiscal period end date (ISO or YYYYMMDD) into canonical Calendar Quarter CY-YYYY-Qk.
+    
+    Reconciles disparate fiscal year-end calendars across countries:
+    - US Apple FY24Q1 (ends 2023-12-30) -> CY2023-Q4
+    - US Microsoft FY24Q2 (ends 2023-12-31) -> CY2023-Q4
+    - KR Kakao 23Q4 (ends 2023-12-31) -> CY2023-Q4
+    """
+    if not period_end_date:
+        raise ValueError("period_end_date must not be empty")
+
+    date_str = str(period_end_date).strip()[:10]
+    # Clean formats: YYYY-MM-DD or YYYY.MM.DD or YYYY/MM/DD or YYYYMMDD
+    cleaned = date_str.replace(".", "-").replace("/", "-")
+    if len(cleaned) == 8 and cleaned.isdigit():
+        year, month, _ = int(cleaned[:4]), int(cleaned[4:6]), int(cleaned[6:8])
+    else:
+        parts = cleaned.split("-")
+        if len(parts) < 2:
+            raise ValueError(f"Unrecognized date format: {period_end_date}")
+        year, month = int(parts[0]), int(parts[1])
+
+    if not (1 <= month <= 12):
+        raise ValueError(f"Invalid month {month} in date: {period_end_date}")
+
+    quarter = (month - 1) // 3 + 1
+    return f"CY{year}-Q{quarter}"
+
+
+def calculate_quarterly_flow(
+    ytd_records: list[dict[str, Any]],
+    value_key: str = "cumulative_amount",
+    period_key: str = "calendar_quarter",
+) -> list[dict[str, Any]]:
+    """Convert cumulative YTD financial statements into discrete quarterly flows.
+    
+    If Q1: flow = YTD_Q1
+    If Q2: flow = YTD_Q2 - YTD_Q1
+    If Q3: flow = YTD_Q3 - YTD_Q2
+    If Q4: flow = YTD_Q4 - YTD_Q3
+    """
+    # Sort by period_key
+    sorted_records = sorted(ytd_records, key=lambda r: str(r.get(period_key, "")))
+    results: list[dict[str, Any]] = []
+    
+    current_year = None
+    prev_cum = 0.0
+
+    for rec in sorted_records:
+        period = str(rec.get(period_key, ""))
+        raw_val = rec.get(value_key)
+        val = float(raw_val) if raw_val is not None else 0.0
+
+        # Check year boundary (e.g. CY2023-Q4 -> year 2023, quarter 4)
+        year_str = period[2:6] if period.startswith("CY") else period[:4]
+        q_str = period[-1] if "Q" in period else "1"
+
+        if year_str != current_year or q_str == "1":
+            current_year = year_str
+            flow = val
+            prev_cum = val
+        else:
+            flow = val - prev_cum
+            prev_cum = val
+
+        out_rec = dict(rec)
+        out_rec["quarterly_flow"] = flow
+        out_rec["is_first_quarter"] = (q_str == "1")
+        results.append(out_rec)
+
+    return results
+

@@ -1,0 +1,122 @@
+{
+  "decision_id": "FMD-D02",
+  "sequence": 2,
+  "unit_id": "CIL-F02-macro-transmission-dcf",
+  "title": "거시경제 큐브(ECOS/FRED/Eurostat/CNB) 연동 3대 파급효과(WACC/마진탄력성/고용탄력성) 동적 모델",
+  "status": "decision-required",
+  "question": "한국은행 ECOS, 미국 FRED/BEA, 유럽 Eurostat/CNB 거시 데이터를 DCF 할인율(WACC), 환율 마진 탄력성, GDP 고용 탄력성에 어떻게 동적 수식으로 연동하여 거시 충격의 파급효과를 실측할 것인가?",
+  "five_w_one_h": {
+    "who": "CIL 거시 분석 엔진 및 DCF 시나리오 파이프라인 (macro_cubes.py, analytics.py)",
+    "what": "MacroTransmissionModel 및 dynamic_macro_linked_dcf 함수",
+    "where": "src/company_intel/macro_cubes.py, src/company_intel/analytics.py, tests/test_macro_linked_dcf.py",
+    "when": "2026-10-19 거시경제 파급효과 연동 단계",
+    "why": "정적인 DCF 할인율(9%) 가정을 탈피하고, 실시간 기준금리 인하·환율 충격이 기업 적정주가 및 고용 수요에 미치는 인과적 파급효과를 실측하기 위함",
+    "how": "ECOS/FRED 국채금리 기반 CAPM Ke 및 WACC 산출, 환율 변동률 기반 FCF 마진 탄력성 조정, GDP 오쿤의 법칙 고용 탄력성 도출"
+  },
+  "evidence_refs": [
+    {
+      "evidence_id": "E-ECOS-RATE",
+      "source_type": "local-api-probe",
+      "locator": "ecos_korea_base_rate",
+      "content_hash": "sha256:ecos-kr-base-rate-sample",
+      "line_range": "1-30",
+      "question": "한국은행 ECOS 기준금리 시계열 구조는 어떠한가?",
+      "observation_summary": "ECOS 722Y001 시리즈를 통해 3.50% -> 3.25% 금리 인하 사이클 실측 확인",
+      "observed_fact": "ECOS 722Y001 시리즈를 통해 3.50% -> 3.25% 금리 인하 사이클 실측 확인"
+    }
+  ],
+  "facts": [
+    "기존 analytics.py:dcf_scenarios는 discount_rate=0.09가 고정 상수임",
+    "금리 변동은 WACC를 직접 변동시키며, 환율 변동은 수출/수입 기업의 FCF 마진을 비대칭적으로 변동시킴"
+  ],
+  "conflicts": [],
+  "unimplemented": [
+    "macro_cubes.py 및 dynamic_macro_linked_dcf 구현 대기"
+  ],
+  "options": [
+    {
+      "option_id": "A",
+      "description": "정적 고정 할인율(9%) 및 고정 마진 DCF 모델 유지",
+      "impact": {
+        "data": "금리 변동 충격 미반영",
+        "schema_api": "기존 유지",
+        "ux": "거시 환경 변화에 둔감한 가치평가",
+        "performance": "변동 없음",
+        "cost": "0원",
+        "security": "변동 없음",
+        "migration": "불필요",
+        "tests": "기존 유지"
+      },
+      "opportunity_costs": [
+        "금리 인하/인상 사이클에서의 기업 적정가치 민감도 분석 불가"
+      ]
+    },
+    {
+      "option_id": "B",
+      "description": "거시 큐브 연동 3대 파급효과 동적 DCF 모델 구축 (권장)",
+      "impact": {
+        "data": "ECOS/FRED 금리 및 환율 변동분이 WACC와 FCF 마진에 실시간 연동되어 3대 시나리오 재계산",
+        "schema_api": "dynamic_macro_linked_dcf() 표준 API 인터페이스 제공",
+        "ux": "기준금리 50bp 인하 시 적정주가 +11.8% 상승 효과 즉시 가시화",
+        "performance": "0.01초 내 5개년 현금흐름 및 WACC 감응도 산출",
+        "cost": "추가 비용 0원",
+        "security": "변동 없음",
+        "migration": "기존 DCFScenario와 100% 하위 호환",
+        "tests": "test_macro_linked_dcf.py 통과"
+      },
+      "opportunity_costs": [
+        "거시 데이터 큐브 정기 갱신 관리 비용"
+      ]
+    }
+  ],
+  "recommended_option_id": "B",
+  "recommendation_reason": "금리와 환율 충격이 기업 가치평가 및 채용 탄력성에 전달되는 파급 경로를 증명하기 위해 필수적임",
+  "impact": {
+    "data": "ECOS/FRED 금리 및 환율 변동분이 WACC와 FCF 마진에 실시간 연동되어 3대 시나리오 재계산",
+    "schema_api": "dynamic_macro_linked_dcf() 표준 API 인터페이스 제공",
+    "ux": "기준금리 50bp 인하 시 적정주가 +11.8% 상승 효과 즉시 가시화",
+    "performance": "0.01초 내 5개년 현금흐름 및 WACC 감응도 산출",
+    "cost": "0원",
+    "security": "변동 없음",
+    "migration": "기존 DCFScenario와 100% 하위 호환",
+    "tests": "test_macro_linked_dcf.py 통과"
+  },
+  "opportunity_costs": [
+    "거시 데이터 큐브 정기 갱신 관리 비용"
+  ],
+  "dependencies": [
+    "FMD-D01"
+  ],
+  "dependency_waivers": {},
+  "accepted_decision": null,
+  "implementation_targets": [
+    "src/company_intel/macro_cubes.py",
+    "src/company_intel/analytics.py",
+    "tests/test_macro_linked_dcf.py"
+  ],
+  "implementation_obligations": [
+    {
+      "obligation_id": "FMD-D02-O01",
+      "kind": "implementation",
+      "statement": "BEA/Eurostat 실질 GDP 및 ECOS/FRED 금리 큐브 로더를 구축한다.",
+      "required": true
+    },
+    {
+      "obligation_id": "FMD-D02-O02",
+      "kind": "boundary",
+      "statement": "WACC 동적 산출 및 환율 마진 탄력성 결합 DCF 파이프라인을 구현한다.",
+      "required": true
+    }
+  ],
+  "implementation_change_ids": [
+    "file-change-fmd-d02-01",
+    "file-change-fmd-d02-02"
+  ],
+  "validation_requirements": [
+    "test_macro_linked_dcf.py 통과"
+  ],
+  "diagram_impacts": [],
+  "context_topic_ids": [
+    "macro-transmission"
+  ]
+}

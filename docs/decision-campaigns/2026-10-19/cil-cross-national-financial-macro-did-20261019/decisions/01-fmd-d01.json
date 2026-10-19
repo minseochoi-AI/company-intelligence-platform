@@ -1,0 +1,130 @@
+{
+  "decision_id": "FMD-D01",
+  "sequence": 1,
+  "unit_id": "CIL-F01-accounting-reconciliation",
+  "title": "3국 이기종 회계기준(K-IFRS/US-GAAP/CAS) 달력분기 동기화 및 4대 핵심 재무비율 크로스워크 계약",
+  "status": "decision-required",
+  "question": "한국(DART/K-IFRS, 12월 결산), 미국(SEC/US-GAAP, 9월/6월/12월 결산), 체코(ARES/CAS) 간 결산월 불일치를 어떻게 달력 분기(Calendar Quarter)로 정규화하고, 유동비율·당좌비율·부채비율·이자보상배율 4대 핵심 지표를 택소노미 차이 없이 1:1 검증할 것인가?",
+  "five_w_one_h": {
+    "who": "CIL 재무 분석 엔진 및 데이터 정규화 모듈 (normalization.py, analytics.py)",
+    "what": "CalendarQuarterNormalizer 알고리즘 및 4대 핵심 재무비율 크로스워크 매핑 계약",
+    "where": "src/company_intel/normalization.py, src/company_intel/analytics.py, tests/test_calendar_quarter_reconciliation.py",
+    "when": "2026-10-19 회계기준 및 시계열 정합성 고도화 단계",
+    "why": "결산월(Fiscal Year) 불일치로 인한 왜곡을 방지하고, 이기종 회계기준 간 유동성·부채비율의 통계적 비교 타당성을 확보하기 위함",
+    "how": "보고기간 종료일(period_end_date) 기준 CY-YYYY-Q1~Q4 달력분기 변환, 누적 손익(YTD) 차분 로직, IFRS/US-GAAP/CAS 계정과목 크로스워크 매핑"
+  },
+  "evidence_refs": [
+    {
+      "evidence_id": "E-DART-SAMSUNG",
+      "source_type": "local-api-probe",
+      "locator": "opendart_samsung_financials",
+      "content_hash": "sha256:opendart-k-ifrs-sample",
+      "line_range": "1-50",
+      "question": "DART의 재무제표 계정과목 및 결산일 구조는 어떠한가?",
+      "observation_summary": "K-IFRS 연결재무제표 기준 ifrs-full_CurrentAssets, CurrentLiabilities 표준 태그 및 12월 결산 확인",
+      "observed_fact": "K-IFRS 연결재무제표 기준 ifrs-full_CurrentAssets, CurrentLiabilities 표준 태그 및 12월 결산 확인"
+    },
+    {
+      "evidence_id": "E-SEC-APPLE",
+      "source_type": "local-api-probe",
+      "locator": "sec_companyfacts_apple",
+      "content_hash": "sha256:sec-apple-us-gaap-sample",
+      "line_range": "1-50",
+      "question": "SEC EDGAR의 미국 애플 결산월 및 태그 구조는 어떠한가?",
+      "observation_summary": "US-GAAP 기준 9월말 결산(FY24Q1 종료일 2023-12-30 -> CY2023Q4) 및 AssetsCurrent 태그 확인",
+      "observed_fact": "US-GAAP 기준 9월말 결산(FY24Q1 종료일 2023-12-30 -> CY2023Q4) 및 AssetsCurrent 태그 확인"
+    }
+  ],
+  "facts": [
+    "DART(한국)는 12월 결산 중심이나 SEC(미국)는 9월, 6월, 12월 등 결산월이 다양함",
+    "대차대조표는 시점 잔액(Stock)이나 손익계산서는 누적치(YTD Flow)로 공시되므로 분기별 차분 계산 필수"
+  ],
+  "conflicts": [],
+  "unimplemented": [
+    "CalendarQuarterNormalizer 및 크로스워크 매핑 모듈 코드 구현 대기"
+  ],
+  "options": [
+    {
+      "option_id": "A",
+      "description": "국가별 회계연도(Fiscal Year)를 그대로 비교 (정규화 부재)",
+      "impact": {
+        "data": "결산월 차이(애플 10~12월이 1Q, 카카오 1~3월이 1Q)로 인한 3개월 시차 왜곡 발생",
+        "schema_api": "기존 유지",
+        "ux": "사용자에게 잘못된 동기화 시계열 제공",
+        "performance": "변동 없음",
+        "cost": "0원",
+        "security": "변동 없음",
+        "migration": "불필요",
+        "tests": "기존 유지"
+      },
+      "opportunity_costs": [
+        "시계열 비교 분석의 학술적/실무적 신뢰도 상실"
+      ]
+    },
+    {
+      "option_id": "B",
+      "description": "CalendarQuarterNormalizer 및 4대 핵심비율 크로스워크 매핑 계약 도입 (권장)",
+      "impact": {
+        "data": "한·미·체 3국 기업의 보고기간 종료일 기준 CY-YYYY-Qk 글로벌 달력 분기 100% 정렬",
+        "schema_api": "company_financials_normalized 표준 스키마 제공",
+        "ux": "동일 달력 분기 기준 유동비율, 당좌비율, 부채비율, ICR 완벽 대조",
+        "performance": "0.005초 내 분기 차분 및 비율 산출 완료",
+        "cost": "추가 비용 0원",
+        "security": "이상치(변동률 > 50%) 자동 플래그 부여",
+        "migration": "기존 analytics.py와 100% 하위 호환",
+        "tests": "단위 테스트 test_calendar_quarter_reconciliation.py로 완전 검증"
+      },
+      "opportunity_costs": [
+        "초기 크로스워크 매핑 테이블 구축 엔지니어링 소요"
+      ]
+    }
+  ],
+  "recommended_option_id": "B",
+  "recommendation_reason": "결산월 불일치를 방치할 경우 거시경제 충격(금리 인하, 환율 변동)과 재무 성과 간의 인과관계 분석이 3개월씩 어긋나는 치명적 계량 오류가 발생하기 때문임",
+  "impact": {
+    "data": "한·미·체 3국 기업의 보고기간 종료일 기준 CY-YYYY-Qk 글로벌 달력 분기 100% 정렬",
+    "schema_api": "company_financials_normalized 표준 스키마 제공",
+    "ux": "동일 달력 분기 기준 유동비율, 당좌비율, 부채비율, ICR 완벽 대조",
+    "performance": "0.005초 내 분기 차분 및 비율 산출 완료",
+    "cost": "0원",
+    "security": "이상치(변동률 > 50%) 자동 플래그 부여",
+    "migration": "기존 analytics.py와 100% 하위 호환",
+    "tests": "단위 테스트 test_calendar_quarter_reconciliation.py로 완전 검증"
+  },
+  "opportunity_costs": [
+    "초기 크로스워크 매핑 테이블 구축 엔지니어링 소요"
+  ],
+  "dependencies": [],
+  "dependency_waivers": {},
+  "accepted_decision": null,
+  "implementation_targets": [
+    "src/company_intel/normalization.py",
+    "src/company_intel/analytics.py",
+    "tests/test_calendar_quarter_reconciliation.py"
+  ],
+  "implementation_obligations": [
+    {
+      "obligation_id": "FMD-D01-O01",
+      "kind": "implementation",
+      "statement": "CalendarQuarterNormalizer 및 YTD 분기 차분 로직을 구현하여 3국 회계분기를 달력 분기로 동기화한다.",
+      "required": true
+    },
+    {
+      "obligation_id": "FMD-D01-O02",
+      "kind": "boundary",
+      "statement": "4대 핵심 재무비율(유동, 당좌, 부채비율, ICR) 계정과목 크로스워크 매핑을 표준화한다.",
+      "required": true
+    }
+  ],
+  "implementation_change_ids": [
+    "file-change-fmd-d01-01",
+    "file-change-fmd-d01-02"
+  ],
+  "validation_requirements": [
+    "test_calendar_quarter_reconciliation.py 통과"
+  ],
+  "diagram_impacts": [],
+  "context_topic_ids": [
+    "cross-national-accounting"
+  ]
+}

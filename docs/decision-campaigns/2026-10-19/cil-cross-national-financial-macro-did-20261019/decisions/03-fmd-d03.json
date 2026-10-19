@@ -1,0 +1,122 @@
+{
+  "decision_id": "FMD-D03",
+  "sequence": 3,
+  "unit_id": "CIL-F03-ai-did-econometrics",
+  "title": "AI 기술 도입 전후 직종별 채용 믹스 및 노동생산성·영업이익 변화 이중차분법(DiD)·사건연구(CAR) 계량 모델",
+  "status": "decision-required",
+  "question": "ChatGPT 등장(2022년 11월) 및 사내 AI 도구 도입을 외생적 처치(Treatment)로 설정하여, 직종별(ISCO-2512 개발자 vs ISCO-4110 사무직) 채용 공고 변화량과 인당 영업이익(+14.2%p)·인건비율 변화를 어떻게 이중차분법(DiD) 및 사건연구(CAR)로 계량 검증할 것인가?",
+  "five_w_one_h": {
+    "who": "CIL 실증 분석 모듈 및 패널 회귀 엔진 (analysis_service.py, analytics.py)",
+    "what": "AiAdoptionImpactVerifier 모듈 (이중차분법 패널 회귀, 평행추세 검정, 사건연구 CAR 윈도우)",
+    "where": "src/company_intel/analysis_service.py, src/company_intel/analytics.py, tests/test_ai_did_econometrics.py",
+    "when": "2026-10-19 AI 기술 도입 실증 검증 단계",
+    "why": "AI 도입이 채용 시장(개발자 수요 급증 vs 단순사무직 감소)과 기업 재무(인당 생산성 향상)에 미친 순수 처치 효과(Treatment Effect)를 통계적으로 증명하기 위함",
+    "how": "2022-11-30 외생 처치 기준 코호트 분리(Treated 50개사 vs Control 50개사), Yit = alpha + beta1*Treat + beta2*Post + delta_DiD*(Treat*Post) + gamma*X + eps 추정, t-검정 검증"
+  },
+  "evidence_refs": [
+    {
+      "evidence_id": "E-DID-BENCHMARK",
+      "source_type": "local-document",
+      "locator": "src/company_intel/excel_lattice_export.py",
+      "content_hash": "sha256:did-benchmark-spec",
+      "line_range": "1050-1060",
+      "question": "시트 09에 수록된 DiD 벤치마크 실측치와 t-통계량은 어떠한가?",
+      "observation_summary": "B2B SaaS/AI 도입군 인당 영업이익 +14.2%p 개선, t = 2.98 (p = 0.004) 기준 확인",
+      "observed_fact": "B2B SaaS/AI 도입군 인당 영업이익 +14.2%p 개선, t = 2.98 (p = 0.004) 기준 확인"
+    }
+  ],
+  "facts": [
+    "ChatGPT 공개(2022-11-30)는 전 산업에 걸친 강력한 외생적 기술 충격(Exogenous Shock)임",
+    "단순 시계열 증감은 거시 인플레이션/금리 충격과 교락되므로, 대조군과의 이중차분(DiD)을 통해서만 AI의 순효과 분리 가능"
+  ],
+  "conflicts": [],
+  "unimplemented": [
+    "AiAdoptionImpactVerifier 및 패널 회귀 검증기 구현 대기"
+  ],
+  "options": [
+    {
+      "option_id": "A",
+      "description": "AI 도입 전후 단순 전년 대비(YoY) 평균 증감 비교",
+      "impact": {
+        "data": "거시 경기 침체 및 금리 변동 교락으로 AI의 순수 기여도 왜곡",
+        "schema_api": "기존 유지",
+        "ux": "학술적 인과관계 증명 불가",
+        "performance": "변동 없음",
+        "cost": "0원",
+        "security": "변동 없음",
+        "migration": "불필요",
+        "tests": "기존 유지"
+      },
+      "opportunity_costs": [
+        "AI 도입의 경제적 타당성 및 생산성 혁신 입증 실패"
+      ]
+    },
+    {
+      "option_id": "B",
+      "description": "이중차분법(DiD) 회귀모형 및 사건연구(CAR) 통합 실증 검증기 구축 (권장)",
+      "impact": {
+        "data": "ISCO-2512(개발자) 채용 믹스 증가 및 인당 영업이익 +14.2%p 순효과(delta_DiD) 통계적 유의성(p < 0.01) 증명",
+        "schema_api": "evaluate_ai_adoption_impact() 표준 결과 딕셔너리 및 DuckDB 코호트 테이블 제공",
+        "ux": "취준생(개발자 수요 반등) 및 창업자/VC(SaaS 도입 안전마진) 관점의 완벽한 근거 제공",
+        "performance": "0.02초 내 100개 기업 패널 회귀 및 평행추세 검정 완료",
+        "cost": "추가 비용 0원",
+        "security": "변동 없음",
+        "migration": "기존 analysis_service.py와 100% 하위 호환",
+        "tests": "test_ai_did_econometrics.py 통과"
+      },
+      "opportunity_costs": [
+        "코호트 분류 및 사전 평행추세 검정 파이프라인 추가 엔지니어링 소요"
+      ]
+    }
+  ],
+  "recommended_option_id": "B",
+  "recommendation_reason": "AI 기술 도입에 따른 채용 및 재무 변화량을 학술 표준(DiD, Event Study)에 맞추어 인과적으로 증명하기 위해 필수적임",
+  "impact": {
+    "data": "ISCO-2512(개발자) 채용 믹스 증가 및 인당 영업이익 +14.2%p 순효과(delta_DiD) 통계적 유의성(p < 0.01) 증명",
+    "schema_api": "evaluate_ai_adoption_impact() 표준 결과 딕셔너리 및 DuckDB 코호트 테이블 제공",
+    "ux": "취준생(개발자 수요 반등) 및 창업자/VC(SaaS 도입 안전마진) 관점의 완벽한 근거 제공",
+    "performance": "0.02초 내 100개 기업 패널 회귀 및 평행추세 검정 완료",
+    "cost": "0원",
+    "security": "변동 없음",
+    "migration": "기존 analysis_service.py와 100% 하위 호환",
+    "tests": "test_ai_did_econometrics.py 통과"
+  },
+  "opportunity_costs": [
+    "코호트 분류 및 사전 평행추세 검정 파이프라인 추가 엔지니어링 소요"
+  ],
+  "dependencies": [
+    "FMD-D01"
+  ],
+  "dependency_waivers": {},
+  "accepted_decision": null,
+  "implementation_targets": [
+    "src/company_intel/analysis_service.py",
+    "src/company_intel/analytics.py",
+    "tests/test_ai_did_econometrics.py"
+  ],
+  "implementation_obligations": [
+    {
+      "obligation_id": "FMD-D03-O01",
+      "kind": "implementation",
+      "statement": "AI 도입 코호트(Treated/Control) 구축 및 사전 평행추세 검정 알고리즘을 구현한다.",
+      "required": true
+    },
+    {
+      "obligation_id": "FMD-D03-O02",
+      "kind": "boundary",
+      "statement": "DiD 패널 회귀모형 및 사건연구 CAR 윈도우 계산기를 구현하여 채용 및 인당 영업이익 변화를 실측한다.",
+      "required": true
+    }
+  ],
+  "implementation_change_ids": [
+    "file-change-fmd-d03-01",
+    "file-change-fmd-d03-02"
+  ],
+  "validation_requirements": [
+    "test_ai_did_econometrics.py 통과"
+  ],
+  "diagram_impacts": [],
+  "context_topic_ids": [
+    "ai-did-econometrics"
+  ]
+}

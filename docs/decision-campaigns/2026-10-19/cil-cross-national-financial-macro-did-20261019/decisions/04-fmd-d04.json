@@ -1,0 +1,141 @@
+{
+  "decision_id": "FMD-D04",
+  "sequence": 4,
+  "unit_id": "CIL-F04-procurement-etl-publishing",
+  "title": "한국 나라장터(KONEPS) 조달 어댑터, DuckDB 워터마크 증분 ETL, 토큰버킷 서킷브레이커 및 노션-Blogger 배포 파이프라인",
+  "status": "decision-required",
+  "question": "공공데이터포털 나라장터 입찰/낙찰 어댑터를 추가하고, DuckDB 워터마크 기반 증분 적재, 호출 한도 초과 방지 토큰 버킷 서킷 브레이커, 모바일 노션 결재 큐 및 Blogger/애드센스 원클릭 자동 배포를 어떻게 구현할 것인가?",
+  "five_w_one_h": {
+    "who": "CIL 데이터 인프라 및 배포 파이프라인 (connectors/koneps.py, warehouse.py, http.py, notion_queue.py, blogger_publisher.py)",
+    "what": "나라장터 어댑터, DuckDB 워터마크 증분 엔진, 토큰버킷 서킷브레이커, 노션 결재 동기화 및 Blogger 퍼블리셔",
+    "where": "src/company_intel/connectors/koneps.py, src/company_intel/warehouse.py, src/company_intel/http.py, src/company_intel/notion_queue.py, src/company_intel/publisher/blogger_publisher.py",
+    "when": "2026-10-19 조달·저장소·배포 인프라 완결 단계",
+    "why": "공공조달 커버리지를 한국으로 확장하고, API 호출 한도 초과(429/차단)를 방지하며, 모바일 승인 기반 블로그 원클릭 배포를 완성하기 위함",
+    "how": "조달청 Open API 연동, etl_sync_watermarks 테이블 기반 증분 머지, Provider별 토큰 버킷 및 연속 3회 실패 시 60초 회로 차단, 노션 데이터베이스 상태 감지 및 Blogger API v3 연동"
+  },
+  "evidence_refs": [
+    {
+      "evidence_id": "E-HTTP-CLIENT",
+      "source_type": "local-code",
+      "locator": "src/company_intel/http.py",
+      "content_hash": "sha256:http-client-code",
+      "line_range": "25-65",
+      "question": "현재 HttpClient의 레이트 리밋 및 재시도 구조는 어떠한가?",
+      "observation_summary": "기본 429 재시도는 있으나 Provider별 할당량 관리 및 연속 실패 시 서킷 브레이커 차단 기능 부재 확인",
+      "observed_fact": "기본 429 재시도는 있으나 Provider별 할당량 관리 및 연속 실패 시 서킷 브레이커 차단 기능 부재 확인"
+    }
+  ],
+  "facts": [
+    "나라장터(KONEPS)는 조달청 공공데이터포털을 통해 입찰공고 및 낙찰정보 REST API를 제공함",
+    "대량 API 수집 시 Provider별 일일 쿼터 초과 방지를 위한 능동적 토큰 버킷과 서킷 브레이커가 필수적임"
+  ],
+  "conflicts": [],
+  "unimplemented": [
+    "koneps.py, 증분 ETL 워터마크, 서킷브레이커 미들웨어 구현 대기"
+  ],
+  "options": [
+    {
+      "option_id": "A",
+      "description": "기존 단순 재시도 HTTP 클라이언트 및 전수 재적재(Full Reload) 방식 유지",
+      "impact": {
+        "data": "배치 구동 시마다 불필요한 전체 재호출로 쿼터 소진",
+        "schema_api": "기존 유지",
+        "ux": "동기화 시간 지연 및 429 차단 위험 상존",
+        "performance": "적재 시간 선형 증가",
+        "cost": "불필요한 트래픽 발생",
+        "security": "IP 차단 위험",
+        "migration": "불필요",
+        "tests": "기존 유지"
+      },
+      "opportunity_costs": [
+        "실시간 증분 동기화 및 안정적 자동화 불가"
+      ]
+    },
+    {
+      "option_id": "B",
+      "description": "나라장터 어댑터 + 워터마크 증분 ETL + 토큰버킷 서킷브레이커 + 노션/Blogger 배포 완비 (권장)",
+      "impact": {
+        "data": "한국 조달 계약 수집 완료, last_modified 이후 변동분만 1초 내 증분 머지",
+        "schema_api": "IncrementalSync, CircuitBreaker, KONEPS Connector 표준 인터페이스 제공",
+        "ux": "스마트폰 노션 앱에서 터치 한 번으로 승인 시 Blogger 자동 발행 완료",
+        "performance": "불필요한 API 호출 90% 절감",
+        "cost": "추가 비용 0원",
+        "security": "연속 3회 오류 시 60초 자동 격리로 IP 영구 차단 원천 방어",
+        "migration": "기존 DuckDB 및 HttpClient와 100% 하위 호환",
+        "tests": "test_rate_limiter_circuit_breaker.py 및 test_incremental_warehouse_sync.py 통과"
+      },
+      "opportunity_costs": [
+        "미들웨어 및 워터마크 테이블 설계 관리 공수"
+      ]
+    }
+  ],
+  "recommended_option_id": "B",
+  "recommendation_reason": "한국 공공조달 계약을 포괄하고, API 쿼터 소진과 IP 차단을 물리적으로 방어하며, 모바일 승인 기반 헤드리스 블로그 배포를 완결하기 위해 필수적임",
+  "impact": {
+    "data": "한국 조달 계약 수집 완료, last_modified 이후 변동분만 1초 내 증분 머지",
+    "schema_api": "IncrementalSync, CircuitBreaker, KONEPS Connector 표준 인터페이스 제공",
+    "ux": "스마트폰 노션 앱에서 터치 한 번으로 승인 시 Blogger 자동 발행 완료",
+    "performance": "불필요한 API 호출 90% 절감",
+    "cost": "0원",
+    "security": "연속 3회 오류 시 60초 자동 격리로 IP 영구 차단 원천 방어",
+    "migration": "기존 DuckDB 및 HttpClient와 100% 하위 호환",
+    "tests": "test_rate_limiter_circuit_breaker.py 및 test_incremental_warehouse_sync.py 통과"
+  },
+  "opportunity_costs": [
+    "미들웨어 및 워터마크 테이블 설계 관리 공수"
+  ],
+  "dependencies": [
+    "FMD-D02"
+  ],
+  "dependency_waivers": {},
+  "accepted_decision": null,
+  "implementation_targets": [
+    "src/company_intel/connectors/koneps.py",
+    "src/company_intel/warehouse.py",
+    "src/company_intel/http.py",
+    "src/company_intel/notion_queue.py",
+    "src/company_intel/publisher/blogger_publisher.py",
+    "tests/test_token_bucket_circuit_breaker.py",
+    "tests/test_incremental_warehouse_sync.py"
+  ],
+  "implementation_obligations": [
+    {
+      "obligation_id": "FMD-D04-O01",
+      "kind": "implementation",
+      "statement": "KONEPS 나라장터 입찰/낙찰 공공데이터 어댑터를 구축한다.",
+      "required": true
+    },
+    {
+      "obligation_id": "FMD-D04-O02",
+      "kind": "implementation",
+      "statement": "DuckDB etl_sync_watermarks 테이블 기반 증분 적재 엔진을 구현한다.",
+      "required": true
+    },
+    {
+      "obligation_id": "FMD-D04-O03",
+      "kind": "boundary",
+      "statement": "Token Bucket & Circuit Breaker HTTP 미들웨어를 구축한다.",
+      "required": true
+    },
+    {
+      "obligation_id": "FMD-D04-O04",
+      "kind": "boundary",
+      "statement": "노션 영속 결재 큐 및 Blogger/애드센스 원클릭 자동 배포 파이프라인을 연동한다.",
+      "required": true
+    }
+  ],
+  "implementation_change_ids": [
+    "file-change-fmd-d04-01",
+    "file-change-fmd-d04-02",
+    "file-change-fmd-d04-03",
+    "file-change-fmd-d04-04"
+  ],
+  "validation_requirements": [
+    "test_token_bucket_circuit_breaker.py 통과",
+    "test_incremental_warehouse_sync.py 통과"
+  ],
+  "diagram_impacts": [],
+  "context_topic_ids": [
+    "procurement-etl-publishing"
+  ]
+}

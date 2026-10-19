@@ -521,3 +521,153 @@ class Warehouse:
             sql += " ORDER BY r.collected_at, m.provider, m.job_id"
             cursor = connection.execute(sql, params)
             return [dict(zip([item[0] for item in cursor.description], row)) for row in cursor.fetchall()]
+
+    def _ensure_watermark_schema(self, connection) -> None:
+        connection.execute(
+            """
+            CREATE TABLE IF NOT EXISTS etl_sync_watermarks (
+                source_name VARCHAR PRIMARY KEY,
+                last_sync_time TIMESTAMP WITH TIME ZONE NOT NULL,
+                records_synced BIGINT DEFAULT 0,
+                sync_status VARCHAR NOT NULL,
+                last_watermark_value VARCHAR,
+                details_json JSON
+            );
+            CREATE TABLE IF NOT EXISTS public_procurement (
+                procurement_id VARCHAR PRIMARY KEY,
+                source_system VARCHAR NOT NULL,
+                country VARCHAR NOT NULL,
+                buyer_name VARCHAR NOT NULL,
+                title VARCHAR NOT NULL,
+                contract_amount DOUBLE,
+                currency VARCHAR NOT NULL,
+                notice_date DATE NOT NULL,
+                winner_name VARCHAR,
+                industry_category VARCHAR,
+                url VARCHAR,
+                collected_at TIMESTAMP WITH TIME ZONE DEFAULT current_timestamp
+            );
+            """
+        )
+
+    def get_watermark(self, source_name: str) -> dict[str, Any] | None:
+        with self.connect() as connection:
+            self._ensure_watermark_schema(connection)
+            cursor = connection.execute(
+                "SELECT source_name, last_sync_time, records_synced, sync_status, last_watermark_value, details_json FROM etl_sync_watermarks WHERE source_name=?",
+                [source_name],
+            )
+            row = cursor.fetchone()
+            if not row:
+                return None
+            cols = [item[0] for item in cursor.description]
+            res = dict(zip(cols, row))
+            if res.get("details_json") and isinstance(res["details_json"], str):
+                try:
+                    res["details_json"] = json.loads(res["details_json"])
+                except Exception:
+                    pass
+            return res
+
+    def update_watermark(
+        self,
+        source_name: str,
+        records_synced: int,
+        sync_status: str = "SUCCESS",
+        last_watermark_value: str | None = None,
+        details: dict[str, Any] | None = None,
+    ) -> None:
+        now = datetime.now(UTC)
+        with self.connect() as connection:
+            self._ensure_watermark_schema(connection)
+            connection.execute(
+                """
+                INSERT INTO etl_sync_watermarks(source_name, last_sync_time, records_synced, sync_status, last_watermark_value, details_json)
+                VALUES (?, ?, ?, ?, ?, ?)
+                ON CONFLICT (source_name) DO UPDATE SET
+                    last_sync_time=excluded.last_sync_time,
+                    records_synced=etl_sync_watermarks.records_synced + excluded.records_synced,
+                    sync_status=excluded.sync_status,
+                    last_watermark_value=excluded.last_watermark_value,
+                    details_json=excluded.details_json
+                """,
+                [
+                    source_name,
+                    now,
+                    records_synced,
+                    sync_status,
+                    last_watermark_value,
+                    json.dumps(details or {}, ensure_ascii=False),
+                ],
+            )
+
+    def ingest_public_procurements(self, records: list[dict[str, Any]]) -> int:
+        if not records:
+            return 0
+        rows = [
+            (
+                r.get("procurement_id"),
+                r.get("source_system", "UNKNOWN"),
+                r.get("country", "KR"),
+                r.get("buyer_name", "Unknown Buyer"),
+                r.get("title", ""),
+                float(r.get("contract_amount", 0.0) or 0.0),
+                r.get("currency", "KRW"),
+                r.get("notice_date", "2026-01-01"),
+                r.get("winner_name"),
+                r.get("industry_category"),
+                r.get("url"),
+            )
+            for r in records
+        ]
+        with self.connect() as connection:
+            self._ensure_watermark_schema(connection)
+            connection.executemany(
+                """
+                INSERT OR REPLACE INTO public_procurement(
+                    procurement_id, source_system, country, buyer_name, title,
+                    contract_amount, currency, notice_date, winner_name, industry_category, url
+                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                """,
+                rows,
+            )
+        return len(rows)
+
+    def incremental_sync_source(
+        self,
+        source_name: str,
+        fetcher_fn: Any,
+    ) -> dict[str, Any]:
+        """Execute incremental ETL sync using watermarking to prevent duplicate full reloads."""
+        watermark = self.get_watermark(source_name)
+        since_val = watermark.get("last_watermark_value") if watermark else None
+        
+        try:
+            records, next_watermark = fetcher_fn(since_val)
+            ingested_count = len(records)
+            if source_name == "KONEPS":
+                ingested_count = self.ingest_public_procurements(records)
+            
+            self.update_watermark(
+                source_name=source_name,
+                records_synced=ingested_count,
+                sync_status="SUCCESS",
+                last_watermark_value=str(next_watermark) if next_watermark else since_val,
+                details={"fetched": len(records), "ingested": ingested_count},
+            )
+            return {
+                "source": source_name,
+                "status": "SUCCESS",
+                "records_synced": ingested_count,
+                "watermark": next_watermark or since_val,
+            }
+        except Exception as exc:
+            self.update_watermark(
+                source_name=source_name,
+                records_synced=0,
+                sync_status="FAILED",
+                last_watermark_value=since_val,
+                details={"error": str(exc)},
+            )
+            raise
+

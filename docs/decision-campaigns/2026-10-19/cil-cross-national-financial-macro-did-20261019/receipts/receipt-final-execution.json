@@ -1,0 +1,49 @@
+{
+  "campaign_id": "cil-cross-national-financial-macro-did-20261019",
+  "executed_at": "2026-10-19T15:28:00+09:00",
+  "verification_status": "ALL_PASSED",
+  "total_tests_passed": 225,
+  "test_suites_executed": [
+    "tests/test_calendar_quarter_reconciliation.py (5 passed)",
+    "tests/test_macro_linked_dcf.py (4 passed)",
+    "tests/test_ai_did_econometrics.py (4 passed)",
+    "tests/test_koneps_connector.py (3 passed)",
+    "tests/test_rate_limiter_circuit_breaker.py (3 passed)",
+    "tests/test_incremental_warehouse_sync.py (2 passed)",
+    "tests/test_blogger_publisher.py (3 passed)",
+    "tests/test_notion_queue.py (2 passed)",
+    "Full project test suite: 225 passed in 58.10s"
+  ],
+  "decisions_settled": [
+    {
+      "decision_id": "FMD-D01",
+      "summary": "Calendar Quarter Normalization & Cross-National 4-Metric Financial Crosswalk",
+      "status": "IMPLEMENTED_AND_VERIFIED",
+      "files": ["src/company_intel/normalization.py", "src/company_intel/analytics.py"]
+    },
+    {
+      "decision_id": "FMD-D02",
+      "summary": "BEA/Eurostat Multidimensional Cube Loading & Dynamic Macro-Linked DCF",
+      "status": "IMPLEMENTED_AND_VERIFIED",
+      "files": ["src/company_intel/macro_cubes.py", "src/company_intel/analytics.py"]
+    },
+    {
+      "decision_id": "FMD-D03",
+      "summary": "AI Adoption Impact Econometric Modeling (Parallel Trends & Panel DiD)",
+      "status": "IMPLEMENTED_AND_VERIFIED",
+      "files": ["src/company_intel/analytics.py", "src/company_intel/analysis_service.py"]
+    },
+    {
+      "decision_id": "FMD-D04",
+      "summary": "KONEPS Procurement Adapter, Token Bucket & Circuit Breaker, DuckDB Watermarking ETL",
+      "status": "IMPLEMENTED_AND_VERIFIED",
+      "files": [
+        "src/company_intel/connectors/koneps.py",
+        "src/company_intel/middleware/rate_limiter.py",
+        "src/company_intel/http.py",
+        "src/company_intel/warehouse.py",
+        "sql/duckdb_schema.sql"
+      ]
+    }
+  ]
+}

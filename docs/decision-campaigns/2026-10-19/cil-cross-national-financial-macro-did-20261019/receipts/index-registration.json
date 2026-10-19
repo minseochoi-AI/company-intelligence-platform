@@ -1,0 +1,31 @@
+{
+  "contract_version": "atomic-json-patch-receipt-v1",
+  "target": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/index.json",
+  "outcome": "pass",
+  "before_sha256": "f8f9d358ae50b0986990ac165c5cae9f3057c5cd601f5f336cc7036a73bedb4a",
+  "after_sha256": "324f1ab066d4abcaad8ca098af815842c9d29214023fcbb6a51b6f06f1a3fc42",
+  "proposed_after_sha256": "324f1ab066d4abcaad8ca098af815842c9d29214023fcbb6a51b6f06f1a3fc42",
+  "operations": [
+    {
+      "op": "test",
+      "path": "/active_campaign_id"
+    },
+    {
+      "op": "test",
+      "path": "/schema_version"
+    },
+    {
+      "op": "replace",
+      "path": "/active_campaign_id"
+    },
+    {
+      "op": "add",
+      "path": "/campaigns/-"
+    }
+  ],
+  "backup": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/.mutation-journal/preimages/sha256-f8f9d358ae50b0986990ac165c5cae9f3057c5cd601f5f336cc7036a73bedb4a.json",
+  "journal": "/home/ubuntu/root/company-intelligence-platform/docs/decision-campaigns/.mutation-journal/mutations/9710bede4bc9e5776c0810637c1c861f7968414f5844d9ad417e7a6c58bfc153.json",
+  "mutation_id": "register:cil-cross-national-financial-macro-did-20261019",
+  "validators": [],
+  "completed_at": "2026-10-19T06:05:17.384432+00:00"
+}

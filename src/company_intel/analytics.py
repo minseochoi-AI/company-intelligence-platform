@@ -598,3 +598,284 @@ def calculate_cluster_elasticity_breakdown(
         ),
     }
 
+
+# ---------------------------------------------------------------------------
+# Cross-National Financial Reconciliation & Macro Transmission (FMD-D01, FMD-D02, FMD-D03)
+# ---------------------------------------------------------------------------
+
+CROSSWALK_FINANCIAL_METRICS: dict[str, dict[str, tuple[str, ...]]] = {
+    "KR": {
+        "current_assets": ("ifrs-full_CurrentAssets", "유동자산", "CurrentAssets", "current_assets"),
+        "current_liabilities": ("ifrs-full_CurrentLiabilities", "유동부채", "CurrentLiabilities", "current_liabilities"),
+        "inventories": ("ifrs-full_Inventories", "재고자산", "Inventories", "inventories"),
+        "total_liabilities": ("ifrs-full_Liabilities", "부채총계", "Liabilities", "total_liabilities"),
+        "total_equity": ("ifrs-full_Equity", "자본총계", "Equity", "total_equity", "equity"),
+        "operating_income": ("ifrs-full_OperatingIncomeLoss", "영업이익", "OperatingIncome", "operating_income"),
+        "interest_expense": ("ifrs-full_InterestExpense", "이자비용", "InterestExpense", "interest_expense"),
+        "revenue": ("ifrs-full_Revenue", "매출액", "Revenue", "revenue"),
+    },
+    "US": {
+        "current_assets": ("AssetsCurrent", "CurrentAssets", "current_assets"),
+        "current_liabilities": ("LiabilitiesCurrent", "CurrentLiabilities", "current_liabilities"),
+        "inventories": ("InventoryNet", "Inventories", "inventories"),
+        "total_liabilities": ("Liabilities", "TotalLiabilities", "total_liabilities"),
+        "total_equity": ("StockholdersEquity", "TotalEquity", "equity", "total_equity"),
+        "operating_income": ("OperatingIncomeLoss", "OperatingIncome", "operating_income"),
+        "interest_expense": ("InterestExpense", "InterestAndDebtExpense", "interest_expense"),
+        "revenue": ("Revenues", "SalesRevenueNet", "RevenueFromContractWithCustomerExcludingAssessedTax", "revenue"),
+    },
+    "CZ": {
+        "current_assets": ("Oběžná aktiva", "Aktiva celkem - Oběžná aktiva", "current_assets"),
+        "current_liabilities": ("Krátkodobé závazky", "current_liabilities"),
+        "inventories": ("Zásoby", "inventories"),
+        "total_liabilities": ("Cizí zdroje", "total_liabilities"),
+        "total_equity": ("Vlastní kapitál", "total_equity", "equity"),
+        "operating_income": ("Provozní výsledek hospodaření", "operating_income"),
+        "interest_expense": ("Nákladové úroky", "interest_expense"),
+        "revenue": ("Tržby z prodeje výrobků a služeb", "Tržby celkem", "revenue"),
+    },
+}
+
+
+def _extract_canonical_fact(raw: Mapping[str, Any], aliases: tuple[str, ...]) -> float | None:
+    for alias in aliases:
+        if alias in raw and raw[alias] is not None:
+            try:
+                val = float(raw[alias])
+                if math.isfinite(val):
+                    return val
+            except (ValueError, TypeError):
+                continue
+    return None
+
+
+def reconcile_cross_national_financials(
+    raw_facts: Mapping[str, Any],
+    country_code: str = "KR",
+    accounting_standard: str | None = None,
+) -> dict[str, Any]:
+    """Reconcile disparate accounting taxonomies (K-IFRS, US-GAAP, Czech CAS) into 4 core ratios.
+    
+    1. Current Ratio = Current Assets / Current Liabilities
+    2. Quick Ratio = (Current Assets - Inventory) / Current Liabilities
+    3. Debt to Equity = Total Liabilities / Total Equity
+    4. Interest Coverage = Operating Income / Interest Expense
+    """
+    country = (country_code or "KR").upper()
+    mapping = CROSSWALK_FINANCIAL_METRICS.get(country, CROSSWALK_FINANCIAL_METRICS["KR"])
+
+    ca = _extract_canonical_fact(raw_facts, mapping["current_assets"])
+    cl = _extract_canonical_fact(raw_facts, mapping["current_liabilities"])
+    inv = _extract_canonical_fact(raw_facts, mapping["inventories"]) or 0.0
+    tl = _extract_canonical_fact(raw_facts, mapping["total_liabilities"])
+    eq = _extract_canonical_fact(raw_facts, mapping["total_equity"])
+    ebit = _extract_canonical_fact(raw_facts, mapping["operating_income"])
+    inte = _extract_canonical_fact(raw_facts, mapping["interest_expense"])
+    rev = _extract_canonical_fact(raw_facts, mapping["revenue"])
+
+    current_ratio = safe_div(ca, cl)
+    quick_ratio = safe_div(ca - inv if ca is not None else None, cl)
+    debt_to_equity = safe_div(tl, eq)
+    interest_coverage = safe_div(ebit, inte)
+
+    # Discontinuity check
+    prior_cr = raw_facts.get("prior_current_ratio")
+    discontinuity_flag = False
+    if current_ratio is not None and prior_cr is not None and prior_cr > 0:
+        if abs(current_ratio / prior_cr - 1.0) > 0.5:
+            discontinuity_flag = True
+
+    return {
+        "country_code": country,
+        "accounting_standard": accounting_standard or ("K-IFRS" if country == "KR" else "US-GAAP" if country == "US" else "CAS"),
+        "current_assets": ca,
+        "current_liabilities": cl,
+        "inventories": inv,
+        "total_liabilities": tl,
+        "total_equity": eq,
+        "operating_income": ebit,
+        "interest_expense": inte,
+        "revenue": rev,
+        "current_ratio": current_ratio,
+        "quick_ratio": quick_ratio,
+        "debt_to_equity": debt_to_equity,
+        "interest_coverage": interest_coverage,
+        "discontinuity_flag": discontinuity_flag,
+    }
+
+
+def calculate_dynamic_wacc(
+    base_rate: float,
+    beta: float = 1.0,
+    equity_risk_premium: float = 0.055,
+    credit_spread: float = 0.015,
+    tax_rate: float = 0.22,
+    debt_to_equity: float = 0.5,
+) -> dict[str, float]:
+    """Calculate Dynamic WACC dynamically bound to macroeconomic base rate (ECOS/FRED).
+    
+    Ke = base_rate + beta * ERP
+    Kd = base_rate + credit_spread
+    D/V = D/E / (1 + D/E)
+    E/V = 1 / (1 + D/E)
+    WACC = (E/V) * Ke + (D/V) * Kd * (1 - tax_rate)
+    """
+    ke = base_rate + beta * equity_risk_premium
+    kd = base_rate + credit_spread
+    
+    # Capital structure weights
+    weight_debt = debt_to_equity / (1.0 + debt_to_equity)
+    weight_equity = 1.0 / (1.0 + debt_to_equity)
+
+    after_tax_kd = kd * (1.0 - tax_rate)
+    wacc = (weight_equity * ke) + (weight_debt * after_tax_kd)
+
+    return {
+        "base_rate": base_rate,
+        "cost_of_equity": ke,
+        "cost_of_debt": kd,
+        "after_tax_cost_of_debt": after_tax_kd,
+        "weight_equity": weight_equity,
+        "weight_debt": weight_debt,
+        "wacc": wacc,
+    }
+
+
+def dynamic_macro_linked_dcf(
+    revenue: float,
+    net_debt: float,
+    shares: float,
+    base_rate: float = 0.0325,
+    beta: float = 1.0,
+    fx_change_pct: float = 0.0,
+    is_exporter: bool = True,
+    base_fcf_margin: float = 0.15,
+    terminal_growth: float = 0.02,
+    years: int = 5,
+) -> dict[str, Any]:
+    """Compute DCF enterprise value where WACC and FCF margin dynamically react to macro shocks.
+    
+    - Interest Rate Shock -> WACC alters discount rate
+    - FX Shock -> FCF margin adjusted by elasticity (+0.25 for exporters, -0.20 for importers)
+    """
+    wacc_info = calculate_dynamic_wacc(base_rate=base_rate, beta=beta)
+    discount_rate = wacc_info["wacc"]
+
+    # FX margin elasticity
+    fx_elasticity = 0.25 if is_exporter else -0.20
+    adjusted_fcf_margin = max(0.01, base_fcf_margin * (1.0 + fx_elasticity * fx_change_pct))
+
+    scenarios = [
+        DCFScenario("downside", 0.00, adjusted_fcf_margin * 0.8, discount_rate + 0.015, max(0.005, terminal_growth - 0.01)),
+        DCFScenario("base", 0.05, adjusted_fcf_margin, discount_rate, terminal_growth),
+        DCFScenario("upside", 0.10, adjusted_fcf_margin * 1.2, max(discount_rate - 0.01, terminal_growth + 0.01), terminal_growth + 0.01),
+    ]
+
+    base_dcf = dcf_scenarios(revenue=revenue, net_debt=net_debt, shares=shares, scenarios=scenarios, years=years)
+    base_dcf["macro_inputs"] = {
+        "base_rate": base_rate,
+        "dynamic_wacc": discount_rate,
+        "fx_change_pct": fx_change_pct,
+        "adjusted_fcf_margin": adjusted_fcf_margin,
+    }
+    return base_dcf
+
+
+def verify_parallel_trends(
+    treated_pre_series: list[float],
+    control_pre_series: list[float],
+) -> dict[str, Any]:
+    """Test parallel pre-trends assumption before treatment (H0: slope_diff = 0).
+    
+    If p_value > 0.05, parallel pre-trend holds (DiD is econometrically valid).
+    """
+    t_len = min(len(treated_pre_series), len(control_pre_series))
+    if t_len < 2:
+        return {"valid": False, "reason": "insufficient_pre_periods", "p_value": None}
+
+    x = np.arange(t_len)
+    y_diff = np.array(treated_pre_series[:t_len]) - np.array(control_pre_series[:t_len])
+    
+    # OLS on difference series
+    slope, intercept = np.polyfit(x, y_diff, 1)
+    # Residual variance
+    y_pred = slope * x + intercept
+    residuals = y_diff - y_pred
+    dof = max(1, t_len - 2)
+    s_err = np.sqrt(np.sum(residuals**2) / dof) / np.sqrt(np.sum((x - np.mean(x))**2) or 1.0)
+    t_stat = slope / s_err if s_err > 0 else 0.0
+    
+    # Simple normal approximation for two-tailed p-value
+    p_val = float(2.0 * (1.0 - 0.5 * (1.0 + math.erf(abs(t_stat) / math.sqrt(2.0)))))
+
+    return {
+        "valid": p_val > 0.05,
+        "slope_difference": float(slope),
+        "t_statistic": float(t_stat),
+        "p_value": p_val,
+        "interpretation": "Parallel pre-trends hold (DiD valid)" if p_val > 0.05 else "Parallel pre-trends violated (biased)",
+    }
+
+
+def panel_difference_in_differences(
+    cohort_panel_rows: list[dict[str, Any]],
+    metric_key: str = "ebit_per_employee",
+    treated_key: str = "is_treated",
+    post_key: str = "is_post",
+) -> dict[str, Any]:
+    """Perform Panel Difference-in-Differences with 4 cell means and t-statistic.
+    
+    delta_DiD = (Mean_Treated_Post - Mean_Treated_Pre) - (Mean_Control_Post - Mean_Control_Pre)
+    """
+    cells = {
+        ("treat", "pre"): [],
+        ("treat", "post"): [],
+        ("ctrl", "pre"): [],
+        ("ctrl", "post"): [],
+    }
+
+    for row in cohort_panel_rows:
+        val = row.get(metric_key)
+        if val is None or not math.isfinite(float(val)):
+            continue
+        val_f = float(val)
+        is_tr = bool(row.get(treated_key))
+        is_po = bool(row.get(post_key))
+
+        group = "treat" if is_tr else "ctrl"
+        period = "post" if is_po else "pre"
+        cells[(group, period)].append(val_f)
+
+    if any(len(v) == 0 for v in cells.values()):
+        raise ValueError("All 4 DiD panel cells (treated/control x pre/post) require non-empty observations")
+
+    means = {k: float(np.mean(v)) for k, v in cells.items()}
+    vars_ = {k: float(np.var(v, ddof=1) if len(v) > 1 else 0.0) for k, v in cells.items()}
+    ns = {k: len(v) for k, v in cells.items()}
+
+    treat_change = means[("treat", "post")] - means[("treat", "pre")]
+    ctrl_change = means[("ctrl", "post")] - means[("ctrl", "pre")]
+    delta_did = treat_change - ctrl_change
+
+    # Standard error of difference-in-differences
+    se_did = math.sqrt(sum(vars_[k] / ns[k] for k in cells if ns[k] > 0))
+    t_stat = delta_did / se_did if se_did > 0 else 0.0
+    p_val = float(2.0 * (1.0 - 0.5 * (1.0 + math.erf(abs(t_stat) / math.sqrt(2.0)))))
+
+    return {
+        "metric": metric_key,
+        "treated_pre_mean": means[("treat", "pre")],
+        "treated_post_mean": means[("treat", "post")],
+        "control_pre_mean": means[("ctrl", "pre")],
+        "control_post_mean": means[("ctrl", "post")],
+        "treated_change": treat_change,
+        "control_change": ctrl_change,
+        "did_estimate": delta_did,
+        "standard_error": se_did,
+        "t_statistic": t_stat,
+        "p_value": p_val,
+        "is_significant_1pct": p_val < 0.01,
+        "is_significant_5pct": p_val < 0.05,
+    }
+
+

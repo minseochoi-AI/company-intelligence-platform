@@ -312,3 +312,28 @@ CREATE TABLE IF NOT EXISTS fact_revision (
     source_snapshot_id VARCHAR NOT NULL,
     PRIMARY KEY(fact_id, revision_at)
 );
+
+CREATE TABLE IF NOT EXISTS etl_sync_watermarks (
+    source_name VARCHAR PRIMARY KEY,
+    last_sync_time TIMESTAMP WITH TIME ZONE NOT NULL,
+    records_synced BIGINT DEFAULT 0,
+    sync_status VARCHAR NOT NULL,
+    last_watermark_value VARCHAR,
+    details_json JSON
+);
+
+CREATE TABLE IF NOT EXISTS public_procurement (
+    procurement_id VARCHAR PRIMARY KEY,
+    source_system VARCHAR NOT NULL,
+    country VARCHAR NOT NULL,
+    buyer_name VARCHAR NOT NULL,
+    title VARCHAR NOT NULL,
+    contract_amount DOUBLE,
+    currency VARCHAR NOT NULL,
+    notice_date DATE NOT NULL,
+    winner_name VARCHAR,
+    industry_category VARCHAR,
+    url VARCHAR,
+    collected_at TIMESTAMP WITH TIME ZONE DEFAULT current_timestamp
+);
+

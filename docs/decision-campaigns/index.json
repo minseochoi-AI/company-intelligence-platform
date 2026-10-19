@@ -1,6 +1,6 @@
 {
   "schema_version": "1.0.0",
-  "active_campaign_id": "cil-live-job-provenance-20261018",
+  "active_campaign_id": "cil-cross-national-financial-macro-did-20261019",
   "campaigns": [
     {
       "campaign_id": "company-intelligence-cross-region-career-preparation",
@@ -31,6 +31,11 @@
       "campaign_id": "cil-live-job-provenance-20261018",
       "created_date": "2026-10-18",
       "manifest": "docs/decision-campaigns/2026-10-18/cil-live-job-provenance-20261018/campaign.json"
+    },
+    {
+      "campaign_id": "cil-cross-national-financial-macro-did-20261019",
+      "created_date": "2026-10-19",
+      "manifest": "docs/decision-campaigns/2026-10-19/cil-cross-national-financial-macro-did-20261019/campaign.json"
     }
   ]
 }
