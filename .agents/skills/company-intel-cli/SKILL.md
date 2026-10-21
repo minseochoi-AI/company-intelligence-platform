@@ -1,58 +1,14 @@
 ---
 name: company-intel-cli
-description: Use the Korean company-intel CLI for saved company, institution, or job evidence, reproducible comparison, and export. Live refresh requires an explicit request.
+description: 선택한 채용 공고나 기업을 여러 목적에서 조사하고 재현 가능한 Excel을 만들 때 사용한다.
 ---
 
-# Company Intelligence CLI
+# S01 — 목적과 입력을 확정하고 필요한 스킬만 선택한다.
 
-Use the Korean command surface first. Existing English commands and options are compatibility aliases only.
+최소 호출은 S01 → 해당 목적 스킬 → S08. financial은 S03만, path는 S02·S05, work-future는 S02·S04를 선택한다. 선택한 공고의 provider_id·posting_id·revision은 명시한 원문으로 확정한다.
 
-From outside the CIL checkout, pass its root explicitly or set `COMPANY_INTEL_PROJECT_ROOT`. The CLI argument wins over the environment variable, then falls back to the current directory. Confirm `config/providers.json` exists before a provider-status command.
+입력: `purpose, question, cohort_signature, subject_refs, as_of, field_filters, source_bindings, argument_origins, execution_limits`. API 추가는 capability operation·schema version·field semantics·권리·자료 시점 등록이 선행한다. 등록만으로 실시간 가용성이나 모든 응답 키가 검증되었다고 보고하지 않는다.
 
-Start with:
+AI는 사용자의 질문에서 목적·필터·분석 방법 후보를 제안할 수 있다. `argument_origins`에는 실제 출처를 기록한다. 개인 자격·법인/공고 식별자·기준 시점·자료 바인딩은 사용자 명시 또는 출처 근거로 확정한다. 미확정이면 NEEDS_INPUT/NEEDS_EVIDENCE를 반환한다. 개인 학위·원자력·에너지·국가 선호는 전역 기본값이 아니다.
 
-```bash
-company-intel 사용-안내
-company-intel --프로젝트-경로 /path/to/company-intelligence-platform 원천-상태
-```
-
-For stored job snapshots, inspect the exact inputs before running a search:
-
-```bash
-company-intel 사용-안내 --명령 채용-검색
-company-intel 채용-검색 --도움말
-```
-
-Use `대화형-선택` when a human needs to choose observed facets with arrow keys. It reads only local JSON snapshots; it does not refresh providers, install packages, or submit applications. In a non-TTY environment, use `--선택-스크립트` and `--미리보기`.
-
-Choose the analysis path by purpose:
-
-- Current vacancies from one saved collection: `현재-채용`.
-- Change across compatible repeated snapshots: `채용-동향`.
-- Entity ownership, legal form, or public-institution taxonomy: `기업-기관-검색`.
-- Comparable metrics only: `기업-비교`.
-- Evidence and CSV/XLSX delivery: `근거-설명`, `증거-내보내기`, then `선택-재현` when verification is needed.
-- Pre-flight baseline cluster space disclosure: `클러스터-사양-안내` (`cluster-spec`).
-- API attribute metadata audit: `api-속성-조회` (`list-api-attributes`).
-- Dynamic 3-layer cluster jobs export: `클러스터-채용-추출` (`export-cluster-jobs`).
-
-Keep JSON/CSV field names, provider IDs, and status enums unchanged. They are reproducibility contracts, not English presentation text. Do not infer salary, requirements, identity, or taxonomy values that an input snapshot does not structurally provide.
-
-Examples:
-
-```bash
-# 1. 28대 API, 142개 원천 속성, 21,000개 클러스터 조합 사전 설명문 출력
-company-intel 클러스터-사양-안내
-
-# 2. 특정 API 반환 속성 메타데이터 감사
-company-intel api-속성-조회 --원천 cz_mpsv
-
-# 3. 5단계 시그니처 기반 채용공고 엑셀 추출 (24열 하이퍼링크 수식 포함)
-company-intel 클러스터-채용-추출 --시그니처 KR:STATE_OWNED:ALL:REGULAR:ALL --출력-경로 kr_soe_jobs.xlsx
-
-# 4. 사전 설명문 선행 브리핑 및 래티스 실시간 해석이 포함된 대화형 모드
-company-intel 클러스터-채용-추출 --대화형 --국가 CZ --섹터 PUBLIC_INSTITUTION
-
-# 5. 동적 3-계층 속성 확장 엑셀 추출 (Core 8열 + 동적 N열 + Provenance 7열)
-company-intel 클러스터-채용-추출 --국가 CZ --동적-속성 legal_form,salary_min,award_amount --출력-경로 cz_dynamic.xlsx
-```
+실행·해석은 [조사 계약](references/research-contract.md)을 따른다. 로컬 저장 자료가 기본이다. 외부 API 갱신·지원서 제출·게시·배포를 이 스킬 호출만으로 수행하지 않는다.

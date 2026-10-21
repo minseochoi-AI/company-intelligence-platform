@@ -1,16 +1,8 @@
 """Unit tests for the 4-Audience Multi-Perspective Occupational Track Lattice."""
 from __future__ import annotations
 
-from company_intel.lattice_models import (
-    CareerEdge,
-    LatticeDomainGraph,
-    RoleNode,
-    WorkflowConnection,
-)
-from company_intel.track_lattice import (
-    TrackLatticeEngine,
-    get_default_ict_data_ai_graph,
-)
+from cil_contracts.taxonomy import CareerEdge, LatticeDomainGraph, RoleNode, WorkflowConnection
+from cil_domain.taxonomy.tracks import TrackLatticeEngine, get_default_ict_data_ai_graph
 
 
 def test_lattice_models_serialization():
@@ -137,7 +129,7 @@ def test_track_lattice_engine_four_projections():
 
 
 def test_multi_domain_registry_and_grand_unified_graph():
-    from company_intel.lattice_domains import DOMAIN_METADATA, get_domain_graph
+    from cil_domain.taxonomy.templates import DOMAIN_METADATA, get_domain_graph
 
     # Verify 12 domains metadata
     assert len(DOMAIN_METADATA) >= 13

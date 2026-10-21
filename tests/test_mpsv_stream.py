@@ -1,4 +1,4 @@
-from company_intel.connectors.mpsv_stream import stream_mpsv_vacancies, aggregate_by_cz_isco, CURATED_MPSV_FIXTURE
+from cil_integrations.providers.mpsv.jobs import stream_mpsv_vacancies, aggregate_by_cz_isco, CURATED_MPSV_FIXTURE
 
 
 def test_mpsv_stream_parsing():

@@ -1,7 +1,6 @@
-"""Physical provenance integration test suite for master occupational lattice Excel.
+"""Historical workbooks remain unverified without a trusted manifest binding.
 
-Directly validates physical joins against disk artifacts, DuckDB tables, and
-official taxonomy registries without any mock fixtures or synthetic test stubs.
+Reading cells is not evidence of live API or physical source joins.
 """
 
 from __future__ import annotations
@@ -11,8 +10,8 @@ from pathlib import Path
 
 import pytest
 
-from company_intel.cli import main
-from company_intel.provenance_validator import ExcelProvenanceValidator
+from cil_cli.main import main
+from cil_integrations.validation.workbooks import ExcelProvenanceValidator
 
 
 @pytest.fixture(scope="module")
@@ -37,10 +36,10 @@ def test_physical_provenance_validator_all_matrices_pass(project_root: Path, mas
 
     assert report.total_matrices_checked == 10
     assert report.failed_matrices == 0
-    assert report.passed_matrices == 10
-    assert report.overall_match_rate_pct == 100.0
+    assert report.passed_matrices == 0
+    assert report.overall_match_rate_pct == 0.0
     assert report.total_rows_audited >= 2800
-    assert report.total_rows_verified == report.total_rows_audited
+    assert report.total_rows_verified == 0
 
 
 def test_sheet_01_master_taxonomy_physical_join(project_root: Path, master_excel_path: Path) -> None:
@@ -56,12 +55,12 @@ def test_sheet_01_master_taxonomy_physical_join(project_root: Path, master_excel
     res = validator.verify_sheet_01_master_taxonomy(wb)
     wb.close()
 
-    assert res.status == "PASS"
+    assert res.status == "UNVERIFIED"
     assert res.row_count == 436
-    assert res.matched_count == 436
-    assert res.match_rate_pct == 100.0
-    assert res.evidence_sha256 is not None
-    assert Path(res.physical_evidence_path).exists()
+    assert res.matched_count == 0
+    assert res.match_rate_pct == 0.0
+    assert res.evidence_sha256 is None
+    assert res.physical_evidence_path == ""
 
 
 def test_sheet_02_career_lattice_dag_physical_join(project_root: Path, master_excel_path: Path) -> None:
@@ -77,10 +76,10 @@ def test_sheet_02_career_lattice_dag_physical_join(project_root: Path, master_ex
     res = validator.verify_sheet_02_career_lattice_dag(wb)
     wb.close()
 
-    assert res.status == "PASS"
+    assert res.status == "UNVERIFIED"
     assert res.row_count == 1341
-    assert res.matched_count == 1341
-    assert res.match_rate_pct == 100.0
+    assert res.matched_count == 0
+    assert res.match_rate_pct == 0.0
 
 
 def test_sheet_04_market_dynamics_ai_exposure_physical_tasks_join(project_root: Path, master_excel_path: Path) -> None:
@@ -96,10 +95,10 @@ def test_sheet_04_market_dynamics_ai_exposure_physical_tasks_join(project_root: 
     res = validator.verify_sheet_04_market_dynamics_roi(wb)
     wb.close()
 
-    assert res.status == "PASS"
+    assert res.status == "UNVERIFIED"
     assert res.row_count == 436
-    assert res.matched_count == 436
-    assert res.match_rate_pct == 100.0
+    assert res.matched_count == 0
+    assert res.match_rate_pct == 0.0
 
 
 def test_sheet_07_time_series_warehouse_duckdb_and_raw_payload_join(project_root: Path, master_excel_path: Path) -> None:
@@ -115,20 +114,20 @@ def test_sheet_07_time_series_warehouse_duckdb_and_raw_payload_join(project_root
     res, samples = validator.verify_sheet_07_time_series_warehouse(wb)
     wb.close()
 
-    assert res.status == "PASS"
-    assert res.row_count == 73
-    assert res.matched_count == 73
-    assert res.match_rate_pct == 100.0
+    assert res.status == "UNVERIFIED"
+    assert res.row_count > 0
+    assert res.matched_count == 0
+    assert res.match_rate_pct == 0.0
     assert len(samples) > 0
     for sample in samples:
-        assert sample.join_verified is True
+        assert sample.join_verified is False
         assert sample.reported_value is not None
-        assert sample.source_api in ("OpenDART", "SEC EDGAR", "ARES/MFCR", "워크넷", "Greenhouse/Lever", "MPSV", "PblJobService", "ECOS", "FRED", "CNB")
+        assert sample.source_api == "unknown"
 
 
-def test_cli_verify_excel_provenance_command(project_root: Path, master_excel_path: Path) -> None:
+def test_cli_verify_excel_provenance_command(project_root: Path, master_excel_path: Path, tmp_path: Path) -> None:
     """Verify that CLI verify-excel-provenance command runs end-to-end and returns exit code 0."""
-    report_target = project_root / "artifacts" / "test_cli_provenance_report.md"
+    report_target = tmp_path / "report.md"
     try:
         code = main([
             "verify-excel-provenance",
@@ -138,23 +137,24 @@ def test_cli_verify_excel_provenance_command(project_root: Path, master_excel_pa
             str(report_target),
             "--strict",
         ])
-        assert code == 0
+        assert code == 1
         assert report_target.exists()
         content = report_target.read_text(encoding="utf-8")
         assert "엑셀 출력 행렬 전수 물리적 정본 검증 보고서" in content
-        assert "10개 (100% PASS)" in content
-        assert "100.0%" in content
+        assert "미검증 10개" in content
+        assert "UNVERIFIED" in content
     finally:
         if report_target.exists():
             report_target.unlink()
 
 
-def test_cli_korean_alias_provenance_command(project_root: Path, master_excel_path: Path) -> None:
+def test_cli_korean_alias_provenance_command(project_root: Path, master_excel_path: Path, tmp_path: Path) -> None:
     """Verify that Korean alias 엑셀-정본-검증 executes identically."""
     code = main([
         "엑셀-정본-검증",
+        "--report-path", str(tmp_path / "report.md"),
         "--excel-path",
         str(master_excel_path),
         "--strict",
     ])
-    assert code == 0
+    assert code == 1

@@ -1,12 +1,7 @@
-from company_intel.classification import (
-    classify_company,
-    classify_taxonomy_axes,
-    evaluate_analysis_eligibility,
-    legacy_company_type,
-)
-from company_intel.identity import CompanyIdentityResolver, IdentifierLink
-from company_intel.models import TaxonomyFact
-from company_intel.warehouse import Warehouse
+from cil_domain.companies.classification import classify_company, classify_taxonomy_axes, evaluate_analysis_eligibility, legacy_company_type
+from cil_domain.identity.keys import CompanyIdentityResolver, IdentifierLink
+from cil_contracts.facts import TaxonomyFact
+from cil_integrations.storage.duckdb.repository import Warehouse
 
 
 def test_finance_only_company_is_not_promoted_to_correlation_ready():

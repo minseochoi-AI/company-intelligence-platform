@@ -5,16 +5,11 @@ from __future__ import annotations
 
 import pytest
 
-from company_intel.classification import (
-    CanonicalJobRecord,
-    ClusterSignature,
-    JobSchemaContract,
-    KeyAlignmentError,
-    from_cz_mpsv_job_record,
-    from_kr_public_job_record,
-    from_sk_upsvar_record,
-    from_us_usajobs_record,
-)
+from cil_contracts.jobs import CanonicalJobRecord
+from cil_domain.clusters.signature import ClusterSignature
+from cil_integrations.providers.job_schema import JobSchemaContract
+from cil_contracts.attributes import KeyAlignmentError
+from cil_integrations.providers.job_records import from_cz_mpsv_job_record, from_kr_public_job_record, from_sk_upsvar_record, from_us_usajobs_record
 
 
 def test_cluster_signature_key_and_matches():
@@ -95,7 +90,7 @@ def test_from_cz_mpsv_job_record_factory():
     assert record.job_url == "https://www.uradprace.cz/web/cz/volna-mista-v-cr#/volna-mista-detail/301920001"
     assert record.employer_name == "Státní úřad pro jadernou bezpečnost"
     assert record.cluster_signature.region == "CZ"
-    assert record.cluster_signature.sector == "PUBLIC_INSTITUTION"
+    assert record.cluster_signature.sector == "UNKNOWN"
     assert record.education_level == "VysokoskolskeMagisterske"
     assert record.occupation_code == "25121"
     assert record.deadline == "2026-11-30"
@@ -149,12 +144,12 @@ def test_from_us_usajobs_record_factory():
     record = from_us_usajobs_record(raw_us)
     assert record.cluster_signature.region == "US"
     assert record.cluster_signature.sector == "GOVERNMENT"
-    assert record.cluster_signature.tier == "FEDERAL_GS"
+    assert record.cluster_signature.tier == "FEDERAL_SCOPE"
     assert record.salary_min == 95000
 
 
 def test_dynamic_job_schema_registry():
-    from company_intel.classification import DynamicJobSchemaRegistry
+    from cil_domain.attributes.registry import DynamicJobSchemaRegistry
 
     # Register a dynamic attribute with a validator
     JobSchemaContract.register_dynamic_attribute(

@@ -1,4 +1,4 @@
-from company_intel.selection_provenance import bind_selection_run, verify_run_chain
+from cil_domain.provenance.selection import bind_selection_run, verify_run_chain
 
 
 def test_hash_chain_redaction_and_tamper_detection() -> None:

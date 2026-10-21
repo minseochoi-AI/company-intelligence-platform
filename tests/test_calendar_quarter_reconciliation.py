@@ -1,6 +1,6 @@
 import pytest
-from company_intel.normalization import normalize_to_calendar_quarter, calculate_quarterly_flow
-from company_intel.analytics import reconcile_cross_national_financials, CROSSWALK_FINANCIAL_METRICS
+from cil_domain.observations.normalization import normalize_to_calendar_quarter, calculate_quarterly_flow
+from cil_domain.finance.analytics import reconcile_cross_national_financials, CROSSWALK_FINANCIAL_METRICS
 
 
 def test_calendar_quarter_normalization_multi_country():

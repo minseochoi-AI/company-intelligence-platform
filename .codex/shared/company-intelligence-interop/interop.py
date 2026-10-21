@@ -259,7 +259,7 @@ def verify_domain_plan_ref(path: Path, expected_kind: str | None = None) -> dict
         raise ContractError("DomainPlanRef sha256 does not match target")
     plan = load(target)
     validate_domain_plan(plan)
-    for key in ("plan_kind", "plan_id", "revision"):
+    for key in ("schema_version", "plan_kind", "plan_id", "revision"):
         if plan[key] != ref[key]:
             raise ContractError(f"DomainPlanRef {key} does not match target")
     return plan
@@ -273,7 +273,7 @@ def verify_evidence_bundle_ref(path: Path) -> dict[str, Any]:
         raise ContractError("EvidenceBundleRef sha256 does not match target")
     bundle = load(target)
     validate_evidence_bundle(bundle)
-    if bundle["bundle_id"] != ref["bundle_id"]:
+    if bundle["bundle_id"] != ref["bundle_id"] or bundle["schema_version"] != ref["schema_version"]:
         raise ContractError("EvidenceBundleRef bundle_id does not match target")
     return bundle
 
@@ -358,6 +358,109 @@ def main(argv: list[str] | None = None) -> int:
         print(json.dumps({"status": "invalid", "error": str(exc)}, ensure_ascii=False))
         return 1
 
+
+
+# Explicit version dispatch preserves v1 files and never rewrites their bytes.
+from copy import deepcopy
+import math
+_V1_VALIDATORS = dict(VALIDATORS)
+_compare_v1 = compare
+
+
+def _money(value):
+    if value is None:
+        return
+    if not isinstance(value, dict) or set(value) != {'amount', 'currency'} or type(value['amount']) not in (int, float) or not math.isfinite(value['amount']) or value['amount'] < 0 or not re.fullmatch('[A-Z]{3}', str(value['currency'])):
+        raise ContractError('Money requires finite nonnegative amount and explicit currency')
+
+
+def _v2_projection(value, kind):
+    _object(value, kind)
+    if value.get('schema_version') != '2.0.0':
+        raise ContractError('unsupported schema_version')
+    projected = deepcopy(value)
+    projected['schema_version'] = VERSION
+    if kind == 'domain-plan':
+        constraints = _object(projected.get('constraints'), 'constraints')
+        if 'budget_krw' in constraints or 'budget' not in constraints:
+            raise ContractError('v2 requires Money budget, not budget_krw')
+        _money(constraints['budget'])
+        constraints['budget_krw'] = None if constraints['budget'] is None else constraints['budget']['amount']
+        constraints.pop('budget')
+    if kind == 'evidence-bundle':
+        ids = set()
+        for source in _list(value.get('sources'), 'sources'):
+            _timestamp(source.get('observed_at'), 'source.observed_at')
+        for claim in _list(projected.get('claims'), 'claims'):
+            _exact_keys(_object(claim, 'claim'), {'claim_id', 'statement', 'source_ids', 'kind'}, {'value', 'unit', 'reason', 'method_version', 'uncertainty', 'table_ref', 'confidence'}, 'v2 claim')
+            if claim['kind'] not in {'observed', 'computed', 'source_modelled', 'user_assumption', 'ai_proposed', 'unknown', 'conflict'}:
+                raise ContractError('invalid value kind')
+            if claim.get('value') is None and not claim.get('reason'):
+                raise ContractError('null evidence requires reason')
+            if claim['claim_id'] in ids:
+                raise ContractError('duplicate claim_id')
+            ids.add(_text(claim['claim_id'], 'claim_id'))
+            _text(claim['statement'], 'statement')
+            if 'confidence' in claim:
+                confidence = claim['confidence']
+                if type(confidence) not in (int, float) or not 0 <= confidence <= 1 or not isinstance(claim.get('uncertainty'), dict) or not claim['uncertainty'].get('calibration_method'):
+                    raise ContractError('confidence requires calibration evidence')
+            claim['status'] = {'conflict': 'conflicted', 'unknown': 'unknown', 'observed': 'observed'}.get(claim['kind'], 'inferred')
+            for field in ('kind', 'value', 'unit', 'reason', 'method_version', 'uncertainty', 'table_ref'):
+                claim.pop(field, None)
+    if kind == 'dual-path-comparison':
+        seen = set()
+        for row in projected['axes']:
+            if row.get('axis') == 'budget':
+                row['axis'] = 'budget_krw'
+                _money(row['career_value']); _money(row['venture_value'])
+                left, right = row['career_value'], row['venture_value']
+                conflict = left is not None and right is not None and left['currency'] != right['currency']
+                if (row['status'] == 'currency-conflict') != conflict:
+                    raise ContractError('budget currency conflict status is inconsistent')
+                if conflict:
+                    row['career_value'] = None
+                    row['status'] = 'missing-career'
+            elif row.get('axis') == 'budget_krw':
+                raise ContractError('v2 comparison requires Money budget axis')
+        projected['unresolved_axes'] = ['budget_krw' if a == 'budget' else a for a in projected['unresolved_axes']]
+    return projected
+
+
+def _validate_versioned(kind, value):
+    if value.get('schema_version') == VERSION:
+        return _V1_VALIDATORS[kind](value)
+    return _V1_VALIDATORS[kind](_v2_projection(value, kind))
+
+
+def validate_domain_plan(value): return _validate_versioned('domain-plan', value)
+def validate_domain_plan_ref(value): return _validate_versioned('domain-plan-ref', value)
+def validate_evidence_bundle(value): return _validate_versioned('evidence-bundle', value)
+def validate_evidence_bundle_ref(value): return _validate_versioned('evidence-bundle-ref', value)
+def validate_dual_path_comparison(value): return _validate_versioned('dual-path-comparison', value)
+VALIDATORS.update({'domain-plan': validate_domain_plan, 'domain-plan-ref': validate_domain_plan_ref,
+    'evidence-bundle': validate_evidence_bundle, 'evidence-bundle-ref': validate_evidence_bundle_ref,
+    'dual-path-comparison': validate_dual_path_comparison})
+
+
+def compare(career_ref, venture_ref, output_base=None):
+    career = verify_domain_plan_ref(career_ref, 'career')
+    venture = verify_domain_plan_ref(venture_ref, 'venture')
+    if career['schema_version'] != venture['schema_version']:
+        raise ContractError('explicit version migration required before comparison')
+    result = _compare_v1(career_ref, venture_ref, output_base)
+    if career['schema_version'] == VERSION:
+        return result
+    result['schema_version'] = '2.0.0'
+    for row in result['axes']:
+        if row['axis'] == 'budget_krw':
+            left, right = career['constraints']['budget'], venture['constraints']['budget']
+            status = 'missing-both' if left is None and right is None else 'missing-career' if left is None else 'missing-venture' if right is None else 'currency-conflict' if left['currency'] != right['currency'] else 'comparable'
+            row.update(axis='budget', career_value=left, venture_value=right, status=status)
+    result['unresolved_axes'] = [r['axis'] for r in result['axes'] if r['status'] != 'comparable']
+    result['status'] = 'comparable' if not result['unresolved_axes'] else 'blocked' if len(result['unresolved_axes']) == len(result['axes']) else 'partial'
+    validate_dual_path_comparison(result)
+    return result
 
 if __name__ == "__main__":
     raise SystemExit(main())

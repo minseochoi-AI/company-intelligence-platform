@@ -1,4 +1,6 @@
-from company_intel.live_snapshots import SnapshotRequest, refresh_sources, select_snapshot, snapshot_freshness
+from cil_contracts.snapshots import SnapshotRequest
+from cil_application.snapshots.service import refresh_sources, select_snapshot
+from cil_domain.provenance.snapshots import snapshot_freshness
 
 
 def test_mpm_pagination_is_deduplicated_and_partial_manifest_is_explicit() -> None:

@@ -6,20 +6,10 @@ from typing import Any
 
 import pytest
 
-from company_intel.job_search import (
-    JobSearchProfile,
-    normalize_greenhouse_jobs,
-    normalize_lever_jobs,
-    normalize_mpm_jobs,
-    normalize_mpsv_jobs,
-    search_job_dataframes,
-)
-from company_intel.taxonomy import (
-    NCS_TO_ISCO_MAP,
-    TAXONOMY_AXES,
-    resolve_title_to_isco,
-    taxonomy_facts_from_record,
-)
+from cil_contracts.jobs import JobSearchProfile
+from cil_integrations.providers.job_records import normalize_greenhouse_jobs, normalize_lever_jobs, normalize_mpm_jobs, normalize_mpsv_jobs
+from cil_application.jobs.search import search_job_dataframes
+from cil_domain.taxonomy.facts import NCS_TO_ISCO_MAP, TAXONOMY_AXES, resolve_title_to_isco, taxonomy_facts_from_record
 
 
 def test_taxonomy_axes_include_occupation_and_crosswalk() -> None:
@@ -251,7 +241,7 @@ def test_cross_lingual_job_search_by_isco_and_keywords() -> None:
 
 
 def test_korean_cli_with_cross_taxonomy_options(tmp_path: Path, capsys: pytest.CaptureFixture[str]) -> None:
-    from company_intel.cli import main
+    from cil_cli.main import main
 
     profile_file = tmp_path / "profile.json"
     profile_file.write_text(
@@ -294,7 +284,7 @@ def test_korean_cli_with_cross_taxonomy_options(tmp_path: Path, capsys: pytest.C
 
 
 def test_fastapi_job_search_request_to_domain_with_taxonomy() -> None:
-    from company_intel.api import JobSearchRequest
+    from cil_api.schemas import JobSearchRequest
 
     req = JobSearchRequest(
         payloads={},

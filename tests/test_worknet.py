@@ -1,4 +1,4 @@
-from company_intel.connectors.worknet import WorknetJobConnector, search_worknet_jobs
+from cil_integrations.providers.worknet.jobs import WorknetJobConnector, search_worknet_jobs
 
 
 def test_worknet_jobs_parsing():

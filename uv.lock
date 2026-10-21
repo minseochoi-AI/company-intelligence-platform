@@ -6,6 +6,18 @@ resolution-markers = [
     "python_full_version < '3.12'",
 ]
 
+[manifest]
+members = [
+    "cil-api",
+    "cil-application",
+    "cil-cli",
+    "cil-contracts",
+    "cil-domain",
+    "cil-integrations",
+    "cil-reporting",
+    "company-intelligence-platform",
+]
+
 [[package]]
 name = "annotated-doc"
 version = "0.0.5"
@@ -38,6 +50,142 @@ wheels = [
 ]
 
 [[package]]
+name = "cil-api"
+version = "0.1.0"
+source = { editable = "apps/api" }
+dependencies = [
+    { name = "cil-application" },
+    { name = "cil-contracts" },
+    { name = "cil-domain" },
+    { name = "cil-integrations" },
+    { name = "cil-reporting" },
+    { name = "fastapi" },
+    { name = "pydantic" },
+    { name = "uvicorn" },
+]
+
+[package.metadata]
+requires-dist = [
+    { name = "cil-application", editable = "packages/application" },
+    { name = "cil-contracts", editable = "packages/contracts" },
+    { name = "cil-domain", editable = "packages/domain" },
+    { name = "cil-integrations", editable = "packages/integrations" },
+    { name = "cil-reporting", editable = "packages/reporting" },
+    { name = "fastapi", specifier = ">=0.115,<1" },
+    { name = "pydantic", specifier = ">=2,<3" },
+    { name = "uvicorn", specifier = ">=0.30,<1" },
+]
+
+[[package]]
+name = "cil-application"
+version = "0.1.0"
+source = { editable = "packages/application" }
+dependencies = [
+    { name = "cil-contracts" },
+    { name = "cil-domain" },
+    { name = "pandas" },
+]
+
+[package.metadata]
+requires-dist = [
+    { name = "cil-contracts", editable = "packages/contracts" },
+    { name = "cil-domain", editable = "packages/domain" },
+    { name = "pandas", specifier = ">=2.2,<3" },
+]
+
+[[package]]
+name = "cil-cli"
+version = "0.1.0"
+source = { editable = "apps/cli" }
+dependencies = [
+    { name = "cil-application" },
+    { name = "cil-contracts" },
+    { name = "cil-domain" },
+    { name = "cil-integrations" },
+    { name = "cil-reporting" },
+]
+
+[package.metadata]
+requires-dist = [
+    { name = "cil-application", editable = "packages/application" },
+    { name = "cil-contracts", editable = "packages/contracts" },
+    { name = "cil-domain", editable = "packages/domain" },
+    { name = "cil-integrations", editable = "packages/integrations" },
+    { name = "cil-reporting", editable = "packages/reporting" },
+]
+
+[[package]]
+name = "cil-contracts"
+version = "0.1.0"
+source = { editable = "packages/contracts" }
+
+[[package]]
+name = "cil-domain"
+version = "0.1.0"
+source = { editable = "packages/domain" }
+dependencies = [
+    { name = "cil-contracts" },
+    { name = "numpy", version = "2.4.6", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.12'" },
+    { name = "numpy", version = "2.5.3", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.12'" },
+    { name = "pandas" },
+]
+
+[package.metadata]
+requires-dist = [
+    { name = "cil-contracts", editable = "packages/contracts" },
+    { name = "numpy", specifier = ">=2,<3" },
+    { name = "pandas", specifier = ">=2.2,<3" },
+]
+
+[[package]]
+name = "cil-integrations"
+version = "0.1.0"
+source = { editable = "packages/integrations" }
+dependencies = [
+    { name = "cil-application" },
+    { name = "cil-contracts" },
+    { name = "cil-domain" },
+    { name = "duckdb" },
+]
+
+[package.optional-dependencies]
+xlsx-verify = [
+    { name = "openpyxl" },
+]
+
+[package.metadata]
+requires-dist = [
+    { name = "cil-application", editable = "packages/application" },
+    { name = "cil-contracts", editable = "packages/contracts" },
+    { name = "cil-domain", editable = "packages/domain" },
+    { name = "duckdb", specifier = ">=1.1,<2" },
+    { name = "openpyxl", marker = "extra == 'xlsx-verify'", specifier = ">=3.1,<4" },
+]
+provides-extras = ["xlsx-verify"]
+
+[[package]]
+name = "cil-reporting"
+version = "0.1.0"
+source = { editable = "packages/reporting" }
+dependencies = [
+    { name = "cil-contracts" },
+    { name = "cil-domain" },
+]
+
+[package.optional-dependencies]
+xlsx = [
+    { name = "openpyxl" },
+]
+
+[package.metadata]
+requires-dist = [
+    { name = "cil-contracts", editable = "packages/contracts" },
+    { name = "cil-domain", editable = "packages/domain" },
+    { name = "openpyxl", marker = "extra == 'xlsx'", specifier = ">=3.1,<4" },
+]
+provides-extras = ["xlsx"]
+
+[[package]]
 name = "click"
 version = "8.5.0"
 source = { registry = "https://pypi.org/simple" }
@@ -60,35 +208,36 @@ name = "company-intelligence-platform"
 version = "0.1.0"
 source = { editable = "." }
 dependencies = [
-    { name = "duckdb" },
-    { name = "fastapi" },
-    { name = "numpy", version = "2.4.6", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.12'" },
-    { name = "numpy", version = "2.5.3", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.12'" },
-    { name = "pandas" },
-    { name = "uvicorn" },
+    { name = "cil-api" },
+    { name = "cil-cli" },
 ]
 
 [package.optional-dependencies]
+xlsx = [
+    { name = "cil-integrations", extra = ["xlsx-verify"] },
+    { name = "cil-reporting", extra = ["xlsx"] },
+]
+
+[package.dev-dependencies]
 dev = [
     { name = "pytest" },
     { name = "ruff" },
 ]
-xlsx = [
-    { name = "openpyxl" },
-]
 
 [package.metadata]
 requires-dist = [
-    { name = "duckdb", specifier = ">=1.1,<2" },
-    { name = "fastapi", specifier = ">=0.115,<1" },
-    { name = "numpy", specifier = ">=2,<3" },
-    { name = "openpyxl", marker = "extra == 'xlsx'", specifier = ">=3.1,<4" },
-    { name = "pandas", specifier = ">=2.2,<3" },
-    { name = "pytest", marker = "extra == 'dev'", specifier = ">=8,<9" },
-    { name = "ruff", marker = "extra == 'dev'", specifier = ">=0.8,<1" },
-    { name = "uvicorn", specifier = ">=0.30,<1" },
+    { name = "cil-api", editable = "apps/api" },
+    { name = "cil-cli", editable = "apps/cli" },
+    { name = "cil-integrations", extras = ["xlsx-verify"], marker = "extra == 'xlsx'", editable = "packages/integrations" },
+    { name = "cil-reporting", extras = ["xlsx"], marker = "extra == 'xlsx'", editable = "packages/reporting" },
 ]
-provides-extras = ["dev", "xlsx"]
+provides-extras = ["xlsx"]
+
+[package.metadata.requires-dev]
+dev = [
+    { name = "pytest", specifier = ">=8,<9" },
+    { name = "ruff", specifier = ">=0.8,<1" },
+]
 
 [[package]]
 name = "duckdb"
@@ -577,11 +726,11 @@ wheels = [
 
 [[package]]
 name = "pytz"
-version = "2026.3.post1"
+version = "2026.2"
 source = { registry = "https://pypi.org/simple" }
-sdist = { url = "https://files.pythonhosted.org/packages/fb/48/fb042503b6ca6cd271261dc559fd6432f7d8c713153e9ec5c591af4dfc1c/pytz-2026.3.post1.tar.gz", hash = "sha256:2211d3fcf9a797d3405cac96ac7f61d80e6a644f72a3309607282fe8a2010c5d", size = 319745, upload-time = "2026-07-25T15:12:07.385Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/ff/46/dd499ec9038423421951e4fad73051febaa13d2df82b4064f87af8b8c0c3/pytz-2026.2.tar.gz", hash = "sha256:0e60b47b29f21574376f218fe21abc009894a2321ea16c6754f3cad6eb7cdd6a", size = 320861, upload-time = "2026-05-04T01:35:29.667Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/0f/7b/39c34ca613b0b198cb866466651b26b045e2009864c5183c979a3b83f383/pytz-2026.3.post1-py2.py3-none-any.whl", hash = "sha256:dd95840dd199baea12d9cc096a1d452caa6596a1c1e4b5f3dbd1541855d5e815", size = 508283, upload-time = "2026-07-25T15:12:05.782Z" },
+    { url = "https://files.pythonhosted.org/packages/ec/dd/96da98f892250475bdf2328112d7468abdd4acc7b902b6af23f4ed958ea0/pytz-2026.2-py2.py3-none-any.whl", hash = "sha256:04156e608bee23d3792fd45c94ae47fae1036688e75032eea2e3bf0323d1f126", size = 510141, upload-time = "2026-05-04T01:35:27.408Z" },
 ]
 
 [[package]]

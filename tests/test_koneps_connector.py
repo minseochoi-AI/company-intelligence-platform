@@ -1,11 +1,7 @@
 from __future__ import annotations
 
 import pytest
-from company_intel.connectors.koneps import (
-    CanonicalProcurementRecord,
-    CURATED_KONEPS_FIXTURES,
-    KONEPSProcurementConnector,
-)
+from cil_integrations.providers.koneps.procurements import CanonicalProcurementRecord, CURATED_KONEPS_FIXTURES, KONEPSProcurementConnector
 
 
 def test_koneps_fixtures_structure():
@@ -21,7 +17,7 @@ def test_koneps_fixtures_structure():
 
 
 def test_koneps_search_filter():
-    connector = KONEPSProcurementConnector(service_key=None)
+    connector = KONEPSProcurementConnector(service_key=None, demo=True)
     
     # Search for AI related bids
     ai_results = connector.search_procurements(query="AI", num_of_rows=5)

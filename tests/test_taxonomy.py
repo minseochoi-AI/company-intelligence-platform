@@ -1,4 +1,4 @@
-from company_intel.taxonomy import TAXONOMY_AXES, normalize_ares_taxonomy, taxonomy_facts_from_record
+from cil_domain.taxonomy.facts import TAXONOMY_AXES, normalize_ares_taxonomy, taxonomy_facts_from_record
 
 
 def _by_axis(facts, axis):

@@ -1,0 +1,37 @@
+{
+  "schema_version": "2.0.0",
+  "purpose": [
+    "selected-posting"
+  ],
+  "question": "시연 자료의 공고 근거 비교",
+  "cohort_signature": "ALL:ALL:ALL:REGULAR:ALL",
+  "subject_refs": [
+    {
+      "provider_id": "saved",
+      "posting_id": "KR-one",
+      "revision": "r1"
+    },
+    {
+      "provider_id": "saved",
+      "posting_id": "CZ-one",
+      "revision": "r1"
+    },
+    {
+      "provider_id": "saved",
+      "posting_id": "SK-one",
+      "revision": "r1"
+    },
+    {
+      "provider_id": "saved",
+      "posting_id": "US-one",
+      "revision": "r1"
+    }
+  ],
+  "as_of": "2026-10-20T00:00:00Z",
+  "argument_origins": [
+    {
+      "json_pointer": "/",
+      "origin": "user_explicit"
+    }
+  ]
+}

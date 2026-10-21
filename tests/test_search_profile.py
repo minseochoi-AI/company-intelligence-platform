@@ -1,18 +1,8 @@
 import pytest
 
-from company_intel.models import SearchProfile
-from company_intel.query_contract import (
-    CompanySearchProfile,
-    FilterVerdict,
-    combine_verdicts,
-    company_search_profile_from_mapping,
-)
-from company_intel.search import (
-    explain_company_evaluation,
-    rank_candidate_evaluations,
-    rank_candidates,
-    validate_search_profile,
-)
+from cil_contracts.facts import SearchProfile
+from cil_contracts.query import CompanySearchProfile, FilterVerdict, combine_verdicts, company_search_profile_from_mapping
+from cil_domain.companies.search import explain_company_evaluation, rank_candidate_evaluations, rank_candidates, validate_search_profile
 
 
 def test_profile_requires_explicit_country_and_goal():

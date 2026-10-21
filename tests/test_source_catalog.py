@@ -1,12 +1,13 @@
 import json
 from pathlib import Path
 
-from company_intel.config import Settings
+from cil_integrations.runtime.settings import Settings
 from company_intel.connectors import build_probes
-from company_intel.connectors.registry import source_health
-from company_intel.provider_clusters import ProviderDisposition, classify_operation
-from company_intel.source_catalog import evaluate_activation, load_source_catalog, validate_atomic_contract
-from company_intel.validation import SemanticFieldCheck
+from cil_integrations.providers.registry import source_health
+from cil_domain.providers.selection import ProviderDisposition, classify_operation
+from cil_domain.providers.contracts import evaluate_activation, validate_atomic_contract
+from cil_integrations.catalog.repository import load_source_catalog
+from cil_application.validation.providers import SemanticFieldCheck
 
 
 def test_catalog_declares_every_registered_atomic_probe():

@@ -2,9 +2,9 @@ from __future__ import annotations
 
 from pathlib import Path
 import pytest
-from company_intel.config import Settings
-from company_intel.connectors.koneps import CanonicalProcurementRecord, CURATED_KONEPS_FIXTURES
-from company_intel.warehouse import Warehouse
+from cil_integrations.runtime.settings import Settings
+from cil_integrations.providers.koneps.procurements import CanonicalProcurementRecord, CURATED_KONEPS_FIXTURES
+from cil_integrations.storage.duckdb.repository import Warehouse
 
 
 @pytest.fixture

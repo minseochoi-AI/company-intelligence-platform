@@ -1,4 +1,4 @@
-from company_intel.job_trends import aggregate_job_trends, build_posting_lifecycle, evaluate_trend_eligibility
+from cil_domain.jobs.trends import aggregate_job_trends, build_posting_lifecycle, evaluate_trend_eligibility
 
 
 def _snapshot(identifier: str, jobs: list[str]) -> dict:

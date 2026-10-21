@@ -4,12 +4,10 @@ import subprocess
 import sys
 from pathlib import Path
 
-# Add src to sys.path
 root_dir = Path(__file__).resolve().parent.parent
-sys.path.insert(0, str(root_dir / "src"))
 
-from company_intel.lattice_domains import DOMAIN_REGISTRY, get_domain_graph
-from company_intel.track_lattice import TrackLatticeEngine
+from cil_domain.taxonomy.templates import DOMAIN_REGISTRY, get_domain_graph
+from cil_domain.taxonomy.tracks import TrackLatticeEngine
 
 out_dir = root_dir / ".runtime" / "diagrams"
 out_dir.mkdir(parents=True, exist_ok=True)

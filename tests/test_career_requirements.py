@@ -1,8 +1,4 @@
-from company_intel.career_requirements import (
-    normalize_requirement,
-    requirement_dedupe_key,
-    verify_requirement,
-)
+from cil_domain.jobs.requirements import normalize_requirement, requirement_dedupe_key, verify_requirement
 
 
 def test_required_and_preferred_requirements_remain_distinct():

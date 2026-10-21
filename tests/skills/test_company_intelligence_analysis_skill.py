@@ -1,7 +1,8 @@
 from importlib.util import module_from_spec, spec_from_file_location
 from pathlib import Path
 
-from company_intel.run_manifest import build_run_manifest, write_run_manifest
+from cil_domain.provenance.manifests import build_run_manifest
+from cil_integrations.storage.manifests import write_run_manifest
 
 ROOT = Path(__file__).resolve().parents[2]
 SKILL = ROOT / ".codex/skills/company-intelligence-analysis"
@@ -16,10 +17,10 @@ def _module():
 
 
 def test_skill_has_specific_boundaries_and_valid_metadata():
-    text = (SKILL / "SKILL.md").read_text(encoding="utf-8")
-    assert "thin evidence orchestrator" in text
-    assert "company-intelligence-career-research" in text
-    assert "kr-defensible-venture-discovery" in text
+    text = (ROOT / ".agents/skills/company-intelligence-analysis/SKILL.md").read_text(encoding="utf-8")
+    assert "financial_spec" in text
+    assert "scenario_ref" in text
+    assert "known_at_time" in text
     metadata = (SKILL / "agents/openai.yaml").read_text(encoding="utf-8")
     assert "$company-intelligence-analysis" in metadata
     assert "allow_implicit_invocation: true" in metadata

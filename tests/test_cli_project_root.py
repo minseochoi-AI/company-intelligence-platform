@@ -2,8 +2,8 @@ import json
 import shutil
 from pathlib import Path
 
-from company_intel.cli import main
-from company_intel.config import Settings
+from cil_cli.main import main
+from cil_integrations.runtime.settings import Settings
 
 REPOSITORY = Path(__file__).resolve().parents[1]
 

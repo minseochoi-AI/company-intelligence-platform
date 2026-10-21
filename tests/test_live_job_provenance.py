@@ -8,8 +8,9 @@ from unittest.mock import MagicMock, patch
 
 import pytest
 
-from company_intel.classification import CanonicalJobRecord, ClusterSignature
-from company_intel.live_job_provenance import JobProvenanceVerifier
+from cil_contracts.jobs import CanonicalJobRecord
+from cil_domain.clusters.signature import ClusterSignature
+from cil_application.jobs.provenance import JobProvenanceVerifier
 
 
 def test_validate_url_syntax():
@@ -45,8 +46,8 @@ def test_parse_deadline_and_compute_freshness():
     # 3. Live Active (> 7 days)
     assert JobProvenanceVerifier.compute_freshness("2026-11-15", reference_date=ref_date) == "LIVE_ACTIVE"
     # 4. Open-ended / Empty / Unspecified
-    assert JobProvenanceVerifier.compute_freshness("", reference_date=ref_date) == "LIVE_ACTIVE"
-    assert JobProvenanceVerifier.compute_freshness("상시채용", reference_date=ref_date) == "LIVE_ACTIVE"
+    assert JobProvenanceVerifier.compute_freshness("", reference_date=ref_date) == "UNKNOWN"
+    assert JobProvenanceVerifier.compute_freshness("상시채용", reference_date=ref_date) == "OPEN_ENDED_UNVERIFIED"
 
 
 def test_generate_clickable_hyperlink():

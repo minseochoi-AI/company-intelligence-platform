@@ -1,5 +1,5 @@
-from company_intel.publisher.blogger_publisher import BloggerPublisher
-from company_intel.notion_queue import NotionApprovalQueue
+from cil_integrations.publishing.blogger import BloggerPublisher
+from cil_integrations.publishing.notion import NotionApprovalQueue
 
 
 def test_blogger_html_rendering():

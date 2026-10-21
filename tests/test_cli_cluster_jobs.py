@@ -9,7 +9,7 @@ from pathlib import Path
 import openpyxl
 import pytest
 
-from company_intel.cli import main
+from cil_cli.main import main
 
 PROJECT_ROOT = Path('/home/ubuntu/root/company-intelligence-platform')
 
@@ -54,65 +54,27 @@ def test_cli_list_api_attributes_us_usajobs(capsys):
 
 
 def test_cli_export_cluster_jobs_by_signature(tmp_path, capsys):
-    out_file = tmp_path / "test_kr_export.xlsx"
-    ret = main([
-        "export-cluster-jobs",
-        "--signature", "KR:STATE_OWNED:ALL:REGULAR:ALL",
-        "--output", str(out_file),
-        "--json-output"
-    ])
-    assert ret == 0
-    captured = capsys.readouterr()
-    summary = json.loads(captured.out)
-    assert summary["status"] == "success"
-    assert summary["total_matched"] > 0
-    assert out_file.exists()
-
-    wb = openpyxl.load_workbook(out_file)
-    ws = wb["클러스터_필터링_채용공고"]
-    assert ws.max_column == 24
-    assert ws.max_row > 4
+    out_file = tmp_path / 'kr.xlsx'
+    source = Path(__file__).parent / 'research/fixtures/selected-posting.json'
+    assert main(['export-cluster-jobs', '--signature', 'KR:STATE_OWNED:ALL:REGULAR:ALL', '--snapshot', str(source), '--as-of', '2026-10-20T00:00:00Z', '--output', str(out_file), '--json-output']) == 0
+    result = json.loads(capsys.readouterr().out)
+    assert result['source_kind'] == 'fixture' and result['total_matched'] == 1
+    workbook = openpyxl.load_workbook(out_file)
+    assert 'Postings' in workbook.sheetnames and 'RawFields' in workbook.sheetnames
 
 
 def test_cli_export_cluster_jobs_by_flags(tmp_path, capsys):
-    out_file = tmp_path / "test_cz_export.xlsx"
-    ret = main([
-        "export-cluster-jobs",
-        "--country", "CZ",
-        "--sector", "PUBLIC_INSTITUTION",
-        "--degree", "bachelor",
-        "--output", str(out_file),
-        "--json-output"
-    ])
-    assert ret == 0
-    captured = capsys.readouterr()
-    summary = json.loads(captured.out)
-    assert summary["status"] == "success"
-    assert summary["total_matched"] > 0
-    assert out_file.exists()
-
-    wb = openpyxl.load_workbook(out_file)
-    ws = wb["클러스터_필터링_채용공고"]
-    assert ws.max_column == 24
-    # Verify Col 15 and 16
-    for r in range(5, ws.max_row + 1):
-        url = str(ws.cell(r, 15).value)
-        link = str(ws.cell(r, 16).value)
-        assert url.startswith("http")
-        assert link == f'=HYPERLINK(O{r}, "공고 확인 ↗")'
+    source = Path(__file__).parent / 'research/fixtures/selected-posting.json'
+    output = tmp_path / 'cz.xlsx'
+    assert main(['export-cluster-jobs', '--country', 'CZ', '--sector', 'PUBLIC_INSTITUTION', '--snapshot', str(source), '--as-of', '2026-10-20T00:00:00Z', '--output', str(output), '--json-output']) == 0
+    result = json.loads(capsys.readouterr().out)
+    assert result['total_matched'] == 1
+    workbook = openpyxl.load_workbook(output)
+    assert any(cell.hyperlink for row in workbook['Postings'] for cell in row)
 
 
 def test_cli_export_cluster_jobs_slovakia(tmp_path, capsys):
-    out_file = tmp_path / "test_sk_export.xlsx"
-    ret = main([
-        "export-cluster-jobs",
-        "--country", "SK",
-        "--output", str(out_file),
-        "--json-output"
-    ])
-    assert ret == 0
-    captured = capsys.readouterr()
-    summary = json.loads(captured.out)
-    assert summary["status"] == "success"
-    assert summary["total_matched"] == 5
-    assert out_file.exists()
+    source = Path(__file__).parent / 'research/fixtures/selected-posting.json'
+    assert main(['export-cluster-jobs', '--country', 'SK', '--snapshot', str(source), '--as-of', '2026-10-20T00:00:00Z', '--output', str(tmp_path/'sk.xlsx'), '--json-output']) == 0
+    result = json.loads(capsys.readouterr().out)
+    assert result['total_matched'] == 1 and result['source_kind'] == 'fixture'

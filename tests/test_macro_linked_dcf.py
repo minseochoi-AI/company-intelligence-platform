@@ -1,6 +1,9 @@
 import pytest
-from company_intel.analytics import calculate_dynamic_wacc, dynamic_macro_linked_dcf
-from company_intel.macro_cubes import BEACubeLoader, EurostatCubeLoader, MacroCubeManager, MacroObservation
+from cil_domain.finance.analytics import calculate_dynamic_wacc, dynamic_macro_linked_dcf
+from cil_integrations.providers.bea.cubes import BEACubeLoader
+from cil_integrations.providers.eurostat.cubes import EurostatCubeLoader
+from cil_domain.finance.macro import MacroCubeManager
+from cil_contracts.macro import MacroObservation
 
 
 def test_calculate_dynamic_wacc_rate_sensitivity():
@@ -75,5 +78,5 @@ def test_macro_cube_loader_parsing():
 
     mgr = MacroCubeManager(bea_obs + cz_obs)
     # Check default fallbacks
-    assert mgr.get_latest_base_rate("KR") == 0.0325
+    assert mgr.get_latest_base_rate("KR") is None
     assert mgr.get_real_gdp_growth("US") > 0.005 # 22925.7 / 22758.2 - 1 = ~0.73%

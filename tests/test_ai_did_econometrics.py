@@ -1,6 +1,6 @@
 import pytest
-from company_intel.analytics import verify_parallel_trends, panel_difference_in_differences
-from company_intel.analysis_service import evaluate_ai_adoption_impact
+from cil_domain.finance.analytics import verify_parallel_trends, panel_difference_in_differences
+from cil_application.analysis.service import evaluate_ai_adoption_impact
 
 
 def test_parallel_trends_valid():
@@ -45,10 +45,5 @@ def test_panel_difference_in_differences_significance():
 
 def test_evaluate_ai_adoption_impact_suite():
     res = evaluate_ai_adoption_impact()
-    assert res["status"] == "success"
-    assert "2022-11-30" in res["treatment_event"]
-    assert res["parallel_trends_test"]["valid"] is True
-    assert res["labor_productivity_did"]["did_estimate"] > 3.0 # Substantial EBIT improvement
-    assert res["sw_developer_demand_did"]["did_estimate"] > 0 # Developer demand expands
-    assert res["admin_role_demand_did"]["did_estimate"] < 0   # Admin demand contracts
-    assert "executive_summary" in res
+    assert res['status'] == 'NEEDS_EVIDENCE'
+    assert 'executive_summary' not in res

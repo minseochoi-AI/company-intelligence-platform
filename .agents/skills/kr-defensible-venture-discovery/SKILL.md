@@ -1,29 +1,14 @@
 ---
 name: kr-defensible-venture-discovery
-description: Discover and test Korean startup opportunities against founder constraints, competitors, data rights, grants, and technical barriers.
+description: 선택 업무의 공개 문제·구매자·대체재 근거로 창업 실험과 차별성 가설을 검토할 때 사용한다.
 ---
 
-# KR Defensible Venture Discovery
+# S07 — 문제 증거와 사업 가설·지불 검증을 구별한다.
 
-Treat each opportunity as a falsifiable hypothesis, not an idea score. A grant, public dataset, algorithm, or absence of obvious competitors is not itself a market.
+buyer·user·payer·problem·substitutes·pilot·kill_criteria·jurisdictions·budget 통화를 기록한다. 한국 규정이나 개인 자격은 선택 인스턴스 조건으로만 넣는다. payment_evidence_refs 없는 매출을 observed로 표시하지 않는다. 창업 가설은 사업자 등록이나 판매 실행 권한이 아니다.
 
-## Modes
+입력: `venture_spec, subject_refs, profile_ref, as_of`. API 추가는 capability operation·schema version·field semantics·권리·자료 시점 등록이 선행한다. 등록만으로 실시간 가용성이나 모든 응답 키가 검증되었다고 보고하지 않는다.
 
-- `CONFIGURE`: record founder resources, time, cash, geography, field access, hardware tolerance, regulatory tolerance, sales horizon, and non-goals before research.
-- `BASELINE`: map problem holder, buyer, user, payer, workflow, spend proxy, alternatives, incumbents, procurement path, and data rights.
-- `GAP`: list which required fields are missing or too stale to compare.
-- `AUGMENT`: research only the material gaps; preserve previous evidence and revisions.
-- `RECLASSIFY`: apply [market-archetypes.md](references/market-archetypes.md) after competitor and substitute searches.
-- `DECIDE`: compare surviving hypotheses against constraints and produce experiments, kill criteria, and a venture `DomainPlan`. A human makes the final choice.
+AI는 사용자의 질문에서 목적·필터·분석 방법 후보를 제안할 수 있다. `argument_origins`에는 실제 출처를 기록한다. 개인 자격·법인/공고 식별자·기준 시점·자료 바인딩은 사용자 명시 또는 출처 근거로 확정한다. 미확정이면 NEEDS_INPUT/NEEDS_EVIDENCE를 반환한다. 개인 학위·원자력·에너지·국가 선호는 전역 기본값이 아니다.
 
-## Workflow
-
-1. Read [research-workflow.md](references/research-workflow.md) and create or update a `VentureSession`. Do not start broad browsing until `CONFIGURE` has explicit unknowns.
-2. Separate source acquisition rights, analysis rights, product-use rights, personal-data constraints, and refresh cost using [evidence-and-barriers.md](references/evidence-and-barriers.md). OpenAI model output is an inference, not a data source or owned dataset.
-3. Generate hypotheses in the user's feasible intersection: software capability, available Korean public/server/grant resources, domain access, physical integration, and protectable technical learning. Include a software-only control hypothesis to expose unnecessary hardware.
-4. For each hypothesis, quantify TAM/SAM/SOM only from explicit units and assumptions. Record market concentration, named incumbents, substitutes, switching costs, regulatory/procurement gates, data access, build/deployment cost, and time-to-first-paid-pilot.
-5. Run competitor searches before assigning an archetype. “No result” means `unverified-white-space`, never `uncontested` or “blue ocean.” Use CIL only after naming an actual company or institution, and consume its validated `EvidenceBundleRef` rather than importing CIL calculations.
-6. Validate artifacts with `python3 scripts/venture_artifacts.py validate-session <session.json>` and `validate-opportunity <hypothesis.json>`. Use `gaps` to plan the next bounded research pass.
-7. Produce a venture `DomainPlan`/`DomainPlanRef`. This skill is only the comparison caller: the shared non-skill `interop.py` owns `DualPathComparison` creation, reports missing axes, and always leaves `decision: human-required`.
-
-Use `decision-campaign-workbook` only after a multi-decision implementation scope is proposed. Link via `CampaignLink`; do not inherit, copy, or mutate its approval workflow.
+실행·해석은 [조사 계약](references/research-contract.md)을 따른다. 로컬 저장 자료가 기본이다. 외부 API 갱신·지원서 제출·게시·배포를 이 스킬 호출만으로 수행하지 않는다.

@@ -1,9 +1,11 @@
-from company_intel.config import Settings
+from cil_integrations.runtime.settings import Settings
 from company_intel.connectors import build_probes
-from company_intel.connectors.keyed import MPMPublicEmploymentConnector, alio_context_evidence
-from company_intel.connectors.keyless import MPSVVacancyConnector, _select
-from company_intel.http import HttpClient
-from company_intel.models import Probe
+from cil_integrations.providers.mpm.jobs import MPMPublicEmploymentConnector
+from cil_integrations.providers.alio.evidence import alio_context_evidence
+from cil_integrations.providers.mpsv.jobs import MPSVVacancyConnector
+from cil_integrations.providers.parsing import _select
+from cil_integrations.transport.http import HttpClient
+from cil_contracts.facts import Probe
 
 
 def test_public_korea_probes_use_explicit_namespaces(monkeypatch, tmp_path):

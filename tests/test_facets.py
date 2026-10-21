@@ -1,8 +1,9 @@
 from pathlib import Path
 
-from company_intel.facets import build_job_facets, build_taxonomy_facets, facet_options_for_selection, field_availability, identity_link_status
-from company_intel.source_catalog import field_capabilities, load_source_catalog
-from company_intel.taxonomy import taxonomy_facts_from_record
+from cil_domain.queries.facets import build_job_facets, build_taxonomy_facets, facet_options_for_selection, field_availability, identity_link_status
+from cil_contracts.providers import field_capabilities
+from cil_integrations.catalog.repository import load_source_catalog
+from cil_domain.taxonomy.facts import taxonomy_facts_from_record
 
 
 def _facet(options, field, value=None):

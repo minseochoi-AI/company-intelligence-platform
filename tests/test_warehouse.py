@@ -1,9 +1,9 @@
 from pathlib import Path
 
-from company_intel.config import Settings
-from company_intel.models import SearchProfile
-from company_intel.search import rank_candidates
-from company_intel.warehouse import Warehouse
+from cil_integrations.runtime.settings import Settings
+from cil_contracts.facts import SearchProfile
+from cil_domain.companies.search import rank_candidates
+from cil_integrations.storage.duckdb.repository import Warehouse
 
 
 def test_open_dart_source_identifier_makes_ingested_entity_searchable(tmp_path):

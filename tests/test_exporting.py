@@ -1,7 +1,7 @@
 from datetime import UTC, datetime
 
-from company_intel.exporting import build_export_bundle
-from company_intel.run_manifest import build_run_manifest
+from cil_application.reports.build_data import build_export_bundle
+from cil_domain.provenance.manifests import build_run_manifest
 
 
 def test_export_keeps_evidence_and_exclusion_rows_and_sanitizes_cells(tmp_path):

@@ -2,14 +2,9 @@ from __future__ import annotations
 
 import time
 import pytest
-from company_intel.http import HttpClient
-from company_intel.middleware.rate_limiter import (
-    CircuitBreaker,
-    CircuitState,
-    HttpTrafficGovernor,
-    TokenBucket,
-)
-from company_intel.models import Probe
+from cil_integrations.transport.http import HttpClient
+from cil_integrations.transport.rate_limiter import CircuitBreaker, CircuitState, HttpTrafficGovernor, TokenBucket
+from cil_contracts.facts import Probe
 
 
 def test_token_bucket_acquisition_and_depletion():

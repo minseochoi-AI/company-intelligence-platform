@@ -1,14 +1,6 @@
 import pytest
 
-from company_intel.query_contract import (
-    FilterMode,
-    FilterVerdict,
-    SemanticValue,
-    UnknownPolicy,
-    combine_verdicts,
-    company_search_profile_from_mapping,
-    normalize_tree_selection,
-)
+from cil_contracts.query import FilterMode, FilterVerdict, SemanticValue, UnknownPolicy, combine_verdicts, company_search_profile_from_mapping, normalize_tree_selection
 
 
 def test_field_filter_verdicts_preserve_explicit_semantic_axes_and_allocations():

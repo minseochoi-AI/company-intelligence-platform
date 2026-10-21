@@ -78,7 +78,7 @@ def test_session_preserves_barrier_and_reports_all_constraint_gaps():
 
 
 def test_skill_forbids_no_competitor_blue_ocean_inference():
-    text = (SKILL / "SKILL.md").read_text(encoding="utf-8")
-    assert "unverified-white-space" in text
-    assert "never `uncontested`" in text
-    assert "OpenAI model output is an inference" in text
+    text = (ROOT / ".agents/skills/kr-defensible-venture-discovery/SKILL.md").read_text(encoding="utf-8")
+    assert "payment_evidence_refs" in text
+    assert "kill_criteria" in text
+    assert "AI" in text

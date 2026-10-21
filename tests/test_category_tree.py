@@ -1,6 +1,6 @@
 import pytest
 
-from company_intel.category_tree import SelectionSession, advance_selection, backtrack_selection, branches_for_selection, preview_selection
+from cil_domain.taxonomy.tree import SelectionSession, advance_selection, backtrack_selection, branches_for_selection, preview_selection
 
 
 def test_counts_recompute_after_selection_and_backtracking() -> None:

@@ -1,18 +1,6 @@
 import math
 
-from company_intel.analytics import (
-    dcf_scenarios,
-    difference_in_differences,
-    event_study_prerequisites,
-    event_study,
-    financial_metrics,
-    future_value_score,
-    hiring_change,
-    rank_companies,
-    valuation_prerequisites,
-    coverage_break,
-    series_signature,
-)
+from cil_domain.finance.analytics import dcf_scenarios, difference_in_differences, event_study_prerequisites, event_study, financial_metrics, future_value_score, hiring_change, rank_companies, valuation_prerequisites, coverage_break, series_signature
 
 
 def test_financial_metrics_cashflow_and_margins():

@@ -1,4 +1,4 @@
-from company_intel.notion_queue import NotionApprovalQueue
+from cil_integrations.publishing.notion import NotionApprovalQueue
 
 
 def test_notion_approval_flow():

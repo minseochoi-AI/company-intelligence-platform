@@ -2,12 +2,7 @@ import json
 
 import pytest
 
-from company_intel.interactive import (
-    MenuOption,
-    ScriptedSelector,
-    build_interactive_request,
-    select_current_job_mode,
-)
+from cil_cli.interactive import MenuOption, ScriptedSelector, build_interactive_request, select_current_job_mode
 
 
 def test_arrow_menu_scripted_selection_rejects_disabled_values() -> None:

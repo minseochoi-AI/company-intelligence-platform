@@ -3,10 +3,10 @@ from pathlib import Path
 
 import pytest
 
-from company_intel.api import JobSearchRequest
-from company_intel.cli import main
-from company_intel.cli_guide import COMMAND_GUIDES
-from company_intel.job_search import JobSearchProfile
+from cil_api.schemas import JobSearchRequest
+from cil_cli.main import main
+from cil_cli.guides import COMMAND_GUIDES
+from cil_contracts.jobs import JobSearchProfile
 
 
 def _write(path: Path, value: object) -> Path:
@@ -250,34 +250,8 @@ def test_track_diagram_cli_workflows(tmp_path, capsys):
 
 
 def test_temporal_analytics_cli_workflow(tmp_path, capsys):
-    out_xlsx = tmp_path / "cli_temporal_test.xlsx"
-
-    # Test summary format with export-excel and publish-notion
-    ret = main([
-        "시간적-비교-분석",
-        "--기관-ID", "00258801",
-        "--직업분류-코드", "2512",
-        "--형식", "summary",
-        "--엑셀-저장", str(out_xlsx),
-        "--노션-발행",
-    ])
-    assert ret == 0
-    out = capsys.readouterr().out
-    assert "시간적 누적 및 비교 분석 엔진" in out
-    assert "피어슨 상관분석" in out
-    assert "고용탄력성" in out
-    assert "노션 라우팅 완료" in out
-    assert out_xlsx.exists()
-
-    # Test json format
-    ret = main([
-        "temporal-analytics",
-        "--format", "json",
-    ])
-    assert ret == 0
-    json_out = json.loads(capsys.readouterr().out)
-    assert json_out["status"] == "success"
-    assert "1_correlation" in json_out["methodologies"]
-    assert "job_seeker" in json_out["audience_alignment"]
-
-
+    output = tmp_path / 'temporal.xlsx'
+    assert main(['temporal-analytics', '--format', 'json', '--export-excel', str(output)]) == 2
+    result = json.loads(capsys.readouterr().out)
+    assert result['status'] == 'NEEDS_EVIDENCE'
+    assert not output.exists()

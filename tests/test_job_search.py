@@ -1,12 +1,9 @@
 import json
 from pathlib import Path
 
-from company_intel.job_search import (
-    JobSearchProfile,
-    normalize_mpm_jobs,
-    normalize_mpsv_jobs,
-    search_job_dataframes,
-)
+from cil_contracts.jobs import JobSearchProfile
+from cil_integrations.providers.job_records import normalize_mpm_jobs, normalize_mpsv_jobs
+from cil_application.jobs.search import search_job_dataframes
 
 
 def test_provider_semantics_and_hard_filters() -> None:

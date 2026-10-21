@@ -2,7 +2,7 @@ import io
 import zipfile
 from pathlib import Path
 import pytest
-from company_intel.connectors.opendart_master import OpenDartMasterIndex, resolve_corp_code, search_kr_companies
+from cil_integrations.providers.opendart.master import OpenDartMasterIndex, resolve_corp_code, search_kr_companies
 
 
 def test_opendart_master_initialization(tmp_path: Path):

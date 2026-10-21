@@ -1,0 +1,13 @@
+[build-system]
+requires = ["setuptools>=69", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "cil-domain"
+version = "0.1.0"
+requires-python = ">=3.11"
+dependencies = ["cil-contracts", "numpy>=2,<3", "pandas>=2.2,<3"]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+include = ["cil_domain*"]

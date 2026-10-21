@@ -1,6 +1,7 @@
 import json
 
-from company_intel.run_manifest import build_run_manifest, verify_manifest, write_run_manifest
+from cil_domain.provenance.manifests import build_run_manifest, verify_manifest
+from cil_integrations.storage.manifests import write_run_manifest
 
 
 def test_run_manifest_redacts_sensitive_values_and_keeps_lineage_hashes(tmp_path):

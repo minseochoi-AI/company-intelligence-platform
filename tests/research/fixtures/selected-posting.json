@@ -1,0 +1,66 @@
+{
+  "source_kind": "fixture",
+  "postings": [
+    {
+      "provider_id": "saved",
+      "posting_id": "KR-one",
+      "revision": "r1",
+      "entity_id": "KR-employer",
+      "role_id": "software",
+      "available_at": "2026-10-19T00:00:00Z",
+      "cluster_signature": "KR:STATE_OWNED:UNKNOWN:REGULAR:ONSITE",
+      "job_url": "https://example.test/KR",
+      "title": "Example software role",
+      "legal_form": "declared example",
+      "salary_min": 0,
+      "award_amount": null,
+      "requirements": []
+    },
+    {
+      "provider_id": "saved",
+      "posting_id": "CZ-one",
+      "revision": "r1",
+      "entity_id": "CZ-employer",
+      "role_id": "software",
+      "available_at": "2026-10-19T00:00:00Z",
+      "cluster_signature": "CZ:PUBLIC_INSTITUTION:UNKNOWN:REGULAR:ONSITE",
+      "job_url": "https://example.test/CZ",
+      "title": "Example software role",
+      "legal_form": "declared example",
+      "salary_min": 0,
+      "award_amount": null,
+      "requirements": []
+    },
+    {
+      "provider_id": "saved",
+      "posting_id": "SK-one",
+      "revision": "r1",
+      "entity_id": "SK-employer",
+      "role_id": "software",
+      "available_at": "2026-10-19T00:00:00Z",
+      "cluster_signature": "SK:STATE_OWNED:UNKNOWN:REGULAR:ONSITE",
+      "job_url": "https://example.test/SK",
+      "title": "Example software role",
+      "legal_form": "declared example",
+      "salary_min": 0,
+      "award_amount": null,
+      "requirements": []
+    },
+    {
+      "provider_id": "saved",
+      "posting_id": "US-one",
+      "revision": "r1",
+      "entity_id": "US-employer",
+      "role_id": "software",
+      "available_at": "2026-10-19T00:00:00Z",
+      "cluster_signature": "US:GOVERNMENT:UNKNOWN:REGULAR:ONSITE",
+      "job_url": "https://example.test/US",
+      "title": "Example software role",
+      "legal_form": "declared example",
+      "salary_min": 0,
+      "award_amount": null,
+      "requirements": []
+    }
+  ],
+  "sources": []
+}

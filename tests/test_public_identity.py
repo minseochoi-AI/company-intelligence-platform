@@ -1,4 +1,4 @@
-from company_intel.public_identity import link_mpm_alio, link_mpsv_ares
+from cil_domain.identity.links import link_mpm_alio, link_mpsv_ares
 
 
 def test_mpsv_ico_exact_ares_join() -> None:

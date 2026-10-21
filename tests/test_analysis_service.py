@@ -1,10 +1,4 @@
-from company_intel.analysis_service import (
-    build_company_timeline,
-    compare_revenue_and_hiring_trends,
-    evaluate_ai_event,
-    evaluate_valuation_scenarios,
-    evaluate_job_trends,
-)
+from cil_application.analysis.service import build_company_timeline, compare_revenue_and_hiring_trends, evaluate_ai_event, evaluate_valuation_scenarios, evaluate_job_trends
 
 
 def test_point_in_time_and_analysis_limits() -> None:

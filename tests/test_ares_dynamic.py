@@ -1,4 +1,4 @@
-from company_intel.connectors.ares_dynamic import AresDynamicClient, lookup_czech_company
+from cil_integrations.providers.ares.companies import AresDynamicClient, lookup_czech_company
 
 
 def test_ares_dynamic_lookup():

@@ -1,5 +1,5 @@
-from company_intel.current_jobs import execute_current_job_search
-from company_intel.job_search import JobSearchProfile
+from cil_application.jobs.current import execute_current_job_search
+from cil_contracts.jobs import JobSearchProfile
 
 
 def test_denominator_chain_and_mpm_unknown_fields() -> None:

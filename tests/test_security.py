@@ -1,4 +1,4 @@
-from company_intel.security import redact_body, redact_url
+from cil_domain.provenance.redaction import redact_body, redact_url
 
 
 def test_url_secrets_are_redacted():

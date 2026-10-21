@@ -10,26 +10,18 @@ from pathlib import Path
 import openpyxl
 import pytest
 
-from company_intel.classification import (
-    BASELINE_API_CATALOG,
-    ClusterSignature,
-    DynamicReportSchemaCompiler,
-    get_cluster_baseline_spec_text,
-    resolve_active_providers,
-)
-from company_intel.cli import main
+from cil_application.providers.capabilities import BASELINE_API_CATALOG, get_cluster_baseline_spec_text, resolve_active_providers
+from cil_domain.clusters.signature import ClusterSignature
+from cil_reporting.schema.compiler import DynamicReportSchemaCompiler
+from cil_cli.main import main
 
 
 def test_baseline_cluster_space_disclosure_text():
     """Verify that the pre-flight baseline disclosure accurately reflects all 28 APIs and 21,000 combinations."""
     spec_text = get_cluster_baseline_spec_text()
-    assert "28대 연결 API 기반 클러스터 시그니처 제어 공간 명세" in spec_text
-    assert "28개 API" in spec_text
-    assert "Keyed: 12개, Keyless: 16개" in spec_text
-    assert "142개 원천 필드" in spec_text
-    assert "21,000개 다차원 클러스터 좌표" in spec_text
-    assert "741건 전수 검증 공고" in spec_text
-    assert "18,238개 등록 기관" in spec_text
+    assert 'operation 30개 / provider 25개' in spec_text
+    assert '의미 매핑 55개' in spec_text
+    assert '741' not in spec_text and '21,000' not in spec_text
 
 
 def test_resolve_active_providers_and_lattice_navigation():
@@ -39,7 +31,7 @@ def test_resolve_active_providers_and_lattice_navigation():
     cz_info = resolve_active_providers(sig_cz)
     assert cz_info["signature_key"] == "CZ:STATE_OWNED:ALL:ALL:ALL"
     assert "ares" in cz_info["active_providers"]
-    assert "mpsv_cz" in cz_info["active_providers"]
+    assert cz_info["availability"] == "registered_not_live_verified"
     assert cz_info["free_dimensions"] == ["tier", "contract", "workplace"]
     assert cz_info["is_macro_rollup"] is True
     assert cz_info["is_micro_cohort"] is False
@@ -47,7 +39,7 @@ def test_resolve_active_providers_and_lattice_navigation():
     # 2. Pinned US procurement / jobs query
     sig_us = ClusterSignature.parse("US:PUBLIC_INSTITUTION:FEDERAL_GS:REGULAR:ONSITE")
     us_info = resolve_active_providers(sig_us)
-    assert "usajobs" in us_info["active_providers"]
+    assert us_info["candidate_operations"]
     assert "usaspending" in us_info["active_providers"]
     assert us_info["free_dimensions"] == []
     assert us_info["is_macro_rollup"] is False
@@ -99,15 +91,15 @@ def test_cli_cluster_spec_subcommand(capsys):
     ret_text = main(["cluster-spec"])
     assert ret_text == 0
     captured_text = capsys.readouterr()
-    assert "28대 연결 API 기반 클러스터 시그니처 제어 공간 명세" in captured_text.out
+    assert "operation 30개 / provider 25개" in captured_text.out
 
     ret_json = main(["cluster-spec", "--json-output"])
     assert ret_json == 0
     captured_json = capsys.readouterr()
     data = json.loads(captured_json.out)
-    assert data["total_providers"] == 28
-    assert data["total_source_attributes"] == 142
-    assert data["theoretical_combinations"] == 21000
+    assert data["total_providers"] == 25
+    assert data["source_semantic_mappings"] == 55
+    assert data["live_status"] == "not_probed"
 
 
 def test_cli_export_cluster_jobs_dynamic_attributes(tmp_path, capsys):
@@ -115,6 +107,8 @@ def test_cli_export_cluster_jobs_dynamic_attributes(tmp_path, capsys):
     out_file = tmp_path / "test_dynamic_export.xlsx"
     ret = main([
         "export-cluster-jobs",
+        "--snapshot", str(Path(__file__).parent / "research/fixtures/selected-posting.json"),
+        "--as-of", "2026-10-20T00:00:00Z",
         "--country", "CZ",
         "--sector", "PUBLIC_INSTITUTION",
         "--dynamic-attributes", "legal_form,salary_min,award_amount",
@@ -124,18 +118,12 @@ def test_cli_export_cluster_jobs_dynamic_attributes(tmp_path, capsys):
     assert ret == 0
     captured = capsys.readouterr()
     summary = json.loads(captured.out)
-    assert summary["status"] == "success"
+    assert summary["status"] == "PARTIAL"
     assert summary["total_matched"] > 0
     assert out_file.exists()
 
     wb = openpyxl.load_workbook(out_file)
-    ws = wb["클러스터_필터링_채용공고"]
-    # 8 (core) + 3 (attrs) + 7 (provenance) = 18 columns
-    assert ws.max_column == 18
-
-    # Verify Col 12 is raw URL and Col 13 is formula pointing to Col 12 (L)
-    for r in range(5, ws.max_row + 1):
-        raw_url = str(ws.cell(r, 12).value)
-        link_formula = str(ws.cell(r, 13).value)
-        assert raw_url.startswith("http")
-        assert link_formula == f'=HYPERLINK(L{r}, "공고 확인 ↗")'
+    ws = wb['Postings']
+    headers = [c.value for c in ws[1]]
+    assert set(headers) == {'_row_id', 'posting_id', 'legal_form', 'salary_min', 'award_amount'}
+    assert ws.max_row == 2 and ws.cell(2, headers.index('salary_min') + 1).value == 0

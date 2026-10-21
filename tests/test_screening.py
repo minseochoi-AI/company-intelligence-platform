@@ -1,4 +1,4 @@
-from company_intel.screening import ScreenerProfile, screen_companies
+from cil_domain.companies.screening import ScreenerProfile, screen_companies
 
 
 def _comparable_row(entity_id: str, *, unit: str = "percent", growth: float = 0.0, **extra: object) -> dict:

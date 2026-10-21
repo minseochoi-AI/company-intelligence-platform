@@ -2,11 +2,12 @@ import pytest
 from pathlib import Path
 from fastapi import HTTPException
 
-from company_intel.api import CurrentJobRequest, SearchProfileRequest, company_search
-from company_intel.connectors.base import get_path
-from company_intel.connectors.keyless import keyless_probes
-from company_intel.source_catalog import load_source_catalog
-from company_intel.validation import SemanticFieldCheck
+from cil_api.schemas import CurrentJobRequest, SearchProfileRequest
+from cil_api.routes.companies import company_search
+from cil_domain.providers.parsing import get_path
+from cil_integrations.providers.registry import keyless_probes
+from cil_integrations.catalog.repository import load_source_catalog
+from cil_application.validation.providers import SemanticFieldCheck
 
 
 def test_snapshot_request_metadata_does_not_leak_into_search_profile():
@@ -43,7 +44,7 @@ def test_worldbank_catalog_and_probe_agree_on_metadata_and_observation_paths():
 
 
 def test_hrdkorea_and_worknet_catalog_and_probe_agree_on_paths():
-    from company_intel.connectors.keyed import keyed_probes
+    from cil_integrations.providers.registry import keyed_probes
 
     root = Path(__file__).resolve().parents[1]
     catalog = load_source_catalog(root / "config/providers.json")

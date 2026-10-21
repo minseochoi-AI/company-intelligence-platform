@@ -3,18 +3,11 @@ from __future__ import annotations
 import openpyxl
 import pytest
 
-from company_intel.analytics import calculate_cluster_elasticity_breakdown
-from company_intel.analysis_service import run_temporal_analytics_suite
-from company_intel.classification import (
-    ClusterSignature,
-    from_cz_ares,
-    from_cz_mpsv,
-    from_kr_opendart,
-    from_kr_public_job,
-    from_kr_worknet,
-    from_us_sec_or_usaspending,
-)
-from company_intel.excel_lattice_export import build_occupational_lattice_workbook
+from cil_domain.finance.analytics import calculate_cluster_elasticity_breakdown
+from cil_application.analysis.service import run_temporal_analytics_suite
+from cil_domain.clusters.signature import ClusterSignature
+from cil_integrations.providers.job_records import from_cz_ares, from_cz_mpsv, from_kr_opendart, from_kr_public_job, from_kr_worknet, from_us_sec_or_usaspending
+from cil_reporting.xlsx.occupations import build_occupational_lattice_workbook
 
 
 def test_cluster_signature_properties_and_matching():
@@ -29,13 +22,13 @@ def test_cluster_signature_properties_and_matching():
 
     # Wildcard roll-up matching
     macro_filter = ClusterSignature.parse("KR:ALL:ALL:ALL:ALL")
-    assert sig.matches(macro_filter) is True
+    assert macro_filter.matches(sig) is True
 
     sector_filter = ClusterSignature.parse("KR:STATE_OWNED:ALL:ALL:ALL")
-    assert sig.matches(sector_filter) is True
+    assert sector_filter.matches(sig) is True
 
     contract_filter = ClusterSignature.parse("KR:STATE_OWNED:ALL:REGULAR:ALL")
-    assert sig.matches(contract_filter) is False  # INTERN != REGULAR
+    assert contract_filter.matches(sig) is False  # INTERN != REGULAR
 
     # Parsing fallback
     parsed = ClusterSignature.parse("CZ:PRIVATE:CZ_AS:REGULAR:HYBRID")
@@ -64,7 +57,7 @@ def test_api_normalization_factories():
     # 2. KR WorkNet
     sig_wn_large = from_kr_worknet(coclcd="01", emptype="10")
     assert sig_wn_large.region == "KR"
-    assert sig_wn_large.sector == "PRIVATE"
+    assert sig_wn_large.sector == "UNKNOWN"
     assert sig_wn_large.tier == "LARGE_CONGLOMERATE"
     assert sig_wn_large.contract == "REGULAR"
 
@@ -83,7 +76,7 @@ def test_api_normalization_factories():
     # 4. CZ ARES
     sig_ares_sro = from_cz_ares(pravni_forma="112")
     assert sig_ares_sro.region == "CZ"
-    assert sig_ares_sro.sector == "PRIVATE"
+    assert sig_ares_sro.sector == "UNKNOWN"
     assert sig_ares_sro.tier == "CZ_SRO"
 
     sig_ares_soe = from_cz_ares(pravni_forma="301")
@@ -92,14 +85,14 @@ def test_api_normalization_factories():
 
     # 5. CZ MPSV
     sig_mpsv_pub = from_cz_mpsv(statni_sprava=True)
-    assert sig_mpsv_pub.sector == "PUBLIC_INSTITUTION"
+    assert sig_mpsv_pub.sector == "UNKNOWN"
     sig_mpsv_pri = from_cz_mpsv(statni_sprava=False)
-    assert sig_mpsv_pri.sector == "PRIVATE"
+    assert sig_mpsv_pri.sector == "UNKNOWN"
 
     # 6. US SEC / USAspending
     sig_us_profit = from_us_sec_or_usaspending(recipient_type="for_profit_organization")
     assert sig_us_profit.region == "US"
-    assert sig_us_profit.sector == "PRIVATE"
+    assert sig_us_profit.sector == "UNKNOWN"
 
     sig_us_gov = from_us_sec_or_usaspending(recipient_type="state_government")
     assert sig_us_gov.sector == "GOVERNMENT"
@@ -139,7 +132,7 @@ def test_cluster_elasticity_breakdown_and_simpsons_paradox():
 
 
 def test_temporal_analytics_suite_cluster_integration():
-    report = run_temporal_analytics_suite(entity_id="00258801", isco_code="2512")
+    report = run_temporal_analytics_suite(entity_id="00258801", isco_code="2512", demo=True)
     assert "methodologies" in report
     elas_result = report["methodologies"]["2_elasticity"]
     assert "cluster_breakdown" in elas_result
@@ -150,34 +143,8 @@ def test_temporal_analytics_suite_cluster_integration():
 
 
 def test_excel_workbook_cluster_lattice_sheets(tmp_path):
-    target = tmp_path / "test_cluster_wb.xlsx"
-    out_file = build_occupational_lattice_workbook(target)
-    wb = openpyxl.load_workbook(out_file, data_only=False)
-
-    # 1. Sheet 07: Cluster Columns & SOE Rows
-    ws_ts = wb["07_Time_Series_Warehouse"]
-    headers_ts = [cell.value for cell in ws_ts[1]]
-    assert "Cluster_Key" in headers_ts
-    assert "Cluster_Sector" in headers_ts
-    assert "Cluster_Contract" in headers_ts
-    assert "Cluster_Tier" in headers_ts
-
-    # Verify SOE rows exist in Sheet 07
-    entities = [str(ws_ts.cell(row=r, column=3).value) for r in range(2, ws_ts.max_row + 1)]
-    assert any("한국전력공사" in e for e in entities)
-    assert any("ČEZ" in e for e in entities)
-
-    # 2. Sheet 08: Comparative Table Cluster Signature
-    ws_comp = wb["08_Temporal_Comparative_Table"]
-    headers_comp = [cell.value for cell in ws_comp[5]]
-    assert "클러스터 시그니처 (Cluster Signature)" in headers_comp
-    comp_entities = [str(ws_comp.cell(row=r, column=3).value) for r in range(6, 18)]
-    assert any("한국전력공사" in e for e in comp_entities)
-
-    # 3. Sheet 09: Elasticity Cluster Signature & Contrast
-    ws_elas = wb["09_Cross_Elasticity_Trends"]
-    headers_elas = [cell.value for cell in ws_elas[5]]
-    assert "클러스터 시그니처 (Cluster Signature)" in headers_elas
-    elas_items = [str(ws_elas.cell(row=r, column=3).value) for r in range(6, 13)]
-    assert any("공기업-정규직" in it for it in elas_items)
-    assert any("공기업-인턴" in it for it in elas_items)
+    import pytest
+    target = tmp_path / 'test_cluster_wb.xlsx'
+    with pytest.raises(ValueError, match='explicit'):
+        build_occupational_lattice_workbook(target)
+    assert not target.exists()

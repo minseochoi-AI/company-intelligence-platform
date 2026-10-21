@@ -3,7 +3,7 @@ from __future__ import annotations
 from unittest.mock import MagicMock
 import pytest
 
-from company_intel.dynamic_screening import DynamicScreeningEngine, run_screening_pipeline
+from cil_application.screening.pipeline import DynamicScreeningEngine, run_screening_pipeline
 
 
 def test_dynamic_screening_korean_company():
